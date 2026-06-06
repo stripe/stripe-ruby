@@ -136,17 +136,6 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_accessor :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_accessor :currency
-
-                def initialize(value: nil, currency: nil)
-                  @value = value
-                  @currency = currency
-                end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
@@ -267,25 +256,47 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
                 # The format of the document. Currently supports `files` only.
                 attr_accessor :type
 
-                def initialize(files: nil, type: nil)
+                def initialize(files: nil, signer: nil, type: nil)
                   @files = files
+                  @signer = signer
                   @type = type
                 end
               end
@@ -305,7 +316,7 @@ module Stripe
               attr_accessor :primary_verification
               # One or more documents that demonstrate proof of address.
               attr_accessor :proof_of_address
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_ultimate_beneficial_ownership
@@ -351,17 +362,6 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::RequestParams
-              class Amount < ::Stripe::RequestParams
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_accessor :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_accessor :currency
-
-                def initialize(value: nil, currency: nil)
-                  @value = value
-                  @currency = currency
-                end
-              end
               # A non-negative integer representing the amount in the smallest currency unit.
               attr_accessor :amount
 
@@ -801,6 +801,10 @@ module Stripe
                 @percent_ownership = percent_ownership
                 @title = title
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::RequestParams
@@ -928,7 +932,7 @@ module Stripe
             attr_accessor :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_accessor :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_accessor :email
             # The individual's first name.
             attr_accessor :given_name
@@ -990,6 +994,12 @@ module Stripe
               @script_names = script_names
               @surname = surname
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_accessor :attestations
@@ -1011,8 +1021,19 @@ module Stripe
             @entity_type = entity_type
             @individual = individual
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
+          end
         end
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_accessor :contact_email
         # The default contact phone for the Account.
         attr_accessor :contact_phone
@@ -1026,6 +1047,22 @@ module Stripe
           @contact_phone = contact_phone
           @display_name = display_name
           @identity = identity
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

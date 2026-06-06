@@ -40,6 +40,13 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          flat_amount_decimal: :decimal_string,
+          unit_amount_decimal: :decimal_string,
+        }
+      end
     end
 
     class TransformUsage < ::Stripe::StripeObject
@@ -68,13 +75,15 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Unique identifier for the object.
     attr_reader :id
     # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
     attr_reader :interval
     # The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
     attr_reader :interval_count
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
@@ -96,8 +105,6 @@ module Stripe
     attr_reader :trial_period_days
     # Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     attr_reader :usage_type
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     def self.create(params = {}, opts = {})
@@ -145,6 +152,19 @@ module Stripe
 
     def self.field_remappings
       @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        amount_decimal: :decimal_string,
+        tiers: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+          },
+        },
+      }
     end
   end
 end

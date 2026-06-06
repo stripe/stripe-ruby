@@ -11,6 +11,44 @@ module Stripe
           "v2.core.event_destination"
         end
 
+        class AmazonEventbridge < ::Stripe::StripeObject
+          # The AWS account ID.
+          attr_reader :aws_account_id
+          # The ARN of the AWS event source.
+          attr_reader :aws_event_source_arn
+          # The state of the AWS event source.
+          attr_reader :aws_event_source_status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class AzureEventGrid < ::Stripe::StripeObject
+          # The name of the Azure partner topic.
+          attr_reader :azure_partner_topic_name
+          # The status of the Azure partner topic.
+          attr_reader :azure_partner_topic_status
+          # The Azure region.
+          attr_reader :azure_region
+          # The name of the Azure resource group.
+          attr_reader :azure_resource_group_name
+          # The Azure subscription ID.
+          attr_reader :azure_subscription_id
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatusDetails < ::Stripe::StripeObject
           class Disabled < ::Stripe::StripeObject
             # Reason event destination has been disabled.
@@ -36,23 +74,6 @@ module Stripe
           end
         end
 
-        class AmazonEventbridge < ::Stripe::StripeObject
-          # The AWS account ID.
-          attr_reader :aws_account_id
-          # The ARN of the AWS event source.
-          attr_reader :aws_event_source_arn
-          # The state of the AWS event source.
-          attr_reader :aws_event_source_status
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class WebhookEndpoint < ::Stripe::StripeObject
           # The signing secret of the webhook endpoint, only includable on creation.
           attr_reader :signing_secret
@@ -67,6 +88,10 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Amazon EventBridge configuration.
+        attr_reader :amazon_eventbridge
+        # Azure Event Grid configuration.
+        attr_reader :azure_event_grid
         # Time at which the object was created.
         attr_reader :created
         # An optional description of what the event destination is used for.
@@ -75,10 +100,16 @@ module Stripe
         attr_reader :enabled_events
         # Payload type of events being subscribed to.
         attr_reader :event_payload
-        # Where events should be routed from.
+        # Specifies which accounts' events route to this destination.
+        # `@self`: Receive events from the account that owns the event destination.
+        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@organization_members`: Receive events from accounts directly linked to the organization.
+        # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         attr_reader :events_from
         # Unique identifier for the object.
         attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Metadata.
         attr_reader :metadata
         # Event destination name.
@@ -95,17 +126,14 @@ module Stripe
         attr_reader :type
         # Time at which the object was last updated.
         attr_reader :updated
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
-        # Amazon EventBridge configuration.
-        attr_reader :amazon_eventbridge
         # Webhook endpoint configuration.
         attr_reader :webhook_endpoint
 
         def self.inner_class_types
           @inner_class_types = {
-            status_details: StatusDetails,
             amazon_eventbridge: AmazonEventbridge,
+            azure_event_grid: AzureEventGrid,
+            status_details: StatusDetails,
             webhook_endpoint: WebhookEndpoint,
           }
         end

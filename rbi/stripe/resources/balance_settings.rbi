@@ -7,6 +7,23 @@ module Stripe
   class BalanceSettings < SingletonAPIResource
     class Payments < ::Stripe::StripeObject
       class Payouts < ::Stripe::StripeObject
+        class AutomaticTransferRulesByCurrency < ::Stripe::StripeObject
+          # The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
+          sig { returns(String) }
+          def payout_method; end
+          # The maximum amount in minor units to transfer to the FinancialAccount. Only applicable when `type` is `transfer_up_to_amount`.
+          sig { returns(T.nilable(Integer)) }
+          def transfer_up_to_amount; end
+          # The type of automatic transfer rule.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Schedule < ::Stripe::StripeObject
           # How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
           sig { returns(T.nilable(String)) }
@@ -24,6 +41,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Configures per-currency rules for automatically transferring funds from the payments balance to a FinancialAccount.
+        sig { returns(T.nilable(T::Hash[String, T::Array[AutomaticTransferRulesByCurrency]])) }
+        def automatic_transfer_rules_by_currency; end
         # The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](/payouts/minimum-balances-for-automatic-payouts).
         sig { returns(T.nilable(T::Hash[String, Integer])) }
         def minimum_balance_by_currency; end
@@ -37,21 +57,44 @@ module Stripe
         sig { returns(String) }
         def status; end
         def self.inner_class_types
-          @inner_class_types = {schedule: Schedule}
+          @inner_class_types = {
+            automatic_transfer_rules_by_currency: AutomaticTransferRulesByCurrency,
+            schedule: Schedule,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
         end
       end
       class SettlementTiming < ::Stripe::StripeObject
+        class StartOfDay < ::Stripe::StripeObject
+          # Hour at which the customized start of day begins according to the given timezone. Must be a [supported customized start of day hour](/connect/customized-start-of-day#available-timezones-and-cutoffs).
+          sig { returns(Integer) }
+          def hour; end
+          # Minutes at which the customized start of day begins according to the given timezone. Must be either 0 or 30.
+          sig { returns(Integer) }
+          def minutes; end
+          # Timezone for the customized start of day. Must be a [supported customized start of day timezone](/connect/customized-start-of-day#available-timezones-and-cutoffs).
+          sig { returns(String) }
+          def timezone; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The number of days charge funds are held before becoming available.
         sig { returns(Integer) }
         def delay_days; end
         # The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.
         sig { returns(T.nilable(Integer)) }
         def delay_days_override; end
+        # Customized start of day configuration for automatic payouts to group and send payments in local timezones with a customized day starting time. For details, see our [Customized start of day](/connect/customized-start-of-day) documentation.
+        sig { returns(T.nilable(StartOfDay)) }
+        def start_of_day; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {start_of_day: StartOfDay}
         end
         def self.field_remappings
           @field_remappings = {}

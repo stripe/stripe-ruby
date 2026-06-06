@@ -48,6 +48,12 @@ module Stripe
       end
     end
     class MultiUse < ::Stripe::StripeObject
+      # The amount of the payment on a multi use mandate.
+      sig { returns(T.nilable(Integer)) }
+      def amount; end
+      # The currency of the payment on a multi use mandate.
+      sig { returns(T.nilable(String)) }
+      def currency; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -228,6 +234,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Pix < ::Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        sig { returns(T.nilable(String)) }
+        def amount_includes_iof; end
+        # Type of amount.
+        sig { returns(T.nilable(String)) }
+        def amount_type; end
+        # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+        sig { returns(T.nilable(String)) }
+        def end_date; end
+        # Schedule at which the future payments will be charged.
+        sig { returns(T.nilable(String)) }
+        def payment_schedule; end
+        # Subscription name displayed to buyers in their bank app.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Start date of the mandate, in `YYYY-MM-DD`.
+        sig { returns(T.nilable(String)) }
+        def start_date; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -243,6 +275,34 @@ module Stripe
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         sig { returns(String) }
         def url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Upi < ::Stripe::StripeObject
+        # Amount to be charged for future payments.
+        sig { returns(T.nilable(Integer)) }
+        def amount; end
+        # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        sig { returns(T.nilable(String)) }
+        def amount_type; end
+        # A description of the mandate or subscription that is meant to be displayed to the customer.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # End date of the mandate or subscription.
+        sig { returns(T.nilable(Integer)) }
+        def end_date; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -303,15 +363,24 @@ module Stripe
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
+      # Attribute for field pix
+      sig { returns(T.nilable(Pix)) }
+      def pix; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field twint
+      sig { returns(T.nilable(Twint)) }
+      def twint; end
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -331,8 +400,11 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -360,7 +432,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Attribute for field multi_use

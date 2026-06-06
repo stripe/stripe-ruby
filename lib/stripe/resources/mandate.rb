@@ -53,6 +53,11 @@ module Stripe
     end
 
     class MultiUse < ::Stripe::StripeObject
+      # The amount of the payment on a multi use mandate.
+      attr_reader :amount
+      # The currency of the payment on a multi use mandate.
+      attr_reader :currency
+
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -248,6 +253,29 @@ module Stripe
         end
       end
 
+      class Pix < ::Stripe::StripeObject
+        # Determines if the amount includes the IOF tax.
+        attr_reader :amount_includes_iof
+        # Type of amount.
+        attr_reader :amount_type
+        # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+        attr_reader :end_date
+        # Schedule at which the future payments will be charged.
+        attr_reader :payment_schedule
+        # Subscription name displayed to buyers in their bank app.
+        attr_reader :reference
+        # Start date of the mandate, in `YYYY-MM-DD`.
+        attr_reader :start_date
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -263,6 +291,35 @@ module Stripe
         attr_reader :reference
         # The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
         attr_reader :url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Upi < ::Stripe::StripeObject
+        # Amount to be charged for future payments.
+        attr_reader :amount
+        # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        attr_reader :amount_type
+        # A description of the mandate or subscription that is meant to be displayed to the customer.
+        attr_reader :description
+        # End date of the mandate or subscription.
+        attr_reader :end_date
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -313,12 +370,18 @@ module Stripe
       attr_reader :paypal
       # Attribute for field payto
       attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field twint
+      attr_reader :twint
       # This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
 
@@ -338,8 +401,11 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
+          twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -367,7 +433,7 @@ module Stripe
     attr_reader :customer_acceptance
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field multi_use
     attr_reader :multi_use

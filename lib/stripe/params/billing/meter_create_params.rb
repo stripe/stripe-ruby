@@ -17,7 +17,7 @@ module Stripe
       end
 
       class DefaultAggregation < ::Stripe::RequestParams
-        # Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
+        # Specifies how events are aggregated.
         attr_accessor :formula
 
         def initialize(formula: nil)

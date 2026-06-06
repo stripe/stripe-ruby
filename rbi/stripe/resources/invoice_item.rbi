@@ -76,7 +76,7 @@ module Stripe
       sig { returns(String) }
       def type; end
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
       def self.inner_class_types
         @inner_class_types = {price_details: PriceDetails}
@@ -84,8 +84,42 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
+      end
     end
     class ProrationDetails < ::Stripe::StripeObject
+      class CreditedItems < ::Stripe::StripeObject
+        class InvoiceLineItemDetails < ::Stripe::StripeObject
+          # The invoice id for the debited line item(s).
+          sig { returns(String) }
+          def invoice; end
+          # IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
+          sig { returns(T::Array[String]) }
+          def invoice_line_items; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
+        sig { returns(T.nilable(String)) }
+        def invoice_item; end
+        # Attribute for field invoice_line_item_details
+        sig { returns(T.nilable(InvoiceLineItemDetails)) }
+        def invoice_line_item_details; end
+        # Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {invoice_line_item_details: InvoiceLineItemDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         sig { returns(Integer) }
@@ -100,11 +134,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+      sig { returns(T.nilable(CreditedItems)) }
+      def credited_items; end
       # Discount amounts applied when the proration was created.
       sig { returns(T::Array[DiscountAmount]) }
       def discount_amounts; end
       def self.inner_class_types
-        @inner_class_types = {discount_amounts: DiscountAmount}
+        @inner_class_types = {credited_items: CreditedItems, discount_amounts: DiscountAmount}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -125,6 +162,9 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def date; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     def description; end
@@ -140,7 +180,7 @@ module Stripe
     # The ID of the invoice this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -167,18 +207,18 @@ module Stripe
     # Attribute for field proration_details
     sig { returns(T.nilable(ProrationDetails)) }
     def proration_details; end
-    # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    # Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     sig { returns(Integer) }
     def quantity; end
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    sig { returns(BigDecimal) }
+    def quantity_decimal; end
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
     sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
     def tax_rates; end
     # ID of the test clock this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     sig {
       params(params: T.any(::Stripe::InvoiceItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)

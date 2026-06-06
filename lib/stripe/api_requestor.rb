@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "digest"
+require "socket"
 require "stripe/instrumentation"
 
 module Stripe
@@ -15,7 +17,6 @@ module Stripe
 
     # Initializes a new APIRequestor
     def initialize(config_arg = {})
-      @system_profiler = SystemProfiler.new
       @last_request_metrics = Queue.new
 
       @config = case config_arg
@@ -110,7 +111,7 @@ module Stripe
       return false if num_retries >= config.max_network_retries
 
       case error
-      when Net::OpenTimeout, Net::ReadTimeout
+      when Net::OpenTimeout, Net::ReadTimeout, Net::HTTPFatalError
         # Retry on timeout-related problems (either on open or read).
         true
       when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, # rubocop:todo Lint/DuplicateBranch
@@ -201,6 +202,9 @@ module Stripe
         method, path, base_address, params, opts, usage
       )
       req_opts = RequestOptions.extract_opts_from_hash(req_opts)
+
+      notice = http_resp["stripe-notice"]
+      warn("WARNING: #{notice}") if notice
 
       resp = interpret_response(http_resp)
 
@@ -350,6 +354,7 @@ module Stripe
       Errno::ETIMEDOUT => ERROR_MESSAGE_TIMEOUT_CONNECT,
       SocketError => ERROR_MESSAGE_CONNECTION,
 
+      Net::HTTPFatalError => ERROR_MESSAGE_CONNECTION,
       Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,
       Net::ReadTimeout => ERROR_MESSAGE_TIMEOUT_READ,
 
@@ -853,6 +858,8 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
+      when "rate_limit"
+        RateLimitError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec
@@ -928,6 +935,9 @@ module Stripe
       user_agent = "Stripe/#{api_mode} RubyBindings/#{Stripe::VERSION}"
       user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
 
+      ai_agent = SystemProfiler.detect_ai_agent
+      user_agent += " AIAgent/#{ai_agent}" unless ai_agent.empty?
+
       headers = {
         "User-Agent" => user_agent,
         "Authorization" => "Bearer #{req_opts[:api_key]}",
@@ -956,7 +966,7 @@ module Stripe
       headers["Stripe-Account"] = req_opts[:stripe_account] if req_opts[:stripe_account]
       headers["Stripe-Context"] = req_opts[:stripe_context] if req_opts[:stripe_context]
 
-      user_agent = @system_profiler.user_agent
+      user_agent = SystemProfiler.user_agent
       begin
         headers.update(
           "X-Stripe-Client-User-Agent" => JSON.generate(user_agent)
@@ -1058,56 +1068,75 @@ module Stripe
     # in so that we can generate a rich user agent header to help debug
     # integrations.
     class SystemProfiler
-      def self.uname
-        if ::File.exist?("/proc/version")
-          ::File.read("/proc/version").strip
-        else
-          case RbConfig::CONFIG["host_os"]
-          when /linux|darwin|bsd|sunos|solaris|cygwin/i
-            uname_from_system
-          when /mswin|mingw/i
-            uname_from_system_ver
-          else
-            "unknown platform"
-          end
+      UNAME_HASH = begin
+        parts = []
+        parts << if RUBY_PLATFORM.match?(/mswin|mingw|cygwin/)
+                   begin
+                     `ver 2>NUL`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 else
+                   begin
+                     `uname -a 2>/dev/null`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 end
+        parts << begin
+          Socket.gethostname
+        rescue StandardError
+          ""
         end
+        Digest::MD5.hexdigest(parts.join(" "))
+      rescue StandardError
+        ""
       end
 
-      def self.uname_from_system
-        (`uname -a 2>/dev/null` || "").strip
-      rescue Errno::ENOENT
-        "uname executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
+      AI_AGENTS = [
+        # aiAgents: The beginning of the section generated from our OpenAPI spec
+        %w[ANTIGRAVITY_CLI_ALIAS antigravity],
+        %w[CLAUDECODE claude_code],
+        %w[CLINE_ACTIVE cline],
+        %w[CODEX_SANDBOX codex_cli],
+        %w[CODEX_THREAD_ID codex_cli],
+        %w[CODEX_SANDBOX_NETWORK_DISABLED codex_cli],
+        %w[CODEX_CI codex_cli],
+        %w[CURSOR_AGENT cursor],
+        %w[GEMINI_CLI gemini_cli],
+        %w[OPENCLAW_SHELL openclaw],
+        %w[OPENCODE open_code],
+        # aiAgents: The end of the section generated from our OpenAPI spec
+      ].freeze
+
+      def self.detect_ai_agent(env = ENV)
+        AI_AGENTS.each do |env_var, agent_name|
+          return agent_name if env[env_var] && !env[env_var].empty?
+        end
+        ""
       end
 
-      def self.uname_from_system_ver
-        (`ver` || "").strip
-      rescue Errno::ENOENT
-        "ver executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
-      end
-
-      def initialize
-        @uname = self.class.uname
-      end
-
-      def user_agent
+      def self.user_agent
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} " \
                        "(#{RUBY_RELEASE_DATE})"
 
-        {
+        ua = {
           application: Stripe.app_info,
           bindings_version: Stripe::VERSION,
           lang: "ruby",
           lang_version: lang_version,
-          platform: RUBY_PLATFORM,
           engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
-          publisher: "stripe",
-          uname: @uname,
-          hostname: Socket.gethostname,
         }.delete_if { |_k, v| v.nil? }
+
+        if Stripe.enable_telemetry?
+          ua[:platform] = RUBY_PLATFORM
+          ua[:source] = UNAME_HASH unless UNAME_HASH.empty?
+        end
+
+        ai_agent = detect_ai_agent
+        ua[:ai_agent] = ai_agent unless ai_agent.empty?
+
+        ua
       end
     end
 

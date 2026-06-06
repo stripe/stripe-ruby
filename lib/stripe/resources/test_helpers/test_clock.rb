@@ -42,13 +42,15 @@ module Stripe
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Always true for a deleted object
+      attr_reader :deleted
       # Time at which this clock is scheduled to auto delete.
       attr_reader :deletes_after
       # Time at which all objects belonging to this clock are frozen.
       attr_reader :frozen_time
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The custom name supplied at creation.
       attr_reader :name
@@ -58,8 +60,6 @@ module Stripe
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})

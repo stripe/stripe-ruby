@@ -93,6 +93,15 @@ module Stripe
       end
 
       context ".event_signing" do
+        should "raise an ArgumentError when given a v1 payload" do
+          v1_payload = { "id" => "evt_123", "object" => "event", "type" => "charge.succeeded" }.to_json
+          header = Test::WebhookHelpers.generate_header(payload: v1_payload)
+          e = assert_raises(ArgumentError) do
+            @client.parse_event_notification(v1_payload, header, Test::WebhookHelpers::SECRET)
+          end
+          assert_match(/Webhook\.construct_event/, e.message)
+        end
+
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
           assert event.is_a?(Stripe::V2::Core::EventNotification)
@@ -142,6 +151,11 @@ module Stripe
           event = event_notif.fetch_event
           assert event.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEvent)
           assert_equal "a", event.data.reason.error_types.first.sample_errors.first.request.identifier
+
+          assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123",
+                           headers: { "Stripe-Request-Trigger" => "event=evt_234" })
+          assert_requested(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/evt_234",
+                           headers: { "Stripe-Request-Trigger" => "event=evt_234" })
         end
 
         should "correctly retrieve events" do

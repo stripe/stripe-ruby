@@ -288,7 +288,7 @@ module Stripe
           sig { returns(T.nilable(T::Boolean)) }
           def owner; end
           # The percentage of the Account's identity that the individual owns.
-          sig { returns(T.nilable(String)) }
+          sig { returns(T.nilable(BigDecimal)) }
           def percent_ownership; end
           # Whether the individual is authorized as the primary representative of the Account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
           sig { returns(T.nilable(T::Boolean)) }
@@ -301,6 +301,9 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {percent_ownership: :decimal_string}
           end
         end
         class ScriptAddresses < ::Stripe::StripeObject
@@ -456,6 +459,9 @@ module Stripe
         # The person's gender (International regulations require either "male" or "female").
         sig { returns(T.nilable(String)) }
         def legal_gender; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -486,9 +492,6 @@ module Stripe
         # Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
         def updated; end
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        sig { returns(T::Boolean) }
-        def livemode; end
       end
     end
   end

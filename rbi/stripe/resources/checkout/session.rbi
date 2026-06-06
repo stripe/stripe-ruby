@@ -251,7 +251,7 @@ module Stripe
         def payment_method_reuse_agreement; end
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
-        # from the merchant depending on the customer's locale. Only available to US merchants.
+        # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         sig { returns(T.nilable(String)) }
         def promotions; end
         # If set to `required`, it requires customers to accept the terms of service before being able to pay.
@@ -272,7 +272,7 @@ module Stripe
         sig { returns(Integer) }
         def amount_total; end
         # Exchange rate used to convert source currency amounts to customer currency amounts
-        sig { returns(String) }
+        sig { returns(BigDecimal) }
         def fx_rate; end
         # Creation currency of the CheckoutSession before localization
         sig { returns(String) }
@@ -282,6 +282,9 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {fx_rate: :decimal_string}
         end
       end
       class CustomField < ::Stripe::StripeObject
@@ -495,7 +498,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -643,6 +646,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ManagedPayments < ::Stripe::StripeObject
+        # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class NameCollection < ::Stripe::StripeObject
         class Business < ::Stripe::StripeObject
           # Indicates whether business name collection is enabled for the session
@@ -776,7 +790,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -989,7 +1003,7 @@ module Stripe
             end
           end
           class Restrictions < ::Stripe::StripeObject
-            # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+            # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
             def self.inner_class_types
@@ -1501,12 +1515,47 @@ module Stripe
           end
         end
         class Pix < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Determines if the amount includes the IOF tax.
+            sig { returns(T.nilable(String)) }
+            def amount_includes_iof; end
+            # Type of amount.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+            sig { returns(T.nilable(String)) }
+            def currency; end
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            sig { returns(T.nilable(String)) }
+            def end_date; end
+            # Schedule at which the future payments will be charged.
+            sig { returns(T.nilable(String)) }
+            def payment_schedule; end
+            # Subscription name displayed to buyers in their bank app.
+            sig { returns(T.nilable(String)) }
+            def reference; end
+            # Start date of the mandate, in `YYYY-MM-DD`.
+            sig { returns(T.nilable(String)) }
+            def start_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Determines if the amount includes the IOF tax.
           sig { returns(T.nilable(String)) }
           def amount_includes_iof; end
           # The number of seconds after which Pix payment will expire.
           sig { returns(T.nilable(Integer)) }
           def expires_after_seconds; end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1517,7 +1566,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def setup_future_usage; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {mandate_options: MandateOptions}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1555,6 +1604,17 @@ module Stripe
           end
         end
         class Satispay < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Scalapay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
@@ -1644,6 +1704,46 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # End date of the mandate or subscription.
+            sig { returns(T.nilable(Integer)) }
+            def end_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UsBankAccount < ::Stripe::StripeObject
           class FinancialConnections < ::Stripe::StripeObject
             class Filters < ::Stripe::StripeObject
@@ -1691,7 +1791,7 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           sig { returns(T.nilable(String)) }
           def verification_method; end
           def self.inner_class_types
@@ -1812,6 +1912,9 @@ module Stripe
         # Attribute for field satispay
         sig { returns(T.nilable(Satispay)) }
         def satispay; end
+        # Attribute for field scalapay
+        sig { returns(T.nilable(Scalapay)) }
+        def scalapay; end
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
@@ -1824,6 +1927,9 @@ module Stripe
         # Attribute for field twint
         sig { returns(T.nilable(Twint)) }
         def twint; end
+        # Attribute for field upi
+        sig { returns(T.nilable(Upi)) }
+        def upi; end
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
@@ -1866,10 +1972,12 @@ module Stripe
             revolut_pay: RevolutPay,
             samsung_pay: SamsungPay,
             satispay: Satispay,
+            scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
             swish: Swish,
             twint: Twint,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -2146,8 +2254,8 @@ module Stripe
       # Session with your internal systems.
       sig { returns(T.nilable(String)) }
       def client_reference_id; end
-      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. For `ui_mode: embedded_page`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: elements`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
       sig { returns(T.nilable(String)) }
       def client_secret; end
       # Information about the customer collected within the Checkout Session.
@@ -2209,6 +2317,9 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      sig { returns(T.nilable(String)) }
+      def integration_identifier; end
       # ID of the invoice created by the Checkout Session, if it exists.
       sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
       def invoice; end
@@ -2218,12 +2329,15 @@ module Stripe
       # The line items purchased by the customer.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       sig { returns(T.nilable(String)) }
       def locale; end
+      # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+      sig { returns(T.nilable(ManagedPayments)) }
+      def managed_payments; end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -2279,10 +2393,10 @@ module Stripe
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       sig { returns(T.nilable(String)) }
       def recovered_from; end
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def redirect_on_completion; end
-      # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+      # Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
       sig { returns(T.nilable(String)) }
       def return_url; end
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
@@ -2321,10 +2435,10 @@ module Stripe
       # Tax and discount details for the computed total amount.
       sig { returns(T.nilable(TotalDetails)) }
       def total_details; end
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       sig { returns(T.nilable(String)) }
       def ui_mode; end
-      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted_page`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       sig { returns(T.nilable(String)) }
       def url; end

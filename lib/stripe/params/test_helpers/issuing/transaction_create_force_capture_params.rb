@@ -85,6 +85,10 @@ module Stripe
                 def initialize(gross_amount_decimal: nil)
                   @gross_amount_decimal = gross_amount_decimal
                 end
+
+                def self.field_encodings
+                  @field_encodings = { gross_amount_decimal: :decimal_string }
+                end
               end
 
               class NonFuel < ::Stripe::RequestParams
@@ -93,6 +97,10 @@ module Stripe
 
                 def initialize(gross_amount_decimal: nil)
                   @gross_amount_decimal = gross_amount_decimal
+                end
+
+                def self.field_encodings
+                  @field_encodings = { gross_amount_decimal: :decimal_string }
                 end
               end
 
@@ -106,6 +114,13 @@ module Stripe
                   @local_amount_decimal = local_amount_decimal
                   @national_amount_decimal = national_amount_decimal
                 end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  }
+                end
               end
               # Breakdown of fuel portion of the purchase.
               attr_accessor :fuel
@@ -118,6 +133,20 @@ module Stripe
                 @fuel = fuel
                 @non_fuel = non_fuel
                 @tax = tax
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                }
               end
             end
             # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
@@ -139,6 +168,25 @@ module Stripe
               @purchase_type = purchase_type
               @reported_breakdown = reported_breakdown
               @service_type = service_type
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                reported_breakdown: {
+                  kind: :object,
+                  fields: {
+                    fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                    non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                    tax: {
+                      kind: :object,
+                      fields: {
+                        local_amount_decimal: :decimal_string,
+                        national_amount_decimal: :decimal_string,
+                      },
+                    },
+                  },
+                },
+              }
             end
           end
 
@@ -224,6 +272,13 @@ module Stripe
               @unit = unit
               @unit_cost_decimal = unit_cost_decimal
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                quantity_decimal: :decimal_string,
+                unit_cost_decimal: :decimal_string,
+              }
+            end
           end
 
           class Lodging < ::Stripe::RequestParams
@@ -254,6 +309,10 @@ module Stripe
               @total = total
               @unit_cost = unit_cost
             end
+
+            def self.field_encodings
+              @field_encodings = { quantity: :decimal_string }
+            end
           end
           # Fleet-specific information for transactions using Fleet cards.
           attr_accessor :fleet
@@ -283,6 +342,38 @@ module Stripe
             @receipt = receipt
             @reference = reference
           end
+
+          def self.field_encodings
+            @field_encodings = {
+              fleet: {
+                kind: :object,
+                fields: {
+                  reported_breakdown: {
+                    kind: :object,
+                    fields: {
+                      fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                      non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                      tax: {
+                        kind: :object,
+                        fields: {
+                          local_amount_decimal: :decimal_string,
+                          national_amount_decimal: :decimal_string,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              fuel: {
+                kind: :object,
+                fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+              },
+              receipt: {
+                kind: :array,
+                element: { kind: :object, fields: { quantity: :decimal_string } },
+              },
+            }
+          end
         end
         # The total amount to attempt to capture. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_accessor :amount
@@ -311,6 +402,43 @@ module Stripe
           @expand = expand
           @merchant_data = merchant_data
           @purchase_details = purchase_details
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            purchase_details: {
+              kind: :object,
+              fields: {
+                fleet: {
+                  kind: :object,
+                  fields: {
+                    reported_breakdown: {
+                      kind: :object,
+                      fields: {
+                        fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                        non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                        tax: {
+                          kind: :object,
+                          fields: {
+                            local_amount_decimal: :decimal_string,
+                            national_amount_decimal: :decimal_string,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+                fuel: {
+                  kind: :object,
+                  fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+                },
+                receipt: {
+                  kind: :array,
+                  element: { kind: :object, fields: { quantity: :decimal_string } },
+                },
+              },
+            },
+          }
         end
       end
     end

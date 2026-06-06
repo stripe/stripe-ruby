@@ -7,7 +7,13 @@ module Stripe
       module Accounts
         class PersonService < StripeService
           # Create a Person. Adds an individual to an Account's identity. You can set relationship attributes and identity information at creation.
+          #
+          # ** raises RateLimitError
           def create(account_id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = ::Stripe::V2::Core::Accounts::PersonCreateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/core/accounts/%<account_id>s/persons", { account_id: CGI.escape(account_id) }),
@@ -18,6 +24,8 @@ module Stripe
           end
 
           # Delete a Person associated with an Account.
+          #
+          # ** raises RateLimitError
           def delete(account_id, id, params = {}, opts = {})
             request(
               method: :delete,
@@ -29,6 +37,8 @@ module Stripe
           end
 
           # Returns a paginated list of Persons associated with an Account.
+          #
+          # ** raises RateLimitError
           def list(account_id, params = {}, opts = {})
             request(
               method: :get,
@@ -40,6 +50,8 @@ module Stripe
           end
 
           # Retrieves a Person associated with an Account.
+          #
+          # ** raises RateLimitError
           def retrieve(account_id, id, params = {}, opts = {})
             request(
               method: :get,
@@ -51,7 +63,13 @@ module Stripe
           end
 
           # Updates a Person associated with an Account.
+          #
+          # ** raises RateLimitError
           def update(account_id, id, params = {}, opts = {})
+            unless params.is_a?(Stripe::RequestParams)
+              params = ::Stripe::V2::Core::Accounts::PersonUpdateParams.coerce_params(params)
+            end
+
             request(
               method: :post,
               path: format("/v2/core/accounts/%<account_id>s/persons/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),

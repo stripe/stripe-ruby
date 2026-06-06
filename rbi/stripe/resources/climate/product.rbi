@@ -42,7 +42,7 @@ module Stripe
       sig { returns(T::Boolean) }
       def livemode; end
       # The quantity of metric tons available for reservation.
-      sig { returns(String) }
+      sig { returns(BigDecimal) }
       def metric_tons_available; end
       # The Climate product's name.
       sig { returns(String) }

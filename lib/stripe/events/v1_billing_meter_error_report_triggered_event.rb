@@ -66,14 +66,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # This contains information about why meter error happens.
-        attr_reader :reason
         # Extra field included in the event's `data` when fetched from /v2/events.
         attr_reader :developer_message_summary
-        # The start of the window that is encapsulated by this summary.
-        attr_reader :validation_start
+        # This contains information about why meter error happens.
+        attr_reader :reason
         # The end of the window that is encapsulated by this summary.
         attr_reader :validation_end
+        # The start of the window that is encapsulated by this summary.
+        attr_reader :validation_start
 
         def self.inner_class_types
           @inner_class_types = { reason: Reason }
@@ -95,7 +95,7 @@ module Stripe
           method: :get,
           path: related_object.url,
           base_address: :api,
-          opts: { stripe_context: context }
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" }
         )
       end
     end
@@ -113,7 +113,7 @@ module Stripe
         resp = @client.raw_request(
           :get,
           related_object.url,
-          opts: { stripe_context: context },
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" },
           usage: ["fetch_related_object"]
         )
         @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))

@@ -138,7 +138,7 @@ module Stripe
         attr_accessor :payment_method_reuse_agreement
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
-        # from the merchant depending on the customer's locale. Only available to US merchants.
+        # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         attr_accessor :promotions
         # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
         # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -509,6 +509,10 @@ module Stripe
             @unit_amount = unit_amount
             @unit_amount_decimal = unit_amount_decimal
           end
+
+          def self.field_encodings
+            @field_encodings = { unit_amount_decimal: :decimal_string }
+          end
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
         attr_accessor :adjustable_quantity
@@ -541,6 +545,21 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          }
+        end
+      end
+
+      class ManagedPayments < ::Stripe::RequestParams
+        # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
         end
       end
 
@@ -1002,7 +1021,7 @@ module Stripe
           end
 
           class Restrictions < ::Stripe::RequestParams
-            # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+            # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_accessor :brands_blocked
 
             def initialize(brands_blocked: nil)
@@ -1079,6 +1098,21 @@ module Stripe
 
           def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
+        class Crypto < ::Stripe::RequestParams
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
+
+          def initialize(setup_future_usage: nil)
             @setup_future_usage = setup_future_usage
           end
         end
@@ -1549,10 +1583,50 @@ module Stripe
         end
 
         class Pix < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+            attr_accessor :amount
+            # Determines if the amount includes the IOF tax. Defaults to `never`.
+            attr_accessor :amount_includes_iof
+            # Type of amount. Defaults to `maximum`.
+            attr_accessor :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+            attr_accessor :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+            attr_accessor :end_date
+            # Schedule at which the future payments will be charged. Defaults to `monthly`.
+            attr_accessor :payment_schedule
+            # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+            attr_accessor :reference
+            # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+            attr_accessor :start_date
+
+            def initialize(
+              amount: nil,
+              amount_includes_iof: nil,
+              amount_type: nil,
+              currency: nil,
+              end_date: nil,
+              payment_schedule: nil,
+              reference: nil,
+              start_date: nil
+            )
+              @amount = amount
+              @amount_includes_iof = amount_includes_iof
+              @amount_type = amount_type
+              @currency = currency
+              @end_date = end_date
+              @payment_schedule = payment_schedule
+              @reference = reference
+              @start_date = start_date
+            end
+          end
           # Determines if the amount includes the IOF tax. Defaults to `never`.
           attr_accessor :amount_includes_iof
           # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
           attr_accessor :expires_after_seconds
+          # Additional fields for mandate creation.
+          attr_accessor :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1565,10 +1639,12 @@ module Stripe
           def initialize(
             amount_includes_iof: nil,
             expires_after_seconds: nil,
+            mandate_options: nil,
             setup_future_usage: nil
           )
             @amount_includes_iof = amount_includes_iof
             @expires_after_seconds = expires_after_seconds
+            @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
           end
         end
@@ -1601,6 +1677,15 @@ module Stripe
         end
 
         class Satispay < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
+        class Scalapay < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
 
@@ -1677,6 +1762,35 @@ module Stripe
           end
         end
 
+        class Upi < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments.
+            attr_accessor :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_accessor :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_accessor :description
+            # End date of the mandate or subscription.
+            attr_accessor :end_date
+
+            def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+              @amount = amount
+              @amount_type = amount_type
+              @description = description
+              @end_date = end_date
+            end
+          end
+          # Additional fields for Mandate creation
+          attr_accessor :mandate_options
+          # Attribute for param field setup_future_usage
+          attr_accessor :setup_future_usage
+
+          def initialize(mandate_options: nil, setup_future_usage: nil)
+            @mandate_options = mandate_options
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class UsBankAccount < ::Stripe::RequestParams
           class FinancialConnections < ::Stripe::RequestParams
             # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
@@ -1737,7 +1851,7 @@ module Stripe
             @setup_future_usage = setup_future_usage
           end
         end
-        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
+        # contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `elements`.
         attr_accessor :acss_debit
         # contains details about the Affirm payment method options.
         attr_accessor :affirm
@@ -1763,6 +1877,8 @@ module Stripe
         attr_accessor :card
         # contains details about the Cashapp Pay payment method options.
         attr_accessor :cashapp
+        # contains details about the Crypto payment method options.
+        attr_accessor :crypto
         # contains details about the Customer Balance payment method options.
         attr_accessor :customer_balance
         # contains details about the DemoPay payment method options.
@@ -1785,7 +1901,7 @@ module Stripe
         attr_accessor :konbini
         # contains details about the Korean card payment method options.
         attr_accessor :kr_card
-        # contains details about the Link payment method options.
+        # contains details about the Link payment method options (Link is also known as Onelink in the UK).
         attr_accessor :link
         # contains details about the Mobilepay payment method options.
         attr_accessor :mobilepay
@@ -1815,6 +1931,8 @@ module Stripe
         attr_accessor :samsung_pay
         # contains details about the Satispay payment method options.
         attr_accessor :satispay
+        # contains details about the Scalapay payment method options.
+        attr_accessor :scalapay
         # contains details about the Sepa Debit payment method options.
         attr_accessor :sepa_debit
         # contains details about the Sofort payment method options.
@@ -1823,6 +1941,8 @@ module Stripe
         attr_accessor :swish
         # contains details about the TWINT payment method options.
         attr_accessor :twint
+        # contains details about the UPI payment method options.
+        attr_accessor :upi
         # contains details about the Us Bank Account payment method options.
         attr_accessor :us_bank_account
         # contains details about the WeChat Pay payment method options.
@@ -1842,6 +1962,7 @@ module Stripe
           boleto: nil,
           card: nil,
           cashapp: nil,
+          crypto: nil,
           customer_balance: nil,
           demo_pay: nil,
           eps: nil,
@@ -1868,10 +1989,12 @@ module Stripe
           revolut_pay: nil,
           samsung_pay: nil,
           satispay: nil,
+          scalapay: nil,
           sepa_debit: nil,
           sofort: nil,
           swish: nil,
           twint: nil,
+          upi: nil,
           us_bank_account: nil,
           wechat_pay: nil
         )
@@ -1888,6 +2011,7 @@ module Stripe
           @boleto = boleto
           @card = card
           @cashapp = cashapp
+          @crypto = crypto
           @customer_balance = customer_balance
           @demo_pay = demo_pay
           @eps = eps
@@ -1914,10 +2038,12 @@ module Stripe
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
           @satispay = satispay
+          @scalapay = scalapay
           @sepa_debit = sepa_debit
           @sofort = sofort
           @swish = swish
           @twint = twint
+          @upi = upi
           @us_bank_account = us_bank_account
           @wechat_pay = wechat_pay
         end
@@ -2138,6 +2264,18 @@ module Stripe
           end
         end
 
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+
         class TransferData < ::Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
           attr_accessor :amount_percent
@@ -2168,7 +2306,7 @@ module Stripe
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. To use an application fee percent, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         attr_accessor :application_fee_percent
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
         attr_accessor :billing_cycle_anchor
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_accessor :billing_mode
@@ -2186,6 +2324,8 @@ module Stripe
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the subscription's invoices.
         attr_accessor :on_behalf_of
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        attr_accessor :pending_invoice_item_interval
         # Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
         attr_accessor :proration_behavior
         # If specified, the funds from the subscription's invoices will be transferred to the destination and the ID of the resulting transfers will be found on the resulting charges.
@@ -2206,6 +2346,7 @@ module Stripe
           invoice_settings: nil,
           metadata: nil,
           on_behalf_of: nil,
+          pending_invoice_item_interval: nil,
           proration_behavior: nil,
           transfer_data: nil,
           trial_end: nil,
@@ -2220,6 +2361,7 @@ module Stripe
           @invoice_settings = invoice_settings
           @metadata = metadata
           @on_behalf_of = on_behalf_of
+          @pending_invoice_item_interval = pending_invoice_item_interval
           @proration_behavior = proration_behavior
           @transfer_data = transfer_data
           @trial_end = trial_end
@@ -2249,7 +2391,7 @@ module Stripe
             @display = display
           end
         end
-        # contains details about the Link wallet options.
+        # contains details about the Link wallet options (Link is also known as Onelink in the UK).
         attr_accessor :link
 
         def initialize(link: nil)
@@ -2258,7 +2400,7 @@ module Stripe
       end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       attr_accessor :adaptive_pricing
-      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
+      # Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
@@ -2266,9 +2408,9 @@ module Stripe
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
       attr_accessor :billing_address_collection
-      # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+      # The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `elements`.
       attr_accessor :branding_settings
-      # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
+      # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded_page` or `elements`.
       attr_accessor :cancel_url
       # A unique string to reference the Checkout Session. This can be a
       # customer ID, a cart ID, or similar, and can be used to reconcile the
@@ -2322,6 +2464,8 @@ module Stripe
       attr_accessor :expand
       # The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
       attr_accessor :expires_at
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      attr_accessor :integration_identifier
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
       # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
@@ -2332,6 +2476,8 @@ module Stripe
       attr_accessor :line_items
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       attr_accessor :locale
+      # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+      attr_accessor :managed_payments
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The mode of the Checkout Session. Pass `subscription` if the Checkout Session includes at least one recurring item.
@@ -2354,7 +2500,7 @@ module Stripe
       #
       # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :optional_items
-      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
+      # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :origin_context
       # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
       attr_accessor :payment_intent_data
@@ -2392,10 +2538,10 @@ module Stripe
       # We recommend that you review your privacy policy and check with your legal contacts
       # before using this feature. Learn more about [collecting phone numbers with Checkout](https://docs.stripe.com/payments/checkout/phone-numbers).
       attr_accessor :phone_number_collection
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_accessor :redirect_on_completion
       # The URL to redirect your customer back to after they authenticate or cancel their payment on the
-      # payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
+      # payment method's app or site. This parameter is required if `ui_mode` is `embedded_page` or `elements`
       # and redirect-based payment methods are enabled on the session.
       attr_accessor :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
@@ -2410,19 +2556,19 @@ module Stripe
       # to customize relevant text on the page, such as the submit button.
       #  `submit_type` can only be specified on Checkout Sessions in
       # `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
-      # You can't set this parameter if `ui_mode` is `custom`.
+      # You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :submit_type
       # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
       attr_accessor :subscription_data
       # The URL to which Stripe should send customers when payment or setup
       # is complete.
-      # This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
+      # This parameter is not allowed if ui_mode is `embedded_page` or `elements`. If you'd like to use
       # information from the successful Checkout Session on your page, read the
       # guide on [customizing your success page](https://docs.stripe.com/payments/checkout/custom-success-page).
       attr_accessor :success_url
       # Controls tax ID collection during checkout.
       attr_accessor :tax_id_collection
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
@@ -2449,9 +2595,11 @@ module Stripe
         excluded_payment_method_types: nil,
         expand: nil,
         expires_at: nil,
+        integration_identifier: nil,
         invoice_creation: nil,
         line_items: nil,
         locale: nil,
+        managed_payments: nil,
         metadata: nil,
         mode: nil,
         name_collection: nil,
@@ -2499,9 +2647,11 @@ module Stripe
         @excluded_payment_method_types = excluded_payment_method_types
         @expand = expand
         @expires_at = expires_at
+        @integration_identifier = integration_identifier
         @invoice_creation = invoice_creation
         @line_items = line_items
         @locale = locale
+        @managed_payments = managed_payments
         @metadata = metadata
         @mode = mode
         @name_collection = name_collection
@@ -2527,6 +2677,18 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          line_items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+        }
       end
     end
   end

@@ -199,6 +199,9 @@ module Stripe
         # The last four digits of the card.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        sig { returns(T.nilable(T::Boolean)) }
+        def moto; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
@@ -345,6 +348,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Pix < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -388,6 +399,22 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_name; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Upi < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -457,6 +484,9 @@ module Stripe
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
+      # Attribute for field pix
+      sig { returns(T.nilable(Pix)) }
+      def pix; end
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
@@ -466,9 +496,15 @@ module Stripe
       # Attribute for field sofort
       sig { returns(T.nilable(Sofort)) }
       def sofort; end
+      # Attribute for field twint
+      sig { returns(T.nilable(Twint)) }
+      def twint; end
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -492,9 +528,12 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -619,7 +658,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # String representing the object's type. Objects of the same type share the same value.

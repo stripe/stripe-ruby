@@ -219,7 +219,13 @@ module Stripe
             @unit_amount = unit_amount
             @unit_amount_decimal = unit_amount_decimal
           end
+
+          def self.field_encodings
+            @field_encodings = { unit_amount_decimal: :decimal_string }
+          end
         end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        attr_accessor :discountable
         # The coupons to redeem into discounts for the item.
         attr_accessor :discounts
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -236,6 +242,7 @@ module Stripe
         attr_accessor :tax_rates
 
         def initialize(
+          discountable: nil,
           discounts: nil,
           metadata: nil,
           period: nil,
@@ -244,6 +251,7 @@ module Stripe
           quantity: nil,
           tax_rates: nil
         )
+          @discountable = discountable
           @discounts = discounts
           @metadata = metadata
           @period = period
@@ -251,6 +259,12 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          }
         end
       end
 
@@ -407,6 +421,10 @@ module Stripe
             @unit_amount = unit_amount
             @unit_amount_decimal = unit_amount_decimal
           end
+
+          def self.field_encodings
+            @field_encodings = { unit_amount_decimal: :decimal_string }
+          end
         end
         # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
         attr_accessor :billing_thresholds
@@ -443,6 +461,12 @@ module Stripe
           @price_data = price_data
           @quantity = quantity
           @tax_rates = tax_rates
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+          }
         end
       end
 
@@ -545,6 +569,25 @@ module Stripe
         @trial = trial
         @trial_end = trial_end
       end
+
+      def self.field_encodings
+        @field_encodings = {
+          add_invoice_items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+          items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+        }
+      end
     end
     # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     attr_accessor :billing_mode
@@ -589,6 +632,37 @@ module Stripe
       @metadata = metadata
       @phases = phases
       @start_date = start_date
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        phases: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {
+              add_invoice_items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }
     end
   end
 end

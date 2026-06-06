@@ -367,6 +367,37 @@ module Stripe
       end
     end
 
+    class Bizum < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Blik < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1483,6 +1514,37 @@ module Stripe
       end
     end
 
+    class Scalapay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class SepaDebit < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1545,6 +1607,37 @@ module Stripe
       end
     end
 
+    class Sunbit < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Swish < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1577,6 +1670,37 @@ module Stripe
     end
 
     class Twint < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Upi < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1725,6 +1849,8 @@ module Stripe
     attr_reader :bancontact
     # Attribute for field billie
     attr_reader :billie
+    # Attribute for field bizum
+    attr_reader :bizum
     # Attribute for field blik
     attr_reader :blik
     # Attribute for field boleto
@@ -1767,7 +1893,7 @@ module Stripe
     attr_reader :kr_card
     # Attribute for field link
     attr_reader :link
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field mb_way
     attr_reader :mb_way
@@ -1809,14 +1935,20 @@ module Stripe
     attr_reader :samsung_pay
     # Attribute for field satispay
     attr_reader :satispay
+    # Attribute for field scalapay
+    attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
     # Attribute for field sofort
     attr_reader :sofort
+    # Attribute for field sunbit
+    attr_reader :sunbit
     # Attribute for field swish
     attr_reader :swish
     # Attribute for field twint
     attr_reader :twint
+    # Attribute for field upi
+    attr_reader :upi
     # Attribute for field us_bank_account
     attr_reader :us_bank_account
     # Attribute for field wechat_pay
@@ -1867,6 +1999,7 @@ module Stripe
         bacs_debit: BacsDebit,
         bancontact: Bancontact,
         billie: Billie,
+        bizum: Bizum,
         blik: Blik,
         boleto: Boleto,
         card: Card,
@@ -1903,10 +2036,13 @@ module Stripe
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,
+        scalapay: Scalapay,
         sepa_debit: SepaDebit,
         sofort: Sofort,
+        sunbit: Sunbit,
         swish: Swish,
         twint: Twint,
+        upi: Upi,
         us_bank_account: UsBankAccount,
         wechat_pay: WechatPay,
         zip: Zip,

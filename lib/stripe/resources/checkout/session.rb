@@ -252,7 +252,7 @@ module Stripe
         attr_reader :payment_method_reuse_agreement
         # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         # Session will determine whether to display an option to opt into promotional communication
-        # from the merchant depending on the customer's locale. Only available to US merchants.
+        # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         attr_reader :promotions
         # If set to `required`, it requires customers to accept the terms of service before being able to pay.
         attr_reader :terms_of_service
@@ -282,6 +282,10 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = { fx_rate: :decimal_string }
         end
       end
 
@@ -493,7 +497,7 @@ module Stripe
         end
 
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           attr_reader :type
           # The value of the tax ID.
           attr_reader :value
@@ -635,6 +639,19 @@ module Stripe
         end
       end
 
+      class ManagedPayments < ::Stripe::StripeObject
+        # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class NameCollection < ::Stripe::StripeObject
         class Business < ::Stripe::StripeObject
           # Indicates whether business name collection is enabled for the session
@@ -763,7 +780,7 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -994,7 +1011,7 @@ module Stripe
           end
 
           class Restrictions < ::Stripe::StripeObject
-            # Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+            # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_reader :brands_blocked
 
             def self.inner_class_types
@@ -1521,10 +1538,38 @@ module Stripe
         end
 
         class Pix < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # Determines if the amount includes the IOF tax.
+            attr_reader :amount_includes_iof
+            # Type of amount.
+            attr_reader :amount_type
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+            attr_reader :currency
+            # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+            attr_reader :end_date
+            # Schedule at which the future payments will be charged.
+            attr_reader :payment_schedule
+            # Subscription name displayed to buyers in their bank app.
+            attr_reader :reference
+            # Start date of the mandate, in `YYYY-MM-DD`.
+            attr_reader :start_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
           # The number of seconds after which Pix payment will expire.
           attr_reader :expires_after_seconds
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
           # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1535,7 +1580,7 @@ module Stripe
           attr_reader :setup_future_usage
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { mandate_options: MandateOptions }
           end
 
           def self.field_remappings
@@ -1578,6 +1623,19 @@ module Stripe
         end
 
         class Satispay < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Scalapay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           attr_reader :capture_method
 
@@ -1676,6 +1734,45 @@ module Stripe
           end
         end
 
+        class Upi < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments.
+            attr_reader :amount
+            # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            attr_reader :amount_type
+            # A description of the mandate or subscription that is meant to be displayed to the customer.
+            attr_reader :description
+            # End date of the mandate or subscription.
+            attr_reader :end_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class UsBankAccount < ::Stripe::StripeObject
           class FinancialConnections < ::Stripe::StripeObject
             class Filters < ::Stripe::StripeObject
@@ -1719,7 +1816,7 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
-          # Bank account verification method.
+          # Bank account verification method. The default value is `automatic`.
           attr_reader :verification_method
 
           def self.inner_class_types
@@ -1804,6 +1901,8 @@ module Stripe
         attr_reader :samsung_pay
         # Attribute for field satispay
         attr_reader :satispay
+        # Attribute for field scalapay
+        attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
         # Attribute for field sofort
@@ -1812,6 +1911,8 @@ module Stripe
         attr_reader :swish
         # Attribute for field twint
         attr_reader :twint
+        # Attribute for field upi
+        attr_reader :upi
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
 
@@ -1854,10 +1955,12 @@ module Stripe
             revolut_pay: RevolutPay,
             samsung_pay: SamsungPay,
             satispay: Satispay,
+            scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
             swish: Swish,
             twint: Twint,
+            upi: Upi,
             us_bank_account: UsBankAccount,
           }
         end
@@ -2131,8 +2234,8 @@ module Stripe
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
       attr_reader :client_reference_id
-      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-      #  For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
+      # The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. For `ui_mode: embedded_page`, the client secret is to be used when initializing Stripe.js embedded checkout.
+      #  For `ui_mode: elements`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
       attr_reader :client_secret
       # Information about the customer collected within the Checkout Session.
       attr_reader :collected_information
@@ -2176,16 +2279,20 @@ module Stripe
       attr_reader :expires_at
       # Unique identifier for the object.
       attr_reader :id
+      # The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+      attr_reader :integration_identifier
       # ID of the invoice created by the Checkout Session, if it exists.
       attr_reader :invoice
       # Details on the state of invoice creation for the Checkout Session.
       attr_reader :invoice_creation
       # The line items purchased by the customer.
       attr_reader :line_items
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
       attr_reader :locale
+      # Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+      attr_reader :managed_payments
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # The mode of the Checkout Session.
@@ -2224,9 +2331,9 @@ module Stripe
       attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       attr_reader :recovered_from
-      # This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+      # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_reader :redirect_on_completion
-      # Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+      # Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
       attr_reader :return_url
       # Controls saved payment method settings for the session. Only available in `payment` and `subscription` mode.
       attr_reader :saved_payment_method_options
@@ -2253,9 +2360,9 @@ module Stripe
       attr_reader :tax_id_collection
       # Tax and discount details for the computed total amount.
       attr_reader :total_details
-      # The UI mode of the Session. Defaults to `hosted`.
+      # The UI mode of the Session. Defaults to `hosted_page`.
       attr_reader :ui_mode
-      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
+      # The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted_page`. Redirect customers to this URL to take them to Checkout. If you’re using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it’ll use `checkout.stripe.com.`
       # This value is only present when the session is active.
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.
@@ -2352,6 +2459,7 @@ module Stripe
           customer_details: CustomerDetails,
           discounts: Discount,
           invoice_creation: InvoiceCreation,
+          managed_payments: ManagedPayments,
           name_collection: NameCollection,
           optional_items: OptionalItem,
           payment_method_configuration_details: PaymentMethodConfigurationDetails,
@@ -2371,6 +2479,12 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          currency_conversion: { kind: :object, fields: { fx_rate: :decimal_string } },
+        }
       end
     end
   end

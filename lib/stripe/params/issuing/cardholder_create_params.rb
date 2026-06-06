@@ -55,9 +55,9 @@ module Stripe
       class Individual < ::Stripe::RequestParams
         class CardIssuing < ::Stripe::RequestParams
           class UserTermsAcceptance < ::Stripe::RequestParams
-            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
             attr_accessor :date
-            # The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+            # The IP address from which the cardholder accepted the Authorized User Terms.
             attr_accessor :ip
             # The user agent of the browser from which the cardholder accepted the Authorized User Terms.
             attr_accessor :user_agent
@@ -151,10 +151,14 @@ module Stripe
             @interval = interval
           end
         end
+        # Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        attr_accessor :allowed_card_presences
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         attr_accessor :allowed_categories
         # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
         attr_accessor :allowed_merchant_countries
+        # Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
+        attr_accessor :blocked_card_presences
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         attr_accessor :blocked_categories
         # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
@@ -165,15 +169,19 @@ module Stripe
         attr_accessor :spending_limits_currency
 
         def initialize(
+          allowed_card_presences: nil,
           allowed_categories: nil,
           allowed_merchant_countries: nil,
+          blocked_card_presences: nil,
           blocked_categories: nil,
           blocked_merchant_countries: nil,
           spending_limits: nil,
           spending_limits_currency: nil
         )
+          @allowed_card_presences = allowed_card_presences
           @allowed_categories = allowed_categories
           @allowed_merchant_countries = allowed_merchant_countries
+          @blocked_card_presences = blocked_card_presences
           @blocked_categories = blocked_categories
           @blocked_merchant_countries = blocked_merchant_countries
           @spending_limits = spending_limits
@@ -196,7 +204,7 @@ module Stripe
       attr_accessor :name
       # The cardholder's phone number. This will be transformed to [E.164](https://en.wikipedia.org/wiki/E.164) if it is not provided in that format already. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure#when-is-3d-secure-applied) for more details.
       attr_accessor :phone_number
-      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
       #  This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
       attr_accessor :preferred_locales
       # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.

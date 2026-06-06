@@ -102,6 +102,7 @@ module Stripe
       end
     end
 
+    class Bizum < ::Stripe::RequestParams; end
     class Blik < ::Stripe::RequestParams; end
 
     class Boleto < ::Stripe::RequestParams
@@ -318,6 +319,7 @@ module Stripe
     class RevolutPay < ::Stripe::RequestParams; end
     class SamsungPay < ::Stripe::RequestParams; end
     class Satispay < ::Stripe::RequestParams; end
+    class Scalapay < ::Stripe::RequestParams; end
 
     class SepaDebit < ::Stripe::RequestParams
       # IBAN of the bank account.
@@ -337,8 +339,35 @@ module Stripe
       end
     end
 
+    class Sunbit < ::Stripe::RequestParams; end
     class Swish < ::Stripe::RequestParams; end
     class Twint < ::Stripe::RequestParams; end
+
+    class Upi < ::Stripe::RequestParams
+      class MandateOptions < ::Stripe::RequestParams
+        # Amount to be charged for future payments.
+        attr_accessor :amount
+        # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+        attr_accessor :amount_type
+        # A description of the mandate or subscription that is meant to be displayed to the customer.
+        attr_accessor :description
+        # End date of the mandate or subscription.
+        attr_accessor :end_date
+
+        def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+          @amount = amount
+          @amount_type = amount_type
+          @description = description
+          @end_date = end_date
+        end
+      end
+      # Configuration options for setting up an eMandate
+      attr_accessor :mandate_options
+
+      def initialize(mandate_options: nil)
+        @mandate_options = mandate_options
+      end
+    end
 
     class UsBankAccount < ::Stripe::RequestParams
       # Account holder type: individual or company.
@@ -393,6 +422,8 @@ module Stripe
     attr_accessor :billie
     # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     attr_accessor :billing_details
+    # If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    attr_accessor :bizum
     # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
     attr_accessor :blik
     # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
@@ -431,7 +462,7 @@ module Stripe
     attr_accessor :konbini
     # If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
     attr_accessor :kr_card
-    # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     attr_accessor :link
     # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
     attr_accessor :mb_way
@@ -473,16 +504,22 @@ module Stripe
     attr_accessor :samsung_pay
     # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     attr_accessor :satispay
+    # If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    attr_accessor :scalapay
     # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     attr_accessor :sepa_debit
     # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     attr_accessor :sofort
+    # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    attr_accessor :sunbit
     # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
     attr_accessor :swish
     # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     attr_accessor :twint
     # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     attr_accessor :type
+    # If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
+    attr_accessor :upi
     # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     attr_accessor :us_bank_account
     # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
@@ -503,6 +540,7 @@ module Stripe
       bancontact: nil,
       billie: nil,
       billing_details: nil,
+      bizum: nil,
       blik: nil,
       boleto: nil,
       card: nil,
@@ -543,11 +581,14 @@ module Stripe
       revolut_pay: nil,
       samsung_pay: nil,
       satispay: nil,
+      scalapay: nil,
       sepa_debit: nil,
       sofort: nil,
+      sunbit: nil,
       swish: nil,
       twint: nil,
       type: nil,
+      upi: nil,
       us_bank_account: nil,
       wechat_pay: nil,
       zip: nil
@@ -564,6 +605,7 @@ module Stripe
       @bancontact = bancontact
       @billie = billie
       @billing_details = billing_details
+      @bizum = bizum
       @blik = blik
       @boleto = boleto
       @card = card
@@ -604,11 +646,14 @@ module Stripe
       @revolut_pay = revolut_pay
       @samsung_pay = samsung_pay
       @satispay = satispay
+      @scalapay = scalapay
       @sepa_debit = sepa_debit
       @sofort = sofort
+      @sunbit = sunbit
       @swish = swish
       @twint = twint
       @type = type
+      @upi = upi
       @us_bank_account = us_bank_account
       @wechat_pay = wechat_pay
       @zip = zip

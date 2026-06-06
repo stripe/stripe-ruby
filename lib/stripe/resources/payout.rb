@@ -62,7 +62,7 @@ module Stripe
     attr_reader :failure_message
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
@@ -113,7 +113,7 @@ module Stripe
     #
     # If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
     #
-    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
+    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api/balances/object) details available and pending amounts by source type.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/payouts", params: params, opts: opts)
     end

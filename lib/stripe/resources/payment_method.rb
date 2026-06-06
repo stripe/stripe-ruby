@@ -185,6 +185,16 @@ module Stripe
       end
     end
 
+    class Bizum < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Blik < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1249,6 +1259,16 @@ module Stripe
       end
     end
 
+    class Scalapay < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class SepaDebit < ::Stripe::StripeObject
       class GeneratedFrom < ::Stripe::StripeObject
         # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1299,6 +1319,16 @@ module Stripe
       end
     end
 
+    class Sunbit < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Swish < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1310,6 +1340,19 @@ module Stripe
     end
 
     class Twint < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Upi < ::Stripe::StripeObject
+      # Customer's unique Virtual Payment Address
+      attr_reader :vpa
+
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -1432,6 +1475,8 @@ module Stripe
     attr_reader :billie
     # Attribute for field billing_details
     attr_reader :billing_details
+    # Attribute for field bizum
+    attr_reader :bizum
     # Attribute for field blik
     attr_reader :blik
     # Attribute for field boleto
@@ -1478,7 +1523,7 @@ module Stripe
     attr_reader :kr_card
     # Attribute for field link
     attr_reader :link
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field mb_way
     attr_reader :mb_way
@@ -1520,16 +1565,22 @@ module Stripe
     attr_reader :samsung_pay
     # Attribute for field satispay
     attr_reader :satispay
+    # Attribute for field scalapay
+    attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
     # Attribute for field sofort
     attr_reader :sofort
+    # Attribute for field sunbit
+    attr_reader :sunbit
     # Attribute for field swish
     attr_reader :swish
     # Attribute for field twint
     attr_reader :twint
     # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     attr_reader :type
+    # Attribute for field upi
+    attr_reader :upi
     # Attribute for field us_bank_account
     attr_reader :us_bank_account
     # Attribute for field wechat_pay
@@ -1636,6 +1687,7 @@ module Stripe
         bancontact: Bancontact,
         billie: Billie,
         billing_details: BillingDetails,
+        bizum: Bizum,
         blik: Blik,
         boleto: Boleto,
         card: Card,
@@ -1673,10 +1725,13 @@ module Stripe
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,
+        scalapay: Scalapay,
         sepa_debit: SepaDebit,
         sofort: Sofort,
+        sunbit: Sunbit,
         swish: Swish,
         twint: Twint,
+        upi: Upi,
         us_bank_account: UsBankAccount,
         wechat_pay: WechatPay,
         zip: Zip,

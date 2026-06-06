@@ -537,7 +537,51 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class VerifoneM425 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class VerifoneP400 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneP630 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneUx700 < ::Stripe::StripeObject
+        # A File ID representing an image to display on the reader
+        sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+        def splashscreen; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class VerifoneV660p < ::Stripe::StripeObject
         # A File ID representing an image to display on the reader
         sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
         def splashscreen; end
@@ -638,13 +682,16 @@ module Stripe
       # Attribute for field cellular
       sig { returns(T.nilable(Cellular)) }
       def cellular; end
+      # Always true for a deleted object
+      sig { returns(T.nilable(T::Boolean)) }
+      def deleted; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
       # Whether this Configuration is the default for your account
       sig { returns(T.nilable(T::Boolean)) }
       def is_account_default; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String indicating the name of the Configuration object, set by the user
@@ -668,15 +715,24 @@ module Stripe
       # Attribute for field tipping
       sig { returns(T.nilable(Tipping)) }
       def tipping; end
+      # Attribute for field verifone_m425
+      sig { returns(T.nilable(VerifoneM425)) }
+      def verifone_m425; end
       # Attribute for field verifone_p400
       sig { returns(T.nilable(VerifoneP400)) }
       def verifone_p400; end
+      # Attribute for field verifone_p630
+      sig { returns(T.nilable(VerifoneP630)) }
+      def verifone_p630; end
+      # Attribute for field verifone_ux700
+      sig { returns(T.nilable(VerifoneUx700)) }
+      def verifone_ux700; end
+      # Attribute for field verifone_v660p
+      sig { returns(T.nilable(VerifoneV660p)) }
+      def verifone_v660p; end
       # Attribute for field wifi
       sig { returns(T.nilable(Wifi)) }
       def wifi; end
-      # Always true for a deleted object
-      sig { returns(T.nilable(T::Boolean)) }
-      def deleted; end
       # Creates a new Configuration object.
       sig {
         params(params: T.any(::Stripe::Terminal::ConfigurationCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)

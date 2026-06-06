@@ -198,6 +198,8 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        attr_reader :moto
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # Populated if this authorization used 3D Secure authentication.
@@ -360,6 +362,16 @@ module Stripe
         end
       end
 
+      class Pix < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RevolutPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -400,6 +412,26 @@ module Stripe
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
 
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Upi < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -454,14 +486,20 @@ module Stripe
       attr_reader :paypal
       # Attribute for field payto
       attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field twint
+      attr_reader :twint
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
 
@@ -485,9 +523,12 @@ module Stripe
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
           payto: Payto,
+          pix: Pix,
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
         }
       end
@@ -591,7 +632,7 @@ module Stripe
     attr_reader :flow_directions
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object

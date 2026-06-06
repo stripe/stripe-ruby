@@ -61,12 +61,12 @@ module Stripe
       attr_accessor :exp_month
       # Attribute for param field exp_year
       attr_accessor :exp_year
+      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_accessor :metadata
       # Attribute for param field name
       attr_accessor :name
       # Attribute for param field number
       attr_accessor :number
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
-      attr_accessor :metadata
 
       def initialize(
         object: nil,
@@ -80,9 +80,9 @@ module Stripe
         cvc: nil,
         exp_month: nil,
         exp_year: nil,
+        metadata: nil,
         name: nil,
-        number: nil,
-        metadata: nil
+        number: nil
       )
         @object = object
         @address_city = address_city
@@ -95,9 +95,9 @@ module Stripe
         @cvc = cvc
         @exp_month = exp_month
         @exp_year = exp_year
+        @metadata = metadata
         @name = name
         @number = number
-        @metadata = metadata
       end
     end
 

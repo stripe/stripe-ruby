@@ -66,14 +66,14 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # This contains information about why meter error happens.
-        attr_reader :reason
         # Extra field included in the event's `data` when fetched from /v2/events.
         attr_reader :developer_message_summary
-        # The start of the window that is encapsulated by this summary.
-        attr_reader :validation_start
+        # This contains information about why meter error happens.
+        attr_reader :reason
         # The end of the window that is encapsulated by this summary.
         attr_reader :validation_end
+        # The start of the window that is encapsulated by this summary.
+        attr_reader :validation_start
 
         def self.inner_class_types
           @inner_class_types = { reason: Reason }

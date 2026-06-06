@@ -10,12 +10,12 @@ module Stripe
       end
 
       class V2CoreAccountLinkReturnedEventData < ::Stripe::StripeObject
-        # Open Enum. The use case type of the account link that has been completed.
-        attr_reader :use_case
         # The ID of the v2 account.
         attr_reader :account_id
         # Configurations on the Account that was onboarded via the account link.
         attr_reader :configurations
+        # Open Enum. The use case type of the account link that has been completed.
+        attr_reader :use_case
 
         def self.inner_class_types
           @inner_class_types = {}

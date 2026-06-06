@@ -54,18 +54,21 @@ module Stripe
         class ReportedBreakdown < ::Stripe::StripeObject
           class Fuel < ::Stripe::StripeObject
             # Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
             def self.inner_class_types
               @inner_class_types = {}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {gross_amount_decimal: :decimal_string}
             end
           end
           class NonFuel < ::Stripe::StripeObject
             # Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -73,19 +76,28 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+            def self.field_encodings
+              @field_encodings = {gross_amount_decimal: :decimal_string}
+            end
           end
           class Tax < ::Stripe::StripeObject
             # Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def local_amount_decimal; end
             # Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
-            sig { returns(T.nilable(String)) }
+            sig { returns(T.nilable(BigDecimal)) }
             def national_amount_decimal; end
             def self.inner_class_types
               @inner_class_types = {}
             end
             def self.field_remappings
               @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                local_amount_decimal: :decimal_string,
+                national_amount_decimal: :decimal_string,
+              }
             end
           end
           # Breakdown of fuel portion of the purchase.
@@ -102,6 +114,19 @@ module Stripe
           end
           def self.field_remappings
             @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+              non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+              tax: {
+                kind: :object,
+                fields: {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                },
+              },
+            }
           end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
@@ -124,6 +149,24 @@ module Stripe
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            reported_breakdown: {
+              kind: :object,
+              fields: {
+                fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+            },
+          }
         end
       end
       class FraudChallenge < ::Stripe::StripeObject
@@ -148,7 +191,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def industry_product_code; end
         # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def quantity_decimal; end
         # The type of fuel that was purchased.
         sig { returns(T.nilable(String)) }
@@ -157,13 +200,16 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def unit; end
         # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(BigDecimal)) }
         def unit_cost_decimal; end
         def self.inner_class_types
           @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
         end
       end
       class MerchantData < ::Stripe::StripeObject
@@ -417,6 +463,9 @@ module Stripe
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
       sig { returns(::Stripe::Issuing::Card) }
       def card; end
+      # Whether the card was present at the point of sale for the authorization.
+      sig { returns(T.nilable(String)) }
+      def card_presence; end
       # The cardholder to whom this authorization belongs.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Cardholder))) }
       def cardholder; end
@@ -438,7 +487,7 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.

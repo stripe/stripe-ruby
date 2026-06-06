@@ -183,7 +183,7 @@ module Stripe
     attr_reader :invoice
     # Line items that make up the credit note
     attr_reader :lines
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Customer-facing text that appears on the credit note PDF.
     attr_reader :memo

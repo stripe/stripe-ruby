@@ -4,7 +4,7 @@
 module Stripe
   # A coupon contains information about a percent-off or amount-off discount you
   # might want to apply to a customer. Coupons may be applied to [subscriptions](https://api.stripe.com#subscriptions), [invoices](https://api.stripe.com#invoices),
-  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://api.stripe.com#quotes), and more. Coupons do not work with conventional one-off [charges](https://api.stripe.com#create_charge) or [payment intents](https://docs.stripe.com/api/payment_intents).
+  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://api.stripe.com#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
   class Coupon < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -51,13 +51,15 @@ module Stripe
     attr_reader :currency
     # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency_options
+    # Always true for a deleted object
+    attr_reader :deleted
     # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     attr_reader :duration
     # If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`.
     attr_reader :duration_in_months
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid.
     attr_reader :max_redemptions
@@ -75,8 +77,6 @@ module Stripe
     attr_reader :times_redeemed
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
     #

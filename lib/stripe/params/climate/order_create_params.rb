@@ -44,6 +44,10 @@ module Stripe
         @metric_tons = metric_tons
         @product = product
       end
+
+      def self.field_encodings
+        @field_encodings = { metric_tons: :decimal_string }
+      end
     end
   end
 end

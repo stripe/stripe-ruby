@@ -13,6 +13,10 @@ module Stripe
 
       # Creates a Checkout Session object.
       def create(params = {}, opts = {})
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionCreateParams.coerce_params(params)
+        end
+
         request(
           method: :post,
           path: "/v1/checkout/sessions",
@@ -61,6 +65,10 @@ module Stripe
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
       def update(session, params = {}, opts = {})
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionUpdateParams.coerce_params(params)
+        end
+
         request(
           method: :post,
           path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),

@@ -17,6 +17,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The time period the subscription item has been billed for.
+    sig { returns(T.nilable(Integer)) }
+    def billed_until; end
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     sig { returns(T.nilable(BillingThresholds)) }
     def billing_thresholds; end
@@ -29,6 +32,9 @@ module Stripe
     # The start time of this subscription item's current billing period.
     sig { returns(Integer) }
     def current_period_start; end
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T::Array[T.any(String, ::Stripe::Discount)]) }
     def discounts; end
@@ -68,9 +74,6 @@ module Stripe
     # The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
     sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
     def tax_rates; end
-    # Always true for a deleted object
-    sig { returns(T.nilable(T::Boolean)) }
-    def deleted; end
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     sig {
       params(params: T.any(::Stripe::SubscriptionItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)

@@ -287,6 +287,10 @@ module Stripe
               @representative = representative
               @title = title
             end
+
+            def self.field_encodings
+              @field_encodings = { percent_ownership: :decimal_string }
+            end
           end
 
           class ScriptAddresses < ::Stripe::RequestParams
@@ -479,6 +483,12 @@ module Stripe
             @script_addresses = script_addresses
             @script_names = script_names
             @surname = surname
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+            }
           end
         end
       end

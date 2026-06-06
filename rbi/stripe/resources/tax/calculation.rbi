@@ -36,7 +36,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -147,7 +147,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(Integer) }
           def amount; end
           # Attribute for field jurisdiction
@@ -162,7 +162,7 @@ module Stripe
           # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
           sig { returns(String) }
           def taxability_reason; end
-          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+          # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(Integer) }
           def taxable_amount; end
           def self.inner_class_types
@@ -172,10 +172,10 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        # The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         sig { returns(Integer) }
         def amount; end
-        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def amount_tax; end
         # The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
@@ -238,7 +238,7 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def amount; end
         # Specifies whether the tax amount is included in the line item amount.
@@ -250,7 +250,7 @@ module Stripe
         # The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.
         sig { returns(String) }
         def taxability_reason; end
-        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        # The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         sig { returns(Integer) }
         def taxable_amount; end
         def self.inner_class_types
@@ -260,7 +260,7 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+      # Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
       sig { returns(Integer) }
       def amount_total; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -281,7 +281,7 @@ module Stripe
       # The list of items the customer is purchasing.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
       # String representing the object's type. Objects of the same type share the same value.
@@ -302,7 +302,7 @@ module Stripe
       # Breakdown of individual tax amounts that add up to the total.
       sig { returns(T::Array[TaxBreakdown]) }
       def tax_breakdown; end
-      # Timestamp of date at which the tax rules and rates in effect applies for the calculation.
+      # The calculation uses the tax rules and rates that are in effect at this timestamp. You can use a date up to 31 days in the past or up to 31 days in the future. If you use a future date, Stripe doesn't guarantee that the expected tax rules and rate being used match the actual rules and rate that will be in effect on that date. We deploy tax changes before their effective date, but not within a fixed window.
       sig { returns(Integer) }
       def tax_date; end
       # Calculates tax based on the input and returns a Tax Calculation object.

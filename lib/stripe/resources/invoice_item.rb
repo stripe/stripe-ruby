@@ -94,9 +94,44 @@ module Stripe
       def self.field_remappings
         @field_remappings = {}
       end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
     end
 
     class ProrationDetails < ::Stripe::StripeObject
+      class CreditedItems < ::Stripe::StripeObject
+        class InvoiceLineItemDetails < ::Stripe::StripeObject
+          # The invoice id for the debited line item(s).
+          attr_reader :invoice
+          # IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
+          attr_reader :invoice_line_items
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
+        attr_reader :invoice_item
+        # Attribute for field invoice_line_item_details
+        attr_reader :invoice_line_item_details
+        # Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { invoice_line_item_details: InvoiceLineItemDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class DiscountAmount < ::Stripe::StripeObject
         # The amount, in cents (or local equivalent), of the discount.
         attr_reader :amount
@@ -111,11 +146,13 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+      attr_reader :credited_items
       # Discount amounts applied when the proration was created.
       attr_reader :discount_amounts
 
       def self.inner_class_types
-        @inner_class_types = { discount_amounts: DiscountAmount }
+        @inner_class_types = { credited_items: CreditedItems, discount_amounts: DiscountAmount }
       end
 
       def self.field_remappings
@@ -132,6 +169,8 @@ module Stripe
     attr_reader :customer_account
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :date
+    # Always true for a deleted object
+    attr_reader :deleted
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
     # If true, discounts will apply to this invoice item. Always false for prorations.
@@ -142,7 +181,7 @@ module Stripe
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
     attr_reader :invoice
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
@@ -160,14 +199,14 @@ module Stripe
     attr_reader :proration
     # Attribute for field proration_details
     attr_reader :proration_details
-    # Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    # Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     attr_reader :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    attr_reader :quantity_decimal
     # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
     attr_reader :tax_rates
     # ID of the test clock this invoice item belongs to.
     attr_reader :test_clock
-    # Always true for a deleted object
-    attr_reader :deleted
 
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     def self.create(params = {}, opts = {})
@@ -220,6 +259,13 @@ module Stripe
 
     def self.field_remappings
       @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+      }
     end
   end
 end

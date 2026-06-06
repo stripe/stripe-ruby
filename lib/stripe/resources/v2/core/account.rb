@@ -4,9 +4,8 @@
 module Stripe
   module V2
     module Core
-      # An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
-      # The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
-      # The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
+      # An Account v2 object represents a company, individual, or other entity that your Stripe integration interacts with. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+      # The Accounts v2 API is broadly available to Connect platforms, and to other users in preview. The Accounts v2 API also supports the Global Payouts preview feature.
       class Account < APIResource
         OBJECT_NAME = "v2.core.account"
         def self.object_name
@@ -98,7 +97,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+              # The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
               attr_reader :default_payment_method
               # Default invoice settings for the customer account.
               attr_reader :invoice
@@ -2039,7 +2038,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The Customer Configuration allows the Account to be used in inbound payment flows.
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           attr_reader :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_reader :merchant
@@ -2433,27 +2432,13 @@ module Stripe
             end
 
             class AnnualRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_reader :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_reader :currency
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
               attr_reader :amount
               # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
               attr_reader :fiscal_year_end
 
               def self.inner_class_types
-                @inner_class_types = { amount: Amount }
+                @inner_class_types = {}
               end
 
               def self.field_remappings
@@ -2597,13 +2582,27 @@ module Stripe
               end
 
               class ProofOfRegistration < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  attr_reader :person
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
+                # Person that is signing the document.
+                attr_reader :signer
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
 
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = { signer: Signer }
                 end
 
                 def self.field_remappings
@@ -2612,13 +2611,27 @@ module Stripe
               end
 
               class ProofOfUltimateBeneficialOwnership < ::Stripe::StripeObject
+                class Signer < ::Stripe::StripeObject
+                  # Person signing the document.
+                  attr_reader :person
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
                 # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
                 attr_reader :files
+                # Person that is signing the document.
+                attr_reader :signer
                 # The format of the document. Currently supports `files` only.
                 attr_reader :type
 
                 def self.inner_class_types
-                  @inner_class_types = {}
+                  @inner_class_types = { signer: Signer }
                 end
 
                 def self.field_remappings
@@ -2682,25 +2695,11 @@ module Stripe
             end
 
             class MonthlyEstimatedRevenue < ::Stripe::StripeObject
-              class Amount < ::Stripe::StripeObject
-                # A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                attr_reader :value
-                # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                attr_reader :currency
-
-                def self.inner_class_types
-                  @inner_class_types = {}
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
               # Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
               attr_reader :amount
 
               def self.inner_class_types
-                @inner_class_types = { amount: Amount }
+                @inner_class_types = {}
               end
 
               def self.field_remappings
@@ -3156,6 +3155,10 @@ module Stripe
               def self.field_remappings
                 @field_remappings = {}
               end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
             end
 
             class ScriptAddresses < ::Stripe::StripeObject
@@ -3281,7 +3284,7 @@ module Stripe
             attr_reader :date_of_birth
             # Documents that may be submitted to satisfy various informational requests.
             attr_reader :documents
-            # The individual's email address.
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             attr_reader :email
             # The individual's first name.
             attr_reader :given_name
@@ -3330,6 +3333,12 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
           end
           # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
           attr_reader :attestations
@@ -3337,7 +3346,7 @@ module Stripe
           attr_reader :business_details
           # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
           attr_reader :country
-          # The entity type.
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
           attr_reader :entity_type
           # Information about the individual represented by the Account. This property is `null` unless `entity_type` is set to `individual`.
           attr_reader :individual
@@ -3352,6 +3361,17 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
           end
         end
 
@@ -3531,7 +3551,7 @@ module Stripe
         attr_reader :closed
         # An Account represents a company, individual, or other entity that a user interacts with. Accounts store identity information and one or more configurations that enable product-specific capabilities. You can assign configurations at creation or add them later.
         attr_reader :configuration
-        # The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+        # The primary contact email address for the Account.
         attr_reader :contact_email
         # The default contact phone for the Account.
         attr_reader :contact_phone
@@ -3549,14 +3569,14 @@ module Stripe
         attr_reader :id
         # Information about the company, individual, and business represented by the Account.
         attr_reader :identity
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         attr_reader :requirements
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {
@@ -3570,6 +3590,22 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
         end
       end
     end

@@ -77,12 +77,12 @@ module Stripe
       sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def unit_amount=(_unit_amount); end
       # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-      sig { returns(T.nilable(String)) }
+      sig { returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal; end
-      sig { params(_unit_amount_decimal: T.nilable(String)).returns(T.nilable(String)) }
+      sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
       def unit_amount_decimal=(_unit_amount_decimal); end
       sig {
-        params(currency: String, product: String, recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(String)).void
+        params(currency: String, product: String, recurring: ::Stripe::SubscriptionItemUpdateParams::PriceData::Recurring, tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
        }
       def initialize(
         currency: nil,
@@ -92,6 +92,9 @@ module Stripe
         unit_amount: nil,
         unit_amount_decimal: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {unit_amount_decimal: :decimal_string}
+      end
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     sig {
@@ -128,13 +131,7 @@ module Stripe
     def off_session; end
     sig { params(_off_session: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def off_session=(_off_session); end
-    # Use `allow_incomplete` to transition the subscription to `status=past_due` if a payment is required but cannot be paid. This allows you to manage scenarios where additional user actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-    #
-    # Use `default_incomplete` to transition the subscription to `status=past_due` when payment is required and await explicit confirmation of the invoice's payment intent. This allows simpler management of scenarios where additional user actions are needed to pay a subscription’s invoice. Such as failed payments, [SCA regulation](https://docs.stripe.com/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method.
-    #
-    # Use `pending_if_incomplete` to update the subscription using [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates). When you use `pending_if_incomplete` you can only pass the parameters [supported by pending updates](https://docs.stripe.com/billing/pending-updates-reference#supported-attributes).
-    #
-    # Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's invoice cannot be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further user action is needed, this parameter does not update the subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/changelog/2019-03-14) to learn more.
+    # Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.
     sig { returns(T.nilable(String)) }
     def payment_behavior; end
     sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -161,7 +158,7 @@ module Stripe
     def proration_behavior; end
     sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def proration_behavior=(_proration_behavior); end
-    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://api.stripe.com#retrieve_customer_invoice) endpoint.
+    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](/api/invoices/create_preview) endpoint.
     sig { returns(T.nilable(Integer)) }
     def proration_date; end
     sig { params(_proration_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -196,5 +193,10 @@ module Stripe
       quantity: nil,
       tax_rates: nil
     ); end
+    def self.field_encodings
+      @field_encodings = {
+        price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+      }
+    end
   end
 end

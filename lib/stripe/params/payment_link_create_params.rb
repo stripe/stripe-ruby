@@ -74,7 +74,7 @@ module Stripe
       attr_accessor :payment_method_reuse_agreement
       # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
       # Session will determine whether to display an option to opt into promotional communication
-      # from the merchant depending on the customer's locale. Only available to US merchants.
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
       attr_accessor :promotions
       # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
       # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -416,6 +416,10 @@ module Stripe
           @unit_amount = unit_amount
           @unit_amount_decimal = unit_amount_decimal
         end
+
+        def self.field_encodings
+          @field_encodings = { unit_amount_decimal: :decimal_string }
+        end
       end
       # When set, provides configuration for this item’s quantity to be adjusted by the customer during checkout.
       attr_accessor :adjustable_quantity
@@ -431,6 +435,21 @@ module Stripe
         @price = price
         @price_data = price_data
         @quantity = quantity
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        }
+      end
+    end
+
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
       end
     end
 
@@ -542,6 +561,31 @@ module Stripe
         @statement_descriptor = statement_descriptor
         @statement_descriptor_suffix = statement_descriptor_suffix
         @transfer_group = transfer_group
+      end
+    end
+
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Restrictions < ::Stripe::RequestParams
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          attr_accessor :brands_blocked
+
+          def initialize(brands_blocked: nil)
+            @brands_blocked = brands_blocked
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        attr_accessor :restrictions
+
+        def initialize(restrictions: nil)
+          @restrictions = restrictions
+        end
+      end
+      # Configuration for `card` payment methods.
+      attr_accessor :card
+
+      def initialize(card: nil)
+        @card = card
       end
     end
 
@@ -709,6 +753,8 @@ module Stripe
     attr_accessor :invoice_creation
     # The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
     attr_accessor :line_items
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    attr_accessor :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     attr_accessor :metadata
     # Controls settings applied for collecting the customer's name.
@@ -727,6 +773,8 @@ module Stripe
     #
     # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
+    # Attribute for param field payment_method_options
+    attr_accessor :payment_method_options
     # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     attr_accessor :payment_method_types
     # Controls phone number collection settings during checkout.
@@ -764,12 +812,14 @@ module Stripe
       inactive_message: nil,
       invoice_creation: nil,
       line_items: nil,
+      managed_payments: nil,
       metadata: nil,
       name_collection: nil,
       on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
+      payment_method_options: nil,
       payment_method_types: nil,
       phone_number_collection: nil,
       restrictions: nil,
@@ -795,12 +845,14 @@ module Stripe
       @inactive_message = inactive_message
       @invoice_creation = invoice_creation
       @line_items = line_items
+      @managed_payments = managed_payments
       @metadata = metadata
       @name_collection = name_collection
       @on_behalf_of = on_behalf_of
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data
       @payment_method_collection = payment_method_collection
+      @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @phone_number_collection = phone_number_collection
       @restrictions = restrictions
@@ -810,6 +862,18 @@ module Stripe
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection
       @transfer_data = transfer_data
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        line_items: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+          },
+        },
+      }
     end
   end
 end

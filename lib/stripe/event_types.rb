@@ -8,6 +8,14 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEvent,
         Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
+        Events::V2CommerceProductCatalogImportsFailedEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsFailedEvent,
+        Events::V2CommerceProductCatalogImportsProcessingEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsProcessingEvent,
+        Events::V2CommerceProductCatalogImportsSucceededEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededEvent,
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
         Events::V2CoreAccountClosedEvent.lookup_type => Events::V2CoreAccountClosedEvent,
         Events::V2CoreAccountCreatedEvent.lookup_type => Events::V2CoreAccountCreatedEvent,
         Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.lookup_type =>
@@ -47,6 +55,14 @@ module Stripe
         Events::V1BillingMeterErrorReportTriggeredEventNotification,
         Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
         Events::V1BillingMeterNoMeterFoundEventNotification,
+        Events::V2CommerceProductCatalogImportsFailedEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsFailedEventNotification,
+        Events::V2CommerceProductCatalogImportsProcessingEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsProcessingEventNotification,
+        Events::V2CommerceProductCatalogImportsSucceededEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededEventNotification,
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification.lookup_type =>
+        Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
         Events::V2CoreAccountClosedEventNotification.lookup_type =>
         Events::V2CoreAccountClosedEventNotification,
         Events::V2CoreAccountCreatedEventNotification.lookup_type =>

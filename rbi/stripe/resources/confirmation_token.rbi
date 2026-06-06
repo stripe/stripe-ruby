@@ -267,6 +267,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Bizum < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Blik < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1315,6 +1323,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Scalapay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebit < ::Stripe::StripeObject
         class GeneratedFrom < ::Stripe::StripeObject
           # The ID of the Charge that generated this PaymentMethod, if any.
@@ -1366,6 +1382,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sunbit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Swish < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1375,6 +1399,17 @@ module Stripe
         end
       end
       class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address
+        sig { returns(T.nilable(String)) }
+        def vpa; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1508,6 +1543,9 @@ module Stripe
       # Attribute for field billing_details
       sig { returns(BillingDetails) }
       def billing_details; end
+      # Attribute for field bizum
+      sig { returns(T.nilable(Bizum)) }
+      def bizum; end
       # Attribute for field blik
       sig { returns(T.nilable(Blik)) }
       def blik; end
@@ -1619,12 +1657,18 @@ module Stripe
       # Attribute for field satispay
       sig { returns(T.nilable(Satispay)) }
       def satispay; end
+      # Attribute for field scalapay
+      sig { returns(T.nilable(Scalapay)) }
+      def scalapay; end
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
       # Attribute for field sofort
       sig { returns(T.nilable(Sofort)) }
       def sofort; end
+      # Attribute for field sunbit
+      sig { returns(T.nilable(Sunbit)) }
+      def sunbit; end
       # Attribute for field swish
       sig { returns(T.nilable(Swish)) }
       def swish; end
@@ -1634,6 +1678,9 @@ module Stripe
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -1656,6 +1703,7 @@ module Stripe
           bancontact: Bancontact,
           billie: Billie,
           billing_details: BillingDetails,
+          bizum: Bizum,
           blik: Blik,
           boleto: Boleto,
           card: Card,
@@ -1691,10 +1739,13 @@ module Stripe
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
           satispay: Satispay,
+          scalapay: Scalapay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat_pay: WechatPay,
           zip: Zip,
@@ -1756,7 +1807,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Data used for generating a Mandate.

@@ -369,6 +369,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class NameCollection < ::Stripe::StripeObject
       class Business < ::Stripe::StripeObject
         # Indicates whether business name collection is enabled for the payment link.
@@ -469,6 +480,39 @@ module Stripe
       def transfer_group; end
       def self.inner_class_types
         @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Restrictions < ::Stripe::StripeObject
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          sig { returns(T::Array[String]) }
+          def brands_blocked; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        sig { returns(T.nilable(Restrictions)) }
+        def restrictions; end
+        def self.inner_class_types
+          @inner_class_types = {restrictions: Restrictions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configuration for `card` payment methods.
+      sig { returns(T.nilable(Card)) }
+      def card; end
+      def self.inner_class_types
+        @inner_class_types = {card: Card}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -684,9 +728,12 @@ module Stripe
     # The line items representing what is being sold.
     sig { returns(T.nilable(::Stripe::ListObject)) }
     def line_items; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
@@ -708,6 +755,9 @@ module Stripe
     # Configuration for collecting a payment method during checkout. Defaults to `always`.
     sig { returns(String) }
     def payment_method_collection; end
+    # Payment-method-specific configuration.
+    sig { returns(T.nilable(PaymentMethodOptions)) }
+    def payment_method_options; end
     # The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     sig { returns(T.nilable(T::Array[String])) }
     def payment_method_types; end

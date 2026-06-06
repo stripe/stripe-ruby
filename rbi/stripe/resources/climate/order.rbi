@@ -116,7 +116,7 @@ module Stripe
       sig { returns(T::Hash[String, String]) }
       def metadata; end
       # Quantity of carbon removal that is included in this order.
-      sig { returns(String) }
+      sig { returns(BigDecimal) }
       def metric_tons; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }

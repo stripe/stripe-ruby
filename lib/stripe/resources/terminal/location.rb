@@ -97,6 +97,8 @@ module Stripe
       attr_reader :address_kanji
       # The ID of a configuration that will be used to customize all readers in this location.
       attr_reader :configuration_overrides
+      # Always true for a deleted object
+      attr_reader :deleted
       # The display name of the location.
       attr_reader :display_name
       # The Kana variation of the display name of the location.
@@ -105,7 +107,7 @@ module Stripe
       attr_reader :display_name_kanji
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
@@ -113,8 +115,6 @@ module Stripe
       attr_reader :object
       # The phone number of the location.
       attr_reader :phone
-      # Always true for a deleted object
-      attr_reader :deleted
 
       # Creates a new Location object.
       # For further details, including which address fields are required in each country, see the [Manage locations](https://docs.stripe.com/docs/terminal/fleet/locations) guide.

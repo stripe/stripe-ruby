@@ -171,6 +171,7 @@ module Stripe
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,
         V2::Billing::MeterEventAdjustment.object_name => V2::Billing::MeterEventAdjustment,
         V2::Billing::MeterEventSession.object_name => V2::Billing::MeterEventSession,
+        V2::Commerce::ProductCatalogImport.object_name => V2::Commerce::ProductCatalogImport,
         V2::Core::Account.object_name => V2::Core::Account,
         V2::Core::AccountLink.object_name => V2::Core::AccountLink,
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,

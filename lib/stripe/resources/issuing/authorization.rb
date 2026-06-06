@@ -69,6 +69,10 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
+            end
           end
 
           class NonFuel < ::Stripe::StripeObject
@@ -81,6 +85,10 @@ module Stripe
 
             def self.field_remappings
               @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
             end
           end
 
@@ -97,6 +105,13 @@ module Stripe
             def self.field_remappings
               @field_remappings = {}
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                local_amount_decimal: :decimal_string,
+                national_amount_decimal: :decimal_string,
+              }
+            end
           end
           # Breakdown of fuel portion of the purchase.
           attr_reader :fuel
@@ -111,6 +126,20 @@ module Stripe
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              tax: {
+                kind: :object,
+                fields: {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                },
+              },
+            }
           end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
@@ -131,6 +160,25 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            reported_breakdown: {
+              kind: :object,
+              fields: {
+                fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+            },
+          }
         end
       end
 
@@ -169,6 +217,10 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string }
         end
       end
 
@@ -393,6 +445,8 @@ module Stripe
       attr_reader :balance_transactions
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
       attr_reader :card
+      # Whether the card was present at the point of sale for the authorization.
+      attr_reader :card_presence
       # The cardholder to whom this authorization belongs.
       attr_reader :cardholder
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -407,7 +461,7 @@ module Stripe
       attr_reader :fuel
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
       attr_reader :merchant_amount
@@ -674,6 +728,34 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          fleet: {
+            kind: :object,
+            fields: {
+              reported_breakdown: {
+                kind: :object,
+                fields: {
+                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          fuel: {
+            kind: :object,
+            fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+          },
+        }
       end
     end
   end

@@ -5,6 +5,28 @@
 module Stripe
   module Issuing
     class CardCreateParams < ::Stripe::RequestParams
+      class LifecycleControls < ::Stripe::RequestParams
+        class CancelAfter < ::Stripe::RequestParams
+          # The card is automatically cancelled when it makes this number of non-zero payment authorizations and transactions. The count includes penny authorizations, but doesn't include non-payment actions, such as authorization advice.
+          sig { returns(Integer) }
+          def payment_count; end
+          sig { params(_payment_count: Integer).returns(Integer) }
+          def payment_count=(_payment_count); end
+          sig { params(payment_count: Integer).void }
+          def initialize(payment_count: nil); end
+        end
+        # Cancels the card after the specified conditions are met.
+        sig { returns(::Stripe::Issuing::CardCreateParams::LifecycleControls::CancelAfter) }
+        def cancel_after; end
+        sig {
+          params(_cancel_after: ::Stripe::Issuing::CardCreateParams::LifecycleControls::CancelAfter).returns(::Stripe::Issuing::CardCreateParams::LifecycleControls::CancelAfter)
+         }
+        def cancel_after=(_cancel_after); end
+        sig {
+          params(cancel_after: ::Stripe::Issuing::CardCreateParams::LifecycleControls::CancelAfter).void
+         }
+        def initialize(cancel_after: nil); end
+      end
       class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         sig { returns(T.nilable(String)) }
@@ -160,6 +182,13 @@ module Stripe
            }
           def initialize(amount: nil, categories: nil, interval: nil); end
         end
+        # Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def allowed_card_presences; end
+        sig {
+          params(_allowed_card_presences: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def allowed_card_presences=(_allowed_card_presences); end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def allowed_categories; end
@@ -174,6 +203,13 @@ module Stripe
           params(_allowed_merchant_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def allowed_merchant_countries=(_allowed_merchant_countries); end
+        # Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
+        sig { returns(T.nilable(T::Array[String])) }
+        def blocked_card_presences; end
+        sig {
+          params(_blocked_card_presences: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def blocked_card_presences=(_blocked_card_presences); end
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         sig { returns(T.nilable(T::Array[String])) }
         def blocked_categories; end
@@ -198,11 +234,13 @@ module Stripe
          }
         def spending_limits=(_spending_limits); end
         sig {
-          params(allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit])).void
+          params(allowed_card_presences: T.nilable(T::Array[String]), allowed_categories: T.nilable(T::Array[String]), allowed_merchant_countries: T.nilable(T::Array[String]), blocked_card_presences: T.nilable(T::Array[String]), blocked_categories: T.nilable(T::Array[String]), blocked_merchant_countries: T.nilable(T::Array[String]), spending_limits: T.nilable(T::Array[::Stripe::Issuing::CardCreateParams::SpendingControls::SpendingLimit])).void
          }
         def initialize(
+          allowed_card_presences: nil,
           allowed_categories: nil,
           allowed_merchant_countries: nil,
+          blocked_card_presences: nil,
           blocked_categories: nil,
           blocked_merchant_countries: nil,
           spending_limits: nil
@@ -238,6 +276,13 @@ module Stripe
       def financial_account; end
       sig { params(_financial_account: T.nilable(String)).returns(T.nilable(String)) }
       def financial_account=(_financial_account); end
+      # Rules that control the lifecycle of this card, such as automatic cancellation. Refer to our [documentation](/issuing/controls/lifecycle-controls) for more details.
+      sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls)) }
+      def lifecycle_controls; end
+      sig {
+        params(_lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls))
+       }
+      def lifecycle_controls=(_lifecycle_controls); end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -297,7 +342,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
+        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
        }
       def initialize(
         cardholder: nil,
@@ -306,6 +351,7 @@ module Stripe
         exp_year: nil,
         expand: nil,
         financial_account: nil,
+        lifecycle_controls: nil,
         metadata: nil,
         personalization_design: nil,
         pin: nil,

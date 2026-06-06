@@ -383,6 +383,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class NameCollection < ::Stripe::StripeObject
       class Business < ::Stripe::StripeObject
         # Indicates whether business name collection is enabled for the payment link.
@@ -478,6 +491,43 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class Card < ::Stripe::StripeObject
+        class Restrictions < ::Stripe::StripeObject
+          # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+          attr_reader :brands_blocked
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Restrictions to apply to the card payment method. For example, you can block specific card brands.
+        attr_reader :restrictions
+
+        def self.inner_class_types
+          @inner_class_types = { restrictions: Restrictions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configuration for `card` payment methods.
+      attr_reader :card
+
+      def self.inner_class_types
+        @inner_class_types = { card: Card }
       end
 
       def self.field_remappings
@@ -688,8 +738,10 @@ module Stripe
     attr_reader :invoice_creation
     # The line items representing what is being sold.
     attr_reader :line_items
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](/api/checkout/sessions/object), [PaymentIntents](/api/payment_intents/object), [Invoices](/api/invoices/object), and [Subscriptions](/api/subscriptions/object).
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field name_collection
@@ -704,6 +756,8 @@ module Stripe
     attr_reader :payment_intent_data
     # Configuration for collecting a payment method during checkout. Defaults to `always`.
     attr_reader :payment_method_collection
+    # Payment-method-specific configuration.
+    attr_reader :payment_method_options
     # The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     attr_reader :payment_method_types
     # Attribute for field phone_number_collection
@@ -773,9 +827,11 @@ module Stripe
         custom_fields: CustomField,
         custom_text: CustomText,
         invoice_creation: InvoiceCreation,
+        managed_payments: ManagedPayments,
         name_collection: NameCollection,
         optional_items: OptionalItem,
         payment_intent_data: PaymentIntentData,
+        payment_method_options: PaymentMethodOptions,
         phone_number_collection: PhoneNumberCollection,
         restrictions: Restrictions,
         shipping_address_collection: ShippingAddressCollection,

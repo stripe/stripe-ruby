@@ -12,6 +12,8 @@ module Stripe
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     def add_lines(invoice, params = {}, opts = {})
+      params = ::Stripe::InvoiceAddLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(invoice) }),
@@ -41,7 +43,7 @@ module Stripe
       )
     end
 
-    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](https://docs.stripe.com/api#finalize_invoice) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/pay) the invoice to your customers.
+    # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](/api/invoices/pay) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/finalize) the invoice to your customers.
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/invoices", params: params, opts: opts, base_address: :api)
     end
@@ -56,6 +58,8 @@ module Stripe
     #
     # Note: Currency conversion calculations use the latest exchange rates. Exchange rates may vary between the time of the preview and the time of the actual invoice creation. [Learn more](https://docs.stripe.com/currencies/conversions)
     def create_preview(params = {}, opts = {})
+      params = ::Stripe::InvoiceCreatePreviewParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/invoices/create_preview",
@@ -65,7 +69,7 @@ module Stripe
       )
     end
 
-    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api#void_invoice).
+    # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
     def delete(invoice, params = {}, opts = {})
       request(
         method: :delete,
@@ -181,6 +185,8 @@ module Stripe
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
     def update_lines(invoice, params = {}, opts = {})
+      params = ::Stripe::InvoiceUpdateLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(invoice) }),
@@ -190,9 +196,9 @@ module Stripe
       )
     end
 
-    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+    # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
-    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="#create_credit_note">credit note](https://docs.stripe.com/api#create_invoice) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
+    # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="/api/credit_notes/create">credit note](https://docs.stripe.com/api/invoices/create) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     def void_invoice(invoice, params = {}, opts = {})
       request(
         method: :post,

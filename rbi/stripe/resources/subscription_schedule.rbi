@@ -243,6 +243,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        sig { returns(T.nilable(T::Boolean)) }
+        def discountable; end
         # The stackable discounts that will be applied to the item.
         sig { returns(T::Array[Discount]) }
         def discounts; end
@@ -540,7 +543,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

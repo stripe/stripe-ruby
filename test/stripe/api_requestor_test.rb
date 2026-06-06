@@ -317,6 +317,14 @@ module Stripe
                                           num_retries: 0)
       end
 
+      should "retry on Net::HTTPFatalError" do
+        response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+        error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+        assert APIRequestor.should_retry?(error,
+                                          num_retries: 0)
+      end
+
       should "retry on SocketError" do
         assert APIRequestor.should_retry?(SocketError.new,
                                           num_retries: 0)
@@ -797,6 +805,9 @@ module Stripe
         context "app_info" do
           should "send app_info if set" do
             old = Stripe.app_info
+
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("")
+
             Stripe.set_app_info(
               "MyAwesomePlugin",
               partner_id: "partner_1234",
@@ -829,6 +840,26 @@ module Stripe
                         &@read_body_chunk_block)
           ensure
             Stripe.app_info = old
+          end
+        end
+
+        context "ai_agent" do
+          should "include AI agent in request headers" do
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("cursor")
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                assert_match(%r{AIAgent/cursor$}, req.headers["User-Agent"])
+
+                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"])
+                assert_equal "cursor", data["ai_agent"]
+
+                true
+              end.to_return(body: JSON.generate(object: "account"))
+
+            client = APIRequestor.new("sk_test_123")
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
           end
         end
 
@@ -1155,6 +1186,23 @@ module Stripe
             assert_match(/Request was retried 2 times/, err.message)
           end
 
+          should "retry Net::HTTPFatalError failures and raise APIConnectionError if error persists" do
+            APIRequestor.expects(:sleep_time).at_least_once.returns(0)
+
+            response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+            error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+              .to_raise(error)
+
+            client = APIRequestor.new("sk_test_123")
+            err = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges", :api,
+                          &@read_body_chunk_block)
+            end
+            assert_match(/Request was retried 2 times/, err.message)
+          end
+
           should "retry failed requests and return successful response" do
             APIRequestor.expects(:sleep_time).at_least_once.returns(0)
 
@@ -1264,6 +1312,29 @@ module Stripe
     end
 
     context "#execute_request" do
+      context "Stripe-Notice header" do
+        should "emit a warning when the header is present" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(
+              body: JSON.generate(object: "charge"),
+              headers: { "Stripe-Notice" => "This is a notice" }
+            )
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).with("WARNING: This is a notice")
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+
+        should "not emit a warning when the header is absent" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(body: JSON.generate(object: "charge"))
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).never
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+      end
+
       should "handle success response with empty body" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
           .to_return(body: "", status: 200)
@@ -1712,26 +1783,65 @@ module Stripe
   end
 
   class SystemProfilerTest < Test::Unit::TestCase
-    context "#uname" do
-      should "run without failure" do
-        # Don't actually check the result because we try a variety of different
-        # strategies that will have different results depending on where this
-        # test and running. We're mostly making sure that no exception is thrown.
-        _ = APIRequestor::SystemProfiler.uname
+    context ".user_agent" do
+      should "omit platform when telemetry is disabled" do
+        Stripe.enable_telemetry = false
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_nil ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "include platform when telemetry is enabled" do
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal RUBY_PLATFORM, ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "omit source when UNAME_HASH is empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:source)
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
+      end
+
+      should "include source when UNAME_HASH is non-empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "abc123")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal "abc123", ua[:source]
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
       end
     end
 
-    context "#uname_from_system" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system
+    context ".detect_ai_agent" do
+      should "detect agent when env var is set" do
+        assert_equal "claude_code", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "1" })
       end
-    end
 
-    context "#uname_from_system_ver" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system_ver
+      should "return empty string when no agent env vars are set" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({})
+      end
+
+      should "return first matching agent when multiple env vars are set" do
+        assert_equal "cursor", APIRequestor::SystemProfiler.detect_ai_agent({ "CURSOR_AGENT" => "1", "OPENCODE" => "1" })
+      end
+
+      should "ignore empty string env vars" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "" })
       end
     end
   end

@@ -464,6 +464,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Bizum < ::Stripe::StripeObject
+        # The Bizum transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Blik < ::Stripe::StripeObject
         # A unique and immutable identifier assigned by BLIK to every buyer.
         sig { returns(T.nilable(String)) }
@@ -547,6 +558,18 @@ module Stripe
           # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
           sig { returns(T.nilable(String)) }
           def authentication_flow; end
+          # The 3D Secure cryptogram, also known as the "authentication value" (AAV, CAVV or AEVV).
+          sig { returns(T.nilable(String)) }
+          def cryptogram; end
+          # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+          sig { returns(T.nilable(String)) }
+          def electronic_commerce_indicator; end
+          # The exemption requested via 3DS and accepted by the issuer at authentication time.
+          sig { returns(T.nilable(String)) }
+          def exemption_indicator; end
+          # Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on the outcome of Stripe's internal risk assessment.
+          sig { returns(T.nilable(T::Boolean)) }
+          def exemption_indicator_applied; end
           # Indicates the outcome of 3D Secure authentication.
           sig { returns(T.nilable(String)) }
           def result; end
@@ -606,7 +629,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def authorization_code; end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def brand; end
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
         sig { returns(T.nilable(Integer)) }
@@ -621,10 +644,10 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def description; end
         # Two-digit number representing the card's expiration month.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def exp_month; end
         # Four-digit number representing the card's expiration year.
-        sig { returns(Integer) }
+        sig { returns(T.nilable(Integer)) }
         def exp_year; end
         # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
         #
@@ -632,7 +655,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def fingerprint; end
         # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def funding; end
         # Issuer identification number of the card.
         sig { returns(T.nilable(String)) }
@@ -644,7 +667,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def issuer; end
         # The last four digits of the card.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def last4; end
         # True if this payment was marked as MOTO and out of scope for SCA.
         sig { returns(T.nilable(T::Boolean)) }
@@ -897,12 +920,10 @@ module Stripe
         end
       end
       class Eps < ::Stripe::StripeObject
-        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
+        # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`
         sig { returns(T.nilable(String)) }
         def bank; end
-        # Owner's verified full name. Values are verified or provided by EPS directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # EPS rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by EPS directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. EPS rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -979,8 +1000,7 @@ module Stripe
         # Unique transaction ID generated by iDEAL.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
-        # Owner's verified full name. Values are verified or provided by iDEAL directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+        # Owner's verified full name. Values are verified or provided by iDEAL directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -1132,17 +1152,21 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
         # The payer details for this transaction.
         sig { returns(T.nilable(PayerDetails)) }
         def payer_details; end
-        # The Klarna payment method used for this transaction.
-        # Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
+        # The Klarna payment method used for this transaction. Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
         sig { returns(T.nilable(String)) }
         def payment_method_category; end
-        # Preferred language of the Klarna authorization page that the customer is redirected to.
-        # Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
+        # Preferred language of the Klarna authorization page that the customer is redirected to. Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
         sig { returns(T.nilable(String)) }
         def preferred_locale; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         def self.inner_class_types
           @inner_class_types = {payer_details: PayerDetails}
         end
@@ -1193,8 +1217,7 @@ module Stripe
         end
       end
       class Link < ::Stripe::StripeObject
-        # Two-letter ISO code representing the funding source country beneath the Link payment.
-        # You could use this attribute to get a sense of international fees.
+        # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
         def self.inner_class_types
@@ -1321,9 +1344,7 @@ module Stripe
         # Unique reference for this Przelewy24 payment.
         sig { returns(T.nilable(String)) }
         def reference; end
-        # Owner's verified full name. Values are verified or provided by Przelewy24 directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-        # Przelewy24 rarely provides this information so the attribute is usually empty.
+        # Owner's verified full name. Values are verified or provided by Przelewy24 directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. Przelewy24 rarely provides this information so the attribute is usually empty.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -1438,6 +1459,9 @@ module Stripe
         # Unique transaction id generated by BCB
         sig { returns(T.nilable(String)) }
         def bank_transaction_id; end
+        # ID of the multi use Mandate generated by the PaymentIntent
+        sig { returns(T.nilable(String)) }
+        def mandate; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1487,7 +1511,7 @@ module Stripe
           # Attribute for field card
           sig { returns(T.nilable(Card)) }
           def card; end
-          # funding type of the underlying payment method.
+          # Funding type of the underlying payment method.
           sig { returns(T.nilable(String)) }
           def type; end
           def self.inner_class_types
@@ -1526,6 +1550,17 @@ module Stripe
       end
       class Satispay < ::Stripe::StripeObject
         # The Satispay transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Scalapay < ::Stripe::StripeObject
+        # The Scalapay transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
         def self.inner_class_types
@@ -1603,12 +1638,10 @@ module Stripe
         # Last four characters of the IBAN.
         sig { returns(T.nilable(String)) }
         def iban_last4; end
-        # Preferred language of the SOFORT authorization page that the customer is redirected to.
-        # Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
+        # Preferred language of the SOFORT authorization page that the customer is redirected to. Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
         sig { returns(T.nilable(String)) }
         def preferred_language; end
-        # Owner's verified full name. Values are verified or provided by SOFORT directly
-        # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+        # Owner's verified full name. Values are verified or provided by SOFORT directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         sig { returns(T.nilable(String)) }
         def verified_name; end
         def self.inner_class_types
@@ -1619,6 +1652,17 @@ module Stripe
         end
       end
       class StripeAccount < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sunbit < ::Stripe::StripeObject
+        # The Sunbit transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1644,6 +1688,20 @@ module Stripe
         end
       end
       class Twint < ::Stripe::StripeObject
+        # ID of the multi use Mandate generated by the PaymentIntent
+        sig { returns(T.nilable(String)) }
+        def mandate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Upi < ::Stripe::StripeObject
+        # Customer's unique Virtual Payment Address.
+        sig { returns(T.nilable(String)) }
+        def vpa; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1761,6 +1819,9 @@ module Stripe
       # The billing details associated with the method of payment.
       sig { returns(T.nilable(BillingDetails)) }
       def billing_details; end
+      # Attribute for field bizum
+      sig { returns(T.nilable(Bizum)) }
+      def bizum; end
       # Attribute for field blik
       sig { returns(T.nilable(Blik)) }
       def blik; end
@@ -1874,6 +1935,9 @@ module Stripe
       # Attribute for field satispay
       sig { returns(T.nilable(Satispay)) }
       def satispay; end
+      # Attribute for field scalapay
+      sig { returns(T.nilable(Scalapay)) }
+      def scalapay; end
       # Attribute for field sepa_credit_transfer
       sig { returns(T.nilable(SepaCreditTransfer)) }
       def sepa_credit_transfer; end
@@ -1886,6 +1950,9 @@ module Stripe
       # Attribute for field stripe_account
       sig { returns(T.nilable(StripeAccount)) }
       def stripe_account; end
+      # Attribute for field sunbit
+      sig { returns(T.nilable(Sunbit)) }
+      def sunbit; end
       # Attribute for field swish
       sig { returns(T.nilable(Swish)) }
       def swish; end
@@ -1897,6 +1964,9 @@ module Stripe
       # It contains information specific to the payment method.
       sig { returns(String) }
       def type; end
+      # Attribute for field upi
+      sig { returns(T.nilable(Upi)) }
+      def upi; end
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
@@ -1924,6 +1994,7 @@ module Stripe
           bancontact: Bancontact,
           billie: Billie,
           billing_details: BillingDetails,
+          bizum: Bizum,
           blik: Blik,
           boleto: Boleto,
           card: Card,
@@ -1960,12 +2031,15 @@ module Stripe
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
           satispay: Satispay,
+          scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_account: StripeAccount,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
+          upi: Upi,
           us_bank_account: UsBankAccount,
           wechat: Wechat,
           wechat_pay: WechatPay,
@@ -2085,7 +2159,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

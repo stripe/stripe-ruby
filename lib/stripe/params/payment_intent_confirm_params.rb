@@ -133,9 +133,9 @@ module Stripe
       class Shipping < ::Stripe::RequestParams
         # If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
         attr_accessor :amount
-        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_accessor :from_postal_code
-        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+        # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_accessor :to_postal_code
 
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil)
@@ -258,8 +258,6 @@ module Stripe
       attr_accessor :customer_reference
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
-      # Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
-      #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
 
@@ -369,6 +367,7 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams; end
 
       class Boleto < ::Stripe::RequestParams
@@ -536,6 +535,7 @@ module Stripe
       class RevolutPay < ::Stripe::RequestParams; end
       class SamsungPay < ::Stripe::RequestParams; end
       class Satispay < ::Stripe::RequestParams; end
+      class Scalapay < ::Stripe::RequestParams; end
 
       class SepaDebit < ::Stripe::RequestParams
         # IBAN of the bank account.
@@ -555,8 +555,35 @@ module Stripe
         end
       end
 
+      class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
+
+      class Upi < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments.
+          attr_accessor :amount
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          attr_accessor :amount_type
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          attr_accessor :description
+          # End date of the mandate or subscription.
+          attr_accessor :end_date
+
+          def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+            @amount = amount
+            @amount_type = amount_type
+            @description = description
+            @end_date = end_date
+          end
+        end
+        # Configuration options for setting up an eMandate
+        attr_accessor :mandate_options
+
+        def initialize(mandate_options: nil)
+          @mandate_options = mandate_options
+        end
+      end
 
       class UsBankAccount < ::Stripe::RequestParams
         # Account holder type: individual or company.
@@ -611,6 +638,8 @@ module Stripe
       attr_accessor :billie
       # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
       attr_accessor :billing_details
+      # If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+      attr_accessor :bizum
       # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
       attr_accessor :blik
       # If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
@@ -641,7 +670,7 @@ module Stripe
       attr_accessor :konbini
       # If this is a `kr_card` PaymentMethod, this hash contains details about the Korean Card payment method.
       attr_accessor :kr_card
-      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+      # If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a MB WAY PaymentMethod, this hash contains details about the MB WAY payment method.
       attr_accessor :mb_way
@@ -681,16 +710,22 @@ module Stripe
       attr_accessor :samsung_pay
       # If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
       attr_accessor :satispay
+      # If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+      attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
+      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
       attr_accessor :type
+      # If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
+      attr_accessor :upi
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       attr_accessor :us_bank_account
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
@@ -711,6 +746,7 @@ module Stripe
         bancontact: nil,
         billie: nil,
         billing_details: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         cashapp: nil,
@@ -746,11 +782,14 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         sofort: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         type: nil,
+        upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
         zip: nil
@@ -767,6 +806,7 @@ module Stripe
         @bancontact = bancontact
         @billie = billie
         @billing_details = billing_details
+        @bizum = bizum
         @blik = blik
         @boleto = boleto
         @cashapp = cashapp
@@ -802,11 +842,14 @@ module Stripe
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
+        @scalapay = scalapay
         @sepa_debit = sepa_debit
         @sofort = sofort
+        @sunbit = sunbit
         @swish = swish
         @twint = twint
         @type = type
+        @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
@@ -853,7 +896,7 @@ module Stripe
         attr_accessor :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_accessor :target_date
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_accessor :verification_method
 
         def initialize(
@@ -1060,6 +1103,8 @@ module Stripe
         end
       end
 
+      class Bizum < ::Stripe::RequestParams; end
+
       class Blik < ::Stripe::RequestParams
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         attr_accessor :code
@@ -1132,7 +1177,7 @@ module Stripe
         end
 
         class MandateOptions < ::Stripe::RequestParams
-          # Amount to be charged for future payments.
+          # Amount to be charged for future payments, specified in the presentment currency.
           attr_accessor :amount
           # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
           attr_accessor :amount_type
@@ -2012,12 +2057,52 @@ module Stripe
       end
 
       class Pix < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+          attr_accessor :amount
+          # Determines if the amount includes the IOF tax. Defaults to `never`.
+          attr_accessor :amount_includes_iof
+          # Type of amount. Defaults to `maximum`.
+          attr_accessor :amount_type
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+          attr_accessor :currency
+          # Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+          attr_accessor :end_date
+          # Schedule at which the future payments will be charged. Defaults to `monthly`.
+          attr_accessor :payment_schedule
+          # Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+          attr_accessor :reference
+          # Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
+          attr_accessor :start_date
+
+          def initialize(
+            amount: nil,
+            amount_includes_iof: nil,
+            amount_type: nil,
+            currency: nil,
+            end_date: nil,
+            payment_schedule: nil,
+            reference: nil,
+            start_date: nil
+          )
+            @amount = amount
+            @amount_includes_iof = amount_includes_iof
+            @amount_type = amount_type
+            @currency = currency
+            @end_date = end_date
+            @payment_schedule = payment_schedule
+            @reference = reference
+            @start_date = start_date
+          end
+        end
         # Determines if the amount includes the IOF tax. Defaults to `never`.
         attr_accessor :amount_includes_iof
         # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
         attr_accessor :expires_after_seconds
         # The timestamp at which the Pix expires (between 10 and 1209600 seconds in the future). Defaults to 1 day in the future.
         attr_accessor :expires_at
+        # Additional fields for mandate creation. Only applicable when `setup_future_usage=off_session`.
+        attr_accessor :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2025,19 +2110,19 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        #
-        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
         def initialize(
           amount_includes_iof: nil,
           expires_after_seconds: nil,
           expires_at: nil,
+          mandate_options: nil,
           setup_future_usage: nil
         )
           @amount_includes_iof = amount_includes_iof
           @expires_after_seconds = expires_after_seconds
           @expires_at = expires_at
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end
@@ -2095,6 +2180,19 @@ module Stripe
       end
 
       class Satispay < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+
+        def initialize(capture_method: nil)
+          @capture_method = capture_method
+        end
+      end
+
+      class Scalapay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -2195,6 +2293,35 @@ module Stripe
         end
       end
 
+      class Upi < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Amount to be charged for future payments.
+          attr_accessor :amount
+          # One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+          attr_accessor :amount_type
+          # A description of the mandate or subscription that is meant to be displayed to the customer.
+          attr_accessor :description
+          # End date of the mandate or subscription.
+          attr_accessor :end_date
+
+          def initialize(amount: nil, amount_type: nil, description: nil, end_date: nil)
+            @amount = amount
+            @amount_type = amount_type
+            @description = description
+            @end_date = end_date
+          end
+        end
+        # Configuration options for setting up an eMandate
+        attr_accessor :mandate_options
+        # Attribute for param field setup_future_usage
+        attr_accessor :setup_future_usage
+
+        def initialize(mandate_options: nil, setup_future_usage: nil)
+          @mandate_options = mandate_options
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class UsBankAccount < ::Stripe::RequestParams
         class FinancialConnections < ::Stripe::RequestParams
           class Filters < ::Stripe::RequestParams
@@ -2259,10 +2386,8 @@ module Stripe
         attr_accessor :target_date
         # The purpose of the transaction.
         attr_accessor :transaction_purpose
-        # Bank account verification method.
+        # Bank account verification method. The default value is `automatic`.
         attr_accessor :verification_method
-        # Preferred transaction settlement speed
-        attr_accessor :preferred_settlement_speed
 
         def initialize(
           financial_connections: nil,
@@ -2271,8 +2396,7 @@ module Stripe
           setup_future_usage: nil,
           target_date: nil,
           transaction_purpose: nil,
-          verification_method: nil,
-          preferred_settlement_speed: nil
+          verification_method: nil
         )
           @financial_connections = financial_connections
           @mandate_options = mandate_options
@@ -2281,7 +2405,6 @@ module Stripe
           @target_date = target_date
           @transaction_purpose = transaction_purpose
           @verification_method = verification_method
-          @preferred_settlement_speed = preferred_settlement_speed
         end
       end
 
@@ -2344,6 +2467,8 @@ module Stripe
       attr_accessor :bancontact
       # If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
       attr_accessor :billie
+      # If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+      attr_accessor :bizum
       # If this is a `blik` PaymentMethod, this sub-hash contains details about the BLIK payment method options.
       attr_accessor :blik
       # If this is a `boleto` PaymentMethod, this sub-hash contains details about the Boleto payment method options.
@@ -2378,7 +2503,7 @@ module Stripe
       attr_accessor :konbini
       # If this is a `kr_card` PaymentMethod, this sub-hash contains details about the KR Card payment method options.
       attr_accessor :kr_card
-      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+      # If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
       attr_accessor :link
       # If this is a `mb_way` PaymentMethod, this sub-hash contains details about the MB WAY payment method options.
       attr_accessor :mb_way
@@ -2414,6 +2539,8 @@ module Stripe
       attr_accessor :samsung_pay
       # If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
       attr_accessor :satispay
+      # If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
+      attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
       # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
@@ -2422,6 +2549,8 @@ module Stripe
       attr_accessor :swish
       # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
       attr_accessor :twint
+      # If this is a `upi` PaymentIntent, this sub-hash contains details about the UPI payment method options.
+      attr_accessor :upi
       # If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
       attr_accessor :us_bank_account
       # If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
@@ -2440,6 +2569,7 @@ module Stripe
         bacs_debit: nil,
         bancontact: nil,
         billie: nil,
+        bizum: nil,
         blik: nil,
         boleto: nil,
         card: nil,
@@ -2475,10 +2605,12 @@ module Stripe
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
+        scalapay: nil,
         sepa_debit: nil,
         sofort: nil,
         swish: nil,
         twint: nil,
+        upi: nil,
         us_bank_account: nil,
         wechat_pay: nil,
         zip: nil
@@ -2493,6 +2625,7 @@ module Stripe
         @bacs_debit = bacs_debit
         @bancontact = bancontact
         @billie = billie
+        @bizum = bizum
         @blik = blik
         @boleto = boleto
         @card = card
@@ -2528,10 +2661,12 @@ module Stripe
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
+        @scalapay = scalapay
         @sepa_debit = sepa_debit
         @sofort = sofort
         @swish = swish
         @twint = twint
+        @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
@@ -2599,6 +2734,8 @@ module Stripe
     end
     # Provides industry-specific information about the amount.
     attr_accessor :amount_details
+    # Amount to confirm on the PaymentIntent. Defaults to `amount` if not provided.
+    attr_accessor :amount_to_confirm
     # Controls when the funds will be captured from the customer's account.
     attr_accessor :capture_method
     # ID of the ConfirmationToken used to confirm this PaymentIntent.
@@ -2617,7 +2754,7 @@ module Stripe
     attr_accessor :mandate
     # Attribute for param field mandate_data
     attr_accessor :mandate_data
-    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards).
+    # Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect payment method details and [charge them later](https://docs.stripe.com/payments/save-during-payment).
     attr_accessor :off_session
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
@@ -2657,6 +2794,7 @@ module Stripe
 
     def initialize(
       amount_details: nil,
+      amount_to_confirm: nil,
       capture_method: nil,
       confirmation_token: nil,
       error_on_requires_action: nil,
@@ -2679,6 +2817,7 @@ module Stripe
       use_stripe_sdk: nil
     )
       @amount_details = amount_details
+      @amount_to_confirm = amount_to_confirm
       @capture_method = capture_method
       @confirmation_token = confirmation_token
       @error_on_requires_action = error_on_requires_action

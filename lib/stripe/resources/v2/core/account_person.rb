@@ -295,6 +295,10 @@ module Stripe
           def self.field_remappings
             @field_remappings = {}
           end
+
+          def self.field_encodings
+            @field_encodings = { percent_ownership: :decimal_string }
+          end
         end
 
         class ScriptAddresses < ::Stripe::StripeObject
@@ -430,6 +434,8 @@ module Stripe
         attr_reader :id_numbers
         # The person's gender (International regulations require either "male" or "female").
         attr_reader :legal_gender
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
         # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_reader :metadata
         # The countries where the person is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -450,8 +456,6 @@ module Stripe
         attr_reader :surname
         # Time at which the object was last updated. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         attr_reader :updated
-        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-        attr_reader :livemode
 
         def self.inner_class_types
           @inner_class_types = {
@@ -470,6 +474,12 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+          }
         end
       end
     end

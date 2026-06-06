@@ -52,6 +52,10 @@ module Stripe
             def initialize(gross_amount_decimal: nil)
               @gross_amount_decimal = gross_amount_decimal
             end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
+            end
           end
 
           class NonFuel < ::Stripe::RequestParams
@@ -60,6 +64,10 @@ module Stripe
 
             def initialize(gross_amount_decimal: nil)
               @gross_amount_decimal = gross_amount_decimal
+            end
+
+            def self.field_encodings
+              @field_encodings = { gross_amount_decimal: :decimal_string }
             end
           end
 
@@ -73,6 +81,13 @@ module Stripe
               @local_amount_decimal = local_amount_decimal
               @national_amount_decimal = national_amount_decimal
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                local_amount_decimal: :decimal_string,
+                national_amount_decimal: :decimal_string,
+              }
+            end
           end
           # Breakdown of fuel portion of the purchase.
           attr_accessor :fuel
@@ -85,6 +100,20 @@ module Stripe
             @fuel = fuel
             @non_fuel = non_fuel
             @tax = tax
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              tax: {
+                kind: :object,
+                fields: {
+                  local_amount_decimal: :decimal_string,
+                  national_amount_decimal: :decimal_string,
+                },
+              },
+            }
           end
         end
         # Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
@@ -106,6 +135,25 @@ module Stripe
           @purchase_type = purchase_type
           @reported_breakdown = reported_breakdown
           @service_type = service_type
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            reported_breakdown: {
+              kind: :object,
+              fields: {
+                fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                tax: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: :decimal_string,
+                    national_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+            },
+          }
         end
       end
 
@@ -133,6 +181,10 @@ module Stripe
           @type = type
           @unit = unit
           @unit_cost_decimal = unit_cost_decimal
+        end
+
+        def self.field_encodings
+          @field_encodings = { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string }
         end
       end
 
@@ -195,16 +247,16 @@ module Stripe
           # The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
           attr_accessor :invalid_credentials_decline_rate_past_hour
           # The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
-          attr_accessor :risk_level
+          attr_accessor :level
 
           def initialize(
             invalid_account_number_decline_rate_past_hour: nil,
             invalid_credentials_decline_rate_past_hour: nil,
-            risk_level: nil
+            level: nil
           )
             @invalid_account_number_decline_rate_past_hour = invalid_account_number_decline_rate_past_hour
             @invalid_credentials_decline_rate_past_hour = invalid_credentials_decline_rate_past_hour
-            @risk_level = risk_level
+            @level = level
           end
         end
 
@@ -224,11 +276,11 @@ module Stripe
           # The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
           attr_accessor :dispute_rate
           # The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
-          attr_accessor :risk_level
+          attr_accessor :level
 
-          def initialize(dispute_rate: nil, risk_level: nil)
+          def initialize(dispute_rate: nil, level: nil)
             @dispute_rate = dispute_rate
-            @risk_level = risk_level
+            @level = level
           end
         end
         # Stripe's assessment of this authorization's likelihood of being card testing activity.
@@ -366,6 +418,34 @@ module Stripe
         @risk_assessment = risk_assessment
         @verification_data = verification_data
         @wallet = wallet
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          fleet: {
+            kind: :object,
+            fields: {
+              reported_breakdown: {
+                kind: :object,
+                fields: {
+                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+                  tax: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: :decimal_string,
+                      national_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          fuel: {
+            kind: :object,
+            fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+          },
+        }
       end
     end
   end

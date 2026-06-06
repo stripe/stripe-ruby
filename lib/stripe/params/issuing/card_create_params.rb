@@ -4,6 +4,23 @@
 module Stripe
   module Issuing
     class CardCreateParams < ::Stripe::RequestParams
+      class LifecycleControls < ::Stripe::RequestParams
+        class CancelAfter < ::Stripe::RequestParams
+          # The card is automatically cancelled when it makes this number of non-zero payment authorizations and transactions. The count includes penny authorizations, but doesn't include non-payment actions, such as authorization advice.
+          attr_accessor :payment_count
+
+          def initialize(payment_count: nil)
+            @payment_count = payment_count
+          end
+        end
+        # Cancels the card after the specified conditions are met.
+        attr_accessor :cancel_after
+
+        def initialize(cancel_after: nil)
+          @cancel_after = cancel_after
+        end
+      end
+
       class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         attr_accessor :encrypted_number
@@ -115,10 +132,14 @@ module Stripe
             @interval = interval
           end
         end
+        # Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        attr_accessor :allowed_card_presences
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         attr_accessor :allowed_categories
         # Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
         attr_accessor :allowed_merchant_countries
+        # Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
+        attr_accessor :blocked_card_presences
         # Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         attr_accessor :blocked_categories
         # Array of strings containing representing countries from which authorizations will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `allowed_merchant_countries`. Provide an empty value to unset this control.
@@ -127,14 +148,18 @@ module Stripe
         attr_accessor :spending_limits
 
         def initialize(
+          allowed_card_presences: nil,
           allowed_categories: nil,
           allowed_merchant_countries: nil,
+          blocked_card_presences: nil,
           blocked_categories: nil,
           blocked_merchant_countries: nil,
           spending_limits: nil
         )
+          @allowed_card_presences = allowed_card_presences
           @allowed_categories = allowed_categories
           @allowed_merchant_countries = allowed_merchant_countries
+          @blocked_card_presences = blocked_card_presences
           @blocked_categories = blocked_categories
           @blocked_merchant_countries = blocked_merchant_countries
           @spending_limits = spending_limits
@@ -152,6 +177,8 @@ module Stripe
       attr_accessor :expand
       # The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
       attr_accessor :financial_account
+      # Rules that control the lifecycle of this card, such as automatic cancellation. Refer to our [documentation](/issuing/controls/lifecycle-controls) for more details.
+      attr_accessor :lifecycle_controls
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
       # The personalization design object belonging to this card.
@@ -180,6 +207,7 @@ module Stripe
         exp_year: nil,
         expand: nil,
         financial_account: nil,
+        lifecycle_controls: nil,
         metadata: nil,
         personalization_design: nil,
         pin: nil,
@@ -197,6 +225,7 @@ module Stripe
         @exp_year = exp_year
         @expand = expand
         @financial_account = financial_account
+        @lifecycle_controls = lifecycle_controls
         @metadata = metadata
         @personalization_design = personalization_design
         @pin = pin

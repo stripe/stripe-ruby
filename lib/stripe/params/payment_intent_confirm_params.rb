@@ -3200,6 +3200,18 @@ module Stripe
       end
 
       class Card < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          attr_accessor :days
+          # Attribute for param field hours
+          attr_accessor :hours
+
+          def initialize(days: nil, hours: nil)
+            @days = days
+            @hours = hours
+          end
+        end
+
         class Installments < ::Stripe::RequestParams
           class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
@@ -3276,35 +3288,6 @@ module Stripe
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class LiquidAsset < ::Stripe::RequestParams
-                class Crypto < ::Stripe::RequestParams
-                  # The cryptocurrency currency code (e.g. BTC, ETH).
-                  attr_accessor :currency_code
-
-                  def initialize(currency_code: nil)
-                    @currency_code = currency_code
-                  end
-                end
-
-                class Security < ::Stripe::RequestParams
-                  # The security's ticker symbol (e.g. AAPL).
-                  attr_accessor :ticker_symbol
-
-                  def initialize(ticker_symbol: nil)
-                    @ticker_symbol = ticker_symbol
-                  end
-                end
-                # Details for a cryptocurrency liquid asset funding transaction.
-                attr_accessor :crypto
-                # Details for a security liquid asset funding transaction.
-                attr_accessor :security
-
-                def initialize(crypto: nil, security: nil)
-                  @crypto = crypto
-                  @security = security
-                end
-              end
-
               class Wallet < ::Stripe::RequestParams
                 class StagedPurchase < ::Stripe::RequestParams
                   class Merchant < ::Stripe::RequestParams
@@ -3334,14 +3317,11 @@ module Stripe
               end
               # The category of digital asset being acquired through this account funding transaction.
               attr_accessor :digital_asset_category
-              # Details for a liquid asset (crypto or security) funding transaction.
-              attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, wallet: nil)
                 @digital_asset_category = digital_asset_category
-                @liquid_asset = liquid_asset
                 @wallet = wallet
               end
             end
@@ -3476,6 +3456,14 @@ module Stripe
             @version = version
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_accessor :capture_by
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -3537,6 +3525,8 @@ module Stripe
         attr_accessor :three_d_secure
 
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           cvc_token: nil,
           installments: nil,
@@ -3559,6 +3549,8 @@ module Stripe
           statement_details: nil,
           three_d_secure: nil
         )
+          @capture_by = capture_by
+          @capture_delay = capture_delay
           @capture_method = capture_method
           @cvc_token = cvc_token
           @installments = installments
@@ -3584,38 +3576,21 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          attr_accessor :days
+          # Attribute for param field hours
+          attr_accessor :hours
+
+          def initialize(days: nil, hours: nil)
+            @days = days
+            @hours = hours
+          end
+        end
+
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class LiquidAsset < ::Stripe::RequestParams
-                class Crypto < ::Stripe::RequestParams
-                  # The cryptocurrency currency code (e.g. BTC, ETH).
-                  attr_accessor :currency_code
-
-                  def initialize(currency_code: nil)
-                    @currency_code = currency_code
-                  end
-                end
-
-                class Security < ::Stripe::RequestParams
-                  # The security's ticker symbol (e.g. AAPL).
-                  attr_accessor :ticker_symbol
-
-                  def initialize(ticker_symbol: nil)
-                    @ticker_symbol = ticker_symbol
-                  end
-                end
-                # Details for a cryptocurrency liquid asset funding transaction.
-                attr_accessor :crypto
-                # Details for a security liquid asset funding transaction.
-                attr_accessor :security
-
-                def initialize(crypto: nil, security: nil)
-                  @crypto = crypto
-                  @security = security
-                end
-              end
-
               class Wallet < ::Stripe::RequestParams
                 class StagedPurchase < ::Stripe::RequestParams
                   class Merchant < ::Stripe::RequestParams
@@ -3645,14 +3620,11 @@ module Stripe
               end
               # The category of digital asset being acquired through this account funding transaction.
               attr_accessor :digital_asset_category
-              # Details for a liquid asset (crypto or security) funding transaction.
-              attr_accessor :liquid_asset
               # Details for a wallet funding transaction.
               attr_accessor :wallet
 
-              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil)
+              def initialize(digital_asset_category: nil, wallet: nil)
                 @digital_asset_category = digital_asset_category
-                @liquid_asset = liquid_asset
                 @wallet = wallet
               end
             end
@@ -3679,6 +3651,14 @@ module Stripe
             @requested_priority = requested_priority
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_accessor :capture_by
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -3691,23 +3671,31 @@ module Stripe
         attr_accessor :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_accessor :request_incremental_authorization_support
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_accessor :request_multicapture
         # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
         attr_accessor :request_reauthorization
         # Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
         attr_accessor :routing
 
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
+          request_multicapture: nil,
           request_reauthorization: nil,
           routing: nil
         )
+          @capture_by = capture_by
+          @capture_delay = capture_delay
           @capture_method = capture_method
           @payment_details = payment_details
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization_support = request_incremental_authorization_support
+          @request_multicapture = request_multicapture
           @request_reauthorization = request_reauthorization
           @routing = routing
         end
@@ -3852,7 +3840,24 @@ module Stripe
         end
       end
 
-      class GiftCard < ::Stripe::RequestParams; end
+      class GiftCard < ::Stripe::RequestParams
+        # Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+        attr_accessor :ignore_application_fee
+        # Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+        attr_accessor :ignore_transfer_data
+        # Request partial authorization on this PaymentIntent.
+        attr_accessor :request_partial_authorization
+
+        def initialize(
+          ignore_application_fee: nil,
+          ignore_transfer_data: nil,
+          request_partial_authorization: nil
+        )
+          @ignore_application_fee = ignore_application_fee
+          @ignore_transfer_data = ignore_transfer_data
+          @request_partial_authorization = request_partial_authorization
+        end
+      end
 
       class Giropay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.

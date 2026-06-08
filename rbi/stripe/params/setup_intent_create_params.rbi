@@ -2136,11 +2136,11 @@ module Stripe
           sig { params(_enabled: T.nilable(String)).returns(T.nilable(String)) }
           def enabled=(_enabled); end
           # The 14-digit SIRET of the meal voucher acceptor.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def siret; end
-          sig { params(_siret: String).returns(String) }
+          sig { params(_siret: T.nilable(String)).returns(T.nilable(String)) }
           def siret=(_siret); end
-          sig { params(enabled: T.nilable(String), siret: String).void }
+          sig { params(enabled: T.nilable(String), siret: T.nilable(String)).void }
           def initialize(enabled: nil, siret: nil); end
         end
         # French meal voucher benefit details for this SetupIntent.

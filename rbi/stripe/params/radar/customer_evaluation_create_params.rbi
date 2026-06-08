@@ -7,13 +7,45 @@ module Stripe
     class CustomerEvaluationCreateParams < ::Stripe::RequestParams
       class EvaluationContext < ::Stripe::RequestParams
         class ClientDetails < ::Stripe::RequestParams
-          # ID for the Radar Session associated with the customer evaluation.
-          sig { returns(String) }
+          class Data < ::Stripe::RequestParams
+            # The end user's IP address. Used for proxy detection and IP-clustering signals.
+            sig { returns(String) }
+            def ip; end
+            sig { params(_ip: String).returns(String) }
+            def ip=(_ip); end
+            # The referring URL of the login or registration page.
+            sig { returns(T.nilable(String)) }
+            def referrer; end
+            sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+            def referrer=(_referrer); end
+            # The User-Agent HTTP header.
+            sig { returns(T.nilable(String)) }
+            def user_agent; end
+            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+            def user_agent=(_user_agent); end
+            sig {
+              params(ip: String, referrer: T.nilable(String), user_agent: T.nilable(String)).void
+             }
+            def initialize(ip: nil, referrer: nil, user_agent: nil); end
+          end
+          # Raw client metadata fallback in case a Radar Session is unavailable.
+          sig {
+            returns(T.nilable(::Stripe::Radar::CustomerEvaluationCreateParams::EvaluationContext::ClientDetails::Data))
+           }
+          def data; end
+          sig {
+            params(_data: T.nilable(::Stripe::Radar::CustomerEvaluationCreateParams::EvaluationContext::ClientDetails::Data)).returns(T.nilable(::Stripe::Radar::CustomerEvaluationCreateParams::EvaluationContext::ClientDetails::Data))
+           }
+          def data=(_data); end
+          # ID for the Radar Session. Required unless data is provided.
+          sig { returns(T.nilable(String)) }
           def radar_session; end
-          sig { params(_radar_session: String).returns(String) }
+          sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
           def radar_session=(_radar_session); end
-          sig { params(radar_session: String).void }
-          def initialize(radar_session: nil); end
+          sig {
+            params(data: T.nilable(::Stripe::Radar::CustomerEvaluationCreateParams::EvaluationContext::ClientDetails::Data), radar_session: T.nilable(String)).void
+           }
+          def initialize(data: nil, radar_session: nil); end
         end
         class CustomerDetails < ::Stripe::RequestParams
           class CustomerData < ::Stripe::RequestParams

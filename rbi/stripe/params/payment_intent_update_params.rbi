@@ -444,11 +444,11 @@ module Stripe
           sig { params(_enabled: T.nilable(String)).returns(T.nilable(String)) }
           def enabled=(_enabled); end
           # The 14-digit SIRET of the meal voucher acceptor.
-          sig { returns(String) }
+          sig { returns(T.nilable(String)) }
           def siret; end
-          sig { params(_siret: String).returns(String) }
+          sig { params(_siret: T.nilable(String)).returns(T.nilable(String)) }
           def siret=(_siret); end
-          sig { params(enabled: T.nilable(String), siret: String).void }
+          sig { params(enabled: T.nilable(String), siret: T.nilable(String)).void }
           def initialize(enabled: nil, siret: nil); end
         end
         # French meal voucher benefit details for this PaymentIntent.
@@ -4884,6 +4884,20 @@ module Stripe
         def initialize(expires_after_days: nil, setup_future_usage: nil); end
       end
       class Card < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          sig { params(_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days=(_days); end
+          # Attribute for param field hours
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          sig { params(_hours: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def hours=(_hours); end
+          sig { params(days: T.nilable(Integer), hours: T.nilable(Integer)).void }
+          def initialize(days: nil, hours: nil); end
+        end
         class Installments < ::Stripe::RequestParams
           class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
@@ -4995,48 +5009,6 @@ module Stripe
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class LiquidAsset < ::Stripe::RequestParams
-                class Crypto < ::Stripe::RequestParams
-                  # The cryptocurrency currency code (e.g. BTC, ETH).
-                  sig { returns(T.nilable(String)) }
-                  def currency_code; end
-                  sig { params(_currency_code: T.nilable(String)).returns(T.nilable(String)) }
-                  def currency_code=(_currency_code); end
-                  sig { params(currency_code: T.nilable(String)).void }
-                  def initialize(currency_code: nil); end
-                end
-                class Security < ::Stripe::RequestParams
-                  # The security's ticker symbol (e.g. AAPL).
-                  sig { returns(T.nilable(String)) }
-                  def ticker_symbol; end
-                  sig { params(_ticker_symbol: T.nilable(String)).returns(T.nilable(String)) }
-                  def ticker_symbol=(_ticker_symbol); end
-                  sig { params(ticker_symbol: T.nilable(String)).void }
-                  def initialize(ticker_symbol: nil); end
-                end
-                # Details for a cryptocurrency liquid asset funding transaction.
-                sig {
-                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
-                 }
-                def crypto; end
-                sig {
-                  params(_crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
-                 }
-                def crypto=(_crypto); end
-                # Details for a security liquid asset funding transaction.
-                sig {
-                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
-                 }
-                def security; end
-                sig {
-                  params(_security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
-                 }
-                def security=(_security); end
-                sig {
-                  params(crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto), security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).void
-                 }
-                def initialize(crypto: nil, security: nil); end
-              end
               class Wallet < ::Stripe::RequestParams
                 class StagedPurchase < ::Stripe::RequestParams
                   class Merchant < ::Stripe::RequestParams
@@ -5086,15 +5058,6 @@ module Stripe
               def digital_asset_category; end
               sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
               def digital_asset_category=(_digital_asset_category); end
-              # Details for a liquid asset (crypto or security) funding transaction.
-              sig {
-                returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
-               }
-              def liquid_asset; end
-              sig {
-                params(_liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
-               }
-              def liquid_asset=(_liquid_asset); end
               # Details for a wallet funding transaction.
               sig {
                 returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet))
@@ -5105,9 +5068,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {
@@ -5313,6 +5276,24 @@ module Stripe
             version: nil
           ); end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        sig { params(_capture_by: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_by=(_capture_by); end
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay))
+         }
+        def capture_delay; end
+        sig {
+          params(_capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay))
+         }
+        def capture_delay=(_capture_delay); end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -5470,9 +5451,11 @@ module Stripe
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_partial_authorization: T.nilable(String), request_reauthorization: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), statement_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::StatementDetails)), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
+          params(capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::CaptureDelay), capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::PaymentDetails), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_partial_authorization: T.nilable(String), request_reauthorization: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), statement_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::StatementDetails)), three_d_secure: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::Card::ThreeDSecure)).void
          }
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           cvc_token: nil,
           installments: nil,
@@ -5497,51 +5480,23 @@ module Stripe
         ); end
       end
       class CardPresent < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          sig { params(_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def days=(_days); end
+          # Attribute for param field hours
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          sig { params(_hours: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def hours=(_hours); end
+          sig { params(days: T.nilable(Integer), hours: T.nilable(Integer)).void }
+          def initialize(days: nil, hours: nil); end
+        end
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class LiquidAsset < ::Stripe::RequestParams
-                class Crypto < ::Stripe::RequestParams
-                  # The cryptocurrency currency code (e.g. BTC, ETH).
-                  sig { returns(T.nilable(String)) }
-                  def currency_code; end
-                  sig { params(_currency_code: T.nilable(String)).returns(T.nilable(String)) }
-                  def currency_code=(_currency_code); end
-                  sig { params(currency_code: T.nilable(String)).void }
-                  def initialize(currency_code: nil); end
-                end
-                class Security < ::Stripe::RequestParams
-                  # The security's ticker symbol (e.g. AAPL).
-                  sig { returns(T.nilable(String)) }
-                  def ticker_symbol; end
-                  sig { params(_ticker_symbol: T.nilable(String)).returns(T.nilable(String)) }
-                  def ticker_symbol=(_ticker_symbol); end
-                  sig { params(ticker_symbol: T.nilable(String)).void }
-                  def initialize(ticker_symbol: nil); end
-                end
-                # Details for a cryptocurrency liquid asset funding transaction.
-                sig {
-                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
-                 }
-                def crypto; end
-                sig {
-                  params(_crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto))
-                 }
-                def crypto=(_crypto); end
-                # Details for a security liquid asset funding transaction.
-                sig {
-                  returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
-                 }
-                def security; end
-                sig {
-                  params(_security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security))
-                 }
-                def security=(_security); end
-                sig {
-                  params(crypto: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Crypto), security: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset::Security)).void
-                 }
-                def initialize(crypto: nil, security: nil); end
-              end
               class Wallet < ::Stripe::RequestParams
                 class StagedPurchase < ::Stripe::RequestParams
                   class Merchant < ::Stripe::RequestParams
@@ -5591,15 +5546,6 @@ module Stripe
               def digital_asset_category; end
               sig { params(_digital_asset_category: T.nilable(String)).returns(T.nilable(String)) }
               def digital_asset_category=(_digital_asset_category); end
-              # Details for a liquid asset (crypto or security) funding transaction.
-              sig {
-                returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
-               }
-              def liquid_asset; end
-              sig {
-                params(_liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)))
-               }
-              def liquid_asset=(_liquid_asset); end
               # Details for a wallet funding transaction.
               sig {
                 returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet))
@@ -5610,9 +5556,9 @@ module Stripe
                }
               def wallet=(_wallet); end
               sig {
-                params(digital_asset_category: T.nilable(String), liquid_asset: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::LiquidAsset)), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
+                params(digital_asset_category: T.nilable(String), wallet: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails::MoneyServices::AccountFunding::Wallet)).void
                }
-              def initialize(digital_asset_category: nil, liquid_asset: nil, wallet: nil); end
+              def initialize(digital_asset_category: nil, wallet: nil); end
             end
             # Payment method specific account funding transaction details.
             sig {
@@ -5651,6 +5597,24 @@ module Stripe
           sig { params(requested_priority: T.nilable(String)).void }
           def initialize(requested_priority: nil); end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        sig { params(_capture_by: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_by=(_capture_by); end
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay))
+         }
+        def capture_delay; end
+        sig {
+          params(_capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay))
+         }
+        def capture_delay=(_capture_delay); end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -5685,6 +5649,11 @@ module Stripe
         def request_incremental_authorization_support=(
           _request_incremental_authorization_support
         ); end
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_multicapture; end
+        sig { params(_request_multicapture: T.nilable(String)).returns(T.nilable(String)) }
+        def request_multicapture=(_request_multicapture); end
         # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
         sig { returns(T.nilable(String)) }
         def request_reauthorization; end
@@ -5700,13 +5669,16 @@ module Stripe
          }
         def routing=(_routing); end
         sig {
-          params(capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
+          params(capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::CaptureDelay), capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_multicapture: T.nilable(String), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::CardPresent::Routing)).void
          }
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
+          request_multicapture: nil,
           request_reauthorization: nil,
           routing: nil
         ); end
@@ -5893,7 +5865,31 @@ module Stripe
         sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
-      class GiftCard < ::Stripe::RequestParams; end
+      class GiftCard < ::Stripe::RequestParams
+        # Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+        sig { returns(T.nilable(String)) }
+        def ignore_application_fee; end
+        sig { params(_ignore_application_fee: T.nilable(String)).returns(T.nilable(String)) }
+        def ignore_application_fee=(_ignore_application_fee); end
+        # Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+        sig { returns(T.nilable(String)) }
+        def ignore_transfer_data; end
+        sig { params(_ignore_transfer_data: T.nilable(String)).returns(T.nilable(String)) }
+        def ignore_transfer_data=(_ignore_transfer_data); end
+        # Request partial authorization on this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_partial_authorization; end
+        sig { params(_request_partial_authorization: T.nilable(String)).returns(T.nilable(String)) }
+        def request_partial_authorization=(_request_partial_authorization); end
+        sig {
+          params(ignore_application_fee: T.nilable(String), ignore_transfer_data: T.nilable(String), request_partial_authorization: T.nilable(String)).void
+         }
+        def initialize(
+          ignore_application_fee: nil,
+          ignore_transfer_data: nil,
+          request_partial_authorization: nil
+        ); end
+      end
       class Giropay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #

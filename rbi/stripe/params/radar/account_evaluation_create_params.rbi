@@ -7,13 +7,45 @@ module Stripe
     class AccountEvaluationCreateParams < ::Stripe::RequestParams
       class LoginInitiated < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
-          # ID for the Radar Session associated with the account evaluation.
-          sig { returns(String) }
+          class Data < ::Stripe::RequestParams
+            # The end user's IP address. Used for proxy detection and IP-clustering signals.
+            sig { returns(String) }
+            def ip; end
+            sig { params(_ip: String).returns(String) }
+            def ip=(_ip); end
+            # The referring URL of the login or registration page.
+            sig { returns(T.nilable(String)) }
+            def referrer; end
+            sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+            def referrer=(_referrer); end
+            # The User-Agent HTTP header.
+            sig { returns(T.nilable(String)) }
+            def user_agent; end
+            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+            def user_agent=(_user_agent); end
+            sig {
+              params(ip: String, referrer: T.nilable(String), user_agent: T.nilable(String)).void
+             }
+            def initialize(ip: nil, referrer: nil, user_agent: nil); end
+          end
+          # Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+          sig {
+            returns(T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::LoginInitiated::ClientDeviceMetadataDetails::Data))
+           }
+          def data; end
+          sig {
+            params(_data: T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::LoginInitiated::ClientDeviceMetadataDetails::Data)).returns(T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::LoginInitiated::ClientDeviceMetadataDetails::Data))
+           }
+          def data=(_data); end
+          # ID for the Radar Session. Required unless data is provided.
+          sig { returns(T.nilable(String)) }
           def radar_session; end
-          sig { params(_radar_session: String).returns(String) }
+          sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
           def radar_session=(_radar_session); end
-          sig { params(radar_session: String).void }
-          def initialize(radar_session: nil); end
+          sig {
+            params(data: T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::LoginInitiated::ClientDeviceMetadataDetails::Data), radar_session: T.nilable(String)).void
+           }
+          def initialize(data: nil, radar_session: nil); end
         end
         # Client device metadata details (e.g., radar_session).
         sig {
@@ -36,13 +68,45 @@ module Stripe
       end
       class RegistrationInitiated < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
-          # ID for the Radar Session associated with the account evaluation.
-          sig { returns(String) }
+          class Data < ::Stripe::RequestParams
+            # The end user's IP address. Used for proxy detection and IP-clustering signals.
+            sig { returns(String) }
+            def ip; end
+            sig { params(_ip: String).returns(String) }
+            def ip=(_ip); end
+            # The referring URL of the login or registration page.
+            sig { returns(T.nilable(String)) }
+            def referrer; end
+            sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+            def referrer=(_referrer); end
+            # The User-Agent HTTP header.
+            sig { returns(T.nilable(String)) }
+            def user_agent; end
+            sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+            def user_agent=(_user_agent); end
+            sig {
+              params(ip: String, referrer: T.nilable(String), user_agent: T.nilable(String)).void
+             }
+            def initialize(ip: nil, referrer: nil, user_agent: nil); end
+          end
+          # Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+          sig {
+            returns(T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::RegistrationInitiated::ClientDeviceMetadataDetails::Data))
+           }
+          def data; end
+          sig {
+            params(_data: T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::RegistrationInitiated::ClientDeviceMetadataDetails::Data)).returns(T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::RegistrationInitiated::ClientDeviceMetadataDetails::Data))
+           }
+          def data=(_data); end
+          # ID for the Radar Session. Required unless data is provided.
+          sig { returns(T.nilable(String)) }
           def radar_session; end
-          sig { params(_radar_session: String).returns(String) }
+          sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
           def radar_session=(_radar_session); end
-          sig { params(radar_session: String).void }
-          def initialize(radar_session: nil); end
+          sig {
+            params(data: T.nilable(::Stripe::Radar::AccountEvaluationCreateParams::RegistrationInitiated::ClientDeviceMetadataDetails::Data), radar_session: T.nilable(String)).void
+           }
+          def initialize(data: nil, radar_session: nil); end
         end
         class CustomerData < ::Stripe::RequestParams
           # Customer email

@@ -821,6 +821,8 @@ module Stripe
       end
       # Attribute for field benefit
       attr_reader :benefit
+      # The Payment Location associated with this SetupIntent.
+      attr_reader :location
 
       def self.inner_class_types
         @inner_class_types = { benefit: Benefit }

@@ -520,11 +520,25 @@ module Stripe
           end
         end
         class Benefits < ::Stripe::StripeObject
+          class FrMealVoucher < ::Stripe::StripeObject
+            # The 14-digit SIRET of the meal voucher acceptor used for this charge.
+            sig { returns(String) }
+            def siret; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field fr_meal_voucher
+          sig { returns(T.nilable(FrMealVoucher)) }
+          def fr_meal_voucher; end
           # Issuer of the benefit card utilized on this payment
           sig { returns(T.nilable(String)) }
           def issuer; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {fr_meal_voucher: FrMealVoucher}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1066,6 +1080,17 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class Multicapture < ::Stripe::StripeObject
+          # Indicates whether or not multiple captures are supported.
+          sig { returns(String) }
+          def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           sig { returns(T.nilable(Integer)) }
@@ -1193,6 +1218,9 @@ module Stripe
         # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         sig { returns(T.nilable(String)) }
         def location; end
+        # Attribute for field multicapture
+        sig { returns(T.nilable(Multicapture)) }
+        def multicapture; end
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         sig { returns(T.nilable(String)) }
         def network; end
@@ -1228,6 +1256,7 @@ module Stripe
         def wallet; end
         def self.inner_class_types
           @inner_class_types = {
+            multicapture: Multicapture,
             offline: Offline,
             reauthorization: Reauthorization,
             receipt: Receipt,

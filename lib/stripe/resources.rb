@@ -40,6 +40,8 @@ module Stripe
   autoload :FrMealVouchersOnboarding, "stripe/resources/fr_meal_vouchers_onboarding"
   autoload :FundingInstructions, "stripe/resources/funding_instructions"
   autoload :FxQuote, "stripe/resources/fx_quote"
+  autoload :GiftCard, "stripe/resources/gift_card"
+  autoload :GiftCardOperation, "stripe/resources/gift_card_operation"
   autoload :Invoice, "stripe/resources/invoice"
   autoload :InvoiceItem, "stripe/resources/invoice_item"
   autoload :InvoiceLineItem, "stripe/resources/invoice_line_item"
@@ -89,6 +91,7 @@ module Stripe
   autoload :SubscriptionSchedule, "stripe/resources/subscription_schedule"
   autoload :TaxCode, "stripe/resources/tax_code"
   autoload :TaxDeductedAtSource, "stripe/resources/tax_deducted_at_source"
+  autoload :TaxFund, "stripe/resources/tax_fund"
   autoload :TaxId, "stripe/resources/tax_id"
   autoload :TaxRate, "stripe/resources/tax_rate"
   autoload :Token, "stripe/resources/token"
@@ -1619,6 +1622,8 @@ module Stripe
     stripe/resources/fr_meal_vouchers_onboarding
     stripe/resources/funding_instructions
     stripe/resources/fx_quote
+    stripe/resources/gift_card
+    stripe/resources/gift_card_operation
     stripe/resources/identity/blocklist_entry
     stripe/resources/identity/verification_report
     stripe/resources/identity/verification_session
@@ -1712,6 +1717,7 @@ module Stripe
     stripe/resources/tax/transaction_line_item
     stripe/resources/tax_code
     stripe/resources/tax_deducted_at_source
+    stripe/resources/tax_fund
     stripe/resources/tax_id
     stripe/resources/tax_rate
     stripe/resources/terminal/configuration

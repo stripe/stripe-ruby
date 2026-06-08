@@ -537,7 +537,7 @@ module Stripe
           class Visa < ::Stripe::StripeObject
             # A unique reference ID from the network to represent the card account number.
             attr_reader :card_reference_id
-            # Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+            # The network's recommendation to Stripe for this token activation request.
             attr_reader :token_decision_recommendation
             # The network-unique identifier for the token.
             attr_reader :token_reference_id

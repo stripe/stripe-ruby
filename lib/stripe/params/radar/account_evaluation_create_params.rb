@@ -6,10 +6,27 @@ module Stripe
     class AccountEvaluationCreateParams < ::Stripe::RequestParams
       class LoginInitiated < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
-          # ID for the Radar Session associated with the account evaluation.
+          class Data < ::Stripe::RequestParams
+            # The end user's IP address. Used for proxy detection and IP-clustering signals.
+            attr_accessor :ip
+            # The referring URL of the login or registration page.
+            attr_accessor :referrer
+            # The User-Agent HTTP header.
+            attr_accessor :user_agent
+
+            def initialize(ip: nil, referrer: nil, user_agent: nil)
+              @ip = ip
+              @referrer = referrer
+              @user_agent = user_agent
+            end
+          end
+          # Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+          attr_accessor :data
+          # ID for the Radar Session. Required unless data is provided.
           attr_accessor :radar_session
 
-          def initialize(radar_session: nil)
+          def initialize(data: nil, radar_session: nil)
+            @data = data
             @radar_session = radar_session
           end
         end
@@ -26,10 +43,27 @@ module Stripe
 
       class RegistrationInitiated < ::Stripe::RequestParams
         class ClientDeviceMetadataDetails < ::Stripe::RequestParams
-          # ID for the Radar Session associated with the account evaluation.
+          class Data < ::Stripe::RequestParams
+            # The end user's IP address. Used for proxy detection and IP-clustering signals.
+            attr_accessor :ip
+            # The referring URL of the login or registration page.
+            attr_accessor :referrer
+            # The User-Agent HTTP header.
+            attr_accessor :user_agent
+
+            def initialize(ip: nil, referrer: nil, user_agent: nil)
+              @ip = ip
+              @referrer = referrer
+              @user_agent = user_agent
+            end
+          end
+          # Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+          attr_accessor :data
+          # ID for the Radar Session. Required unless data is provided.
           attr_accessor :radar_session
 
-          def initialize(radar_session: nil)
+          def initialize(data: nil, radar_session: nil)
+            @data = data
             @radar_session = radar_session
           end
         end

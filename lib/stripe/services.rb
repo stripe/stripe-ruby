@@ -53,6 +53,8 @@ module Stripe
   autoload :ForwardingService, "stripe/services/forwarding_service"
   autoload :FrMealVouchersOnboardingService, "stripe/services/fr_meal_vouchers_onboarding_service"
   autoload :FxQuoteService, "stripe/services/fx_quote_service"
+  autoload :GiftCardOperationService, "stripe/services/gift_card_operation_service"
+  autoload :GiftCardService, "stripe/services/gift_card_service"
   autoload :IdentityService, "stripe/services/identity_service"
   autoload :InvoiceItemService, "stripe/services/invoice_item_service"
   autoload :InvoiceLineItemService, "stripe/services/invoice_line_item_service"
@@ -105,6 +107,7 @@ module Stripe
   autoload :SubscriptionScheduleService, "stripe/services/subscription_schedule_service"
   autoload :SubscriptionService, "stripe/services/subscription_service"
   autoload :TaxCodeService, "stripe/services/tax_code_service"
+  autoload :TaxFundService, "stripe/services/tax_fund_service"
   autoload :TaxIdService, "stripe/services/tax_id_service"
   autoload :TaxRateService, "stripe/services/tax_rate_service"
   autoload :TaxService, "stripe/services/tax_service"
@@ -613,6 +616,8 @@ module Stripe
     stripe/services/forwarding_service
     stripe/services/fr_meal_vouchers_onboarding_service
     stripe/services/fx_quote_service
+    stripe/services/gift_card_operation_service
+    stripe/services/gift_card_service
     stripe/services/identity/blocklist_entry_service
     stripe/services/identity/verification_report_service
     stripe/services/identity/verification_session_service
@@ -708,6 +713,7 @@ module Stripe
     stripe/services/tax/transaction_line_item_service
     stripe/services/tax/transaction_service
     stripe/services/tax_code_service
+    stripe/services/tax_fund_service
     stripe/services/tax_id_service
     stripe/services/tax_rate_service
     stripe/services/tax_service

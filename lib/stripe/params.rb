@@ -133,6 +133,14 @@ module Stripe
   autoload :FxQuoteCreateParams, "stripe/params/fx_quote_create_params"
   autoload :FxQuoteListParams, "stripe/params/fx_quote_list_params"
   autoload :FxQuoteRetrieveParams, "stripe/params/fx_quote_retrieve_params"
+  autoload :GiftCardActivateParams, "stripe/params/gift_card_activate_params"
+  autoload :GiftCardCashoutParams, "stripe/params/gift_card_cashout_params"
+  autoload :GiftCardCheckBalanceParams, "stripe/params/gift_card_check_balance_params"
+  autoload :GiftCardCreateParams, "stripe/params/gift_card_create_params"
+  autoload :GiftCardOperationRetrieveParams, "stripe/params/gift_card_operation_retrieve_params"
+  autoload :GiftCardReloadParams, "stripe/params/gift_card_reload_params"
+  autoload :GiftCardRetrieveParams, "stripe/params/gift_card_retrieve_params"
+  autoload :GiftCardVoidOperationParams, "stripe/params/gift_card_void_operation_params"
   autoload :InvoiceAddLinesParams, "stripe/params/invoice_add_lines_params"
   autoload :InvoiceAttachPaymentParams, "stripe/params/invoice_attach_payment_params"
   autoload :InvoiceCreateParams, "stripe/params/invoice_create_params"
@@ -200,6 +208,8 @@ module Stripe
   autoload :PaymentIntentSearchParams, "stripe/params/payment_intent_search_params"
   autoload :PaymentIntentSimulateCryptoDepositParams, "stripe/params/payment_intent_simulate_crypto_deposit_params"
   autoload :PaymentIntentTriggerActionParams, "stripe/params/payment_intent_trigger_action_params"
+  autoload :PaymentIntentUpdateCryptoRefundAddressParams,
+           "stripe/params/payment_intent_update_crypto_refund_address_params"
   autoload :PaymentIntentUpdateParams, "stripe/params/payment_intent_update_params"
   autoload :PaymentIntentVerifyMicrodepositsParams, "stripe/params/payment_intent_verify_microdeposits_params"
   autoload :PaymentLinkCreateParams, "stripe/params/payment_link_create_params"
@@ -346,6 +356,8 @@ module Stripe
   autoload :SubscriptionUpdateParams, "stripe/params/subscription_update_params"
   autoload :TaxCodeListParams, "stripe/params/tax_code_list_params"
   autoload :TaxCodeRetrieveParams, "stripe/params/tax_code_retrieve_params"
+  autoload :TaxFundListParams, "stripe/params/tax_fund_list_params"
+  autoload :TaxFundRetrieveParams, "stripe/params/tax_fund_retrieve_params"
   autoload :TaxIdCreateParams, "stripe/params/tax_id_create_params"
   autoload :TaxIdDeleteParams, "stripe/params/tax_id_delete_params"
   autoload :TaxIdListParams, "stripe/params/tax_id_list_params"
@@ -1474,6 +1486,14 @@ module Stripe
     stripe/params/fx_quote_create_params
     stripe/params/fx_quote_list_params
     stripe/params/fx_quote_retrieve_params
+    stripe/params/gift_card_activate_params
+    stripe/params/gift_card_cashout_params
+    stripe/params/gift_card_check_balance_params
+    stripe/params/gift_card_create_params
+    stripe/params/gift_card_operation_retrieve_params
+    stripe/params/gift_card_reload_params
+    stripe/params/gift_card_retrieve_params
+    stripe/params/gift_card_void_operation_params
     stripe/params/identity/blocklist_entry_create_params
     stripe/params/identity/blocklist_entry_disable_params
     stripe/params/identity/blocklist_entry_list_params
@@ -1617,6 +1637,7 @@ module Stripe
     stripe/params/payment_intent_search_params
     stripe/params/payment_intent_simulate_crypto_deposit_params
     stripe/params/payment_intent_trigger_action_params
+    stripe/params/payment_intent_update_crypto_refund_address_params
     stripe/params/payment_intent_update_params
     stripe/params/payment_intent_verify_microdeposits_params
     stripe/params/payment_link_create_params
@@ -1826,6 +1847,8 @@ module Stripe
     stripe/params/tax/transaction_retrieve_params
     stripe/params/tax_code_list_params
     stripe/params/tax_code_retrieve_params
+    stripe/params/tax_fund_list_params
+    stripe/params/tax_fund_retrieve_params
     stripe/params/tax_id_create_params
     stripe/params/tax_id_delete_params
     stripe/params/tax_id_list_params

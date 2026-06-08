@@ -467,6 +467,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Pix < ::Stripe::StripeObject
+            # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class SepaDebit < ::Stripe::StripeObject
             # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
             sig { returns(T.nilable(String)) }
@@ -507,6 +518,9 @@ module Stripe
           # Attribute for field link
           sig { returns(T.nilable(Link)) }
           def link; end
+          # Attribute for field pix
+          sig { returns(T.nilable(Pix)) }
+          def pix; end
           # Attribute for field sepa_debit
           sig { returns(T.nilable(SepaDebit)) }
           def sepa_debit; end
@@ -523,6 +537,7 @@ module Stripe
               boleto: Boleto,
               card: Card,
               link: Link,
+              pix: Pix,
               sepa_debit: SepaDebit,
               us_bank_account: UsBankAccount,
             }

@@ -63,17 +63,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Reauthorization < ::Stripe::StripeObject
-        # Indicates whether the feature is supported.
-        sig { returns(String) }
-        def status; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # Timestamp at which the authorization will expire if not captured.
       sig { returns(T.nilable(Integer)) }
       def capture_before; end
@@ -89,19 +78,12 @@ module Stripe
       # Attribute for field overcapture
       sig { returns(T.nilable(Overcapture)) }
       def overcapture; end
-      # Attribute for field reauthorization
-      sig { returns(T.nilable(Reauthorization)) }
-      def reauthorization; end
-      # Timestamp at which the reauthorization window closes.
-      sig { returns(T.nilable(Integer)) }
-      def reauthorize_before; end
       def self.inner_class_types
         @inner_class_types = {
           decremental_authorization: DecrementalAuthorization,
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
-          reauthorization: Reauthorization,
         }
       end
       def self.field_remappings
@@ -547,6 +529,9 @@ module Stripe
             # Address of the deposit address.
             sig { returns(String) }
             def address; end
+            # The wallet address that should receive refunds for deposits on this network.
+            sig { returns(T.nilable(String)) }
+            def refund_address; end
             # The token currencies supported on this network.
             sig { returns(T::Array[SupportedToken]) }
             def supported_tokens; end
@@ -575,6 +560,9 @@ module Stripe
             # Address of the deposit address.
             sig { returns(String) }
             def address; end
+            # The wallet address that should receive refunds for deposits on this network.
+            sig { returns(T.nilable(String)) }
+            def refund_address; end
             # The token currencies supported on this network.
             sig { returns(T::Array[SupportedToken]) }
             def supported_tokens; end
@@ -603,6 +591,9 @@ module Stripe
             # Address of the deposit address.
             sig { returns(String) }
             def address; end
+            # The wallet address that should receive refunds for deposits on this network.
+            sig { returns(T.nilable(String)) }
+            def refund_address; end
             # The token currencies supported on this network.
             sig { returns(T::Array[SupportedToken]) }
             def supported_tokens; end
@@ -3240,6 +3231,9 @@ module Stripe
       # Attribute for field flight_data
       sig { returns(T.nilable(T::Array[FlightDatum])) }
       def flight_data; end
+      # The Payment Location associated with this PaymentIntent.
+      sig { returns(T.nilable(String)) }
+      def location; end
       # Attribute for field lodging_data
       sig { returns(T.nilable(T::Array[LodgingDatum])) }
       def lodging_data; end
@@ -3558,6 +3552,24 @@ module Stripe
         end
       end
       class Card < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Installments < ::Stripe::StripeObject
           class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
@@ -3686,6 +3698,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        # Attribute for field capture_delay
+        sig { returns(T.nilable(CaptureDelay)) }
+        def capture_delay; end
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
@@ -3747,6 +3767,7 @@ module Stripe
         def statement_details; end
         def self.inner_class_types
           @inner_class_types = {
+            capture_delay: CaptureDelay,
             installments: Installments,
             mandate_options: MandateOptions,
             statement_details: StatementDetails,
@@ -3757,6 +3778,24 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def days; end
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          sig { returns(T.nilable(Integer)) }
+          def hours; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           sig { returns(T.nilable(String)) }
@@ -3768,6 +3807,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        sig { returns(T.nilable(String)) }
+        def capture_by; end
+        # Attribute for field capture_delay
+        sig { returns(T.nilable(CaptureDelay)) }
+        def capture_delay; end
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
@@ -3777,6 +3824,9 @@ module Stripe
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         sig { returns(T.nilable(T::Boolean)) }
         def request_incremental_authorization_support; end
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_multicapture; end
         # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
         sig { returns(T.nilable(String)) }
         def request_reauthorization; end
@@ -3784,7 +3834,7 @@ module Stripe
         sig { returns(T.nilable(Routing)) }
         def routing; end
         def self.inner_class_types
-          @inner_class_types = {routing: Routing}
+          @inner_class_types = {capture_delay: CaptureDelay, routing: Routing}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -5421,6 +5471,9 @@ module Stripe
     # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def latest_charge; end
+    # ID of the latest [Payment Attempt Record object](https://docs.stripe.com/api/payment-attempt-record) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    sig { returns(T.nilable(String)) }
+    def latest_payment_attempt_record; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
@@ -5455,6 +5508,9 @@ module Stripe
     # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     sig { returns(T::Array[String]) }
     def payment_method_types; end
+    # ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
+    def payment_record; end
     # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
     sig { returns(T.nilable(PaymentsOrchestration)) }
     def payments_orchestration; end
@@ -5813,6 +5869,18 @@ module Stripe
       params(intent: String, params: T.any(::Stripe::PaymentIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
     def self.update(intent, params = {}, opts = {}); end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    sig {
+      params(params: T.any(::Stripe::PaymentIntentUpdateCryptoRefundAddressParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def update_crypto_refund_address(params = {}, opts = {}); end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    sig {
+      params(intent: String, params: T.any(::Stripe::PaymentIntentUpdateCryptoRefundAddressParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def self.update_crypto_refund_address(intent, params = {}, opts = {}); end
 
     # Verifies microdeposits on a PaymentIntent object.
     sig {

@@ -465,6 +465,19 @@ module Stripe
             end
           end
 
+          class Pix < ::Stripe::StripeObject
+            # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class SepaDebit < ::Stripe::StripeObject
             # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
             attr_reader :fingerprint
@@ -502,6 +515,8 @@ module Stripe
           attr_reader :card
           # Attribute for field link
           attr_reader :link
+          # Attribute for field pix
+          attr_reader :pix
           # Attribute for field sepa_debit
           attr_reader :sepa_debit
           # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
@@ -516,6 +531,7 @@ module Stripe
               boleto: Boleto,
               card: Card,
               link: Link,
+              pix: Pix,
               sepa_debit: SepaDebit,
               us_bank_account: UsBankAccount,
             }

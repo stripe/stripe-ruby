@@ -259,6 +259,17 @@ module Stripe
       )
     end
 
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def update_crypto_refund_address(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Verifies microdeposits on a PaymentIntent object.
     def verify_microdeposits(intent, params = {}, opts = {})
       request(

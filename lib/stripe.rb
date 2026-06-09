@@ -70,8 +70,6 @@ require "stripe/services/oauth_service"
 require "stripe/railtie" if defined?(Rails::Railtie)
 
 module Stripe
-  DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
-
   # map to the same values as the standard library's logger
   LEVEL_DEBUG = Logger::DEBUG
   LEVEL_ERROR = Logger::ERROR

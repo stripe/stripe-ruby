@@ -416,6 +416,20 @@ module Stripe
           service_not_as_described: nil
         ); end
       end
+      class ProvisionalCredit < ::Stripe::RequestParams
+        # The time at which the platform granted the provisional credit to their user.
+        sig { returns(T.nilable(Integer)) }
+        def granted_at; end
+        sig { params(_granted_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def granted_at=(_granted_at); end
+        # The time at which the platform revoked the provisional credit from their user.
+        sig { returns(T.nilable(Integer)) }
+        def revoked_at; end
+        sig { params(_revoked_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def revoked_at=(_revoked_at); end
+        sig { params(granted_at: T.nilable(Integer), revoked_at: T.nilable(Integer)).void }
+        def initialize(granted_at: nil, revoked_at: nil); end
+      end
       # The dispute amount in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       sig { returns(T.nilable(Integer)) }
       def amount; end
@@ -440,10 +454,23 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
+      # Provisional credit information for this dispute.
+      sig { returns(T.nilable(::Stripe::Issuing::DisputeUpdateParams::ProvisionalCredit)) }
+      def provisional_credit; end
       sig {
-        params(amount: T.nilable(Integer), evidence: T.nilable(::Stripe::Issuing::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+        params(_provisional_credit: T.nilable(::Stripe::Issuing::DisputeUpdateParams::ProvisionalCredit)).returns(T.nilable(::Stripe::Issuing::DisputeUpdateParams::ProvisionalCredit))
        }
-      def initialize(amount: nil, evidence: nil, expand: nil, metadata: nil); end
+      def provisional_credit=(_provisional_credit); end
+      sig {
+        params(amount: T.nilable(Integer), evidence: T.nilable(::Stripe::Issuing::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), provisional_credit: T.nilable(::Stripe::Issuing::DisputeUpdateParams::ProvisionalCredit)).void
+       }
+      def initialize(
+        amount: nil,
+        evidence: nil,
+        expand: nil,
+        metadata: nil,
+        provisional_credit: nil
+      ); end
     end
   end
 end

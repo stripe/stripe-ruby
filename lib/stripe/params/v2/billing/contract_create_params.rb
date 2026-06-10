@@ -708,7 +708,7 @@ module Stripe
           attr_accessor :multiplier
           # Parameters for an overwrite_price override. Required if `type` is `overwrite_price`.
           attr_accessor :overwrite_price
-          # The priority of this override relative to others. Lower number = higher priority.
+          # The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
           attr_accessor :priority
           # When the pricing override starts.
           attr_accessor :starts_at

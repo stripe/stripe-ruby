@@ -64,6 +64,8 @@ module Stripe
             attr_reader :reserve_hold
             # If applicable, the ID of the Reserve Release that created this Transaction.
             attr_reader :reserve_release
+            # If applicable, the ID of the TaxFund that created this Transaction.
+            attr_reader :tax_fund
             # If applicable, the ID of the Topup that created this Transaction.
             attr_reader :topup
             # If applicable, the ID of the Transfer that created this Transaction.

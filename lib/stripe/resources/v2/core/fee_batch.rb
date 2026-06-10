@@ -13,8 +13,41 @@ module Stripe
         end
 
         class Adjustments < ::Stripe::StripeObject
+          class TaxAdjustment < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :currency
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The amount of tax adjusted for this batch.
           attr_reader :tax_adjustment
+
+          def self.inner_class_types
+            @inner_class_types = { tax_adjustment: TaxAdjustment }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Amount < ::Stripe::StripeObject
+          # A lowercase alpha3 currency code like "usd"
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          attr_reader :currency
+          # In major units like "1.23" for 1.23 USD
+          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          attr_reader :value
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -39,12 +72,45 @@ module Stripe
         end
 
         class CollectionRecord < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :currency
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Tax < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # A lowercase alpha3 currency code like "usd"
+              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              attr_reader :currency
+              # In major units like "1.23" for 1.23 USD
+              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # The tax amount collected via this record.
             attr_reader :amount
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { amount: Amount }
             end
 
             def self.field_remappings
@@ -67,7 +133,7 @@ module Stripe
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { tax: Tax }
+            @inner_class_types = { amount: Amount, tax: Tax }
           end
 
           def self.field_remappings
@@ -89,11 +155,27 @@ module Stripe
         end
 
         class Tax < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            # A lowercase alpha3 currency code like "usd"
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :currency
+            # In major units like "1.23" for 1.23 USD
+            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The tax amount included in this batch.
           attr_reader :amount
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { amount: Amount }
           end
 
           def self.field_remappings
@@ -126,6 +208,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             adjustments: Adjustments,
+            amount: Amount,
             collected_by: CollectedBy,
             collection_records: CollectionRecord,
             status_transitions: StatusTransitions,

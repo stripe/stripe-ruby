@@ -541,7 +541,7 @@ module Stripe
               params(_overwrite_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice))
              }
             def overwrite_price=(_overwrite_price); end
-            # The priority for the pricing override.
+            # The priority for the pricing override. The highest priority is 0 and the lowest is 100.
             sig { returns(Integer) }
             def priority; end
             sig { params(_priority: Integer).returns(Integer) }

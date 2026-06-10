@@ -40,6 +40,8 @@ module Stripe
     attr_reader :forwarding
     attr_reader :fr_meal_vouchers_onboardings
     attr_reader :fx_quotes
+    attr_reader :gift_cards
+    attr_reader :gift_card_operations
     attr_reader :identity
     attr_reader :invoices
     attr_reader :invoice_items
@@ -83,6 +85,7 @@ module Stripe
     attr_reader :subscription_schedules
     attr_reader :tax
     attr_reader :tax_codes
+    attr_reader :tax_funds
     attr_reader :tax_ids
     attr_reader :tax_rates
     attr_reader :terminal

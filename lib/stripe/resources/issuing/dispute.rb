@@ -401,6 +401,27 @@ module Stripe
         end
       end
 
+      class ProvisionalCredit < ::Stripe::StripeObject
+        # The time by which the platform must grant a provisional credit to the consumer.
+        attr_reader :grant_deadline
+        # The time at which the platform reported granting the provisional credit.
+        attr_reader :granted_at
+        # The earliest time after which the platform can revoke the provisional credit.
+        attr_reader :revocable_after
+        # The time at which the platform reported revoking the provisional credit.
+        attr_reader :revoked_at
+        # The status of the provisional credit obligation.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         attr_reader :debit_reversal
@@ -439,6 +460,8 @@ module Stripe
       attr_reader :network_lifecycle
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Provisional credit details for this dispute.
+      attr_reader :provisional_credit
       # Current status of the dispute.
       attr_reader :status
       # The transaction being disputed.
@@ -600,6 +623,7 @@ module Stripe
           crypto_transactions: CryptoTransaction,
           evidence: Evidence,
           network_lifecycle: NetworkLifecycle,
+          provisional_credit: ProvisionalCredit,
           treasury: Treasury,
         }
       end

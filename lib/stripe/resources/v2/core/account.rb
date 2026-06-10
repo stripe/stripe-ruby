@@ -3563,7 +3563,7 @@ module Stripe
           class Responsibilities < ::Stripe::StripeObject
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             attr_reader :fees_collector
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             attr_reader :losses_collector
             # A value indicating responsibility for collecting requirements on this account.
             attr_reader :requirements_collector

@@ -60,7 +60,7 @@ module Stripe
           # A unique reference ID from Visa to represent the card account number.
           sig { returns(T.nilable(String)) }
           def card_reference_id; end
-          # Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+          # The network's recommendation to Stripe for this token activation request.
           sig { returns(T.nilable(String)) }
           def token_decision_recommendation; end
           # The network-unique identifier for the token.

@@ -161,7 +161,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
+        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
         attr_reader :receipt_url
         # A nested object containing information about the destination of the InboundTransfer.
         attr_reader :to

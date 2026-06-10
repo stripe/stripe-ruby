@@ -87,6 +87,9 @@ module Stripe
           # If applicable, the ID of the Reserve Release that created this Transaction.
           sig { returns(T.nilable(String)) }
           def reserve_release; end
+          # If applicable, the ID of the TaxFund that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def tax_fund; end
           # If applicable, the ID of the Topup that created this Transaction.
           sig { returns(T.nilable(String)) }
           def topup; end

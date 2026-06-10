@@ -842,6 +842,9 @@ module Stripe
       # Attribute for field benefit
       sig { returns(T.nilable(Benefit)) }
       def benefit; end
+      # The Payment Location associated with this SetupIntent.
+      sig { returns(T.nilable(String)) }
+      def location; end
       def self.inner_class_types
         @inner_class_types = {benefit: Benefit}
       end

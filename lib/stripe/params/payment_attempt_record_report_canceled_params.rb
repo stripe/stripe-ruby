@@ -11,12 +11,21 @@ module Stripe
     attr_accessor :metadata
     # Payment evaluations associated with this reported payment.
     attr_accessor :payment_evaluations
+    # The reason the payment attempt was canceled.
+    attr_accessor :reason
 
-    def initialize(canceled_at: nil, expand: nil, metadata: nil, payment_evaluations: nil)
+    def initialize(
+      canceled_at: nil,
+      expand: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      reason: nil
+    )
       @canceled_at = canceled_at
       @expand = expand
       @metadata = metadata
       @payment_evaluations = payment_evaluations
+      @reason = reason
     end
   end
 end

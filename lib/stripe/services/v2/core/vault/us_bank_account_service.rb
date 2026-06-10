@@ -10,6 +10,7 @@ module Stripe
           # Archived USBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
           #
+          # ** raises CannotProceedError
           # ** raises ControlledByDashboardError
           def archive(id, params = {}, opts = {})
             request(

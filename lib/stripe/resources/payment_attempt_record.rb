@@ -689,6 +689,19 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class Multicapture < ::Stripe::StripeObject
+          # Indicates whether or not multiple captures are supported.
+          attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           attr_reader :stored_at
@@ -796,6 +809,8 @@ module Stripe
         attr_reader :last4
         # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
+        # Attribute for field multicapture
+        attr_reader :multicapture
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -821,6 +836,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            multicapture: Multicapture,
             offline: Offline,
             reauthorization: Reauthorization,
             receipt: Receipt,
@@ -2170,15 +2186,65 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class FiservValuelink < ::Stripe::StripeObject
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        attr_reader :payment_reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Givex < ::Stripe::StripeObject
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        attr_reader :payment_reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Svs < ::Stripe::StripeObject
+        # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+        attr_reader :payment_reference
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Custom processors represent payment processors not modeled directly in
       # the Stripe API. This resource consists of details about the custom processor
       # used for this payment attempt.
       attr_reader :custom
+      # Represents the Fiserv ValueLink gift card processor.
+      attr_reader :fiserv_valuelink
+      # Represents the Givex gift card processor.
+      attr_reader :givex
+      # Represents the SVS gift card processor.
+      attr_reader :svs
       # The processor used for this payment attempt.
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { custom: Custom }
+        @inner_class_types = {
+          custom: Custom,
+          fiserv_valuelink: FiservValuelink,
+          givex: Givex,
+          svs: Svs,
+        }
       end
 
       def self.field_remappings

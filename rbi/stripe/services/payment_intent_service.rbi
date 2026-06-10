@@ -189,6 +189,12 @@ module Stripe
      }
     def update(intent, params = {}, opts = {}); end
 
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    sig {
+      params(intent: String, params: T.any(::Stripe::PaymentIntentUpdateCryptoRefundAddressParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+     }
+    def update_crypto_refund_address(intent, params = {}, opts = {}); end
+
     # Verifies microdeposits on a PaymentIntent object.
     sig {
       params(intent: String, params: T.any(::Stripe::PaymentIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)

@@ -504,11 +504,25 @@ module Stripe
         end
 
         class Benefits < ::Stripe::StripeObject
+          class FrMealVoucher < ::Stripe::StripeObject
+            # The 14-digit SIRET of the meal voucher acceptor used for this charge.
+            attr_reader :siret
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field fr_meal_voucher
+          attr_reader :fr_meal_voucher
           # Issuer of the benefit card utilized on this payment
           attr_reader :issuer
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { fr_meal_voucher: FrMealVoucher }
           end
 
           def self.field_remappings
@@ -1018,6 +1032,19 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class Multicapture < ::Stripe::StripeObject
+          # Indicates whether or not multiple captures are supported.
+          attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           attr_reader :stored_at
@@ -1125,6 +1152,8 @@ module Stripe
         attr_reader :last4
         # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
         attr_reader :location
+        # Attribute for field multicapture
+        attr_reader :multicapture
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -1150,6 +1179,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            multicapture: Multicapture,
             offline: Offline,
             reauthorization: Reauthorization,
             receipt: Receipt,

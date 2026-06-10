@@ -432,6 +432,29 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ProvisionalCredit < ::Stripe::StripeObject
+        # The time by which the platform must grant a provisional credit to the consumer.
+        sig { returns(T.nilable(Integer)) }
+        def grant_deadline; end
+        # The time at which the platform reported granting the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def granted_at; end
+        # The earliest time after which the platform can revoke the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revocable_after; end
+        # The time at which the platform reported revoking the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revoked_at; end
+        # The status of the provisional credit obligation.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
@@ -482,6 +505,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Provisional credit details for this dispute.
+      sig { returns(T.nilable(ProvisionalCredit)) }
+      def provisional_credit; end
       # Current status of the dispute.
       sig { returns(String) }
       def status; end

@@ -5,6 +5,43 @@
 module Stripe
   module Tax
     class CalculationLineItem < APIResource
+      class PerformanceLocationDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(String) }
+          def country; end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
+          sig { returns(T.nilable(String)) }
+          def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field address
+        sig { returns(Address) }
+        def address; end
+        def self.inner_class_types
+          @inner_class_types = {address: Address}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxBreakdown < ::Stripe::StripeObject
         class Jurisdiction < ::Stripe::StripeObject
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -89,6 +126,9 @@ module Stripe
       # Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
       sig { returns(T.nilable(String)) }
       def performance_location; end
+      # The address of the location where this line item's event or service takes place. Depending on the [tax code](/tax/tax-codes), providing a performance location is required, optional, or not supported. Use this to provide the address inline without pre-creating a [TaxLocation](/api/tax/location) object. Can't be used with `performance_location`.
+      sig { returns(T.nilable(PerformanceLocationDetails)) }
+      def performance_location_details; end
       # The ID of an existing [Product](https://docs.stripe.com/api/products/object).
       sig { returns(T.nilable(String)) }
       def product; end

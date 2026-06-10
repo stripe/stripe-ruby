@@ -3560,7 +3560,7 @@ module Stripe
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             sig { returns(T.nilable(String)) }
             def fees_collector; end
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             sig { returns(T.nilable(String)) }
             def losses_collector; end
             # A value indicating responsibility for collecting requirements on this account.

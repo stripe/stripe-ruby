@@ -28,9 +28,20 @@ module Stripe
       params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
      }
     def payment_evaluations=(_payment_evaluations); end
+    # The reason the payment attempt was canceled.
+    sig { returns(T.nilable(String)) }
+    def reason; end
+    sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
+    def reason=(_reason); end
     sig {
-      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String])).void
+      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), reason: T.nilable(String)).void
      }
-    def initialize(canceled_at: nil, expand: nil, metadata: nil, payment_evaluations: nil); end
+    def initialize(
+      canceled_at: nil,
+      expand: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      reason: nil
+    ); end
   end
 end

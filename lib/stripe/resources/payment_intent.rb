@@ -81,19 +81,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-
-      class Reauthorization < ::Stripe::StripeObject
-        # Indicates whether the feature is supported.
-        attr_reader :status
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # Timestamp at which the authorization will expire if not captured.
       attr_reader :capture_before
       # Attribute for field decremental_authorization
@@ -104,10 +91,6 @@ module Stripe
       attr_reader :multicapture
       # Attribute for field overcapture
       attr_reader :overcapture
-      # Attribute for field reauthorization
-      attr_reader :reauthorization
-      # Timestamp at which the reauthorization window closes.
-      attr_reader :reauthorize_before
 
       def self.inner_class_types
         @inner_class_types = {
@@ -115,7 +98,6 @@ module Stripe
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
-          reauthorization: Reauthorization,
         }
       end
 
@@ -560,6 +542,8 @@ module Stripe
             end
             # Address of the deposit address.
             attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
             # The token currencies supported on this network.
             attr_reader :supported_tokens
 
@@ -589,6 +573,8 @@ module Stripe
             end
             # Address of the deposit address.
             attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
             # The token currencies supported on this network.
             attr_reader :supported_tokens
 
@@ -618,6 +604,8 @@ module Stripe
             end
             # Address of the deposit address.
             attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
             # The token currencies supported on this network.
             attr_reader :supported_tokens
 
@@ -3019,6 +3007,8 @@ module Stripe
       attr_reader :fleet_data
       # Attribute for field flight_data
       attr_reader :flight_data
+      # The Payment Location associated with this PaymentIntent.
+      attr_reader :location
       # Attribute for field lodging_data
       attr_reader :lodging_data
       # Attribute for field money_services
@@ -3349,6 +3339,25 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Installments < ::Stripe::StripeObject
           class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
@@ -3466,6 +3475,12 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Installment details for this payment.
@@ -3511,6 +3526,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            capture_delay: CaptureDelay,
             installments: Installments,
             mandate_options: MandateOptions,
             statement_details: StatementDetails,
@@ -3523,6 +3539,25 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
@@ -3535,19 +3570,27 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_reader :request_incremental_authorization_support
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_reader :request_multicapture
         # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
         attr_reader :request_reauthorization
         # Attribute for field routing
         attr_reader :routing
 
         def self.inner_class_types
-          @inner_class_types = { routing: Routing }
+          @inner_class_types = { capture_delay: CaptureDelay, routing: Routing }
         end
 
         def self.field_remappings
@@ -5129,6 +5172,8 @@ module Stripe
     attr_reader :last_payment_error
     # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     attr_reader :latest_charge
+    # ID of the latest [Payment Attempt Record object](https://docs.stripe.com/api/payment-attempt-record) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    attr_reader :latest_payment_attempt_record
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Settings for Managed Payments.
@@ -5152,6 +5197,8 @@ module Stripe
     attr_reader :payment_method_options
     # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_reader :payment_method_types
+    # ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
+    attr_reader :payment_record
     # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
     attr_reader :payments_orchestration
     # Attribute for field presentment_details
@@ -5560,6 +5607,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def update_crypto_refund_address(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def self.update_crypto_refund_address(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )

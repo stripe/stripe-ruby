@@ -695,9 +695,6 @@ module Stripe
           # Uniquely identifies the gift card.
           sig { returns(T.nilable(String)) }
           def fingerprint; end
-          # The first six digits of the gift card number.
-          sig { returns(String) }
-          def first6; end
           # The last four digits of the gift card number.
           sig { returns(T.nilable(String)) }
           def last4; end

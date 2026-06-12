@@ -1003,8 +1003,6 @@ module Stripe
         attr_reader :exp_year
         # Uniquely identifies the gift card.
         attr_reader :fingerprint
-        # The first six digits of the gift card number.
-        attr_reader :first6
         # The last four digits of the gift card number.
         attr_reader :last4
 

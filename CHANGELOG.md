@@ -17,6 +17,9 @@ This release changes the pinned API version to 2026-05-27.private.
   * Change `Subscription.billing_schedules` to be required
   * ⚠️ Change type of `V2::MoneyManagement::ReceivedCredit::BankTransfer::GbBankAccount.network` from `literal('fps')` to `enum('chaps'|'fps')`
 
+## 19.2.1 - 2026-06-12
+* [#1874](https://github.com/stripe/stripe-ruby/pull/1874) Add "source" field to user-agent header
+
 ## 19.2.0 - 2026-05-27
 This release changes the pinned API version to 2026-05-27.dahlia.
 

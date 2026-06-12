@@ -5819,6 +5819,8 @@ module Stripe
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_accessor :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_accessor :buyer_id
         # The client type that the end customer will pay from
         attr_accessor :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5832,8 +5834,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(app_id: nil, client: nil, setup_future_usage: nil)
+        def initialize(app_id: nil, buyer_id: nil, client: nil, setup_future_usage: nil)
           @app_id = app_id
+          @buyer_id = buyer_id
           @client = client
           @setup_future_usage = setup_future_usage
         end

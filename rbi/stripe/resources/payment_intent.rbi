@@ -1622,6 +1622,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        sig { returns(String) }
+        def session_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         sig { returns(String) }
@@ -1725,6 +1736,9 @@ module Stripe
       # Attribute for field wechat_pay_display_qr_code
       sig { returns(T.nilable(WechatPayDisplayQrCode)) }
       def wechat_pay_display_qr_code; end
+      # Attribute for field wechat_pay_handle_app_redirect
+      sig { returns(T.nilable(WechatPayHandleAppRedirect)) }
+      def wechat_pay_handle_app_redirect; end
       # Attribute for field wechat_pay_redirect_to_android_app
       sig { returns(T.nilable(WechatPayRedirectToAndroidApp)) }
       def wechat_pay_redirect_to_android_app; end
@@ -1752,6 +1766,7 @@ module Stripe
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
@@ -5025,6 +5040,9 @@ module Stripe
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         sig { returns(T.nilable(String)) }
         def app_id; end
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         # The client type that the end customer will pay from
         sig { returns(T.nilable(String)) }
         def client; end

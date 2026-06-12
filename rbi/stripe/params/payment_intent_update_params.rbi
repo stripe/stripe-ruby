@@ -8694,6 +8694,11 @@ module Stripe
         def app_id; end
         sig { params(_app_id: T.nilable(String)).returns(T.nilable(String)) }
         def app_id=(_app_id); end
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
+        sig { params(_buyer_id: T.nilable(String)).returns(T.nilable(String)) }
+        def buyer_id=(_buyer_id); end
         # The client type that the end customer will pay from
         sig { returns(T.nilable(String)) }
         def client; end
@@ -8713,9 +8718,9 @@ module Stripe
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(app_id: T.nilable(String), client: T.nilable(String), setup_future_usage: T.nilable(String)).void
+          params(app_id: T.nilable(String), buyer_id: T.nilable(String), client: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
-        def initialize(app_id: nil, client: nil, setup_future_usage: nil); end
+        def initialize(app_id: nil, buyer_id: nil, client: nil, setup_future_usage: nil); end
       end
       class Zip < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.

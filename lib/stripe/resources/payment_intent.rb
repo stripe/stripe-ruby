@@ -1553,6 +1553,19 @@ module Stripe
         end
       end
 
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        attr_reader :session_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         attr_reader :app_id
@@ -1632,6 +1645,8 @@ module Stripe
       attr_reader :verify_with_microdeposits
       # Attribute for field wechat_pay_display_qr_code
       attr_reader :wechat_pay_display_qr_code
+      # Attribute for field wechat_pay_handle_app_redirect
+      attr_reader :wechat_pay_handle_app_redirect
       # Attribute for field wechat_pay_redirect_to_android_app
       attr_reader :wechat_pay_redirect_to_android_app
       # Attribute for field wechat_pay_redirect_to_ios_app
@@ -1658,6 +1673,7 @@ module Stripe
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
@@ -4812,6 +4828,8 @@ module Stripe
       class WechatPay < ::Stripe::StripeObject
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_reader :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_reader :buyer_id
         # The client type that the end customer will pay from
         attr_reader :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.

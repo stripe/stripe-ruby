@@ -272,6 +272,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        sig { returns(String) }
+        def session_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field blik_authorize
       sig { returns(T.nilable(BlikAuthorize)) }
       def blik_authorize; end
@@ -296,6 +307,9 @@ module Stripe
       # Attribute for field verify_with_microdeposits
       sig { returns(T.nilable(VerifyWithMicrodeposits)) }
       def verify_with_microdeposits; end
+      # Attribute for field wechat_pay_handle_app_redirect
+      sig { returns(T.nilable(WechatPayHandleAppRedirect)) }
+      def wechat_pay_handle_app_redirect; end
       def self.inner_class_types
         @inner_class_types = {
           blik_authorize: BlikAuthorize,
@@ -304,6 +318,7 @@ module Stripe
           redirect_to_url: RedirectToUrl,
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
         }
       end
       def self.field_remappings

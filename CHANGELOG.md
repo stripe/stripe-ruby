@@ -1,5 +1,8 @@
 # Changelog
 
+## 19.2.1 - 2026-06-12
+* [#1874](https://github.com/stripe/stripe-ruby/pull/1874) Add "source" field to user-agent header
+
 ## 19.2.0 - 2026-05-27
 This release changes the pinned API version to 2026-05-27.dahlia.
 

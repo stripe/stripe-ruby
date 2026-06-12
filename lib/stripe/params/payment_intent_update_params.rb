@@ -1995,26 +1995,33 @@ module Stripe
             attr_accessor :date_of_birth
             # Email address.
             attr_accessor :email
-            # Full name.
-            attr_accessor :name
+            # Given (first) name.
+            attr_accessor :given_name
             # Phone number.
             attr_accessor :phone
+            # Surname (family name).
+            attr_accessor :surname
 
-            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+            def initialize(
+              address: nil,
+              date_of_birth: nil,
+              email: nil,
+              given_name: nil,
+              phone: nil,
+              surname: nil
+            )
               @address = address
               @date_of_birth = date_of_birth
               @email = email
-              @name = name
+              @given_name = given_name
               @phone = phone
+              @surname = surname
             end
           end
-          # ID of the Account representing the sender in this account funding transaction.
-          attr_accessor :sender_account
           # Inline identity details for the sender of this account funding transaction.
           attr_accessor :sender_details
 
-          def initialize(sender_account: nil, sender_details: nil)
-            @sender_account = sender_account
+          def initialize(sender_details: nil)
             @sender_details = sender_details
           end
         end
@@ -2065,42 +2072,48 @@ module Stripe
               @year = year
             end
           end
+          # An opaque identifier for the beneficiary's account (e.g. bank account number, card first6+last4, or other unique identifier).
+          attr_accessor :account_reference
           # Address.
           attr_accessor :address
           # Date of birth.
           attr_accessor :date_of_birth
           # Email address.
           attr_accessor :email
-          # Full name.
-          attr_accessor :name
+          # Given (first) name.
+          attr_accessor :given_name
           # Phone number.
           attr_accessor :phone
+          # Surname (family name).
+          attr_accessor :surname
 
-          def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+          def initialize(
+            account_reference: nil,
+            address: nil,
+            date_of_birth: nil,
+            email: nil,
+            given_name: nil,
+            phone: nil,
+            surname: nil
+          )
+            @account_reference = account_reference
             @address = address
             @date_of_birth = date_of_birth
             @email = email
-            @name = name
+            @given_name = given_name
             @phone = phone
+            @surname = surname
           end
         end
         # Account funding transaction details including sender information.
         attr_accessor :account_funding
-        # ID of the Account representing the beneficiary in this account funding transaction.
-        attr_accessor :beneficiary_account
         # Inline identity details for the beneficiary of this transaction.
         attr_accessor :beneficiary_details
         # The type of money services transaction.
         attr_accessor :transaction_type
 
-        def initialize(
-          account_funding: nil,
-          beneficiary_account: nil,
-          beneficiary_details: nil,
-          transaction_type: nil
-        )
+        def initialize(account_funding: nil, beneficiary_details: nil, transaction_type: nil)
           @account_funding = account_funding
-          @beneficiary_account = beneficiary_account
           @beneficiary_details = beneficiary_details
           @transaction_type = transaction_type
         end

@@ -3120,26 +3120,33 @@ module Stripe
             def email; end
             sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
             def email=(_email); end
-            # Full name.
+            # Given (first) name.
             sig { returns(T.nilable(String)) }
-            def name; end
-            sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-            def name=(_name); end
+            def given_name; end
+            sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+            def given_name=(_given_name); end
             # Phone number.
             sig { returns(T.nilable(String)) }
             def phone; end
             sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
             def phone=(_phone); end
+            # Surname (family name).
+            sig { returns(T.nilable(String)) }
+            def surname; end
+            sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+            def surname=(_surname); end
             sig {
-              params(address: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address), date_of_birth: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+              params(address: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::Address), date_of_birth: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails::DateOfBirth), email: T.nilable(String), given_name: T.nilable(String), phone: T.nilable(String), surname: T.nilable(String)).void
              }
-            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+            def initialize(
+              address: nil,
+              date_of_birth: nil,
+              email: nil,
+              given_name: nil,
+              phone: nil,
+              surname: nil
+            ); end
           end
-          # ID of the Account representing the sender in this account funding transaction.
-          sig { returns(T.nilable(String)) }
-          def sender_account; end
-          sig { params(_sender_account: T.nilable(String)).returns(T.nilable(String)) }
-          def sender_account=(_sender_account); end
           # Inline identity details for the sender of this account funding transaction.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails)))
@@ -3150,9 +3157,9 @@ module Stripe
            }
           def sender_details=(_sender_details); end
           sig {
-            params(sender_account: T.nilable(String), sender_details: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).void
+            params(sender_details: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding::SenderDetails))).void
            }
-          def initialize(sender_account: nil, sender_details: nil); end
+          def initialize(sender_details: nil); end
         end
         class BeneficiaryDetails < ::Stripe::RequestParams
           class Address < ::Stripe::RequestParams
@@ -3217,6 +3224,11 @@ module Stripe
             sig { params(day: Integer, month: Integer, year: Integer).void }
             def initialize(day: nil, month: nil, year: nil); end
           end
+          # An opaque identifier for the beneficiary's account (e.g. bank account number, card first6+last4, or other unique identifier).
+          sig { returns(T.nilable(String)) }
+          def account_reference; end
+          sig { params(_account_reference: T.nilable(String)).returns(T.nilable(String)) }
+          def account_reference=(_account_reference); end
           # Address.
           sig {
             returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails::Address))
@@ -3240,20 +3252,33 @@ module Stripe
           def email; end
           sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }
           def email=(_email); end
-          # Full name.
+          # Given (first) name.
           sig { returns(T.nilable(String)) }
-          def name; end
-          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-          def name=(_name); end
+          def given_name; end
+          sig { params(_given_name: T.nilable(String)).returns(T.nilable(String)) }
+          def given_name=(_given_name); end
           # Phone number.
           sig { returns(T.nilable(String)) }
           def phone; end
           sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
           def phone=(_phone); end
+          # Surname (family name).
+          sig { returns(T.nilable(String)) }
+          def surname; end
+          sig { params(_surname: T.nilable(String)).returns(T.nilable(String)) }
+          def surname=(_surname); end
           sig {
-            params(address: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails::Address), date_of_birth: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails::DateOfBirth), email: T.nilable(String), name: T.nilable(String), phone: T.nilable(String)).void
+            params(account_reference: T.nilable(String), address: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails::Address), date_of_birth: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails::DateOfBirth), email: T.nilable(String), given_name: T.nilable(String), phone: T.nilable(String), surname: T.nilable(String)).void
            }
-          def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil); end
+          def initialize(
+            account_reference: nil,
+            address: nil,
+            date_of_birth: nil,
+            email: nil,
+            given_name: nil,
+            phone: nil,
+            surname: nil
+          ); end
         end
         # Account funding transaction details including sender information.
         sig {
@@ -3264,11 +3289,6 @@ module Stripe
           params(_account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding)))
          }
         def account_funding=(_account_funding); end
-        # ID of the Account representing the beneficiary in this account funding transaction.
-        sig { returns(T.nilable(String)) }
-        def beneficiary_account; end
-        sig { params(_beneficiary_account: T.nilable(String)).returns(T.nilable(String)) }
-        def beneficiary_account=(_beneficiary_account); end
         # Inline identity details for the beneficiary of this transaction.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails)))
@@ -3286,14 +3306,9 @@ module Stripe
          }
         def transaction_type=(_transaction_type); end
         sig {
-          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding)), beneficiary_account: T.nilable(String), beneficiary_details: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails)), transaction_type: T.nilable(T.any(String, String))).void
+          params(account_funding: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::AccountFunding)), beneficiary_details: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentDetails::MoneyServices::BeneficiaryDetails)), transaction_type: T.nilable(T.any(String, String))).void
          }
-        def initialize(
-          account_funding: nil,
-          beneficiary_account: nil,
-          beneficiary_details: nil,
-          transaction_type: nil
-        ); end
+        def initialize(account_funding: nil, beneficiary_details: nil, transaction_type: nil); end
       end
       class Subscription < ::Stripe::RequestParams
         class Affiliate < ::Stripe::RequestParams

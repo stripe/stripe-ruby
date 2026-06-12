@@ -2925,10 +2925,12 @@ module Stripe
             attr_reader :date_of_birth
             # Email address.
             attr_reader :email
-            # Full name.
-            attr_reader :name
+            # Given name (first name).
+            attr_reader :given_name
             # Phone number.
             attr_reader :phone
+            # Surname (last name).
+            attr_reader :surname
 
             def self.inner_class_types
               @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
@@ -2998,10 +3000,12 @@ module Stripe
           attr_reader :date_of_birth
           # Email address.
           attr_reader :email
-          # Full name.
-          attr_reader :name
+          # Given name (first name).
+          attr_reader :given_name
           # Phone number.
           attr_reader :phone
+          # Surname (last name).
+          attr_reader :surname
 
           def self.inner_class_types
             @inner_class_types = { address: Address, date_of_birth: DateOfBirth }

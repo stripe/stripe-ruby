@@ -3135,12 +3135,15 @@ module Stripe
             # Email address.
             sig { returns(T.nilable(String)) }
             def email; end
-            # Full name.
+            # Given name (first name).
             sig { returns(T.nilable(String)) }
-            def name; end
+            def given_name; end
             # Phone number.
             sig { returns(T.nilable(String)) }
             def phone; end
+            # Surname (last name).
+            sig { returns(T.nilable(String)) }
+            def surname; end
             def self.inner_class_types
               @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
             end
@@ -3214,12 +3217,15 @@ module Stripe
           # Email address.
           sig { returns(T.nilable(String)) }
           def email; end
-          # Full name.
+          # Given name (first name).
           sig { returns(T.nilable(String)) }
-          def name; end
+          def given_name; end
           # Phone number.
           sig { returns(T.nilable(String)) }
           def phone; end
+          # Surname (last name).
+          sig { returns(T.nilable(String)) }
+          def surname; end
           def self.inner_class_types
             @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
           end

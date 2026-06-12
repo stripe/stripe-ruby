@@ -200,6 +200,46 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
+      class Card < ::Stripe::RequestParams
+        class Checks < ::Stripe::RequestParams
+          # The result of the check on the cardholder's address line 1.
+          sig { returns(T.nilable(String)) }
+          def address_line1_check; end
+          sig { params(_address_line1_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_line1_check=(_address_line1_check); end
+          # The result of the check on the cardholder's postal code.
+          sig { returns(T.nilable(String)) }
+          def address_postal_code_check; end
+          sig { params(_address_postal_code_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_postal_code_check=(_address_postal_code_check); end
+          # The result of the check on the card's CVC.
+          sig { returns(T.nilable(String)) }
+          def cvc_check; end
+          sig { params(_cvc_check: T.nilable(String)).returns(T.nilable(String)) }
+          def cvc_check=(_cvc_check); end
+          sig {
+            params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), cvc_check: T.nilable(String)).void
+           }
+          def initialize(
+            address_line1_check: nil,
+            address_postal_code_check: nil,
+            cvc_check: nil
+          ); end
+        end
+        # Verification checks performed on the card.
+        sig {
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks; end
+        sig {
+          params(_checks: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card::Checks)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks=(_checks); end
+        sig {
+          params(checks: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card::Checks)).void
+         }
+        def initialize(checks: nil); end
+      end
       class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(T.nilable(String)) }
@@ -223,6 +263,15 @@ module Stripe
         params(_billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
        }
       def billing_details=(_billing_details); end
+      # Information about the card payment method used to make this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card))
+       }
+      def card; end
+      sig {
+        params(_card: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card))
+       }
+      def card=(_card); end
       # Information about the custom (user-defined) payment method used to make this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom))
@@ -243,9 +292,15 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
+        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), card: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card), custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
        }
-      def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
+      def initialize(
+        billing_details: nil,
+        card: nil,
+        custom: nil,
+        payment_method: nil,
+        type: nil
+      ); end
     end
     class ShippingDetails < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams

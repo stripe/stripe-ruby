@@ -628,6 +628,7 @@ module Stripe
     autoload :AccountEvaluationRetrieveParams, "stripe/params/radar/account_evaluation_retrieve_params"
     autoload :AccountEvaluationUpdateParams, "stripe/params/radar/account_evaluation_update_params"
     autoload :CustomerEvaluationCreateParams, "stripe/params/radar/customer_evaluation_create_params"
+    autoload :CustomerEvaluationRetrieveParams, "stripe/params/radar/customer_evaluation_retrieve_params"
     autoload :CustomerEvaluationUpdateParams, "stripe/params/radar/customer_evaluation_update_params"
     autoload :EarlyFraudWarningListParams, "stripe/params/radar/early_fraud_warning_list_params"
     autoload :EarlyFraudWarningRetrieveParams, "stripe/params/radar/early_fraud_warning_retrieve_params"
@@ -1741,6 +1742,7 @@ module Stripe
     stripe/params/radar/account_evaluation_retrieve_params
     stripe/params/radar/account_evaluation_update_params
     stripe/params/radar/customer_evaluation_create_params
+    stripe/params/radar/customer_evaluation_retrieve_params
     stripe/params/radar/customer_evaluation_update_params
     stripe/params/radar/early_fraud_warning_list_params
     stripe/params/radar/early_fraud_warning_retrieve_params

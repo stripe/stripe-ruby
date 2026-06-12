@@ -27,6 +27,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ForcedCapture < ::Stripe::StripeObject
+        # Timestamp at which the forced capture window expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # Indicates whether forced capture is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class IncrementalAuthorization < ::Stripe::StripeObject
         # Indicates whether the feature is supported.
         sig { returns(String) }
@@ -69,6 +83,9 @@ module Stripe
       # Attribute for field decremental_authorization
       sig { returns(T.nilable(DecrementalAuthorization)) }
       def decremental_authorization; end
+      # Attribute for field forced_capture
+      sig { returns(T.nilable(ForcedCapture)) }
+      def forced_capture; end
       # Attribute for field incremental_authorization
       sig { returns(T.nilable(IncrementalAuthorization)) }
       def incremental_authorization; end
@@ -81,6 +98,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           decremental_authorization: DecrementalAuthorization,
+          forced_capture: ForcedCapture,
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
@@ -2990,72 +3008,6 @@ module Stripe
       end
       class MoneyServices < ::Stripe::StripeObject
         class AccountFunding < ::Stripe::StripeObject
-          class BeneficiaryDetails < ::Stripe::StripeObject
-            class Address < ::Stripe::StripeObject
-              # City, district, suburb, town, or village.
-              sig { returns(T.nilable(String)) }
-              def city; end
-              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(T.nilable(String)) }
-              def country; end
-              # Address line 1 (e.g., street, PO Box, or company name).
-              sig { returns(T.nilable(String)) }
-              def line1; end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
-              sig { returns(T.nilable(String)) }
-              def line2; end
-              # ZIP or postal code.
-              sig { returns(T.nilable(String)) }
-              def postal_code; end
-              # State, county, province, or region.
-              sig { returns(T.nilable(String)) }
-              def state; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            class DateOfBirth < ::Stripe::StripeObject
-              # Day of birth, between 1 and 31.
-              sig { returns(Integer) }
-              def day; end
-              # Month of birth, between 1 and 12.
-              sig { returns(Integer) }
-              def month; end
-              # Four-digit year of birth.
-              sig { returns(Integer) }
-              def year; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Attribute for field address
-            sig { returns(T.nilable(Address)) }
-            def address; end
-            # Attribute for field date_of_birth
-            sig { returns(T.nilable(DateOfBirth)) }
-            def date_of_birth; end
-            # Email address.
-            sig { returns(T.nilable(String)) }
-            def email; end
-            # Full name.
-            sig { returns(T.nilable(String)) }
-            def name; end
-            # Phone number.
-            sig { returns(T.nilable(String)) }
-            def phone; end
-            def self.inner_class_types
-              @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class SenderDetails < ::Stripe::StripeObject
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -3122,12 +3074,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the beneficiary in this account funding transaction.
-          sig { returns(T.nilable(String)) }
-          def beneficiary_account; end
-          # Attribute for field beneficiary_details
-          sig { returns(T.nilable(BeneficiaryDetails)) }
-          def beneficiary_details; end
           # ID of the Account representing the sender in this account funding transaction.
           sig { returns(T.nilable(String)) }
           def sender_account; end
@@ -3135,10 +3081,73 @@ module Stripe
           sig { returns(T.nilable(SenderDetails)) }
           def sender_details; end
           def self.inner_class_types
-            @inner_class_types = {
-              beneficiary_details: BeneficiaryDetails,
-              sender_details: SenderDetails,
-            }
+            @inner_class_types = {sender_details: SenderDetails}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class BeneficiaryDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1 (e.g., street, PO Box, or company name).
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region.
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth, between 1 and 31.
+            sig { returns(Integer) }
+            def day; end
+            # Month of birth, between 1 and 12.
+            sig { returns(Integer) }
+            def month; end
+            # Four-digit year of birth.
+            sig { returns(Integer) }
+            def year; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # Attribute for field date_of_birth
+          sig { returns(T.nilable(DateOfBirth)) }
+          def date_of_birth; end
+          # Email address.
+          sig { returns(T.nilable(String)) }
+          def email; end
+          # Full name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # Phone number.
+          sig { returns(T.nilable(String)) }
+          def phone; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -3147,11 +3156,20 @@ module Stripe
         # Attribute for field account_funding
         sig { returns(T.nilable(AccountFunding)) }
         def account_funding; end
+        # ID of the Account representing the beneficiary in this account funding transaction.
+        sig { returns(T.nilable(String)) }
+        def beneficiary_account; end
+        # Attribute for field beneficiary_details
+        sig { returns(T.nilable(BeneficiaryDetails)) }
+        def beneficiary_details; end
         # The type of money services transaction.
         sig { returns(T.nilable(String)) }
         def transaction_type; end
         def self.inner_class_types
-          @inner_class_types = {account_funding: AccountFunding}
+          @inner_class_types = {
+            account_funding: AccountFunding,
+            beneficiary_details: BeneficiaryDetails,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -4655,6 +4673,15 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
         def self.inner_class_types
           @inner_class_types = {}
         end

@@ -158,6 +158,29 @@ module Stripe
         end
       end
 
+      class Card < ::Stripe::RequestParams
+        class Checks < ::Stripe::RequestParams
+          # The result of the check on the cardholder's address line 1.
+          attr_accessor :address_line1_check
+          # The result of the check on the cardholder's postal code.
+          attr_accessor :address_postal_code_check
+          # The result of the check on the card's CVC.
+          attr_accessor :cvc_check
+
+          def initialize(address_line1_check: nil, address_postal_code_check: nil, cvc_check: nil)
+            @address_line1_check = address_line1_check
+            @address_postal_code_check = address_postal_code_check
+            @cvc_check = cvc_check
+          end
+        end
+        # Verification checks performed on the card.
+        attr_accessor :checks
+
+        def initialize(checks: nil)
+          @checks = checks
+        end
+      end
+
       class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_accessor :display_name
@@ -171,6 +194,8 @@ module Stripe
       end
       # The billing details associated with the method of payment.
       attr_accessor :billing_details
+      # Information about the card payment method used to make this payment.
+      attr_accessor :card
       # Information about the custom (user-defined) payment method used to make this payment.
       attr_accessor :custom
       # ID of the Stripe Payment Method used to make this payment.
@@ -178,8 +203,9 @@ module Stripe
       # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
       attr_accessor :type
 
-      def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil)
+      def initialize(billing_details: nil, card: nil, custom: nil, payment_method: nil, type: nil)
         @billing_details = billing_details
+        @card = card
         @custom = custom
         @payment_method = payment_method
         @type = type

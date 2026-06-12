@@ -384,6 +384,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Satispay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebit < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -521,6 +529,9 @@ module Stripe
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
+      # Attribute for field satispay
+      sig { returns(T.nilable(Satispay)) }
+      def satispay; end
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
@@ -565,6 +576,7 @@ module Stripe
           payto: Payto,
           pix: Pix,
           revolut_pay: RevolutPay,
+          satispay: Satispay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
           stripe_balance: StripeBalance,

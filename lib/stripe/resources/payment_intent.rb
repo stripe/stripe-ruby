@@ -41,6 +41,21 @@ module Stripe
         end
       end
 
+      class ForcedCapture < ::Stripe::StripeObject
+        # Timestamp at which the forced capture window expires.
+        attr_reader :expires_at
+        # Indicates whether forced capture is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class IncrementalAuthorization < ::Stripe::StripeObject
         # Indicates whether the feature is supported.
         attr_reader :status
@@ -85,6 +100,8 @@ module Stripe
       attr_reader :capture_before
       # Attribute for field decremental_authorization
       attr_reader :decremental_authorization
+      # Attribute for field forced_capture
+      attr_reader :forced_capture
       # Attribute for field incremental_authorization
       attr_reader :incremental_authorization
       # Attribute for field multicapture
@@ -95,6 +112,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           decremental_authorization: DecrementalAuthorization,
+          forced_capture: ForcedCapture,
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
@@ -2789,66 +2807,6 @@ module Stripe
 
       class MoneyServices < ::Stripe::StripeObject
         class AccountFunding < ::Stripe::StripeObject
-          class BeneficiaryDetails < ::Stripe::StripeObject
-            class Address < ::Stripe::StripeObject
-              # City, district, suburb, town, or village.
-              attr_reader :city
-              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
-              attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
-              attr_reader :line2
-              # ZIP or postal code.
-              attr_reader :postal_code
-              # State, county, province, or region.
-              attr_reader :state
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-
-            class DateOfBirth < ::Stripe::StripeObject
-              # Day of birth, between 1 and 31.
-              attr_reader :day
-              # Month of birth, between 1 and 12.
-              attr_reader :month
-              # Four-digit year of birth.
-              attr_reader :year
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Attribute for field address
-            attr_reader :address
-            # Attribute for field date_of_birth
-            attr_reader :date_of_birth
-            # Email address.
-            attr_reader :email
-            # Full name.
-            attr_reader :name
-            # Phone number.
-            attr_reader :phone
-
-            def self.inner_class_types
-              @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class SenderDetails < ::Stripe::StripeObject
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -2908,20 +2866,73 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the beneficiary in this account funding transaction.
-          attr_reader :beneficiary_account
-          # Attribute for field beneficiary_details
-          attr_reader :beneficiary_details
           # ID of the Account representing the sender in this account funding transaction.
           attr_reader :sender_account
           # Attribute for field sender_details
           attr_reader :sender_details
 
           def self.inner_class_types
-            @inner_class_types = {
-              beneficiary_details: BeneficiaryDetails,
-              sender_details: SenderDetails,
-            }
+            @inner_class_types = { sender_details: SenderDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BeneficiaryDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth, between 1 and 31.
+            attr_reader :day
+            # Month of birth, between 1 and 12.
+            attr_reader :month
+            # Four-digit year of birth.
+            attr_reader :year
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Attribute for field date_of_birth
+          attr_reader :date_of_birth
+          # Email address.
+          attr_reader :email
+          # Full name.
+          attr_reader :name
+          # Phone number.
+          attr_reader :phone
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
           end
 
           def self.field_remappings
@@ -2930,11 +2941,18 @@ module Stripe
         end
         # Attribute for field account_funding
         attr_reader :account_funding
+        # ID of the Account representing the beneficiary in this account funding transaction.
+        attr_reader :beneficiary_account
+        # Attribute for field beneficiary_details
+        attr_reader :beneficiary_details
         # The type of money services transaction.
         attr_reader :transaction_type
 
         def self.inner_class_types
-          @inner_class_types = { account_funding: AccountFunding }
+          @inner_class_types = {
+            account_funding: AccountFunding,
+            beneficiary_details: BeneficiaryDetails,
+          }
         end
 
         def self.field_remappings
@@ -4433,6 +4451,14 @@ module Stripe
       class Satispay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
 
         def self.inner_class_types
           @inner_class_types = {}

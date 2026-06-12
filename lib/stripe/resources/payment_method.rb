@@ -1532,6 +1532,16 @@ module Stripe
       end
     end
 
+    class Tamara < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Twint < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1790,6 +1800,8 @@ module Stripe
     attr_reader :sunbit
     # Attribute for field swish
     attr_reader :swish
+    # Attribute for field tamara
+    attr_reader :tamara
     # Attribute for field twint
     attr_reader :twint
     # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1973,6 +1985,7 @@ module Stripe
         stripe_balance: StripeBalance,
         sunbit: Sunbit,
         swish: Swish,
+        tamara: Tamara,
         twint: Twint,
         upi: Upi,
         us_bank_account: UsBankAccount,

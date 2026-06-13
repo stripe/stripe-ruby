@@ -27,6 +27,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ForcedCapture < ::Stripe::StripeObject
+        # Timestamp at which the forced capture window expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # Indicates whether forced capture is supported.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class IncrementalAuthorization < ::Stripe::StripeObject
         # Indicates whether the feature is supported.
         sig { returns(String) }
@@ -69,6 +83,9 @@ module Stripe
       # Attribute for field decremental_authorization
       sig { returns(T.nilable(DecrementalAuthorization)) }
       def decremental_authorization; end
+      # Attribute for field forced_capture
+      sig { returns(T.nilable(ForcedCapture)) }
+      def forced_capture; end
       # Attribute for field incremental_authorization
       sig { returns(T.nilable(IncrementalAuthorization)) }
       def incremental_authorization; end
@@ -81,6 +98,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           decremental_authorization: DecrementalAuthorization,
+          forced_capture: ForcedCapture,
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
@@ -516,7 +534,69 @@ module Stripe
               # The on-chain contract address for the supported token currency on this specific network.
               sig { returns(String) }
               def token_contract_address; end
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
+              sig { returns(String) }
+              def token_currency; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            sig { returns(String) }
+            def address; end
+            # The wallet address that should receive refunds for deposits on this network.
+            sig { returns(T.nilable(String)) }
+            def refund_address; end
+            # The token currencies supported on this network.
+            sig { returns(T::Array[SupportedToken]) }
+            def supported_tokens; end
+            def self.inner_class_types
+              @inner_class_types = {supported_tokens: SupportedToken}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Ethereum < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              sig { returns(String) }
+              def token_contract_address; end
+              # The supported token currency.
+              sig { returns(String) }
+              def token_currency; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            sig { returns(String) }
+            def address; end
+            # The wallet address that should receive refunds for deposits on this network.
+            sig { returns(T.nilable(String)) }
+            def refund_address; end
+            # The token currencies supported on this network.
+            sig { returns(T::Array[SupportedToken]) }
+            def supported_tokens; end
+            def self.inner_class_types
+              @inner_class_types = {supported_tokens: SupportedToken}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Polygon < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              sig { returns(String) }
+              def token_contract_address; end
+              # The supported token currency.
               sig { returns(String) }
               def token_currency; end
               def self.inner_class_types
@@ -547,7 +627,7 @@ module Stripe
               # The on-chain contract address for the supported token currency on this specific network.
               sig { returns(String) }
               def token_contract_address; end
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
               sig { returns(String) }
               def token_currency; end
               def self.inner_class_types
@@ -578,7 +658,7 @@ module Stripe
               # The on-chain contract address for the supported token currency on this specific network.
               sig { returns(String) }
               def token_contract_address; end
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
               sig { returns(String) }
               def token_currency; end
               def self.inner_class_types
@@ -607,6 +687,12 @@ module Stripe
           # Attribute for field base
           sig { returns(T.nilable(Base)) }
           def base; end
+          # Attribute for field ethereum
+          sig { returns(T.nilable(Ethereum)) }
+          def ethereum; end
+          # Attribute for field polygon
+          sig { returns(T.nilable(Polygon)) }
+          def polygon; end
           # Attribute for field solana
           sig { returns(T.nilable(Solana)) }
           def solana; end
@@ -614,7 +700,13 @@ module Stripe
           sig { returns(T.nilable(Tempo)) }
           def tempo; end
           def self.inner_class_types
-            @inner_class_types = {base: Base, solana: Solana, tempo: Tempo}
+            @inner_class_types = {
+              base: Base,
+              ethereum: Ethereum,
+              polygon: Polygon,
+              solana: Solana,
+              tempo: Tempo,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1530,6 +1622,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        sig { returns(String) }
+        def session_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         sig { returns(String) }
@@ -1633,6 +1736,9 @@ module Stripe
       # Attribute for field wechat_pay_display_qr_code
       sig { returns(T.nilable(WechatPayDisplayQrCode)) }
       def wechat_pay_display_qr_code; end
+      # Attribute for field wechat_pay_handle_app_redirect
+      sig { returns(T.nilable(WechatPayHandleAppRedirect)) }
+      def wechat_pay_handle_app_redirect; end
       # Attribute for field wechat_pay_redirect_to_android_app
       sig { returns(T.nilable(WechatPayRedirectToAndroidApp)) }
       def wechat_pay_redirect_to_android_app; end
@@ -1660,6 +1766,7 @@ module Stripe
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
@@ -2990,72 +3097,6 @@ module Stripe
       end
       class MoneyServices < ::Stripe::StripeObject
         class AccountFunding < ::Stripe::StripeObject
-          class BeneficiaryDetails < ::Stripe::StripeObject
-            class Address < ::Stripe::StripeObject
-              # City, district, suburb, town, or village.
-              sig { returns(T.nilable(String)) }
-              def city; end
-              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              sig { returns(T.nilable(String)) }
-              def country; end
-              # Address line 1 (e.g., street, PO Box, or company name).
-              sig { returns(T.nilable(String)) }
-              def line1; end
-              # Address line 2 (e.g., apartment, suite, unit, or building).
-              sig { returns(T.nilable(String)) }
-              def line2; end
-              # ZIP or postal code.
-              sig { returns(T.nilable(String)) }
-              def postal_code; end
-              # State, county, province, or region.
-              sig { returns(T.nilable(String)) }
-              def state; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            class DateOfBirth < ::Stripe::StripeObject
-              # Day of birth, between 1 and 31.
-              sig { returns(Integer) }
-              def day; end
-              # Month of birth, between 1 and 12.
-              sig { returns(Integer) }
-              def month; end
-              # Four-digit year of birth.
-              sig { returns(Integer) }
-              def year; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Attribute for field address
-            sig { returns(T.nilable(Address)) }
-            def address; end
-            # Attribute for field date_of_birth
-            sig { returns(T.nilable(DateOfBirth)) }
-            def date_of_birth; end
-            # Email address.
-            sig { returns(T.nilable(String)) }
-            def email; end
-            # Full name.
-            sig { returns(T.nilable(String)) }
-            def name; end
-            # Phone number.
-            sig { returns(T.nilable(String)) }
-            def phone; end
-            def self.inner_class_types
-              @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class SenderDetails < ::Stripe::StripeObject
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -3109,12 +3150,15 @@ module Stripe
             # Email address.
             sig { returns(T.nilable(String)) }
             def email; end
-            # Full name.
+            # Given name (first name).
             sig { returns(T.nilable(String)) }
-            def name; end
+            def given_name; end
             # Phone number.
             sig { returns(T.nilable(String)) }
             def phone; end
+            # Surname (last name).
+            sig { returns(T.nilable(String)) }
+            def surname; end
             def self.inner_class_types
               @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
             end
@@ -3122,12 +3166,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the beneficiary in this account funding transaction.
-          sig { returns(T.nilable(String)) }
-          def beneficiary_account; end
-          # Attribute for field beneficiary_details
-          sig { returns(T.nilable(BeneficiaryDetails)) }
-          def beneficiary_details; end
           # ID of the Account representing the sender in this account funding transaction.
           sig { returns(T.nilable(String)) }
           def sender_account; end
@@ -3135,10 +3173,76 @@ module Stripe
           sig { returns(T.nilable(SenderDetails)) }
           def sender_details; end
           def self.inner_class_types
-            @inner_class_types = {
-              beneficiary_details: BeneficiaryDetails,
-              sender_details: SenderDetails,
-            }
+            @inner_class_types = {sender_details: SenderDetails}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class BeneficiaryDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1 (e.g., street, PO Box, or company name).
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region.
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth, between 1 and 31.
+            sig { returns(Integer) }
+            def day; end
+            # Month of birth, between 1 and 12.
+            sig { returns(Integer) }
+            def month; end
+            # Four-digit year of birth.
+            sig { returns(Integer) }
+            def year; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # Attribute for field date_of_birth
+          sig { returns(T.nilable(DateOfBirth)) }
+          def date_of_birth; end
+          # Email address.
+          sig { returns(T.nilable(String)) }
+          def email; end
+          # Given name (first name).
+          sig { returns(T.nilable(String)) }
+          def given_name; end
+          # Phone number.
+          sig { returns(T.nilable(String)) }
+          def phone; end
+          # Surname (last name).
+          sig { returns(T.nilable(String)) }
+          def surname; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address, date_of_birth: DateOfBirth}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -3147,11 +3251,20 @@ module Stripe
         # Attribute for field account_funding
         sig { returns(T.nilable(AccountFunding)) }
         def account_funding; end
+        # ID of the Account representing the beneficiary in this account funding transaction.
+        sig { returns(T.nilable(String)) }
+        def beneficiary_account; end
+        # Attribute for field beneficiary_details
+        sig { returns(T.nilable(BeneficiaryDetails)) }
+        def beneficiary_details; end
         # The type of money services transaction.
         sig { returns(T.nilable(String)) }
         def transaction_type; end
         def self.inner_class_types
-          @inner_class_types = {account_funding: AccountFunding}
+          @inner_class_types = {
+            account_funding: AccountFunding,
+            beneficiary_details: BeneficiaryDetails,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -4927,6 +5040,9 @@ module Stripe
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         sig { returns(T.nilable(String)) }
         def app_id; end
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         # The client type that the end customer will pay from
         sig { returns(T.nilable(String)) }
         def client; end

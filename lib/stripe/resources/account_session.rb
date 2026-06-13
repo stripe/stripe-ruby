@@ -163,6 +163,8 @@ module Stripe
         class Features < ::Stripe::StripeObject
           # Whether to enable the bill management feature that grants access to bill creation and payment.
           attr_reader :bill_management
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_reader :disable_stripe_user_authentication
           # Whether to enable the send money feature that grants access to bill creation and payment.
           attr_reader :send_money
 

@@ -1951,72 +1951,6 @@ module Stripe
 
       class MoneyServices < ::Stripe::RequestParams
         class AccountFunding < ::Stripe::RequestParams
-          class BeneficiaryDetails < ::Stripe::RequestParams
-            class Address < ::Stripe::RequestParams
-              # City, district, suburb, town, or village.
-              attr_accessor :city
-              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              attr_accessor :country
-              # Address line 1, such as the street, PO Box, or company name.
-              attr_accessor :line1
-              # Address line 2, such as the apartment, suite, unit, or building.
-              attr_accessor :line2
-              # ZIP or postal code.
-              attr_accessor :postal_code
-              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-              attr_accessor :state
-
-              def initialize(
-                city: nil,
-                country: nil,
-                line1: nil,
-                line2: nil,
-                postal_code: nil,
-                state: nil
-              )
-                @city = city
-                @country = country
-                @line1 = line1
-                @line2 = line2
-                @postal_code = postal_code
-                @state = state
-              end
-            end
-
-            class DateOfBirth < ::Stripe::RequestParams
-              # Day of birth, between 1 and 31.
-              attr_accessor :day
-              # Month of birth, between 1 and 12.
-              attr_accessor :month
-              # Four-digit year of birth.
-              attr_accessor :year
-
-              def initialize(day: nil, month: nil, year: nil)
-                @day = day
-                @month = month
-                @year = year
-              end
-            end
-            # Address.
-            attr_accessor :address
-            # Date of birth.
-            attr_accessor :date_of_birth
-            # Email address.
-            attr_accessor :email
-            # Full name.
-            attr_accessor :name
-            # Phone number.
-            attr_accessor :phone
-
-            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
-              @address = address
-              @date_of_birth = date_of_birth
-              @email = email
-              @name = name
-              @phone = phone
-            end
-          end
-
           class SenderDetails < ::Stripe::RequestParams
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
@@ -2069,47 +2003,126 @@ module Stripe
             attr_accessor :date_of_birth
             # Email address.
             attr_accessor :email
-            # Full name.
-            attr_accessor :name
+            # Given (first) name.
+            attr_accessor :given_name
             # Phone number.
             attr_accessor :phone
+            # Surname (family name).
+            attr_accessor :surname
 
-            def initialize(address: nil, date_of_birth: nil, email: nil, name: nil, phone: nil)
+            def initialize(
+              address: nil,
+              date_of_birth: nil,
+              email: nil,
+              given_name: nil,
+              phone: nil,
+              surname: nil
+            )
               @address = address
               @date_of_birth = date_of_birth
               @email = email
-              @name = name
+              @given_name = given_name
               @phone = phone
+              @surname = surname
             end
           end
-          # ID of the Account representing the beneficiary in this account funding transaction.
-          attr_accessor :beneficiary_account
-          # Inline identity details for the beneficiary of this account funding transaction.
-          attr_accessor :beneficiary_details
-          # ID of the Account representing the sender in this account funding transaction.
-          attr_accessor :sender_account
           # Inline identity details for the sender of this account funding transaction.
           attr_accessor :sender_details
 
-          def initialize(
-            beneficiary_account: nil,
-            beneficiary_details: nil,
-            sender_account: nil,
-            sender_details: nil
-          )
-            @beneficiary_account = beneficiary_account
-            @beneficiary_details = beneficiary_details
-            @sender_account = sender_account
+          def initialize(sender_details: nil)
             @sender_details = sender_details
           end
         end
-        # Account funding transaction details including sender and beneficiary information.
+
+        class BeneficiaryDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+
+          class DateOfBirth < ::Stripe::RequestParams
+            # Day of birth, between 1 and 31.
+            attr_accessor :day
+            # Month of birth, between 1 and 12.
+            attr_accessor :month
+            # Four-digit year of birth.
+            attr_accessor :year
+
+            def initialize(day: nil, month: nil, year: nil)
+              @day = day
+              @month = month
+              @year = year
+            end
+          end
+          # An opaque identifier for the beneficiary's account (e.g. bank account number, card first6+last4, or other unique identifier).
+          attr_accessor :account_reference
+          # Address.
+          attr_accessor :address
+          # Date of birth.
+          attr_accessor :date_of_birth
+          # Email address.
+          attr_accessor :email
+          # Given (first) name.
+          attr_accessor :given_name
+          # Phone number.
+          attr_accessor :phone
+          # Surname (family name).
+          attr_accessor :surname
+
+          def initialize(
+            account_reference: nil,
+            address: nil,
+            date_of_birth: nil,
+            email: nil,
+            given_name: nil,
+            phone: nil,
+            surname: nil
+          )
+            @account_reference = account_reference
+            @address = address
+            @date_of_birth = date_of_birth
+            @email = email
+            @given_name = given_name
+            @phone = phone
+            @surname = surname
+          end
+        end
+        # Account funding transaction details including sender information.
         attr_accessor :account_funding
+        # Inline identity details for the beneficiary of this transaction.
+        attr_accessor :beneficiary_details
         # The type of money services transaction.
         attr_accessor :transaction_type
 
-        def initialize(account_funding: nil, transaction_type: nil)
+        def initialize(account_funding: nil, beneficiary_details: nil, transaction_type: nil)
           @account_funding = account_funding
+          @beneficiary_details = beneficiary_details
           @transaction_type = transaction_type
         end
       end
@@ -2575,6 +2588,7 @@ module Stripe
 
       class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
+      class Tamara < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
       class Upi < ::Stripe::RequestParams
@@ -2756,6 +2770,8 @@ module Stripe
       attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
+      # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+      attr_accessor :tamara
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -2832,6 +2848,7 @@ module Stripe
         stripe_balance: nil,
         sunbit: nil,
         swish: nil,
+        tamara: nil,
         twint: nil,
         type: nil,
         upi: nil,
@@ -2901,6 +2918,7 @@ module Stripe
         @stripe_balance = stripe_balance
         @sunbit = sunbit
         @swish = swish
+        @tamara = tamara
         @twint = twint
         @type = type
         @upi = upi
@@ -3288,41 +3306,11 @@ module Stripe
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class Wallet < ::Stripe::RequestParams
-                class StagedPurchase < ::Stripe::RequestParams
-                  class Merchant < ::Stripe::RequestParams
-                    # The merchant category code of the merchant.
-                    attr_accessor :mcc
-                    # The merchant's name.
-                    attr_accessor :name
-
-                    def initialize(mcc: nil, name: nil)
-                      @mcc = mcc
-                      @name = name
-                    end
-                  end
-                  # The merchant where the staged wallet purchase is made.
-                  attr_accessor :merchant
-
-                  def initialize(merchant: nil)
-                    @merchant = merchant
-                  end
-                end
-                # Details for a staged purchase.
-                attr_accessor :staged_purchase
-
-                def initialize(staged_purchase: nil)
-                  @staged_purchase = staged_purchase
-                end
-              end
               # The category of digital asset being acquired through this account funding transaction.
               attr_accessor :digital_asset_category
-              # Details for a wallet funding transaction.
-              attr_accessor :wallet
 
-              def initialize(digital_asset_category: nil, wallet: nil)
+              def initialize(digital_asset_category: nil)
                 @digital_asset_category = digital_asset_category
-                @wallet = wallet
               end
             end
             # Payment method specific account funding transaction details.
@@ -3591,41 +3579,11 @@ module Stripe
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
-              class Wallet < ::Stripe::RequestParams
-                class StagedPurchase < ::Stripe::RequestParams
-                  class Merchant < ::Stripe::RequestParams
-                    # The merchant category code of the merchant.
-                    attr_accessor :mcc
-                    # The merchant's name.
-                    attr_accessor :name
-
-                    def initialize(mcc: nil, name: nil)
-                      @mcc = mcc
-                      @name = name
-                    end
-                  end
-                  # The merchant where the staged wallet purchase is made.
-                  attr_accessor :merchant
-
-                  def initialize(merchant: nil)
-                    @merchant = merchant
-                  end
-                end
-                # Details for a staged purchase.
-                attr_accessor :staged_purchase
-
-                def initialize(staged_purchase: nil)
-                  @staged_purchase = staged_purchase
-                end
-              end
               # The category of digital asset being acquired through this account funding transaction.
               attr_accessor :digital_asset_category
-              # Details for a wallet funding transaction.
-              attr_accessor :wallet
 
-              def initialize(digital_asset_category: nil, wallet: nil)
+              def initialize(digital_asset_category: nil)
                 @digital_asset_category = digital_asset_category
-                @wallet = wallet
               end
             end
             # Payment method specific account funding transaction details.
@@ -5869,6 +5827,8 @@ module Stripe
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_accessor :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_accessor :buyer_id
         # The client type that the end customer will pay from
         attr_accessor :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5882,8 +5842,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(app_id: nil, client: nil, setup_future_usage: nil)
+        def initialize(app_id: nil, buyer_id: nil, client: nil, setup_future_usage: nil)
           @app_id = app_id
+          @buyer_id = buyer_id
           @client = client
           @setup_future_usage = setup_future_usage
         end

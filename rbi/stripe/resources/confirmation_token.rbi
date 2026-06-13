@@ -1044,9 +1044,6 @@ module Stripe
         # Uniquely identifies the gift card.
         sig { returns(T.nilable(String)) }
         def fingerprint; end
-        # The first six digits of the gift card number.
-        sig { returns(String) }
-        def first6; end
         # The last four digits of the gift card number.
         sig { returns(T.nilable(String)) }
         def last4; end
@@ -1583,6 +1580,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Tamara < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1884,6 +1889,9 @@ module Stripe
       # Attribute for field swish
       sig { returns(T.nilable(Swish)) }
       def swish; end
+      # Attribute for field tamara
+      sig { returns(T.nilable(Tamara)) }
+      def tamara; end
       # Attribute for field twint
       sig { returns(T.nilable(Twint)) }
       def twint; end
@@ -1964,6 +1972,7 @@ module Stripe
           stripe_balance: StripeBalance,
           sunbit: Sunbit,
           swish: Swish,
+          tamara: Tamara,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

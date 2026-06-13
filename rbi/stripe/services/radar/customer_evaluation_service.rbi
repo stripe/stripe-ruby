@@ -11,6 +11,12 @@ module Stripe
        }
       def create(params = {}, opts = {}); end
 
+      # Retrieves an CustomerEvaluation object.
+      sig {
+        params(customer_evaluation: String, params: T.any(::Stripe::Radar::CustomerEvaluationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::CustomerEvaluation)
+       }
+      def retrieve(customer_evaluation, params = {}, opts = {}); end
+
       # Reports an event on a CustomerEvaluation object.
       sig {
         params(customer_evaluation: String, params: T.any(::Stripe::Radar::CustomerEvaluationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::CustomerEvaluation)

@@ -1,0 +1,529 @@
+name: Ruby Gem
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build: Home
+
+  
+Frontend: React
+
+
+Backend: Ruby
+
+
+Build a SaaS platform integration
+Note
+You can customize this guide by selecting integration options in the Interactive platform guide.
+
+Use this working code sample to integrate Stripe Hosted Checkout for payments with Stripe Connect. With this approach, Stripe hosts the checkout page for you and payments go directly to your connected accounts.
+
+
+Download example
+Don't code? Use Stripe’s no-code options or get help from our partners.
+1
+Run the sample code
+Install dependencies
+Run npm install from the root of the project to install the dependencies.
+
+Run the application
+Run npm run dev from the root of the project to start the application.
+
+Navigate to the application
+Go to http://localhost:3000/ in your web browser.
+
+2
+Dependencies
+Install the Stripe Ruby library
+Install the Stripe ruby gem and require it in your code. Alternatively, if you’re starting from scratch and need a Gemfile, download the project files using the link in the code editor.
+
+
+Terminal
+
+Bundler
+
+GitHub
+Install the gem: Server
+
+gem install stripe
+
+3
+Create a connected account
+Add an endpoint to create a connected account
+Set up an endpoint on your server for your client to call to handle creating a connected account.
+
+Server
+Create a connected account
+Call the Stripe API to create a connected account. We’ve configured the attributes used based on your preferences. You can prefill verification information, the business profile of the connected account, and other fields on the account if your platform has already collected it.
+
+Use your Stripe API keys to make API requests on behalf of your connected accounts.
+
+Server
+Call the endpoint to create a connected account
+Call the endpoint you added above to create a connected account.
+
+Client
+4
+Onboard the connected account
+Add an Account Link endpoint
+Set up an endpoint on your server to create an Account Link.
+
+Server
+Provide a return URL
+When your connected account completes the onboarding flow, it redirects them to the return URL. That doesn’t mean that all information has been collected or that the connected account has no outstanding requirements. It only means that they entered and exited the flow properly.
+
+Server
+Provide a refresh URL
+Stripe redirects your connected account to the refresh URL when the link is expired, the link has already been visited, your platform can’t access the connected account, or the account is rejected. Have the refresh URL create a new onboarding Account Link and redirect your connected accounts to it.
+
+Server
+Call the endpoint to create an Account Link
+Provide the connected account ID.
+
+Client
+Redirect the connected account to the URL
+Send the connected account to Stripe to complete onboarding using Account Link. They’re redirected back to your app when onboarding is complete.
+
+Client
+Connected account completes onboarding data collection
+At this point the connected account will be redirected to a hosted form and will put in the necessary onboarding information for the capabilities requested.
+
+When testing your integration, fill account information using test data.
+
+Handle the connected account returning
+Display a useful message on the return URL.
+
+Handle the Account Link refreshing
+Generate a new Account Link on the refresh URL.
+
+5
+Define a product to sell
+Add an endpoint to create a product for the connected account
+Set up an endpoint for creating products and prices on behalf of your connected account. Products define what your connected accounts sell and prices track how much and how often to charge.
+
+Server
+Call the endpoint to create a product
+Call the endpoint from the client.
+
+Client
+6
+Display products as a Storefront
+Add an endpoint to fetch the products
+Set up an endpoint for fetching all products for a given connected account.
+
+Server
+Call the endpoint to fetch the products
+In your business model, each connected account usually has its own storefront. To fetch all the products for a specific connected account, call the endpoint within your storefront.
+
+Client
+7
+Create a payment
+Create an endpoint to create a Checkout Session
+The /create-checkout-session endpoint creates a Checkout Session and redirects the customer to a Stripe-hosted checkout page.
+
+Server
+Indicate the connected account
+The connected account that the payment will be created on.
+
+Server
+8
+Build the Checkout
+Call the endpoint to redirect the customer to checkout
+The form makes a request to the /api/create-checkout-session endpoint on the server which redirects the customer to a Stripe-hosted checkout page.
+
+Client
+Post-checkout page
+After a user completes their payment, Stripe redirects the customer to a payment success page.
+
+Client
+9
+Handle post-payment events
+Listen for webhook events
+Create a /webhook endpoint and obtain your webhook secret key in the Webhooks tab in Workbench to listen for events related to your payments. Use a webhook to receive these events and run actions.
+
+10
+Test your integration
+Try it out
+You know the integration is working successfully if you complete a payment and see the /done page. Once you have the Stripe dashboard setup, the test payment will show there as well. Use any of these test cards to simulate a payment:
+
+Payment succeeds
+
+4242 4242 4242 4242
+Payment requires 3DS authentication
+
+4000 0025 0000 3155
+Payment is declined
+
+4000 0000 0000 9995
+Was this page helpful?
+Yes
+No
+
+Home.jsx
+
+Done.jsx
+
+AccountProvider.jsx
+
+AccountStatus.jsx
+
+ConnectOnboarding.jsx
+
+Products.jsx
+
+StorefrontNav.jsx
+
+Storefront.jsx
+
+useAccountStatus.js
+
+App.jsx
+
+server.rb
+
+Gemfile
+
+.env
+
+Download
+require "dotenv"
+require "stripe"
+require "sinatra"
+require "sinatra/json"
+require "json"
+Dotenv.load
+
+Stripe.api_key = ENV["STRIPE_SECRET_KEY"]
+stripe_client = Stripe::StripeClient.new(ENV["STRIPE_SECRET_KEY"])
+
+
+set :public_folder, File.dirname(__FILE__) + "/public"
+enable :sessions
+
+# Create a sample product and return a price for it
+post "/api/create-product" do
+  data = parse_request_body
+  product_name = data['productName']
+  product_description = data['productDescription']
+  product_price = data['productPrice']
+  account_id = data['accountId']
+
+  begin
+    # Create the product on the connected account
+    product = Stripe::Product.create({
+      name: product_name,
+      description: product_description,
+    }, { stripe_account: account_id })
+
+    # Create a price for the product on the connected account
+    price = Stripe::Price.create({
+      product: product.id,
+      unit_amount: product_price,
+      currency: 'usd',
+    }, { stripe_account: account_id })
+
+    content_type :json
+    {
+      productName: product_name,
+      productDescription: product_description,
+      productPrice: product_price,
+      priceId: price.id
+    }.to_json
+  rescue Stripe::StripeError => e
+    status 500
+    { error: e.message }.to_json
+  end
+end
+
+# Create a Connected Account
+post "/api/create-connect-account" do
+  data = parse_request_body
+
+  begin
+    account = stripe_client.v2.core.accounts.create({
+      display_name: data['email'],
+      contact_email: data['email'],
+      dashboard: 'full',
+      defaults: {
+        responsibilities: {
+          fees_collector: 'stripe',
+          losses_collector: 'stripe',
+        },
+      },
+      identity: {
+        country: 'US',
+        entity_type: 'company',
+      },
+      configuration: {
+        merchant: {
+          capabilities: {
+            card_payments: { requested: true },
+          },
+        },
+      },
+    })
+
+    content_type :json
+    { accountId: account.id }.to_json
+  rescue Stripe::StripeError => e
+    status 500
+    { error: e.message }.to_json
+  end
+end
+
+# Create Account Link for onboarding
+post "/api/create-account-link" do
+  data = parse_request_body
+  account_id = data['accountId']
+
+  begin
+    account_link = stripe_client.v2.core.account_links.create({
+      account: account_id,
+      use_case: {
+        type: 'account_onboarding',
+        account_onboarding: {
+          configurations: ['merchant'
+],
+          refresh_url: 'https://example.com',
+          return_url: "https://example.com?accountId=#{account_id}",
+        },
+      },
+    })
+
+    content_type :json
+    { url: account_link.url }.to_json
+  rescue Stripe::StripeError => e
+    status 500
+    { error: e.message }.to_json
+  end
+end
+
+# Get Connected Account Status
+get "/api/account-status/:account_id" do
+  account_id = params[:account_id]
+
+  begin
+    account = stripe_client.v2.core.accounts.retrieve(account_id, {
+      include: ['requirements', 'configuration.merchant'],
+    })
+
+    payouts_enabled = account.configuration&.merchant&.capabilities&.stripe_balance&.payouts&.status == 'active'
+    charges_enabled = account.configuration&.merchant&.capabilities&.card_payments&.status == 'active'
+    summary_status = account.requirements&.summary&.minimum_deadline&.status
+    details_submitted = summary_status.nil? || summary_status == 'eventually_due'
+
+    content_type :json
+    {
+      id: account.id,
+      payoutsEnabled: payouts_enabled,
+      chargesEnabled: charges_enabled,
+      detailsSubmitted: details_submitted,
+      requirements: account.requirements&.entries,
+    }.to_json
+  rescue Stripe::StripeError => e
+    status 500
+    { error: e.message }.to_json
+  end
+end
+
+# Fetch products for a specific account
+get "/api/products/:account_id" do
+  account_id = params[:account_id]
+
+  begin
+    options = {}
+    if account_id != 'platform'
+      options[:stripe_account] = account_id
+    end
+
+    prices = Stripe::Price.list({
+      expand: ['data.product'],
+      active: true,
+      limit: 100,
+    }, options)
+
+    products = prices.data.map do |price|
+      {
+        id: price.product.id,
+        name: price.product.name,
+        description: price.product.description,
+        price: price.unit_amount,
+        priceId: price.id,
+        image: 'https://i.imgur.com/6Mvijcm.png'
+      }
+    end
+
+    content_type :json
+    products.to_json
+  rescue Stripe::StripeError => e
+    status 500
+    { error: e.message }.to_json
+  end
+end
+
+# Create checkout session
+post "/api/create-checkout-session" do
+  data = parse_request_body
+  price_id = data['priceId']
+  account_id = data['accountId']
+
+  # Get the price's type from Stripe
+  price = Stripe::Price.retrieve(price_id, { stripe_account: account_id })
+  price_type = price.type
+  mode = price_type == 'recurring' ? 'subscription' : 'payment'
+
+  session_params = {
+    line_items: [
+      {
+        price: price_id,
+        quantity: 1,
+      },
+    ],
+    mode: mode,
+    # Defines where Stripe will redirect a customer after successful payment
+    success_url: "#{ENV['DOMAIN']}/done?session_id={CHECKOUT_SESSION_ID}",
+    # Defines where Stripe will redirect if a customer cancels payment
+    cancel_url: "#{ENV['DOMAIN']}",
+  }
+
+  # Add Connect-specific parameters based on payment mode
+
+  session = Stripe::Checkout::Session.create(session_params, {
+    stripe_account: account_id
+  })
+
+  # Redirect to the Stripe hosted checkout URL
+  redirect session.url, 303
+end
+
+
+
+post "/api/webhook" do
+  request.body.rewind
+  payload = request.body.read
+
+  # Replace this endpoint secret with your endpoint's unique secret
+  # If you are testing with the CLI, find the secret by running 'stripe listen'
+  # If you are using an endpoint defined with the API or dashboard, look in your webhook settings
+  # at https://dashboard.stripe.com/webhooks
+  endpoint_secret = ""
+
+  # Only verify the event if you have an endpoint secret defined.
+  # Otherwise use the basic event deserialized directly.
+  if endpoint_secret != ""
+    signature = request.env["HTTP_STRIPE_SIGNATURE"]
+    begin
+      event = Stripe::Webhook.construct_event(payload, signature, endpoint_secret)
+    rescue => e
+      puts "⚠️  Webhook signature verification failed. #{e.message}"
+      halt 400
+    end
+  else
+    event = JSON.parse(payload, symbolize_names: true)
+  end
+
+  case event[:type]
+  when "checkout.session.completed"
+    stripe_object = event[:data][:object]
+    status = stripe_object[:status]
+    puts "Checkout Session status is #{status}."
+    # handle_checkout_session_completed(stripe_object)
+  when "checkout.session.async_payment_failed"
+    stripe_object = event[:data][:object]
+    status = stripe_object[:status]
+    puts "Checkout Session status is #{status}."
+    # handle_checkout_session_failed(stripe_object)
+  else
+    # Unexpected event type
+    puts "Unhandled event type #{event[:type]}."
+  end
+
+  status 200
+end
+
+post "/api/thin-webhook" do
+  request.body.rewind
+  payload = request.body.read
+
+  # Replace this endpoint secret with your endpoint's unique secret
+  # If you are testing with the CLI, find the secret by running 'stripe listen'
+  # If you are using an endpoint defined with the API or dashboard, look in your webhook settings
+  # at https://dashboard.stripe.com/webhooks
+  thin_endpoint_secret = nil
+  signature = request.env["HTTP_STRIPE_SIGNATURE"]
+  begin
+    event_notif = stripe_client.parse_event_notification(payload, signature, thin_endpoint_secret)
+  rescue => e
+    puts "⚠️  Webhook signature verification failed. #{e.message}"
+    halt 400
+  end
+
+  if event_notif.type == "v2.account.created"
+    stripe_object = event_notif.fetch_related_object
+    event = event_notif.fetch_event
+    # handle_v2_account_created(stripe_object)
+  else
+    puts "Unhandled event type #{event_notif.type}."
+  end
+  status 200
+end
+
+
+# Helper method to parse request body (supports both JSON and form data)
+def parse_request_body
+  request.body.rewind
+
+  if request.content_type&.include?('application/json')
+    JSON.parse(request.body.read)
+  else request.content_type&.include?('application/x-www-form-urlencoded')
+    params.to_h
+  end
+end
+
+set :port, 4242
+puts "Server running on port 4242"
+
+Copy
+
+    name: Build + Publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Ruby 2.6
+    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
+    # change this to (see https://github.com/ruby/setup-ruby#versioning):
+    # uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      with:
+        ruby-version: 2.6.x
+
+    - name: Publish to GPR
+      run: |
+        mkdir -p $HOME/.gem
+        touch $HOME/.gem/credentials
+        chmod 0600 $HOME/.gem/credentials
+        printf -- "---\n:github: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+        gem build *.gemspec
+        gem push --KEY github --host https://rubygems.pkg.github.com/${OWNER} *.gem
+      env:
+        GEM_HOST_API_KEY: "Bearer ${{secrets.GITHUB_TOKEN}}"
+        OWNER: ${{ github.repository_owner }}
+
+    - name: Publish to RubyGems
+      run: |
+        mkdir -p $HOME/.gem
+        touch $HOME/.gem/credentials
+        chmod 0600 $HOME/.gem/credentials
+        printf -- "---\n:rubygems_api_key: ${GEM_HOST_API_KEY}\n" > $HOME/.gem/credentials
+        gem build *.gemspec
+        gem push *.gem
+      env:
+        GEM_HOST_API_KEY: "${{secrets.RUBYGEMS_AUTH_TOKEN}}"

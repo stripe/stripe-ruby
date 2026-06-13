@@ -39,6 +39,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Display < ::Stripe::StripeObject
+      # Attribute for field description
+      sig { returns(T.nilable(String)) }
+      def description; end
+      # Attribute for field images
+      sig { returns(T::Array[String]) }
+      def images; end
+      # Attribute for field name
+      sig { returns(String) }
+      def name; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class TaxCalculationReference < ::Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      sig { returns(T.nilable(String)) }
+      def calculation_id; end
+      # The calculation identifier for tax calculation response line item.
+      sig { returns(T.nilable(String)) }
+      def calculation_item_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Tax < ::Stripe::StripeObject
       # Amount of tax applied for this rate.
       sig { returns(Integer) }
@@ -85,6 +116,9 @@ module Stripe
     # The discounts applied to the line item.
     sig { returns(T.nilable(T::Array[Discount])) }
     def discounts; end
+    # Attribute for field display
+    sig { returns(T.nilable(Display)) }
+    def display; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -97,9 +131,17 @@ module Stripe
     # The price used to generate the line item.
     sig { returns(T.nilable(::Stripe::Price)) }
     def price; end
+    # The ID of the product for this line item.
+    #
+    # This will always be the same as `price.product`.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Product))) }
+    def product; end
     # The quantity of products being purchased.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
+    # The tax calculation identifiers of the line item.
+    sig { returns(T.nilable(TaxCalculationReference)) }
+    def tax_calculation_reference; end
     # The taxes applied to the line item.
     sig { returns(T.nilable(T::Array[Tax])) }
     def taxes; end

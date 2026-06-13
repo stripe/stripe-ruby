@@ -35,6 +35,21 @@ module Stripe
       end
     end
 
+    class AutomaticSurcharge < ::Stripe::RequestParams
+      # Determines which amount serves as the basis for calculating the surcharge.
+      attr_accessor :calculation_basis
+      # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+      attr_accessor :enabled
+      # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+      attr_accessor :tax_behavior
+
+      def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+        @calculation_basis = calculation_basis
+        @enabled = enabled
+        @tax_behavior = tax_behavior
+      end
+    end
+
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -343,6 +358,17 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            attr_accessor :performance_location
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(performance_location: nil, tax_code: nil)
+              @performance_location = performance_location
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -353,6 +379,8 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
 
@@ -362,6 +390,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           )
             @description = description
@@ -369,6 +398,7 @@ module Stripe
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @tax_details = tax_details
             @unit_label = unit_label
           end
         end
@@ -731,6 +761,8 @@ module Stripe
     attr_accessor :application_fee_amount
     # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
     attr_accessor :application_fee_percent
+    # Configuration for automatic surcharge calculation.
+    attr_accessor :automatic_surcharge
     # Configuration for automatic tax collection.
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -801,6 +833,7 @@ module Stripe
       allow_promotion_codes: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
+      automatic_surcharge: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -834,6 +867,7 @@ module Stripe
       @allow_promotion_codes = allow_promotion_codes
       @application_fee_amount = application_fee_amount
       @application_fee_percent = application_fee_percent
+      @automatic_surcharge = automatic_surcharge
       @automatic_tax = automatic_tax
       @billing_address_collection = billing_address_collection
       @consent_collection = consent_collection

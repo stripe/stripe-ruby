@@ -50,6 +50,59 @@ module Stripe
         end
       end
 
+      class AgenticCommerceSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class AppInstall < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # The list of apps allowed to be enabled in the embedded component.
+          attr_accessor :allowed_apps
+
+          def initialize(allowed_apps: nil)
+            @allowed_apps = allowed_apps
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class AppViewport < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # The list of apps allowed to be enabled in the embedded component.
+          attr_accessor :allowed_apps
+
+          def initialize(allowed_apps: nil)
+            @allowed_apps = allowed_apps
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class BalanceReport < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -101,6 +154,78 @@ module Stripe
         end
       end
 
+      class CapitalFinancing < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class CapitalFinancingApplication < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class CapitalFinancingPromotion < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class CapitalOverview < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class CheckScanning < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Attribute for param field create_us_paper_check_on_application
+          attr_accessor :create_us_paper_check_on_application
+
+          def initialize(create_us_paper_check_on_application: nil)
+            @create_us_paper_check_on_application = create_us_paper_check_on_application
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class DisputesList < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -136,6 +261,19 @@ module Stripe
       end
 
       class Documents < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class ExportTaxTransactions < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
@@ -391,6 +529,19 @@ module Stripe
         end
       end
 
+      class PaymentMethodSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class Payments < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -502,6 +653,52 @@ module Stripe
         end
       end
 
+      class ProductTaxCodeSelector < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class Recipients < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether to allow sending money.
+          attr_accessor :send_money
+
+          def initialize(send_money: nil)
+            @send_money = send_money
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # Attribute for param field features
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class ReportingChart < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class TaxRegistrations < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -527,18 +724,75 @@ module Stripe
           @features = features
         end
       end
+
+      class TaxThresholdMonitoring < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class TerminalHardwareOrders < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
+      class TerminalHardwareShop < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
       # Configuration for the [account management](/connect/supported-embedded-components/account-management/) embedded component.
       attr_accessor :account_management
       # Configuration for the [account onboarding](/connect/supported-embedded-components/account-onboarding/) embedded component.
       attr_accessor :account_onboarding
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      attr_accessor :agentic_commerce_settings
+      # Configuration for the [app install](/connect/supported-embedded-components/app-install/) embedded component.
+      attr_accessor :app_install
+      # Configuration for the [app viewport](/connect/supported-embedded-components/app-viewport/) embedded component.
+      attr_accessor :app_viewport
       # Configuration for the [balance report](/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
       attr_accessor :balance_report
       # Configuration for the [balances](/connect/supported-embedded-components/balances/) embedded component.
       attr_accessor :balances
+      # Configuration for the [Capital financing](/connect/supported-embedded-components/capital-financing/) embedded component.
+      attr_accessor :capital_financing
+      # Configuration for the [Capital financing application](/connect/supported-embedded-components/capital-financing-application/) embedded component.
+      attr_accessor :capital_financing_application
+      # Configuration for the [Capital financing promotion](/connect/supported-embedded-components/capital-financing-promotion/) embedded component.
+      attr_accessor :capital_financing_promotion
+      # Configuration for the [Capital overview](/connect/supported-embedded-components/capital-overview/) embedded component.
+      attr_accessor :capital_overview
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_accessor :check_scanning
       # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
       attr_accessor :disputes_list
       # Configuration for the [documents](/connect/supported-embedded-components/documents/) embedded component.
       attr_accessor :documents
+      # Configuration for the [export tax transactions](/connect/supported-embedded-components/export-tax-transactions/) embedded component.
+      attr_accessor :export_tax_transactions
       # Configuration for the [financial account](/connect/supported-embedded-components/financial-account/) embedded component.
       attr_accessor :financial_account
       # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
@@ -555,6 +809,8 @@ module Stripe
       attr_accessor :payment_details
       # Configuration for the [payment disputes](/connect/supported-embedded-components/payment-disputes/) embedded component.
       attr_accessor :payment_disputes
+      # Configuration for the [payment method settings](/connect/supported-embedded-components/payment-method-settings/) embedded component.
+      attr_accessor :payment_method_settings
       # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
       attr_accessor :payments
       # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
@@ -565,18 +821,39 @@ module Stripe
       attr_accessor :payouts
       # Configuration for the [payouts list](/connect/supported-embedded-components/payouts-list/) embedded component.
       attr_accessor :payouts_list
+      # Configuration for the [product tax code selector](/connect/supported-embedded-components/product-tax-code-selector/) embedded component.
+      attr_accessor :product_tax_code_selector
+      # Configuration for the [recipients](/connect/supported-embedded-components/recipients/) embedded component.
+      attr_accessor :recipients
+      # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
+      attr_accessor :reporting_chart
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
       attr_accessor :tax_registrations
       # Configuration for the [tax settings](/connect/supported-embedded-components/tax-settings/) embedded component.
       attr_accessor :tax_settings
+      # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
+      attr_accessor :tax_threshold_monitoring
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      attr_accessor :terminal_hardware_orders
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      attr_accessor :terminal_hardware_shop
 
       def initialize(
         account_management: nil,
         account_onboarding: nil,
+        agentic_commerce_settings: nil,
+        app_install: nil,
+        app_viewport: nil,
         balance_report: nil,
         balances: nil,
+        capital_financing: nil,
+        capital_financing_application: nil,
+        capital_financing_promotion: nil,
+        capital_overview: nil,
+        check_scanning: nil,
         disputes_list: nil,
         documents: nil,
+        export_tax_transactions: nil,
         financial_account: nil,
         financial_account_transactions: nil,
         instant_payouts_promotion: nil,
@@ -585,20 +862,36 @@ module Stripe
         notification_banner: nil,
         payment_details: nil,
         payment_disputes: nil,
+        payment_method_settings: nil,
         payments: nil,
         payout_details: nil,
         payout_reconciliation_report: nil,
         payouts: nil,
         payouts_list: nil,
+        product_tax_code_selector: nil,
+        recipients: nil,
+        reporting_chart: nil,
         tax_registrations: nil,
-        tax_settings: nil
+        tax_settings: nil,
+        tax_threshold_monitoring: nil,
+        terminal_hardware_orders: nil,
+        terminal_hardware_shop: nil
       )
         @account_management = account_management
         @account_onboarding = account_onboarding
+        @agentic_commerce_settings = agentic_commerce_settings
+        @app_install = app_install
+        @app_viewport = app_viewport
         @balance_report = balance_report
         @balances = balances
+        @capital_financing = capital_financing
+        @capital_financing_application = capital_financing_application
+        @capital_financing_promotion = capital_financing_promotion
+        @capital_overview = capital_overview
+        @check_scanning = check_scanning
         @disputes_list = disputes_list
         @documents = documents
+        @export_tax_transactions = export_tax_transactions
         @financial_account = financial_account
         @financial_account_transactions = financial_account_transactions
         @instant_payouts_promotion = instant_payouts_promotion
@@ -607,13 +900,20 @@ module Stripe
         @notification_banner = notification_banner
         @payment_details = payment_details
         @payment_disputes = payment_disputes
+        @payment_method_settings = payment_method_settings
         @payments = payments
         @payout_details = payout_details
         @payout_reconciliation_report = payout_reconciliation_report
         @payouts = payouts
         @payouts_list = payouts_list
+        @product_tax_code_selector = product_tax_code_selector
+        @recipients = recipients
+        @reporting_chart = reporting_chart
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings
+        @tax_threshold_monitoring = tax_threshold_monitoring
+        @terminal_hardware_orders = terminal_hardware_orders
+        @terminal_hardware_shop = terminal_hardware_shop
       end
     end
     # The identifier of the account to create an Account Session for.

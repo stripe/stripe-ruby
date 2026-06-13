@@ -18,6 +18,7 @@ Layout/LineLength:
   Exclude:
     - "lib/stripe/object_types.rb"
     - "lib/stripe/stripe_client.rb"
+    - "lib/stripe/stripe_event_notification_handler.rb"
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
     - "lib/stripe/events/**/*.rb"
@@ -78,7 +79,6 @@ Metrics/ModuleLength:
   Enabled: false
 
 Metrics/ParameterLists:
-  # There's 2 methods in `StripeClient` that have long parameter lists.
   Max: 8
   # Optional parameters should be consistent across libraries, we need not be
   # concerned about this. Was introduced with adding `base_address`

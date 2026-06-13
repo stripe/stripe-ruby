@@ -315,6 +315,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          attr_reader :account
           # Represents a per-transaction override of a reader configuration
           attr_reader :collect_config
           # Most recent PaymentIntent processed by the reader.
@@ -348,6 +350,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          attr_reader :account
           # Represents a per-transaction override of a reader configuration
           attr_reader :confirm_config
           # Most recent PaymentIntent processed by the reader.
@@ -426,6 +430,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          attr_reader :account
           # Most recent PaymentIntent processed by the reader.
           attr_reader :payment_intent
           # Represents a per-transaction override of a reader configuration
@@ -482,6 +488,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          attr_reader :account
           # The amount being refunded.
           attr_reader :amount
           # Charge that is being refunded.

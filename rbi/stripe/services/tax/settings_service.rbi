@@ -11,6 +11,10 @@ module Stripe
        }
       def retrieve(params = {}, opts = {}); end
 
+      # Serializes a Settings update request into a batch job JSONL line.
+      sig { params(params: ::Stripe::Tax::SettingsUpdateParams, opts: T.untyped).returns(String) }
+      def serialize_batch_update(params = {}, opts = {}); end
+
       # Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
       sig {
         params(params: T.any(::Stripe::Tax::SettingsUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Settings)

@@ -6,11 +6,14 @@ module Stripe
     # A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     class Account < APIResource
       extend Stripe::APIOperations::List
+      extend Stripe::APIOperations::NestedResource
 
       OBJECT_NAME = "financial_connections.account"
       def self.object_name
         "financial_connections.account"
       end
+
+      nested_resource_class_methods :inferred_balance, operations: %i[list]
 
       class AccountHolder < ::Stripe::StripeObject
         # The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
@@ -125,6 +128,23 @@ module Stripe
         end
       end
 
+      class InferredBalancesRefresh < ::Stripe::StripeObject
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        attr_reader :last_attempted_at
+        # Time at which the next inferred balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        attr_reader :next_refresh_available_at
+        # The status of the last refresh attempt.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class OwnershipRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         attr_reader :last_attempted_at
@@ -135,6 +155,33 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class StatusDetails < ::Stripe::StripeObject
+        class Inactive < ::Stripe::StripeObject
+          # The action (if any) to relink the inactive Account.
+          attr_reader :action
+          # The underlying cause of the Account being inactive.
+          attr_reader :cause
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field inactive
+        attr_reader :inactive
+
+        def self.inner_class_types
+          @inner_class_types = { inactive: Inactive }
         end
 
         def self.field_remappings
@@ -164,6 +211,8 @@ module Stripe
       attr_reader :account_holder
       # Details about the account numbers.
       attr_reader :account_numbers
+      # The ID of the Financial Connections Authorization this account belongs to.
+      attr_reader :authorization
       # The most recent information about the account's balance.
       attr_reader :balance
       # The state of the most recent attempt to refresh the account balance.
@@ -176,6 +225,10 @@ module Stripe
       attr_reader :display_name
       # Unique identifier for the object.
       attr_reader :id
+      # The state of the most recent attempt to refresh the account's inferred balance history.
+      attr_reader :inferred_balances_refresh
+      # The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
+      attr_reader :institution
       # The name of the institution that holds this account.
       attr_reader :institution_name
       # The last 4 digits of the account number. If present, this will be 4 numeric characters.
@@ -192,6 +245,8 @@ module Stripe
       attr_reader :permissions
       # The status of the link to the account.
       attr_reader :status
+      # Attribute for field status_details
+      attr_reader :status_details
       # If `category` is `cash`, one of:
       #
       #  - `checking`
@@ -330,7 +385,9 @@ module Stripe
           account_numbers: AccountNumber,
           balance: Balance,
           balance_refresh: BalanceRefresh,
+          inferred_balances_refresh: InferredBalancesRefresh,
           ownership_refresh: OwnershipRefresh,
+          status_details: StatusDetails,
           transaction_refresh: TransactionRefresh,
         }
       end

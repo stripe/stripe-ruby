@@ -126,6 +126,25 @@ module Stripe
         }
       end
     end
+    class MigrateTo < ::Stripe::RequestParams
+      # The behavior controlling the point in the subscription lifecycle after which to migrate the price. Currently must be `at_cycle_end`.
+      sig { returns(String) }
+      def behavior; end
+      sig { params(_behavior: String).returns(String) }
+      def behavior=(_behavior); end
+      # The time after which subscriptions should start using the new price.
+      sig { returns(T.nilable(Integer)) }
+      def effective_after; end
+      sig { params(_effective_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def effective_after=(_effective_after); end
+      # The ID of the price object.
+      sig { returns(String) }
+      def price; end
+      sig { params(_price: String).returns(String) }
+      def price=(_price); end
+      sig { params(behavior: String, effective_after: T.nilable(Integer), price: String).void }
+      def initialize(behavior: nil, effective_after: nil, price: nil); end
+    end
     # Whether the price can be used for new purchases. Defaults to `true`.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end
@@ -145,6 +164,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    sig { returns(T.nilable(String)) }
+    def external_reference; end
+    sig { params(_external_reference: T.nilable(String)).returns(T.nilable(String)) }
+    def external_reference=(_external_reference); end
     # A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     sig { returns(T.nilable(String)) }
     def lookup_key; end
@@ -157,6 +181,13 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # If specified, subscriptions using this price will be updated to use the new referenced price.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo))) }
+    def migrate_to; end
+    sig {
+      params(_migrate_to: T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo))).returns(T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo)))
+     }
+    def migrate_to=(_migrate_to); end
     # A brief description of the price, hidden from customers.
     sig { returns(T.nilable(String)) }
     def nickname; end
@@ -173,14 +204,16 @@ module Stripe
     sig { params(_transfer_lookup_key: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def transfer_lookup_key=(_transfer_lookup_key); end
     sig {
-      params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions])), expand: T.nilable(T::Array[String]), lookup_key: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
+      params(active: T.nilable(T::Boolean), currency_options: T.nilable(T.any(String, T::Hash[String, ::Stripe::PriceUpdateParams::CurrencyOptions])), expand: T.nilable(T::Array[String]), external_reference: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), migrate_to: T.nilable(T.any(String, ::Stripe::PriceUpdateParams::MigrateTo)), nickname: T.nilable(String), tax_behavior: T.nilable(String), transfer_lookup_key: T.nilable(T::Boolean)).void
      }
     def initialize(
       active: nil,
       currency_options: nil,
       expand: nil,
+      external_reference: nil,
       lookup_key: nil,
       metadata: nil,
+      migrate_to: nil,
       nickname: nil,
       tax_behavior: nil,
       transfer_lookup_key: nil

@@ -126,11 +126,39 @@ module Stripe
         # Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
         sig { returns(T.nilable(String)) }
         def payout; end
+        # The ReceivedCredit that Capital withheld from
+        sig { returns(T.nilable(String)) }
+        def received_credit_capital_withholding; end
         # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
         sig { returns(T.nilable(String)) }
         def topup; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class NetworkDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          # ACH Addenda record
+          sig { returns(T.nilable(String)) }
+          def addenda; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about an ACH transaction.
+        sig { returns(T.nilable(Ach)) }
+        def ach; end
+        # The type of flow that originated the ReceivedDebit.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {ach: Ach}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -186,6 +214,9 @@ module Stripe
       # The network used for the ReceivedDebit.
       sig { returns(String) }
       def network; end
+      # Details specific to the money movement rails.
+      sig { returns(T.nilable(NetworkDetails)) }
+      def network_details; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end

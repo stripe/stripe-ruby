@@ -36,9 +36,106 @@ module Stripe
         attr_reader :account_subcategories
         # List of countries from which to filter accounts.
         attr_reader :countries
+        # Stripe ID of the institution with which the customer should be directed to log in.
+        attr_reader :institution
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Hosted < ::Stripe::StripeObject
+        # How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        attr_reader :delivery_method
+        # The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        attr_reader :return_url
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Limits < ::Stripe::StripeObject
+        # The number of accounts that can be linked in this Session.
+        attr_reader :accounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ManualEntry < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RelinkOptions < ::Stripe::StripeObject
+        # Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
+        attr_reader :account
+        # The authorization to relink in the Session.
+        attr_reader :authorization
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RelinkResult < ::Stripe::StripeObject
+        # The account relinked in the Session. Only present if `relink_options[account]` is set and relink is successful.
+        attr_reader :account
+        # The authorization relinked in the Session. Only present if relink is successful.
+        attr_reader :authorization
+        # Reason for why relink failed. One of `no_authorization`, `no_account`, or `other`.
+        attr_reader :failure_reason
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class StatusDetails < ::Stripe::StripeObject
+        class Cancelled < ::Stripe::StripeObject
+          # The reason for the Session being cancelled.
+          attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field cancelled
+        attr_reader :cancelled
+
+        def self.inner_class_types
+          @inner_class_types = { cancelled: Cancelled }
         end
 
         def self.field_remappings
@@ -53,18 +150,36 @@ module Stripe
       attr_reader :client_secret
       # Attribute for field filters
       attr_reader :filters
+      # Settings for the Hosted UI mode.
+      attr_reader :hosted
       # Unique identifier for the object.
       attr_reader :id
+      # Attribute for field limits
+      attr_reader :limits
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
+      # Attribute for field manual_entry
+      attr_reader :manual_entry
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # Permissions requested for accounts collected during this session.
       attr_reader :permissions
       # Data features requested to be retrieved upon account creation.
       attr_reader :prefetch
+      # Attribute for field relink_options
+      attr_reader :relink_options
+      # Attribute for field relink_result
+      attr_reader :relink_result
       # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
       attr_reader :return_url
+      # The current state of the session.
+      attr_reader :status
+      # Attribute for field status_details
+      attr_reader :status_details
+      # The UI mode for this session.
+      attr_reader :ui_mode
+      # The hosted URL for this Session. Redirect customers to this URL to take them to the hosted authentication flow. This value is only present when the Session is active and the `ui_mode` is `hosted`.
+      attr_reader :url
 
       # To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
       def self.create(params = {}, opts = {})
@@ -77,7 +192,16 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { account_holder: AccountHolder, filters: Filters }
+        @inner_class_types = {
+          account_holder: AccountHolder,
+          filters: Filters,
+          hosted: Hosted,
+          limits: Limits,
+          manual_entry: ManualEntry,
+          relink_options: RelinkOptions,
+          relink_result: RelinkResult,
+          status_details: StatusDetails,
+        }
       end
 
       def self.field_remappings

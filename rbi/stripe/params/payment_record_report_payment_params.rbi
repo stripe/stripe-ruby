@@ -45,22 +45,126 @@ module Stripe
       def initialize(customer: nil, email: nil, name: nil, phone: nil); end
     end
     class Failed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          sig { returns(String) }
+          def payment_reference; end
+          sig { params(_payment_reference: String).returns(String) }
+          def payment_reference=(_payment_reference); end
+          sig { params(payment_reference: String).void }
+          def initialize(payment_reference: nil); end
+        end
+        # Information about the custom processor used to make this payment.
+        sig {
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails::Custom))
+         }
+        def custom; end
+        sig {
+          params(_custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails::Custom))
+         }
+        def custom=(_custom); end
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails::Custom), type: String).void
+         }
+        def initialize(custom: nil, type: nil); end
+      end
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def failed_at; end
       sig { params(_failed_at: Integer).returns(Integer) }
       def failed_at=(_failed_at); end
-      sig { params(failed_at: Integer).void }
-      def initialize(failed_at: nil); end
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      sig { returns(T.nilable(String)) }
+      def failure_code; end
+      sig { params(_failure_code: T.nilable(String)).returns(T.nilable(String)) }
+      def failure_code=(_failure_code); end
+      # Payment evaluations associated with this reported payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      def payment_evaluations; end
+      sig {
+        params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def payment_evaluations=(_payment_evaluations); end
+      # Processor information for this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails))
+       }
+      def processor_details; end
+      sig {
+        params(_processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails))
+       }
+      def processor_details=(_processor_details); end
+      sig {
+        params(failed_at: Integer, failure_code: T.nilable(String), payment_evaluations: T.nilable(T::Array[String]), processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed::ProcessorDetails)).void
+       }
+      def initialize(
+        failed_at: nil,
+        failure_code: nil,
+        payment_evaluations: nil,
+        processor_details: nil
+      ); end
     end
     class Guaranteed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          sig { returns(String) }
+          def payment_reference; end
+          sig { params(_payment_reference: String).returns(String) }
+          def payment_reference=(_payment_reference); end
+          sig { params(payment_reference: String).void }
+          def initialize(payment_reference: nil); end
+        end
+        # Information about the custom processor used to make this payment.
+        sig {
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails::Custom))
+         }
+        def custom; end
+        sig {
+          params(_custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails::Custom))
+         }
+        def custom=(_custom); end
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails::Custom), type: String).void
+         }
+        def initialize(custom: nil, type: nil); end
+      end
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def guaranteed_at; end
       sig { params(_guaranteed_at: Integer).returns(Integer) }
       def guaranteed_at=(_guaranteed_at); end
-      sig { params(guaranteed_at: Integer).void }
-      def initialize(guaranteed_at: nil); end
+      # Payment evaluations associated with this reported payment.
+      sig { returns(T.nilable(T::Array[String])) }
+      def payment_evaluations; end
+      sig {
+        params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def payment_evaluations=(_payment_evaluations); end
+      # Processor information for this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails))
+       }
+      def processor_details; end
+      sig {
+        params(_processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails))
+       }
+      def processor_details=(_processor_details); end
+      sig {
+        params(guaranteed_at: Integer, payment_evaluations: T.nilable(T::Array[String]), processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed::ProcessorDetails)).void
+       }
+      def initialize(guaranteed_at: nil, payment_evaluations: nil, processor_details: nil); end
     end
     class PaymentMethodDetails < ::Stripe::RequestParams
       class BillingDetails < ::Stripe::RequestParams
@@ -136,6 +240,46 @@ module Stripe
          }
         def initialize(address: nil, email: nil, name: nil, phone: nil); end
       end
+      class Card < ::Stripe::RequestParams
+        class Checks < ::Stripe::RequestParams
+          # The result of the check on the cardholder's address line 1.
+          sig { returns(T.nilable(String)) }
+          def address_line1_check; end
+          sig { params(_address_line1_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_line1_check=(_address_line1_check); end
+          # The result of the check on the cardholder's postal code.
+          sig { returns(T.nilable(String)) }
+          def address_postal_code_check; end
+          sig { params(_address_postal_code_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_postal_code_check=(_address_postal_code_check); end
+          # The result of the check on the card's CVC.
+          sig { returns(T.nilable(String)) }
+          def cvc_check; end
+          sig { params(_cvc_check: T.nilable(String)).returns(T.nilable(String)) }
+          def cvc_check=(_cvc_check); end
+          sig {
+            params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), cvc_check: T.nilable(String)).void
+           }
+          def initialize(
+            address_line1_check: nil,
+            address_postal_code_check: nil,
+            cvc_check: nil
+          ); end
+        end
+        # Verification checks performed on the card.
+        sig {
+          returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks; end
+        sig {
+          params(_checks: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card::Checks)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks=(_checks); end
+        sig {
+          params(checks: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card::Checks)).void
+         }
+        def initialize(checks: nil); end
+      end
       class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         sig { returns(T.nilable(String)) }
@@ -159,6 +303,15 @@ module Stripe
         params(_billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::BillingDetails))
        }
       def billing_details=(_billing_details); end
+      # Information about the card payment method used to make this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card))
+       }
+      def card; end
+      sig {
+        params(_card: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card))
+       }
+      def card=(_card); end
       # Information about the custom (user-defined) payment method used to make this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Custom))
@@ -179,9 +332,15 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::BillingDetails), custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
+        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::BillingDetails), card: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Card), custom: T.nilable(::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
        }
-      def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil); end
+      def initialize(
+        billing_details: nil,
+        card: nil,
+        custom: nil,
+        payment_method: nil,
+        type: nil
+      ); end
     end
     class ProcessorDetails < ::Stripe::RequestParams
       class Custom < ::Stripe::RequestParams

@@ -428,7 +428,41 @@ module Stripe
       end
     end
 
+    class Gopay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Grabpay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class IdBankTransfer < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -751,6 +785,23 @@ module Stripe
       end
     end
 
+    class Paypay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Payto < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -786,6 +837,23 @@ module Stripe
     end
 
     class Promptpay < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class Qris < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -871,6 +939,23 @@ module Stripe
     end
 
     class SepaDebit < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
+    class Shopeepay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
         attr_accessor :preference
@@ -1074,8 +1159,12 @@ module Stripe
     attr_accessor :giropay
     # Google Pay allows customers to make payments in your app or website using any credit or debit card saved to their Google Account, including those from Google Play, YouTube, Chrome, or an Android device. Use the Google Pay API to request any credit or debit card stored in your customer's Google account. Check this [page](https://docs.stripe.com/google-pay) for more details.
     attr_accessor :google_pay
+    # GoPay is a [single use](https://docs.stripe.com/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Gojek app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Gojek app to confirm payment.
+    attr_accessor :gopay
     # GrabPay is a payment method developed by [Grab](https://www.grab.com/sg/consumer/finance/pay/). GrabPay is a digital wallet - customers maintain a balance in their wallets that they pay out with. Check this [page](https://docs.stripe.com/payments/grabpay) for more details.
     attr_accessor :grabpay
+    # Stripe users in Indonesia can receive bank transfers from customers in Indonesia. Bank transfers are a popular B2C and B2B payment method in Indonesia.
+    attr_accessor :id_bank_transfer
     # iDEAL is a Netherlands-based payment method that allows customers to complete transactions online using their bank credentials. All major Dutch banks are members of Currence, the scheme that operates iDEAL, making it the most popular online payment method in the Netherlands with a share of online transactions close to 55%. Check this [page](https://docs.stripe.com/payments/ideal) for more details.
     attr_accessor :ideal
     # JCB is a credit card company based in Japan. JCB is currently available in Japan to businesses approved by JCB, and available to all businesses in Australia, Canada, Hong Kong, Japan, New Zealand, Singapore, Switzerland, United Kingdom, United States, and all countries in the European Economic Area except Iceland. Check this [page](https://support.stripe.com/questions/accepting-japan-credit-bureau-%28jcb%29-payments) for more details.
@@ -1116,12 +1205,16 @@ module Stripe
     attr_accessor :paynow
     # PayPal, a digital wallet popular with customers in Europe, allows your customers worldwide to pay using their PayPal account. Check this [page](https://docs.stripe.com/payments/paypal) for more details.
     attr_accessor :paypal
+    # Customers can pay with PayPay online or using the PayPay app.
+    attr_accessor :paypay
     # PayTo is a [real-time](https://docs.stripe.com/payments/real-time) payment method that enables customers in Australia to pay by providing their bank account details. Customers must accept a mandate authorizing you to debit their account. Check this [page](https://docs.stripe.com/payments/payto) for more details.
     attr_accessor :payto
     # Pix is a payment method popular in Brazil. When paying with Pix, customers authenticate and approve payments by scanning a QR code in their preferred banking app. Check this [page](https://docs.stripe.com/payments/pix) for more details.
     attr_accessor :pix
     # PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://docs.stripe.com/payments/promptpay) for more details.
     attr_accessor :promptpay
+    # QRIS is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Indonesia. When paying with QRIS, customers authenticate and approve payments by scanning a QR code in their preferred digital wallet app.
+    attr_accessor :qris
     # Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer’s stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
     attr_accessor :revolut_pay
     # Samsung Pay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage local wallet available in South Korea.
@@ -1132,6 +1225,8 @@ module Stripe
     attr_accessor :scalapay
     # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://docs.stripe.com/payments/sepa-debit) for more details.
     attr_accessor :sepa_debit
+    # ShopeePay is a [single use](https://docs.stripe.com/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Shopee app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Shopee app to confirm payment.
+    attr_accessor :shopeepay
     # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://docs.stripe.com/payments/sofort) for more details.
     attr_accessor :sofort
     # Sunbit is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers choose to pay in 3, 6, or 12 installments. Customers are redirected from your website or app, authorize the payment with Sunbit, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
@@ -1176,7 +1271,9 @@ module Stripe
       fr_meal_voucher_conecs: nil,
       giropay: nil,
       google_pay: nil,
+      gopay: nil,
       grabpay: nil,
+      id_bank_transfer: nil,
       ideal: nil,
       jcb: nil,
       kakao_pay: nil,
@@ -1197,14 +1294,17 @@ module Stripe
       payco: nil,
       paynow: nil,
       paypal: nil,
+      paypay: nil,
       payto: nil,
       pix: nil,
       promptpay: nil,
+      qris: nil,
       revolut_pay: nil,
       samsung_pay: nil,
       satispay: nil,
       scalapay: nil,
       sepa_debit: nil,
+      shopeepay: nil,
       sofort: nil,
       sunbit: nil,
       swish: nil,
@@ -1240,7 +1340,9 @@ module Stripe
       @fr_meal_voucher_conecs = fr_meal_voucher_conecs
       @giropay = giropay
       @google_pay = google_pay
+      @gopay = gopay
       @grabpay = grabpay
+      @id_bank_transfer = id_bank_transfer
       @ideal = ideal
       @jcb = jcb
       @kakao_pay = kakao_pay
@@ -1261,14 +1363,17 @@ module Stripe
       @payco = payco
       @paynow = paynow
       @paypal = paypal
+      @paypay = paypay
       @payto = payto
       @pix = pix
       @promptpay = promptpay
+      @qris = qris
       @revolut_pay = revolut_pay
       @samsung_pay = samsung_pay
       @satispay = satispay
       @scalapay = scalapay
       @sepa_debit = sepa_debit
+      @shopeepay = shopeepay
       @sofort = sofort
       @sunbit = sunbit
       @swish = swish

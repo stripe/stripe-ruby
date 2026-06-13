@@ -193,8 +193,27 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::RequestParams
+        # The gift card ID to redeem
+        attr_accessor :gift_card
+
+        def initialize(gift_card: nil)
+          @gift_card = gift_card
+        end
+      end
+
       class Giropay < ::Stripe::RequestParams; end
+      class Gopay < ::Stripe::RequestParams; end
       class Grabpay < ::Stripe::RequestParams; end
+
+      class IdBankTransfer < ::Stripe::RequestParams
+        # Bank where the account is held.
+        attr_accessor :bank
+
+        def initialize(bank: nil)
+          @bank = bank
+        end
+      end
 
       class Ideal < ::Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -293,6 +312,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
 
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
@@ -311,6 +331,7 @@ module Stripe
 
       class Pix < ::Stripe::RequestParams; end
       class Promptpay < ::Stripe::RequestParams; end
+      class Qris < ::Stripe::RequestParams; end
 
       class RadarOptions < ::Stripe::RequestParams
         # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -318,6 +339,29 @@ module Stripe
 
         def initialize(session: nil)
           @session = session
+        end
+      end
+
+      class Rechnung < ::Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
+          # The day of birth, between 1 and 31.
+          attr_accessor :day
+          # The month of birth, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of birth.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+        # Customer's date of birth
+        attr_accessor :dob
+
+        def initialize(dob: nil)
+          @dob = dob
         end
       end
 
@@ -335,6 +379,8 @@ module Stripe
         end
       end
 
+      class Shopeepay < ::Stripe::RequestParams; end
+
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         attr_accessor :country
@@ -344,8 +390,18 @@ module Stripe
         end
       end
 
+      class StripeBalance < ::Stripe::RequestParams
+        # The connected account ID whose Stripe balance to use as the source of payment
+        attr_accessor :account
+
+        def initialize(account: nil)
+          @account = account
+        end
+      end
+
       class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
+      class Tamara < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
       class Upi < ::Stripe::RequestParams
@@ -443,10 +499,16 @@ module Stripe
       attr_accessor :eps
       # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
       attr_accessor :fpx
+      # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+      attr_accessor :gift_card
       # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
       attr_accessor :giropay
+      # If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+      attr_accessor :gopay
       # If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
       attr_accessor :grabpay
+      # If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+      attr_accessor :id_bank_transfer
       # If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
       attr_accessor :ideal
       # If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
@@ -485,14 +547,20 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
       attr_accessor :promptpay
+      # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+      attr_accessor :qris
       # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       attr_accessor :radar_options
+      # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
+      attr_accessor :rechnung
       # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
       attr_accessor :revolut_pay
       # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
@@ -503,12 +571,20 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
+      # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+      attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
+      # This hash contains details about the Stripe balance payment method.
+      attr_accessor :stripe_balance
       # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
       attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
+      # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+      attr_accessor :tamara
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -543,8 +619,11 @@ module Stripe
         customer_balance: nil,
         eps: nil,
         fpx: nil,
+        gift_card: nil,
         giropay: nil,
+        gopay: nil,
         grabpay: nil,
+        id_bank_transfer: nil,
         ideal: nil,
         interac_present: nil,
         kakao_pay: nil,
@@ -564,18 +643,25 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
+        qris: nil,
         radar_options: nil,
+        rechnung: nil,
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        shared_payment_granted_token: nil,
+        shopeepay: nil,
         sofort: nil,
+        stripe_balance: nil,
         sunbit: nil,
         swish: nil,
+        tamara: nil,
         twint: nil,
         type: nil,
         upi: nil,
@@ -603,8 +689,11 @@ module Stripe
         @customer_balance = customer_balance
         @eps = eps
         @fpx = fpx
+        @gift_card = gift_card
         @giropay = giropay
+        @gopay = gopay
         @grabpay = grabpay
+        @id_bank_transfer = id_bank_transfer
         @ideal = ideal
         @interac_present = interac_present
         @kakao_pay = kakao_pay
@@ -624,18 +713,25 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
+        @qris = qris
         @radar_options = radar_options
+        @rechnung = rechnung
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @shared_payment_granted_token = shared_payment_granted_token
+        @shopeepay = shopeepay
         @sofort = sofort
+        @stripe_balance = stripe_balance
         @sunbit = sunbit
         @swish = swish
+        @tamara = tamara
         @twint = twint
         @type = type
         @upi = upi
@@ -953,9 +1049,15 @@ module Stripe
       class Paypal < ::Stripe::RequestParams
         # The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
         attr_accessor :billing_agreement_id
+        # Attribute for param field currency
+        attr_accessor :currency
+        # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        attr_accessor :subsellers
 
-        def initialize(billing_agreement_id: nil)
+        def initialize(billing_agreement_id: nil, currency: nil, subsellers: nil)
           @billing_agreement_id = billing_agreement_id
+          @currency = currency
+          @subsellers = subsellers
         end
       end
 
@@ -1066,6 +1168,23 @@ module Stripe
         end
       end
 
+      class StripeBalance < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # The ID of the Stripe Balance Debit Agreement used for this mandate.
+          attr_accessor :stripe_balance_debit_agreement
+
+          def initialize(stripe_balance_debit_agreement: nil)
+            @stripe_balance_debit_agreement = stripe_balance_debit_agreement
+          end
+        end
+        # Additional fields for mandate creation.
+        attr_accessor :mandate_options
+
+        def initialize(mandate_options: nil)
+          @mandate_options = mandate_options
+        end
+      end
+
       class Upi < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount to be charged for future payments.
@@ -1100,13 +1219,27 @@ module Stripe
           class Filters < ::Stripe::RequestParams
             # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
             attr_accessor :account_subcategories
+            # ID of the institution to use to filter for selectable accounts.
+            attr_accessor :institution
 
-            def initialize(account_subcategories: nil)
+            def initialize(account_subcategories: nil, institution: nil)
               @account_subcategories = account_subcategories
+              @institution = institution
+            end
+          end
+
+          class ManualEntry < ::Stripe::RequestParams
+            # Settings for configuring manual entry of account details.
+            attr_accessor :mode
+
+            def initialize(mode: nil)
+              @mode = mode
             end
           end
           # Provide filters for the linked accounts that the customer can select for the payment method.
           attr_accessor :filters
+          # Customize manual entry behavior
+          attr_accessor :manual_entry
           # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
           attr_accessor :permissions
           # List of data features that you would like to retrieve upon account creation.
@@ -1114,8 +1247,15 @@ module Stripe
           # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
           attr_accessor :return_url
 
-          def initialize(filters: nil, permissions: nil, prefetch: nil, return_url: nil)
+          def initialize(
+            filters: nil,
+            manual_entry: nil,
+            permissions: nil,
+            prefetch: nil,
+            return_url: nil
+          )
             @filters = filters
+            @manual_entry = manual_entry
             @permissions = permissions
             @prefetch = prefetch
             @return_url = return_url
@@ -1184,6 +1324,8 @@ module Stripe
       attr_accessor :pix
       # If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
+      # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+      attr_accessor :stripe_balance
       # If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
       attr_accessor :upi
       # If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -1202,6 +1344,7 @@ module Stripe
         payto: nil,
         pix: nil,
         sepa_debit: nil,
+        stripe_balance: nil,
         upi: nil,
         us_bank_account: nil
       )
@@ -1217,8 +1360,40 @@ module Stripe
         @payto = payto
         @pix = pix
         @sepa_debit = sepa_debit
+        @stripe_balance = stripe_balance
         @upi = upi
         @us_bank_account = us_bank_account
+      end
+    end
+
+    class SetupDetails < ::Stripe::RequestParams
+      class Benefit < ::Stripe::RequestParams
+        class FrMealVoucher < ::Stripe::RequestParams
+          # Whether to enable meal voucher benefit for this setup intent.
+          attr_accessor :enabled
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(enabled: nil, siret: nil)
+            @enabled = enabled
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this SetupIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+      # Benefit details for this SetupIntent
+      attr_accessor :benefit
+      # The ID of the Payment Location for this SetupIntent.
+      attr_accessor :location
+
+      def initialize(benefit: nil, location: nil)
+        @benefit = benefit
+        @location = location
       end
     end
 
@@ -1282,6 +1457,8 @@ module Stripe
     attr_accessor :payment_method_types
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/setup_intents/create#create_setup_intent-confirm).
     attr_accessor :return_url
+    # Provides industry-specific information about the SetupIntent.
+    attr_accessor :setup_details
     # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
     #
     # Single-use mandates are only valid for the following payment methods: `acss_debit`, `alipay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `boleto`, `ideal`, `link`, `sepa_debit`, and `us_bank_account`.
@@ -1311,6 +1488,7 @@ module Stripe
       payment_method_options: nil,
       payment_method_types: nil,
       return_url: nil,
+      setup_details: nil,
       single_use: nil,
       usage: nil,
       use_stripe_sdk: nil
@@ -1334,6 +1512,7 @@ module Stripe
       @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
       @return_url = return_url
+      @setup_details = setup_details
       @single_use = single_use
       @usage = usage
       @use_stripe_sdk = use_stripe_sdk

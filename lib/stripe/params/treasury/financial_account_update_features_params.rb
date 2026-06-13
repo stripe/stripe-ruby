@@ -24,10 +24,13 @@ module Stripe
 
       class FinancialAddresses < ::Stripe::RequestParams
         class Aba < ::Stripe::RequestParams
+          # Requested bank partner
+          attr_accessor :bank
           # Whether the FinancialAccount should have the Feature.
           attr_accessor :requested
 
-          def initialize(requested: nil)
+          def initialize(bank: nil, requested: nil)
+            @bank = bank
             @requested = requested
           end
         end

@@ -1,0 +1,97 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Billing
+      # A Pricing Plan Component represents an individual billing element within a Pricing Plan. Components can be Rate Cards
+      # for usage-based charges, License Fees for recurring fixed charges, or Service Actions for recurring credit grants. Each component
+      # is associated with a specific version of the Pricing Plan and defines one aspect of how customers are billed.
+      class PricingPlanComponent < APIResource
+        OBJECT_NAME = "v2.billing.pricing_plan_component"
+        def self.object_name
+          "v2.billing.pricing_plan_component"
+        end
+
+        class LicenseFee < ::Stripe::StripeObject
+          # The ID of the License Fee.
+          attr_reader :id
+          # The ID of the License Fee Version. If not specified, defaults to 'latest'.
+          attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class RateCard < ::Stripe::StripeObject
+          # The ID of the Rate Card.
+          attr_reader :id
+          # The ID of the Rate Card Version. If not specified, defaults to 'latest'.
+          attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ServiceAction < ::Stripe::StripeObject
+          # The ID of the service action.
+          attr_reader :id
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Time at which the object was created.
+        attr_reader :created
+        # Unique identifier for the object.
+        attr_reader :id
+        # Details if this component is a License Fee.
+        attr_reader :license_fee
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # An internal key you can use to search for a particular PricingPlanComponent.
+        attr_reader :lookup_key
+        # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_reader :metadata
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # The ID of the Pricing Plan this component belongs to.
+        attr_reader :pricing_plan
+        # The ID of the Pricing Plan Version this component belongs to.
+        attr_reader :pricing_plan_version
+        # Details if this component is a Rate Card.
+        attr_reader :rate_card
+        # Details if this component is a Service Action.
+        attr_reader :service_action
+        # The type of the PricingPlanComponent.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            license_fee: LicenseFee,
+            rate_card: RateCard,
+            service_action: ServiceAction,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+    end
+  end
+end

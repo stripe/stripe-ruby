@@ -38,6 +38,22 @@ module Stripe
      }
     def search(params = {}, opts = {}); end
 
+    # Serializes a Product create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::ProductCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a Product delete request into a batch job JSONL line.
+    sig {
+      params(id: String, params: ::Stripe::ProductDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(id, params = {}, opts = {}); end
+
+    # Serializes a Product update request into a batch job JSONL line.
+    sig {
+      params(id: String, params: ::Stripe::ProductUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(id, params = {}, opts = {}); end
+
     # Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
       params(id: String, params: T.any(::Stripe::ProductUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Product)

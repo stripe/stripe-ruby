@@ -1,0 +1,904 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module DelegatedCheckout
+    # A requested session is a session that has been requested by a customer.
+    class RequestedSession < APIResource
+      class AffiliateAttribution < ::Stripe::StripeObject
+        class Source < ::Stripe::StripeObject
+          # The platform of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def platform; end
+          # The type of the attribution source.
+          sig { returns(String) }
+          def type; end
+          # The URL of the attribution source.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Agent-scoped campaign identifier.
+        sig { returns(T.nilable(String)) }
+        def campaign_id; end
+        # Agent-scoped creative identifier.
+        sig { returns(T.nilable(String)) }
+        def creative_id; end
+        # Timestamp when the attribution token expires.
+        sig { returns(Integer) }
+        def expires_at; end
+        # Agent-issued secret to validate the legitimacy of the source of this data.
+        sig { returns(String) }
+        def identification_token; end
+        # Timestamp for when the attribution token was issued.
+        sig { returns(Integer) }
+        def issued_at; end
+        # Identifier for the attribution agent / affiliate network namespace.
+        sig { returns(String) }
+        def provider; end
+        # Agent-scoped affiliate/publisher identifier.
+        sig { returns(T.nilable(String)) }
+        def publisher_id; end
+        # Freeform key/value pairs for additional non-sensitive per-agent data.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def shared_metadata; end
+        # Context about where the attribution originated.
+        sig { returns(T.nilable(Source)) }
+        def source; end
+        # Agent-scoped sub-tracking identifier.
+        sig { returns(T.nilable(String)) }
+        def sub_id; end
+        # Whether this is the first or last touchpoint.
+        sig { returns(String) }
+        def touchpoint; end
+        def self.inner_class_types
+          @inner_class_types = {source: Source}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BuyerConsents < ::Stripe::StripeObject
+        class Marketing < ::Stripe::StripeObject
+          class Consent < ::Stripe::StripeObject
+            # The marketing consent channel.
+            sig { returns(String) }
+            def channel; end
+            # The consent status. 'granted' means the buyer opted in, 'none' means they did not.
+            sig { returns(String) }
+            def status; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Option < ::Stripe::StripeObject
+            # The marketing channel type.
+            sig { returns(String) }
+            def channel; end
+            # The description of the marketing consent option.
+            sig { returns(String) }
+            def description; end
+            # The privacy policy URL for this marketing channel.
+            sig { returns(String) }
+            def privacy_policy_url; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The buyer's marketing consent choices.
+          sig { returns(T.nilable(T::Array[Consent])) }
+          def consents; end
+          # The available marketing consent options.
+          sig { returns(T.nilable(T::Array[Option])) }
+          def options; end
+          def self.inner_class_types
+            @inner_class_types = {consents: Consent, options: Option}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The marketing consent options.
+        sig { returns(T.nilable(Marketing)) }
+        def marketing; end
+        def self.inner_class_types
+          @inner_class_types = {marketing: Marketing}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Discounts < ::Stripe::StripeObject
+        class Applied < ::Stripe::StripeObject
+          # The amount off provided by this discount.
+          sig { returns(T.nilable(Integer)) }
+          def amount_off; end
+          # The discount code.
+          sig { returns(String) }
+          def code; end
+          # The currency of the discount amount.
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          # The unique key of the applied discount.
+          sig { returns(String) }
+          def key; end
+          # The display name of the discount.
+          sig { returns(String) }
+          def name; end
+          # The percentage off provided by this discount.
+          sig { returns(T.nilable(Float)) }
+          def percent_off; end
+          # The type of discount.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Invalid < ::Stripe::StripeObject
+          # The discount code that was invalid.
+          sig { returns(String) }
+          def code; end
+          # The reason the discount code is invalid.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The list of successfully applied discounts.
+        sig { returns(T.nilable(T::Array[Applied])) }
+        def applied; end
+        # The list of discount codes that could not be applied.
+        sig { returns(T.nilable(T::Array[Invalid])) }
+        def invalid; end
+        def self.inner_class_types
+          @inner_class_types = {applied: Applied, invalid: Invalid}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class FulfillmentDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(T.nilable(String)) }
+          def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            class DigitalOption < ::Stripe::StripeObject
+              # The description of the digital fulfillment option.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              # The digital amount of the digital fulfillment option.
+              sig { returns(Integer) }
+              def digital_amount; end
+              # The display name of the digital fulfillment option.
+              sig { returns(String) }
+              def display_name; end
+              # The key of the digital fulfillment option.
+              sig { returns(String) }
+              def key; end
+              # The line item keys associated with this digital fulfillment option.
+              sig { returns(T.nilable(T::Array[String])) }
+              def line_item_keys; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The digital options.
+            sig { returns(T.nilable(T::Array[DigitalOption])) }
+            def digital_options; end
+            def self.inner_class_types
+              @inner_class_types = {digital_options: DigitalOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < ::Stripe::StripeObject
+            class ShippingOption < ::Stripe::StripeObject
+              # The description of the shipping option.
+              sig { returns(T.nilable(String)) }
+              def description; end
+              # The display name of the shipping option.
+              sig { returns(String) }
+              def display_name; end
+              # The earliest delivery time of the shipping option.
+              sig { returns(T.nilable(Integer)) }
+              def earliest_delivery_time; end
+              # The key of the shipping option.
+              sig { returns(String) }
+              def key; end
+              # The latest delivery time of the shipping option.
+              sig { returns(T.nilable(Integer)) }
+              def latest_delivery_time; end
+              # The line item keys associated with this shipping option.
+              sig { returns(T.nilable(T::Array[String])) }
+              def line_item_keys; end
+              # The shipping amount of the shipping option.
+              sig { returns(Integer) }
+              def shipping_amount; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The shipping options.
+            sig { returns(T.nilable(T::Array[ShippingOption])) }
+            def shipping_options; end
+            def self.inner_class_types
+              @inner_class_types = {shipping_options: ShippingOption}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the fulfillment option.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {digital: Digital, shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class SelectedFulfillmentOption < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            # The digital option.
+            sig { returns(T.nilable(String)) }
+            def digital_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < ::Stripe::StripeObject
+            # The shipping option.
+            sig { returns(T.nilable(String)) }
+            def shipping_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the selected fulfillment option.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {digital: Digital, shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class SelectedFulfillmentOptionOverride < ::Stripe::StripeObject
+          class Digital < ::Stripe::StripeObject
+            # The digital option.
+            sig { returns(T.nilable(String)) }
+            def digital_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Shipping < ::Stripe::StripeObject
+            # The shipping option.
+            sig { returns(T.nilable(String)) }
+            def shipping_option; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The digital fulfillment option.
+          sig { returns(T.nilable(Digital)) }
+          def digital; end
+          # The line items this fulfillment option applies to.
+          sig { returns(T.nilable(T::Array[String])) }
+          def line_item_keys; end
+          # The shipping option.
+          sig { returns(T.nilable(Shipping)) }
+          def shipping; end
+          # The type of the selected fulfillment option.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {digital: Digital, shipping: Shipping}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The fulfillment address.
+        sig { returns(T.nilable(Address)) }
+        def address; end
+        # The email address for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def email; end
+        # The fulfillment options.
+        sig { returns(T.nilable(T::Array[FulfillmentOption])) }
+        def fulfillment_options; end
+        # The name for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def name; end
+        # The phone number for the fulfillment details.
+        sig { returns(T.nilable(String)) }
+        def phone; end
+        # The selected fulfillment option.
+        sig { returns(T.nilable(SelectedFulfillmentOption)) }
+        def selected_fulfillment_option; end
+        # Per-item fulfillment option overrides.
+        sig { returns(T.nilable(T::Array[SelectedFulfillmentOptionOverride])) }
+        def selected_fulfillment_option_overrides; end
+        def self.inner_class_types
+          @inner_class_types = {
+            address: Address,
+            fulfillment_options: FulfillmentOption,
+            selected_fulfillment_option: SelectedFulfillmentOption,
+            selected_fulfillment_option_overrides: SelectedFulfillmentOptionOverride,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class LineItemDetail < ::Stripe::StripeObject
+        class ProductDetails < ::Stripe::StripeObject
+          class CustomAttribute < ::Stripe::StripeObject
+            # The display name of the custom attribute.
+            sig { returns(String) }
+            def display_name; end
+            # The value of the custom attribute.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Disclosure < ::Stripe::StripeObject
+            # The content of the disclosure.
+            sig { returns(String) }
+            def content; end
+            # The content type of the disclosure.
+            sig { returns(String) }
+            def content_type; end
+            # The type of disclosure.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Custom attributes for the product.
+          sig { returns(T.nilable(T::Array[CustomAttribute])) }
+          def custom_attributes; end
+          # The description of the product.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # Disclosures for the product.
+          sig { returns(T.nilable(T::Array[Disclosure])) }
+          def disclosures; end
+          # The images of the product.
+          sig { returns(T.nilable(T::Array[String])) }
+          def images; end
+          # The title of the product.
+          sig { returns(String) }
+          def title; end
+          def self.inner_class_types
+            @inner_class_types = {custom_attributes: CustomAttribute, disclosures: Disclosure}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The total discount for this line item. If no discount were applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_discount; end
+        # The sale amount for this line item.
+        sig { returns(T.nilable(Integer)) }
+        def amount_sale; end
+        # The total before any discounts or taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # The fulfillment type of the line item.
+        sig { returns(String) }
+        def fulfillment_type; end
+        # The key of the line item.
+        sig { returns(String) }
+        def key; end
+        # Attribute for field product_details
+        sig { returns(T.nilable(ProductDetails)) }
+        def product_details; end
+        # The quantity of the line item.
+        sig { returns(Integer) }
+        def quantity; end
+        # The SKU ID of the line item.
+        sig { returns(String) }
+        def sku_id; end
+        # The per-unit amount of the item before any discounts or taxes are applied.
+        sig { returns(Integer) }
+        def unit_amount; end
+        def self.inner_class_types
+          @inner_class_types = {product_details: ProductDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class OrderDetails < ::Stripe::StripeObject
+        # The seller's order identifier.
+        sig { returns(T.nilable(String)) }
+        def order_id; end
+        # The URL to the order status.
+        sig { returns(T.nilable(String)) }
+        def order_status_url; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PaymentMethodOptions < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The card brands blocked by the agent.
+          sig { returns(T.nilable(T::Array[String])) }
+          def brands_blocked; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Card-specific payment method options.
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        # The computed displayable card brands.
+        sig { returns(T.nilable(T::Array[String])) }
+        def displayable_card_brands; end
+        # The computed displayable payment method types.
+        sig { returns(T.nilable(T::Array[String])) }
+        def displayable_payment_method_types; end
+        # The payment method types excluded by the agent.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payment_method_types; end
+        def self.inner_class_types
+          @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PaymentMethodPreview < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(String) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(String) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(String) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(String) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(String) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The billing address.
+          sig { returns(T.nilable(Address)) }
+          def address; end
+          # The email address for the billing details.
+          sig { returns(T.nilable(String)) }
+          def email; end
+          # The name for the billing details.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # The phone number for the billing details.
+          sig { returns(T.nilable(String)) }
+          def phone; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Card < ::Stripe::StripeObject
+          # The expiry month of the card.
+          sig { returns(Integer) }
+          def exp_month; end
+          # The expiry year of the card.
+          sig { returns(Integer) }
+          def exp_year; end
+          # The last 4 digits of the card number.
+          sig { returns(String) }
+          def last4; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The billing details of the payment method.
+        sig { returns(T.nilable(BillingDetails)) }
+        def billing_details; end
+        # The card details of the payment method.
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        # The type of the payment method.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {billing_details: BillingDetails, card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class RiskDetails < ::Stripe::StripeObject
+        class ClientDeviceMetadataDetails < ::Stripe::StripeObject
+          # The radar session for the client device.
+          sig { returns(T.nilable(String)) }
+          def radar_session; end
+          # The referrer of the client device.
+          sig { returns(T.nilable(String)) }
+          def referrer; end
+          # The remote IP address of the client device.
+          sig { returns(T.nilable(String)) }
+          def remote_ip; end
+          # The time spent on the page by the client device.
+          sig { returns(T.nilable(Integer)) }
+          def time_on_page_ms; end
+          # The user agent of the client device.
+          sig { returns(T.nilable(String)) }
+          def user_agent; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The risk metadata for the client device.
+        sig { returns(T.nilable(ClientDeviceMetadataDetails)) }
+        def client_device_metadata_details; end
+        def self.inner_class_types
+          @inner_class_types = {client_device_metadata_details: ClientDeviceMetadataDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class SellerDetails < ::Stripe::StripeObject
+        class MarketplaceSellerDetails < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The card brands supported by the seller.
+        sig { returns(T.nilable(T::Array[String])) }
+        def card_brands; end
+        # The marketplace seller details.
+        sig { returns(T.nilable(MarketplaceSellerDetails)) }
+        def marketplace_seller_details; end
+        # The network profile of the seller.
+        sig { returns(T.any(String, ::Stripe::Profile)) }
+        def network_profile; end
+        # The payment method types supported by the seller.
+        sig { returns(T.nilable(T::Array[String])) }
+        def payment_method_types; end
+        # The URL to the seller's privacy notice.
+        sig { returns(T.nilable(String)) }
+        def privacy_notice_url; end
+        # The URL to the seller's return policy.
+        sig { returns(T.nilable(String)) }
+        def return_policy_url; end
+        # The URL to the seller's store policy.
+        sig { returns(T.nilable(String)) }
+        def store_policy_url; end
+        # The URL to the seller's terms of service.
+        sig { returns(T.nilable(String)) }
+        def terms_of_service_url; end
+        def self.inner_class_types
+          @inner_class_types = {marketplace_seller_details: MarketplaceSellerDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TotalDetails < ::Stripe::StripeObject
+        class ApplicableFee < ::Stripe::StripeObject
+          # The amount of the applicable fee.
+          sig { returns(Integer) }
+          def amount; end
+          # The description of the applicable fee.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The display name of the applicable fee.
+          sig { returns(String) }
+          def display_name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Breakdown < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The amount this discount contributed to the total discount.
+            sig { returns(Integer) }
+            def amount; end
+            # The key of the applied discount.
+            sig { returns(String) }
+            def key; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The breakdown of discounts applied to the session.
+          sig { returns(T.nilable(T::Array[Discount])) }
+          def discounts; end
+          def self.inner_class_types
+            @inner_class_types = {discounts: Discount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        sig { returns(T.nilable(Integer)) }
+        def amount_cart_discount; end
+        # The total discount amount from discount codes across the session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_discount; end
+        # The amount fulfillment of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_fulfillment; end
+        # The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        sig { returns(T.nilable(Integer)) }
+        def amount_items_discount; end
+        # The total sale amount across the session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_sale; end
+        # The amount tax of the total details.
+        sig { returns(T.nilable(Integer)) }
+        def amount_tax; end
+        # The applicable fees of the total details.
+        sig { returns(T.nilable(T::Array[ApplicableFee])) }
+        def applicable_fees; end
+        # The breakdown of discounts applied to the session.
+        sig { returns(T.nilable(Breakdown)) }
+        def breakdown; end
+        def self.inner_class_types
+          @inner_class_types = {applicable_fees: ApplicableFee, breakdown: Breakdown}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Affiliate attribution data associated with this requested session.
+      sig { returns(T.nilable(T::Array[AffiliateAttribution])) }
+      def affiliate_attributions; end
+      # The subtotal amount of the requested session.
+      sig { returns(T.nilable(Integer)) }
+      def amount_subtotal; end
+      # The total amount of the requested session.
+      sig { returns(T.nilable(Integer)) }
+      def amount_total; end
+      # The buyer consent options for this requested session, including marketing preferences.
+      sig { returns(T.nilable(BuyerConsents)) }
+      def buyer_consents; end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def created_at; end
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      sig { returns(String) }
+      def currency; end
+      # The customer for this requested session.
+      sig { returns(T.nilable(String)) }
+      def customer; end
+      # The discounts applied to and rejected from this requested session.
+      sig { returns(T.nilable(Discounts)) }
+      def discounts; end
+      # Time at which the requested session expires. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def expires_at; end
+      # The details of the fulfillment.
+      sig { returns(T.nilable(FulfillmentDetails)) }
+      def fulfillment_details; end
+      # Unique identifier for the object.
+      sig { returns(String) }
+      def id; end
+      # The line items to be purchased.
+      sig { returns(T::Array[LineItemDetail]) }
+      def line_item_details; end
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      sig { returns(T::Boolean) }
+      def livemode; end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def metadata; end
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      def object; end
+      # The details of the order.
+      sig { returns(T.nilable(OrderDetails)) }
+      def order_details; end
+      # The payment method used for the requested session.
+      sig { returns(T.nilable(String)) }
+      def payment_method; end
+      # The payment method options for this requested session.
+      sig { returns(T.nilable(PaymentMethodOptions)) }
+      def payment_method_options; end
+      # The preview of the payment method to be created when the requested session is confirmed.
+      sig { returns(T.nilable(PaymentMethodPreview)) }
+      def payment_method_preview; end
+      # The risk details of the requested session.
+      sig { returns(T.nilable(RiskDetails)) }
+      def risk_details; end
+      # Attribute for field seller_details
+      sig { returns(SellerDetails) }
+      def seller_details; end
+      # Whether or not the payment method should be saved for future use.
+      sig { returns(T.nilable(String)) }
+      def setup_future_usage; end
+      # The metadata shared with the seller.
+      sig { returns(T.nilable(T::Hash[String, String])) }
+      def shared_metadata; end
+      # The SPT used for payment.
+      sig { returns(T.nilable(T.any(String, ::Stripe::SharedPayment::IssuedToken))) }
+      def shared_payment_issued_token; end
+      # The status of the requested session.
+      sig { returns(String) }
+      def status; end
+      # Attribute for field total_details
+      sig { returns(TotalDetails) }
+      def total_details; end
+      # Time at which the object was last updated. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def updated_at; end
+      # Confirms a requested session
+      sig {
+        params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def confirm(params = {}, opts = {}); end
+
+      # Confirms a requested session
+      sig {
+        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def self.confirm(requested_session, params = {}, opts = {}); end
+
+      # Creates a requested session
+      sig {
+        params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def self.create(params = {}, opts = {}); end
+
+      # Expires a requested session
+      sig {
+        params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def expire(params = {}, opts = {}); end
+
+      # Expires a requested session
+      sig {
+        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def self.expire(requested_session, params = {}, opts = {}); end
+
+      # Lists orders for a delegated checkout requested session.
+      sig {
+        params(params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def list_orders(params = {}, opts = {}); end
+
+      # Lists orders for a delegated checkout requested session.
+      sig {
+        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list_orders(requested_session, params = {}, opts = {}); end
+
+      # Updates a requested session
+      sig {
+        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+       }
+      def self.update(requested_session, params = {}, opts = {}); end
+    end
+  end
+end

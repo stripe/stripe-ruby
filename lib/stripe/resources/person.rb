@@ -117,6 +117,29 @@ module Stripe
       end
     end
 
+    class BirthAddress < ::Stripe::StripeObject
+      # City, district, suburb, town, or village.
+      attr_reader :city
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      attr_reader :country
+      # Address line 1, such as the street, PO Box, or company name.
+      attr_reader :line1
+      # Address line 2, such as the apartment, suite, unit, or building.
+      attr_reader :line2
+      # ZIP or postal code.
+      attr_reader :postal_code
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+      attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Dob < ::Stripe::StripeObject
       # The day of birth, between 1 and 31.
       attr_reader :day
@@ -292,6 +315,36 @@ module Stripe
       end
     end
 
+    class SelfReportedIncome < ::Stripe::StripeObject
+      # The amount in the minor currency unit (for example, cents for USD).
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class SelfReportedMonthlyHousingPayment < ::Stripe::StripeObject
+      # The amount in the minor currency unit (for example, cents for USD).
+      attr_reader :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class UsCfpbData < ::Stripe::StripeObject
       class EthnicityDetails < ::Stripe::StripeObject
         # The persons ethnicity
@@ -405,6 +458,8 @@ module Stripe
     attr_reader :address_kana
     # The Kanji variation of the person's address (Japan only).
     attr_reader :address_kanji
+    # Attribute for field birth_address
+    attr_reader :birth_address
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Always true for a deleted object
@@ -455,6 +510,10 @@ module Stripe
     attr_reader :relationship
     # Information about the requirements for this person, including what information needs to be collected, and by when.
     attr_reader :requirements
+    # Attribute for field self_reported_income
+    attr_reader :self_reported_income
+    # Attribute for field self_reported_monthly_housing_payment
+    attr_reader :self_reported_monthly_housing_payment
     # Whether the last four digits of the person's Social Security number have been provided (U.S. only).
     attr_reader :ssn_last_4_provided
     # Demographic data related to the person.
@@ -489,11 +548,14 @@ module Stripe
         address: Address,
         address_kana: AddressKana,
         address_kanji: AddressKanji,
+        birth_address: BirthAddress,
         dob: Dob,
         future_requirements: FutureRequirements,
         registered_address: RegisteredAddress,
         relationship: Relationship,
         requirements: Requirements,
+        self_reported_income: SelfReportedIncome,
+        self_reported_monthly_housing_payment: SelfReportedMonthlyHousingPayment,
         us_cfpb_data: UsCfpbData,
         verification: Verification,
       }

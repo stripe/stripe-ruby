@@ -43,6 +43,35 @@ module Stripe
          }
         def initialize(us_bank_account: nil); end
       end
+      class NetworkDetails < ::Stripe::RequestParams
+        class Ach < ::Stripe::RequestParams
+          # Addenda record data associated with this OutboundTransfer.
+          sig { returns(T.nilable(String)) }
+          def addenda; end
+          sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+          def addenda=(_addenda); end
+          sig { params(addenda: T.nilable(String)).void }
+          def initialize(addenda: nil); end
+        end
+        # Optional fields for `ach`.
+        sig {
+          returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach))
+         }
+        def ach; end
+        sig {
+          params(_ach: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach))
+         }
+        def ach=(_ach); end
+        # The type of flow that originated the OutboundTransfer.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(ach: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails::Ach), type: String).void
+         }
+        def initialize(ach: nil, type: nil); end
+      end
       # Amount (in cents) to be transferred.
       sig { returns(Integer) }
       def amount; end
@@ -98,13 +127,20 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # Details about the network used for the OutboundTransfer.
+      sig { returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails)) }
+      def network_details; end
+      sig {
+        params(_network_details: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails)).returns(T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails))
+       }
+      def network_details=(_network_details); end
       # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer". Can only include -#.$&*, spaces, and alphanumeric characters.
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
       sig {
-        params(amount: Integer, currency: String, description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::DestinationPaymentMethodOptions), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), network_details: T.nilable(::Stripe::Treasury::OutboundTransferCreateParams::NetworkDetails), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -116,6 +152,7 @@ module Stripe
         expand: nil,
         financial_account: nil,
         metadata: nil,
+        network_details: nil,
         statement_descriptor: nil
       ); end
     end

@@ -5,6 +5,7 @@
 module Stripe
   module FinancialConnections
     class AccountService < StripeService
+      attr_reader :inferred_balances
       attr_reader :owners
       # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
       sig {

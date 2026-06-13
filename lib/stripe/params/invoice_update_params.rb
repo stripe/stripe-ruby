@@ -3,6 +3,24 @@
 
 module Stripe
   class InvoiceUpdateParams < ::Stripe::RequestParams
+    class AmountsDue < ::Stripe::RequestParams
+      # The amount in cents (or local equivalent).
+      attr_accessor :amount
+      # Number of days from when invoice is finalized until the payment is due.
+      attr_accessor :days_until_due
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_accessor :description
+      # Date on which a payment plan’s payment is due.
+      attr_accessor :due_date
+
+      def initialize(amount: nil, days_until_due: nil, description: nil, due_date: nil)
+        @amount = amount
+        @days_until_due = days_until_due
+        @description = description
+        @due_date = due_date
+      end
+    end
+
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -39,16 +57,44 @@ module Stripe
     end
 
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
       end
     end
@@ -96,6 +142,9 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams; end
+        class Blik < ::Stripe::RequestParams; end
+
         class Card < ::Stripe::RequestParams
           class Installments < ::Stripe::RequestParams
             class Plan < ::Stripe::RequestParams
@@ -137,6 +186,8 @@ module Stripe
           end
         end
 
+        class CheckScan < ::Stripe::RequestParams; end
+
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
@@ -168,6 +219,7 @@ module Stripe
           end
         end
 
+        class IdBankTransfer < ::Stripe::RequestParams; end
         class Konbini < ::Stripe::RequestParams; end
 
         class Payto < ::Stripe::RequestParams
@@ -235,9 +287,12 @@ module Stripe
             class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               attr_accessor :account_subcategories
+              # ID of the institution to use to filter for selectable accounts.
+              attr_accessor :institution
 
-              def initialize(account_subcategories: nil)
+              def initialize(account_subcategories: nil, institution: nil)
                 @account_subcategories = account_subcategories
+                @institution = institution
               end
             end
             # Provide filters for the linked accounts that the customer can select for the payment method.
@@ -263,14 +318,34 @@ module Stripe
             @verification_method = verification_method
           end
         end
+
+        class WechatPay < ::Stripe::RequestParams
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          attr_accessor :app_id
+          # The client type that the end customer will pay from.
+          attr_accessor :client
+
+          def initialize(app_id: nil, client: nil)
+            @app_id = app_id
+            @client = client
+          end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
+        # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :blik
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :check_scan
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :customer_balance
+        # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :konbini
         # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
@@ -283,29 +358,41 @@ module Stripe
         attr_accessor :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :wechat_pay
 
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
+          blik: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
+          id_bank_transfer: nil,
           konbini: nil,
           payto: nil,
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil
+          us_bank_account: nil,
+          wechat_pay: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @bizum = bizum
+          @blik = blik
           @card = card
+          @check_scan = check_scan
           @customer_balance = customer_balance
+          @id_bank_transfer = id_bank_transfer
           @konbini = konbini
           @payto = payto
           @pix = pix
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
+          @wechat_pay = wechat_pay
         end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
@@ -514,6 +601,8 @@ module Stripe
     end
     # The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
     attr_accessor :account_tax_ids
+    # List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
+    attr_accessor :amounts_due
     # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://docs.stripe.com/billing/invoices/connect#collecting-fees).
     attr_accessor :application_fee_amount
     # Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice.
@@ -528,6 +617,8 @@ module Stripe
     attr_accessor :custom_fields
     # The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
     attr_accessor :days_until_due
+    # The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
+    attr_accessor :default_margins
     # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     attr_accessor :default_payment_method
     # ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
@@ -569,6 +660,7 @@ module Stripe
 
     def initialize(
       account_tax_ids: nil,
+      amounts_due: nil,
       application_fee_amount: nil,
       auto_advance: nil,
       automatic_tax: nil,
@@ -576,6 +668,7 @@ module Stripe
       collection_method: nil,
       custom_fields: nil,
       days_until_due: nil,
+      default_margins: nil,
       default_payment_method: nil,
       default_source: nil,
       default_tax_rates: nil,
@@ -597,6 +690,7 @@ module Stripe
       transfer_data: nil
     )
       @account_tax_ids = account_tax_ids
+      @amounts_due = amounts_due
       @application_fee_amount = application_fee_amount
       @auto_advance = auto_advance
       @automatic_tax = automatic_tax
@@ -604,6 +698,7 @@ module Stripe
       @collection_method = collection_method
       @custom_fields = custom_fields
       @days_until_due = days_until_due
+      @default_margins = default_margins
       @default_payment_method = default_payment_method
       @default_source = default_source
       @default_tax_rates = default_tax_rates

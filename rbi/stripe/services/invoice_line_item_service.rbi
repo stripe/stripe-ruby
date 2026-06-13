@@ -10,6 +10,12 @@ module Stripe
      }
     def list(invoice, params = {}, opts = {}); end
 
+    # Serializes an InvoiceLineItem update request into a batch job JSONL line.
+    sig {
+      params(invoice: String, line_item_id: String, params: ::Stripe::InvoiceLineItemUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(invoice, line_item_id, params = {}, opts = {}); end
+
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
     # item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.

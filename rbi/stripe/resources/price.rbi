@@ -108,6 +108,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class MigrateTo < ::Stripe::StripeObject
+      # The behavior controlling at what point in the subscription lifecycle to migrate the price
+      sig { returns(String) }
+      def behavior; end
+      # The unix timestamp after at which subscriptions will start to migrate to the new price.
+      sig { returns(Integer) }
+      def effective_after; end
+      # The id of the price being migrated to
+      sig { returns(String) }
+      def price; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Recurring < ::Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       sig { returns(String) }
@@ -195,6 +212,9 @@ module Stripe
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    sig { returns(T.nilable(String)) }
+    def external_reference; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -207,6 +227,9 @@ module Stripe
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T::Hash[String, String]) }
     def metadata; end
+    # Subscriptions using this price will be migrated to use the new referenced price.
+    sig { returns(T.nilable(MigrateTo)) }
+    def migrate_to; end
     # A brief description of the price, hidden from customers.
     sig { returns(T.nilable(String)) }
     def nickname; end

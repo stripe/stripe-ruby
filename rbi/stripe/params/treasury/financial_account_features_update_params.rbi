@@ -25,13 +25,18 @@ module Stripe
       end
       class FinancialAddresses < ::Stripe::RequestParams
         class Aba < ::Stripe::RequestParams
+          # Requested bank partner
+          sig { returns(T.nilable(String)) }
+          def bank; end
+          sig { params(_bank: T.nilable(String)).returns(T.nilable(String)) }
+          def bank=(_bank); end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           def requested; end
           sig { params(_requested: T::Boolean).returns(T::Boolean) }
           def requested=(_requested); end
-          sig { params(requested: T::Boolean).void }
-          def initialize(requested: nil); end
+          sig { params(bank: T.nilable(String), requested: T::Boolean).void }
+          def initialize(bank: nil, requested: nil); end
         end
         # Adds an ABA FinancialAddress to the FinancialAccount.
         sig {

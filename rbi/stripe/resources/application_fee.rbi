@@ -8,10 +8,30 @@ module Stripe
       # Charge ID that created this application fee.
       sig { returns(T.nilable(String)) }
       def charge; end
+      # PaymentRecord ID that created this application fee.
+      sig { returns(T.nilable(String)) }
+      def payment_record; end
       # Payout ID that created this application fee.
       sig { returns(T.nilable(String)) }
       def payout; end
+      # Transfer ID that created this application fee.
+      sig { returns(T.nilable(String)) }
+      def transfer; end
       # Type of object that created the application fee.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class FundingSource < ::Stripe::StripeObject
+      # The invoice ID associated with this funding source, if applicable.
+      sig { returns(T.nilable(String)) }
+      def invoice; end
+      # The type of funding source.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
@@ -48,6 +68,9 @@ module Stripe
     # Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
     sig { returns(T.nilable(FeeSource)) }
     def fee_source; end
+    # Polymorphic funding source of the application fee. Includes the type and details of the funding source.
+    sig { returns(T.nilable(FundingSource)) }
+    def funding_source; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
@@ -66,6 +89,9 @@ module Stripe
     # A list of refunds that have been applied to the fee.
     sig { returns(::Stripe::ListObject) }
     def refunds; end
+    # Type of settlement for the application fee. One of `net_settled` or `gross_settled`.
+    sig { returns(T.nilable(String)) }
+    def settlement_type; end
     # Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
     sig {
       params(params: T.any(::Stripe::ApplicationFeeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)

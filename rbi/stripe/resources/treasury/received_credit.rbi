@@ -174,6 +174,31 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class NetworkDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          # ACH Addenda record
+          sig { returns(T.nilable(String)) }
+          def addenda; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about an ACH transaction.
+        sig { returns(T.nilable(Ach)) }
+        def ach; end
+        # The type of flow that originated the ReceivedCredit.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {ach: Ach}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class ReversalDetails < ::Stripe::StripeObject
         # Time before which a ReceivedCredit can be reversed.
         sig { returns(T.nilable(Integer)) }
@@ -224,6 +249,9 @@ module Stripe
       # The rails used to send the funds.
       sig { returns(String) }
       def network; end
+      # Details specific to the money movement rails.
+      sig { returns(T.nilable(NetworkDetails)) }
+      def network_details; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end

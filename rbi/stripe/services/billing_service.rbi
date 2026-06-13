@@ -5,6 +5,7 @@
 module Stripe
   class BillingService < StripeService
     attr_reader :alerts
+    attr_reader :analytics
     attr_reader :credit_balance_summary
     attr_reader :credit_balance_transactions
     attr_reader :credit_grants

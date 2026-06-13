@@ -5,6 +5,45 @@
 module Stripe
   class InvoiceLineItemUpdateParams < ::Stripe::RequestParams
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          sig { returns(Integer) }
+          def interval_count; end
+          sig { params(_interval_count: Integer).returns(Integer) }
+          def interval_count=(_interval_count); end
+          sig { params(interval: String, interval_count: Integer).void }
+          def initialize(interval: nil, interval_count: nil); end
+        end
+        # Time span for the redeemed discount.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd::Duration))
+         }
+        def duration; end
+        sig {
+          params(_duration: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd::Duration))
+         }
+        def duration=(_duration); end
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def timestamp=(_timestamp); end
+        # The type of calculation made to determine when the discount ends.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(duration: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+         }
+        def initialize(duration: nil, timestamp: nil, type: nil); end
+      end
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -15,15 +54,22 @@ module Stripe
       def discount; end
       sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
       def discount=(_discount); end
+      # Details to determine how long the discount should be applied for.
+      sig { returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd)) }
+      def discount_end; end
+      sig {
+        params(_discount_end: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd))
+       }
+      def discount_end=(_discount_end); end
       # ID of the promotion code to create a new discount for.
       sig { returns(T.nilable(String)) }
       def promotion_code; end
       sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
       def promotion_code=(_promotion_code); end
       sig {
-        params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+        params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
        }
-      def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+      def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
     class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -41,6 +87,20 @@ module Stripe
     end
     class PriceData < ::Stripe::RequestParams
       class ProductData < ::Stripe::RequestParams
+        class TaxDetails < ::Stripe::RequestParams
+          # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+          sig { returns(T.nilable(String)) }
+          def performance_location; end
+          sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+          def performance_location=(_performance_location); end
+          # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+          sig { returns(T.nilable(String)) }
+          def tax_code; end
+          sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+          def tax_code=(_tax_code); end
+          sig { params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void }
+          def initialize(performance_location: nil, tax_code: nil); end
+        end
         # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -68,13 +128,22 @@ module Stripe
         def tax_code; end
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
         def tax_code=(_tax_code); end
+        # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails))
+         }
+        def tax_details; end
+        sig {
+          params(_tax_details: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails))
+         }
+        def tax_details=(_tax_details); end
         # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
         sig { returns(T.nilable(String)) }
         def unit_label; end
         sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
         def unit_label=(_unit_label); end
         sig {
-          params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+          params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
          }
         def initialize(
           description: nil,
@@ -82,6 +151,7 @@ module Stripe
           metadata: nil,
           name: nil,
           tax_code: nil,
+          tax_details: nil,
           unit_label: nil
         ); end
       end
@@ -266,6 +336,13 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
+    sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+    def margins; end
+    sig {
+      params(_margins: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+     }
+    def margins=(_margins); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](/api/invoices/line_item) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](/api/invoices/line_item) line items, where any existing metadata on the invoice line is merged with the incoming data.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -321,7 +398,7 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceLineItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceLineItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_amounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceLineItemUpdateParams::TaxAmount])), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       amount: nil,
@@ -329,6 +406,7 @@ module Stripe
       discountable: nil,
       discounts: nil,
       expand: nil,
+      margins: nil,
       metadata: nil,
       period: nil,
       price_data: nil,

@@ -95,6 +95,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Requested bank partner for this Financial Account
+          attr_reader :bank
           # Whether the FinancialAccount should have the Feature.
           attr_reader :requested
           # Whether the Feature is operational.

@@ -3,11 +3,12 @@
 
 module Stripe
   class BillingService < StripeService
-    attr_reader :alerts, :credit_balance_summary, :credit_balance_transactions, :credit_grants, :meters, :meter_events, :meter_event_adjustments
+    attr_reader :alerts, :analytics, :credit_balance_summary, :credit_balance_transactions, :credit_grants, :meters, :meter_events, :meter_event_adjustments
 
     def initialize(requestor)
       super
       @alerts = Stripe::Billing::AlertService.new(@requestor)
+      @analytics = Stripe::Billing::AnalyticsService.new(@requestor)
       @credit_balance_summary = Stripe::Billing::CreditBalanceSummaryService.new(@requestor)
       @credit_balance_transactions = Stripe::Billing::CreditBalanceTransactionService
                                      .new(@requestor)

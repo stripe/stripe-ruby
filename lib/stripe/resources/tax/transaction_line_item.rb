@@ -9,6 +9,41 @@ module Stripe
         "tax.transaction_line_item"
       end
 
+      class PerformanceLocationDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          attr_reader :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_reader :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_reader :line2
+          # ZIP or postal code.
+          attr_reader :postal_code
+          # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
+          attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field address
+        attr_reader :address
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Reversal < ::Stripe::StripeObject
         # The `id` of the line item to reverse in the original transaction.
         attr_reader :original_line_item
@@ -33,6 +68,8 @@ module Stripe
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The address of the location where this line item's event or service takes place. Depending on the [tax code](/tax/tax-codes), providing a performance location is required, optional, or not supported. Use this to provide the address inline without pre-creating a [TaxLocation](/api/tax/location) object. Can't be used with `performance_location`.
+      attr_reader :performance_location_details
       # The ID of an existing [Product](https://docs.stripe.com/api/products/object).
       attr_reader :product
       # The number of units of the item being purchased. For reversals, this is the quantity reversed.
@@ -49,7 +86,10 @@ module Stripe
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { reversal: Reversal }
+        @inner_class_types = {
+          performance_location_details: PerformanceLocationDetails,
+          reversal: Reversal,
+        }
       end
 
       def self.field_remappings

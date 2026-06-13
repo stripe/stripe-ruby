@@ -9,5 +9,6 @@ module Stripe
     attr_reader :locations
     attr_reader :onboarding_links
     attr_reader :readers
+    attr_reader :reader_collected_data
   end
 end

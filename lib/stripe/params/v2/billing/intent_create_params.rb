@@ -1,0 +1,899 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Billing
+      class IntentCreateParams < ::Stripe::RequestParams
+        class Action < ::Stripe::RequestParams
+          class Apply < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              # The ID of the Coupon to apply.
+              attr_accessor :coupon
+              # The ID of the PromotionCode to apply.
+              attr_accessor :promotion_code
+              # Type of the discount.
+              attr_accessor :type
+
+              def initialize(coupon: nil, promotion_code: nil, type: nil)
+                @coupon = coupon
+                @promotion_code = promotion_code
+                @type = type
+              end
+            end
+
+            class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
+              attr_accessor :timestamp
+              # When the apply action takes effect.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class InvoiceDiscountRule < ::Stripe::RequestParams
+              class PercentOff < ::Stripe::RequestParams
+                class MaximumApplications < ::Stripe::RequestParams
+                  # The type of maximum applications configuration.
+                  attr_accessor :type
+
+                  def initialize(type: nil)
+                    @type = type
+                  end
+                end
+                # The maximum number of times this discount can be applied for this cadence.
+                attr_accessor :maximum_applications
+                # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
+                attr_accessor :percent_off
+
+                def initialize(maximum_applications: nil, percent_off: nil)
+                  @maximum_applications = maximum_applications
+                  @percent_off = percent_off
+                end
+
+                def self.field_encodings
+                  @field_encodings = { percent_off: :decimal_string }
+                end
+              end
+              # The entity that the discount rule applies to, for example, the cadence.
+              attr_accessor :applies_to
+              # Configuration for percentage off discount.
+              attr_accessor :percent_off
+              # Type of the discount rule.
+              attr_accessor :type
+
+              def initialize(applies_to: nil, percent_off: nil, type: nil)
+                @applies_to = applies_to
+                @percent_off = percent_off
+                @type = type
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+                }
+              end
+            end
+
+            class SpendModifierRule < ::Stripe::RequestParams
+              class MaxBillingPeriodSpend < ::Stripe::RequestParams
+                class Amount < ::Stripe::RequestParams
+                  class CustomPricingUnit < ::Stripe::RequestParams
+                    # The id of the custom pricing unit.
+                    attr_accessor :id
+                    # The value of the custom pricing unit.
+                    attr_accessor :value
+
+                    def initialize(id: nil, value: nil)
+                      @id = id
+                      @value = value
+                    end
+                  end
+                  # The custom pricing unit amount.
+                  attr_accessor :custom_pricing_unit
+                  # The type of the amount.
+                  attr_accessor :type
+
+                  def initialize(custom_pricing_unit: nil, type: nil)
+                    @custom_pricing_unit = custom_pricing_unit
+                    @type = type
+                  end
+                end
+
+                class CustomPricingUnitOverageRate < ::Stripe::RequestParams
+                  # ID of the custom pricing unit overage rate.
+                  attr_accessor :id
+
+                  def initialize(id: nil)
+                    @id = id
+                  end
+                end
+                # The maximum amount allowed for the billing period.
+                attr_accessor :amount
+                # The configuration for the overage rate for the custom pricing unit.
+                attr_accessor :custom_pricing_unit_overage_rate
+
+                def initialize(amount: nil, custom_pricing_unit_overage_rate: nil)
+                  @amount = amount
+                  @custom_pricing_unit_overage_rate = custom_pricing_unit_overage_rate
+                end
+              end
+              # What the spend modifier applies to.
+              attr_accessor :applies_to
+              # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+              attr_accessor :max_billing_period_spend
+              # Type of the spend modifier.
+              attr_accessor :type
+
+              def initialize(applies_to: nil, max_billing_period_spend: nil, type: nil)
+                @applies_to = applies_to
+                @max_billing_period_spend = max_billing_period_spend
+                @type = type
+              end
+            end
+            # Details for applying a discount.
+            attr_accessor :discount
+            # When the apply action takes effect. If not specified, defaults to on_reserve.
+            attr_accessor :effective_at
+            # Details for applying a discount rule to future invoices.
+            attr_accessor :invoice_discount_rule
+            # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+            attr_accessor :spend_modifier_rule
+            # Type of the apply action details.
+            attr_accessor :type
+
+            def initialize(
+              discount: nil,
+              effective_at: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil,
+              type: nil
+            )
+              @discount = discount
+              @effective_at = effective_at
+              @invoice_discount_rule = invoice_discount_rule
+              @spend_modifier_rule = spend_modifier_rule
+              @type = type
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                invoice_discount_rule: {
+                  kind: :object,
+                  fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                },
+              }
+            end
+          end
+
+          class Deactivate < ::Stripe::RequestParams
+            class CancellationDetails < ::Stripe::RequestParams
+              # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+              attr_accessor :comment
+              # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+              attr_accessor :feedback
+
+              def initialize(comment: nil, feedback: nil)
+                @comment = comment
+                @feedback = feedback
+              end
+            end
+
+            class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
+              attr_accessor :timestamp
+              # When the deactivate action takes effect.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
+                    attr_accessor :credit_proration_behavior
+
+                    def initialize(credit_proration_behavior: nil)
+                      @credit_proration_behavior = credit_proration_behavior
+                    end
+                  end
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
+                  attr_accessor :license_fee
+                  # The type of behavior to override.
+                  attr_accessor :type
+
+                  def initialize(license_fee: nil, type: nil)
+                    @license_fee = license_fee
+                    @type = type
+                  end
+                end
+                # Configurations for behaviors when the action takes effect during the service period.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
+              # Configurations for overriding behaviors related to the subscription.
+              attr_accessor :overrides
+              # ID of the pricing plan subscription to deactivate.
+              attr_accessor :pricing_plan_subscription
+
+              def initialize(overrides: nil, pricing_plan_subscription: nil)
+                @overrides = overrides
+                @pricing_plan_subscription = pricing_plan_subscription
+              end
+            end
+            # Details about why the cancellation is being requested.
+            attr_accessor :cancellation_details
+            # When the invoice is collected. If not specified, the default behavior is on_effective_at.
+            attr_accessor :collect_at
+            # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
+            attr_accessor :effective_at
+            # Details for deactivating a pricing plan subscription.
+            attr_accessor :pricing_plan_subscription_details
+            # Type of the action details.
+            attr_accessor :type
+
+            def initialize(
+              cancellation_details: nil,
+              collect_at: nil,
+              effective_at: nil,
+              pricing_plan_subscription_details: nil,
+              type: nil
+            )
+              @cancellation_details = cancellation_details
+              @collect_at = collect_at
+              @effective_at = effective_at
+              @pricing_plan_subscription_details = pricing_plan_subscription_details
+              @type = type
+            end
+          end
+
+          class Modify < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the modify action takes effect. Only present if type is timestamp.
+              attr_accessor :timestamp
+              # When the modify action takes effect.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
+                # Lookup key for the pricing plan component.
+                attr_accessor :lookup_key
+                # ID of the pricing plan component.
+                attr_accessor :pricing_plan_component
+                # Quantity of the component to be used.
+                attr_accessor :quantity
+
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil)
+                  @lookup_key = lookup_key
+                  @pricing_plan_component = pricing_plan_component
+                  @quantity = quantity
+                end
+              end
+
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
+                    attr_accessor :credit_proration_behavior
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
+                    attr_accessor :debit_proration_behavior
+
+                    def initialize(credit_proration_behavior: nil, debit_proration_behavior: nil)
+                      @credit_proration_behavior = credit_proration_behavior
+                      @debit_proration_behavior = debit_proration_behavior
+                    end
+                  end
+
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    attr_accessor :create_behavior
+
+                    def initialize(create_behavior: nil)
+                      @create_behavior = create_behavior
+                    end
+                  end
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
+                  attr_accessor :license_fee
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                  attr_accessor :recurring_credit_grant
+                  # The type of behavior to override.
+                  attr_accessor :type
+
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil)
+                    @license_fee = license_fee
+                    @recurring_credit_grant = recurring_credit_grant
+                    @type = type
+                  end
+                end
+                # Configurations for behaviors when the action takes effect during the service period.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
+              # New configurations for the components of the pricing plan.
+              attr_accessor :component_configurations
+              # The ID of the new Pricing Plan, if changing plans.
+              attr_accessor :new_pricing_plan
+              # The ID of the new Pricing Plan Version to use.
+              attr_accessor :new_pricing_plan_version
+              # Configurations for overriding behaviors related to the subscription.
+              attr_accessor :overrides
+              # The ID of the Pricing Plan Subscription to modify.
+              attr_accessor :pricing_plan_subscription
+
+              def initialize(
+                component_configurations: nil,
+                new_pricing_plan: nil,
+                new_pricing_plan_version: nil,
+                overrides: nil,
+                pricing_plan_subscription: nil
+              )
+                @component_configurations = component_configurations
+                @new_pricing_plan = new_pricing_plan
+                @new_pricing_plan_version = new_pricing_plan_version
+                @overrides = overrides
+                @pricing_plan_subscription = pricing_plan_subscription
+              end
+            end
+            # When the invoice is collected. If not specified, the default behavior is next_billing_date.
+            attr_accessor :collect_at
+            # When the modify action takes effect. If not specified, the default behavior is on_reserve.
+            attr_accessor :effective_at
+            # Details for modifying a pricing plan subscription.
+            attr_accessor :pricing_plan_subscription_details
+            # Type of the action details.
+            attr_accessor :type
+
+            def initialize(
+              collect_at: nil,
+              effective_at: nil,
+              pricing_plan_subscription_details: nil,
+              type: nil
+            )
+              @collect_at = collect_at
+              @effective_at = effective_at
+              @pricing_plan_subscription_details = pricing_plan_subscription_details
+              @type = type
+            end
+          end
+
+          class Remove < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # When the remove action takes effect.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+            # When the remove action takes effect. If not specified, defaults to on_reserve.
+            attr_accessor :effective_at
+            # The ID of the discount rule to remove for future invoices.
+            attr_accessor :invoice_discount_rule
+            # The ID of the spend modifier rule to remove.
+            attr_accessor :spend_modifier_rule
+            # Type of the remove action.
+            attr_accessor :type
+
+            def initialize(
+              effective_at: nil,
+              invoice_discount_rule: nil,
+              spend_modifier_rule: nil,
+              type: nil
+            )
+              @effective_at = effective_at
+              @invoice_discount_rule = invoice_discount_rule
+              @spend_modifier_rule = spend_modifier_rule
+              @type = type
+            end
+          end
+
+          class Subscribe < ::Stripe::RequestParams
+            class EffectiveAt < ::Stripe::RequestParams
+              # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
+              attr_accessor :timestamp
+              # When the subscribe action takes effect.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class PricingPlanSubscriptionDetails < ::Stripe::RequestParams
+              class ComponentConfiguration < ::Stripe::RequestParams
+                # Lookup key for the pricing plan component.
+                attr_accessor :lookup_key
+                # ID of the pricing plan component.
+                attr_accessor :pricing_plan_component
+                # Quantity of the component to be used.
+                attr_accessor :quantity
+
+                def initialize(lookup_key: nil, pricing_plan_component: nil, quantity: nil)
+                  @lookup_key = lookup_key
+                  @pricing_plan_component = pricing_plan_component
+                  @quantity = quantity
+                end
+              end
+
+              class Overrides < ::Stripe::RequestParams
+                class PartialPeriodBehavior < ::Stripe::RequestParams
+                  class LicenseFee < ::Stripe::RequestParams
+                    # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
+                    attr_accessor :debit_proration_behavior
+
+                    def initialize(debit_proration_behavior: nil)
+                      @debit_proration_behavior = debit_proration_behavior
+                    end
+                  end
+
+                  class RecurringCreditGrant < ::Stripe::RequestParams
+                    # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                    attr_accessor :create_behavior
+
+                    def initialize(create_behavior: nil)
+                      @create_behavior = create_behavior
+                    end
+                  end
+                  # Overrides the behavior for license fee components when the action takes effect during the service period.
+                  attr_accessor :license_fee
+                  # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                  attr_accessor :recurring_credit_grant
+                  # The type of behavior to override.
+                  attr_accessor :type
+
+                  def initialize(license_fee: nil, recurring_credit_grant: nil, type: nil)
+                    @license_fee = license_fee
+                    @recurring_credit_grant = recurring_credit_grant
+                    @type = type
+                  end
+                end
+                # Configurations for behaviors when the action takes effect during the service period.
+                attr_accessor :partial_period_behaviors
+
+                def initialize(partial_period_behaviors: nil)
+                  @partial_period_behaviors = partial_period_behaviors
+                end
+              end
+              # Configurations for the components of the pricing plan.
+              attr_accessor :component_configurations
+              # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_accessor :metadata
+              # Configurations for overriding behaviors related to the subscription.
+              attr_accessor :overrides
+              # ID of the Pricing Plan to subscribe to.
+              attr_accessor :pricing_plan
+              # Version of the Pricing Plan to use.
+              attr_accessor :pricing_plan_version
+
+              def initialize(
+                component_configurations: nil,
+                metadata: nil,
+                overrides: nil,
+                pricing_plan: nil,
+                pricing_plan_version: nil
+              )
+                @component_configurations = component_configurations
+                @metadata = metadata
+                @overrides = overrides
+                @pricing_plan = pricing_plan
+                @pricing_plan_version = pricing_plan_version
+              end
+            end
+
+            class V1SubscriptionDetails < ::Stripe::RequestParams
+              class Item < ::Stripe::RequestParams
+                # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                attr_accessor :metadata
+                # The ID of the price object.
+                attr_accessor :price
+                # Quantity for this item. If not provided, defaults to 1.
+                attr_accessor :quantity
+
+                def initialize(metadata: nil, price: nil, quantity: nil)
+                  @metadata = metadata
+                  @price = price
+                  @quantity = quantity
+                end
+              end
+              # The subscription’s description, meant to be displayable to the customer.
+              # Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+              attr_accessor :description
+              # A list of up to 20 subscription items, each with an attached price.
+              attr_accessor :items
+              # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_accessor :metadata
+
+              def initialize(description: nil, items: nil, metadata: nil)
+                @description = description
+                @items = items
+                @metadata = metadata
+              end
+            end
+            # When the invoice is collected. If not specified, defaults to on_effective_at.
+            attr_accessor :collect_at
+            # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
+            attr_accessor :effective_at
+            # Details for subscribing to a pricing plan.
+            attr_accessor :pricing_plan_subscription_details
+            # Type of the action details.
+            attr_accessor :type
+            # Details for subscribing to a v1 subscription.
+            attr_accessor :v1_subscription_details
+
+            def initialize(
+              collect_at: nil,
+              effective_at: nil,
+              pricing_plan_subscription_details: nil,
+              type: nil,
+              v1_subscription_details: nil
+            )
+              @collect_at = collect_at
+              @effective_at = effective_at
+              @pricing_plan_subscription_details = pricing_plan_subscription_details
+              @type = type
+              @v1_subscription_details = v1_subscription_details
+            end
+          end
+          # Details for an apply action.
+          attr_accessor :apply
+          # Details for a deactivate action.
+          attr_accessor :deactivate
+          # Details for a modify action.
+          attr_accessor :modify
+          # Details for a remove action.
+          attr_accessor :remove
+          # Details for a subscribe action.
+          attr_accessor :subscribe
+          # Type of the Billing Intent action.
+          attr_accessor :type
+
+          def initialize(
+            apply: nil,
+            deactivate: nil,
+            modify: nil,
+            remove: nil,
+            subscribe: nil,
+            type: nil
+          )
+            @apply = apply
+            @deactivate = deactivate
+            @modify = modify
+            @remove = remove
+            @subscribe = subscribe
+            @type = type
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              apply: {
+                kind: :object,
+                fields: {
+                  invoice_discount_rule: {
+                    kind: :object,
+                    fields: { percent_off: { kind: :object, fields: { percent_off: :decimal_string } } },
+                  },
+                },
+              },
+            }
+          end
+        end
+
+        class CadenceData < ::Stripe::RequestParams
+          class BillingCycle < ::Stripe::RequestParams
+            class Day < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                attr_accessor :hour
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
+
+                def initialize(hour: nil, minute: nil, second: nil)
+                  @hour = hour
+                  @minute = minute
+                  @second = second
+                end
+              end
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it defaults to
+              # the time at which the cadence was created in UTC timezone.
+              attr_accessor :time
+
+              def initialize(time: nil)
+                @time = time
+              end
+            end
+
+            class Month < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                attr_accessor :hour
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
+
+                def initialize(hour: nil, minute: nil, second: nil)
+                  @hour = hour
+                  @minute = minute
+                  @second = second
+                end
+              end
+              # The day to anchor the billing on for a type="month" billing cycle from
+              # 1-31. If this number is greater than the number of days in the month being
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
+              attr_accessor :day_of_month
+              # The month to anchor the billing on for a type="month" billing cycle from
+              # 1-12. If not provided, this defaults to the month the cadence was created.
+              # This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+              # All occurrences are calculated from the month provided.
+              attr_accessor :month_of_year
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it defaults to
+              # the time at which the cadence was created in UTC timezone.
+              attr_accessor :time
+
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil)
+                @day_of_month = day_of_month
+                @month_of_year = month_of_year
+                @time = time
+              end
+            end
+
+            class Week < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                attr_accessor :hour
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
+
+                def initialize(hour: nil, minute: nil, second: nil)
+                  @hour = hour
+                  @minute = minute
+                  @second = second
+                end
+              end
+              # The day of the week to bill the type=week billing cycle on.
+              # Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
+              # week day numbering. If not provided, this defaults to the day the
+              # cadence was created.
+              attr_accessor :day_of_week
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it defaults to
+              # the time at which the cadence was created in UTC timezone.
+              attr_accessor :time
+
+              def initialize(day_of_week: nil, time: nil)
+                @day_of_week = day_of_week
+                @time = time
+              end
+            end
+
+            class Year < ::Stripe::RequestParams
+              class Time < ::Stripe::RequestParams
+                # The hour at which the billing cycle ends.
+                # This must be an integer between 0 and 23, inclusive.
+                # 0 represents midnight, and 23 represents 11 PM.
+                attr_accessor :hour
+                # The minute at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :minute
+                # The second at which the billing cycle ends.
+                # Must be an integer between 0 and 59, inclusive.
+                attr_accessor :second
+
+                def initialize(hour: nil, minute: nil, second: nil)
+                  @hour = hour
+                  @minute = minute
+                  @second = second
+                end
+              end
+              # The day to anchor the billing on for a type="month" billing cycle from
+              # 1-31. If this number is greater than the number of days in the month being
+              # billed, this anchors to the last day of the month. If not provided,
+              # this defaults to the day the cadence was created.
+              attr_accessor :day_of_month
+              # The month to bill on from 1-12. If not provided, this defaults to the
+              # month the cadence was created.
+              attr_accessor :month_of_year
+              # The time at which the billing cycle ends.
+              # This field is optional, and if not provided, it defaults to
+              # the time at which the cadence was created in UTC timezone.
+              attr_accessor :time
+
+              def initialize(day_of_month: nil, month_of_year: nil, time: nil)
+                @day_of_month = day_of_month
+                @month_of_year = month_of_year
+                @time = time
+              end
+            end
+            # Specific configuration for determining billing dates when type=day.
+            attr_accessor :day
+            # The number of intervals (specified in the interval attribute) between
+            # cadence billings. For example, type=month and interval_count=3 bills every
+            # 3 months. If not provided, this defaults to 1.
+            attr_accessor :interval_count
+            # Specific configuration for determining billing dates when type=month.
+            attr_accessor :month
+            # The frequency at which a cadence bills.
+            attr_accessor :type
+            # Specific configuration for determining billing dates when type=week.
+            attr_accessor :week
+            # Specific configuration for determining billing dates when type=year.
+            attr_accessor :year
+
+            def initialize(
+              day: nil,
+              interval_count: nil,
+              month: nil,
+              type: nil,
+              week: nil,
+              year: nil
+            )
+              @day = day
+              @interval_count = interval_count
+              @month = month
+              @type = type
+              @week = week
+              @year = year
+            end
+          end
+
+          class Payer < ::Stripe::RequestParams
+            class BillingProfileData < ::Stripe::RequestParams
+              # The customer to associate with the profile.
+              attr_accessor :customer
+              # The default payment method to use when billing this profile.
+              # If left blank, the `PaymentMethod` from the `PaymentIntent` provided
+              # on commit is used to create the profile.
+              attr_accessor :default_payment_method
+
+              def initialize(customer: nil, default_payment_method: nil)
+                @customer = customer
+                @default_payment_method = default_payment_method
+              end
+            end
+            # The ID of the Billing Profile object which determines how a bill is paid.
+            attr_accessor :billing_profile
+            # Data for creating a new profile.
+            attr_accessor :billing_profile_data
+
+            def initialize(billing_profile: nil, billing_profile_data: nil)
+              @billing_profile = billing_profile
+              @billing_profile_data = billing_profile_data
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            class Bill < ::Stripe::RequestParams
+              # The ID of the referenced settings object.
+              attr_accessor :id
+              # An optional field to specify the version of the Settings to use.
+              # If not provided, this defaults to the live version any time the settings are used.
+              attr_accessor :version
+
+              def initialize(id: nil, version: nil)
+                @id = id
+                @version = version
+              end
+            end
+
+            class Collection < ::Stripe::RequestParams
+              # The ID of the referenced settings object.
+              attr_accessor :id
+              # An optional field to specify the version of the Settings to use.
+              # If not provided, this defaults to the live version any time the settings are used.
+              attr_accessor :version
+
+              def initialize(id: nil, version: nil)
+                @id = id
+                @version = version
+              end
+            end
+            # Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
+            # If no setting is provided here, the settings from the customer referenced on the payer will be used.
+            # If no customer settings are present, the merchant default settings will be used.
+            attr_accessor :bill
+            # Settings that configure and manage the behavior of collecting payments.
+            # If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
+            # If no customer settings are present, the merchant default settings will be used.
+            attr_accessor :collection
+
+            def initialize(bill: nil, collection: nil)
+              @bill = bill
+              @collection = collection
+            end
+          end
+          # The billing cycle configuration for this Cadence.
+          attr_accessor :billing_cycle
+          # Information about the payer for this Cadence.
+          attr_accessor :payer
+          # Settings for creating the Cadence.
+          attr_accessor :settings
+
+          def initialize(billing_cycle: nil, payer: nil, settings: nil)
+            @billing_cycle = billing_cycle
+            @payer = payer
+            @settings = settings
+          end
+        end
+        # Actions to be performed by this Billing Intent.
+        attr_accessor :actions
+        # ID of an existing Cadence to use.
+        attr_accessor :cadence
+        # Data for creating a new Cadence.
+        attr_accessor :cadence_data
+        # Three-letter ISO currency code, in lowercase. Must be a supported currency.
+        attr_accessor :currency
+
+        def initialize(actions: nil, cadence: nil, cadence_data: nil, currency: nil)
+          @actions = actions
+          @cadence = cadence
+          @cadence_data = cadence_data
+          @currency = currency
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  apply: {
+                    kind: :object,
+                    fields: {
+                      invoice_discount_rule: {
+                        kind: :object,
+                        fields: {
+                          percent_off: { kind: :object, fields: { percent_off: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
+      end
+    end
+  end
+end

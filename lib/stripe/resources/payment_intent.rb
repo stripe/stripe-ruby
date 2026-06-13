@@ -27,6 +27,131 @@ module Stripe
 
     nested_resource_class_methods :amount_details_line_item, operations: %i[list]
 
+    class AdvancedFeatureDetails < ::Stripe::StripeObject
+      class DecrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ForcedCapture < ::Stripe::StripeObject
+        # Timestamp at which the forced capture window expires.
+        attr_reader :expires_at
+        # Indicates whether forced capture is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class IncrementalAuthorization < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Multicapture < ::Stripe::StripeObject
+        # Indicates whether the feature is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Overcapture < ::Stripe::StripeObject
+        # The maximum amount that can be captured.
+        attr_reader :maximum_amount_capturable
+        # Indicates whether overcapture is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Timestamp at which the authorization will expire if not captured.
+      attr_reader :capture_before
+      # Attribute for field decremental_authorization
+      attr_reader :decremental_authorization
+      # Attribute for field forced_capture
+      attr_reader :forced_capture
+      # Attribute for field incremental_authorization
+      attr_reader :incremental_authorization
+      # Attribute for field multicapture
+      attr_reader :multicapture
+      # Attribute for field overcapture
+      attr_reader :overcapture
+
+      def self.inner_class_types
+        @inner_class_types = {
+          decremental_authorization: DecrementalAuthorization,
+          forced_capture: ForcedCapture,
+          incremental_authorization: IncrementalAuthorization,
+          multicapture: Multicapture,
+          overcapture: Overcapture,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class AgentDetails < ::Stripe::StripeObject
+      # The name of the agent that initiated the payment.
+      attr_reader :name
+      # The Stripe profile associated with the agent that initiated the payment.
+      attr_reader :network_business_profile
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class AllocatedFunds < ::Stripe::StripeObject
+      # Allocated Funds configuration for this PaymentIntent.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AmountDetails < ::Stripe::StripeObject
       class Error < ::Stripe::StripeObject
         # The code of the error that occurred when validating the current amount details.
@@ -50,6 +175,25 @@ module Stripe
         attr_reader :from_postal_code
         # If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
         attr_reader :to_postal_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Surcharge < ::Stripe::StripeObject
+        # Portion of the amount that corresponds to a surcharge.
+        attr_reader :amount
+        # Indicate whether to enforce validations on the surcharge amount.
+        attr_reader :enforce_validation
+        # The maximum amount allowed for the surcharge.
+        attr_reader :maximum_amount
+        # The status of the surcharge.
+        attr_reader :status
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -97,13 +241,58 @@ module Stripe
       attr_reader :line_items
       # Attribute for field shipping
       attr_reader :shipping
+      # Attribute for field surcharge
+      attr_reader :surcharge
       # Attribute for field tax
       attr_reader :tax
       # Attribute for field tip
       attr_reader :tip
 
       def self.inner_class_types
-        @inner_class_types = { error: Error, shipping: Shipping, tax: Tax, tip: Tip }
+        @inner_class_types = {
+          error: Error,
+          shipping: Shipping,
+          surcharge: Surcharge,
+          tax: Tax,
+          tip: Tip,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class AsyncWorkflows < ::Stripe::StripeObject
+      class Inputs < ::Stripe::StripeObject
+        class Tax < ::Stripe::StripeObject
+          # The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
+          attr_reader :calculation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field tax
+        attr_reader :tax
+
+        def self.inner_class_types
+          @inner_class_types = { tax: Tax }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field inputs
+      attr_reader :inputs
+
+      def self.inner_class_types
+        @inner_class_types = { inputs: Inputs }
       end
 
       def self.field_remappings
@@ -345,6 +534,199 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { qr_code: QrCode }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CryptoDisplayDetails < ::Stripe::StripeObject
+        class DepositAddresses < ::Stripe::StripeObject
+          class Base < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Ethereum < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Polygon < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Solana < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tempo < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field base
+          attr_reader :base
+          # Attribute for field ethereum
+          attr_reader :ethereum
+          # Attribute for field polygon
+          attr_reader :polygon
+          # Attribute for field solana
+          attr_reader :solana
+          # Attribute for field tempo
+          attr_reader :tempo
+
+          def self.inner_class_types
+            @inner_class_types = {
+              base: Base,
+              ethereum: Ethereum,
+              polygon: Polygon,
+              solana: Solana,
+              tempo: Tempo,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field deposit_addresses
+        attr_reader :deposit_addresses
+
+        def self.inner_class_types
+          @inner_class_types = { deposit_addresses: DepositAddresses }
         end
 
         def self.field_remappings
@@ -1171,6 +1553,19 @@ module Stripe
         end
       end
 
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        attr_reader :session_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         attr_reader :app_id
@@ -1218,6 +1613,8 @@ module Stripe
       attr_reader :card_await_notification
       # Attribute for field cashapp_handle_redirect_or_display_qr_code
       attr_reader :cashapp_handle_redirect_or_display_qr_code
+      # Attribute for field crypto_display_details
+      attr_reader :crypto_display_details
       # Attribute for field display_bank_transfer_instructions
       attr_reader :display_bank_transfer_instructions
       # Attribute for field klarna_display_qr_code
@@ -1248,6 +1645,8 @@ module Stripe
       attr_reader :verify_with_microdeposits
       # Attribute for field wechat_pay_display_qr_code
       attr_reader :wechat_pay_display_qr_code
+      # Attribute for field wechat_pay_handle_app_redirect
+      attr_reader :wechat_pay_handle_app_redirect
       # Attribute for field wechat_pay_redirect_to_android_app
       attr_reader :wechat_pay_redirect_to_android_app
       # Attribute for field wechat_pay_redirect_to_ios_app
@@ -1260,6 +1659,7 @@ module Stripe
           boleto_display_details: BoletoDisplayDetails,
           card_await_notification: CardAwaitNotification,
           cashapp_handle_redirect_or_display_qr_code: CashappHandleRedirectOrDisplayQrCode,
+          crypto_display_details: CryptoDisplayDetails,
           display_bank_transfer_instructions: DisplayBankTransferInstructions,
           klarna_display_qr_code: KlarnaDisplayQrCode,
           konbini_display_details: KonbiniDisplayDetails,
@@ -1273,6 +1673,7 @@ module Stripe
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
@@ -1284,17 +1685,1463 @@ module Stripe
     end
 
     class PaymentDetails < ::Stripe::StripeObject
+      class Benefit < ::Stripe::StripeObject
+        class FrMealVoucher < ::Stripe::StripeObject
+          # Whether meal voucher benefit is enabled for this payment.
+          attr_reader :enabled
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_reader :siret
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fr_meal_voucher
+        attr_reader :fr_meal_voucher
+
+        def self.inner_class_types
+          @inner_class_types = { fr_meal_voucher: FrMealVoucher }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CarRental < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # The name of the affiliate that originated the purchase.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Delivery < ::Stripe::StripeObject
+          class Recipient < ::Stripe::StripeObject
+            # The email of the recipient the ticket is delivered to.
+            attr_reader :email
+            # The name of the recipient the ticket is delivered to.
+            attr_reader :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_reader :phone
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The delivery method for the payment
+          attr_reader :mode
+          # Attribute for field recipient
+          attr_reader :recipient
+
+          def self.inner_class_types
+            @inner_class_types = { recipient: Recipient }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Distance < ::Stripe::StripeObject
+          # Distance traveled.
+          attr_reader :amount
+          # Unit of measurement for the distance traveled. One of `miles` or `kilometers`
+          attr_reader :unit
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Driver < ::Stripe::StripeObject
+          # Driver's identification number.
+          attr_reader :driver_identification_number
+          # Driver's tax number.
+          attr_reader :driver_tax_number
+          # Full name of the driver on the reservation.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PickupAddress < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          attr_reader :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_reader :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_reader :line2
+          # ZIP or postal code.
+          attr_reader :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ReturnAddress < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          attr_reader :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_reader :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_reader :line2
+          # ZIP or postal code.
+          attr_reader :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The booking number associated with the car rental.
+        attr_reader :booking_number
+        # Class code of the car.
+        attr_reader :car_class_code
+        # Make of the car.
+        attr_reader :car_make
+        # Model of the car.
+        attr_reader :car_model
+        # The name of the rental car company.
+        attr_reader :company
+        # The customer service phone number of the car rental company.
+        attr_reader :customer_service_phone_number
+        # Number of days the car is being rented.
+        attr_reader :days_rented
+        # Attribute for field delivery
+        attr_reader :delivery
+        # Attribute for field distance
+        attr_reader :distance
+        # The details of the drivers associated with the trip.
+        attr_reader :drivers
+        # List of additional charges being billed.
+        attr_reader :extra_charges
+        # Indicates if the customer did not keep nor cancel their booking.
+        attr_reader :no_show
+        # Attribute for field pickup_address
+        attr_reader :pickup_address
+        # Car pick-up time. Measured in seconds since the Unix epoch.
+        attr_reader :pickup_at
+        # Name of the pickup location.
+        attr_reader :pickup_location_name
+        # Rental rate.
+        attr_reader :rate_amount
+        # The frequency at which the rate amount is applied. One of `day`, `week` or `month`
+        attr_reader :rate_interval
+        # The full name of the person or entity renting the car.
+        attr_reader :renter_name
+        # Attribute for field return_address
+        attr_reader :return_address
+        # Car return time. Measured in seconds since the Unix epoch.
+        attr_reader :return_at
+        # Name of the return location.
+        attr_reader :return_location_name
+        # Indicates whether the goods or services are tax-exempt or tax is not collected.
+        attr_reader :tax_exempt
+        # The vehicle identification number of the car.
+        attr_reader :vehicle_identification_number
+
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            delivery: Delivery,
+            distance: Distance,
+            drivers: Driver,
+            pickup_address: PickupAddress,
+            return_address: ReturnAddress,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CarRentalDatum < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate code.
+          attr_reader :code
+          # Affiliate name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Distance < ::Stripe::StripeObject
+          # Distance amount.
+          attr_reader :amount
+          # Unit for the distance.
+          attr_reader :unit
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Driver < ::Stripe::StripeObject
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth.
+            attr_reader :day
+            # Month of birth.
+            attr_reader :month
+            # Year of birth.
+            attr_reader :year
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field date_of_birth
+          attr_reader :date_of_birth
+          # Driver's identification number.
+          attr_reader :driver_identification_number
+          # Driver's tax number.
+          attr_reader :driver_tax_number
+          # Full name of the driver.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { date_of_birth: DateOfBirth }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class DropOff < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Name of the location.
+          attr_reader :location_name
+          # Time associated with the location.
+          attr_reader :time
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Amount of the insurance.
+          attr_reader :amount
+          # Currency for the insurance price.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Pickup < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Name of the location.
+          attr_reader :location_name
+          # Time associated with the location.
+          attr_reader :time
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+            # Coupon code applied.
+            attr_reader :coupon
+            # Maximum free miles or kilometers included.
+            attr_reader :maximum_free_miles_or_kilometers
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the rental is tax-exempt.
+            attr_reader :tax_exempt_indicator
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total amount.
+          attr_reader :amount
+          # Currency for the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the rental.
+          attr_reader :extra_charges
+          # Rate per unit.
+          attr_reader :rate_per_unit
+          # Unit for the rate.
+          attr_reader :rate_unit
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Vehicle < ::Stripe::StripeObject
+          # Make of the vehicle.
+          attr_reader :make
+          # Model of the vehicle.
+          attr_reader :model
+          # Odometer reading.
+          attr_reader :odometer
+          # Type of the vehicle.
+          attr_reader :type
+          # Class of the vehicle.
+          attr_reader :vehicle_class
+          # Vehicle identification number.
+          attr_reader :vehicle_identification_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The booking number associated with the car rental.
+        attr_reader :booking_number
+        # The name of the car rental company.
+        attr_reader :carrier_name
+        # The customer service phone number of the car rental company.
+        attr_reader :customer_service_phone_number
+        # Number of days the car is being rented.
+        attr_reader :days_rented
+        # Attribute for field distance
+        attr_reader :distance
+        # The details of the drivers associated with the rental.
+        attr_reader :drivers
+        # Attribute for field drop_off
+        attr_reader :drop_off
+        # Insurance details for the car rental.
+        attr_reader :insurances
+        # Indicates if the customer did not keep nor cancel their booking.
+        attr_reader :no_show_indicator
+        # Attribute for field pickup
+        attr_reader :pickup
+        # Name of the person renting the vehicle.
+        attr_reader :renter_name
+        # Attribute for field total
+        attr_reader :total
+        # Attribute for field vehicle
+        attr_reader :vehicle
+
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            distance: Distance,
+            drivers: Driver,
+            drop_off: DropOff,
+            insurances: Insurance,
+            pickup: Pickup,
+            total: Total,
+            vehicle: Vehicle,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class EventDetails < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
+          # City, district, suburb, town, or village.
+          attr_reader :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_reader :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_reader :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_reader :line2
+          # ZIP or postal code.
+          attr_reader :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Affiliate < ::Stripe::StripeObject
+          # The name of the affiliate that originated the purchase.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Delivery < ::Stripe::StripeObject
+          class Recipient < ::Stripe::StripeObject
+            # The email of the recipient the ticket is delivered to.
+            attr_reader :email
+            # The name of the recipient the ticket is delivered to.
+            attr_reader :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_reader :phone
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The delivery method for the payment
+          attr_reader :mode
+          # Attribute for field recipient
+          attr_reader :recipient
+
+          def self.inner_class_types
+            @inner_class_types = { recipient: Recipient }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Indicates if the tickets are digitally checked when entering the venue.
+        attr_reader :access_controlled_venue
+        # Attribute for field address
+        attr_reader :address
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The name of the company
+        attr_reader :company
+        # Attribute for field delivery
+        attr_reader :delivery
+        # Event end time. Measured in seconds since the Unix epoch.
+        attr_reader :ends_at
+        # Type of the event entertainment (concert, sports event etc)
+        attr_reader :genre
+        # The name of the event.
+        attr_reader :name
+        # Event start time. Measured in seconds since the Unix epoch.
+        attr_reader :starts_at
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address, affiliate: Affiliate, delivery: Delivery }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class FleetDatum < ::Stripe::StripeObject
+        class PrimaryFuelFields < ::Stripe::StripeObject
+          # The fuel brand.
+          attr_reader :brand
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Station < ::Stripe::StripeObject
+          class ServiceLocation < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Additional contact information for the station.
+          attr_reader :additional_contact_info
+          # The customer service phone number of the station.
+          attr_reader :customer_service_phone_number
+          # The partner ID code of the station.
+          attr_reader :partner_id_code
+          # The phone number of the station.
+          attr_reader :phone_number
+          # Attribute for field service_location
+          attr_reader :service_location
+          # The URL of the station.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = { service_location: ServiceLocation }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Vat < ::Stripe::StripeObject
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          attr_reader :iob_indicator
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field primary_fuel_fields
+        attr_reader :primary_fuel_fields
+        # Attribute for field station
+        attr_reader :station
+        # Attribute for field vat
+        attr_reader :vat
+
+        def self.inner_class_types
+          @inner_class_types = { primary_fuel_fields: PrimaryFuelFields, station: Station, vat: Vat }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class FlightDatum < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate code.
+          attr_reader :code
+          # Affiliate name.
+          attr_reader :name
+          # Code provided by the company to a travel agent authorizing ticket issuance.
+          attr_reader :travel_authorization_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Amount of the insurance.
+          attr_reader :amount
+          # Currency for the insurance price.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Passenger < ::Stripe::StripeObject
+          # Full name of the passenger.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Segment < ::Stripe::StripeObject
+          class Arrival < ::Stripe::StripeObject
+            # Arrival airport IATA code.
+            attr_reader :airport
+            # Arrival date and time.
+            attr_reader :arrives_at
+            # Arrival city.
+            attr_reader :city
+            # Arrival country.
+            attr_reader :country
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Departure < ::Stripe::StripeObject
+            # Departure airport IATA code.
+            attr_reader :airport
+            # Departure city.
+            attr_reader :city
+            # Departure country.
+            attr_reader :country
+            # Departure date and time.
+            attr_reader :departs_at
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Segment fare amount.
+          attr_reader :amount
+          # Attribute for field arrival
+          attr_reader :arrival
+          # Airline carrier code.
+          attr_reader :carrier_code
+          # Carrier name.
+          attr_reader :carrier_name
+          # Segment currency.
+          attr_reader :currency
+          # Attribute for field departure
+          attr_reader :departure
+          # Exchange ticket number.
+          attr_reader :exchange_ticket_number
+          # Fare basis code.
+          attr_reader :fare_basis_code
+          # Additional fees.
+          attr_reader :fees
+          # Flight number.
+          attr_reader :flight_number
+          # Stopover indicator.
+          attr_reader :is_stop_over_indicator
+          # Refundable ticket indicator.
+          attr_reader :refundable
+          # Class of service.
+          attr_reader :service_class
+          # Tax amount for segment.
+          attr_reader :tax_amount
+          # Ticket number.
+          attr_reader :ticket_number
+
+          def self.inner_class_types
+            @inner_class_types = { arrival: Arrival, departure: Departure }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total amount.
+          attr_reader :amount
+          # Reason for credit.
+          attr_reader :credit_reason
+          # Currency for the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the flight.
+          attr_reader :extra_charges
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # The booking number associated with the flight reservation.
+        attr_reader :booking_number
+        # The computerized reservation system used to make the reservation and purchase the ticket.
+        attr_reader :computerized_reservation_system
+        # Ticket restrictions.
+        attr_reader :endorsements_and_restrictions
+        # Insurance details for the flight.
+        attr_reader :insurances
+        # The list of passengers for this flight.
+        attr_reader :passengers
+        # The list of flight segments for this reservation.
+        attr_reader :segments
+        # Electronic ticket indicator.
+        attr_reader :ticket_electronically_issued_indicator
+        # Attribute for field total
+        attr_reader :total
+        # Type of flight transaction.
+        attr_reader :transaction_type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            affiliate: Affiliate,
+            insurances: Insurance,
+            passengers: Passenger,
+            segments: Segment,
+            total: Total,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class LodgingDatum < ::Stripe::StripeObject
+        class Accommodation < ::Stripe::StripeObject
+          # Type of accommodation.
+          attr_reader :accommodation_type
+          # Bed type.
+          attr_reader :bed_type
+          # Daily accommodation rate in cents.
+          attr_reader :daily_rate_amount
+          # Number of nights.
+          attr_reader :nights
+          # Number of rooms, cabanas, apartments, and so on.
+          attr_reader :number_of_rooms
+          # Rate type.
+          attr_reader :rate_type
+          # Whether smoking is allowed.
+          attr_reader :smoking_indicator
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Affiliate < ::Stripe::StripeObject
+          # Affiliate partner code.
+          attr_reader :code
+          # Affiliate partner name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Guest < ::Stripe::StripeObject
+          # Guest's full name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Host < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Host's country of domicile.
+          attr_reader :country_of_domicile
+          # Reference number for the host.
+          attr_reader :host_reference
+          # Type of host.
+          attr_reader :host_type
+          # Name of the lodging property or host.
+          attr_reader :name
+          # Total number of reservations for the host.
+          attr_reader :number_of_reservations
+          # Property phone number.
+          attr_reader :property_phone_number
+          # Host's registration date.
+          attr_reader :registered_at
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Insurance < ::Stripe::StripeObject
+          # Price of the insurance coverage in cents.
+          attr_reader :amount
+          # Currency of the insurance amount.
+          attr_reader :currency
+          # Name of the insurance company.
+          attr_reader :insurance_company_name
+          # Type of insurance coverage.
+          attr_reader :insurance_type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Total < ::Stripe::StripeObject
+          class Discounts < ::Stripe::StripeObject
+            # Corporate client discount code.
+            attr_reader :corporate_client_code
+            # Coupon code.
+            attr_reader :coupon
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExtraCharge < ::Stripe::StripeObject
+            # Amount of the extra charge in cents.
+            attr_reader :amount
+            # Type of extra charge.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Tax < ::Stripe::StripeObject
+            class Tax < ::Stripe::StripeObject
+              # Tax amount in cents.
+              attr_reader :amount
+              # Tax rate.
+              attr_reader :rate
+              # Type of tax applied.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the transaction is tax exempt.
+            attr_reader :tax_exempt_indicator
+            # Tax details.
+            attr_reader :taxes
+
+            def self.inner_class_types
+              @inner_class_types = { taxes: Tax }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Total price of the lodging reservation in cents.
+          attr_reader :amount
+          # Cash advances in cents.
+          attr_reader :cash_advances
+          # Currency of the total amount.
+          attr_reader :currency
+          # Attribute for field discounts
+          attr_reader :discounts
+          # Additional charges for the lodging.
+          attr_reader :extra_charges
+          # Prepaid amount in cents.
+          attr_reader :prepaid_amount
+          # Attribute for field tax
+          attr_reader :tax
+
+          def self.inner_class_types
+            @inner_class_types = { discounts: Discounts, extra_charges: ExtraCharge, tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field accommodation
+        attr_reader :accommodation
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # Booking confirmation number for the lodging.
+        attr_reader :booking_number
+        # Check-in date.
+        attr_reader :checkin_at
+        # Check-out date.
+        attr_reader :checkout_at
+        # Customer service phone number for the lodging company.
+        attr_reader :customer_service_phone_number
+        # Whether the lodging is compliant with any hotel fire safety regulations.
+        attr_reader :fire_safety_act_compliance_indicator
+        # List of guests for the lodging.
+        attr_reader :guests
+        # Attribute for field host
+        attr_reader :host
+        # List of insurances for the lodging.
+        attr_reader :insurances
+        # Whether the renter is a no-show.
+        attr_reader :no_show_indicator
+        # Renter ID number for the lodging.
+        attr_reader :renter_id_number
+        # Renter name for the lodging.
+        attr_reader :renter_name
+        # Attribute for field total
+        attr_reader :total
+
+        def self.inner_class_types
+          @inner_class_types = {
+            accommodation: Accommodation,
+            affiliate: Affiliate,
+            guests: Guest,
+            host: Host,
+            insurances: Insurance,
+            total: Total,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class MoneyServices < ::Stripe::StripeObject
+        class AccountFunding < ::Stripe::StripeObject
+          class SenderDetails < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class DateOfBirth < ::Stripe::StripeObject
+              # Day of birth, between 1 and 31.
+              attr_reader :day
+              # Month of birth, between 1 and 12.
+              attr_reader :month
+              # Four-digit year of birth.
+              attr_reader :year
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field address
+            attr_reader :address
+            # Attribute for field date_of_birth
+            attr_reader :date_of_birth
+            # Email address.
+            attr_reader :email
+            # Given name (first name).
+            attr_reader :given_name
+            # Phone number.
+            attr_reader :phone
+            # Surname (last name).
+            attr_reader :surname
+
+            def self.inner_class_types
+              @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of the Account representing the sender in this account funding transaction.
+          attr_reader :sender_account
+          # Attribute for field sender_details
+          attr_reader :sender_details
+
+          def self.inner_class_types
+            @inner_class_types = { sender_details: SenderDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BeneficiaryDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth, between 1 and 31.
+            attr_reader :day
+            # Month of birth, between 1 and 12.
+            attr_reader :month
+            # Four-digit year of birth.
+            attr_reader :year
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Attribute for field date_of_birth
+          attr_reader :date_of_birth
+          # Email address.
+          attr_reader :email
+          # Given name (first name).
+          attr_reader :given_name
+          # Phone number.
+          attr_reader :phone
+          # Surname (last name).
+          attr_reader :surname
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field account_funding
+        attr_reader :account_funding
+        # ID of the Account representing the beneficiary in this account funding transaction.
+        attr_reader :beneficiary_account
+        # Attribute for field beneficiary_details
+        attr_reader :beneficiary_details
+        # The type of money services transaction.
+        attr_reader :transaction_type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            account_funding: AccountFunding,
+            beneficiary_details: BeneficiaryDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Subscription < ::Stripe::StripeObject
+        class Affiliate < ::Stripe::StripeObject
+          # The name of the affiliate that originated the purchase.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BillingInterval < ::Stripe::StripeObject
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_reader :count
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_reader :interval
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field affiliate
+        attr_reader :affiliate
+        # Info whether the subscription will be auto renewed upon expiry.
+        attr_reader :auto_renewal
+        # Attribute for field billing_interval
+        attr_reader :billing_interval
+        # Subscription end time. Measured in seconds since the Unix epoch.
+        attr_reader :ends_at
+        # Name of the product on subscription. e.g. Apple Music Subscription.
+        attr_reader :name
+        # Subscription start time. Measured in seconds since the Unix epoch.
+        attr_reader :starts_at
+
+        def self.inner_class_types
+          @inner_class_types = { affiliate: Affiliate, billing_interval: BillingInterval }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field benefit
+      attr_reader :benefit
+      # Attribute for field car_rental
+      attr_reader :car_rental
+      # Attribute for field car_rental_data
+      attr_reader :car_rental_data
       # A unique value to identify the customer. This field is available only for card payments.
       #
       # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_reader :customer_reference
+      # Attribute for field event_details
+      attr_reader :event_details
+      # Fleet data for this PaymentIntent.
+      attr_reader :fleet_data
+      # Attribute for field flight_data
+      attr_reader :flight_data
+      # The Payment Location associated with this PaymentIntent.
+      attr_reader :location
+      # Attribute for field lodging_data
+      attr_reader :lodging_data
+      # Attribute for field money_services
+      attr_reader :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_reader :order_reference
+      # Attribute for field subscription
+      attr_reader :subscription
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = {
+          benefit: Benefit,
+          car_rental: CarRental,
+          car_rental_data: CarRentalDatum,
+          event_details: EventDetails,
+          fleet_data: FleetDatum,
+          flight_data: FlightDatum,
+          lodging_data: LodgingDatum,
+          money_services: MoneyServices,
+          subscription: Subscription,
+        }
       end
 
       def self.field_remappings
@@ -1602,6 +3449,25 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Installments < ::Stripe::StripeObject
           class AvailablePlan < ::Stripe::StripeObject
             # For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
@@ -1682,6 +3548,49 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class StatementDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Phone number
+          attr_reader :phone
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Installment details for this payment.
@@ -1692,6 +3601,8 @@ module Stripe
         attr_reader :mandate_options
         # Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
         attr_reader :network
+        # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
+        attr_reader :request_decremental_authorization
         # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
         attr_reader :request_extended_authorization
         # Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
@@ -1700,6 +3611,10 @@ module Stripe
         attr_reader :request_multicapture
         # Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
         attr_reader :request_overcapture
+        # Request partial authorization on this PaymentIntent.
+        attr_reader :request_partial_authorization
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        attr_reader :request_reauthorization
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
@@ -1716,9 +3631,16 @@ module Stripe
         attr_reader :statement_descriptor_suffix_kana
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         attr_reader :statement_descriptor_suffix_kanji
+        # Attribute for field statement_details
+        attr_reader :statement_details
 
         def self.inner_class_types
-          @inner_class_types = { installments: Installments, mandate_options: MandateOptions }
+          @inner_class_types = {
+            capture_delay: CaptureDelay,
+            installments: Installments,
+            mandate_options: MandateOptions,
+            statement_details: StatementDetails,
+          }
         end
 
         def self.field_remappings
@@ -1727,6 +3649,25 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::StripeObject
+        class CaptureDelay < ::Stripe::StripeObject
+          # The number of days to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :days
+          # The number of hours to delay the capture of the funds.
+          #
+          # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+          attr_reader :hours
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
@@ -1739,17 +3680,27 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_reader :capture_by
+        # Attribute for field capture_delay
+        attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_reader :request_incremental_authorization_support
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_reader :request_multicapture
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        attr_reader :request_reauthorization
         # Attribute for field routing
         attr_reader :routing
 
         def self.inner_class_types
-          @inner_class_types = { routing: Routing }
+          @inner_class_types = { capture_delay: CaptureDelay, routing: Routing }
         end
 
         def self.field_remappings
@@ -1779,6 +3730,24 @@ module Stripe
       end
 
       class Crypto < ::Stripe::StripeObject
+        class DepositOptions < ::Stripe::StripeObject
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          attr_reader :networks
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          attr_reader :static_address
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field deposit_options
+        attr_reader :deposit_options
+        # The mode of the crypto payment.
+        attr_reader :mode
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1789,7 +3758,7 @@ module Stripe
         attr_reader :setup_future_usage
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { deposit_options: DepositOptions }
         end
 
         def self.field_remappings
@@ -1888,6 +3857,23 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::StripeObject
+        # Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+        attr_reader :ignore_application_fee
+        # Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+        attr_reader :ignore_transfer_data
+        # Request partial authorization on this PaymentIntent.
+        attr_reader :request_partial_authorization
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Giropay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -1907,7 +3893,49 @@ module Stripe
         end
       end
 
+      class Gopay < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Grabpay < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class IdBankTransfer < ::Stripe::StripeObject
+        # The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now till 2678400 seconds (31 days) from now.
+        attr_reader :expires_after
+        # The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        attr_reader :expires_at
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2254,12 +4282,56 @@ module Stripe
       end
 
       class Paypal < ::Stripe::StripeObject
+        class LineItem < ::Stripe::StripeObject
+          class Tax < ::Stripe::StripeObject
+            # The tax for a single unit of the line item in minor units. Cannot be a negative number.
+            attr_reader :amount
+            # The tax behavior for the line item.
+            attr_reader :behavior
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Type of the line item.
+          attr_reader :category
+          # Description of the line item.
+          attr_reader :description
+          # Descriptive name of the line item.
+          attr_reader :name
+          # Quantity of the line item. Cannot be a negative number.
+          attr_reader :quantity
+          # Client facing stock keeping unit, article number or similar.
+          attr_reader :sku
+          # The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
+          attr_reader :sold_by
+          # Attribute for field tax
+          attr_reader :tax
+          # Price for a single unit of the line item in minor units. Cannot be a negative number.
+          attr_reader :unit_amount
+
+          def self.inner_class_types
+            @inner_class_types = { tax: Tax }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # The line items purchased by the customer.
+        attr_reader :line_items
         # Preferred locale of the PayPal checkout page that the customer is redirected to.
         attr_reader :preferred_locale
         # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         attr_reader :reference
+        # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        attr_reader :reference_id
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2268,7 +4340,19 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        attr_reader :subsellers
 
+        def self.inner_class_types
+          @inner_class_types = { line_items: LineItem }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2393,6 +4477,35 @@ module Stripe
         end
       end
 
+      class Qris < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Rechnung < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RevolutPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
@@ -2488,6 +4601,25 @@ module Stripe
         end
       end
 
+      class Shopeepay < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Sofort < ::Stripe::StripeObject
         # Preferred language of the SOFORT authorization page that the customer is redirected to.
         attr_reader :preferred_language
@@ -2502,6 +4634,39 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class StripeBalance < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # The ID of the Stripe Balance Debit Agreement used for this mandate.
+          attr_reader :stripe_balance_debit_agreement
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
         end
 
         def self.field_remappings
@@ -2573,6 +4738,21 @@ module Stripe
           class Filters < ::Stripe::StripeObject
             # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
             attr_reader :account_subcategories
+            # The institution to use to filter for possible accounts to link.
+            attr_reader :institution
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ManualEntry < ::Stripe::StripeObject
+            # Settings for configuring manual entry of account details.
+            attr_reader :mode
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -2584,6 +4764,8 @@ module Stripe
           end
           # Attribute for field filters
           attr_reader :filters
+          # Attribute for field manual_entry
+          attr_reader :manual_entry
           # The list of permissions to request. The `payment_method` permission must be included.
           attr_reader :permissions
           # Data features requested to be retrieved upon account creation.
@@ -2592,7 +4774,7 @@ module Stripe
           attr_reader :return_url
 
           def self.inner_class_types
-            @inner_class_types = { filters: Filters }
+            @inner_class_types = { filters: Filters, manual_entry: ManualEntry }
           end
 
           def self.field_remappings
@@ -2646,6 +4828,8 @@ module Stripe
       class WechatPay < ::Stripe::StripeObject
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_reader :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_reader :buyer_id
         # The client type that the end customer will pay from
         attr_reader :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2724,10 +4908,16 @@ module Stripe
       attr_reader :eps
       # Attribute for field fpx
       attr_reader :fpx
+      # Attribute for field gift_card
+      attr_reader :gift_card
       # Attribute for field giropay
       attr_reader :giropay
+      # Attribute for field gopay
+      attr_reader :gopay
       # Attribute for field grabpay
       attr_reader :grabpay
+      # Attribute for field id_bank_transfer
+      attr_reader :id_bank_transfer
       # Attribute for field ideal
       attr_reader :ideal
       # Attribute for field interac_present
@@ -2764,12 +4954,18 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
       attr_reader :pix
       # Attribute for field promptpay
       attr_reader :promptpay
+      # Attribute for field qris
+      attr_reader :qris
+      # Attribute for field rechnung
+      attr_reader :rechnung
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field samsung_pay
@@ -2780,8 +4976,12 @@ module Stripe
       attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field shopeepay
+      attr_reader :shopeepay
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field swish
       attr_reader :swish
       # Attribute for field twint
@@ -2817,8 +5017,11 @@ module Stripe
           customer_balance: CustomerBalance,
           eps: Eps,
           fpx: Fpx,
+          gift_card: GiftCard,
           giropay: Giropay,
+          gopay: Gopay,
           grabpay: Grabpay,
+          id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           interac_present: InteracPresent,
           kakao_pay: KakaoPay,
@@ -2837,15 +5040,20 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
+          qris: Qris,
+          rechnung: Rechnung,
           revolut_pay: RevolutPay,
           samsung_pay: SamsungPay,
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          shopeepay: Shopeepay,
           sofort: Sofort,
+          stripe_balance: StripeBalance,
           swish: Swish,
           twint: Twint,
           upi: Upi,
@@ -2853,6 +5061,19 @@ module Stripe
           wechat_pay: WechatPay,
           zip: Zip,
         }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class PaymentsOrchestration < ::Stripe::StripeObject
+      # Whether this feature is enabled.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
       def self.field_remappings
@@ -2995,6 +5216,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # Attribute for field advanced_feature_details
+    attr_reader :advanced_feature_details
+    # Details about the agent that initiated the creation of this PaymentIntent.
+    attr_reader :agent_details
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_reader :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_reader :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.
@@ -3007,6 +5236,8 @@ module Stripe
     attr_reader :application
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     attr_reader :application_fee_amount
+    # Attribute for field async_workflows
+    attr_reader :async_workflows
     # Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
     attr_reader :automatic_payment_methods
     # Populated when `status` is `canceled`, this is the time at which the PaymentIntent was canceled. Measured in seconds since the Unix epoch.
@@ -3043,6 +5274,8 @@ module Stripe
     attr_reader :description
     # The list of payment method types to exclude from use with this payment.
     attr_reader :excluded_payment_method_types
+    # The FX Quote used for the PaymentIntent.
+    attr_reader :fx_quote
     # Attribute for field hooks
     attr_reader :hooks
     # Unique identifier for the object.
@@ -3051,6 +5284,8 @@ module Stripe
     attr_reader :last_payment_error
     # ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     attr_reader :latest_charge
+    # ID of the latest [Payment Attempt Record object](https://docs.stripe.com/api/payment-attempt-record) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    attr_reader :latest_payment_attempt_record
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Settings for Managed Payments.
@@ -3074,6 +5309,10 @@ module Stripe
     attr_reader :payment_method_options
     # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_reader :payment_method_types
+    # ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
+    attr_reader :payment_record
+    # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    attr_reader :payments_orchestration
     # Attribute for field presentment_details
     attr_reader :presentment_details
     # If present, this property tells you about the processing state of the payment.
@@ -3082,6 +5321,8 @@ module Stripe
     attr_reader :receipt_email
     # ID of the review associated with this PaymentIntent, if any.
     attr_reader :review
+    # Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
+    attr_reader :secret_key_confirmation
     # Indicates that you intend to make future payments with this PaymentIntent's payment method.
     #
     # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3275,6 +5516,56 @@ module Stripe
       request_stripe_object(method: :post, path: "/v1/payment_intents", params: params, opts: opts)
     end
 
+    # Perform a decremental authorization on an eligible
+    # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # PaymentIntent's status must be requires_capture and
+    # [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+    # must be available.
+    #
+    # Decremental authorizations decrease the authorized amount on your customer's card
+    # to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+    #
+    # After decrement, the PaymentIntent object
+    # returns with the updated
+    # [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # The PaymentIntent will now be capturable up to the new authorized amount.
+    #
+    # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
+    def decrement_authorization(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Perform a decremental authorization on an eligible
+    # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # PaymentIntent's status must be requires_capture and
+    # [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+    # must be available.
+    #
+    # Decremental authorizations decrease the authorized amount on your customer's card
+    # to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+    #
+    # After decrement, the PaymentIntent object
+    # returns with the updated
+    # [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # The PaymentIntent will now be capturable up to the new authorized amount.
+    #
+    # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
+    def self.decrement_authorization(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Perform an incremental authorization on an eligible
     # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
@@ -3350,6 +5641,40 @@ module Stripe
       request_stripe_object(method: :get, path: "/v1/payment_intents", params: params, opts: opts)
     end
 
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    def reauthorize(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    def self.reauthorize(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     def self.search(params = {}, opts = {})
       request_stripe_object(
         method: :get,
@@ -3363,6 +5688,26 @@ module Stripe
       search(params, opts).auto_paging_each(&blk)
     end
 
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Trigger an external action on a PaymentIntent.
+    def self.trigger_action(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Updates properties on a PaymentIntent object without confirming.
     #
     # Depending on which properties you update, you might need to confirm the
@@ -3374,6 +5719,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def update_crypto_refund_address(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def self.update_crypto_refund_address(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )
@@ -3399,9 +5764,44 @@ module Stripe
       )
     end
 
+    def test_helpers
+      TestHelpers.new(self)
+    end
+
+    class TestHelpers < APIResourceTestHelpers
+      RESOURCE_CLASS = PaymentIntent
+      def self.resource_class
+        "PaymentIntent"
+      end
+
+      # Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+      def self.simulate_crypto_deposit(intent, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(intent) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+      def simulate_crypto_deposit(params = {}, opts = {})
+        @resource.request_stripe_object(
+          method: :post,
+          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(@resource["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+    end
+
     def self.inner_class_types
       @inner_class_types = {
+        advanced_feature_details: AdvancedFeatureDetails,
+        agent_details: AgentDetails,
+        allocated_funds: AllocatedFunds,
         amount_details: AmountDetails,
+        async_workflows: AsyncWorkflows,
         automatic_payment_methods: AutomaticPaymentMethods,
         hooks: Hooks,
         last_payment_error: LastPaymentError,
@@ -3410,6 +5810,7 @@ module Stripe
         payment_details: PaymentDetails,
         payment_method_configuration_details: PaymentMethodConfigurationDetails,
         payment_method_options: PaymentMethodOptions,
+        payments_orchestration: PaymentsOrchestration,
         presentment_details: PresentmentDetails,
         processing: Processing,
         shipping: Shipping,

@@ -5,16 +5,44 @@ module Stripe
   class InvoiceUpdateLinesParams < ::Stripe::RequestParams
     class Line < ::Stripe::RequestParams
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Time span for the redeemed discount.
+          attr_accessor :duration
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          attr_accessor :timestamp
+          # The type of calculation made to determine when the discount ends.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
+        # Details to determine how long the discount should be applied for.
+        attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
-        def initialize(coupon: nil, discount: nil, promotion_code: nil)
+        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
+          @discount_end = discount_end
           @promotion_code = promotion_code
         end
       end
@@ -33,6 +61,17 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            attr_accessor :performance_location
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(performance_location: nil, tax_code: nil)
+              @performance_location = performance_location
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -43,6 +82,8 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
 
@@ -52,6 +93,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           )
             @description = description
@@ -59,6 +101,7 @@ module Stripe
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @tax_details = tax_details
             @unit_label = unit_label
           end
         end
@@ -176,6 +219,8 @@ module Stripe
       attr_accessor :discounts
       # ID of an existing line item on the invoice.
       attr_accessor :id
+      # The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
+      attr_accessor :margins
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
       attr_accessor :metadata
       # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
@@ -199,6 +244,7 @@ module Stripe
         discountable: nil,
         discounts: nil,
         id: nil,
+        margins: nil,
         metadata: nil,
         period: nil,
         price_data: nil,
@@ -213,6 +259,7 @@ module Stripe
         @discountable = discountable
         @discounts = discounts
         @id = id
+        @margins = margins
         @metadata = metadata
         @period = period
         @price_data = price_data

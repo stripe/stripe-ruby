@@ -51,6 +51,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ReaderSecurity < ::Stripe::StripeObject
+        # Passcode used to access a reader's admin menu.
+        sig { returns(String) }
+        def admin_menu_passcode; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RebootWindow < ::Stripe::StripeObject
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         sig { returns(Integer) }
@@ -703,6 +714,9 @@ module Stripe
       # Attribute for field offline
       sig { returns(T.nilable(Offline)) }
       def offline; end
+      # Attribute for field reader_security
+      sig { returns(T.nilable(ReaderSecurity)) }
+      def reader_security; end
       # Attribute for field reboot_window
       sig { returns(T.nilable(RebootWindow)) }
       def reboot_window; end

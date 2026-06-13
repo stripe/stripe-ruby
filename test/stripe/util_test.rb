@@ -202,10 +202,17 @@ module Stripe
         assert_nil result[:b]
       end
 
-      should "recurse on non-nil hash values" do
+      should "recurse on non-nil hash values by default" do
         resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
         input = { charge: resource, amount: 100 }
         result = Util.objects_to_ids(input)
+        assert_equal({ charge: "ch_123", amount: 100 }, result)
+      end
+
+      should "recurse on non-nil hash values when serialize_empty is true" do
+        resource = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        input = { charge: resource, amount: 100 }
+        result = Util.objects_to_ids(input, serialize_empty: true)
         assert_equal({ charge: "ch_123", amount: 100 }, result)
       end
 
@@ -244,11 +251,19 @@ module Stripe
         assert result.key?(:description)
       end
 
-      should "process arrays" do
+      should "process arrays by default" do
         resource1 = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
         resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
         input = [resource1, "string", resource2]
         result = Util.objects_to_ids(input)
+        assert_equal %w[ch_123 string ch_456], result
+      end
+
+      should "process arrays when serialize_empty is true" do
+        resource1 = Stripe::Charge.construct_from(id: "ch_123", object: "charge")
+        resource2 = Stripe::Charge.construct_from(id: "ch_456", object: "charge")
+        input = [resource1, "string", resource2]
+        result = Util.objects_to_ids(input, serialize_empty: true)
         assert_equal %w[ch_123 string ch_456], result
       end
 

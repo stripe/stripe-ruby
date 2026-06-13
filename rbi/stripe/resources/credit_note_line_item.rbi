@@ -39,10 +39,24 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TaxCalculationReference < ::Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      sig { returns(T.nilable(String)) }
+      def calculation_id; end
+      # The calculation identifier for tax calculation response line item.
+      sig { returns(T.nilable(String)) }
+      def calculation_item_id; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Tax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
         # ID of the tax rate
-        sig { returns(String) }
+        sig { returns(T.any(String, ::Stripe::TaxRate)) }
         def tax_rate; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -109,6 +123,9 @@ module Stripe
     # The number of units of product being credited.
     sig { returns(T.nilable(Integer)) }
     def quantity; end
+    # The tax calculation identifiers of the line item.
+    sig { returns(T.nilable(TaxCalculationReference)) }
+    def tax_calculation_reference; end
     # The tax rates which apply to the line item.
     sig { returns(T::Array[::Stripe::TaxRate]) }
     def tax_rates; end

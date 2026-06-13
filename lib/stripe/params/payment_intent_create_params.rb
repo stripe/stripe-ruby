@@ -3,15 +3,38 @@
 
 module Stripe
   class PaymentIntentCreateParams < ::Stripe::RequestParams
+    class AllocatedFunds < ::Stripe::RequestParams
+      # Whether Allocated Funds creation is enabled for this PaymentIntent.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class AmountDetails < ::Stripe::RequestParams
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              attr_accessor :product_type
+              # The type of service received at the acceptor location.
+              attr_accessor :service_type
+
+              def initialize(product_type: nil, service_type: nil)
+                @product_type = product_type
+                @service_type = service_type
+              end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # Fleet data for this line item.
+            attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil)
+            def initialize(commodity_code: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @fleet_data = fleet_data
             end
           end
 
@@ -102,6 +125,8 @@ module Stripe
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
         # Contains information about the tax on the item.
         attr_accessor :tax
         # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
@@ -115,6 +140,7 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
           unit_of_measure: nil
@@ -124,6 +150,7 @@ module Stripe
           @product_code = product_code
           @product_name = product_name
           @quantity = quantity
+          @quantity_precision = quantity_precision
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
@@ -142,6 +169,18 @@ module Stripe
           @amount = amount
           @from_postal_code = from_postal_code
           @to_postal_code = to_postal_code
+        end
+      end
+
+      class Surcharge < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a surcharge.
+        attr_accessor :amount
+        # Indicate whether to enforce validations on the surcharge amount.
+        attr_accessor :enforce_validation
+
+        def initialize(amount: nil, enforce_validation: nil)
+          @amount = amount
+          @enforce_validation = enforce_validation
         end
       end
 
@@ -169,6 +208,8 @@ module Stripe
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
       attr_accessor :shipping
+      # Contains information about the surcharge portion of the amount.
+      attr_accessor :surcharge
       # Contains information about the tax portion of the amount.
       attr_accessor :tax
 
@@ -177,12 +218,14 @@ module Stripe
         enforce_arithmetic_validation: nil,
         line_items: nil,
         shipping: nil,
+        surcharge: nil,
         tax: nil
       )
         @discount_amount = discount_amount
         @enforce_arithmetic_validation = enforce_arithmetic_validation
         @line_items = line_items
         @shipping = shipping
+        @surcharge = surcharge
         @tax = tax
       end
     end
@@ -266,18 +309,1951 @@ module Stripe
     end
 
     class PaymentDetails < ::Stripe::RequestParams
+      class Benefit < ::Stripe::RequestParams
+        class FrMealVoucher < ::Stripe::RequestParams
+          # Whether to enable meal voucher benefit for this payment.
+          attr_accessor :enabled
+          # The 14-digit SIRET of the meal voucher acceptor.
+          attr_accessor :siret
+
+          def initialize(enabled: nil, siret: nil)
+            @enabled = enabled
+            @siret = siret
+          end
+        end
+        # French meal voucher benefit details for this PaymentIntent.
+        attr_accessor :fr_meal_voucher
+
+        def initialize(fr_meal_voucher: nil)
+          @fr_meal_voucher = fr_meal_voucher
+        end
+      end
+
+      class CarRental < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
+          # The name of the affiliate that originated the purchase.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            # The email of the recipient the ticket is delivered to.
+            attr_accessor :email
+            # The name of the recipient the ticket is delivered to.
+            attr_accessor :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_accessor :phone
+
+            def initialize(email: nil, name: nil, phone: nil)
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # The delivery method for the payment
+          attr_accessor :mode
+          # Details of the recipient.
+          attr_accessor :recipient
+
+          def initialize(mode: nil, recipient: nil)
+            @mode = mode
+            @recipient = recipient
+          end
+        end
+
+        class Distance < ::Stripe::RequestParams
+          # Distance traveled.
+          attr_accessor :amount
+          # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+          attr_accessor :unit
+
+          def initialize(amount: nil, unit: nil)
+            @amount = amount
+            @unit = unit
+          end
+        end
+
+        class Driver < ::Stripe::RequestParams
+          # Driver's identification number.
+          attr_accessor :driver_identification_number
+          # Driver's tax number.
+          attr_accessor :driver_tax_number
+          # Full name of the person or entity on the car reservation.
+          attr_accessor :name
+
+          def initialize(driver_identification_number: nil, driver_tax_number: nil, name: nil)
+            @driver_identification_number = driver_identification_number
+            @driver_tax_number = driver_tax_number
+            @name = name
+          end
+        end
+
+        class PickupAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+
+        class ReturnAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+        # Affiliate details for this purchase.
+        attr_accessor :affiliate
+        # The booking number associated with the car rental.
+        attr_accessor :booking_number
+        # Class code of the car.
+        attr_accessor :car_class_code
+        # Make of the car.
+        attr_accessor :car_make
+        # Model of the car.
+        attr_accessor :car_model
+        # The name of the rental car company.
+        attr_accessor :company
+        # The customer service phone number of the car rental company.
+        attr_accessor :customer_service_phone_number
+        # Number of days the car is being rented.
+        attr_accessor :days_rented
+        # Delivery details for this purchase.
+        attr_accessor :delivery
+        # The details of the distance traveled during the rental period.
+        attr_accessor :distance
+        # The details of the passengers in the travel reservation
+        attr_accessor :drivers
+        # List of additional charges being billed.
+        attr_accessor :extra_charges
+        # Indicates if the customer did not keep nor cancel their booking.
+        attr_accessor :no_show
+        # Car pick-up address.
+        attr_accessor :pickup_address
+        # Car pick-up time. Measured in seconds since the Unix epoch.
+        attr_accessor :pickup_at
+        # Name of the pickup location.
+        attr_accessor :pickup_location_name
+        # Rental rate.
+        attr_accessor :rate_amount
+        # The frequency at which the rate amount is applied. One of `day`, `week` or `month`
+        attr_accessor :rate_interval
+        # The name of the person or entity renting the car.
+        attr_accessor :renter_name
+        # Car return address.
+        attr_accessor :return_address
+        # Car return time. Measured in seconds since the Unix epoch.
+        attr_accessor :return_at
+        # Name of the return location.
+        attr_accessor :return_location_name
+        # Indicates whether the goods or services are tax-exempt or tax is not collected.
+        attr_accessor :tax_exempt
+        # The vehicle identification number.
+        attr_accessor :vehicle_identification_number
+
+        def initialize(
+          affiliate: nil,
+          booking_number: nil,
+          car_class_code: nil,
+          car_make: nil,
+          car_model: nil,
+          company: nil,
+          customer_service_phone_number: nil,
+          days_rented: nil,
+          delivery: nil,
+          distance: nil,
+          drivers: nil,
+          extra_charges: nil,
+          no_show: nil,
+          pickup_address: nil,
+          pickup_at: nil,
+          pickup_location_name: nil,
+          rate_amount: nil,
+          rate_interval: nil,
+          renter_name: nil,
+          return_address: nil,
+          return_at: nil,
+          return_location_name: nil,
+          tax_exempt: nil,
+          vehicle_identification_number: nil
+        )
+          @affiliate = affiliate
+          @booking_number = booking_number
+          @car_class_code = car_class_code
+          @car_make = car_make
+          @car_model = car_model
+          @company = company
+          @customer_service_phone_number = customer_service_phone_number
+          @days_rented = days_rented
+          @delivery = delivery
+          @distance = distance
+          @drivers = drivers
+          @extra_charges = extra_charges
+          @no_show = no_show
+          @pickup_address = pickup_address
+          @pickup_at = pickup_at
+          @pickup_location_name = pickup_location_name
+          @rate_amount = rate_amount
+          @rate_interval = rate_interval
+          @renter_name = renter_name
+          @return_address = return_address
+          @return_at = return_at
+          @return_location_name = return_location_name
+          @tax_exempt = tax_exempt
+          @vehicle_identification_number = vehicle_identification_number
+        end
+      end
+
+      class CarRentalDatum < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
+          # Affiliate partner code.
+          attr_accessor :code
+          # Name of affiliate partner.
+          attr_accessor :name
+
+          def initialize(code: nil, name: nil)
+            @code = code
+            @name = name
+          end
+        end
+
+        class Distance < ::Stripe::RequestParams
+          # Distance traveled.
+          attr_accessor :amount
+          # Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+          attr_accessor :unit
+
+          def initialize(amount: nil, unit: nil)
+            @amount = amount
+            @unit = unit
+          end
+        end
+
+        class Driver < ::Stripe::RequestParams
+          class DateOfBirth < ::Stripe::RequestParams
+            # Day of birth (1-31).
+            attr_accessor :day
+            # Month of birth (1-12).
+            attr_accessor :month
+            # Year of birth (must be greater than 1900).
+            attr_accessor :year
+
+            def initialize(day: nil, month: nil, year: nil)
+              @day = day
+              @month = month
+              @year = year
+            end
+          end
+          # Driver's date of birth.
+          attr_accessor :date_of_birth
+          # Driver's identification number.
+          attr_accessor :driver_identification_number
+          # Driver's tax number.
+          attr_accessor :driver_tax_number
+          # Driver's full name.
+          attr_accessor :name
+
+          def initialize(
+            date_of_birth: nil,
+            driver_identification_number: nil,
+            driver_tax_number: nil,
+            name: nil
+          )
+            @date_of_birth = date_of_birth
+            @driver_identification_number = driver_identification_number
+            @driver_tax_number = driver_tax_number
+            @name = name
+          end
+        end
+
+        class DropOff < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Address of the rental location.
+          attr_accessor :address
+          # Location name.
+          attr_accessor :location_name
+          # Timestamp for the location.
+          attr_accessor :time
+
+          def initialize(address: nil, location_name: nil, time: nil)
+            @address = address
+            @location_name = location_name
+            @time = time
+          end
+        end
+
+        class Insurance < ::Stripe::RequestParams
+          # Amount of the insurance coverage in cents.
+          attr_accessor :amount
+          # Currency of the insurance amount.
+          attr_accessor :currency
+          # Name of the insurance company.
+          attr_accessor :insurance_company_name
+          # Type of insurance coverage.
+          attr_accessor :insurance_type
+
+          def initialize(
+            amount: nil,
+            currency: nil,
+            insurance_company_name: nil,
+            insurance_type: nil
+          )
+            @amount = amount
+            @currency = currency
+            @insurance_company_name = insurance_company_name
+            @insurance_type = insurance_type
+          end
+        end
+
+        class Pickup < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Address of the rental location.
+          attr_accessor :address
+          # Location name.
+          attr_accessor :location_name
+          # Timestamp for the location.
+          attr_accessor :time
+
+          def initialize(address: nil, location_name: nil, time: nil)
+            @address = address
+            @location_name = location_name
+            @time = time
+          end
+        end
+
+        class Total < ::Stripe::RequestParams
+          class Discounts < ::Stripe::RequestParams
+            # Corporate client discount code.
+            attr_accessor :corporate_client_code
+            # Coupon code applied to the rental.
+            attr_accessor :coupon
+            # Maximum number of free miles or kilometers included.
+            attr_accessor :maximum_free_miles_or_kilometers
+
+            def initialize(
+              corporate_client_code: nil,
+              coupon: nil,
+              maximum_free_miles_or_kilometers: nil
+            )
+              @corporate_client_code = corporate_client_code
+              @coupon = coupon
+              @maximum_free_miles_or_kilometers = maximum_free_miles_or_kilometers
+            end
+          end
+
+          class ExtraCharge < ::Stripe::RequestParams
+            # Amount of the extra charge in cents.
+            attr_accessor :amount
+            # Type of extra charge.
+            attr_accessor :type
+
+            def initialize(amount: nil, type: nil)
+              @amount = amount
+              @type = type
+            end
+          end
+
+          class Tax < ::Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
+              # Tax amount.
+              attr_accessor :amount
+              # Tax rate applied.
+              attr_accessor :rate
+              # Type of tax applied.
+              attr_accessor :type
+
+              def initialize(amount: nil, rate: nil, type: nil)
+                @amount = amount
+                @rate = rate
+                @type = type
+              end
+            end
+            # Indicates if the transaction is tax exempt.
+            attr_accessor :tax_exempt_indicator
+            # Array of tax details.
+            attr_accessor :taxes
+
+            def initialize(tax_exempt_indicator: nil, taxes: nil)
+              @tax_exempt_indicator = tax_exempt_indicator
+              @taxes = taxes
+            end
+          end
+          # Total amount in cents.
+          attr_accessor :amount
+          # Currency of the amount.
+          attr_accessor :currency
+          # Discount details for the rental.
+          attr_accessor :discounts
+          # Additional charges for the rental.
+          attr_accessor :extra_charges
+          # Rate per unit for the rental.
+          attr_accessor :rate_per_unit
+          # Unit of measurement for the rate.
+          attr_accessor :rate_unit
+          # Tax breakdown for the rental.
+          attr_accessor :tax
+
+          def initialize(
+            amount: nil,
+            currency: nil,
+            discounts: nil,
+            extra_charges: nil,
+            rate_per_unit: nil,
+            rate_unit: nil,
+            tax: nil
+          )
+            @amount = amount
+            @currency = currency
+            @discounts = discounts
+            @extra_charges = extra_charges
+            @rate_per_unit = rate_per_unit
+            @rate_unit = rate_unit
+            @tax = tax
+          end
+        end
+
+        class Vehicle < ::Stripe::RequestParams
+          # Make of the rental vehicle.
+          attr_accessor :make
+          # Model of the rental vehicle.
+          attr_accessor :model
+          # Odometer reading at the time of rental.
+          attr_accessor :odometer
+          # Type of the rental vehicle.
+          attr_accessor :type
+          # Class of the rental vehicle.
+          attr_accessor :vehicle_class
+          # Vehicle identification number (VIN).
+          attr_accessor :vehicle_identification_number
+
+          def initialize(
+            make: nil,
+            model: nil,
+            odometer: nil,
+            type: nil,
+            vehicle_class: nil,
+            vehicle_identification_number: nil
+          )
+            @make = make
+            @model = model
+            @odometer = odometer
+            @type = type
+            @vehicle_class = vehicle_class
+            @vehicle_identification_number = vehicle_identification_number
+          end
+        end
+        # Affiliate (such as travel agency) details for the rental.
+        attr_accessor :affiliate
+        # Booking confirmation number for the car rental.
+        attr_accessor :booking_number
+        # Name of the car rental company.
+        attr_accessor :carrier_name
+        # Customer service phone number for the car rental company.
+        attr_accessor :customer_service_phone_number
+        # Number of days the car is being rented.
+        attr_accessor :days_rented
+        # Distance details for the rental.
+        attr_accessor :distance
+        # List of drivers for the rental.
+        attr_accessor :drivers
+        # Drop-off location details.
+        attr_accessor :drop_off
+        # Insurance details for the rental.
+        attr_accessor :insurances
+        # Indicates if the customer was a no-show.
+        attr_accessor :no_show_indicator
+        # Pickup location details.
+        attr_accessor :pickup
+        # Name of the person renting the vehicle.
+        attr_accessor :renter_name
+        # Total cost breakdown for the rental.
+        attr_accessor :total
+        # Vehicle details for the rental.
+        attr_accessor :vehicle
+
+        def initialize(
+          affiliate: nil,
+          booking_number: nil,
+          carrier_name: nil,
+          customer_service_phone_number: nil,
+          days_rented: nil,
+          distance: nil,
+          drivers: nil,
+          drop_off: nil,
+          insurances: nil,
+          no_show_indicator: nil,
+          pickup: nil,
+          renter_name: nil,
+          total: nil,
+          vehicle: nil
+        )
+          @affiliate = affiliate
+          @booking_number = booking_number
+          @carrier_name = carrier_name
+          @customer_service_phone_number = customer_service_phone_number
+          @days_rented = days_rented
+          @distance = distance
+          @drivers = drivers
+          @drop_off = drop_off
+          @insurances = insurances
+          @no_show_indicator = no_show_indicator
+          @pickup = pickup
+          @renter_name = renter_name
+          @total = total
+          @vehicle = vehicle
+        end
+      end
+
+      class EventDetails < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+
+        class Affiliate < ::Stripe::RequestParams
+          # The name of the affiliate that originated the purchase.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            # The email of the recipient the ticket is delivered to.
+            attr_accessor :email
+            # The name of the recipient the ticket is delivered to.
+            attr_accessor :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_accessor :phone
+
+            def initialize(email: nil, name: nil, phone: nil)
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # The delivery method for the payment
+          attr_accessor :mode
+          # Details of the recipient.
+          attr_accessor :recipient
+
+          def initialize(mode: nil, recipient: nil)
+            @mode = mode
+            @recipient = recipient
+          end
+        end
+        # Indicates if the tickets are digitally checked when entering the venue.
+        attr_accessor :access_controlled_venue
+        # The event location's address.
+        attr_accessor :address
+        # Affiliate details for this purchase.
+        attr_accessor :affiliate
+        # The name of the company
+        attr_accessor :company
+        # Delivery details for this purchase.
+        attr_accessor :delivery
+        # Event end time. Measured in seconds since the Unix epoch.
+        attr_accessor :ends_at
+        # Type of the event entertainment (concert, sports event etc)
+        attr_accessor :genre
+        # The name of the event.
+        attr_accessor :name
+        # Event start time. Measured in seconds since the Unix epoch.
+        attr_accessor :starts_at
+
+        def initialize(
+          access_controlled_venue: nil,
+          address: nil,
+          affiliate: nil,
+          company: nil,
+          delivery: nil,
+          ends_at: nil,
+          genre: nil,
+          name: nil,
+          starts_at: nil
+        )
+          @access_controlled_venue = access_controlled_venue
+          @address = address
+          @affiliate = affiliate
+          @company = company
+          @delivery = delivery
+          @ends_at = ends_at
+          @genre = genre
+          @name = name
+          @starts_at = starts_at
+        end
+      end
+
+      class FleetDatum < ::Stripe::RequestParams
+        class PrimaryFuelFields < ::Stripe::RequestParams
+          # The fuel brand.
+          attr_accessor :brand
+
+          def initialize(brand: nil)
+            @brand = brand
+          end
+        end
+
+        class Station < ::Stripe::RequestParams
+          class ServiceLocation < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Additional contact information for the station.
+          attr_accessor :additional_contact_info
+          # The customer service phone number of the station.
+          attr_accessor :customer_service_phone_number
+          # The partner ID code of the station.
+          attr_accessor :partner_id_code
+          # The phone number of the station.
+          attr_accessor :phone_number
+          # The physical location of the station.
+          attr_accessor :service_location
+          # The URL of the station.
+          attr_accessor :url
+
+          def initialize(
+            additional_contact_info: nil,
+            customer_service_phone_number: nil,
+            partner_id_code: nil,
+            phone_number: nil,
+            service_location: nil,
+            url: nil
+          )
+            @additional_contact_info = additional_contact_info
+            @customer_service_phone_number = customer_service_phone_number
+            @partner_id_code = partner_id_code
+            @phone_number = phone_number
+            @service_location = service_location
+            @url = url
+          end
+        end
+
+        class Vat < ::Stripe::RequestParams
+          # Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+          attr_accessor :iob_indicator
+
+          def initialize(iob_indicator: nil)
+            @iob_indicator = iob_indicator
+          end
+        end
+        # Primary fuel fields for the transaction.
+        attr_accessor :primary_fuel_fields
+        # Station and acceptor location details.
+        attr_accessor :station
+        # VAT and Invoice on Behalf (IOB) details.
+        attr_accessor :vat
+
+        def initialize(primary_fuel_fields: nil, station: nil, vat: nil)
+          @primary_fuel_fields = primary_fuel_fields
+          @station = station
+          @vat = vat
+        end
+      end
+
+      class Flight < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
+          # The name of the affiliate that originated the purchase.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            # The email of the recipient the ticket is delivered to.
+            attr_accessor :email
+            # The name of the recipient the ticket is delivered to.
+            attr_accessor :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_accessor :phone
+
+            def initialize(email: nil, name: nil, phone: nil)
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # The delivery method for the payment
+          attr_accessor :mode
+          # Details of the recipient.
+          attr_accessor :recipient
+
+          def initialize(mode: nil, recipient: nil)
+            @mode = mode
+            @recipient = recipient
+          end
+        end
+
+        class Passenger < ::Stripe::RequestParams
+          # Full name of the person or entity on the flight reservation.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Segment < ::Stripe::RequestParams
+          # The flight segment amount.
+          attr_accessor :amount
+          # The International Air Transport Association (IATA) airport code for the arrival airport.
+          attr_accessor :arrival_airport
+          # The arrival time for the flight segment. Measured in seconds since the Unix epoch.
+          attr_accessor :arrives_at
+          # The International Air Transport Association (IATA) carrier code of the carrier operating the flight segment.
+          attr_accessor :carrier
+          # The departure time for the flight segment. Measured in seconds since the Unix epoch.
+          attr_accessor :departs_at
+          # The International Air Transport Association (IATA) airport code for the departure airport.
+          attr_accessor :departure_airport
+          # The flight number associated with the segment
+          attr_accessor :flight_number
+          # The fare class for the segment.
+          attr_accessor :service_class
+
+          def initialize(
+            amount: nil,
+            arrival_airport: nil,
+            arrives_at: nil,
+            carrier: nil,
+            departs_at: nil,
+            departure_airport: nil,
+            flight_number: nil,
+            service_class: nil
+          )
+            @amount = amount
+            @arrival_airport = arrival_airport
+            @arrives_at = arrives_at
+            @carrier = carrier
+            @departs_at = departs_at
+            @departure_airport = departure_airport
+            @flight_number = flight_number
+            @service_class = service_class
+          end
+        end
+        # Affiliate details for this purchase.
+        attr_accessor :affiliate
+        # The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
+        attr_accessor :agency_number
+        # The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
+        attr_accessor :carrier
+        # Delivery details for this purchase.
+        attr_accessor :delivery
+        # The name of the person or entity on the reservation.
+        attr_accessor :passenger_name
+        # The details of the passengers in the travel reservation.
+        attr_accessor :passengers
+        # The individual flight segments associated with the trip.
+        attr_accessor :segments
+        # The ticket number associated with the travel reservation.
+        attr_accessor :ticket_number
+
+        def initialize(
+          affiliate: nil,
+          agency_number: nil,
+          carrier: nil,
+          delivery: nil,
+          passenger_name: nil,
+          passengers: nil,
+          segments: nil,
+          ticket_number: nil
+        )
+          @affiliate = affiliate
+          @agency_number = agency_number
+          @carrier = carrier
+          @delivery = delivery
+          @passenger_name = passenger_name
+          @passengers = passengers
+          @segments = segments
+          @ticket_number = ticket_number
+        end
+      end
+
+      class FlightDatum < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
+          # Affiliate partner code.
+          attr_accessor :code
+          # Name of affiliate partner.
+          attr_accessor :name
+          # Code provided by the company to a travel agent authorizing ticket issuance.
+          attr_accessor :travel_authorization_code
+
+          def initialize(code: nil, name: nil, travel_authorization_code: nil)
+            @code = code
+            @name = name
+            @travel_authorization_code = travel_authorization_code
+          end
+        end
+
+        class Insurance < ::Stripe::RequestParams
+          # Insurance cost.
+          attr_accessor :amount
+          # Insurance currency.
+          attr_accessor :currency
+          # Insurance company name.
+          attr_accessor :insurance_company_name
+          # Type of insurance.
+          attr_accessor :insurance_type
+
+          def initialize(
+            amount: nil,
+            currency: nil,
+            insurance_company_name: nil,
+            insurance_type: nil
+          )
+            @amount = amount
+            @currency = currency
+            @insurance_company_name = insurance_company_name
+            @insurance_type = insurance_type
+          end
+        end
+
+        class Passenger < ::Stripe::RequestParams
+          # Passenger's full name.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Segment < ::Stripe::RequestParams
+          class Arrival < ::Stripe::RequestParams
+            # Arrival airport IATA code.
+            attr_accessor :airport
+            # Arrival date/time.
+            attr_accessor :arrives_at
+            # Arrival city.
+            attr_accessor :city
+            # Arrival country.
+            attr_accessor :country
+
+            def initialize(airport: nil, arrives_at: nil, city: nil, country: nil)
+              @airport = airport
+              @arrives_at = arrives_at
+              @city = city
+              @country = country
+            end
+          end
+
+          class Departure < ::Stripe::RequestParams
+            # Departure airport IATA code.
+            attr_accessor :airport
+            # Departure city.
+            attr_accessor :city
+            # Departure country.
+            attr_accessor :country
+            # Departure date/time.
+            attr_accessor :departs_at
+
+            def initialize(airport: nil, city: nil, country: nil, departs_at: nil)
+              @airport = airport
+              @city = city
+              @country = country
+              @departs_at = departs_at
+            end
+          end
+          # Segment fare amount.
+          attr_accessor :amount
+          # Arrival details.
+          attr_accessor :arrival
+          # Airline carrier code.
+          attr_accessor :carrier_code
+          # Carrier name.
+          attr_accessor :carrier_name
+          # Segment currency.
+          attr_accessor :currency
+          # Departure details.
+          attr_accessor :departure
+          # Exchange ticket number.
+          attr_accessor :exchange_ticket_number
+          # Fare basis code.
+          attr_accessor :fare_basis_code
+          # Additional fees.
+          attr_accessor :fees
+          # Flight number.
+          attr_accessor :flight_number
+          # Stopover indicator.
+          attr_accessor :is_stop_over_indicator
+          # Refundable ticket indicator.
+          attr_accessor :refundable
+          # Class of service.
+          attr_accessor :service_class
+          # Tax amount for segment.
+          attr_accessor :tax_amount
+          # Ticket number.
+          attr_accessor :ticket_number
+
+          def initialize(
+            amount: nil,
+            arrival: nil,
+            carrier_code: nil,
+            carrier_name: nil,
+            currency: nil,
+            departure: nil,
+            exchange_ticket_number: nil,
+            fare_basis_code: nil,
+            fees: nil,
+            flight_number: nil,
+            is_stop_over_indicator: nil,
+            refundable: nil,
+            service_class: nil,
+            tax_amount: nil,
+            ticket_number: nil
+          )
+            @amount = amount
+            @arrival = arrival
+            @carrier_code = carrier_code
+            @carrier_name = carrier_name
+            @currency = currency
+            @departure = departure
+            @exchange_ticket_number = exchange_ticket_number
+            @fare_basis_code = fare_basis_code
+            @fees = fees
+            @flight_number = flight_number
+            @is_stop_over_indicator = is_stop_over_indicator
+            @refundable = refundable
+            @service_class = service_class
+            @tax_amount = tax_amount
+            @ticket_number = ticket_number
+          end
+        end
+
+        class Total < ::Stripe::RequestParams
+          class Discounts < ::Stripe::RequestParams
+            # Corporate client discount code.
+            attr_accessor :corporate_client_code
+
+            def initialize(corporate_client_code: nil)
+              @corporate_client_code = corporate_client_code
+            end
+          end
+
+          class ExtraCharge < ::Stripe::RequestParams
+            # Amount of additional charges.
+            attr_accessor :amount
+            # Type of additional charges.
+            attr_accessor :type
+
+            def initialize(amount: nil, type: nil)
+              @amount = amount
+              @type = type
+            end
+          end
+
+          class Tax < ::Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
+              # Tax amount.
+              attr_accessor :amount
+              # Tax rate.
+              attr_accessor :rate
+              # Type of tax.
+              attr_accessor :type
+
+              def initialize(amount: nil, rate: nil, type: nil)
+                @amount = amount
+                @rate = rate
+                @type = type
+              end
+            end
+            # Array of tax details.
+            attr_accessor :taxes
+
+            def initialize(taxes: nil)
+              @taxes = taxes
+            end
+          end
+          # Total flight amount.
+          attr_accessor :amount
+          # Reason for credit.
+          attr_accessor :credit_reason
+          # Total currency.
+          attr_accessor :currency
+          # Discount details.
+          attr_accessor :discounts
+          # Additional charges.
+          attr_accessor :extra_charges
+          # Tax breakdown.
+          attr_accessor :tax
+
+          def initialize(
+            amount: nil,
+            credit_reason: nil,
+            currency: nil,
+            discounts: nil,
+            extra_charges: nil,
+            tax: nil
+          )
+            @amount = amount
+            @credit_reason = credit_reason
+            @currency = currency
+            @discounts = discounts
+            @extra_charges = extra_charges
+            @tax = tax
+          end
+        end
+        # Affiliate details if applicable.
+        attr_accessor :affiliate
+        # Reservation reference.
+        attr_accessor :booking_number
+        # Computerized reservation system used to make the reservation and purchase the ticket.
+        attr_accessor :computerized_reservation_system
+        # Ticket restrictions.
+        attr_accessor :endorsements_and_restrictions
+        # List of insurances.
+        attr_accessor :insurances
+        # List of passengers.
+        attr_accessor :passengers
+        # List of flight segments.
+        attr_accessor :segments
+        # Electronic ticket indicator.
+        attr_accessor :ticket_electronically_issued_indicator
+        # Total cost breakdown.
+        attr_accessor :total
+        # Type of flight transaction.
+        attr_accessor :transaction_type
+
+        def initialize(
+          affiliate: nil,
+          booking_number: nil,
+          computerized_reservation_system: nil,
+          endorsements_and_restrictions: nil,
+          insurances: nil,
+          passengers: nil,
+          segments: nil,
+          ticket_electronically_issued_indicator: nil,
+          total: nil,
+          transaction_type: nil
+        )
+          @affiliate = affiliate
+          @booking_number = booking_number
+          @computerized_reservation_system = computerized_reservation_system
+          @endorsements_and_restrictions = endorsements_and_restrictions
+          @insurances = insurances
+          @passengers = passengers
+          @segments = segments
+          @ticket_electronically_issued_indicator = ticket_electronically_issued_indicator
+          @total = total
+          @transaction_type = transaction_type
+        end
+      end
+
+      class Lodging < ::Stripe::RequestParams
+        class Address < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          attr_accessor :city
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          attr_accessor :country
+          # Address line 1, such as the street, PO Box, or company name.
+          attr_accessor :line1
+          # Address line 2, such as the apartment, suite, unit, or building.
+          attr_accessor :line2
+          # ZIP or postal code.
+          attr_accessor :postal_code
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          attr_accessor :state
+
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          )
+            @city = city
+            @country = country
+            @line1 = line1
+            @line2 = line2
+            @postal_code = postal_code
+            @state = state
+          end
+        end
+
+        class Affiliate < ::Stripe::RequestParams
+          # The name of the affiliate that originated the purchase.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Delivery < ::Stripe::RequestParams
+          class Recipient < ::Stripe::RequestParams
+            # The email of the recipient the ticket is delivered to.
+            attr_accessor :email
+            # The name of the recipient the ticket is delivered to.
+            attr_accessor :name
+            # The phone number of the recipient the ticket is delivered to.
+            attr_accessor :phone
+
+            def initialize(email: nil, name: nil, phone: nil)
+              @email = email
+              @name = name
+              @phone = phone
+            end
+          end
+          # The delivery method for the payment
+          attr_accessor :mode
+          # Details of the recipient.
+          attr_accessor :recipient
+
+          def initialize(mode: nil, recipient: nil)
+            @mode = mode
+            @recipient = recipient
+          end
+        end
+
+        class Passenger < ::Stripe::RequestParams
+          # Full name of the person or entity on the lodging reservation.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+        # The lodging location's address.
+        attr_accessor :address
+        # The number of adults on the booking
+        attr_accessor :adults
+        # Affiliate details for this purchase.
+        attr_accessor :affiliate
+        # The booking number associated with the lodging reservation.
+        attr_accessor :booking_number
+        # The lodging category
+        attr_accessor :category
+        # Lodging check-in time. Measured in seconds since the Unix epoch.
+        attr_accessor :checkin_at
+        # Lodging check-out time. Measured in seconds since the Unix epoch.
+        attr_accessor :checkout_at
+        # The customer service phone number of the lodging company.
+        attr_accessor :customer_service_phone_number
+        # The daily lodging room rate.
+        attr_accessor :daily_room_rate_amount
+        # Delivery details for this purchase.
+        attr_accessor :delivery
+        # List of additional charges being billed.
+        attr_accessor :extra_charges
+        # Indicates whether the lodging location is compliant with the Fire Safety Act.
+        attr_accessor :fire_safety_act_compliance
+        # The name of the lodging location.
+        attr_accessor :name
+        # Indicates if the customer did not keep their booking while failing to cancel the reservation.
+        attr_accessor :no_show
+        # The number of rooms on the booking
+        attr_accessor :number_of_rooms
+        # The details of the passengers in the travel reservation
+        attr_accessor :passengers
+        # The phone number of the lodging location.
+        attr_accessor :property_phone_number
+        # The room class for this purchase.
+        attr_accessor :room_class
+        # The number of room nights
+        attr_accessor :room_nights
+        # The total tax amount associating with the room reservation.
+        attr_accessor :total_room_tax_amount
+        # The total tax amount
+        attr_accessor :total_tax_amount
+
+        def initialize(
+          address: nil,
+          adults: nil,
+          affiliate: nil,
+          booking_number: nil,
+          category: nil,
+          checkin_at: nil,
+          checkout_at: nil,
+          customer_service_phone_number: nil,
+          daily_room_rate_amount: nil,
+          delivery: nil,
+          extra_charges: nil,
+          fire_safety_act_compliance: nil,
+          name: nil,
+          no_show: nil,
+          number_of_rooms: nil,
+          passengers: nil,
+          property_phone_number: nil,
+          room_class: nil,
+          room_nights: nil,
+          total_room_tax_amount: nil,
+          total_tax_amount: nil
+        )
+          @address = address
+          @adults = adults
+          @affiliate = affiliate
+          @booking_number = booking_number
+          @category = category
+          @checkin_at = checkin_at
+          @checkout_at = checkout_at
+          @customer_service_phone_number = customer_service_phone_number
+          @daily_room_rate_amount = daily_room_rate_amount
+          @delivery = delivery
+          @extra_charges = extra_charges
+          @fire_safety_act_compliance = fire_safety_act_compliance
+          @name = name
+          @no_show = no_show
+          @number_of_rooms = number_of_rooms
+          @passengers = passengers
+          @property_phone_number = property_phone_number
+          @room_class = room_class
+          @room_nights = room_nights
+          @total_room_tax_amount = total_room_tax_amount
+          @total_tax_amount = total_tax_amount
+        end
+      end
+
+      class LodgingDatum < ::Stripe::RequestParams
+        class Accommodation < ::Stripe::RequestParams
+          # Type of accommodation.
+          attr_accessor :accommodation_type
+          # Bed type.
+          attr_accessor :bed_type
+          # Daily accommodation rate in cents.
+          attr_accessor :daily_rate_amount
+          # Number of nights.
+          attr_accessor :nights
+          # Number of rooms, cabanas, apartments, and so on.
+          attr_accessor :number_of_rooms
+          # Rate type.
+          attr_accessor :rate_type
+          # Whether smoking is allowed.
+          attr_accessor :smoking_indicator
+
+          def initialize(
+            accommodation_type: nil,
+            bed_type: nil,
+            daily_rate_amount: nil,
+            nights: nil,
+            number_of_rooms: nil,
+            rate_type: nil,
+            smoking_indicator: nil
+          )
+            @accommodation_type = accommodation_type
+            @bed_type = bed_type
+            @daily_rate_amount = daily_rate_amount
+            @nights = nights
+            @number_of_rooms = number_of_rooms
+            @rate_type = rate_type
+            @smoking_indicator = smoking_indicator
+          end
+        end
+
+        class Affiliate < ::Stripe::RequestParams
+          # Affiliate partner code.
+          attr_accessor :code
+          # Affiliate partner name.
+          attr_accessor :name
+
+          def initialize(code: nil, name: nil)
+            @code = code
+            @name = name
+          end
+        end
+
+        class Guest < ::Stripe::RequestParams
+          # Guest's full name.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class Host < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Address of the host.
+          attr_accessor :address
+          # Host's country of domicile.
+          attr_accessor :country_of_domicile
+          # Reference number for the host.
+          attr_accessor :host_reference
+          # Type of host.
+          attr_accessor :host_type
+          # Name of the lodging property or host.
+          attr_accessor :name
+          # Total number of reservations for the host.
+          attr_accessor :number_of_reservations
+          # Property phone number.
+          attr_accessor :property_phone_number
+          # Host's registration date.
+          attr_accessor :registered_at
+
+          def initialize(
+            address: nil,
+            country_of_domicile: nil,
+            host_reference: nil,
+            host_type: nil,
+            name: nil,
+            number_of_reservations: nil,
+            property_phone_number: nil,
+            registered_at: nil
+          )
+            @address = address
+            @country_of_domicile = country_of_domicile
+            @host_reference = host_reference
+            @host_type = host_type
+            @name = name
+            @number_of_reservations = number_of_reservations
+            @property_phone_number = property_phone_number
+            @registered_at = registered_at
+          end
+        end
+
+        class Insurance < ::Stripe::RequestParams
+          # Price of the insurance coverage in cents.
+          attr_accessor :amount
+          # Currency of the insurance amount.
+          attr_accessor :currency
+          # Name of the insurance company.
+          attr_accessor :insurance_company_name
+          # Type of insurance coverage.
+          attr_accessor :insurance_type
+
+          def initialize(
+            amount: nil,
+            currency: nil,
+            insurance_company_name: nil,
+            insurance_type: nil
+          )
+            @amount = amount
+            @currency = currency
+            @insurance_company_name = insurance_company_name
+            @insurance_type = insurance_type
+          end
+        end
+
+        class Total < ::Stripe::RequestParams
+          class Discounts < ::Stripe::RequestParams
+            # Corporate client discount code.
+            attr_accessor :corporate_client_code
+            # Coupon code.
+            attr_accessor :coupon
+
+            def initialize(corporate_client_code: nil, coupon: nil)
+              @corporate_client_code = corporate_client_code
+              @coupon = coupon
+            end
+          end
+
+          class ExtraCharge < ::Stripe::RequestParams
+            # Amount of the extra charge in cents.
+            attr_accessor :amount
+            # Type of extra charge.
+            attr_accessor :type
+
+            def initialize(amount: nil, type: nil)
+              @amount = amount
+              @type = type
+            end
+          end
+
+          class Tax < ::Stripe::RequestParams
+            class Tax < ::Stripe::RequestParams
+              # Tax amount in cents.
+              attr_accessor :amount
+              # Tax rate.
+              attr_accessor :rate
+              # Type of tax applied.
+              attr_accessor :type
+
+              def initialize(amount: nil, rate: nil, type: nil)
+                @amount = amount
+                @rate = rate
+                @type = type
+              end
+            end
+            # Indicates whether the transaction is tax exempt.
+            attr_accessor :tax_exempt_indicator
+            # Tax details.
+            attr_accessor :taxes
+
+            def initialize(tax_exempt_indicator: nil, taxes: nil)
+              @tax_exempt_indicator = tax_exempt_indicator
+              @taxes = taxes
+            end
+          end
+          # Total price of the lodging reservation in cents.
+          attr_accessor :amount
+          # Cash advances in cents.
+          attr_accessor :cash_advances
+          # Currency of the total amount.
+          attr_accessor :currency
+          # Discount details for the lodging.
+          attr_accessor :discounts
+          # Additional charges for the lodging.
+          attr_accessor :extra_charges
+          # Prepaid amount in cents.
+          attr_accessor :prepaid_amount
+          # Tax breakdown for the lodging reservation.
+          attr_accessor :tax
+
+          def initialize(
+            amount: nil,
+            cash_advances: nil,
+            currency: nil,
+            discounts: nil,
+            extra_charges: nil,
+            prepaid_amount: nil,
+            tax: nil
+          )
+            @amount = amount
+            @cash_advances = cash_advances
+            @currency = currency
+            @discounts = discounts
+            @extra_charges = extra_charges
+            @prepaid_amount = prepaid_amount
+            @tax = tax
+          end
+        end
+        # Accommodation details for the lodging.
+        attr_accessor :accommodation
+        # Affiliate details if applicable.
+        attr_accessor :affiliate
+        # Booking confirmation number for the lodging.
+        attr_accessor :booking_number
+        # Check-in date.
+        attr_accessor :checkin_at
+        # Check-out date.
+        attr_accessor :checkout_at
+        # Customer service phone number for the lodging company.
+        attr_accessor :customer_service_phone_number
+        # Whether the lodging is compliant with any hotel fire safety regulations.
+        attr_accessor :fire_safety_act_compliance_indicator
+        # List of guests for the lodging.
+        attr_accessor :guests
+        # Host details for the lodging.
+        attr_accessor :host
+        # List of insurances for the lodging.
+        attr_accessor :insurances
+        # Whether the renter is a no-show.
+        attr_accessor :no_show_indicator
+        # Renter ID number for the lodging.
+        attr_accessor :renter_id_number
+        # Renter name for the lodging.
+        attr_accessor :renter_name
+        # Total details for the lodging.
+        attr_accessor :total
+
+        def initialize(
+          accommodation: nil,
+          affiliate: nil,
+          booking_number: nil,
+          checkin_at: nil,
+          checkout_at: nil,
+          customer_service_phone_number: nil,
+          fire_safety_act_compliance_indicator: nil,
+          guests: nil,
+          host: nil,
+          insurances: nil,
+          no_show_indicator: nil,
+          renter_id_number: nil,
+          renter_name: nil,
+          total: nil
+        )
+          @accommodation = accommodation
+          @affiliate = affiliate
+          @booking_number = booking_number
+          @checkin_at = checkin_at
+          @checkout_at = checkout_at
+          @customer_service_phone_number = customer_service_phone_number
+          @fire_safety_act_compliance_indicator = fire_safety_act_compliance_indicator
+          @guests = guests
+          @host = host
+          @insurances = insurances
+          @no_show_indicator = no_show_indicator
+          @renter_id_number = renter_id_number
+          @renter_name = renter_name
+          @total = total
+        end
+      end
+
+      class MoneyServices < ::Stripe::RequestParams
+        class AccountFunding < ::Stripe::RequestParams
+          class SenderDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_accessor :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # Day of birth, between 1 and 31.
+              attr_accessor :day
+              # Month of birth, between 1 and 12.
+              attr_accessor :month
+              # Four-digit year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+            # Address.
+            attr_accessor :address
+            # Date of birth.
+            attr_accessor :date_of_birth
+            # Email address.
+            attr_accessor :email
+            # Given (first) name.
+            attr_accessor :given_name
+            # Phone number.
+            attr_accessor :phone
+            # Surname (family name).
+            attr_accessor :surname
+
+            def initialize(
+              address: nil,
+              date_of_birth: nil,
+              email: nil,
+              given_name: nil,
+              phone: nil,
+              surname: nil
+            )
+              @address = address
+              @date_of_birth = date_of_birth
+              @email = email
+              @given_name = given_name
+              @phone = phone
+              @surname = surname
+            end
+          end
+          # Inline identity details for the sender of this account funding transaction.
+          attr_accessor :sender_details
+
+          def initialize(sender_details: nil)
+            @sender_details = sender_details
+          end
+        end
+
+        class BeneficiaryDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+
+          class DateOfBirth < ::Stripe::RequestParams
+            # Day of birth, between 1 and 31.
+            attr_accessor :day
+            # Month of birth, between 1 and 12.
+            attr_accessor :month
+            # Four-digit year of birth.
+            attr_accessor :year
+
+            def initialize(day: nil, month: nil, year: nil)
+              @day = day
+              @month = month
+              @year = year
+            end
+          end
+          # An opaque identifier for the beneficiary's account (e.g. bank account number, card first6+last4, or other unique identifier).
+          attr_accessor :account_reference
+          # Address.
+          attr_accessor :address
+          # Date of birth.
+          attr_accessor :date_of_birth
+          # Email address.
+          attr_accessor :email
+          # Given (first) name.
+          attr_accessor :given_name
+          # Phone number.
+          attr_accessor :phone
+          # Surname (family name).
+          attr_accessor :surname
+
+          def initialize(
+            account_reference: nil,
+            address: nil,
+            date_of_birth: nil,
+            email: nil,
+            given_name: nil,
+            phone: nil,
+            surname: nil
+          )
+            @account_reference = account_reference
+            @address = address
+            @date_of_birth = date_of_birth
+            @email = email
+            @given_name = given_name
+            @phone = phone
+            @surname = surname
+          end
+        end
+        # Account funding transaction details including sender information.
+        attr_accessor :account_funding
+        # Inline identity details for the beneficiary of this transaction.
+        attr_accessor :beneficiary_details
+        # The type of money services transaction.
+        attr_accessor :transaction_type
+
+        def initialize(account_funding: nil, beneficiary_details: nil, transaction_type: nil)
+          @account_funding = account_funding
+          @beneficiary_details = beneficiary_details
+          @transaction_type = transaction_type
+        end
+      end
+
+      class Subscription < ::Stripe::RequestParams
+        class Affiliate < ::Stripe::RequestParams
+          # The name of the affiliate that originated the purchase.
+          attr_accessor :name
+
+          def initialize(name: nil)
+            @name = name
+          end
+        end
+
+        class BillingInterval < ::Stripe::RequestParams
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :count
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+
+          def initialize(count: nil, interval: nil)
+            @count = count
+            @interval = interval
+          end
+        end
+        # Affiliate details for this purchase.
+        attr_accessor :affiliate
+        # Info whether the subscription will be auto renewed upon expiry.
+        attr_accessor :auto_renewal
+        # Subscription billing details for this purchase.
+        attr_accessor :billing_interval
+        # Subscription end time. Measured in seconds since the Unix epoch.
+        attr_accessor :ends_at
+        # Name of the product on subscription. e.g. Apple Music Subscription
+        attr_accessor :name
+        # Subscription start time. Measured in seconds since the Unix epoch.
+        attr_accessor :starts_at
+
+        def initialize(
+          affiliate: nil,
+          auto_renewal: nil,
+          billing_interval: nil,
+          ends_at: nil,
+          name: nil,
+          starts_at: nil
+        )
+          @affiliate = affiliate
+          @auto_renewal = auto_renewal
+          @billing_interval = billing_interval
+          @ends_at = ends_at
+          @name = name
+          @starts_at = starts_at
+        end
+      end
+      # Benefit details for this PaymentIntent
+      attr_accessor :benefit
+      # Car rental details for this PaymentIntent.
+      attr_accessor :car_rental
+      # Car rental data for this PaymentIntent.
+      attr_accessor :car_rental_data
       # A unique value to identify the customer. This field is available only for card payments.
       #
       # This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
       attr_accessor :customer_reference
+      # Event details for this PaymentIntent
+      attr_accessor :event_details
+      # Fleet data for this PaymentIntent.
+      attr_accessor :fleet_data
+      # Flight reservation details for this PaymentIntent
+      attr_accessor :flight
+      # Flight data for this PaymentIntent.
+      attr_accessor :flight_data
+      # The ID of the Payment Location for this PaymentIntent.
+      attr_accessor :location
+      # Lodging reservation details for this PaymentIntent
+      attr_accessor :lodging
+      # Lodging data for this PaymentIntent.
+      attr_accessor :lodging_data
+      # Money services details for this PaymentIntent.
+      attr_accessor :money_services
       # A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
       #
       # For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
       attr_accessor :order_reference
+      # Subscription details for this PaymentIntent
+      attr_accessor :subscription
 
-      def initialize(customer_reference: nil, order_reference: nil)
+      def initialize(
+        benefit: nil,
+        car_rental: nil,
+        car_rental_data: nil,
+        customer_reference: nil,
+        event_details: nil,
+        fleet_data: nil,
+        flight: nil,
+        flight_data: nil,
+        location: nil,
+        lodging: nil,
+        lodging_data: nil,
+        money_services: nil,
+        order_reference: nil,
+        subscription: nil
+      )
+        @benefit = benefit
+        @car_rental = car_rental
+        @car_rental_data = car_rental_data
         @customer_reference = customer_reference
+        @event_details = event_details
+        @fleet_data = fleet_data
+        @flight = flight
+        @flight_data = flight_data
+        @location = location
+        @lodging = lodging
+        @lodging_data = lodging_data
+        @money_services = money_services
         @order_reference = order_reference
+        @subscription = subscription
       end
     end
 
@@ -418,8 +2394,27 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::RequestParams
+        # The gift card ID to redeem
+        attr_accessor :gift_card
+
+        def initialize(gift_card: nil)
+          @gift_card = gift_card
+        end
+      end
+
       class Giropay < ::Stripe::RequestParams; end
+      class Gopay < ::Stripe::RequestParams; end
       class Grabpay < ::Stripe::RequestParams; end
+
+      class IdBankTransfer < ::Stripe::RequestParams
+        # Bank where the account is held.
+        attr_accessor :bank
+
+        def initialize(bank: nil)
+          @bank = bank
+        end
+      end
 
       class Ideal < ::Stripe::RequestParams
         # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -518,6 +2513,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
 
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
@@ -536,6 +2532,7 @@ module Stripe
 
       class Pix < ::Stripe::RequestParams; end
       class Promptpay < ::Stripe::RequestParams; end
+      class Qris < ::Stripe::RequestParams; end
 
       class RadarOptions < ::Stripe::RequestParams
         # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -543,6 +2540,29 @@ module Stripe
 
         def initialize(session: nil)
           @session = session
+        end
+      end
+
+      class Rechnung < ::Stripe::RequestParams
+        class Dob < ::Stripe::RequestParams
+          # The day of birth, between 1 and 31.
+          attr_accessor :day
+          # The month of birth, between 1 and 12.
+          attr_accessor :month
+          # The four-digit year of birth.
+          attr_accessor :year
+
+          def initialize(day: nil, month: nil, year: nil)
+            @day = day
+            @month = month
+            @year = year
+          end
+        end
+        # Customer's date of birth
+        attr_accessor :dob
+
+        def initialize(dob: nil)
+          @dob = dob
         end
       end
 
@@ -560,6 +2580,8 @@ module Stripe
         end
       end
 
+      class Shopeepay < ::Stripe::RequestParams; end
+
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         attr_accessor :country
@@ -569,8 +2591,18 @@ module Stripe
         end
       end
 
+      class StripeBalance < ::Stripe::RequestParams
+        # The connected account ID whose Stripe balance to use as the source of payment
+        attr_accessor :account
+
+        def initialize(account: nil)
+          @account = account
+        end
+      end
+
       class Sunbit < ::Stripe::RequestParams; end
       class Swish < ::Stripe::RequestParams; end
+      class Tamara < ::Stripe::RequestParams; end
       class Twint < ::Stripe::RequestParams; end
 
       class Upi < ::Stripe::RequestParams
@@ -668,10 +2700,16 @@ module Stripe
       attr_accessor :eps
       # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
       attr_accessor :fpx
+      # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+      attr_accessor :gift_card
       # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
       attr_accessor :giropay
+      # If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+      attr_accessor :gopay
       # If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
       attr_accessor :grabpay
+      # If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+      attr_accessor :id_bank_transfer
       # If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
       attr_accessor :ideal
       # If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
@@ -710,14 +2748,20 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
       attr_accessor :promptpay
+      # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+      attr_accessor :qris
       # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
       attr_accessor :radar_options
+      # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
+      attr_accessor :rechnung
       # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
       attr_accessor :revolut_pay
       # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
@@ -728,12 +2772,20 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+      attr_accessor :shared_payment_granted_token
+      # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+      attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
+      # This hash contains details about the Stripe balance payment method.
+      attr_accessor :stripe_balance
       # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
       attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
+      # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+      attr_accessor :tamara
       # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
       attr_accessor :twint
       # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -768,8 +2820,11 @@ module Stripe
         customer_balance: nil,
         eps: nil,
         fpx: nil,
+        gift_card: nil,
         giropay: nil,
+        gopay: nil,
         grabpay: nil,
+        id_bank_transfer: nil,
         ideal: nil,
         interac_present: nil,
         kakao_pay: nil,
@@ -789,18 +2844,25 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
+        qris: nil,
         radar_options: nil,
+        rechnung: nil,
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        shared_payment_granted_token: nil,
+        shopeepay: nil,
         sofort: nil,
+        stripe_balance: nil,
         sunbit: nil,
         swish: nil,
+        tamara: nil,
         twint: nil,
         type: nil,
         upi: nil,
@@ -828,8 +2890,11 @@ module Stripe
         @customer_balance = customer_balance
         @eps = eps
         @fpx = fpx
+        @gift_card = gift_card
         @giropay = giropay
+        @gopay = gopay
         @grabpay = grabpay
+        @id_bank_transfer = id_bank_transfer
         @ideal = ideal
         @interac_present = interac_present
         @kakao_pay = kakao_pay
@@ -849,18 +2914,25 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
+        @qris = qris
         @radar_options = radar_options
+        @rechnung = rechnung
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @shared_payment_granted_token = shared_payment_granted_token
+        @shopeepay = shopeepay
         @sofort = sofort
+        @stripe_balance = stripe_balance
         @sunbit = sunbit
         @swish = swish
+        @tamara = tamara
         @twint = twint
         @type = type
         @upi = upi
@@ -1160,6 +3232,18 @@ module Stripe
       end
 
       class Card < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          attr_accessor :days
+          # Attribute for param field hours
+          attr_accessor :hours
+
+          def initialize(days: nil, hours: nil)
+            @days = days
+            @hours = hours
+          end
+        end
+
         class Installments < ::Stripe::RequestParams
           class Plan < ::Stripe::RequestParams
             # For `fixed_count` installment plans, this is required. It represents the number of installment payments your customer will make to their credit card.
@@ -1230,6 +3314,73 @@ module Stripe
             @reference = reference
             @start_date = start_date
             @supported_types = supported_types
+          end
+        end
+
+        class PaymentDetails < ::Stripe::RequestParams
+          class MoneyServices < ::Stripe::RequestParams
+            class AccountFunding < ::Stripe::RequestParams
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
+
+              def initialize(digital_asset_category: nil)
+                @digital_asset_category = digital_asset_category
+              end
+            end
+            # Payment method specific account funding transaction details.
+            attr_accessor :account_funding
+
+            def initialize(account_funding: nil)
+              @account_funding = account_funding
+            end
+          end
+          # Money services details for payment method specific funding fields.
+          attr_accessor :money_services
+
+          def initialize(money_services: nil)
+            @money_services = money_services
+          end
+        end
+
+        class StatementDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # Please pass in an address that is within your Stripe user account country
+          attr_accessor :address
+          # Phone number (e.g., a toll-free number that customers can call)
+          attr_accessor :phone
+
+          def initialize(address: nil, phone: nil)
+            @address = address
+            @phone = phone
           end
         end
 
@@ -1307,6 +3458,14 @@ module Stripe
             @version = version
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_accessor :capture_by
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1327,6 +3486,10 @@ module Stripe
         attr_accessor :moto
         # Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
         attr_accessor :network
+        # Payment details for payment method specific funding fields.
+        attr_accessor :payment_details
+        # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
+        attr_accessor :request_decremental_authorization
         # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
         attr_accessor :request_extended_authorization
         # Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
@@ -1335,6 +3498,10 @@ module Stripe
         attr_accessor :request_multicapture
         # Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
         attr_accessor :request_overcapture
+        # Request partial authorization on this PaymentIntent.
+        attr_accessor :request_partial_authorization
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        attr_accessor :request_reauthorization
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
@@ -1353,48 +3520,101 @@ module Stripe
         attr_accessor :statement_descriptor_suffix_kana
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         attr_accessor :statement_descriptor_suffix_kanji
+        # Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
+        attr_accessor :statement_details
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         attr_accessor :three_d_secure
 
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
           cvc_token: nil,
           installments: nil,
           mandate_options: nil,
           moto: nil,
           network: nil,
+          payment_details: nil,
+          request_decremental_authorization: nil,
           request_extended_authorization: nil,
           request_incremental_authorization: nil,
           request_multicapture: nil,
           request_overcapture: nil,
+          request_partial_authorization: nil,
+          request_reauthorization: nil,
           request_three_d_secure: nil,
           require_cvc_recollection: nil,
           setup_future_usage: nil,
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
+          statement_details: nil,
           three_d_secure: nil
         )
+          @capture_by = capture_by
+          @capture_delay = capture_delay
           @capture_method = capture_method
           @cvc_token = cvc_token
           @installments = installments
           @mandate_options = mandate_options
           @moto = moto
           @network = network
+          @payment_details = payment_details
+          @request_decremental_authorization = request_decremental_authorization
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization = request_incremental_authorization
           @request_multicapture = request_multicapture
           @request_overcapture = request_overcapture
+          @request_partial_authorization = request_partial_authorization
+          @request_reauthorization = request_reauthorization
           @request_three_d_secure = request_three_d_secure
           @require_cvc_recollection = require_cvc_recollection
           @setup_future_usage = setup_future_usage
           @statement_descriptor_suffix_kana = statement_descriptor_suffix_kana
           @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji
+          @statement_details = statement_details
           @three_d_secure = three_d_secure
         end
       end
 
       class CardPresent < ::Stripe::RequestParams
+        class CaptureDelay < ::Stripe::RequestParams
+          # Attribute for param field days
+          attr_accessor :days
+          # Attribute for param field hours
+          attr_accessor :hours
+
+          def initialize(days: nil, hours: nil)
+            @days = days
+            @hours = hours
+          end
+        end
+
+        class PaymentDetails < ::Stripe::RequestParams
+          class MoneyServices < ::Stripe::RequestParams
+            class AccountFunding < ::Stripe::RequestParams
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
+
+              def initialize(digital_asset_category: nil)
+                @digital_asset_category = digital_asset_category
+              end
+            end
+            # Payment method specific account funding transaction details.
+            attr_accessor :account_funding
+
+            def initialize(account_funding: nil)
+              @account_funding = account_funding
+            end
+          end
+          # Money services details for payment method specific funding fields.
+          attr_accessor :money_services
+
+          def initialize(money_services: nil)
+            @money_services = money_services
+          end
+        end
+
         class Routing < ::Stripe::RequestParams
           # Routing requested priority
           attr_accessor :requested_priority
@@ -1403,28 +3623,52 @@ module Stripe
             @requested_priority = requested_priority
           end
         end
+        # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+        #
+        # If omitted, funds are captured before the authorization expires.
+        attr_accessor :capture_by
+        # The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+        #
+        # You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+        attr_accessor :capture_delay
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Payment details for payment method specific funding transaction fields.
+        attr_accessor :payment_details
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_accessor :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
         attr_accessor :request_incremental_authorization_support
+        # Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+        attr_accessor :request_multicapture
+        # Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+        attr_accessor :request_reauthorization
         # Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
         attr_accessor :routing
 
         def initialize(
+          capture_by: nil,
+          capture_delay: nil,
           capture_method: nil,
+          payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
+          request_multicapture: nil,
+          request_reauthorization: nil,
           routing: nil
         )
+          @capture_by = capture_by
+          @capture_delay = capture_delay
           @capture_method = capture_method
+          @payment_details = payment_details
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization_support = request_incremental_authorization_support
+          @request_multicapture = request_multicapture
+          @request_reauthorization = request_reauthorization
           @routing = routing
         end
       end
@@ -1454,6 +3698,21 @@ module Stripe
       end
 
       class Crypto < ::Stripe::RequestParams
+        class DepositOptions < ::Stripe::RequestParams
+          # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+          attr_accessor :networks
+          # If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+          attr_accessor :static_address
+
+          def initialize(networks: nil, static_address: nil)
+            @networks = networks
+            @static_address = static_address
+          end
+        end
+        # Specific configuration for this PaymentIntent when the mode is `deposit`.
+        attr_accessor :deposit_options
+        # The mode of the crypto payment.
+        attr_accessor :mode
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1465,7 +3724,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(setup_future_usage: nil)
+        def initialize(deposit_options: nil, mode: nil, setup_future_usage: nil)
+          @deposit_options = deposit_options
+          @mode = mode
           @setup_future_usage = setup_future_usage
         end
       end
@@ -1551,7 +3812,43 @@ module Stripe
         end
       end
 
+      class GiftCard < ::Stripe::RequestParams
+        # Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+        attr_accessor :ignore_application_fee
+        # Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+        attr_accessor :ignore_transfer_data
+        # Request partial authorization on this PaymentIntent.
+        attr_accessor :request_partial_authorization
+
+        def initialize(
+          ignore_application_fee: nil,
+          ignore_transfer_data: nil,
+          request_partial_authorization: nil
+        )
+          @ignore_application_fee = ignore_application_fee
+          @ignore_transfer_data = ignore_transfer_data
+          @request_partial_authorization = request_partial_authorization
+        end
+      end
+
       class Giropay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class Gopay < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1581,6 +3878,29 @@ module Stripe
         attr_accessor :setup_future_usage
 
         def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class IdBankTransfer < ::Stripe::RequestParams
+        # The UNIX timestamp until which the virtual bank account is valid. Permitted range is from 5 minutes from now until 31 days from now. If unset, it defaults to 3 days from now.
+        attr_accessor :expires_after
+        # The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+        attr_accessor :expires_at
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(expires_after: nil, expires_at: nil, setup_future_usage: nil)
+          @expires_after = expires_after
+          @expires_at = expires_at
           @setup_future_usage = setup_future_usage
         end
       end
@@ -1691,6 +4011,939 @@ module Stripe
             @reference = reference
           end
         end
+
+        class SupplementaryPurchaseData < ::Stripe::RequestParams
+          class BusReservationDetail < ::Stripe::RequestParams
+            class Arrival < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the arrival location.
+              attr_accessor :address
+              # Identifier name or reference for the arrival location.
+              attr_accessor :arrival_location
+
+              def initialize(address: nil, arrival_location: nil)
+                @address = address
+                @arrival_location = arrival_location
+              end
+            end
+
+            class Departure < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the departure location.
+              attr_accessor :address
+              # Timestamp of departure.
+              attr_accessor :departs_at
+              # Identifier name or reference for the origin location.
+              attr_accessor :departure_location
+
+              def initialize(address: nil, departs_at: nil, departure_location: nil)
+                @address = address
+                @departs_at = departs_at
+                @departure_location = departure_location
+              end
+            end
+
+            class Insurance < ::Stripe::RequestParams
+              # Insurance currency.
+              attr_accessor :currency
+              # Name of the company providing the insurance.
+              attr_accessor :insurance_company_name
+              # Type of insurance.
+              attr_accessor :insurance_type
+              # Price of insurance in cents.
+              attr_accessor :price
+
+              def initialize(
+                currency: nil,
+                insurance_company_name: nil,
+                insurance_type: nil,
+                price: nil
+              )
+                @currency = currency
+                @insurance_company_name = insurance_company_name
+                @insurance_type = insurance_type
+                @price = price
+              end
+            end
+
+            class Passenger < ::Stripe::RequestParams
+              # The family name of the person.
+              attr_accessor :family_name
+              # The given name of the person.
+              attr_accessor :given_name
+
+              def initialize(family_name: nil, given_name: nil)
+                @family_name = family_name
+                @given_name = given_name
+              end
+            end
+            # Name of associated or partner company for the service.
+            attr_accessor :affiliate_name
+            # Arrival details.
+            attr_accessor :arrival
+            # Name of transportation company.
+            attr_accessor :carrier_name
+            # Currency.
+            attr_accessor :currency
+            # Departure details.
+            attr_accessor :departure
+            # List of insurances for this reservation.
+            attr_accessor :insurances
+            # List of passengers that this reservation applies to.
+            attr_accessor :passengers
+            # Price in cents.
+            attr_accessor :price
+            # Ticket class.
+            attr_accessor :ticket_class
+
+            def initialize(
+              affiliate_name: nil,
+              arrival: nil,
+              carrier_name: nil,
+              currency: nil,
+              departure: nil,
+              insurances: nil,
+              passengers: nil,
+              price: nil,
+              ticket_class: nil
+            )
+              @affiliate_name = affiliate_name
+              @arrival = arrival
+              @carrier_name = carrier_name
+              @currency = currency
+              @departure = departure
+              @insurances = insurances
+              @passengers = passengers
+              @price = price
+              @ticket_class = ticket_class
+            end
+          end
+
+          class EventReservationDetail < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # The city or town.
+              attr_accessor :city
+              # The country in ISO 3166-1 alpha-2 format.
+              attr_accessor :country
+              # The postal code formatted according to country.
+              attr_accessor :postal_code
+              # The state, county, province, or region formatted according to country.
+              attr_accessor :region
+              # Line 1 of the street address.
+              attr_accessor :street_address
+              # Line 2 of the street address.
+              attr_accessor :street_address2
+
+              def initialize(
+                city: nil,
+                country: nil,
+                postal_code: nil,
+                region: nil,
+                street_address: nil,
+                street_address2: nil
+              )
+                @city = city
+                @country = country
+                @postal_code = postal_code
+                @region = region
+                @street_address = street_address
+                @street_address2 = street_address2
+              end
+            end
+
+            class Insurance < ::Stripe::RequestParams
+              # Insurance currency.
+              attr_accessor :currency
+              # Name of the company providing the insurance.
+              attr_accessor :insurance_company_name
+              # Type of insurance.
+              attr_accessor :insurance_type
+              # Price of insurance in cents.
+              attr_accessor :price
+
+              def initialize(
+                currency: nil,
+                insurance_company_name: nil,
+                insurance_type: nil,
+                price: nil
+              )
+                @currency = currency
+                @insurance_company_name = insurance_company_name
+                @insurance_type = insurance_type
+                @price = price
+              end
+            end
+            # Indicates if the tickets are digitally checked when entering the venue.
+            attr_accessor :access_controlled_venue
+            # Address of the event.
+            attr_accessor :address
+            # Name of associated or partner company for the service.
+            attr_accessor :affiliate_name
+            # End timestamp of the event.
+            attr_accessor :ends_at
+            # Company selling the ticket.
+            attr_accessor :event_company_name
+            # Name of the event.
+            attr_accessor :event_name
+            # Type of the event.
+            attr_accessor :event_type
+            # List of insurances for this event.
+            attr_accessor :insurances
+            # Start timestamp of the event.
+            attr_accessor :starts_at
+            # Name of the venue where the event takes place.
+            attr_accessor :venue_name
+
+            def initialize(
+              access_controlled_venue: nil,
+              address: nil,
+              affiliate_name: nil,
+              ends_at: nil,
+              event_company_name: nil,
+              event_name: nil,
+              event_type: nil,
+              insurances: nil,
+              starts_at: nil,
+              venue_name: nil
+            )
+              @access_controlled_venue = access_controlled_venue
+              @address = address
+              @affiliate_name = affiliate_name
+              @ends_at = ends_at
+              @event_company_name = event_company_name
+              @event_name = event_name
+              @event_type = event_type
+              @insurances = insurances
+              @starts_at = starts_at
+              @venue_name = venue_name
+            end
+          end
+
+          class FerryReservationDetail < ::Stripe::RequestParams
+            class Arrival < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the arrival location.
+              attr_accessor :address
+              # Identifier name or reference for the arrival location.
+              attr_accessor :arrival_location
+
+              def initialize(address: nil, arrival_location: nil)
+                @address = address
+                @arrival_location = arrival_location
+              end
+            end
+
+            class Departure < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the departure location.
+              attr_accessor :address
+              # Timestamp of departure.
+              attr_accessor :departs_at
+              # Identifier name or reference for the origin location.
+              attr_accessor :departure_location
+
+              def initialize(address: nil, departs_at: nil, departure_location: nil)
+                @address = address
+                @departs_at = departs_at
+                @departure_location = departure_location
+              end
+            end
+
+            class Insurance < ::Stripe::RequestParams
+              # Insurance currency.
+              attr_accessor :currency
+              # Name of the company providing the insurance.
+              attr_accessor :insurance_company_name
+              # Type of insurance.
+              attr_accessor :insurance_type
+              # Price of insurance in cents.
+              attr_accessor :price
+
+              def initialize(
+                currency: nil,
+                insurance_company_name: nil,
+                insurance_type: nil,
+                price: nil
+              )
+                @currency = currency
+                @insurance_company_name = insurance_company_name
+                @insurance_type = insurance_type
+                @price = price
+              end
+            end
+
+            class Passenger < ::Stripe::RequestParams
+              # The family name of the person.
+              attr_accessor :family_name
+              # The given name of the person.
+              attr_accessor :given_name
+
+              def initialize(family_name: nil, given_name: nil)
+                @family_name = family_name
+                @given_name = given_name
+              end
+            end
+            # Name of associated or partner company for the service.
+            attr_accessor :affiliate_name
+            # Arrival details.
+            attr_accessor :arrival
+            # Name of transportation company.
+            attr_accessor :carrier_name
+            # Currency.
+            attr_accessor :currency
+            # Departure details.
+            attr_accessor :departure
+            # List of insurances for this reservation.
+            attr_accessor :insurances
+            # List of passengers that this reservation applies to.
+            attr_accessor :passengers
+            # Price in cents.
+            attr_accessor :price
+            # Ticket class.
+            attr_accessor :ticket_class
+
+            def initialize(
+              affiliate_name: nil,
+              arrival: nil,
+              carrier_name: nil,
+              currency: nil,
+              departure: nil,
+              insurances: nil,
+              passengers: nil,
+              price: nil,
+              ticket_class: nil
+            )
+              @affiliate_name = affiliate_name
+              @arrival = arrival
+              @carrier_name = carrier_name
+              @currency = currency
+              @departure = departure
+              @insurances = insurances
+              @passengers = passengers
+              @price = price
+              @ticket_class = ticket_class
+            end
+          end
+
+          class Insurance < ::Stripe::RequestParams
+            # Insurance currency.
+            attr_accessor :currency
+            # Name of the company providing the insurance.
+            attr_accessor :insurance_company_name
+            # Type of insurance
+            attr_accessor :insurance_type
+            # Price of insurance in cents.
+            attr_accessor :price
+
+            def initialize(
+              currency: nil,
+              insurance_company_name: nil,
+              insurance_type: nil,
+              price: nil
+            )
+              @currency = currency
+              @insurance_company_name = insurance_company_name
+              @insurance_type = insurance_type
+              @price = price
+            end
+          end
+
+          class MarketplaceSeller < ::Stripe::RequestParams
+            class MarketplaceSellerAddress < ::Stripe::RequestParams
+              # The city or town.
+              attr_accessor :city
+              # The country in ISO 3166-1 alpha-2 format.
+              attr_accessor :country
+              # The postal code formatted according to country.
+              attr_accessor :postal_code
+              # The state, county, province, or region formatted according to country.
+              attr_accessor :region
+              # Line 1 of the street address.
+              attr_accessor :street_address
+              # Line 2 of the street address.
+              attr_accessor :street_address2
+
+              def initialize(
+                city: nil,
+                country: nil,
+                postal_code: nil,
+                region: nil,
+                street_address: nil,
+                street_address2: nil
+              )
+                @city = city
+                @country = country
+                @postal_code = postal_code
+                @region = region
+                @street_address = street_address
+                @street_address2 = street_address2
+              end
+            end
+            # The references to line items for purchases with multiple associated sub-sellers.
+            attr_accessor :line_item_references
+            # The address of the selling or delivering merchant.
+            attr_accessor :marketplace_seller_address
+            # The name of the marketplace seller.
+            attr_accessor :marketplace_seller_name
+            # The unique identifier for the marketplace seller.
+            attr_accessor :marketplace_seller_reference
+            # The number of transactions the sub-seller completed in the last 12 months.
+            attr_accessor :number_of_transactions
+            # The category of the product.
+            attr_accessor :product_category
+            # The date when the seller's account with the marketplace was last logged in.
+            attr_accessor :seller_last_login_at
+            # The current rating of the marketplace seller. If the marketplace uses numeric ranking, map these to the enum values.
+            attr_accessor :seller_rating
+            # The date when the seller's account with the marketplace was created.
+            attr_accessor :seller_registered_at
+            # The date when the seller's account with the marketplace was last updated.
+            attr_accessor :seller_updated_at
+            # The references to shipping addresses for purchases with multiple associated sub-sellers.
+            attr_accessor :shipping_references
+            # The accumulated amount of sales transactions made by the sub-merchant or sub-seller within the past 12 months in the payment currency. These transactions are in minor currency units.
+            attr_accessor :volume_of_transactions
+
+            def initialize(
+              line_item_references: nil,
+              marketplace_seller_address: nil,
+              marketplace_seller_name: nil,
+              marketplace_seller_reference: nil,
+              number_of_transactions: nil,
+              product_category: nil,
+              seller_last_login_at: nil,
+              seller_rating: nil,
+              seller_registered_at: nil,
+              seller_updated_at: nil,
+              shipping_references: nil,
+              volume_of_transactions: nil
+            )
+              @line_item_references = line_item_references
+              @marketplace_seller_address = marketplace_seller_address
+              @marketplace_seller_name = marketplace_seller_name
+              @marketplace_seller_reference = marketplace_seller_reference
+              @number_of_transactions = number_of_transactions
+              @product_category = product_category
+              @seller_last_login_at = seller_last_login_at
+              @seller_rating = seller_rating
+              @seller_registered_at = seller_registered_at
+              @seller_updated_at = seller_updated_at
+              @shipping_references = shipping_references
+              @volume_of_transactions = volume_of_transactions
+            end
+          end
+
+          class RoundTripReservationDetail < ::Stripe::RequestParams
+            class Arrival < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the arrival location.
+              attr_accessor :address
+              # Identifier name or reference for the arrival location.
+              attr_accessor :arrival_location
+
+              def initialize(address: nil, arrival_location: nil)
+                @address = address
+                @arrival_location = arrival_location
+              end
+            end
+
+            class Departure < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the departure location.
+              attr_accessor :address
+              # Timestamp of departure.
+              attr_accessor :departs_at
+              # Identifier name or reference for the origin location.
+              attr_accessor :departure_location
+
+              def initialize(address: nil, departs_at: nil, departure_location: nil)
+                @address = address
+                @departs_at = departs_at
+                @departure_location = departure_location
+              end
+            end
+
+            class Insurance < ::Stripe::RequestParams
+              # Insurance currency.
+              attr_accessor :currency
+              # Name of the company providing the insurance.
+              attr_accessor :insurance_company_name
+              # Type of insurance.
+              attr_accessor :insurance_type
+              # Price of insurance in cents.
+              attr_accessor :price
+
+              def initialize(
+                currency: nil,
+                insurance_company_name: nil,
+                insurance_type: nil,
+                price: nil
+              )
+                @currency = currency
+                @insurance_company_name = insurance_company_name
+                @insurance_type = insurance_type
+                @price = price
+              end
+            end
+
+            class Passenger < ::Stripe::RequestParams
+              # The family name of the person.
+              attr_accessor :family_name
+              # The given name of the person.
+              attr_accessor :given_name
+
+              def initialize(family_name: nil, given_name: nil)
+                @family_name = family_name
+                @given_name = given_name
+              end
+            end
+            # Name of associated or partner company for the service.
+            attr_accessor :affiliate_name
+            # Arrival details.
+            attr_accessor :arrival
+            # Name of transportation company.
+            attr_accessor :carrier_name
+            # Currency.
+            attr_accessor :currency
+            # Departure details.
+            attr_accessor :departure
+            # List of insurances for this reservation.
+            attr_accessor :insurances
+            # List of passengers that this reservation applies to.
+            attr_accessor :passengers
+            # Price in cents.
+            attr_accessor :price
+            # Ticket class.
+            attr_accessor :ticket_class
+
+            def initialize(
+              affiliate_name: nil,
+              arrival: nil,
+              carrier_name: nil,
+              currency: nil,
+              departure: nil,
+              insurances: nil,
+              passengers: nil,
+              price: nil,
+              ticket_class: nil
+            )
+              @affiliate_name = affiliate_name
+              @arrival = arrival
+              @carrier_name = carrier_name
+              @currency = currency
+              @departure = departure
+              @insurances = insurances
+              @passengers = passengers
+              @price = price
+              @ticket_class = ticket_class
+            end
+          end
+
+          class TrainReservationDetail < ::Stripe::RequestParams
+            class Arrival < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the arrival location.
+              attr_accessor :address
+              # Identifier name or reference for the arrival location.
+              attr_accessor :arrival_location
+
+              def initialize(address: nil, arrival_location: nil)
+                @address = address
+                @arrival_location = arrival_location
+              end
+            end
+
+            class Departure < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # The city or town.
+                attr_accessor :city
+                # The country in ISO 3166-1 alpha-2 format.
+                attr_accessor :country
+                # The postal code formatted according to country.
+                attr_accessor :postal_code
+                # The state, county, province, or region formatted according to country.
+                attr_accessor :region
+                # Line 1 of the street address.
+                attr_accessor :street_address
+                # Line 2 of the street address.
+                attr_accessor :street_address2
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  postal_code: nil,
+                  region: nil,
+                  street_address: nil,
+                  street_address2: nil
+                )
+                  @city = city
+                  @country = country
+                  @postal_code = postal_code
+                  @region = region
+                  @street_address = street_address
+                  @street_address2 = street_address2
+                end
+              end
+              # Address of the departure location.
+              attr_accessor :address
+              # Timestamp of departure.
+              attr_accessor :departs_at
+              # Identifier name or reference for the origin location.
+              attr_accessor :departure_location
+
+              def initialize(address: nil, departs_at: nil, departure_location: nil)
+                @address = address
+                @departs_at = departs_at
+                @departure_location = departure_location
+              end
+            end
+
+            class Insurance < ::Stripe::RequestParams
+              # Insurance currency.
+              attr_accessor :currency
+              # Name of the company providing the insurance.
+              attr_accessor :insurance_company_name
+              # Type of insurance.
+              attr_accessor :insurance_type
+              # Price of insurance in cents.
+              attr_accessor :price
+
+              def initialize(
+                currency: nil,
+                insurance_company_name: nil,
+                insurance_type: nil,
+                price: nil
+              )
+                @currency = currency
+                @insurance_company_name = insurance_company_name
+                @insurance_type = insurance_type
+                @price = price
+              end
+            end
+
+            class Passenger < ::Stripe::RequestParams
+              # The family name of the person.
+              attr_accessor :family_name
+              # The given name of the person.
+              attr_accessor :given_name
+
+              def initialize(family_name: nil, given_name: nil)
+                @family_name = family_name
+                @given_name = given_name
+              end
+            end
+            # Name of associated or partner company for the service.
+            attr_accessor :affiliate_name
+            # Arrival details.
+            attr_accessor :arrival
+            # Name of transportation company.
+            attr_accessor :carrier_name
+            # Currency.
+            attr_accessor :currency
+            # Departure details.
+            attr_accessor :departure
+            # List of insurances for this reservation.
+            attr_accessor :insurances
+            # List of passengers that this reservation applies to.
+            attr_accessor :passengers
+            # Price in cents.
+            attr_accessor :price
+            # Ticket class.
+            attr_accessor :ticket_class
+
+            def initialize(
+              affiliate_name: nil,
+              arrival: nil,
+              carrier_name: nil,
+              currency: nil,
+              departure: nil,
+              insurances: nil,
+              passengers: nil,
+              price: nil,
+              ticket_class: nil
+            )
+              @affiliate_name = affiliate_name
+              @arrival = arrival
+              @carrier_name = carrier_name
+              @currency = currency
+              @departure = departure
+              @insurances = insurances
+              @passengers = passengers
+              @price = price
+              @ticket_class = ticket_class
+            end
+          end
+
+          class Voucher < ::Stripe::RequestParams
+            # Name of associated or partner company for this voucher.
+            attr_accessor :affiliate_name
+            # The voucher validity end time.
+            attr_accessor :ends_at
+            # The voucher validity start time.
+            attr_accessor :starts_at
+            # The issuer or provider of this voucher.
+            attr_accessor :voucher_company
+            # The name or reference to identify the voucher.
+            attr_accessor :voucher_name
+            # The type of this voucher.
+            attr_accessor :voucher_type
+
+            def initialize(
+              affiliate_name: nil,
+              ends_at: nil,
+              starts_at: nil,
+              voucher_company: nil,
+              voucher_name: nil,
+              voucher_type: nil
+            )
+              @affiliate_name = affiliate_name
+              @ends_at = ends_at
+              @starts_at = starts_at
+              @voucher_company = voucher_company
+              @voucher_name = voucher_name
+              @voucher_type = voucher_type
+            end
+          end
+          # Supplementary bus reservation details.
+          attr_accessor :bus_reservation_details
+          # Supplementary event reservation details.
+          attr_accessor :event_reservation_details
+          # Supplementary ferry reservation details.
+          attr_accessor :ferry_reservation_details
+          # Supplementary insurance details.
+          attr_accessor :insurances
+          # Supplementary marketplace seller details.
+          attr_accessor :marketplace_sellers
+          # Supplementary round trip reservation details.
+          attr_accessor :round_trip_reservation_details
+          # Supplementary train reservation details.
+          attr_accessor :train_reservation_details
+          # Voucher details, such as a gift card or discount code.
+          attr_accessor :vouchers
+
+          def initialize(
+            bus_reservation_details: nil,
+            event_reservation_details: nil,
+            ferry_reservation_details: nil,
+            insurances: nil,
+            marketplace_sellers: nil,
+            round_trip_reservation_details: nil,
+            train_reservation_details: nil,
+            vouchers: nil
+          )
+            @bus_reservation_details = bus_reservation_details
+            @event_reservation_details = event_reservation_details
+            @ferry_reservation_details = ferry_reservation_details
+            @insurances = insurances
+            @marketplace_sellers = marketplace_sellers
+            @round_trip_reservation_details = round_trip_reservation_details
+            @train_reservation_details = train_reservation_details
+            @vouchers = vouchers
+          end
+        end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1713,19 +4966,23 @@ module Stripe
         attr_accessor :setup_future_usage
         # Subscription details if setting up or charging a subscription.
         attr_accessor :subscriptions
+        # Supplementary Purchase Data for the corresponding Klarna payment
+        attr_accessor :supplementary_purchase_data
 
         def initialize(
           capture_method: nil,
           on_demand: nil,
           preferred_locale: nil,
           setup_future_usage: nil,
-          subscriptions: nil
+          subscriptions: nil,
+          supplementary_purchase_data: nil
         )
           @capture_method = capture_method
           @on_demand = on_demand
           @preferred_locale = preferred_locale
           @setup_future_usage = setup_future_usage
           @subscriptions = subscriptions
+          @supplementary_purchase_data = supplementary_purchase_data
         end
       end
 
@@ -1986,12 +5243,65 @@ module Stripe
       end
 
       class Paypal < ::Stripe::RequestParams
+        class LineItem < ::Stripe::RequestParams
+          class Tax < ::Stripe::RequestParams
+            # The tax for a single unit of the line item in minor units. Cannot be a negative number.
+            attr_accessor :amount
+            # The tax behavior for the line item.
+            attr_accessor :behavior
+
+            def initialize(amount: nil, behavior: nil)
+              @amount = amount
+              @behavior = behavior
+            end
+          end
+          # Type of the line item.
+          attr_accessor :category
+          # Description of the line item.
+          attr_accessor :description
+          # Descriptive name of the line item.
+          attr_accessor :name
+          # Quantity of the line item. Must be a positive number.
+          attr_accessor :quantity
+          # Client facing stock keeping unit, article number or similar.
+          attr_accessor :sku
+          # The Stripe account ID of the connected account that sells the item.
+          attr_accessor :sold_by
+          # The tax information for the line item.
+          attr_accessor :tax
+          # Price for a single unit of the line item in minor units. Cannot be a negative number.
+          attr_accessor :unit_amount
+
+          def initialize(
+            category: nil,
+            description: nil,
+            name: nil,
+            quantity: nil,
+            sku: nil,
+            sold_by: nil,
+            tax: nil,
+            unit_amount: nil
+          )
+            @category = category
+            @description = description
+            @name = name
+            @quantity = quantity
+            @sku = sku
+            @sold_by = sold_by
+            @tax = tax
+            @unit_amount = unit_amount
+          end
+        end
         # Controls when the funds will be captured from the customer's account.
         attr_accessor :capture_method
+        # The line items purchased by the customer.
+        attr_accessor :line_items
         # [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
         attr_accessor :preferred_locale
         # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
         attr_accessor :reference
+        # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        attr_accessor :reference_id
         # The risk correlation ID for an on-session payment using a saved PayPal payment method.
         attr_accessor :risk_correlation_id
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2004,19 +5314,40 @@ module Stripe
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
+        # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        attr_accessor :subsellers
 
         def initialize(
           capture_method: nil,
+          line_items: nil,
           preferred_locale: nil,
           reference: nil,
+          reference_id: nil,
           risk_correlation_id: nil,
-          setup_future_usage: nil
+          setup_future_usage: nil,
+          subsellers: nil
         )
           @capture_method = capture_method
+          @line_items = line_items
           @preferred_locale = preferred_locale
           @reference = reference
+          @reference_id = reference_id
           @risk_correlation_id = risk_correlation_id
           @setup_future_usage = setup_future_usage
+          @subsellers = subsellers
+        end
+      end
+
+      class Paypay < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+
+        def initialize(capture_method: nil)
+          @capture_method = capture_method
         end
       end
 
@@ -2158,6 +5489,25 @@ module Stripe
         end
       end
 
+      class Qris < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class Rechnung < ::Stripe::RequestParams; end
+
       class RevolutPay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
         #
@@ -2250,6 +5600,23 @@ module Stripe
         end
       end
 
+      class Shopeepay < ::Stripe::RequestParams
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(setup_future_usage: nil)
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class Sofort < ::Stripe::RequestParams
         # Language shown to the payer on redirect.
         attr_accessor :preferred_language
@@ -2266,6 +5633,34 @@ module Stripe
 
         def initialize(preferred_language: nil, setup_future_usage: nil)
           @preferred_language = preferred_language
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class StripeBalance < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # The ID of the Stripe Balance Debit Agreement used for this mandate.
+          attr_accessor :stripe_balance_debit_agreement
+
+          def initialize(stripe_balance_debit_agreement: nil)
+            @stripe_balance_debit_agreement = stripe_balance_debit_agreement
+          end
+        end
+        # Additional fields for mandate creation.
+        attr_accessor :mandate_options
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(mandate_options: nil, setup_future_usage: nil)
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end
@@ -2341,13 +5736,27 @@ module Stripe
           class Filters < ::Stripe::RequestParams
             # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
             attr_accessor :account_subcategories
+            # ID of the institution to use to filter for selectable accounts.
+            attr_accessor :institution
 
-            def initialize(account_subcategories: nil)
+            def initialize(account_subcategories: nil, institution: nil)
               @account_subcategories = account_subcategories
+              @institution = institution
+            end
+          end
+
+          class ManualEntry < ::Stripe::RequestParams
+            # Settings for configuring manual entry of account details.
+            attr_accessor :mode
+
+            def initialize(mode: nil)
+              @mode = mode
             end
           end
           # Provide filters for the linked accounts that the customer can select for the payment method.
           attr_accessor :filters
+          # Customize manual entry behavior
+          attr_accessor :manual_entry
           # The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
           attr_accessor :permissions
           # List of data features that you would like to retrieve upon account creation.
@@ -2355,8 +5764,15 @@ module Stripe
           # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
           attr_accessor :return_url
 
-          def initialize(filters: nil, permissions: nil, prefetch: nil, return_url: nil)
+          def initialize(
+            filters: nil,
+            manual_entry: nil,
+            permissions: nil,
+            prefetch: nil,
+            return_url: nil
+          )
             @filters = filters
+            @manual_entry = manual_entry
             @permissions = permissions
             @prefetch = prefetch
             @return_url = return_url
@@ -2425,6 +5841,8 @@ module Stripe
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_accessor :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_accessor :buyer_id
         # The client type that the end customer will pay from
         attr_accessor :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2438,8 +5856,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(app_id: nil, client: nil, setup_future_usage: nil)
+        def initialize(app_id: nil, buyer_id: nil, client: nil, setup_future_usage: nil)
           @app_id = app_id
+          @buyer_id = buyer_id
           @client = client
           @setup_future_usage = setup_future_usage
         end
@@ -2501,10 +5920,16 @@ module Stripe
       attr_accessor :eps
       # If this is a `fpx` PaymentMethod, this sub-hash contains details about the FPX payment method options.
       attr_accessor :fpx
+      # If this is a `gift_card` PaymentMethod, this sub-hash contains details about the gift card payment method options.
+      attr_accessor :gift_card
       # If this is a `giropay` PaymentMethod, this sub-hash contains details about the Giropay payment method options.
       attr_accessor :giropay
+      # If this is a `gopay` PaymentMethod, this sub-hash contains details about the Gopay payment method options.
+      attr_accessor :gopay
       # If this is a `grabpay` PaymentMethod, this sub-hash contains details about the Grabpay payment method options.
       attr_accessor :grabpay
+      # If this is a `id_bank_transfer` PaymentMethod, this sub-hash contains details about the Indonesia Bank Transfer payment method options.
+      attr_accessor :id_bank_transfer
       # If this is a `ideal` PaymentMethod, this sub-hash contains details about the Ideal payment method options.
       attr_accessor :ideal
       # If this is a `interac_present` PaymentMethod, this sub-hash contains details about the Card Present payment method options.
@@ -2541,12 +5966,18 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
       attr_accessor :pix
       # If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
       attr_accessor :promptpay
+      # If this is a `qris` PaymentMethod, this sub-hash contains details about the QRIS payment method options.
+      attr_accessor :qris
+      # If this is a `rechnung` PaymentMethod, this sub-hash contains details about the Rechnung payment method options.
+      attr_accessor :rechnung
       # If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Revolut Pay payment method options.
       attr_accessor :revolut_pay
       # If this is a `samsung_pay` PaymentMethod, this sub-hash contains details about the Samsung Pay payment method options.
@@ -2557,8 +5988,12 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
+      # If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
+      attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
       attr_accessor :sofort
+      # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+      attr_accessor :stripe_balance
       # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
       attr_accessor :swish
       # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -2593,8 +6028,11 @@ module Stripe
         customer_balance: nil,
         eps: nil,
         fpx: nil,
+        gift_card: nil,
         giropay: nil,
+        gopay: nil,
         grabpay: nil,
+        id_bank_transfer: nil,
         ideal: nil,
         interac_present: nil,
         kakao_pay: nil,
@@ -2613,15 +6051,20 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
+        qris: nil,
+        rechnung: nil,
         revolut_pay: nil,
         samsung_pay: nil,
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        shopeepay: nil,
         sofort: nil,
+        stripe_balance: nil,
         swish: nil,
         twint: nil,
         upi: nil,
@@ -2649,8 +6092,11 @@ module Stripe
         @customer_balance = customer_balance
         @eps = eps
         @fpx = fpx
+        @gift_card = gift_card
         @giropay = giropay
+        @gopay = gopay
         @grabpay = grabpay
+        @id_bank_transfer = id_bank_transfer
         @ideal = ideal
         @interac_present = interac_present
         @kakao_pay = kakao_pay
@@ -2669,21 +6115,38 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
+        @qris = qris
+        @rechnung = rechnung
         @revolut_pay = revolut_pay
         @samsung_pay = samsung_pay
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @shopeepay = shopeepay
         @sofort = sofort
+        @stripe_balance = stripe_balance
         @swish = swish
         @twint = twint
         @upi = upi
         @us_bank_account = us_bank_account
         @wechat_pay = wechat_pay
         @zip = zip
+      end
+    end
+
+    class PaymentsOrchestration < ::Stripe::RequestParams
+      # Whether this feature is enabled.
+      attr_accessor :enabled
+      # Merchant-provided reference for this payment, used for reconciliation.
+      attr_accessor :payment_reference
+
+      def initialize(enabled: nil, payment_reference: nil)
+        @enabled = enabled
+        @payment_reference = payment_reference
       end
     end
 
@@ -2793,6 +6256,10 @@ module Stripe
         @payment_data = payment_data
       end
     end
+    # Allocated Funds configuration for this PaymentIntent.
+    attr_accessor :allocated_funds
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_accessor :amount
     # Provides industry-specific information about the amount.
@@ -2833,6 +6300,8 @@ module Stripe
     attr_accessor :excluded_payment_method_types
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # The FX rate in the quote is validated and used to convert the presentment amount to the settlement amount.
+    attr_accessor :fx_quote
     # Automations to be run during the PaymentIntent lifecycle
     attr_accessor :hooks
     # ID of the mandate that's used for this payment. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
@@ -2863,12 +6332,16 @@ module Stripe
     attr_accessor :payment_method_options
     # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_accessor :payment_method_types
+    # When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    attr_accessor :payments_orchestration
     # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     attr_accessor :radar_options
     # Email address to send the receipt to. If you specify `receipt_email` for a payment in live mode, you send a receipt regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     attr_accessor :receipt_email
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
     attr_accessor :return_url
+    # Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
+    attr_accessor :secret_key_confirmation
     # Indicates that you intend to make future payments with this PaymentIntent's payment method.
     #
     # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -2894,6 +6367,8 @@ module Stripe
     attr_accessor :use_stripe_sdk
 
     def initialize(
+      allocated_funds: nil,
+      allowed_payment_method_types: nil,
       amount: nil,
       amount_details: nil,
       application_fee_amount: nil,
@@ -2909,6 +6384,7 @@ module Stripe
       error_on_requires_action: nil,
       excluded_payment_method_types: nil,
       expand: nil,
+      fx_quote: nil,
       hooks: nil,
       mandate: nil,
       mandate_data: nil,
@@ -2921,9 +6397,11 @@ module Stripe
       payment_method_data: nil,
       payment_method_options: nil,
       payment_method_types: nil,
+      payments_orchestration: nil,
       radar_options: nil,
       receipt_email: nil,
       return_url: nil,
+      secret_key_confirmation: nil,
       setup_future_usage: nil,
       shipping: nil,
       statement_descriptor: nil,
@@ -2932,6 +6410,8 @@ module Stripe
       transfer_group: nil,
       use_stripe_sdk: nil
     )
+      @allocated_funds = allocated_funds
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount = amount
       @amount_details = amount_details
       @application_fee_amount = application_fee_amount
@@ -2947,6 +6427,7 @@ module Stripe
       @error_on_requires_action = error_on_requires_action
       @excluded_payment_method_types = excluded_payment_method_types
       @expand = expand
+      @fx_quote = fx_quote
       @hooks = hooks
       @mandate = mandate
       @mandate_data = mandate_data
@@ -2959,9 +6440,11 @@ module Stripe
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
       @payment_method_types = payment_method_types
+      @payments_orchestration = payments_orchestration
       @radar_options = radar_options
       @receipt_email = receipt_email
       @return_url = return_url
+      @secret_key_confirmation = secret_key_confirmation
       @setup_future_usage = setup_future_usage
       @shipping = shipping
       @statement_descriptor = statement_descriptor

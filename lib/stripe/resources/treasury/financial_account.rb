@@ -116,6 +116,8 @@ module Stripe
       attr_reader :country
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+      attr_reader :display_name
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
       attr_reader :features

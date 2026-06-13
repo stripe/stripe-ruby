@@ -59,6 +59,8 @@ module Test
         Stripe.api_base = "http://localhost:#{MOCK_PORT}"
         Stripe.uploads_base = "http://localhost:#{MOCK_PORT}"
 
+        Stripe.authenticator = nil
+
         stub_connect
       end
 

@@ -28,6 +28,12 @@ module Stripe
         params(item: String, params: T.any(::Stripe::Radar::ValueListItemRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::ValueListItem)
        }
       def retrieve(item, params = {}, opts = {}); end
+
+      # Serializes a ValueListItem create request into a batch job JSONL line.
+      sig {
+        params(params: ::Stripe::Radar::ValueListItemCreateParams, opts: T.untyped).returns(String)
+       }
+      def serialize_batch_create(params = {}, opts = {}); end
     end
   end
 end

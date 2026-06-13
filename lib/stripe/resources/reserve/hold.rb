@@ -5,6 +5,8 @@ module Stripe
   module Reserve
     # ReserveHolds are used to place a temporary ReserveHold on a merchant's funds.
     class Hold < APIResource
+      extend Stripe::APIOperations::List
+
       OBJECT_NAME = "reserve.hold"
       def self.object_name
         "reserve.hold"
@@ -54,6 +56,11 @@ module Stripe
       attr_reader :source_charge
       # Which source balance type this ReserveHold reserves funds from. One of `bank_account`, `card`, or `fpx`.
       attr_reader :source_type
+
+      # Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/reserve/holds", params: params, opts: opts)
+      end
 
       def self.inner_class_types
         @inner_class_types = { release_schedule: ReleaseSchedule }

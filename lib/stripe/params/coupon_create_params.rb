@@ -20,6 +20,44 @@ module Stripe
         @amount_off = amount_off
       end
     end
+
+    class Script < ::Stripe::RequestParams
+      # The configuration values of the script. The keys and values are specific to the script implementation.
+      attr_accessor :configuration
+      # The script implementation ID for this coupon.
+      attr_accessor :id
+
+      def initialize(configuration: nil, id: nil)
+        @configuration = configuration
+        @id = id
+      end
+    end
+
+    class ServicePeriod < ::Stripe::RequestParams
+      class Iterations < ::Stripe::RequestParams
+        # The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
+        attr_accessor :count
+        # The type of iterations, defaults to `count` if omitted.
+        attr_accessor :type
+
+        def initialize(count: nil, type: nil)
+          @count = count
+          @type = type
+        end
+      end
+      # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+      attr_accessor :interval
+      # The number of intervals for which the coupon will be applied.
+      attr_accessor :interval_count
+      # Specifies the number of times the coupon is contiguously applied.
+      attr_accessor :iterations
+
+      def initialize(interval: nil, interval_count: nil, iterations: nil)
+        @interval = interval
+        @interval_count = interval_count
+        @iterations = iterations
+      end
+    end
     # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
     attr_accessor :amount_off
     # A hash containing directions for what this Coupon will apply discounts to.
@@ -46,6 +84,10 @@ module Stripe
     attr_accessor :percent_off
     # Unix timestamp specifying the last time at which the coupon can be redeemed (cannot be set to more than 5 years in the future). After the redeem_by date, the coupon can no longer be applied to new customers.
     attr_accessor :redeem_by
+    # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    attr_accessor :script
+    # A hash specifying the service period for the coupon.
+    attr_accessor :service_period
 
     def initialize(
       amount_off: nil,
@@ -60,7 +102,9 @@ module Stripe
       metadata: nil,
       name: nil,
       percent_off: nil,
-      redeem_by: nil
+      redeem_by: nil,
+      script: nil,
+      service_period: nil
     )
       @amount_off = amount_off
       @applies_to = applies_to
@@ -75,6 +119,8 @@ module Stripe
       @name = name
       @percent_off = percent_off
       @redeem_by = redeem_by
+      @script = script
+      @service_period = service_period
     end
   end
 end

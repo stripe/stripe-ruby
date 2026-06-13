@@ -20,6 +20,12 @@ module Stripe
     # Amount in cents (or local equivalent) reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
     sig { returns(Integer) }
     def amount_reversed; end
+    # Attribute for field application_fee
+    sig { returns(T.nilable(T.any(String, ::Stripe::ApplicationFee))) }
+    def application_fee; end
+    # Attribute for field application_fee_amount
+    sig { returns(T.nilable(Integer)) }
+    def application_fee_amount; end
     # Balance transaction that describes the impact of this transfer on your account balance.
     sig { returns(T.nilable(T.any(String, ::Stripe::BalanceTransaction))) }
     def balance_transaction; end
@@ -38,6 +44,9 @@ module Stripe
     # If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
     sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
     def destination_payment; end
+    # The FX Quote used for the transfer.
+    sig { returns(T.nilable(String)) }
+    def fx_quote; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end

@@ -6,6 +6,8 @@ module Stripe
   class TaxService < StripeService
     attr_reader :associations
     attr_reader :calculations
+    attr_reader :forms
+    attr_reader :locations
     attr_reader :registrations
     attr_reader :settings
     attr_reader :transactions

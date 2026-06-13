@@ -7,11 +7,25 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              attr_accessor :product_type
+              # The type of service received at the acceptor location.
+              attr_accessor :service_type
+
+              def initialize(product_type: nil, service_type: nil)
+                @product_type = product_type
+                @service_type = service_type
+              end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # Fleet data for this line item.
+            attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil)
+            def initialize(commodity_code: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @fleet_data = fleet_data
             end
           end
 
@@ -102,6 +116,8 @@ module Stripe
         attr_accessor :product_name
         # The quantity of items. Required for L3 rates. An integer greater than 0.
         attr_accessor :quantity
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        attr_accessor :quantity_precision
         # Contains information about the tax on the item.
         attr_accessor :tax
         # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
@@ -115,6 +131,7 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
           unit_of_measure: nil
@@ -124,6 +141,7 @@ module Stripe
           @product_code = product_code
           @product_name = product_name
           @quantity = quantity
+          @quantity_precision = quantity_precision
           @tax = tax
           @unit_cost = unit_cost
           @unit_of_measure = unit_of_measure
@@ -142,6 +160,18 @@ module Stripe
           @amount = amount
           @from_postal_code = from_postal_code
           @to_postal_code = to_postal_code
+        end
+      end
+
+      class Surcharge < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a surcharge.
+        attr_accessor :amount
+        # Indicate whether to enforce validations on the surcharge amount.
+        attr_accessor :enforce_validation
+
+        def initialize(amount: nil, enforce_validation: nil)
+          @amount = amount
+          @enforce_validation = enforce_validation
         end
       end
 
@@ -169,6 +199,8 @@ module Stripe
       attr_accessor :line_items
       # Contains information about the shipping portion of the amount.
       attr_accessor :shipping
+      # Contains information about the surcharge portion of the amount.
+      attr_accessor :surcharge
       # Contains information about the tax portion of the amount.
       attr_accessor :tax
 
@@ -177,12 +209,14 @@ module Stripe
         enforce_arithmetic_validation: nil,
         line_items: nil,
         shipping: nil,
+        surcharge: nil,
         tax: nil
       )
         @discount_amount = discount_amount
         @enforce_arithmetic_validation = enforce_arithmetic_validation
         @line_items = line_items
         @shipping = shipping
+        @surcharge = surcharge
         @tax = tax
       end
     end
@@ -228,6 +262,23 @@ module Stripe
       end
     end
 
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        # Request partial authorization on this PaymentIntent.
+        attr_accessor :request_partial_authorization
+
+        def initialize(request_partial_authorization: nil)
+          @request_partial_authorization = request_partial_authorization
+        end
+      end
+      # Configuration for any card payments attempted on this PaymentIntent.
+      attr_accessor :card
+
+      def initialize(card: nil)
+        @card = card
+      end
+    end
+
     class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       attr_accessor :amount
@@ -252,6 +303,8 @@ module Stripe
     attr_accessor :metadata
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
+    # Payment method-specific configuration for this PaymentIntent.
+    attr_accessor :payment_method_options
     # Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
     attr_accessor :statement_descriptor
     # The parameters used to automatically create a transfer after the payment is captured.
@@ -267,6 +320,7 @@ module Stripe
       hooks: nil,
       metadata: nil,
       payment_details: nil,
+      payment_method_options: nil,
       statement_descriptor: nil,
       transfer_data: nil
     )
@@ -278,6 +332,7 @@ module Stripe
       @hooks = hooks
       @metadata = metadata
       @payment_details = payment_details
+      @payment_method_options = payment_method_options
       @statement_descriptor = statement_descriptor
       @transfer_data = transfer_data
     end

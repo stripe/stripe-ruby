@@ -52,6 +52,12 @@ module Stripe
      }
     def delete(invoice, params = {}, opts = {}); end
 
+    # Detaches a payment from the invoice, removing it from the list of payments
+    sig {
+      params(invoice: String, params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+     }
+    def detach_payment(invoice, params = {}, opts = {}); end
+
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     sig {
       params(invoice: String, params: T.any(::Stripe::InvoiceFinalizeInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
@@ -104,6 +110,74 @@ module Stripe
       params(invoice: String, params: T.any(::Stripe::InvoiceSendInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
     def send_invoice(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice add_lines request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceAddLinesParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_add_lines(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::InvoiceCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes an Invoice create_preview request into a batch job JSONL line.
+    sig { params(params: ::Stripe::InvoiceCreatePreviewParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create_preview(params = {}, opts = {}); end
+
+    # Serializes an Invoice delete request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice finalize_invoice request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceFinalizeInvoiceParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_finalize_invoice(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice mark_uncollectible request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceMarkUncollectibleParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_mark_uncollectible(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice pay request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoicePayParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_pay(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice remove_lines request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceRemoveLinesParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_remove_lines(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice send_invoice request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceSendInvoiceParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_send_invoice(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice update request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice update_lines request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceUpdateLinesParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update_lines(invoice, params = {}, opts = {}); end
+
+    # Serializes an Invoice void_invoice request into a batch job JSONL line.
+    sig {
+      params(invoice: String, params: ::Stripe::InvoiceVoidInvoiceParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_void_invoice(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # monetary values, as well as collection_method, become uneditable.

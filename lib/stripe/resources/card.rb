@@ -17,6 +17,21 @@ module Stripe
       "card"
     end
 
+    class Benefits < ::Stripe::StripeObject
+      # Issuer of this benefit card
+      attr_reader :issuer
+      # Available benefit programs for this card
+      attr_reader :programs
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
@@ -51,8 +66,12 @@ module Stripe
     attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
+    # Attribute for field benefits
+    attr_reader :benefits
     # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     attr_reader :brand
+    # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+    attr_reader :brand_product
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
     attr_reader :country
     # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies). Only applicable on accounts (not customers or recipients). The card can be used as a transfer destination for funds in this currency. This property is only available when returned as an [External Account](/api/external_account_cards/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
@@ -152,7 +171,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { networks: Networks }
+      @inner_class_types = { benefits: Benefits, networks: Networks }
     end
 
     def self.field_remappings

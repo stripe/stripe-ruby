@@ -2971,6 +2971,7 @@ module Stripe
       # Updates a Checkout Session object.
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
+      # Updates a Session object.
       def self.update(session, params = {}, opts = {})
         request_stripe_object(
           method: :post,

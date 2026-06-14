@@ -5739,6 +5739,11 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
+    # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
+    def self.update(intent, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts
       )

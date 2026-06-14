@@ -1,5 +1,4 @@
-# File generated from our OpenAPI spec
-# frozen_string_literal: true
+
 
 module Stripe
   # A Quote is a way to model prices that you'd like to provide to a customer.

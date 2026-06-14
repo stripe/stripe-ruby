@@ -1410,6 +1410,7 @@ module Stripe
     #
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
+    # [Connect](https://stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     def self.update(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,

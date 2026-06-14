@@ -4,10 +4,12 @@
 module Stripe
   module FinancialConnections
     class AccountService < StripeService
-      attr_reader :owners
+      attr_reader :inferred_balances, :owners
 
       def initialize(requestor)
-        super(requestor)
+        super
+        @inferred_balances = Stripe::FinancialConnections::AccountInferredBalanceService
+                             .new(@requestor)
         @owners = Stripe::FinancialConnections::AccountOwnerService.new(@requestor)
       end
 
@@ -55,7 +57,7 @@ module Stripe
         )
       end
 
-      # Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+      # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
       def subscribe(account, params = {}, opts = {})
         request(
           method: :post,

@@ -83,6 +83,19 @@ module Stripe
 
     should "not specifying api credentials should raise an exception" do
       Stripe.api_key = nil
+      Stripe.authenticator = nil
+      assert_raises Stripe::AuthenticationError do
+        Stripe::Customer.new("cus_123").refresh
+      end
+    end
+
+    should "specifying both api_key and authenticator should raise an exception" do
+      Stripe.api_key = "sk_123"
+
+      def no_op; end
+
+      Stripe.authenticator = method(:no_op)
+
       assert_raises Stripe::AuthenticationError do
         Stripe::Customer.new("cus_123").refresh
       end
@@ -421,6 +434,23 @@ module Stripe
           .to_return(body: JSON.generate(customer_fixture))
         c.description = "FOO"
         c.save
+      end
+
+      should "pass custom headers to execute_request_initialize_from and don't carry through" do
+        req1 = nil
+        req2 = nil
+        stub_request(:get, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req1 = request }
+          .to_return(body: JSON.generate(customer_fixture))
+        stub_request(:delete, "#{Stripe.api_base}/v1/customers/cus_123")
+          .with { |request| req2 = request }
+          .to_return(body: JSON.generate(object: "customer"))
+
+        c = Stripe::Customer.retrieve("cus_123", { "A-Header": "foo" })
+        assert_equal "foo", req1.headers["A-Header"]
+
+        c.delete
+        assert_nil req2.headers["A-Header"]
       end
 
       should "add key to nested objects on save" do
@@ -897,13 +927,13 @@ module Stripe
     context "v2 resources" do
       should "raise an NotImplementedError on resource_url" do
         assert_raises NotImplementedError do
-          Stripe::V2::Event.resource_url
+          Stripe::V2::Core::Event.resource_url
         end
       end
 
       should "raise an NotImplementedError on retrieve" do
         assert_raises NotImplementedError do
-          Stripe::V2::Event.retrieve("acct_123")
+          Stripe::V2::Core::Event.retrieve("acct_123")
         end
       end
 

@@ -13,6 +13,19 @@ module Stripe
       "apple_pay_domain"
     end
 
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Always true for a deleted object
+    attr_reader :deleted
+    # Attribute for field domain_name
+    attr_reader :domain_name
+    # Unique identifier for the object.
+    attr_reader :id
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
     # Create an apple pay domain.
     def self.create(params = {}, opts = {})
       request_stripe_object(
@@ -50,6 +63,14 @@ module Stripe
 
     def self.resource_url
       "/v1/apple_pay/domains"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

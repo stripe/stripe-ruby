@@ -5,7 +5,7 @@ module Stripe
   module Radar
     # Value lists allow you to group values together which can then be referenced in rules.
     #
-    # Related guide: [Default Stripe lists](https://stripe.com/docs/radar/lists#managing-list-items)
+    # Related guide: [Default Stripe lists](https://docs.stripe.com/radar/lists#managing-list-items)
     class ValueList < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete
@@ -16,6 +16,29 @@ module Stripe
       def self.object_name
         "radar.value_list"
       end
+
+      # The name of the value list for use in rules.
+      attr_reader :alias
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # The name or email address of the user who created this value list.
+      attr_reader :created_by
+      # Always true for a deleted object
+      attr_reader :deleted
+      # Unique identifier for the object.
+      attr_reader :id
+      # The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `account`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
+      attr_reader :item_type
+      # List of items contained within this value list.
+      attr_reader :list_items
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # The name of the value list.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
 
       # Creates a new ValueList object, which can then be referenced in rules.
       def self.create(params = {}, opts = {})
@@ -65,6 +88,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

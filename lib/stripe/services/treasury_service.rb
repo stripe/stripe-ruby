@@ -6,7 +6,7 @@ module Stripe
     attr_reader :credit_reversals, :debit_reversals, :financial_accounts, :inbound_transfers, :outbound_payments, :outbound_transfers, :received_credits, :received_debits, :transactions, :transaction_entries
 
     def initialize(requestor)
-      super(requestor)
+      super
       @credit_reversals = Stripe::Treasury::CreditReversalService.new(@requestor)
       @debit_reversals = Stripe::Treasury::DebitReversalService.new(@requestor)
       @financial_accounts = Stripe::Treasury::FinancialAccountService.new(@requestor)

@@ -3,8 +3,8 @@
 
 module Stripe
   # A coupon contains information about a percent-off or amount-off discount you
-  # might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
-  # [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
+  # might want to apply to a customer. Coupons may be applied to [subscriptions](https://api.stripe.com#subscriptions), [invoices](https://api.stripe.com#invoices),
+  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://api.stripe.com#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
   class Coupon < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -15,6 +15,122 @@ module Stripe
     def self.object_name
       "coupon"
     end
+
+    class AppliesTo < ::Stripe::StripeObject
+      # A list of product IDs this coupon applies to
+      attr_reader :products
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class CurrencyOptions < ::Stripe::StripeObject
+      # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+      attr_reader :amount_off
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Script < ::Stripe::StripeObject
+      # The configuration values of the script. The keys and values are specific to the script implementation.
+      attr_reader :configuration
+      # The name of the script used to calculate the discount.
+      attr_reader :display_name
+      # The script implementation ID for this coupon.
+      attr_reader :id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # The number of iterations the service period will repeat for. Only used when type is `count`.
+        attr_reader :count
+        # The type of iterations.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+      attr_reader :interval
+      # The number of intervals for which the coupon will be applied.
+      attr_reader :interval_count
+      # Attribute for field iterations
+      attr_reader :iterations
+
+      def self.inner_class_types
+        @inner_class_types = { iterations: Iterations }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+    attr_reader :amount_off
+    # Attribute for field applies_to
+    attr_reader :applies_to
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
+    attr_reader :currency
+    # Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+    attr_reader :currency_options
+    # Always true for a deleted object
+    attr_reader :deleted
+    # One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
+    attr_reader :duration
+    # If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`.
+    attr_reader :duration_in_months
+    # Unique identifier for the object.
+    attr_reader :id
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid.
+    attr_reader :max_redemptions
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # Name of the coupon displayed to customers on for instance invoices or receipts.
+    attr_reader :name
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a $ (or local equivalent)100 invoice $ (or local equivalent)50 instead.
+    attr_reader :percent_off
+    # Date after which the coupon can no longer be redeemed.
+    attr_reader :redeem_by
+    # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    attr_reader :script
+    # Attribute for field service_period
+    attr_reader :service_period
+    # Number of times this coupon has been applied to a customer.
+    attr_reader :times_redeemed
+    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    attr_reader :type
+    # Taking account of the above properties, whether this coupon can still be applied to a customer.
+    attr_reader :valid
 
     # You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
     #
@@ -56,6 +172,19 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        applies_to: AppliesTo,
+        currency_options: CurrencyOptions,
+        script: Script,
+        service_period: ServicePeriod,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

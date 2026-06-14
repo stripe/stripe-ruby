@@ -1,0 +1,130 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module FinancialConnections
+    class SessionCreateParams < ::Stripe::RequestParams
+      class AccountHolder < ::Stripe::RequestParams
+        # The ID of the Stripe account whose accounts you will retrieve. Only available when `type` is `account`.
+        attr_accessor :account
+        # The ID of the Stripe customer whose accounts you will retrieve. Only available when `type` is `customer`.
+        attr_accessor :customer
+        # The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
+        attr_accessor :customer_account
+        # Type of account holder to collect accounts for.
+        attr_accessor :type
+
+        def initialize(account: nil, customer: nil, customer_account: nil, type: nil)
+          @account = account
+          @customer = customer
+          @customer_account = customer_account
+          @type = type
+        end
+      end
+
+      class Filters < ::Stripe::RequestParams
+        # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
+        attr_accessor :account_subcategories
+        # List of countries from which to collect accounts.
+        attr_accessor :countries
+        # Stripe ID of the institution with which the customer should be directed to log in.
+        attr_accessor :institution
+
+        def initialize(account_subcategories: nil, countries: nil, institution: nil)
+          @account_subcategories = account_subcategories
+          @countries = countries
+          @institution = institution
+        end
+      end
+
+      class Hosted < ::Stripe::RequestParams
+        # How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
+        attr_accessor :delivery_method
+
+        def initialize(delivery_method: nil)
+          @delivery_method = delivery_method
+        end
+      end
+
+      class Limits < ::Stripe::RequestParams
+        # The number of accounts that can be linked in this Session.
+        attr_accessor :accounts
+
+        def initialize(accounts: nil)
+          @accounts = accounts
+        end
+      end
+
+      class ManualEntry < ::Stripe::RequestParams
+        # How manual entry should be handled.
+        attr_accessor :mode
+
+        def initialize(mode: nil)
+          @mode = mode
+        end
+      end
+
+      class RelinkOptions < ::Stripe::RequestParams
+        # The account to relink. Must belong to the authorization specified in `authorization`.
+        attr_accessor :account
+        # The authorization to relink.
+        attr_accessor :authorization
+
+        def initialize(account: nil, authorization: nil)
+          @account = account
+          @authorization = authorization
+        end
+      end
+      # The account holder to link accounts for.
+      attr_accessor :account_holder
+      # Specifies which fields in the response should be expanded.
+      attr_accessor :expand
+      # Filters to restrict the kinds of accounts to collect.
+      attr_accessor :filters
+      # Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+      attr_accessor :hosted
+      # Settings for configuring Session-specific limits.
+      attr_accessor :limits
+      # Customize manual entry behavior
+      attr_accessor :manual_entry
+      # List of data features that you would like to request access to.
+      #
+      # Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+      attr_accessor :permissions
+      # List of data features that you would like to retrieve upon account creation.
+      attr_accessor :prefetch
+      # Options for specifying a Session targeted to relinking an authorization.
+      attr_accessor :relink_options
+      # For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+      attr_accessor :return_url
+      # The UI mode of the Session. Defaults to `modal`.
+      attr_accessor :ui_mode
+
+      def initialize(
+        account_holder: nil,
+        expand: nil,
+        filters: nil,
+        hosted: nil,
+        limits: nil,
+        manual_entry: nil,
+        permissions: nil,
+        prefetch: nil,
+        relink_options: nil,
+        return_url: nil,
+        ui_mode: nil
+      )
+        @account_holder = account_holder
+        @expand = expand
+        @filters = filters
+        @hosted = hosted
+        @limits = limits
+        @manual_entry = manual_entry
+        @permissions = permissions
+        @prefetch = prefetch
+        @relink_options = relink_options
+        @return_url = return_url
+        @ui_mode = ui_mode
+      end
+    end
+  end
+end

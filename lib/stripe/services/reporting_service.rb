@@ -6,7 +6,7 @@ module Stripe
     attr_reader :report_runs, :report_types
 
     def initialize(requestor)
-      super(requestor)
+      super
       @report_runs = Stripe::Reporting::ReportRunService.new(@requestor)
       @report_types = Stripe::Reporting::ReportTypeService.new(@requestor)
     end

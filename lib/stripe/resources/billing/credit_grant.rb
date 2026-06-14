@@ -16,6 +16,174 @@ module Stripe
         "billing.credit_grant"
       end
 
+      class Amount < ::Stripe::StripeObject
+        class CustomPricingUnit < ::Stripe::StripeObject
+          class CustomPricingUnitDetails < ::Stripe::StripeObject
+            # Time at which the object was created. Measured in seconds since the Unix epoch.
+            attr_reader :created
+            # The name of the custom pricing unit.
+            attr_reader :display_name
+            # Unique identifier for the object.
+            attr_reader :id
+            # A lookup key for the custom pricing unit.
+            attr_reader :lookup_key
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            attr_reader :metadata
+            # The status of the custom pricing unit.
+            attr_reader :status
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The custom pricing unit object.
+          attr_reader :custom_pricing_unit_details
+          # Unique identifier for the object.
+          attr_reader :id
+          # A positive integer representing the amount.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { value: :decimal_string }
+          end
+        end
+
+        class Monetary < ::Stripe::StripeObject
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_reader :currency
+          # A positive integer representing the amount.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The custom pricing unit amount.
+        attr_reader :custom_pricing_unit
+        # The monetary amount.
+        attr_reader :monetary
+        # The type of this amount. We currently only support `monetary` billing credits.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { custom_pricing_unit: CustomPricingUnit, monetary: Monetary }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+          }
+        end
+      end
+
+      class ApplicabilityConfig < ::Stripe::StripeObject
+        class Scope < ::Stripe::StripeObject
+          class BillableItem < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Price < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+          attr_reader :billable_items
+          # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
+          attr_reader :price_type
+          # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
+          attr_reader :prices
+
+          def self.inner_class_types
+            @inner_class_types = { billable_items: BillableItem, prices: Price }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field scope
+        attr_reader :scope
+
+        def self.inner_class_types
+          @inner_class_types = { scope: Scope }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field amount
+      attr_reader :amount
+      # Attribute for field applicability_config
+      attr_reader :applicability_config
+      # The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.
+      attr_reader :category
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # ID of the customer receiving the billing credits.
+      attr_reader :customer
+      # ID of the account representing the customer receiving the billing credits
+      attr_reader :customer_account
+      # The time when the billing credits become effective-when they're eligible for use.
+      attr_reader :effective_at
+      # The time when the billing credits expire. If not present, the billing credits don't expire.
+      attr_reader :expires_at
+      # Unique identifier for the object.
+      attr_reader :id
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # A descriptive name shown in dashboard.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The priority for applying this credit grant. The highest priority is 0 and the lowest is 100.
+      attr_reader :priority
+      # ID of the test clock this credit grant belongs to.
+      attr_reader :test_clock
+      # Time at which the object was last updated. Measured in seconds since the Unix epoch.
+      attr_reader :updated
+      # The time when this credit grant was voided. If not present, the credit grant hasn't been voided.
+      attr_reader :voided_at
+
       # Creates a credit grant.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -84,6 +252,23 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { amount: Amount, applicability_config: ApplicabilityConfig }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          amount: {
+            kind: :object,
+            fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+          },
+        }
       end
     end
   end

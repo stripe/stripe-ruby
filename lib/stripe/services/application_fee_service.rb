@@ -6,7 +6,7 @@ module Stripe
     attr_reader :refunds
 
     def initialize(requestor)
-      super(requestor)
+      super
       @refunds = Stripe::ApplicationFeeRefundService.new(@requestor)
     end
 

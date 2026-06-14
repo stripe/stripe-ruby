@@ -7,12 +7,27 @@ module Stripe
       attr_reader :line_items
 
       def initialize(requestor)
-        super(requestor)
+        super
         @line_items = Stripe::Checkout::SessionLineItemService.new(@requestor)
       end
 
-      # Creates a Session object.
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def approve(session, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
+      # Creates a Checkout Session object.
       def create(params = {}, opts = {})
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionCreateParams.coerce_params(params)
+        end
+
         request(
           method: :post,
           path: "/v1/checkout/sessions",
@@ -22,9 +37,9 @@ module Stripe
         )
       end
 
-      # A Session can be expired when it is in one of these statuses: open
+      # A Checkout Session can be expired when it is in one of these statuses: open
       #
-      # After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+      # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       def expire(session, params = {}, opts = {})
         request(
           method: :post,
@@ -46,7 +61,7 @@ module Stripe
         )
       end
 
-      # Retrieves a Session object.
+      # Retrieves a Checkout Session object.
       def retrieve(session, params = {}, opts = {})
         request(
           method: :get,
@@ -57,8 +72,14 @@ module Stripe
         )
       end
 
-      # Updates a Session object.
+      # Updates a Checkout Session object.
+      #
+      # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
       def update(session, params = {}, opts = {})
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Checkout::SessionUpdateParams.coerce_params(params)
+        end
+
         request(
           method: :post,
           path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),

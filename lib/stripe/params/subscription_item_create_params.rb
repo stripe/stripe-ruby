@@ -1,0 +1,250 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  class SubscriptionItemCreateParams < ::Stripe::RequestParams
+    class BillingThresholds < ::Stripe::RequestParams
+      # Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+      attr_accessor :usage_gte
+
+      def initialize(usage_gte: nil)
+        @usage_gte = usage_gte
+      end
+    end
+
+    class CurrentTrial < ::Stripe::RequestParams
+      # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+      attr_accessor :trial_end
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_end: nil, trial_offer: nil)
+        @trial_end = trial_end
+        @trial_offer = trial_offer
+      end
+    end
+
+    class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class Settings < ::Stripe::RequestParams
+        class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+          class Custom < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            attr_accessor :day_of_month
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            attr_accessor :hour
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            attr_accessor :minute
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            attr_accessor :month
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            attr_accessor :second
+
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+              @day_of_month = day_of_month
+              @hour = hour
+              @minute = minute
+              @month = month
+              @second = second
+            end
+          end
+          # Anchor the service period to a custom date. Type must be `custom` to specify.
+          attr_accessor :custom
+          # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+          attr_accessor :type
+
+          def initialize(custom: nil, type: nil)
+            @custom = custom
+            @type = type
+          end
+        end
+        # Configures service period cycle anchoring.
+        attr_accessor :service_period_anchor_config
+        # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+        attr_accessor :start_date
+
+        def initialize(service_period_anchor_config: nil, start_date: nil)
+          @service_period_anchor_config = service_period_anchor_config
+          @start_date = start_date
+        end
+      end
+      # ID of the coupon to create a new discount for.
+      attr_accessor :coupon
+      # ID of an existing discount on the object (or one of its ancestors) to reuse.
+      attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
+      # ID of the promotion code to create a new discount for.
+      attr_accessor :promotion_code
+      # Settings for discount application including service period anchoring.
+      attr_accessor :settings
+
+      def initialize(
+        coupon: nil,
+        discount: nil,
+        discount_end: nil,
+        promotion_code: nil,
+        settings: nil
+      )
+        @coupon = coupon
+        @discount = discount
+        @discount_end = discount_end
+        @promotion_code = promotion_code
+        @settings = settings
+      end
+    end
+
+    class PriceData < ::Stripe::RequestParams
+      class Recurring < ::Stripe::RequestParams
+        # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        attr_accessor :interval
+        # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+        attr_accessor :interval_count
+
+        def initialize(interval: nil, interval_count: nil)
+          @interval = interval
+          @interval_count = interval_count
+        end
+      end
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_accessor :currency
+      # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to.
+      attr_accessor :product
+      # The recurring components of a price such as `interval` and `interval_count`.
+      attr_accessor :recurring
+      # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+      attr_accessor :tax_behavior
+      # A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+      attr_accessor :unit_amount
+      # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+      attr_accessor :unit_amount_decimal
+
+      def initialize(
+        currency: nil,
+        product: nil,
+        recurring: nil,
+        tax_behavior: nil,
+        unit_amount: nil,
+        unit_amount_decimal: nil
+      )
+        @currency = currency
+        @product = product
+        @recurring = recurring
+        @tax_behavior = tax_behavior
+        @unit_amount = unit_amount
+        @unit_amount_decimal = unit_amount_decimal
+      end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
+    end
+
+    class Trial < ::Stripe::RequestParams
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+      attr_accessor :converts_to
+      # Determines the type of trial for this item.
+      attr_accessor :type
+
+      def initialize(converts_to: nil, type: nil)
+        @converts_to = converts_to
+        @type = type
+      end
+    end
+    # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
+    attr_accessor :billing_thresholds
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
+    # The coupons to redeem into discounts for the subscription item.
+    attr_accessor :discounts
+    # Specifies which fields in the response should be expanded.
+    attr_accessor :expand
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    attr_accessor :metadata
+    # Controls how Stripe handles payment when a subscription update requires payment and `collection_method=charge_automatically`.
+    attr_accessor :payment_behavior
+    # The identifier of the plan to add to the subscription.
+    attr_accessor :plan
+    # The ID of the price object.
+    attr_accessor :price
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
+    attr_accessor :price_data
+    # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+    attr_accessor :proration_behavior
+    # If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](/api/invoices/create_preview) endpoint.
+    attr_accessor :proration_date
+    # The quantity you'd like to apply to the subscription item you're creating.
+    attr_accessor :quantity
+    # The identifier of the subscription to modify.
+    attr_accessor :subscription
+    # A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+    attr_accessor :tax_rates
+    # Options that configure the trial on the subscription item.
+    attr_accessor :trial
+
+    def initialize(
+      billing_thresholds: nil,
+      current_trial: nil,
+      discounts: nil,
+      expand: nil,
+      metadata: nil,
+      payment_behavior: nil,
+      plan: nil,
+      price: nil,
+      price_data: nil,
+      proration_behavior: nil,
+      proration_date: nil,
+      quantity: nil,
+      subscription: nil,
+      tax_rates: nil,
+      trial: nil
+    )
+      @billing_thresholds = billing_thresholds
+      @current_trial = current_trial
+      @discounts = discounts
+      @expand = expand
+      @metadata = metadata
+      @payment_behavior = payment_behavior
+      @plan = plan
+      @price = price
+      @price_data = price_data
+      @proration_behavior = proration_behavior
+      @proration_date = proration_date
+      @quantity = quantity
+      @subscription = subscription
+      @tax_rates = tax_rates
+      @trial = trial
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+      }
+    end
+  end
+end

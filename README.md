@@ -3,6 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/stripe.svg)](https://badge.fury.io/rb/stripe)
 [![Build Status](https://github.com/stripe/stripe-ruby/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-ruby/actions?query=branch%3Amaster)
 
+> [!TIP]
+> Want to chat live with Stripe engineers? Join us on our [Discord server](https://stripe.com/go/discord/ruby).
+
 The Stripe Ruby library provides convenient access to the Stripe API from
 applications written in the Ruby language. It includes a pre-defined set of
 classes for API resources that initialize themselves dynamically from API
@@ -19,8 +22,6 @@ The library also provides other features. For example:
 ## Documentation
 
 See the [Ruby API docs](https://stripe.com/docs/api?lang=ruby).
-
-See [video demonstrations][youtube-playlist] covering how to use the library.
 
 ## Installation
 
@@ -39,7 +40,9 @@ gem build stripe.gemspec
 
 ### Requirements
 
-- Ruby 2.3+.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy), we currently support **Ruby 2.7+**.
+
+Support for Ruby 2.7 is deprecated and will be removed in upcoming major versions. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
 
 ### Bundler
 
@@ -57,18 +60,18 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
-value:
+available in your [Stripe Dashboard][api-keys]. Initialize a new client with your API key:
 
 ```ruby
 require 'stripe'
-Stripe.api_key = 'sk_test_...'
+
+client = Stripe::StripeClient.new("sk_test_...")
 
 # list customers
-Stripe::Customer.list()
+customers = client.v1.customers.list()
 
 # retrieve single customer
-Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 ```
 
 ### Per-request Configuration
@@ -80,61 +83,30 @@ per-request key and/or account:
 ```ruby
 require "stripe"
 
-Stripe::Customer.list(
+client = Stripe::StripeClient.new("sk_test_...")
+
+client.v1.customers.list(
   {},
   {
     api_key: 'sk_test_...',
     stripe_account: 'acct_...',
     stripe_version: '2018-02-28',
-  }
-)
-
-Stripe::Customer.retrieve(
-  'cus_123456789',
-  {
-    api_key: 'sk_test_...',
-    stripe_account: 'acct_...',
-    stripe_version: '2018-02-28',
-  }
-)
-
-Stripe::Customer.retrieve(
-  {
-    id: 'cus_123456789',
-    expand: %w(balance_transaction)
-  },
-  {
-    stripe_version: '2018-02-28',
-    api_key: 'sk_test_...',
-  }
-)
-
-Stripe::Customer.capture(
-  'cus_123456789',
-  {},
-  {
-    stripe_version: '2018-02-28',
-    api_key: 'sk_test_...',
   }
 )
 ```
 
-Keep in mind that there are different method signatures depending on the action:
+### StripeClient vs legacy pattern
 
-- When operating on a collection (e.g. `.list`, `.create`) the method signature is
-  `method(params, opts)`.
-- When operating on resource (e.g. `.capture`, `.update`) the method signature is
-  `method(id, params, opts)`.
-- One exception is that `retrieve`, despite being an operation on a resource, has the signature
-  `retrieve(id, opts)`. In addition, it will accept a Hash for the `id` param but will extract the
-  `id` key out and use the others as options.
+We introduced the `StripeClient` class in v13 of the Ruby SDK. The legacy pattern used prior to that version is still available to use but will be marked as deprecated soon. Review the [migration guide to use StripeClient](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) to move from the legacy pattern.
+
+Once the legacy pattern is deprecated, new API endpoints will only be accessible in the StripeClient. While there are no current plans to remove the legacy pattern for existing API endpoints, this may change in the future.
 
 ### Accessing resource properties
 
 Both indexer and accessors can be used to retrieve values of resource properties.
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 puts customer['id']
 puts customer.id
 ```
@@ -142,7 +114,7 @@ puts customer.id
 NOTE: If the resource property is not defined, the accessors will raise an exception, while the indexer will return `nil`.
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 puts customer['unknown'] # nil
 puts customer.unknown # raises NoMethodError
 ```
@@ -152,11 +124,14 @@ puts customer.unknown # raises NoMethodError
 Get access to response objects by using the `last_response` property of the returned resource:
 
 ```ruby
-customer = Stripe::Customer.retrieve('cus_123456789')
+customer = client.v1.customers.retrieve('cus_123456789')
 
 print(customer.last_response.http_status) # to retrieve status code
 print(customer.last_response.http_headers) # to retrieve headers
 ```
+
+If you are accessing a response field with custom hashes provided by you, such as `Customer.metadata`,
+please access your fields with the `[]` accessor.
 
 ### Configuring a proxy
 
@@ -293,6 +268,12 @@ Stripe::Instrumentation.subscribe(:request_end) do |request_event|
 end
 ```
 
+### How to use undocumented parameters and properties
+
+In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK.
+See [undocumented params and properties](https://docs.stripe.com/sdks/server-side?lang=ruby#undocumented-params-and-fields) to send those parameters or access those fields.
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you
@@ -317,40 +298,76 @@ You can disable this behavior if you prefer:
 Stripe.enable_telemetry = false
 ```
 
-### Beta SDKs
+### Types
 
-Stripe has features in the beta phase that can be accessed via the beta version of this package.
-We would love for you to try these and share feedback with us before these features reach the stable phase.
-To install a beta version use `gem install` with the exact version you'd like to use:
+In [v14.0.0](https://github.com/stripe/stripe-python/releases/tag/v7.1.0) and newer, the library provides RBI
+static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations-(with-Sorbet))
+for an detailed guide.
+
+Please note that these types are available only for static analysis and we only support RBIs at the moment.
+Please [report an issue](https://github.com/stripe/stripe-ruby/issues/new/choose)
+if you find discrepancies or have issues using types.
+
+The RBIs can be found in the `rbi/stripe/` directory, and to decrease `Tapioca` loading time we pack the gem with the
+combined RBI at `rbi/stripe.rbi`.
+
+#### Types and the Versioning Policy
+
+We release type changes in minor releases. While stripe-ruby follows semantic versioning, our semantic
+versions describe the runtime behavior of the library alone. Our type annotations are not reflected in the
+semantic version. That is, upgrading to a new minor version of `stripe-ruby` might result in your type checker
+producing a type error that it didn't before. You can use `~> x.x` or `x.x.x` constrain the version
+of `stripe-ruby` in your Gemfile to a certain version or range of `stripe-ruby`.
+
+#### Types and API Versions
+
+The types describe the [Stripe API version](https://stripe.com/docs/api/versioning)
+that was the latest at the time of release. This is the version that your library sends
+by default. If you are overriding `Stripe.api_version` / `stripe_version` on the StripeClient,
+or using a webhook endpoint tied to an older version, be aware that the data
+you see at runtime may not match the types.
+
+### Public Preview SDKs
+
+Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-beta.X` suffix like `11.2.0-beta.2`.
+We would love for you to try these as we incrementally release new features and improve them based on your feedback.
+
+To install, pick the latest version with the `beta` suffix by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
 
 ```sh
-gem install stripe -v 7.1.0.pre.beta.2
+gem install stripe -v <replace-with-the-version-of-your-choice>
 ```
 
 > **Note**
-> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+> There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest version of the public preview SDK.
 
 We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
 
-If your beta feature requires a `Stripe-Version` header to be sent, set the `Stripe.api_version` field using `Stripe.add_beta_version`:
+Some preview features require a name and version to be set in the `Stripe-Version` header like `feature_beta=v3`. If your preview feature has this requirement, use the `Stripe.add_beta_version` function (available only in the public preview SDKs):
 
 ```python
 Stripe.add_beta_version("feature_beta", "v3")
 ```
 
+### Private Preview SDKs
+
+Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-alpha.X` suffix like `11.2.0-alpha.2`. You can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#public-preview-sdks) above and replacing the term `beta` with `alpha`. Note that access to specific private preview API features may require separate approval.
+
 ### Custom requests
+
+> This feature is only available from version 13 of this SDK.
 
 If you:
 
 - would like to send a request to an undocumented API (for example you are in a private beta)
 - prefer to bypass the method definitions in the library and specify your request details directly,
-- used the method `Stripe::APIResource.request(...)` to specify your own requests, which will soon be broken
+- used the method `Stripe::APIResource.request(...)` to specify your own requests, which was removed in v13+
 
 you can now use the `raw_request` method on `StripeClient`.
 
 ```ruby
-client = Stripe::StripeClient.new(...)
-resp = client.raw_request(:post, "/v1/beta_endpoint", {param: 123}, {stripe_version: "2022-11-15; feature_beta=v3"})
+client = Stripe::StripeClient.new('sk_test_...')
+resp = client.raw_request(:post, "/v1/beta_endpoint", params: {param: 123}, opts: {stripe_version: "2022-11-15; feature_beta=v3"})
 
 # (Optional) resp is a StripeResponse. You can use `Stripe.deserialize` to get a StripeObject.
 deserialized_resp = client.deserialize(resp.http_body)
@@ -406,16 +423,12 @@ just update-certs
 # or: bundle exec rake update_certs
 ```
 
-Update the bundled [stripe-mock] by editing the version number found in
-`.travis.yml`.
-
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
 [curl]: http://curl.haxx.se/docs/caextract.html
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=ruby
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [versioning]: https://stripe.com/docs/api/versioning?lang=ruby
-[youtube-playlist]: https://www.youtube.com/playlist?list=PLy1nL-pvL2M50RmP6ie-gdcSnfOuQCRYk
 
 <!--
 # vim: set tw=79:

@@ -4,7 +4,7 @@
 module Stripe
   # A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
   #
-  # Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
+  # Related guide: [Subscription schedules](https://docs.stripe.com/billing/subscriptions/subscription-schedules)
   class SubscriptionSchedule < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -13,6 +13,890 @@ module Stripe
     OBJECT_NAME = "subscription_schedule"
     def self.object_name
       "subscription_schedule"
+    end
+
+    class BillingMode < ::Stripe::StripeObject
+      class Flexible < ::Stripe::StripeObject
+        # Controls how invoices and invoice items display proration amounts and discount amounts.
+        attr_reader :proration_discounts
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Configure behavior for flexible billing mode
+      attr_reader :flexible
+      # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+      attr_reader :type
+      # Details on when the current billing_mode was adopted.
+      attr_reader :updated_at
+
+      def self.inner_class_types
+        @inner_class_types = { flexible: Flexible }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class BillingSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        attr_reader :price
+        # Controls which subscription items the billing schedule applies to.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillUntil < ::Stripe::StripeObject
+        class Duration < ::Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          attr_reader :interval
+          # The multiplier applied to the interval.
+          attr_reader :interval_count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        attr_reader :computed_timestamp
+        # Specifies the billing period.
+        attr_reader :duration
+        # If specified, the billing schedule will apply until the specified timestamp.
+        attr_reader :timestamp
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { duration: Duration }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      attr_reader :applies_to
+      # Specifies the end of billing period.
+      attr_reader :bill_until
+      # Unique identifier for the billing schedule.
+      attr_reader :key
+
+      def self.inner_class_types
+        @inner_class_types = { applies_to: AppliesTo, bill_until: BillUntil }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class CurrentPhase < ::Stripe::StripeObject
+      # The end of this phase of the subscription schedule.
+      attr_reader :end_date
+      # The start of this phase of the subscription schedule.
+      attr_reader :start_date
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class DefaultSettings < ::Stripe::StripeObject
+      class AutomaticTax < ::Stripe::StripeObject
+        class Liability < ::Stripe::StripeObject
+          # The connected account being referenced when `type` is `account`.
+          attr_reader :account
+          # Type of the account referenced.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # If Stripe disabled automatic tax, this enum describes why.
+        attr_reader :disabled_reason
+        # Whether Stripe automatically computes tax on invoices created during this phase.
+        attr_reader :enabled
+        # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        attr_reader :liability
+
+        def self.inner_class_types
+          @inner_class_types = { liability: Liability }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillingThresholds < ::Stripe::StripeObject
+        # Monetary threshold that triggers the subscription to create an invoice
+        attr_reader :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+        attr_reader :reset_billing_cycle_anchor
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
+          # The connected account being referenced when `type` is `account`.
+          attr_reader :account
+          # Type of the account referenced.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
+        attr_reader :account_tax_ids
+        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
+        attr_reader :days_until_due
+        # Attribute for field issuer
+        attr_reader :issuer
+
+        def self.inner_class_types
+          @inner_class_types = { issuer: Issuer }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TransferData < ::Stripe::StripeObject
+        # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        attr_reader :amount_percent
+        # The account where funds from the payment will be transferred to upon payment success.
+        attr_reader :destination
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule.
+      attr_reader :application_fee_percent
+      # Attribute for field automatic_tax
+      attr_reader :automatic_tax
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+      attr_reader :billing_cycle_anchor
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+      attr_reader :billing_thresholds
+      # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
+      attr_reader :collection_method
+      # ID of the default payment method for the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
+      attr_reader :default_payment_method
+      # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+      attr_reader :description
+      # Attribute for field invoice_settings
+      attr_reader :invoice_settings
+      # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
+      attr_reader :on_behalf_of
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :phase_effective_at
+      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
+      attr_reader :transfer_data
+
+      def self.inner_class_types
+        @inner_class_types = {
+          automatic_tax: AutomaticTax,
+          billing_thresholds: BillingThresholds,
+          invoice_settings: InvoiceSettings,
+          transfer_data: TransferData,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class LastPriceMigrationError < ::Stripe::StripeObject
+      class FailedTransition < ::Stripe::StripeObject
+        # The original price to be migrated.
+        attr_reader :source_price
+        # The intended resulting price of the migration.
+        attr_reader :target_price
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The time at which the price migration encountered an error.
+      attr_reader :errored_at
+      # The involved price pairs in each failed transition.
+      attr_reader :failed_transitions
+      # The type of error encountered by the price migration.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { failed_transitions: FailedTransition }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Phase < ::Stripe::StripeObject
+      class AddInvoiceItem < ::Stripe::StripeObject
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
+            # The discount end timestamp.
+            attr_reader :timestamp
+            # The discount end type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of the coupon to create a new discount for.
+          attr_reader :coupon
+          # ID of an existing discount on the object (or one of its ancestors) to reuse.
+          attr_reader :discount
+          # Details to determine how long the discount should be applied for.
+          attr_reader :discount_end
+          # ID of the promotion code to create a new discount for.
+          attr_reader :promotion_code
+
+          def self.inner_class_types
+            @inner_class_types = { discount_end: DiscountEnd }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Period < ::Stripe::StripeObject
+          class End < ::Stripe::StripeObject
+            # A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
+            attr_reader :timestamp
+            # Select how to calculate the end of the invoice item period.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Start < ::Stripe::StripeObject
+            # A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
+            attr_reader :timestamp
+            # Select how to calculate the start of the invoice item period.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field end
+          attr_reader :end
+          # Attribute for field start
+          attr_reader :start
+
+          def self.inner_class_types
+            @inner_class_types = { end: End, start: Start }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+        attr_reader :discountable
+        # The stackable discounts that will be applied to the item.
+        attr_reader :discounts
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_reader :metadata
+        # Attribute for field period
+        attr_reader :period
+        # ID of the price used to generate the invoice item.
+        attr_reader :price
+        # The quantity of the invoice item.
+        attr_reader :quantity
+        # The tax rates which apply to the item. When set, the `default_tax_rates` do not apply to this item.
+        attr_reader :tax_rates
+
+        def self.inner_class_types
+          @inner_class_types = { discounts: Discount, period: Period }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AutomaticTax < ::Stripe::StripeObject
+        class Liability < ::Stripe::StripeObject
+          # The connected account being referenced when `type` is `account`.
+          attr_reader :account
+          # Type of the account referenced.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # If Stripe disabled automatic tax, this enum describes why.
+        attr_reader :disabled_reason
+        # Whether Stripe automatically computes tax on invoices created during this phase.
+        attr_reader :enabled
+        # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        attr_reader :liability
+
+        def self.inner_class_types
+          @inner_class_types = { liability: Liability }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BillingThresholds < ::Stripe::StripeObject
+        # Monetary threshold that triggers the subscription to create an invoice
+        attr_reader :amount_gte
+        # Indicates if the `billing_cycle_anchor` should be reset when a threshold is reached. If true, `billing_cycle_anchor` will be updated to the date/time the threshold was last reached; otherwise, the value will remain unchanged. This value may not be `true` if the subscription contains items with plans that have `aggregate_usage=last_ever`.
+        attr_reader :reset_billing_cycle_anchor
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Discount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
+          # The discount end timestamp.
+          attr_reader :timestamp
+          # The discount end type.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Settings < ::Stripe::StripeObject
+          class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+            class Custom < ::Stripe::StripeObject
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              attr_reader :day_of_month
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              attr_reader :hour
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              attr_reader :minute
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              attr_reader :month
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              attr_reader :second
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field custom
+            attr_reader :custom
+            # The type of service period anchor config.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { custom: Custom }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field service_period_anchor_config
+          attr_reader :service_period_anchor_config
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+          attr_reader :start_date
+
+          def self.inner_class_types
+            @inner_class_types = { service_period_anchor_config: ServicePeriodAnchorConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # ID of the coupon to create a new discount for.
+        attr_reader :coupon
+        # ID of an existing discount on the object (or one of its ancestors) to reuse.
+        attr_reader :discount
+        # Details to determine how long the discount should be applied for.
+        attr_reader :discount_end
+        # ID of the promotion code to create a new discount for.
+        attr_reader :promotion_code
+        # Attribute for field settings
+        attr_reader :settings
+
+        def self.inner_class_types
+          @inner_class_types = { discount_end: DiscountEnd, settings: Settings }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class InvoiceSettings < ::Stripe::StripeObject
+        class Issuer < ::Stripe::StripeObject
+          # The connected account being referenced when `type` is `account`.
+          attr_reader :account
+          # Type of the account referenced.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
+        attr_reader :account_tax_ids
+        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
+        attr_reader :days_until_due
+        # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+        attr_reader :issuer
+
+        def self.inner_class_types
+          @inner_class_types = { issuer: Issuer }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Item < ::Stripe::StripeObject
+        class BillingThresholds < ::Stripe::StripeObject
+          # Usage threshold that triggers the subscription to create an invoice
+          attr_reader :usage_gte
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
+            # The discount end timestamp.
+            attr_reader :timestamp
+            # The discount end type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Settings < ::Stripe::StripeObject
+            class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+              class Custom < ::Stripe::StripeObject
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_reader :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_reader :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_reader :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_reader :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_reader :second
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field custom
+              attr_reader :custom
+              # The type of service period anchor config.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { custom: Custom }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field service_period_anchor_config
+            attr_reader :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+            attr_reader :start_date
+
+            def self.inner_class_types
+              @inner_class_types = { service_period_anchor_config: ServicePeriodAnchorConfig }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of the coupon to create a new discount for.
+          attr_reader :coupon
+          # ID of an existing discount on the object (or one of its ancestors) to reuse.
+          attr_reader :discount
+          # Details to determine how long the discount should be applied for.
+          attr_reader :discount_end
+          # ID of the promotion code to create a new discount for.
+          attr_reader :promotion_code
+          # Attribute for field settings
+          attr_reader :settings
+
+          def self.inner_class_types
+            @inner_class_types = { discount_end: DiscountEnd, settings: Settings }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Trial < ::Stripe::StripeObject
+          # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+          attr_reader :converts_to
+          # Determines the type of trial for this item.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
+        attr_reader :billing_thresholds
+        # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
+        attr_reader :discounts
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
+        attr_reader :metadata
+        # ID of the plan to which the customer should be subscribed.
+        attr_reader :plan
+        # ID of the price to which the customer should be subscribed.
+        attr_reader :price
+        # Quantity of the plan to which the customer should be subscribed.
+        attr_reader :quantity
+        # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
+        attr_reader :tax_rates
+        # Options that configure the trial on the subscription item.
+        attr_reader :trial
+        # The ID of the trial offer to apply to the configuration item.
+        attr_reader :trial_offer
+
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_thresholds: BillingThresholds,
+            discounts: Discount,
+            trial: Trial,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PauseCollection < ::Stripe::StripeObject
+        # The payment collection behavior for this subscription while paused.
+        attr_reader :behavior
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TransferData < ::Stripe::StripeObject
+        # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        attr_reader :amount_percent
+        # The account where funds from the payment will be transferred to upon payment success.
+        attr_reader :destination
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TrialSettings < ::Stripe::StripeObject
+        class EndBehavior < ::Stripe::StripeObject
+          # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+          attr_reader :prorate_up_front
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Defines how the subscription should behave when a trial ends.
+        attr_reader :end_behavior
+
+        def self.inner_class_types
+          @inner_class_types = { end_behavior: EndBehavior }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase.
+      attr_reader :add_invoice_items
+      # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account during this phase of the schedule.
+      attr_reader :application_fee_percent
+      # Attribute for field automatic_tax
+      attr_reader :automatic_tax
+      # Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+      attr_reader :billing_cycle_anchor
+      # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
+      attr_reader :billing_thresholds
+      # Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
+      attr_reader :collection_method
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_reader :currency
+      # ID of the default payment method for the subscription schedule. It must belong to the customer associated with the subscription schedule. If not set, invoices will use the default payment method in the customer's invoice settings.
+      attr_reader :default_payment_method
+      # The default tax rates to apply to the subscription during this phase of the subscription schedule.
+      attr_reader :default_tax_rates
+      # Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+      attr_reader :description
+      # The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
+      attr_reader :discounts
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      attr_reader :effective_at
+      # The end of this phase of the subscription schedule.
+      attr_reader :end_date
+      # The invoice settings applicable during this phase.
+      attr_reader :invoice_settings
+      # Subscription items to configure the subscription to during this phase of the subscription schedule.
+      attr_reader :items
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
+      attr_reader :metadata
+      # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
+      attr_reader :on_behalf_of
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+      attr_reader :pause_collection
+      # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
+      attr_reader :proration_behavior
+      # The start of this phase of the subscription schedule.
+      attr_reader :start_date
+      # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
+      attr_reader :transfer_data
+      # Specify behavior of the trial when crossing schedule phase boundaries
+      attr_reader :trial_continuation
+      # When the trial ends within the phase.
+      attr_reader :trial_end
+      # Settings related to any trials on the subscription during this phase.
+      attr_reader :trial_settings
+
+      def self.inner_class_types
+        @inner_class_types = {
+          add_invoice_items: AddInvoiceItem,
+          automatic_tax: AutomaticTax,
+          billing_thresholds: BillingThresholds,
+          discounts: Discount,
+          invoice_settings: InvoiceSettings,
+          items: Item,
+          pause_collection: PauseCollection,
+          transfer_data: TransferData,
+          trial_settings: TrialSettings,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Prebilling < ::Stripe::StripeObject
+      # ID of the prebilling invoice.
+      attr_reader :invoice
+      # The end of the last period for which the invoice pre-bills.
+      attr_reader :period_end
+      # The start of the first period for which the invoice pre-bills.
+      attr_reader :period_start
+      # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+      attr_reader :update_behavior
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    # ID of the Connect Application that created the schedule.
+    attr_reader :application
+    # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+    attr_reader :billing_behavior
+    # The billing mode of the subscription.
+    attr_reader :billing_mode
+    # Billing schedules for this subscription schedule.
+    attr_reader :billing_schedules
+    # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
+    attr_reader :canceled_at
+    # Time at which the subscription schedule was completed. Measured in seconds since the Unix epoch.
+    attr_reader :completed_at
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :created
+    # Object representing the start and end dates for the current phase of the subscription schedule, if it is `active`.
+    attr_reader :current_phase
+    # ID of the customer who owns the subscription schedule.
+    attr_reader :customer
+    # ID of the account who owns the subscription schedule.
+    attr_reader :customer_account
+    # Attribute for field default_settings
+    attr_reader :default_settings
+    # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
+    attr_reader :end_behavior
+    # Unique identifier for the object.
+    attr_reader :id
+    # Details of the most recent price migration that failed for the subscription schedule.
+    attr_reader :last_price_migration_error
+    # The most recent invoice this subscription schedule has generated.
+    attr_reader :latest_invoice
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # Configuration for the subscription schedule's phases.
+    attr_reader :phases
+    # Time period and invoice for a Subscription billed in advance.
+    attr_reader :prebilling
+    # Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
+    attr_reader :released_at
+    # ID of the subscription once managed by the subscription schedule (if it is released).
+    attr_reader :released_subscription
+    # The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://docs.stripe.com/billing/subscriptions/subscription-schedules).
+    attr_reader :status
+    # ID of the subscription managed by the subscription schedule.
+    attr_reader :subscription
+    # ID of the test clock this subscription schedule belongs to.
+    attr_reader :test_clock
+
+    # Amends an existing subscription schedule.
+    def amend(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Amends an existing subscription schedule.
+    def self.amend(schedule, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
+        params: params,
+        opts: opts
+      )
     end
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -83,6 +967,22 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        billing_mode: BillingMode,
+        billing_schedules: BillingSchedule,
+        current_phase: CurrentPhase,
+        default_settings: DefaultSettings,
+        last_price_migration_error: LastPriceMigrationError,
+        phases: Phase,
+        prebilling: Prebilling,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

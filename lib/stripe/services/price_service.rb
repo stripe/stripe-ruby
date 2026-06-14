@@ -3,12 +3,14 @@
 
 module Stripe
   class PriceService < StripeService
-    # Creates a new price for an existing product. The price can be recurring or one-time.
+    # Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
     def create(params = {}, opts = {})
+      params = ::Stripe::PriceCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(method: :post, path: "/v1/prices", params: params, opts: opts, base_address: :api)
     end
 
-    # Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
+    # Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
     def list(params = {}, opts = {})
       request(method: :get, path: "/v1/prices", params: params, opts: opts, base_address: :api)
     end
@@ -24,7 +26,7 @@ module Stripe
       )
     end
 
-    # Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -36,6 +38,35 @@ module Stripe
         opts: opts,
         base_address: :api
       )
+    end
+
+    # Serializes a Price create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Price update request into a batch job JSONL line.
+    def serialize_batch_update(price, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { price: price }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.

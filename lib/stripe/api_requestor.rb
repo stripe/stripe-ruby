@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "digest"
+require "socket"
 require "stripe/instrumentation"
 
 module Stripe
@@ -15,7 +17,6 @@ module Stripe
 
     # Initializes a new APIRequestor
     def initialize(config_arg = {})
-      @system_profiler = SystemProfiler.new
       @last_request_metrics = Queue.new
 
       @config = case config_arg
@@ -110,7 +111,7 @@ module Stripe
       return false if num_retries >= config.max_network_retries
 
       case error
-      when Net::OpenTimeout, Net::ReadTimeout
+      when Net::OpenTimeout, Net::ReadTimeout, Net::HTTPFatalError
         # Retry on timeout-related problems (either on open or read).
         true
       when EOFError, Errno::ECONNREFUSED, Errno::ECONNRESET, # rubocop:todo Lint/DuplicateBranch
@@ -196,10 +197,14 @@ module Stripe
 
     def execute_request(method, path, base_address,
                         params: {}, opts: {}, usage: [])
+      params = params.to_h if params.is_a?(RequestParams)
       http_resp, req_opts = execute_request_internal(
         method, path, base_address, params, opts, usage
       )
       req_opts = RequestOptions.extract_opts_from_hash(req_opts)
+
+      notice = http_resp["stripe-notice"]
+      warn("WARNING: #{notice}") if notice
 
       resp = interpret_response(http_resp)
 
@@ -210,7 +215,8 @@ module Stripe
 
       api_mode = Util.get_api_mode(path)
       Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
-                                                api_mode: api_mode, requestor: self)
+                                                api_mode: api_mode, requestor: self,
+                                                v2_deleted_object: method == :delete && api_mode == :v2)
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
@@ -219,8 +225,11 @@ module Stripe
     # with future non-major changes.
     def execute_request_initialize_from(method, path, base_address, object,
                                         params: {}, opts: {}, usage: [])
-      opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts), opts)
+      opts = RequestOptions.combine_opts(object.instance_variable_get(:@opts) || {}, opts)
       opts = Util.normalize_opts(opts)
+
+      params = params.to_h if params.is_a?(RequestParams)
+
       http_resp, req_opts = execute_request_internal(
         method, path, base_address, params, opts, usage
       )
@@ -270,6 +279,7 @@ module Stripe
               "execute_request_stream requires a read_body_chunk_block"
       end
 
+      params = params.to_h if params.is_a?(RequestParams)
       http_resp, api_key = execute_request_internal(
         method, path, base_address, params, opts, usage, &read_body_chunk_block
       )
@@ -344,6 +354,7 @@ module Stripe
       Errno::ETIMEDOUT => ERROR_MESSAGE_TIMEOUT_CONNECT,
       SocketError => ERROR_MESSAGE_CONNECTION,
 
+      Net::HTTPFatalError => ERROR_MESSAGE_CONNECTION,
       Net::OpenTimeout => ERROR_MESSAGE_TIMEOUT_CONNECT,
       Net::ReadTimeout => ERROR_MESSAGE_TIMEOUT_READ,
 
@@ -465,7 +476,6 @@ module Stripe
       raise ArgumentError, "api_base cannot be empty" if base_url.nil? || base_url.empty?
 
       api_key ||= opts[:api_key]
-      params = Util.objects_to_ids(params)
 
       check_api_key!(api_key)
 
@@ -473,9 +483,10 @@ module Stripe
       query_params = nil
       case method
       when :get, :head, :delete
-        query_params = params
+        query_params = Util.objects_to_ids(params)
       else
-        body_params = params
+        # For v2 body params, serialize nil values to preserve explicit nulls
+        body_params = Util.objects_to_ids(params, serialize_empty: api_mode == :v2)
       end
 
       query_params, path = merge_query_params(query_params, path)
@@ -566,8 +577,10 @@ module Stripe
         headers["Content-Type"] = content_type
 
         # `#to_s` any complex objects like files and the like to build output
-        # that's more condusive to logging.
+        # that's more conducive to logging.
         flattened_params =
+          # https://go/j/RUN_DEVSDK-1956 - this is probably a bug
+          # once fixed, you can remove the exclusions referencing this ticket in .rubocop.yml
           flattened_params.map { |k, v| [k, v.is_a?(String) ? v : v.to_s] }.to_h
 
       elsif api_mode == :v2
@@ -845,6 +858,46 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
+      when "already_canceled"
+        AlreadyCanceledError.new(error_data[:message], **opts)
+      when "already_exists"
+        AlreadyExistsError.new(error_data[:message], **opts)
+      when "blocked_by_stripe"
+        BlockedByStripeError.new(error_data[:message], **opts)
+      when "cannot_proceed"
+        CannotProceedError.new(error_data[:message], **opts, reason: error_data[:reason])
+      when "controlled_by_alternate_resource"
+        ControlledByAlternateResourceError.new(error_data[:message], **opts)
+      when "controlled_by_dashboard"
+        ControlledByDashboardError.new(error_data[:message], **opts)
+      when "feature_not_enabled"
+        FeatureNotEnabledError.new(error_data[:message], **opts)
+      when "financial_account_not_open"
+        FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "fx_quote_expired"
+        FxQuoteExpiredError.new(error_data[:message], **opts)
+      when "insufficient_funds"
+        InsufficientFundsError.new(error_data[:message], **opts)
+      when "invalid_payment_method"
+
+        InvalidPaymentMethodError.new(
+          error_data[:message],
+          **opts,
+          invalid_param: error_data[:invalid_param]
+        )
+
+      when "invalid_payout_method"
+        InvalidPayoutMethodError.new(error_data[:message], **opts)
+      when "non_zero_balance"
+        NonZeroBalanceError.new(error_data[:message], **opts)
+      when "not_cancelable"
+        NotCancelableError.new(error_data[:message], **opts)
+      when "quota_exceeded"
+        QuotaExceededError.new(error_data[:message], **opts)
+      when "rate_limit"
+        RateLimitError.new(error_data[:message], **opts)
+      when "recipient_not_notifiable"
+        RecipientNotNotifiableError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec
@@ -908,7 +961,7 @@ module Stripe
                   "with Stripe. Please let us know at support@stripe.com."
       end
 
-      message = message % base_url
+      message %= base_url
 
       message += " Request was retried #{num_retries} times." if num_retries > 0
 
@@ -919,6 +972,9 @@ module Stripe
     private def request_headers(method, api_mode, req_opts)
       user_agent = "Stripe/#{api_mode} RubyBindings/#{Stripe::VERSION}"
       user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
+
+      ai_agent = SystemProfiler.detect_ai_agent
+      user_agent += " AIAgent/#{ai_agent}" unless ai_agent.empty?
 
       headers = {
         "User-Agent" => user_agent,
@@ -948,7 +1004,7 @@ module Stripe
       headers["Stripe-Account"] = req_opts[:stripe_account] if req_opts[:stripe_account]
       headers["Stripe-Context"] = req_opts[:stripe_context] if req_opts[:stripe_context]
 
-      user_agent = @system_profiler.user_agent
+      user_agent = SystemProfiler.user_agent
       begin
         headers.update(
           "X-Stripe-Client-User-Agent" => JSON.generate(user_agent)
@@ -1050,56 +1106,75 @@ module Stripe
     # in so that we can generate a rich user agent header to help debug
     # integrations.
     class SystemProfiler
-      def self.uname
-        if ::File.exist?("/proc/version")
-          ::File.read("/proc/version").strip
-        else
-          case RbConfig::CONFIG["host_os"]
-          when /linux|darwin|bsd|sunos|solaris|cygwin/i
-            uname_from_system
-          when /mswin|mingw/i
-            uname_from_system_ver
-          else
-            "unknown platform"
-          end
+      UNAME_HASH = begin
+        parts = []
+        parts << if RUBY_PLATFORM.match?(/mswin|mingw|cygwin/)
+                   begin
+                     `ver 2>NUL`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 else
+                   begin
+                     `uname -a 2>/dev/null`.strip
+                   rescue StandardError
+                     ""
+                   end
+                 end
+        parts << begin
+          Socket.gethostname
+        rescue StandardError
+          ""
         end
+        Digest::MD5.hexdigest(parts.join(" "))
+      rescue StandardError
+        ""
       end
 
-      def self.uname_from_system
-        (`uname -a 2>/dev/null` || "").strip
-      rescue Errno::ENOENT
-        "uname executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
+      AI_AGENTS = [
+        # aiAgents: The beginning of the section generated from our OpenAPI spec
+        %w[ANTIGRAVITY_CLI_ALIAS antigravity],
+        %w[CLAUDECODE claude_code],
+        %w[CLINE_ACTIVE cline],
+        %w[CODEX_SANDBOX codex_cli],
+        %w[CODEX_THREAD_ID codex_cli],
+        %w[CODEX_SANDBOX_NETWORK_DISABLED codex_cli],
+        %w[CODEX_CI codex_cli],
+        %w[CURSOR_AGENT cursor],
+        %w[GEMINI_CLI gemini_cli],
+        %w[OPENCLAW_SHELL openclaw],
+        %w[OPENCODE open_code],
+        # aiAgents: The end of the section generated from our OpenAPI spec
+      ].freeze
+
+      def self.detect_ai_agent(env = ENV)
+        AI_AGENTS.each do |env_var, agent_name|
+          return agent_name if env[env_var] && !env[env_var].empty?
+        end
+        ""
       end
 
-      def self.uname_from_system_ver
-        (`ver` || "").strip
-      rescue Errno::ENOENT
-        "ver executable not found"
-      rescue Errno::ENOMEM # couldn't create subprocess
-        "uname lookup failed"
-      end
-
-      def initialize
-        @uname = self.class.uname
-      end
-
-      def user_agent
+      def self.user_agent
         lang_version = "#{RUBY_VERSION} p#{RUBY_PATCHLEVEL} " \
                        "(#{RUBY_RELEASE_DATE})"
 
-        {
+        ua = {
           application: Stripe.app_info,
           bindings_version: Stripe::VERSION,
           lang: "ruby",
           lang_version: lang_version,
-          platform: RUBY_PLATFORM,
           engine: defined?(RUBY_ENGINE) ? RUBY_ENGINE : "",
-          publisher: "stripe",
-          uname: @uname,
-          hostname: Socket.gethostname,
         }.delete_if { |_k, v| v.nil? }
+
+        if Stripe.enable_telemetry?
+          ua[:platform] = RUBY_PLATFORM
+          ua[:source] = UNAME_HASH unless UNAME_HASH.empty?
+        end
+
+        ai_agent = detect_ai_agent
+        ua[:ai_agent] = ai_agent unless ai_agent.empty?
+
+        ua
       end
     end
 

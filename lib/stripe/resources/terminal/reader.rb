@@ -5,7 +5,7 @@ module Stripe
   module Terminal
     # A Reader represents a physical device for accepting payment details.
     #
-    # Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
+    # Related guide: [Connecting to a reader](https://docs.stripe.com/terminal/payments/connect-reader)
     class Reader < APIResource
       extend Stripe::APIOperations::Create
       include Stripe::APIOperations::Delete
@@ -17,7 +17,630 @@ module Stripe
         "terminal.reader"
       end
 
-      # Cancels the current reader action.
+      class Action < ::Stripe::StripeObject
+        class ApiError < ::Stripe::StripeObject
+          # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+          attr_reader :advice_code
+          # For card errors, the ID of the failed charge.
+          attr_reader :charge
+          # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
+          attr_reader :code
+          # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
+          attr_reader :decline_code
+          # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+          attr_reader :doc_url
+          # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+          attr_reader :message
+          # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
+          attr_reader :network_advice_code
+          # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
+          attr_reader :network_decline_code
+          # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+          attr_reader :param
+          # A PaymentIntent guides you through the process of collecting a payment from your customer.
+          # We recommend that you create exactly one PaymentIntent for each order or
+          # customer session in your system. You can reference the PaymentIntent later to
+          # see the history of payment attempts for a particular session.
+          #
+          # A PaymentIntent transitions through
+          # [multiple statuses](/payments/paymentintents/lifecycle)
+          # throughout its lifetime as it interfaces with Stripe.js to perform
+          # authentication flows and ultimately creates at most one successful charge.
+          #
+          # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
+          attr_reader :payment_intent
+          # PaymentMethod objects represent your customer's payment instruments.
+          # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
+          # Customer objects to store instrument details for future payments.
+          #
+          # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
+          attr_reader :payment_method
+          # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+          attr_reader :payment_method_type
+          # A URL to the request log entry in your dashboard.
+          attr_reader :request_log_url
+          # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+          # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+          # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+          #
+          # Create a SetupIntent when you're ready to collect your customer's payment credentials.
+          # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+          # The SetupIntent transitions through multiple [statuses](https://docs.stripe.com/payments/intents#intent-statuses) as it guides
+          # you through the setup process.
+          #
+          # Successful SetupIntents result in payment credentials that are optimized for future payments.
+          # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+          # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
+          # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
+          # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+          # it automatically attaches the resulting payment method to that Customer after successful setup.
+          # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+          # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+          #
+          # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+          #
+          # Related guide: [Setup Intents API](https://docs.stripe.com/payments/setup-intents)
+          attr_reader :setup_intent
+          # Attribute for field source
+          attr_reader :source
+          # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CollectInputs < ::Stripe::StripeObject
+          class Input < ::Stripe::StripeObject
+            class CustomText < ::Stripe::StripeObject
+              # Customize the default description for this input
+              attr_reader :description
+              # Customize the default label for this input's skip button
+              attr_reader :skip_button
+              # Customize the default label for this input's submit button
+              attr_reader :submit_button
+              # Customize the default title for this input
+              attr_reader :title
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Email < ::Stripe::StripeObject
+              # The collected email address
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Numeric < ::Stripe::StripeObject
+              # The collected number
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Phone < ::Stripe::StripeObject
+              # The collected phone number
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Selection < ::Stripe::StripeObject
+              class Choice < ::Stripe::StripeObject
+                # The identifier for the selected choice. Maximum 50 characters.
+                attr_reader :id
+                # The button style for the choice. Can be `primary` or `secondary`.
+                attr_reader :style
+                # The text to be selected. Maximum 30 characters.
+                attr_reader :text
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # List of possible choices to be selected
+              attr_reader :choices
+              # The id of the selected choice
+              attr_reader :id
+              # The text of the selected choice
+              attr_reader :text
+
+              def self.inner_class_types
+                @inner_class_types = { choices: Choice }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Signature < ::Stripe::StripeObject
+              # The File ID of a collected signature image
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Text < ::Stripe::StripeObject
+              # The collected text value
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Toggle < ::Stripe::StripeObject
+              # The toggle's default value. Can be `enabled` or `disabled`.
+              attr_reader :default_value
+              # The toggle's description text. Maximum 50 characters.
+              attr_reader :description
+              # The toggle's title text. Maximum 50 characters.
+              attr_reader :title
+              # The toggle's collected value. Can be `enabled` or `disabled`.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Default text of input being collected.
+            attr_reader :custom_text
+            # Information about a email being collected using a reader
+            attr_reader :email
+            # Information about a number being collected using a reader
+            attr_reader :numeric
+            # Information about a phone number being collected using a reader
+            attr_reader :phone
+            # Indicate that this input is required, disabling the skip button.
+            attr_reader :required
+            # Information about a selection being collected using a reader
+            attr_reader :selection
+            # Information about a signature being collected using a reader
+            attr_reader :signature
+            # Indicate that this input was skipped by the user.
+            attr_reader :skipped
+            # Information about text being collected using a reader
+            attr_reader :text
+            # List of toggles being collected. Values are present if collection is complete.
+            attr_reader :toggles
+            # Type of input being collected.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {
+                custom_text: CustomText,
+                email: Email,
+                numeric: Numeric,
+                phone: Phone,
+                selection: Selection,
+                signature: Signature,
+                text: Text,
+                toggles: Toggle,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # List of inputs to be collected.
+          attr_reader :inputs
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_reader :metadata
+
+          def self.inner_class_types
+            @inner_class_types = { inputs: Input }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CollectPaymentMethod < ::Stripe::StripeObject
+          class CollectConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
+              # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+              attr_reader :amount_eligible
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Enable customer-initiated cancellation when processing this payment.
+            attr_reader :enable_customer_cancellation
+            # Override showing a tipping selection screen on this transaction.
+            attr_reader :skip_tipping
+            # Represents a per-transaction tipping configuration
+            attr_reader :tipping
+
+            def self.inner_class_types
+              @inner_class_types = { tipping: Tipping }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :collect_config
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # PaymentMethod objects represent your customer's payment instruments.
+          # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
+          # Customer objects to store instrument details for future payments.
+          #
+          # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
+          attr_reader :payment_method
+
+          def self.inner_class_types
+            @inner_class_types = { collect_config: CollectConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ConfirmPaymentIntent < ::Stripe::StripeObject
+          class ConfirmConfig < ::Stripe::StripeObject
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
+            attr_reader :return_url
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :confirm_config
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+
+          def self.inner_class_types
+            @inner_class_types = { confirm_config: ConfirmConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PrintContent < ::Stripe::StripeObject
+          class Image < ::Stripe::StripeObject
+            # Creation time of the object (in seconds since the Unix epoch).
+            attr_reader :created_at
+            # The original name of the uploaded file (e.g. `receipt.png`).
+            attr_reader :filename
+            # The size (in bytes) of the uploaded file.
+            attr_reader :size
+            # The format of the uploaded file.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Metadata of an uploaded file
+          attr_reader :image
+          # The type of content to print. Currently supports `image`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { image: Image }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ProcessPaymentIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
+            class Tipping < ::Stripe::StripeObject
+              # Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+              attr_reader :amount_eligible
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Enable customer-initiated cancellation when processing this payment.
+            attr_reader :enable_customer_cancellation
+            # If the customer doesn't abandon authenticating the payment, they're redirected to this URL after completion.
+            attr_reader :return_url
+            # Override showing a tipping selection screen on this transaction.
+            attr_reader :skip_tipping
+            # Represents a per-transaction tipping configuration
+            attr_reader :tipping
+
+            def self.inner_class_types
+              @inner_class_types = { tipping: Tipping }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # Most recent PaymentIntent processed by the reader.
+          attr_reader :payment_intent
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :process_config
+
+          def self.inner_class_types
+            @inner_class_types = { process_config: ProcessConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ProcessSetupIntent < ::Stripe::StripeObject
+          class ProcessConfig < ::Stripe::StripeObject
+            # Enable customer-initiated cancellation when processing this SetupIntent.
+            attr_reader :enable_customer_cancellation
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+          attr_reader :generated_card
+          # Represents a per-setup override of a reader configuration
+          attr_reader :process_config
+          # Most recent SetupIntent processed by the reader.
+          attr_reader :setup_intent
+
+          def self.inner_class_types
+            @inner_class_types = { process_config: ProcessConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class RefundPayment < ::Stripe::StripeObject
+          class RefundPaymentConfig < ::Stripe::StripeObject
+            # Enable customer-initiated cancellation when refunding this payment.
+            attr_reader :enable_customer_cancellation
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Account the payment intent belongs to.
+          attr_reader :account
+          # The amount being refunded.
+          attr_reader :amount
+          # Charge that is being refunded.
+          attr_reader :charge
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+          attr_reader :metadata
+          # Payment intent that is being refunded.
+          attr_reader :payment_intent
+          # The reason for the refund.
+          attr_reader :reason
+          # Unique identifier for the refund object.
+          attr_reader :refund
+          # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+          attr_reader :refund_application_fee
+          # Represents a per-transaction override of a reader configuration
+          attr_reader :refund_payment_config
+          # Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+          attr_reader :reverse_transfer
+
+          def self.inner_class_types
+            @inner_class_types = { refund_payment_config: RefundPaymentConfig }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class SetReaderDisplay < ::Stripe::StripeObject
+          class Cart < ::Stripe::StripeObject
+            class LineItem < ::Stripe::StripeObject
+              # The amount of the line item. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+              attr_reader :amount
+              # Description of the line item.
+              attr_reader :description
+              # The quantity of the line item.
+              attr_reader :quantity
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            attr_reader :currency
+            # List of line items in the cart.
+            attr_reader :line_items
+            # Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            attr_reader :tax
+            # Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            attr_reader :total
+
+            def self.inner_class_types
+              @inner_class_types = { line_items: LineItem }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Cart object to be displayed by the reader, including line items, amounts, and currency.
+          attr_reader :cart
+          # Type of information to be displayed by the reader. Only `cart` is currently supported.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { cart: Cart }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The reader action failed due to an [API error](https://docs.stripe.com/api/errors). Only present when `status` is `failed` and the underlying failure was an API error. Avoid parsing the `message` field for programmatic logic; use `type` or `code` instead. The `message` field is for display to humans only and may be updated at anytime. Requires [reader version](https://docs.stripe.com/terminal/readers/stripe-reader-s700-s710#reader-software-version) 2.42 or later. Readers on older versions always return null.
+        attr_reader :api_error
+        # Represents a reader action to collect customer inputs
+        attr_reader :collect_inputs
+        # Represents a reader action to collect a payment method
+        attr_reader :collect_payment_method
+        # Represents a reader action to confirm a payment
+        attr_reader :confirm_payment_intent
+        # Failure code, only set if status is `failed`.
+        attr_reader :failure_code
+        # Detailed failure message, only set if status is `failed`.
+        attr_reader :failure_message
+        # Represents a reader action to print content
+        attr_reader :print_content
+        # Represents a reader action to process a payment intent
+        attr_reader :process_payment_intent
+        # Represents a reader action to process a setup intent
+        attr_reader :process_setup_intent
+        # Represents a reader action to refund a payment
+        attr_reader :refund_payment
+        # Represents a reader action to set the reader display
+        attr_reader :set_reader_display
+        # Status of the action performed by the reader.
+        attr_reader :status
+        # Type of action performed by the reader.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            api_error: ApiError,
+            collect_inputs: CollectInputs,
+            collect_payment_method: CollectPaymentMethod,
+            confirm_payment_intent: ConfirmPaymentIntent,
+            print_content: PrintContent,
+            process_payment_intent: ProcessPaymentIntent,
+            process_setup_intent: ProcessSetupIntent,
+            refund_payment: RefundPayment,
+            set_reader_display: SetReaderDisplay,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The most recent action performed by the reader.
+      attr_reader :action
+      # Always true for a deleted object
+      attr_reader :deleted
+      # The current software version of the reader.
+      attr_reader :device_sw_version
+      # Device type of the reader.
+      attr_reader :device_type
+      # Unique identifier for the object.
+      attr_reader :id
+      # The local IP address of the reader.
+      attr_reader :ip_address
+      # Custom label given to the reader for easier identification.
+      attr_reader :label
+      # The last time this reader reported to Stripe backend. Timestamp is measured in milliseconds since the Unix epoch. Unlike most other Stripe timestamp fields which use seconds, this field uses milliseconds.
+      attr_reader :last_seen_at
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # The location identifier of the reader.
+      attr_reader :location
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # Serial number of the reader.
+      attr_reader :serial_number
+      # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+      attr_reader :status
+
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -27,11 +650,71 @@ module Stripe
         )
       end
 
-      # Cancels the current reader action.
+      # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def self.cancel_action(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
+      def collect_inputs(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
+      def self.collect_inputs(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
+      def collect_payment_method(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
+      def self.collect_payment_method(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
+      def confirm_payment_intent(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
+      def self.confirm_payment_intent(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -77,7 +760,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -87,7 +770,7 @@ module Stripe
         )
       end
 
-      # Initiates a payment flow on a Reader.
+      # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
       def self.process_payment_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -97,7 +780,7 @@ module Stripe
         )
       end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -107,7 +790,7 @@ module Stripe
         )
       end
 
-      # Initiates a setup intent flow on a Reader.
+      # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
       def self.process_setup_intent(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -117,7 +800,7 @@ module Stripe
         )
       end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       def refund_payment(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -127,7 +810,7 @@ module Stripe
         )
       end
 
-      # Initiates a refund on a Reader
+      # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
       def self.refund_payment(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -137,7 +820,7 @@ module Stripe
         )
       end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -147,7 +830,7 @@ module Stripe
         )
       end
 
-      # Sets reader display to show cart details.
+      # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       def self.set_reader_display(reader, params = {}, opts = {})
         request_stripe_object(
           method: :post,
@@ -196,6 +879,54 @@ module Stripe
             opts: opts
           )
         end
+
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
+        def self.succeed_input_collection(reader, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(reader) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to trigger a successful input collection on a simulated reader.
+        def succeed_input_collection(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        def self.timeout_input_collection(reader, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(reader) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
+        def timeout_input_collection(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { action: Action }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

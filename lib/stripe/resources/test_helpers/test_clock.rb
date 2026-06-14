@@ -16,6 +16,51 @@ module Stripe
         "test_helpers.test_clock"
       end
 
+      class StatusDetails < ::Stripe::StripeObject
+        class Advancing < ::Stripe::StripeObject
+          # The `frozen_time` that the Test Clock is advancing towards.
+          attr_reader :target_frozen_time
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field advancing
+        attr_reader :advancing
+
+        def self.inner_class_types
+          @inner_class_types = { advancing: Advancing }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # Always true for a deleted object
+      attr_reader :deleted
+      # Time at which this clock is scheduled to auto delete.
+      attr_reader :deletes_after
+      # Time at which all objects belonging to this clock are frozen.
+      attr_reader :frozen_time
+      # Unique identifier for the object.
+      attr_reader :id
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # The custom name supplied at creation.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The status of the Test Clock.
+      attr_reader :status
+      # Attribute for field status_details
+      attr_reader :status_details
+
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       def advance(params = {}, opts = {})
         request_stripe_object(
@@ -74,6 +119,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { status_details: StatusDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

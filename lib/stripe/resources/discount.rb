@@ -2,14 +2,84 @@
 # frozen_string_literal: true
 
 module Stripe
-  # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+  # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
   # It contains information about when the discount began, when it will end, and what it is applied to.
   #
-  # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+  # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
   class Discount < StripeObject
     OBJECT_NAME = "discount"
     def self.object_name
       "discount"
+    end
+
+    class ServicePeriodDetails < ::Stripe::StripeObject
+      # The date that the service period was anchored to.
+      attr_reader :service_period_anchored_at
+      # The date that the service period started.
+      attr_reader :start_date
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Source < ::Stripe::StripeObject
+      # The coupon that was redeemed to create this discount.
+      attr_reader :coupon
+      # The source type of the discount.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    # The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Not present for subscription mode.
+    attr_reader :checkout_session
+    # The ID of the customer associated with this discount.
+    attr_reader :customer
+    # The ID of the account representing the customer associated with this discount.
+    attr_reader :customer_account
+    # Always true for a deleted object
+    attr_reader :deleted
+    # If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
+    attr_reader :end
+    # The ID of the discount object. Discounts can't be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
+    attr_reader :id
+    # The invoice that the discount's coupon was applied to, if it was applied directly to a particular invoice.
+    attr_reader :invoice
+    # The invoice item `id` (or invoice line item `id` for invoice line items of type='subscription') that the discount's coupon was applied to, if it was applied directly to a particular invoice item or invoice line item.
+    attr_reader :invoice_item
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # The promotion code applied to create this discount.
+    attr_reader :promotion_code
+    # The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
+    attr_reader :schedule
+    # Attribute for field service_period_details
+    attr_reader :service_period_details
+    # Attribute for field source
+    attr_reader :source
+    # Date that the coupon was applied.
+    attr_reader :start
+    # The subscription that this coupon is applied to, if it is applied to a particular subscription.
+    attr_reader :subscription
+    # The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
+    attr_reader :subscription_item
+
+    def self.inner_class_types
+      @inner_class_types = { service_period_details: ServicePeriodDetails, source: Source }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

@@ -6,7 +6,7 @@ module Stripe
     attr_reader :secrets
 
     def initialize(requestor)
-      super(requestor)
+      super
       @secrets = Stripe::Apps::SecretService.new(@requestor)
     end
   end

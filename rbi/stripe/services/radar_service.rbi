@@ -1,0 +1,15 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  class RadarService < StripeService
+    attr_reader :account_evaluations
+    attr_reader :customer_evaluations
+    attr_reader :early_fraud_warnings
+    attr_reader :issuing_authorization_evaluations
+    attr_reader :payment_evaluations
+    attr_reader :value_lists
+    attr_reader :value_list_items
+  end
+end

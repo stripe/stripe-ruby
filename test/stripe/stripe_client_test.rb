@@ -158,7 +158,7 @@ module Stripe
 
         assert_equal nil, req.headers["Content-Type"]
 
-        assert resp.is_a?(Stripe::V2::Event)
+        assert resp.is_a?(Stripe::V2::Core::Event)
         assert_equal "sk_test_123", resp.instance_variable_get(:@opts)[:api_key]
         assert_equal 200, resp.last_response.http_status
       end
@@ -246,6 +246,25 @@ module Stripe
         assert_equal "acct_123", req.headers["Stripe-Account"]
         assert_equal "wksp_123", req.headers["Stripe-Context"]
         assert_equal "idemp_123", req.headers["Idempotency-Key"]
+      end
+
+      should "allow a request with custom headers but not persist to subsequent requests" do
+        req1 = nil
+        req2 = nil
+        stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .with { |request| req1 = request }
+          .to_return(body: JSON.generate(object: "customer", id: "cus_123"))
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers/cus_123")
+          .with { |request| req2 = request }
+          .to_return(body: JSON.generate(object: "customer", id: "cus_123"))
+
+        client = StripeClient.new("sk_test_123")
+        Stripe.api_key = "sk_test_123"
+
+        cus = client.v1.customers.create({}, { "A-Header": "foo" })
+        assert_equal "foo", req1.headers["A-Header"]
+        cus.refresh
+        assert_nil req2.headers["A-Header"]
       end
 
       should "carry over client options to objects" do
@@ -361,7 +380,7 @@ module Stripe
 
         obj = @client.deserialize(expected_body, api_mode: :v2)
 
-        assert_equal obj.class, Stripe::V2::Event
+        assert_equal obj.class, Stripe::V2::Core::Event
         assert_equal obj.id, "evt_123"
       end
     end

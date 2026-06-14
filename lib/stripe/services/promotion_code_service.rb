@@ -3,7 +3,7 @@
 
 module Stripe
   class PromotionCodeService < StripeService
-    # A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+    # A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
     def create(params = {}, opts = {})
       request(
         method: :post,
@@ -25,7 +25,7 @@ module Stripe
       )
     end
 
-    # Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://stripe.com/docs/api/promotion_codes/list) with the desired code.
+    # Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
     def retrieve(promotion_code, params = {}, opts = {})
       request(
         method: :get,
@@ -34,6 +34,35 @@ module Stripe
         opts: opts,
         base_address: :api
       )
+    end
+
+    # Serializes a PromotionCode create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a PromotionCode update request into a batch job JSONL line.
+    def serialize_batch_update(promotion_code, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { promotion_code: promotion_code }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.

@@ -6,7 +6,7 @@ module Stripe
     attr_reader :transactions
 
     def initialize(requestor)
-      super(requestor)
+      super
       @transactions = Stripe::SourceTransactionService.new(@requestor)
     end
 
@@ -39,7 +39,7 @@ module Stripe
 
     # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
-    # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+    # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
     def update(source, params = {}, opts = {})
       request(
         method: :post,

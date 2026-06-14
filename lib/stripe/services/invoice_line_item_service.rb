@@ -14,11 +14,28 @@ module Stripe
       )
     end
 
+    # Serializes an InvoiceLineItem update request into a batch job JSONL line.
+    def serialize_batch_update(invoice, line_item_id, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { invoice: invoice, line_item_id: line_item_id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
     # item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
     # Updating an invoice's line item is only possible before the invoice is finalized.
     def update(invoice, line_item_id, params = {}, opts = {})
+      params = ::Stripe::InvoiceLineItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: format("/v1/invoices/%<invoice>s/lines/%<line_item_id>s", { invoice: CGI.escape(invoice), line_item_id: CGI.escape(line_item_id) }),

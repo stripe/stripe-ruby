@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem "cgi"
   gem "mocha", "~> 1.16.0"
   gem "rack", ">= 2.0.6"
   gem "rake"
@@ -24,7 +25,7 @@ group :development do
   # up-to-date, but it's not the end of the world if it's not.
   #
   # The latest version of rubocop is only compatible with Ruby 2.7+
-  gem "rubocop", "1.57.2" if RUBY_VERSION >= "2.7"
+  gem "rubocop", "1.75.2" if RUBY_VERSION >= "2.7"
 
   gem "sorbet"
   gem "tapioca"
@@ -33,5 +34,9 @@ group :development do
     gem "byebug"
     gem "pry"
     gem "pry-byebug"
+  end
+
+  platforms :jruby do
+    gem "rbi", "0.2.4" # jruby does not support rbs, a new dependency in 0.3.0
   end
 end

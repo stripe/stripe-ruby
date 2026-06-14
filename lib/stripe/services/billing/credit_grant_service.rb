@@ -6,6 +6,10 @@ module Stripe
     class CreditGrantService < StripeService
       # Creates a credit grant.
       def create(params = {}, opts = {})
+        unless params.is_a?(Stripe::RequestParams)
+          params = ::Stripe::Billing::CreditGrantCreateParams.coerce_params(params)
+        end
+
         request(
           method: :post,
           path: "/v1/billing/credit_grants",

@@ -6,12 +6,14 @@ module Stripe
     attr_reader :features
 
     def initialize(requestor)
-      super(requestor)
+      super
       @features = Stripe::ProductFeatureService.new(@requestor)
     end
 
     # Creates a new product object.
     def create(params = {}, opts = {})
+      params = ::Stripe::ProductCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(method: :post, path: "/v1/products", params: params, opts: opts, base_address: :api)
     end
 
@@ -42,7 +44,7 @@ module Stripe
       )
     end
 
-    # Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -54,6 +56,50 @@ module Stripe
         opts: opts,
         base_address: :api
       )
+    end
+
+    # Serializes a Product create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Product delete request into a batch job JSONL line.
+    def serialize_batch_delete(id, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { id: id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Product update request into a batch job JSONL line.
+    def serialize_batch_update(id, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { id: id }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

@@ -1,21 +1,25 @@
 # frozen_string_literal: true
 
 require "json"
+require "stripe/events/unknown_event_notification"
 
 module Stripe
   class StripeClient
     # attr_readers: The beginning of the section generated from our OpenAPI spec
     attr_reader :v1
     attr_reader :v2
-
     # attr_readers: The end of the section generated from our OpenAPI spec
+
+    # For internal use only. Does not provide a stable API and may be broken
+    # with future non-major changes.
+    attr_reader :requestor
 
     # For internal use only. Does not provide a stable API and may be broken
     # with future non-major changes.
     CLIENT_OPTIONS = Set.new(%i[api_key stripe_account stripe_context api_version api_base uploads_base connect_base meter_events_base client_id])
 
     # Initializes a new StripeClient
-    def initialize(api_key, # rubocop:todo Metrics/ParameterLists
+    def initialize(api_key,
                    stripe_account: nil,
                    stripe_context: nil,
                    stripe_version: nil,
@@ -42,7 +46,7 @@ module Stripe
         connect_base: connect_base,
         meter_events_base: meter_events_base,
         client_id: client_id,
-      }.reject { |_k, v| v.nil? }
+      }.compact
 
       config = StripeConfiguration.client_init(config_opts)
       @requestor = APIRequestor.new(config)
@@ -59,7 +63,7 @@ module Stripe
     extend Gem::Deprecate
     deprecate :request, :raw_request, 2024, 9
 
-    def parse_thin_event(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
+    def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
 
       # v2 events use the same signing mechanism as v1 events
@@ -67,14 +71,23 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
-      Stripe::ThinEvent.new(parsed)
+      if parsed[:object] == "event"
+        raise ArgumentError,
+              "You passed a webhook payload to StripeClient#parse_event_notification, which " \
+              "expects an event notification. Use Webhook.construct_event instead."
+      end
+
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
+
+      cls.new(parsed, self)
     end
 
-    def raw_request(method, url, base_address: :api, params: {}, opts: {})
+    def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)
 
-      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
+      params = params.to_h if params.is_a?(Stripe::RequestParams)
+      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: usage || ["raw_request"])
 
       @requestor.interpret_response(resp)
     end
@@ -82,6 +95,10 @@ module Stripe
     def deserialize(data, api_mode: :v1)
       data = JSON.parse(data) if data.is_a?(String)
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
+    end
+
+    def notification_handler(webhook_secret, &fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
     end
   end
 end

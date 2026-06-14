@@ -7,7 +7,7 @@ module Stripe
       attr_reader :event_summaries
 
       def initialize(requestor)
-        super(requestor)
+        super
         @event_summaries = Stripe::Billing::MeterEventSummaryService.new(@requestor)
       end
 

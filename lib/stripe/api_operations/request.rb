@@ -34,6 +34,7 @@ module Stripe
                                                       method, url, base_address,
                                                       params, opts, usage,
                                                       &read_body_chunk_block)
+          params = params.to_h if params.is_a?(Stripe::RequestParams)
           params ||= {}
 
           error_on_invalid_params(params)

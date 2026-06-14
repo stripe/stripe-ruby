@@ -9,5 +9,25 @@ module Stripe
     def self.object_name
       "product_feature"
     end
+
+    # Always true for a deleted object
+    attr_reader :deleted
+    # A feature represents a monetizable ability or functionality in your system.
+    # Features can be assigned to products, and when those products are purchased, Stripe will create an entitlement to the feature for the purchasing customer.
+    attr_reader :entitlement_feature
+    # Unique identifier for the object.
+    attr_reader :id
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

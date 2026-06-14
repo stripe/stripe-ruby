@@ -12,6 +12,21 @@ module Stripe
         "billing.meter_event"
       end
 
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # The name of the meter event. Corresponds with the `event_name` field on a meter.
+      attr_reader :event_name
+      # A unique identifier for the event.
+      attr_reader :identifier
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The payload of the event. This contains the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/meters/configure#meter-configuration-attributes).
+      attr_reader :payload
+      # The timestamp passed in when creating the event. Measured in seconds since the Unix epoch.
+      attr_reader :timestamp
+
       # Creates a billing meter event.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -20,6 +35,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -7,7 +7,7 @@ module Stripe
       attr_reader :line_items
 
       def initialize(requestor)
-        super(requestor)
+        super
         @line_items = Stripe::Tax::TransactionLineItemService.new(@requestor)
       end
 
@@ -42,6 +42,20 @@ module Stripe
           opts: opts,
           base_address: :api
         )
+      end
+
+      # Serializes a Transaction create_reversal request into a batch job JSONL line.
+      def serialize_batch_create_reversal(params = {}, opts = {})
+        request_id = SecureRandom.uuid
+        stripe_version = opts[:stripe_version] || Stripe.api_version
+
+        request_body = {
+          id: request_id,
+          params: params,
+          stripe_version: stripe_version,
+        }
+        request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+        JSON.generate(request_body)
       end
     end
   end

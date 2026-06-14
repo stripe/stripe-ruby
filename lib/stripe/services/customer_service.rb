@@ -3,17 +3,17 @@
 
 module Stripe
   class CustomerService < StripeService
-    attr_reader :cash_balance, :balance_transactions, :cash_balance_transactions, :payment_sources, :tax_ids, :payment_methods, :funding_instructions
+    attr_reader :balance_transactions, :cash_balance, :cash_balance_transactions, :funding_instructions, :payment_methods, :payment_sources, :tax_ids
 
     def initialize(requestor)
-      super(requestor)
-      @cash_balance = Stripe::CustomerCashBalanceService.new(@requestor)
+      super
       @balance_transactions = Stripe::CustomerBalanceTransactionService.new(@requestor)
+      @cash_balance = Stripe::CustomerCashBalanceService.new(@requestor)
       @cash_balance_transactions = Stripe::CustomerCashBalanceTransactionService.new(@requestor)
+      @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
+      @payment_methods = Stripe::CustomerPaymentMethodService.new(@requestor)
       @payment_sources = Stripe::CustomerPaymentSourceService.new(@requestor)
       @tax_ids = Stripe::CustomerTaxIdService.new(@requestor)
-      @payment_methods = Stripe::CustomerPaymentMethodService.new(@requestor)
-      @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
     end
 
     # Creates a new customer object.
@@ -59,7 +59,7 @@ module Stripe
       )
     end
 
-    # Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -73,7 +73,66 @@ module Stripe
       )
     end
 
-    # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
+    # Serializes a Customer create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Customer delete request into a batch job JSONL line.
+    def serialize_batch_delete(customer, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { customer: customer }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Customer delete_discount request into a batch job JSONL line.
+    def serialize_batch_delete_discount(customer, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { customer: customer }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes a Customer update request into a batch job JSONL line.
+    def serialize_batch_update(customer, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { customer: customer }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.
     def update(customer, params = {}, opts = {})

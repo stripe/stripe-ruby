@@ -1,0 +1,551 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module Issuing
+    # As a [card issuer](https://docs.stripe.com/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
+    #
+    # Related guide: [Issuing disputes](https://docs.stripe.com/issuing/purchases/disputes)
+    class Dispute < APIResource
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the confirmed transaction.
+          sig { returns(String) }
+          def chain; end
+          # When the transaction was confirmed onchain.
+          sig { returns(Integer) }
+          def confirmed_at; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the transaction.
+          sig { returns(String) }
+          def to_address; end
+          # The blockchain transaction hash.
+          sig { returns(String) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the failed transaction.
+          sig { returns(String) }
+          def chain; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # When the transaction failed.
+          sig { returns(Integer) }
+          def failed_at; end
+          # The reason the transaction failed.
+          sig { returns(String) }
+          def failure_reason; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the attempted transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the attempted transaction when one exists.
+          sig { returns(T.nilable(String)) }
+          def to_address; end
+          # The blockchain transaction hash when one exists.
+          sig { returns(T.nilable(String)) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionConfirmed)) }
+        def crypto_transaction_confirmed; end
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionFailed)) }
+        def crypto_transaction_failed; end
+        # The crypto transaction variant for this array entry.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Evidence < ::Stripe::StripeObject
+        class Canceled < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Date when order was canceled.
+          sig { returns(T.nilable(Integer)) }
+          def canceled_at; end
+          # Whether the cardholder was provided with a cancellation policy.
+          sig { returns(T.nilable(T::Boolean)) }
+          def cancellation_policy_provided; end
+          # Reason for canceling the order.
+          sig { returns(T.nilable(String)) }
+          def cancellation_reason; end
+          # Date when the cardholder expected to receive the product.
+          sig { returns(T.nilable(Integer)) }
+          def expected_at; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Description of the merchandise or service that was purchased.
+          sig { returns(T.nilable(String)) }
+          def product_description; end
+          # Whether the product was a merchandise or service.
+          sig { returns(T.nilable(String)) }
+          def product_type; end
+          # Result of cardholder's attempt to return the product.
+          sig { returns(T.nilable(String)) }
+          def return_status; end
+          # Date when the product was returned or attempted to be returned.
+          sig { returns(T.nilable(Integer)) }
+          def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Duplicate < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def card_statement; end
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def cash_receipt; end
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def check_image; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
+          sig { returns(T.nilable(String)) }
+          def original_transaction; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Fraudulent < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MerchandiseNotAsDescribed < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Date when the product was received.
+          sig { returns(T.nilable(Integer)) }
+          def received_at; end
+          # Description of the cardholder's attempt to return the product.
+          sig { returns(T.nilable(String)) }
+          def return_description; end
+          # Result of cardholder's attempt to return the product.
+          sig { returns(T.nilable(String)) }
+          def return_status; end
+          # Date when the product was returned or attempted to be returned.
+          sig { returns(T.nilable(Integer)) }
+          def returned_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class NoValidAuthorization < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class NotReceived < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Date when the cardholder expected to receive the product.
+          sig { returns(T.nilable(Integer)) }
+          def expected_at; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Description of the merchandise or service that was purchased.
+          sig { returns(T.nilable(String)) }
+          def product_description; end
+          # Whether the product was a merchandise or service.
+          sig { returns(T.nilable(String)) }
+          def product_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Other < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Description of the merchandise or service that was purchased.
+          sig { returns(T.nilable(String)) }
+          def product_description; end
+          # Whether the product was a merchandise or service.
+          sig { returns(T.nilable(String)) }
+          def product_type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ServiceNotAsDescribed < ::Stripe::StripeObject
+          # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+          sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
+          def additional_documentation; end
+          # Date when order was canceled.
+          sig { returns(T.nilable(Integer)) }
+          def canceled_at; end
+          # Reason for canceling the order.
+          sig { returns(T.nilable(String)) }
+          def cancellation_reason; end
+          # Explanation of why the cardholder is disputing this transaction.
+          sig { returns(T.nilable(String)) }
+          def explanation; end
+          # Date when the product was received.
+          sig { returns(T.nilable(Integer)) }
+          def received_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field canceled
+        sig { returns(T.nilable(Canceled)) }
+        def canceled; end
+        # Attribute for field duplicate
+        sig { returns(T.nilable(Duplicate)) }
+        def duplicate; end
+        # Attribute for field fraudulent
+        sig { returns(T.nilable(Fraudulent)) }
+        def fraudulent; end
+        # Attribute for field merchandise_not_as_described
+        sig { returns(T.nilable(MerchandiseNotAsDescribed)) }
+        def merchandise_not_as_described; end
+        # Attribute for field no_valid_authorization
+        sig { returns(T.nilable(NoValidAuthorization)) }
+        def no_valid_authorization; end
+        # Attribute for field not_received
+        sig { returns(T.nilable(NotReceived)) }
+        def not_received; end
+        # Attribute for field other
+        sig { returns(T.nilable(Other)) }
+        def other; end
+        # The reason for filing the dispute. Its value will match the field containing the evidence.
+        sig { returns(String) }
+        def reason; end
+        # Attribute for field service_not_as_described
+        sig { returns(T.nilable(ServiceNotAsDescribed)) }
+        def service_not_as_described; end
+        def self.inner_class_types
+          @inner_class_types = {
+            canceled: Canceled,
+            duplicate: Duplicate,
+            fraudulent: Fraudulent,
+            merchandise_not_as_described: MerchandiseNotAsDescribed,
+            no_valid_authorization: NoValidAuthorization,
+            not_received: NotReceived,
+            other: Other,
+            service_not_as_described: ServiceNotAsDescribed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class NetworkLifecycle < ::Stripe::StripeObject
+        class DisputeResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's initial dispute response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationSubmission < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration submission failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information related to the acquiring merchant's initial response to this dispute.
+        sig { returns(T.nilable(DisputeResponse)) }
+        def dispute_response; end
+        # Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        sig { returns(T.nilable(PreArbitrationResponse)) }
+        def pre_arbitration_response; end
+        # Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        sig { returns(T.nilable(PreArbitrationSubmission)) }
+        def pre_arbitration_submission; end
+        def self.inner_class_types
+          @inner_class_types = {
+            dispute_response: DisputeResponse,
+            pre_arbitration_response: PreArbitrationResponse,
+            pre_arbitration_submission: PreArbitrationSubmission,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class ProvisionalCredit < ::Stripe::StripeObject
+        # The time by which the platform must grant a provisional credit to the consumer.
+        sig { returns(T.nilable(Integer)) }
+        def grant_deadline; end
+        # The time at which the platform reported granting the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def granted_at; end
+        # The earliest time after which the platform can revoke the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revocable_after; end
+        # The time at which the platform reported revoking the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revoked_at; end
+        # The status of the provisional credit obligation.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Treasury < ::Stripe::StripeObject
+        # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
+        sig { returns(T.nilable(String)) }
+        def debit_reversal; end
+        # The Treasury [ReceivedDebit](https://docs.stripe.com/api/treasury/received_debits) that is being disputed.
+        sig { returns(String) }
+        def received_debit; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Disputed amount in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
+      sig { returns(Integer) }
+      def amount; end
+      # List of balance transactions associated with the dispute.
+      sig { returns(T.nilable(T::Array[::Stripe::BalanceTransaction])) }
+      def balance_transactions; end
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def created; end
+      # Array of onchain crypto transactions linked to this resource.
+      sig { returns(T.nilable(T::Array[CryptoTransaction])) }
+      def crypto_transactions; end
+      # The currency the `transaction` was made in.
+      sig { returns(String) }
+      def currency; end
+      # Attribute for field evidence
+      sig { returns(Evidence) }
+      def evidence; end
+      # Unique identifier for the object.
+      sig { returns(String) }
+      def id; end
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      sig { returns(T::Boolean) }
+      def livemode; end
+      # The enum that describes the dispute loss outcome. If the dispute is not lost, this field will be absent. New enum values may be added in the future, so be sure to handle unknown values.
+      sig { returns(T.nilable(String)) }
+      def loss_reason; end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      sig { returns(T::Hash[String, String]) }
+      def metadata; end
+      # Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
+      sig { returns(T.nilable(NetworkLifecycle)) }
+      def network_lifecycle; end
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      def object; end
+      # Provisional credit details for this dispute.
+      sig { returns(T.nilable(ProvisionalCredit)) }
+      def provisional_credit; end
+      # Current status of the dispute.
+      sig { returns(String) }
+      def status; end
+      # The transaction being disputed.
+      sig { returns(T.any(String, ::Stripe::Issuing::Transaction)) }
+      def transaction; end
+      # [Treasury](https://docs.stripe.com/api/treasury) details related to this dispute if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts)
+      sig { returns(T.nilable(Treasury)) }
+      def treasury; end
+      # Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
+      sig {
+        params(params: T.any(::Stripe::Issuing::DisputeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+       }
+      def self.create(params = {}, opts = {}); end
+
+      # Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+      sig {
+        params(params: T.any(::Stripe::Issuing::DisputeListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
+
+      # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+      sig {
+        params(params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+       }
+      def submit(params = {}, opts = {}); end
+
+      # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+      sig {
+        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+       }
+      def self.submit(dispute, params = {}, opts = {}); end
+
+      # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
+      sig {
+        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+       }
+      def self.update(dispute, params = {}, opts = {}); end
+    end
+  end
+end

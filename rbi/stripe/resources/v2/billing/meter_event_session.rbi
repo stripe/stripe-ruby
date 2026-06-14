@@ -1,0 +1,32 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module Billing
+      # A Meter Event Session is an authentication session for the high-throughput meter event API. Meter Event Sessions provide temporary authentication tokens with expiration times, enabling secure and efficient bulk submission of usage events.
+      class MeterEventSession < APIResource
+        # The authentication token for this session. Use this token when calling the
+        # high-throughput meter event API.
+        sig { returns(String) }
+        def authentication_token; end
+        # The creation time of this session.
+        sig { returns(String) }
+        def created; end
+        # The time at which this session expires.
+        sig { returns(String) }
+        def expires_at; end
+        # The unique ID of this auth session.
+        sig { returns(String) }
+        def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+      end
+    end
+  end
+end

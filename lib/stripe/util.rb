@@ -1,19 +1,25 @@
 # frozen_string_literal: true
 
-require "cgi"
+require "cgi/escape"
 
 module Stripe
   module Util
-    def self.objects_to_ids(obj)
+    def self.objects_to_ids(obj, serialize_empty: false)
       case obj
       when APIResource
         obj.id
       when Hash
         res = {}
-        obj.each { |k, v| res[k] = objects_to_ids(v) unless v.nil? }
+        obj.each do |k, v|
+          if !v.nil?
+            res[k] = objects_to_ids(v, serialize_empty: serialize_empty)
+          elsif serialize_empty
+            res[k] = nil
+          end
+        end
         res
       when Array
-        obj.map { |v| objects_to_ids(v) }
+        obj.map { |v| objects_to_ids(v, serialize_empty: serialize_empty) }
       else
         obj
       end
@@ -27,8 +33,12 @@ module Stripe
       @v2_object_classes ||= Stripe::ObjectTypes.v2_object_names_to_classes
     end
 
-    def self.thin_event_classes
-      @thin_event_classes ||= Stripe::EventTypes.thin_event_names_to_classes
+    def self.v2_event_classes
+      @v2_event_classes ||= Stripe::EventTypes.v2_event_types_to_classes
+    end
+
+    def self.event_notification_classes
+      @event_notification_classes ||= Stripe::EventTypes.event_notification_types_to_classes
     end
 
     def self.object_name_matches_class?(object_name, klass)
@@ -96,8 +106,8 @@ module Stripe
     #   will be reused on subsequent API calls.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
-    def self.convert_to_stripe_object(data, opts = {}, api_mode: :v1, requestor: nil)
-      convert_to_stripe_object_with_params(data, {}, opts, api_mode: api_mode, requestor: requestor)
+    def self.convert_to_stripe_object(data, opts = {}, api_mode: :v1, requestor: nil, klass: nil)
+      convert_to_stripe_object_with_params(data, {}, opts, api_mode: api_mode, requestor: requestor, klass: klass)
     end
 
     # Converts a hash of fields or an array of hashes into a +StripeObject+ or
@@ -115,23 +125,26 @@ module Stripe
     # * +last_response+ - The raw response associated with the object.
     # * +api_mode+ - The API mode to use when converting the object, either :v1 or :v2.
     # * +requestor+ - The requestor to use when constructing the object.
+    # * +v2_deleted_object+ - If true, ignore the object tag for casting purposes
+    # * +klass+ - The class to use for inner types
     def self.convert_to_stripe_object_with_params(
       data,
       params,
       opts = {},
       last_response = nil,
       api_mode: :v1,
-      requestor: nil
+      requestor: nil,
+      v2_deleted_object: false,
+      klass: nil
     )
       opts = normalize_opts(opts)
 
       case data
       when Array
-        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode, requestor: requestor) }
+        data.map { |i| convert_to_stripe_object(i, opts, api_mode: api_mode, requestor: requestor, klass: klass) }
       when Hash
         # TODO: This is a terrible hack.
-        # Waiting on https://jira.corp.stripe.com/browse/API_SERVICES-3167 to add
-        # an object in v2 lists
+        # Waiting on https://go/j/API_SERVICES-3167 to add an object in v2 lists
         if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url)
           return V2::ListObject.construct_from(data, opts, last_response, api_mode, requestor)
         end
@@ -140,9 +153,13 @@ module Stripe
         # to generic StripeObject
         object_type = data[:type] || data["type"]
         object_name = data[:object] || data["object"]
-        object_class = if api_mode == :v2
-                         if object_name == "v2.core.event" && thin_event_classes.key?(object_type)
-                           thin_event_classes.fetch(object_type)
+        object_class = if klass
+                         klass
+                       elsif api_mode == :v2
+                         if v2_deleted_object
+                           V2::DeletedObject
+                         elsif object_name == "v2.core.event" && v2_event_classes.key?(object_type)
+                           v2_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(
                              object_name, StripeObject
@@ -259,13 +276,10 @@ module Stripe
         if elem.is_a?(Hash)
           result += flatten_params(elem, api_mode, "#{calculated_key}[#{i}]")
         elsif elem.is_a?(Array)
-          result += flatten_params_array(elem, api_mode, calculated_key)
+          result += flatten_params_array(elem, api_mode, "#{calculated_key}[#{i}]")
         else
-          result << if api_mode == :v2
-                      [calculated_key, elem]
-                    else
-                      ["#{calculated_key}[#{i}]", elem]
-                    end
+          # Always use indexed format for arrays
+          result << ["#{calculated_key}[#{i}]", elem]
         end
       end
       result
@@ -300,13 +314,25 @@ module Stripe
       when String
         { api_key: opts }
       when Hash
-        check_api_key!(opts.fetch(:api_key)) if opts.key?(:api_key)
+        # If the user is using request signing for authentication,
+        # no need to check the api_key per request.
+        if !(opts.key?(:client) &&
+           opts.fetch(:client).config.authenticator) &&
+           opts.key?(:api_key)
+          check_api_key!(opts.fetch(:api_key))
+        end
         # Explicitly use dup here instead of clone to avoid preserving freeze
         # state on input params.
         opts.dup
       else
         raise TypeError, "normalize_opts expects a string or a hash"
       end
+    end
+
+    # Return false for strings that are invalid variable names
+    # Does NOT expect there to be a preceding '@' for instance variables
+    def self.valid_variable_name?(key)
+      key.match?(/\A[a-zA-Z_]\w*\z/)
     end
 
     def self.check_string_argument!(key)
@@ -406,7 +432,7 @@ module Stripe
     private_class_method :level_name
 
     def self.log_internal(message, data = {}, color:, level:, logger:, out:)
-      data_str = data.reject { |_k, v| v.nil? }
+      data_str = data.compact
                      .map do |(k, v)|
         format("%<key>s=%<value>s",
                key: colorize(k, color, logger.nil? && !out.nil? && out.isatty),

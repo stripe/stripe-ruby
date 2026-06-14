@@ -14,6 +14,81 @@ module Stripe
         "issuing.personalization_design"
       end
 
+      class CarrierText < ::Stripe::StripeObject
+        # The footer body text of the carrier letter.
+        attr_reader :footer_body
+        # The footer title text of the carrier letter.
+        attr_reader :footer_title
+        # The header body text of the carrier letter.
+        attr_reader :header_body
+        # The header title text of the carrier letter.
+        attr_reader :header_title
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Preferences < ::Stripe::StripeObject
+        # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
+        attr_reader :is_default
+        # Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
+        attr_reader :is_platform_default
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RejectionReasons < ::Stripe::StripeObject
+        # The reason(s) the card logo was rejected.
+        attr_reader :card_logo
+        # The reason(s) the carrier text was rejected.
+        attr_reader :carrier_text
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`. Image must be in PNG format with dimensions of 1000px by 200px. It must be a binary (black and white) image containing a black logo on a white background. We don't accept grayscale.
+      attr_reader :card_logo
+      # Hash containing carrier text, for use with physical bundles that support carrier text.
+      attr_reader :carrier_text
+      # Time at which the object was created. Measured in seconds since the Unix epoch.
+      attr_reader :created
+      # Unique identifier for the object.
+      attr_reader :id
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
+      attr_reader :lookup_key
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      attr_reader :metadata
+      # Friendly display name.
+      attr_reader :name
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The physical bundle object belonging to this personalization design.
+      attr_reader :physical_bundle
+      # Attribute for field preferences
+      attr_reader :preferences
+      # Attribute for field rejection_reasons
+      attr_reader :rejection_reasons
+      # Whether this personalization design can be used to create cards.
+      attr_reader :status
+
       # Creates a personalization design object.
       def self.create(params = {}, opts = {})
         request_stripe_object(
@@ -113,6 +188,18 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          carrier_text: CarrierText,
+          preferences: Preferences,
+          rejection_reasons: RejectionReasons,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

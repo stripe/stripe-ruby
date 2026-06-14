@@ -6,7 +6,7 @@ module Stripe
     attr_reader :active_entitlements, :features
 
     def initialize(requestor)
-      super(requestor)
+      super
       @active_entitlements = Stripe::Entitlements::ActiveEntitlementService.new(@requestor)
       @features = Stripe::Entitlements::FeatureService.new(@requestor)
     end

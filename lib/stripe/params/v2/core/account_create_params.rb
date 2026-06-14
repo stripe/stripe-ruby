@@ -1,0 +1,5396 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Core
+      class AccountCreateParams < ::Stripe::RequestParams
+        class Configuration < ::Stripe::RequestParams
+          class CardCreator < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Commercial < ::Stripe::RequestParams
+                class Celtic < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
+                  class SpendCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Celtic as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing spend cards with Celtic as BIN sponsor.
+                  attr_accessor :spend_card
+
+                  def initialize(charge_card: nil, spend_card: nil)
+                    @charge_card = charge_card
+                    @spend_card = spend_card
+                  end
+                end
+
+                class CrossRiverBank < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
+                  class PrepaidCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
+                  class SpendCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing prepaid cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :prepaid_card
+                  # Can create commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :spend_card
+
+                  def initialize(charge_card: nil, prepaid_card: nil, spend_card: nil)
+                    @charge_card = charge_card
+                    @prepaid_card = prepaid_card
+                    @spend_card = spend_card
+                  end
+                end
+
+                class FifthThird < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Fifth Third as BIN sponsor.
+                  attr_accessor :charge_card
+
+                  def initialize(charge_card: nil)
+                    @charge_card = charge_card
+                  end
+                end
+
+                class Lead < ::Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing prepaid cards with Lead as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(prepaid_card: nil)
+                    @prepaid_card = prepaid_card
+                  end
+                end
+
+                class Stripe < ::Stripe::RequestParams
+                  class ChargeCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
+                  class PrepaidCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create commercial issuing charge cards with Stripe as BIN sponsor.
+                  attr_accessor :charge_card
+                  # Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(charge_card: nil, prepaid_card: nil)
+                    @charge_card = charge_card
+                    @prepaid_card = prepaid_card
+                  end
+                end
+                # Can create commercial issuing cards with Celtic as BIN sponsor.
+                attr_accessor :celtic
+                # Can create commercial issuing cards with Cross River Bank as BIN sponsor.
+                attr_accessor :cross_river_bank
+                # Can create commercial issuing cards with Fifth Third as BIN sponsor.
+                attr_accessor :fifth_third
+                # Can create commercial issuing cards with Stripe as BIN sponsor.
+                attr_accessor :lead
+                # Can create commercial issuing cards with Stripe as BIN sponsor.
+                attr_accessor :stripe
+
+                def initialize(
+                  celtic: nil,
+                  cross_river_bank: nil,
+                  fifth_third: nil,
+                  lead: nil,
+                  stripe: nil
+                )
+                  @celtic = celtic
+                  @cross_river_bank = cross_river_bank
+                  @fifth_third = fifth_third
+                  @lead = lead
+                  @stripe = stripe
+                end
+              end
+
+              class Consumer < ::Stripe::RequestParams
+                class Celtic < ::Stripe::RequestParams
+                  class RevolvingCreditCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create consumer issuing charge cards with Celtic as BIN sponsor.
+                  attr_accessor :revolving_credit_card
+
+                  def initialize(revolving_credit_card: nil)
+                    @revolving_credit_card = revolving_credit_card
+                  end
+                end
+
+                class CrossRiverBank < ::Stripe::RequestParams
+                  class PrepaidCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create consumer issuing prepaid cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(prepaid_card: nil)
+                    @prepaid_card = prepaid_card
+                  end
+                end
+
+                class Lead < ::Stripe::RequestParams
+                  class DebitCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
+                  class PrepaidCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can create consumer issuing debit cards with Lead as BIN sponsor.
+                  attr_accessor :debit_card
+                  # Can create consumer issuing prepaid cards with Lead as BIN sponsor.
+                  attr_accessor :prepaid_card
+
+                  def initialize(debit_card: nil, prepaid_card: nil)
+                    @debit_card = debit_card
+                    @prepaid_card = prepaid_card
+                  end
+                end
+                # Can create consumer issuing cards with Celtic as BIN sponsor.
+                attr_accessor :celtic
+                # Can create consumer issuing cards with Cross River Bank as BIN sponsor.
+                attr_accessor :cross_river_bank
+                # Can create consumer issuing cards with Lead as BIN sponsor.
+                attr_accessor :lead
+
+                def initialize(celtic: nil, cross_river_bank: nil, lead: nil)
+                  @celtic = celtic
+                  @cross_river_bank = cross_river_bank
+                  @lead = lead
+                end
+              end
+              # Can create cards for commercial issuing use cases.
+              attr_accessor :commercial
+              # Can create cards for consumer issuing use cases.
+              attr_accessor :consumer
+
+              def initialize(commercial: nil, consumer: nil)
+                @commercial = commercial
+                @consumer = consumer
+              end
+            end
+            # Capabilities to request on the CardCreator Configuration.
+            attr_accessor :capabilities
+
+            def initialize(capabilities: nil)
+              @capabilities = capabilities
+            end
+          end
+
+          class Customer < ::Stripe::RequestParams
+            class AutomaticIndirectTax < ::Stripe::RequestParams
+              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              attr_accessor :exempt
+              # A recent IP address of the customer used for tax reporting and tax location inference.
+              attr_accessor :ip_address
+              # The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions. This behavior is now deprecated for new users.
+              attr_accessor :location_source
+
+              def initialize(exempt: nil, ip_address: nil, location_source: nil)
+                @exempt = exempt
+                @ip_address = ip_address
+                @location_source = location_source
+              end
+            end
+
+            class Billing < ::Stripe::RequestParams
+              class Invoice < ::Stripe::RequestParams
+                class CustomField < ::Stripe::RequestParams
+                  # The name of the custom field. This may be up to 40 characters.
+                  attr_accessor :name
+                  # The value of the custom field. This may be up to 140 characters. When updating, pass an empty string to remove previously-defined values.
+                  attr_accessor :value
+
+                  def initialize(name: nil, value: nil)
+                    @name = name
+                    @value = value
+                  end
+                end
+
+                class Rendering < ::Stripe::RequestParams
+                  # Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
+                  attr_accessor :amount_tax_display
+                  # ID of the invoice rendering template to use for future invoices.
+                  attr_accessor :template
+
+                  def initialize(amount_tax_display: nil, template: nil)
+                    @amount_tax_display = amount_tax_display
+                    @template = template
+                  end
+                end
+                # The list of up to 4 default custom fields to be displayed on invoices for this customer.
+                attr_accessor :custom_fields
+                # Default invoice footer.
+                attr_accessor :footer
+                # Sequence number to use on the customer account's next invoice. Defaults to 1.
+                attr_accessor :next_sequence
+                # Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
+                attr_accessor :prefix
+                # Default invoice PDF rendering options.
+                attr_accessor :rendering
+
+                def initialize(
+                  custom_fields: nil,
+                  footer: nil,
+                  next_sequence: nil,
+                  prefix: nil,
+                  rendering: nil
+                )
+                  @custom_fields = custom_fields
+                  @footer = footer
+                  @next_sequence = next_sequence
+                  @prefix = prefix
+                  @rendering = rendering
+                end
+              end
+              # Default invoice settings for the customer account.
+              attr_accessor :invoice
+
+              def initialize(invoice: nil)
+                @invoice = invoice
+              end
+            end
+
+            class Capabilities < ::Stripe::RequestParams
+              class AutomaticIndirectTax < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+              # Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
+              attr_accessor :automatic_indirect_tax
+
+              def initialize(automatic_indirect_tax: nil)
+                @automatic_indirect_tax = automatic_indirect_tax
+              end
+            end
+
+            class Shipping < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                end
+              end
+              # Customer shipping address.
+              attr_accessor :address
+              # Customer name.
+              attr_accessor :name
+              # Customer phone (including extension).
+              attr_accessor :phone
+
+              def initialize(address: nil, name: nil, phone: nil)
+                @address = address
+                @name = name
+                @phone = phone
+              end
+            end
+            # Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
+            attr_accessor :automatic_indirect_tax
+            # Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
+            attr_accessor :billing
+            # Capabilities that have been requested on the Customer Configuration.
+            attr_accessor :capabilities
+            # The customer's shipping information. Appears on invoices emailed to this customer.
+            attr_accessor :shipping
+            # ID of the test clock to attach to the customer. Can only be set on testmode Accounts, and when the Customer Configuration is first set on an Account.
+            attr_accessor :test_clock
+
+            def initialize(
+              automatic_indirect_tax: nil,
+              billing: nil,
+              capabilities: nil,
+              shipping: nil,
+              test_clock: nil
+            )
+              @automatic_indirect_tax = automatic_indirect_tax
+              @billing = billing
+              @capabilities = capabilities
+              @shipping = shipping
+              @test_clock = test_clock
+            end
+          end
+
+          class Merchant < ::Stripe::RequestParams
+            class BacsDebitPayments < ::Stripe::RequestParams
+              # Display name for Bacs Direct Debit payments.
+              attr_accessor :display_name
+
+              def initialize(display_name: nil)
+                @display_name = display_name
+              end
+            end
+
+            class Branding < ::Stripe::RequestParams
+              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): An icon for the merchant. Must be square and at least 128px x 128px.
+              attr_accessor :icon
+              # ID of a [file upload](https://docs.stripe.com/api/persons/update#create_file): A logo for the merchant that will be used in Checkout instead of the icon and without the merchant's name next to it if provided. Must be at least 128px x 128px.
+              attr_accessor :logo
+              # A CSS hex color value representing the primary branding color for the merchant.
+              attr_accessor :primary_color
+              # A CSS hex color value representing the secondary branding color for the merchant.
+              attr_accessor :secondary_color
+
+              def initialize(icon: nil, logo: nil, primary_color: nil, secondary_color: nil)
+                @icon = icon
+                @logo = logo
+                @primary_color = primary_color
+                @secondary_color = secondary_color
+              end
+            end
+
+            class Capabilities < ::Stripe::RequestParams
+              class AchDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AcssDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AffirmPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AfterpayClearpayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AlmaPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AmazonPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class AuBecsDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class BacsDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class BancontactPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class BlikPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class BoletoPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class CardPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class CartesBancairesPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class CashappPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class EpsPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class FpxPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class GbBankTransferPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class GrabpayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class IdealPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class JcbPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class JpBankTransferPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class KakaoPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class KlarnaPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class KonbiniPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class KrCardPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class LinkPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class MobilepayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class MultibancoPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class MxBankTransferPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class NaverPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class OxxoPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class P24Payments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PayByBankPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PaycoPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PaynowPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PromptpayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class RevolutPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class SamsungPayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class SepaBankTransferPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class SepaDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class SwishPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class TwintPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class UsBankTransferPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class ZipPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+              # Allow the merchant to process ACH debit payments.
+              attr_accessor :ach_debit_payments
+              # Allow the merchant to process ACSS debit payments.
+              attr_accessor :acss_debit_payments
+              # Allow the merchant to process Affirm payments.
+              attr_accessor :affirm_payments
+              # Allow the merchant to process Afterpay/Clearpay payments.
+              attr_accessor :afterpay_clearpay_payments
+              # Allow the merchant to process Alma payments.
+              attr_accessor :alma_payments
+              # Allow the merchant to process Amazon Pay payments.
+              attr_accessor :amazon_pay_payments
+              # Allow the merchant to process Australian BECS Direct Debit payments.
+              attr_accessor :au_becs_debit_payments
+              # Allow the merchant to process BACS Direct Debit payments.
+              attr_accessor :bacs_debit_payments
+              # Allow the merchant to process Bancontact payments.
+              attr_accessor :bancontact_payments
+              # Allow the merchant to process BLIK payments.
+              attr_accessor :blik_payments
+              # Allow the merchant to process Boleto payments.
+              attr_accessor :boleto_payments
+              # Allow the merchant to collect card payments.
+              attr_accessor :card_payments
+              # Allow the merchant to process Cartes Bancaires payments.
+              attr_accessor :cartes_bancaires_payments
+              # Allow the merchant to process Cash App payments.
+              attr_accessor :cashapp_payments
+              # Allow the merchant to process EPS payments.
+              attr_accessor :eps_payments
+              # Allow the merchant to process FPX payments.
+              attr_accessor :fpx_payments
+              # Allow the merchant to process UK bank transfer payments.
+              attr_accessor :gb_bank_transfer_payments
+              # Allow the merchant to process GrabPay payments.
+              attr_accessor :grabpay_payments
+              # Allow the merchant to process iDEAL payments.
+              attr_accessor :ideal_payments
+              # Allow the merchant to process JCB card payments.
+              attr_accessor :jcb_payments
+              # Allow the merchant to process Japanese bank transfer payments.
+              attr_accessor :jp_bank_transfer_payments
+              # Allow the merchant to process Kakao Pay payments.
+              attr_accessor :kakao_pay_payments
+              # Allow the merchant to process Klarna payments.
+              attr_accessor :klarna_payments
+              # Allow the merchant to process Konbini convenience store payments.
+              attr_accessor :konbini_payments
+              # Allow the merchant to process Korean card payments.
+              attr_accessor :kr_card_payments
+              # Allow the merchant to process Link payments.
+              attr_accessor :link_payments
+              # Allow the merchant to process MobilePay payments.
+              attr_accessor :mobilepay_payments
+              # Allow the merchant to process Multibanco payments.
+              attr_accessor :multibanco_payments
+              # Allow the merchant to process Mexican bank transfer payments.
+              attr_accessor :mx_bank_transfer_payments
+              # Allow the merchant to process Naver Pay payments.
+              attr_accessor :naver_pay_payments
+              # Allow the merchant to process OXXO payments.
+              attr_accessor :oxxo_payments
+              # Allow the merchant to process Przelewy24 (P24) payments.
+              attr_accessor :p24_payments
+              # Allow the merchant to process Pay by Bank payments.
+              attr_accessor :pay_by_bank_payments
+              # Allow the merchant to process PAYCO payments.
+              attr_accessor :payco_payments
+              # Allow the merchant to process PayNow payments.
+              attr_accessor :paynow_payments
+              # Allow the merchant to process PromptPay payments.
+              attr_accessor :promptpay_payments
+              # Allow the merchant to process Revolut Pay payments.
+              attr_accessor :revolut_pay_payments
+              # Allow the merchant to process Samsung Pay payments.
+              attr_accessor :samsung_pay_payments
+              # Allow the merchant to process SEPA bank transfer payments.
+              attr_accessor :sepa_bank_transfer_payments
+              # Allow the merchant to process SEPA Direct Debit payments.
+              attr_accessor :sepa_debit_payments
+              # Allow the merchant to process Swish payments.
+              attr_accessor :swish_payments
+              # Allow the merchant to process TWINT payments.
+              attr_accessor :twint_payments
+              # Allow the merchant to process US bank transfer payments.
+              attr_accessor :us_bank_transfer_payments
+              # Allow the merchant to process Zip payments.
+              attr_accessor :zip_payments
+
+              def initialize(
+                ach_debit_payments: nil,
+                acss_debit_payments: nil,
+                affirm_payments: nil,
+                afterpay_clearpay_payments: nil,
+                alma_payments: nil,
+                amazon_pay_payments: nil,
+                au_becs_debit_payments: nil,
+                bacs_debit_payments: nil,
+                bancontact_payments: nil,
+                blik_payments: nil,
+                boleto_payments: nil,
+                card_payments: nil,
+                cartes_bancaires_payments: nil,
+                cashapp_payments: nil,
+                eps_payments: nil,
+                fpx_payments: nil,
+                gb_bank_transfer_payments: nil,
+                grabpay_payments: nil,
+                ideal_payments: nil,
+                jcb_payments: nil,
+                jp_bank_transfer_payments: nil,
+                kakao_pay_payments: nil,
+                klarna_payments: nil,
+                konbini_payments: nil,
+                kr_card_payments: nil,
+                link_payments: nil,
+                mobilepay_payments: nil,
+                multibanco_payments: nil,
+                mx_bank_transfer_payments: nil,
+                naver_pay_payments: nil,
+                oxxo_payments: nil,
+                p24_payments: nil,
+                pay_by_bank_payments: nil,
+                payco_payments: nil,
+                paynow_payments: nil,
+                promptpay_payments: nil,
+                revolut_pay_payments: nil,
+                samsung_pay_payments: nil,
+                sepa_bank_transfer_payments: nil,
+                sepa_debit_payments: nil,
+                swish_payments: nil,
+                twint_payments: nil,
+                us_bank_transfer_payments: nil,
+                zip_payments: nil
+              )
+                @ach_debit_payments = ach_debit_payments
+                @acss_debit_payments = acss_debit_payments
+                @affirm_payments = affirm_payments
+                @afterpay_clearpay_payments = afterpay_clearpay_payments
+                @alma_payments = alma_payments
+                @amazon_pay_payments = amazon_pay_payments
+                @au_becs_debit_payments = au_becs_debit_payments
+                @bacs_debit_payments = bacs_debit_payments
+                @bancontact_payments = bancontact_payments
+                @blik_payments = blik_payments
+                @boleto_payments = boleto_payments
+                @card_payments = card_payments
+                @cartes_bancaires_payments = cartes_bancaires_payments
+                @cashapp_payments = cashapp_payments
+                @eps_payments = eps_payments
+                @fpx_payments = fpx_payments
+                @gb_bank_transfer_payments = gb_bank_transfer_payments
+                @grabpay_payments = grabpay_payments
+                @ideal_payments = ideal_payments
+                @jcb_payments = jcb_payments
+                @jp_bank_transfer_payments = jp_bank_transfer_payments
+                @kakao_pay_payments = kakao_pay_payments
+                @klarna_payments = klarna_payments
+                @konbini_payments = konbini_payments
+                @kr_card_payments = kr_card_payments
+                @link_payments = link_payments
+                @mobilepay_payments = mobilepay_payments
+                @multibanco_payments = multibanco_payments
+                @mx_bank_transfer_payments = mx_bank_transfer_payments
+                @naver_pay_payments = naver_pay_payments
+                @oxxo_payments = oxxo_payments
+                @p24_payments = p24_payments
+                @pay_by_bank_payments = pay_by_bank_payments
+                @payco_payments = payco_payments
+                @paynow_payments = paynow_payments
+                @promptpay_payments = promptpay_payments
+                @revolut_pay_payments = revolut_pay_payments
+                @samsung_pay_payments = samsung_pay_payments
+                @sepa_bank_transfer_payments = sepa_bank_transfer_payments
+                @sepa_debit_payments = sepa_debit_payments
+                @swish_payments = swish_payments
+                @twint_payments = twint_payments
+                @us_bank_transfer_payments = us_bank_transfer_payments
+                @zip_payments = zip_payments
+              end
+            end
+
+            class CardPayments < ::Stripe::RequestParams
+              class DeclineOn < ::Stripe::RequestParams
+                # Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
+                attr_accessor :avs_failure
+                # Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+                attr_accessor :cvc_failure
+
+                def initialize(avs_failure: nil, cvc_failure: nil)
+                  @avs_failure = avs_failure
+                  @cvc_failure = cvc_failure
+                end
+              end
+              # Automatically declines certain charge types regardless of whether the card issuer accepted or declined the charge.
+              attr_accessor :decline_on
+
+              def initialize(decline_on: nil)
+                @decline_on = decline_on
+              end
+            end
+
+            class KonbiniPayments < ::Stripe::RequestParams
+              class Support < ::Stripe::RequestParams
+                class Hours < ::Stripe::RequestParams
+                  # Support hours end time (JST time of day) for in `HH:MM` format.
+                  attr_accessor :end_time
+                  # Support hours start time (JST time of day) for in `HH:MM` format.
+                  attr_accessor :start_time
+
+                  def initialize(end_time: nil, start_time: nil)
+                    @end_time = end_time
+                    @start_time = start_time
+                  end
+                end
+                # Support email address for Konbini payments.
+                attr_accessor :email
+                # Support hours for Konbini payments.
+                attr_accessor :hours
+                # Support phone number for Konbini payments.
+                attr_accessor :phone
+
+                def initialize(email: nil, hours: nil, phone: nil)
+                  @email = email
+                  @hours = hours
+                  @phone = phone
+                end
+              end
+              # Support for Konbini payments.
+              attr_accessor :support
+
+              def initialize(support: nil)
+                @support = support
+              end
+            end
+
+            class ScriptStatementDescriptor < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :prefix
+
+                def initialize(descriptor: nil, prefix: nil)
+                  @descriptor = descriptor
+                  @prefix = prefix
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :descriptor
+                # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                attr_accessor :prefix
+
+                def initialize(descriptor: nil, prefix: nil)
+                  @descriptor = descriptor
+                  @prefix = prefix
+                end
+              end
+              # The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_accessor :kana
+              # The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+
+            class SmartDisputes < ::Stripe::RequestParams
+              class AutoRespond < ::Stripe::RequestParams
+                # The preference for Smart Disputes auto-respond.
+                attr_accessor :preference
+
+                def initialize(preference: nil)
+                  @preference = preference
+                end
+              end
+              # Settings for Smart Disputes auto_respond.
+              attr_accessor :auto_respond
+
+              def initialize(auto_respond: nil)
+                @auto_respond = auto_respond
+              end
+            end
+
+            class StatementDescriptor < ::Stripe::RequestParams
+              # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don’t set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+              attr_accessor :descriptor
+              # Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don’t specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+              attr_accessor :prefix
+
+              def initialize(descriptor: nil, prefix: nil)
+                @descriptor = descriptor
+                @prefix = prefix
+              end
+            end
+
+            class Support < ::Stripe::RequestParams
+              class Address < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+                # Town or district.
+                attr_accessor :town
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil,
+                  town: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                  @town = town
+                end
+              end
+              # A publicly available mailing address for sending support issues to.
+              attr_accessor :address
+              # A publicly available email address for sending support issues to.
+              attr_accessor :email
+              # A publicly available phone number to call with support issues.
+              attr_accessor :phone
+              # A publicly available website for handling support issues.
+              attr_accessor :url
+
+              def initialize(address: nil, email: nil, phone: nil, url: nil)
+                @address = address
+                @email = email
+                @phone = phone
+                @url = url
+              end
+            end
+            # Settings used for Bacs debit payments.
+            attr_accessor :bacs_debit_payments
+            # Settings used to apply the merchant's branding to email receipts, invoices, Checkout, and other products.
+            attr_accessor :branding
+            # Capabilities to request on the Merchant Configuration.
+            attr_accessor :capabilities
+            # Card payments settings.
+            attr_accessor :card_payments
+            # Settings specific to Konbini payments on the account.
+            attr_accessor :konbini_payments
+            # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
+            attr_accessor :mcc
+            # Settings for the default text that appears on statements for language variations.
+            attr_accessor :script_statement_descriptor
+            # Settings used for Smart Disputes.
+            attr_accessor :smart_disputes
+            # Statement descriptor.
+            attr_accessor :statement_descriptor
+            # Publicly available contact information for sending support issues to.
+            attr_accessor :support
+
+            def initialize(
+              bacs_debit_payments: nil,
+              branding: nil,
+              capabilities: nil,
+              card_payments: nil,
+              konbini_payments: nil,
+              mcc: nil,
+              script_statement_descriptor: nil,
+              smart_disputes: nil,
+              statement_descriptor: nil,
+              support: nil
+            )
+              @bacs_debit_payments = bacs_debit_payments
+              @branding = branding
+              @capabilities = capabilities
+              @card_payments = card_payments
+              @konbini_payments = konbini_payments
+              @mcc = mcc
+              @script_statement_descriptor = script_statement_descriptor
+              @smart_disputes = smart_disputes
+              @statement_descriptor = statement_descriptor
+              @support = support
+            end
+          end
+
+          class Recipient < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Instant < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Local < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Wire < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+                attr_accessor :instant
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                attr_accessor :local
+                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+                attr_accessor :wire
+
+                def initialize(instant: nil, local: nil, wire: nil)
+                  @instant = instant
+                  @local = local
+                  @wire = wire
+                end
+              end
+
+              class Cards < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class CryptoWallets < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class PaperChecks < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class StripeBalance < ::Stripe::RequestParams
+                class StripeTransfers < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                attr_accessor :stripe_transfers
+
+                def initialize(stripe_transfers: nil)
+                  @stripe_transfers = stripe_transfers
+                end
+              end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              attr_accessor :bank_accounts
+              # Capabilities that enable OutboundPayments to a card linked to this Account.
+              attr_accessor :cards
+              # Capabilities that enable OutboundPayments to a crypto wallet linked to this Account.
+              attr_accessor :crypto_wallets
+              # Capabilities that enable OutboundPayments via paper check.
+              attr_accessor :paper_checks
+              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+              attr_accessor :stripe_balance
+
+              def initialize(
+                bank_accounts: nil,
+                cards: nil,
+                crypto_wallets: nil,
+                paper_checks: nil,
+                stripe_balance: nil
+              )
+                @bank_accounts = bank_accounts
+                @cards = cards
+                @crypto_wallets = crypto_wallets
+                @paper_checks = paper_checks
+                @stripe_balance = stripe_balance
+              end
+            end
+            # Capabilities to be requested on the Recipient Configuration.
+            attr_accessor :capabilities
+
+            def initialize(capabilities: nil)
+              @capabilities = capabilities
+            end
+          end
+
+          class Storer < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Consumer < ::Stripe::RequestParams
+                class HoldsCurrencies < ::Stripe::RequestParams
+                  class Usd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+                  # Can hold storage-type funds on Stripe in USD in a consumer financial account.
+                  attr_accessor :usd
+
+                  def initialize(usd: nil)
+                    @usd = usd
+                  end
+                end
+                # Can hold storage-type funds on Stripe in a consumer financial account.
+                attr_accessor :holds_currencies
+
+                def initialize(holds_currencies: nil)
+                  @holds_currencies = holds_currencies
+                end
+              end
+
+              class FinancialAddresses < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class CryptoWallets < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
+                attr_accessor :bank_accounts
+                # Can provision a crypto wallet like financial address to credit a FinancialAccount.
+                attr_accessor :crypto_wallets
+
+                def initialize(bank_accounts: nil, crypto_wallets: nil)
+                  @bank_accounts = bank_accounts
+                  @crypto_wallets = crypto_wallets
+                end
+              end
+
+              class HoldsCurrencies < ::Stripe::RequestParams
+                class Eur < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Gbp < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Usd < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Usdc < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Can hold storage-type funds on Stripe in EUR.
+                attr_accessor :eur
+                # Can hold storage-type funds on Stripe in GBP.
+                attr_accessor :gbp
+                # Can hold storage-type funds on Stripe in USD.
+                attr_accessor :usd
+                # Can hold storage-type funds on Stripe in USDC.
+                attr_accessor :usdc
+
+                def initialize(eur: nil, gbp: nil, usd: nil, usdc: nil)
+                  @eur = eur
+                  @gbp = gbp
+                  @usd = usd
+                  @usdc = usdc
+                end
+              end
+
+              class InboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+                attr_accessor :bank_accounts
+
+                def initialize(bank_accounts: nil)
+                  @bank_accounts = bank_accounts
+                end
+              end
+
+              class OutboundPayments < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class Cards < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class CryptoWallets < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class FinancialAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class PaperChecks < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Can send funds from a FinancialAccount to a bank account owned by someone else.
+                attr_accessor :bank_accounts
+                # Can send funds from a FinancialAccount to a debit card owned by someone else.
+                attr_accessor :cards
+                # Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
+                attr_accessor :crypto_wallets
+                # Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+                attr_accessor :financial_accounts
+                # Can send funds from a FinancialAccount to someone else via paper check.
+                attr_accessor :paper_checks
+
+                def initialize(
+                  bank_accounts: nil,
+                  cards: nil,
+                  crypto_wallets: nil,
+                  financial_accounts: nil,
+                  paper_checks: nil
+                )
+                  @bank_accounts = bank_accounts
+                  @cards = cards
+                  @crypto_wallets = crypto_wallets
+                  @financial_accounts = financial_accounts
+                  @paper_checks = paper_checks
+                end
+              end
+
+              class OutboundTransfers < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class CryptoWallets < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+
+                class FinancialAccounts < ::Stripe::RequestParams
+                  class Protections < ::Stripe::RequestParams
+                    class PspMigration < ::Stripe::RequestParams
+                      # To request a protection, pass true.
+                      attr_accessor :requested
+
+                      def initialize(requested: nil)
+                        @requested = requested
+                      end
+                    end
+                    # Parameter to request psp_migration protection.
+                    attr_accessor :psp_migration
+
+                    def initialize(psp_migration: nil)
+                      @psp_migration = psp_migration
+                    end
+                  end
+                  # Protection types to request for this capability (e.g. "psp_migration").
+                  attr_accessor :protections
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(protections: nil, requested: nil)
+                    @protections = protections
+                    @requested = requested
+                  end
+                end
+                # Can send funds from a FinancialAccount to a bank account owned by yourself.
+                attr_accessor :bank_accounts
+                # Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
+                attr_accessor :crypto_wallets
+                # Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+                attr_accessor :financial_accounts
+
+                def initialize(bank_accounts: nil, crypto_wallets: nil, financial_accounts: nil)
+                  @bank_accounts = bank_accounts
+                  @crypto_wallets = crypto_wallets
+                  @financial_accounts = financial_accounts
+                end
+              end
+              # Can provision a consumer financial account on Stripe.
+              attr_accessor :consumer
+              # Can provision a financial address to credit/debit a FinancialAccount.
+              attr_accessor :financial_addresses
+              # Can hold storage-type funds on Stripe.
+              attr_accessor :holds_currencies
+              # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+              attr_accessor :inbound_transfers
+              # Can send funds from a FinancialAccount to a destination owned by someone else.
+              attr_accessor :outbound_payments
+              # Can send funds from a FinancialAccount to a destination owned by yourself.
+              attr_accessor :outbound_transfers
+
+              def initialize(
+                consumer: nil,
+                financial_addresses: nil,
+                holds_currencies: nil,
+                inbound_transfers: nil,
+                outbound_payments: nil,
+                outbound_transfers: nil
+              )
+                @consumer = consumer
+                @financial_addresses = financial_addresses
+                @holds_currencies = holds_currencies
+                @inbound_transfers = inbound_transfers
+                @outbound_payments = outbound_payments
+                @outbound_transfers = outbound_transfers
+              end
+            end
+
+            class RegulatedActivity < ::Stripe::RequestParams
+              # A detailed description of the regulated activities the business is licensed to conduct.
+              attr_accessor :description
+              # The license number or registration number assigned by the business's primary regulator.
+              attr_accessor :license_number
+              # The country of the primary regulatory authority that oversees the business's regulated activities.
+              attr_accessor :primary_regulatory_authority_country
+              # The name of the primary regulatory authority that oversees the business's regulated activities.
+              attr_accessor :primary_regulatory_authority_name
+
+              def initialize(
+                description: nil,
+                license_number: nil,
+                primary_regulatory_authority_country: nil,
+                primary_regulatory_authority_name: nil
+              )
+                @description = description
+                @license_number = license_number
+                @primary_regulatory_authority_country = primary_regulatory_authority_country
+                @primary_regulatory_authority_name = primary_regulatory_authority_name
+              end
+            end
+            # Capabilities to request on the Storer Configuration.
+            attr_accessor :capabilities
+            # List of high-risk activities the business is involved in.
+            attr_accessor :high_risk_activities
+            # Description of the high-risk activities the business offers.
+            attr_accessor :high_risk_activities_description
+            # Description of the money services offered by the business.
+            attr_accessor :money_services_description
+            # Indicates whether the business operates in any prohibited countries.
+            attr_accessor :operates_in_prohibited_countries
+            # Indicates whether the business participates in any regulated activity.
+            attr_accessor :participates_in_regulated_activity
+            # Primary purpose of the stored funds.
+            attr_accessor :purpose_of_funds
+            # Description of the purpose of the stored funds.
+            attr_accessor :purpose_of_funds_description
+            # Details of the regulated activity if the business participates in one.
+            attr_accessor :regulated_activity
+            # The source of funds for the business, e.g. profits, income, venture capital, etc.
+            attr_accessor :source_of_funds
+            # Description of the source of funds for the business' account.
+            attr_accessor :source_of_funds_description
+
+            def initialize(
+              capabilities: nil,
+              high_risk_activities: nil,
+              high_risk_activities_description: nil,
+              money_services_description: nil,
+              operates_in_prohibited_countries: nil,
+              participates_in_regulated_activity: nil,
+              purpose_of_funds: nil,
+              purpose_of_funds_description: nil,
+              regulated_activity: nil,
+              source_of_funds: nil,
+              source_of_funds_description: nil
+            )
+              @capabilities = capabilities
+              @high_risk_activities = high_risk_activities
+              @high_risk_activities_description = high_risk_activities_description
+              @money_services_description = money_services_description
+              @operates_in_prohibited_countries = operates_in_prohibited_countries
+              @participates_in_regulated_activity = participates_in_regulated_activity
+              @purpose_of_funds = purpose_of_funds
+              @purpose_of_funds_description = purpose_of_funds_description
+              @regulated_activity = regulated_activity
+              @source_of_funds = source_of_funds
+              @source_of_funds_description = source_of_funds_description
+            end
+          end
+          # The CardCreator Configuration allows the Account to create and issue cards to users.
+          attr_accessor :card_creator
+          # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
+          attr_accessor :customer
+          # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
+          attr_accessor :merchant
+          # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
+          attr_accessor :recipient
+          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+          attr_accessor :storer
+
+          def initialize(
+            card_creator: nil,
+            customer: nil,
+            merchant: nil,
+            recipient: nil,
+            storer: nil
+          )
+            @card_creator = card_creator
+            @customer = customer
+            @merchant = merchant
+            @recipient = recipient
+            @storer = storer
+          end
+        end
+
+        class Defaults < ::Stripe::RequestParams
+          class Profile < ::Stripe::RequestParams
+            # The business's publicly-available website.
+            attr_accessor :business_url
+            # The name which is used by the business.
+            attr_accessor :doing_business_as
+            # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+            attr_accessor :product_description
+
+            def initialize(business_url: nil, doing_business_as: nil, product_description: nil)
+              @business_url = business_url
+              @doing_business_as = doing_business_as
+              @product_description = product_description
+            end
+          end
+
+          class Responsibilities < ::Stripe::RequestParams
+            # A value indicating the party responsible for collecting fees from this account.
+            attr_accessor :fees_collector
+            # A value indicating who is responsible for losses when this Account can’t pay back negative balances from payments.
+            attr_accessor :losses_collector
+            # A value indicating the party responsible for collecting requirements on this account.
+            attr_accessor :requirements_collector
+
+            def initialize(fees_collector: nil, losses_collector: nil, requirements_collector: nil)
+              @fees_collector = fees_collector
+              @losses_collector = losses_collector
+              @requirements_collector = requirements_collector
+            end
+          end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          attr_accessor :currency
+          # The Account's preferred locales (languages), ordered by preference.
+          attr_accessor :locales
+          # Account profile information.
+          attr_accessor :profile
+          # Default responsibilities held by either Stripe or the platform.
+          attr_accessor :responsibilities
+          # The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+          attr_accessor :timezone
+
+          def initialize(
+            currency: nil,
+            locales: nil,
+            profile: nil,
+            responsibilities: nil,
+            timezone: nil
+          )
+            @currency = currency
+            @locales = locales
+            @profile = profile
+            @responsibilities = responsibilities
+            @timezone = timezone
+          end
+        end
+
+        class Identity < ::Stripe::RequestParams
+          class Attestations < ::Stripe::RequestParams
+            class DirectorshipDeclaration < ::Stripe::RequestParams
+              # The time marking when the director attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              attr_accessor :date
+              # The IP address from which the director attestation was made.
+              attr_accessor :ip
+              # The user agent of the browser from which the director attestation was made.
+              attr_accessor :user_agent
+
+              def initialize(date: nil, ip: nil, user_agent: nil)
+                @date = date
+                @ip = ip
+                @user_agent = user_agent
+              end
+            end
+
+            class OwnershipDeclaration < ::Stripe::RequestParams
+              # The time marking when the beneficial owner attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              attr_accessor :date
+              # The IP address from which the beneficial owner attestation was made.
+              attr_accessor :ip
+              # The user agent of the browser from which the beneficial owner attestation was made.
+              attr_accessor :user_agent
+
+              def initialize(date: nil, ip: nil, user_agent: nil)
+                @date = date
+                @ip = ip
+                @user_agent = user_agent
+              end
+            end
+
+            class PersonsProvided < ::Stripe::RequestParams
+              # Whether the company’s directors have been provided. Set this Boolean to true after creating all the company’s directors with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
+              attr_accessor :directors
+              # Whether the company’s executives have been provided. Set this Boolean to true after creating all the company’s executives with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
+              attr_accessor :executives
+              # Whether the company’s owners have been provided. Set this Boolean to true after creating all the company’s owners with the [Persons API](https://docs.stripe.com/api/v2/core/accounts/createperson).
+              attr_accessor :owners
+              # Reason for why the company is exempt from providing ownership information.
+              attr_accessor :ownership_exemption_reason
+
+              def initialize(
+                directors: nil,
+                executives: nil,
+                owners: nil,
+                ownership_exemption_reason: nil
+              )
+                @directors = directors
+                @executives = executives
+                @owners = owners
+                @ownership_exemption_reason = ownership_exemption_reason
+              end
+            end
+
+            class RepresentativeDeclaration < ::Stripe::RequestParams
+              # The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+              attr_accessor :date
+              # The IP address from which the representative attestation was made.
+              attr_accessor :ip
+              # The user agent of the browser from which the representative attestation was made.
+              attr_accessor :user_agent
+
+              def initialize(date: nil, ip: nil, user_agent: nil)
+                @date = date
+                @ip = ip
+                @user_agent = user_agent
+              end
+            end
+
+            class TermsOfService < ::Stripe::RequestParams
+              class Account < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
+              class CardCreator < ::Stripe::RequestParams
+                class Commercial < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @spend_card = spend_card
+                    end
+                  end
+
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing prepaid cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing prepaid cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing prepaid cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :prepaid_card
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(
+                      apple_pay: nil,
+                      charge_card: nil,
+                      prepaid_card: nil,
+                      spend_card: nil
+                    )
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @prepaid_card = prepaid_card
+                      @spend_card = spend_card
+                    end
+                  end
+
+                  class FifthThird < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Fifth Third as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Fifth Third as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing charge cards with Fifth Third as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Fifth Third as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Fifth Third as BIN sponsor.
+                    attr_accessor :charge_card
+
+                    def initialize(apple_pay: nil, charge_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                    end
+                  end
+
+                  class GlobalAccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Lead < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing prepaid cards with Lead as BIN sponsor.
+                    attr_accessor :prepaid_card
+
+                    def initialize(apple_pay: nil, prepaid_card: nil)
+                      @apple_pay = apple_pay
+                      @prepaid_card = prepaid_card
+                    end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  attr_accessor :account_holder
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  attr_accessor :celtic
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :cross_river_bank
+                  # Terms of service acceptances for commercial issuing cards with Fifth Third as BIN sponsor.
+                  attr_accessor :fifth_third
+                  # Terms of service acceptances for Stripe commercial card Global issuing.
+                  attr_accessor :global_account_holder
+                  # Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+                  attr_accessor :lead
+
+                  def initialize(
+                    account_holder: nil,
+                    celtic: nil,
+                    cross_river_bank: nil,
+                    fifth_third: nil,
+                    global_account_holder: nil,
+                    lead: nil
+                  )
+                    @account_holder = account_holder
+                    @celtic = celtic
+                    @cross_river_bank = cross_river_bank
+                    @fifth_third = fifth_third
+                    @global_account_holder = global_account_holder
+                    @lead = lead
+                  end
+                end
+
+                class Consumer < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                      attr_accessor :date
+                      # The IP address from which the Account's representative accepted the terms of service.
+                      attr_accessor :ip
+                      # The user agent of the browser from which the Account's representative accepted the terms of service.
+                      attr_accessor :user_agent
+
+                      def initialize(date: nil, ip: nil, user_agent: nil)
+                        @date = date
+                        @ip = ip
+                        @user_agent = user_agent
+                      end
+                    end
+
+                    class RevolvingCreditCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for consumer issuing Apple Pay cards with Celtic as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for consumer issuing charge cards with Celtic as BIN sponsor.
+                    attr_accessor :revolving_credit_card
+
+                    def initialize(apple_pay: nil, revolving_credit_card: nil)
+                      @apple_pay = apple_pay
+                      @revolving_credit_card = revolving_credit_card
+                    end
+                  end
+
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing prepaid cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing prepaid cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing prepaid cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for consumer issuing prepaid cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :prepaid_card
+
+                    def initialize(prepaid_card: nil)
+                      @prepaid_card = prepaid_card
+                    end
+                  end
+
+                  class GlobalAccountHolder < ::Stripe::RequestParams
+                    # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    attr_accessor :date
+                    # The IP address from which the Account's representative accepted the terms of service.
+                    attr_accessor :ip
+                    # The user agent of the browser from which the Account's representative accepted the terms of service.
+                    attr_accessor :user_agent
+
+                    def initialize(date: nil, ip: nil, user_agent: nil)
+                      @date = date
+                      @ip = ip
+                      @user_agent = user_agent
+                    end
+                  end
+
+                  class Lead < ::Stripe::RequestParams
+                    class DebitCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+
+                    class PrepaidCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                        attr_accessor :date
+                        # The IP address from which the Account's representative accepted the terms of service.
+                        attr_accessor :ip
+                        # The user agent of the browser from which the Account's representative accepted the terms of service.
+                        attr_accessor :user_agent
+
+                        def initialize(date: nil, ip: nil, user_agent: nil)
+                          @date = date
+                          @ip = ip
+                          @user_agent = user_agent
+                        end
+                      end
+                      # Bank terms of service acceptance for consumer issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for consumer issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for consumer issuing prepaid cards with Lead as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+                    attr_accessor :debit_card
+                    # Terms of service acceptances for consumer issuing prepaid cards with Lead as BIN sponsor.
+                    attr_accessor :prepaid_card
+
+                    def initialize(debit_card: nil, prepaid_card: nil)
+                      @debit_card = debit_card
+                      @prepaid_card = prepaid_card
+                    end
+                  end
+                  # Terms of service acceptances for Stripe consumer card issuing.
+                  attr_accessor :account_holder
+                  # Terms of service acceptances for consumer issuing cards with Celtic as BIN sponsor.
+                  attr_accessor :celtic
+                  # Terms of service acceptances for consumer issuing cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :cross_river_bank
+                  # Terms of service acceptances for Stripe consumer card Global issuing.
+                  attr_accessor :global_account_holder
+                  # Terms of service acceptances for consumer issuing cards with Lead as BIN sponsor.
+                  attr_accessor :lead
+
+                  def initialize(
+                    account_holder: nil,
+                    celtic: nil,
+                    cross_river_bank: nil,
+                    global_account_holder: nil,
+                    lead: nil
+                  )
+                    @account_holder = account_holder
+                    @celtic = celtic
+                    @cross_river_bank = cross_river_bank
+                    @global_account_holder = global_account_holder
+                    @lead = lead
+                  end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                attr_accessor :commercial
+                # Terms of service acceptances to create cards for consumer issuing use cases.
+                attr_accessor :consumer
+
+                def initialize(commercial: nil, consumer: nil)
+                  @commercial = commercial
+                  @consumer = consumer
+                end
+              end
+
+              class ConsumerPrivacyDisclosures < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
+              class ConsumerStorer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
+              class CryptoStorer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+
+              class Storer < ::Stripe::RequestParams
+                # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                attr_accessor :date
+                # The IP address from which the Account's representative accepted the terms of service.
+                attr_accessor :ip
+                # The user agent of the browser from which the Account's representative accepted the terms of service.
+                attr_accessor :user_agent
+
+                def initialize(date: nil, ip: nil, user_agent: nil)
+                  @date = date
+                  @ip = ip
+                  @user_agent = user_agent
+                end
+              end
+              # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
+              attr_accessor :account
+              # Details on the Account's acceptance of Issuing-specific terms of service.
+              attr_accessor :card_creator
+              # Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+              attr_accessor :consumer_privacy_disclosures
+              # Details on the Account's acceptance of Consumer-storer-specific terms of service.
+              attr_accessor :consumer_storer
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
+              attr_accessor :crypto_storer
+              # Details on the Account's acceptance of Treasury-specific terms of service.
+              attr_accessor :storer
+
+              def initialize(
+                account: nil,
+                card_creator: nil,
+                consumer_privacy_disclosures: nil,
+                consumer_storer: nil,
+                crypto_storer: nil,
+                storer: nil
+              )
+                @account = account
+                @card_creator = card_creator
+                @consumer_privacy_disclosures = consumer_privacy_disclosures
+                @consumer_storer = consumer_storer
+                @crypto_storer = crypto_storer
+                @storer = storer
+              end
+            end
+            # This hash is used to attest that the directors information provided to Stripe is both current and correct.
+            attr_accessor :directorship_declaration
+            # This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
+            attr_accessor :ownership_declaration
+            # Attestation that all Persons with a specific Relationship value have been provided.
+            attr_accessor :persons_provided
+            # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            attr_accessor :representative_declaration
+            # Attestations of accepted terms of service agreements.
+            attr_accessor :terms_of_service
+
+            def initialize(
+              directorship_declaration: nil,
+              ownership_declaration: nil,
+              persons_provided: nil,
+              representative_declaration: nil,
+              terms_of_service: nil
+            )
+              @directorship_declaration = directorship_declaration
+              @ownership_declaration = ownership_declaration
+              @persons_provided = persons_provided
+              @representative_declaration = representative_declaration
+              @terms_of_service = terms_of_service
+            end
+          end
+
+          class BusinessDetails < ::Stripe::RequestParams
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+              # Town or district.
+              attr_accessor :town
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil,
+                town: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+                @town = town
+              end
+            end
+
+            class AnnualRevenue < ::Stripe::RequestParams
+              # A non-negative integer representing the amount in the smallest currency unit.
+              attr_accessor :amount
+              # The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
+              attr_accessor :fiscal_year_end
+
+              def initialize(amount: nil, fiscal_year_end: nil)
+                @amount = amount
+                @fiscal_year_end = fiscal_year_end
+              end
+            end
+
+            class Documents < ::Stripe::RequestParams
+              class BankAccountOwnershipVerification < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class CompanyLicense < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class CompanyMinisterialDecree < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class CompanyRegistrationVerification < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class CompanyTaxIdVerification < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :back
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :front
+
+                  def initialize(back: nil, front: nil)
+                    @back = back
+                    @front = front
+                  end
+                end
+                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                attr_accessor :front_back
+                # The format of the verification document. Currently supports `front_back` only.
+                attr_accessor :type
+
+                def initialize(front_back: nil, type: nil)
+                  @front_back = front_back
+                  @type = type
+                end
+              end
+
+              class ProofOfAddress < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class ProofOfRegistration < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, signer: nil, type: nil)
+                  @files = files
+                  @signer = signer
+                  @type = type
+                end
+              end
+
+              class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
+                class Signer < ::Stripe::RequestParams
+                  # Person signing the document.
+                  attr_accessor :person
+
+                  def initialize(person: nil)
+                    @person = person
+                  end
+                end
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # Person that is signing the document.
+                attr_accessor :signer
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, signer: nil, type: nil)
+                  @files = files
+                  @signer = signer
+                  @type = type
+                end
+              end
+              # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
+              attr_accessor :bank_account_ownership_verification
+              # One or more documents that demonstrate proof of a company’s license to operate.
+              attr_accessor :company_license
+              # One or more documents showing the company’s Memorandum of Association.
+              attr_accessor :company_memorandum_of_association
+              # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
+              attr_accessor :company_ministerial_decree
+              # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
+              attr_accessor :company_registration_verification
+              # One or more documents that demonstrate proof of a company’s tax ID.
+              attr_accessor :company_tax_id_verification
+              # A document verifying the business.
+              attr_accessor :primary_verification
+              # One or more documents that demonstrate proof of address.
+              attr_accessor :proof_of_address
+              # One or more documents showing the company’s proof of registration with the national business registry.
+              attr_accessor :proof_of_registration
+              # One or more documents that demonstrate proof of ultimate beneficial ownership.
+              attr_accessor :proof_of_ultimate_beneficial_ownership
+
+              def initialize(
+                bank_account_ownership_verification: nil,
+                company_license: nil,
+                company_memorandum_of_association: nil,
+                company_ministerial_decree: nil,
+                company_registration_verification: nil,
+                company_tax_id_verification: nil,
+                primary_verification: nil,
+                proof_of_address: nil,
+                proof_of_registration: nil,
+                proof_of_ultimate_beneficial_ownership: nil
+              )
+                @bank_account_ownership_verification = bank_account_ownership_verification
+                @company_license = company_license
+                @company_memorandum_of_association = company_memorandum_of_association
+                @company_ministerial_decree = company_ministerial_decree
+                @company_registration_verification = company_registration_verification
+                @company_tax_id_verification = company_tax_id_verification
+                @primary_verification = primary_verification
+                @proof_of_address = proof_of_address
+                @proof_of_registration = proof_of_registration
+                @proof_of_ultimate_beneficial_ownership = proof_of_ultimate_beneficial_ownership
+              end
+            end
+
+            class IdNumber < ::Stripe::RequestParams
+              # The registrar of the ID number (Only valid for DE ID number types).
+              attr_accessor :registrar
+              # Open Enum. The ID number type of a business entity.
+              attr_accessor :type
+              # The value of the ID number.
+              attr_accessor :value
+
+              def initialize(registrar: nil, type: nil, value: nil)
+                @registrar = registrar
+                @type = type
+                @value = value
+              end
+            end
+
+            class MonthlyEstimatedRevenue < ::Stripe::RequestParams
+              # A non-negative integer representing the amount in the smallest currency unit.
+              attr_accessor :amount
+
+              def initialize(amount: nil)
+                @amount = amount
+              end
+            end
+
+            class RegistrationDate < ::Stripe::RequestParams
+              # The day of registration, between 1 and 31.
+              attr_accessor :day
+              # The month of registration, between 1 and 12.
+              attr_accessor :month
+              # The four-digit year of registration.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+                # Town or district.
+                attr_accessor :town
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil,
+                  town: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                  @town = town
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+                # Town or district.
+                attr_accessor :town
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil,
+                  town: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                  @town = town
+                end
+              end
+              # Kana Address.
+              attr_accessor :kana
+              # Kanji Address.
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # Registered name of the business.
+                attr_accessor :registered_name
+
+                def initialize(registered_name: nil)
+                  @registered_name = registered_name
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # Registered name of the business.
+                attr_accessor :registered_name
+
+                def initialize(registered_name: nil)
+                  @registered_name = registered_name
+                end
+              end
+              # Kana name.
+              attr_accessor :kana
+              # Kanji name.
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+            # The business registration address of the business entity.
+            attr_accessor :address
+            # The business gross annual revenue for its preceding fiscal year.
+            attr_accessor :annual_revenue
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            attr_accessor :compliance_screening_description
+            # A document verifying the business.
+            attr_accessor :documents
+            # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
+            attr_accessor :estimated_worker_count
+            # The ID numbers of a business entity.
+            attr_accessor :id_numbers
+            # An estimate of the monthly revenue of the business.
+            attr_accessor :monthly_estimated_revenue
+            # The phone number of the Business Entity.
+            attr_accessor :phone
+            # The business legal name.
+            attr_accessor :registered_name
+            # When the business was incorporated or registered.
+            attr_accessor :registration_date
+            # The business registration address of the business entity in non latin script.
+            attr_accessor :script_addresses
+            # The business legal name in non latin script.
+            attr_accessor :script_names
+            # The category identifying the legal structure of the business.
+            attr_accessor :structure
+
+            def initialize(
+              address: nil,
+              annual_revenue: nil,
+              compliance_screening_description: nil,
+              documents: nil,
+              estimated_worker_count: nil,
+              id_numbers: nil,
+              monthly_estimated_revenue: nil,
+              phone: nil,
+              registered_name: nil,
+              registration_date: nil,
+              script_addresses: nil,
+              script_names: nil,
+              structure: nil
+            )
+              @address = address
+              @annual_revenue = annual_revenue
+              @compliance_screening_description = compliance_screening_description
+              @documents = documents
+              @estimated_worker_count = estimated_worker_count
+              @id_numbers = id_numbers
+              @monthly_estimated_revenue = monthly_estimated_revenue
+              @phone = phone
+              @registered_name = registered_name
+              @registration_date = registration_date
+              @script_addresses = script_addresses
+              @script_names = script_names
+              @structure = structure
+            end
+          end
+
+          class Individual < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # Purpose of additional address.
+              attr_accessor :purpose
+              # State, county, province, or region.
+              attr_accessor :state
+              # Town or district.
+              attr_accessor :town
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @purpose = purpose
+                @state = state
+                @town = town
+              end
+            end
+
+            class AdditionalName < ::Stripe::RequestParams
+              # The person's full name.
+              attr_accessor :full_name
+              # The person's first or given name.
+              attr_accessor :given_name
+              # The purpose or type of the additional name.
+              attr_accessor :purpose
+              # The person's last or family name.
+              attr_accessor :surname
+
+              def initialize(full_name: nil, given_name: nil, purpose: nil, surname: nil)
+                @full_name = full_name
+                @given_name = given_name
+                @purpose = purpose
+                @surname = surname
+              end
+            end
+
+            class Address < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+              # Town or district.
+              attr_accessor :town
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil,
+                town: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+                @town = town
+              end
+            end
+
+            class DateOfBirth < ::Stripe::RequestParams
+              # The day of birth.
+              attr_accessor :day
+              # The month of birth.
+              attr_accessor :month
+              # The year of birth.
+              attr_accessor :year
+
+              def initialize(day: nil, month: nil, year: nil)
+                @day = day
+                @month = month
+                @year = year
+              end
+            end
+
+            class Documents < ::Stripe::RequestParams
+              class CompanyAuthorization < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class Passport < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+
+              class PrimaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :back
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :front
+
+                  def initialize(back: nil, front: nil)
+                    @back = back
+                    @front = front
+                  end
+                end
+                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                attr_accessor :front_back
+                # The format of the verification document. Currently supports `front_back` only.
+                attr_accessor :type
+
+                def initialize(front_back: nil, type: nil)
+                  @front_back = front_back
+                  @type = type
+                end
+              end
+
+              class SecondaryVerification < ::Stripe::RequestParams
+                class FrontBack < ::Stripe::RequestParams
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the back of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :back
+                  # A [file upload](https://docs.stripe.com/api/persons/update#create_file) token representing the front of the verification document. The purpose of the uploaded file should be 'identity_document'. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+                  attr_accessor :front
+
+                  def initialize(back: nil, front: nil)
+                    @back = back
+                    @front = front
+                  end
+                end
+                # The [file upload](https://docs.stripe.com/api/persons/update#create_file) tokens referring to each side of the document.
+                attr_accessor :front_back
+                # The format of the verification document. Currently supports `front_back` only.
+                attr_accessor :type
+
+                def initialize(front_back: nil, type: nil)
+                  @front_back = front_back
+                  @type = type
+                end
+              end
+
+              class Visa < ::Stripe::RequestParams
+                # One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                attr_accessor :files
+                # The format of the document. Currently supports `files` only.
+                attr_accessor :type
+
+                def initialize(files: nil, type: nil)
+                  @files = files
+                  @type = type
+                end
+              end
+              # One or more documents that demonstrate proof that this person is authorized to represent the company.
+              attr_accessor :company_authorization
+              # One or more documents showing the person’s passport page with photo and personal data.
+              attr_accessor :passport
+              # An identifying document showing the person's name, either a passport or local ID card.
+              attr_accessor :primary_verification
+              # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+              attr_accessor :secondary_verification
+              # One or more documents showing the person’s visa required for living in the country where they are residing.
+              attr_accessor :visa
+
+              def initialize(
+                company_authorization: nil,
+                passport: nil,
+                primary_verification: nil,
+                secondary_verification: nil,
+                visa: nil
+              )
+                @company_authorization = company_authorization
+                @passport = passport
+                @primary_verification = primary_verification
+                @secondary_verification = secondary_verification
+                @visa = visa
+              end
+            end
+
+            class IdNumber < ::Stripe::RequestParams
+              # The ID number type of an individual.
+              attr_accessor :type
+              # The value of the ID number.
+              attr_accessor :value
+
+              def initialize(type: nil, value: nil)
+                @type = type
+                @value = value
+              end
+            end
+
+            class Relationship < ::Stripe::RequestParams
+              # Whether the person is a director of the account's identity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+              attr_accessor :director
+              # Whether the person has significant responsibility to control, manage, or direct the organization.
+              attr_accessor :executive
+              # Whether the person is an owner of the account’s identity.
+              attr_accessor :owner
+              # The percent owned by the person of the account's legal entity.
+              attr_accessor :percent_ownership
+              # The person's title (e.g., CEO, Support Engineer).
+              attr_accessor :title
+
+              def initialize(
+                director: nil,
+                executive: nil,
+                owner: nil,
+                percent_ownership: nil,
+                title: nil
+              )
+                @director = director
+                @executive = executive
+                @owner = owner
+                @percent_ownership = percent_ownership
+                @title = title
+              end
+
+              def self.field_encodings
+                @field_encodings = { percent_ownership: :decimal_string }
+              end
+            end
+
+            class ScriptAddresses < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+                # Town or district.
+                attr_accessor :town
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil,
+                  town: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                  @town = town
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # City, district, suburb, town, or village.
+                attr_accessor :city
+                # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                attr_accessor :country
+                # Address line 1 (e.g., street, PO Box, or company name).
+                attr_accessor :line1
+                # Address line 2 (e.g., apartment, suite, unit, or building).
+                attr_accessor :line2
+                # ZIP or postal code.
+                attr_accessor :postal_code
+                # State, county, province, or region.
+                attr_accessor :state
+                # Town or district.
+                attr_accessor :town
+
+                def initialize(
+                  city: nil,
+                  country: nil,
+                  line1: nil,
+                  line2: nil,
+                  postal_code: nil,
+                  state: nil,
+                  town: nil
+                )
+                  @city = city
+                  @country = country
+                  @line1 = line1
+                  @line2 = line2
+                  @postal_code = postal_code
+                  @state = state
+                  @town = town
+                end
+              end
+              # Kana Address.
+              attr_accessor :kana
+              # Kanji Address.
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+
+            class ScriptNames < ::Stripe::RequestParams
+              class Kana < ::Stripe::RequestParams
+                # The person's first or given name.
+                attr_accessor :given_name
+                # The person's last or family name.
+                attr_accessor :surname
+
+                def initialize(given_name: nil, surname: nil)
+                  @given_name = given_name
+                  @surname = surname
+                end
+              end
+
+              class Kanji < ::Stripe::RequestParams
+                # The person's first or given name.
+                attr_accessor :given_name
+                # The person's last or family name.
+                attr_accessor :surname
+
+                def initialize(given_name: nil, surname: nil)
+                  @given_name = given_name
+                  @surname = surname
+                end
+              end
+              # Persons name in kana script.
+              attr_accessor :kana
+              # Persons name in kanji script.
+              attr_accessor :kanji
+
+              def initialize(kana: nil, kanji: nil)
+                @kana = kana
+                @kanji = kanji
+              end
+            end
+            # Additional addresses associated with the individual.
+            attr_accessor :additional_addresses
+            # Additional names (e.g. aliases) associated with the individual.
+            attr_accessor :additional_names
+            # The individual's residential address.
+            attr_accessor :address
+            # The individual's date of birth.
+            attr_accessor :date_of_birth
+            # Documents that may be submitted to satisfy various informational requests.
+            attr_accessor :documents
+            # The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
+            attr_accessor :email
+            # The individual's first name.
+            attr_accessor :given_name
+            # The identification numbers (e.g., SSN) associated with the individual.
+            attr_accessor :id_numbers
+            # The individual's gender (International regulations require either "male" or "female").
+            attr_accessor :legal_gender
+            # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            attr_accessor :metadata
+            # The countries where the individual is a national. Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :nationalities
+            # The individual's phone number.
+            attr_accessor :phone
+            # The individual's political exposure.
+            attr_accessor :political_exposure
+            # The relationship that this individual has with the account's identity.
+            attr_accessor :relationship
+            # The script addresses (e.g., non-Latin characters) associated with the individual.
+            attr_accessor :script_addresses
+            # The individuals primary name in non latin script.
+            attr_accessor :script_names
+            # The individual's last name.
+            attr_accessor :surname
+
+            def initialize(
+              additional_addresses: nil,
+              additional_names: nil,
+              address: nil,
+              date_of_birth: nil,
+              documents: nil,
+              email: nil,
+              given_name: nil,
+              id_numbers: nil,
+              legal_gender: nil,
+              metadata: nil,
+              nationalities: nil,
+              phone: nil,
+              political_exposure: nil,
+              relationship: nil,
+              script_addresses: nil,
+              script_names: nil,
+              surname: nil
+            )
+              @additional_addresses = additional_addresses
+              @additional_names = additional_names
+              @address = address
+              @date_of_birth = date_of_birth
+              @documents = documents
+              @email = email
+              @given_name = given_name
+              @id_numbers = id_numbers
+              @legal_gender = legal_gender
+              @metadata = metadata
+              @nationalities = nationalities
+              @phone = phone
+              @political_exposure = political_exposure
+              @relationship = relationship
+              @script_addresses = script_addresses
+              @script_names = script_names
+              @surname = surname
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+              }
+            end
+          end
+          # Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
+          attr_accessor :attestations
+          # Information about the company or business.
+          attr_accessor :business_details
+          # The country in which the account holder resides, or in which the business is legally established. This should be an [ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) country code.
+          attr_accessor :country
+          # The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
+          attr_accessor :entity_type
+          # Information about the person represented by the account.
+          attr_accessor :individual
+
+          def initialize(
+            attestations: nil,
+            business_details: nil,
+            country: nil,
+            entity_type: nil,
+            individual: nil
+          )
+            @attestations = attestations
+            @business_details = business_details
+            @country = country
+            @entity_type = entity_type
+            @individual = individual
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              individual: {
+                kind: :object,
+                fields: {
+                  relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                },
+              },
+            }
+          end
+        end
+        # The account token generated by the account token api.
+        attr_accessor :account_token
+        # An Account Configuration which allows the Account to take on a key persona across Stripe products.
+        attr_accessor :configuration
+        # The primary contact email address for the Account.
+        attr_accessor :contact_email
+        # The default contact phone for the Account.
+        attr_accessor :contact_phone
+        # A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
+        attr_accessor :dashboard
+        # Default values to be used on Account Configurations.
+        attr_accessor :defaults
+        # A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
+        attr_accessor :display_name
+        # Information about the company, individual, and business represented by the Account.
+        attr_accessor :identity
+        # Additional fields to include in the response.
+        attr_accessor :include
+        # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_accessor :metadata
+
+        def initialize(
+          account_token: nil,
+          configuration: nil,
+          contact_email: nil,
+          contact_phone: nil,
+          dashboard: nil,
+          defaults: nil,
+          display_name: nil,
+          identity: nil,
+          include: nil,
+          metadata: nil
+        )
+          @account_token = account_token
+          @configuration = configuration
+          @contact_email = contact_email
+          @contact_phone = contact_phone
+          @dashboard = dashboard
+          @defaults = defaults
+          @display_name = display_name
+          @identity = identity
+          @include = include
+          @metadata = metadata
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            identity: {
+              kind: :object,
+              fields: {
+                individual: {
+                  kind: :object,
+                  fields: {
+                    relationship: { kind: :object, fields: { percent_ownership: :decimal_string } },
+                  },
+                },
+              },
+            },
+          }
+        end
+      end
+    end
+  end
+end

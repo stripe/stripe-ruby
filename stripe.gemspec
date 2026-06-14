@@ -7,7 +7,7 @@ require "stripe/version"
 Gem::Specification.new do |s|
   s.name = "stripe"
   s.version = Stripe::VERSION
-  s.required_ruby_version = ">= 2.3.0"
+  s.required_ruby_version = ">= 2.7.0"
   s.summary = "Ruby bindings for the Stripe API"
   s.description = "Stripe is the easiest way to accept payments online.  " \
                   "See https://stripe.com for details."
@@ -27,18 +27,23 @@ Gem::Specification.new do |s|
     "rubygems_mfa_required" => "false",
   }
 
-  ignored = Regexp.union(
-    /\A\.editorconfig/,
-    /\A\.git/,
-    /\A\.rubocop/,
-    /\A\.travis.yml/,
-    /\A\.vscode/,
-    /\Abin/,
-    /\Asorbet/,
-    /\Atest/
+  included = Regexp.union(
+    %r{\Alib/},
+    %r{\Aexe/},
+    # generated RBI files
+    %r{\Arbi/stripe\.rbi\z},
+    # Handwritten RBIs
+    # TODO(helenye): http://go/j/DEVSDK-2769
+    %r{\Arbi/stripe/stripe_client.rbi\z},
+    %r{\Arbi/stripe/resources/v2/core/event_notification.rbi\z}
   )
-  s.files = `git ls-files`.split("\n").grep_v(ignored)
+  s.files = `git ls-files`.split("\n").grep(included)
   s.bindir = "exe"
   s.executables   = `git ls-files -- exe/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
+
+  # bigdecimal was a default gem through Ruby 3.3 but must be explicitly declared
+  # starting from Ruby 3.4.0. Required for decimal_string field coercion.
+  s.add_dependency "bigdecimal"
+  s.add_dependency "logger"
 end

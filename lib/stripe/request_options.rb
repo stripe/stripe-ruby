@@ -29,6 +29,16 @@ module Stripe
       OPTS_USER_SPECIFIED - Set[:idempotency_key, :stripe_context]
     ).freeze
 
+    # helper method to figure out what the true value of the stripe_context header should be
+    # given a pair of StripeContext|string
+    # req should take precedence if non-nil
+    private_class_method def self.merge_context(config_ctx, req_ctx)
+      str_with_precedence = (req_ctx || config_ctx)&.to_s
+      return nil if str_with_precedence.nil? || str_with_precedence.empty?
+
+      str_with_precedence
+    end
+
     # Merges requestor options on a StripeConfiguration object
     # with a per-request options hash, giving precedence
     # to the per-request options. Expects StripeConfiguration and hash.
@@ -42,7 +52,7 @@ module Stripe
         api_key: req_opts[:api_key] || config.api_key,
         idempotency_key: req_opts[:idempotency_key],
         stripe_account: req_opts[:stripe_account] || config.stripe_account,
-        stripe_context: req_opts[:stripe_context] || config.stripe_context,
+        stripe_context: merge_context(config.stripe_context, req_opts[:stripe_context]),
         stripe_version: req_opts[:stripe_version] || config.api_version,
         headers: req_opts[:headers] || {},
       }
@@ -56,14 +66,15 @@ module Stripe
     # Merges requestor options hash on a StripeObject
     # with a per-request options hash, giving precedence
     # to the per-request options. Returns the merged request options.
-    # Expects two hashes.
+    # Expects two hashes, expects extract_opts_from_hash to be called first!!!
     def self.combine_opts(object_opts, req_opts)
       merged_opts = {
         api_key: req_opts[:api_key] || object_opts[:api_key],
         idempotency_key: req_opts[:idempotency_key],
         stripe_account: req_opts[:stripe_account] || object_opts[:stripe_account],
-        stripe_context: req_opts[:stripe_context] || object_opts[:stripe_context],
+        stripe_context: merge_context(object_opts[:stripe_context], req_opts[:stripe_context]),
         stripe_version: req_opts[:stripe_version] || object_opts[:stripe_version],
+        headers: req_opts[:headers] || {},
       }
 
       # Remove nil values from headers
@@ -99,6 +110,7 @@ module Stripe
         val = normalized_opts[opt]
         next if val.nil?
         next if val.is_a?(String)
+        next if opt == :stripe_context && val.is_a?(StripeContext)
 
         raise ArgumentError,
               "request option '#{opt}' should be a string value " \
@@ -120,9 +132,7 @@ module Stripe
 
     # Get options that are copyable from StripeObject to StripeObject
     def self.copyable(req_opts)
-      req_opts.select do |k, _v|
-        RequestOptions::OPTS_COPYABLE.include?(k)
-      end
+      req_opts.slice(*RequestOptions::OPTS_COPYABLE)
     end
   end
 end

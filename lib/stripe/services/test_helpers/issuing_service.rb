@@ -4,12 +4,13 @@
 module Stripe
   module TestHelpers
     class IssuingService < StripeService
-      attr_reader :authorizations, :cards, :personalization_designs, :transactions
+      attr_reader :authorizations, :cards, :disputes, :personalization_designs, :transactions
 
       def initialize(requestor)
-        super(requestor)
+        super
         @authorizations = Stripe::TestHelpers::Issuing::AuthorizationService.new(@requestor)
         @cards = Stripe::TestHelpers::Issuing::CardService.new(@requestor)
+        @disputes = Stripe::TestHelpers::Issuing::DisputeService.new(@requestor)
         @personalization_designs = Stripe::TestHelpers::Issuing::PersonalizationDesignService
                                    .new(@requestor)
         @transactions = Stripe::TestHelpers::Issuing::TransactionService.new(@requestor)

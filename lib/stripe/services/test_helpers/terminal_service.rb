@@ -7,7 +7,7 @@ module Stripe
       attr_reader :readers
 
       def initialize(requestor)
-        super(requestor)
+        super
         @readers = Stripe::TestHelpers::Terminal::ReaderService.new(@requestor)
       end
     end

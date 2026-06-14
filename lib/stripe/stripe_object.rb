@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "bigdecimal"
+
 module Stripe
   class StripeObject
     include Enumerable
@@ -83,6 +85,7 @@ module Stripe
       @unsaved_values = Set.new
       @transient_values = Set.new
       @values[:id] = id if id
+      @id = id
       @last_response = nil
       @requestor = requestor || APIRequestor.active_requestor
     end
@@ -153,14 +156,39 @@ module Stripe
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
-        @values[k] = Util.convert_to_stripe_object(v, opts, api_mode: @api_mode, requestor: @requestor)
+        @values[k] = convert_value_with_inner_types(k, v, opts)
+        if self.class.field_encodings[k.to_sym] == :decimal_string && @values[k].is_a?(String)
+          @values[k] = BigDecimal(@values[k])
+        end
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
       end
     end
 
+    private def convert_value_with_inner_types(key, value, opts)
+      inner_class = _get_inner_class_type(key)
+
+      if inner_class
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor, klass: inner_class)
+      else
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor)
+      end
+    end
+
     def [](key)
-      @values[key.to_sym]
+      key_sym = key.to_sym
+      return @values[key_sym] if @values.key?(key_sym)
+
+      # super specific one-off case to help users debug this property disappearing
+      # see also: https://go/j/DEVSDK-2835
+      if is_a?(Invoice) && key_sym == :payment_intent
+        raise KeyError,
+              "The 'payment_intent' attribute is no longer available on Invoice objects. " \
+              "See the docs for more details: https://docs.stripe.com/changelog/basil/2025-03-31/" \
+              "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change"
+      end
+
+      nil
     end
 
     def []=(key, value)
@@ -191,13 +219,13 @@ module Stripe
         value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
-      @values.each_with_object({}) do |(key, value), acc|
-        acc[key] = case value
-                   when Array
-                     value.map(&maybe_to_hash)
-                   else
-                     maybe_to_hash.call(value)
-                   end
+      @values.transform_values do |value|
+        case value
+        when Array
+          value.map(&maybe_to_hash)
+        else
+          maybe_to_hash.call(value)
+        end
       end
     end
 
@@ -262,7 +290,7 @@ module Stripe
 
       # a `nil` that makes it out of `#serialize_params_value` signals an empty
       # value that we shouldn't appear in the serialized form of the object
-      update_hash.reject! { |_, v| v.nil? }
+      update_hash.compact!
 
       update_hash
     end
@@ -302,6 +330,7 @@ module Stripe
     protected def remove_accessors(keys)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
+      obj = self # capture self to use inside instance_eval
 
       metaclass.instance_eval do
         keys.each do |k|
@@ -331,6 +360,11 @@ module Stripe
                    "collide with an API property name.")
             end
           end
+
+          # Also remove instance variables so that static attr_readers (if any exist)
+          # will return nil instead of stale data or data of the wrong type
+          ivar_name = :"@#{k}"
+          obj.remove_instance_variable(ivar_name) if obj.instance_variable_defined?(ivar_name)
         end
       end
     end
@@ -369,6 +403,19 @@ module Stripe
           define_method(:"#{k}?") { @values[k] } if [FalseClass, TrueClass].include?(values[k].class)
         end
       end
+
+      keys.each do |k|
+        if Util.valid_variable_name?(k)
+          instance_variable_set(:"@#{k}", values[k])
+        else
+          Util.log_info(<<~LOG
+            The variable name '#{k}' is not a valid Ruby variable name.
+            Use ["#{k}"] to access this field, skipping instance variable instantiation...
+          LOG
+                       )
+
+        end
+      end
     end
 
     # Disabling the cop because it's confused by the fact that the methods are
@@ -402,6 +449,23 @@ module Stripe
       begin
         super
       rescue NoMethodError => e
+        # super specific one-off case to help users debug this property disappearing
+        # see also: https://go/j/DEVSDK-2835
+        if is_a?(Invoice) && name == :payment_intent
+          raise NoMethodError,
+                "\n\n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
+                "-----------------\n" \
+                "The 'payment_intent' attribute is no longer available on Invoice objects.\n\n" \
+                "See the docs for more details:\n" \
+                "https://docs.stripe.com/changelog/basil/2025-03-31/" \
+                "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change\n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
+                "-----------------" \
+        end
+
         # If we notice the accessed name of our set of transient values we can
         # give the user a slightly more helpful error message. If not, just
         # raise right away.
@@ -468,13 +532,14 @@ module Stripe
 
     # Should only be for v2 events and lists, for now.
     protected def _request(method:, path:, base_address:, params: {}, opts: {})
-      req_opts = RequestOptions.combine_opts(@opts, opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+      req_opts = RequestOptions.combine_opts(@opts, req_opts)
       @requestor.execute_request(
         method,
         path,
         base_address,
         params: params,
-        opts: RequestOptions.extract_opts_from_hash(req_opts)
+        opts: req_opts
       )
     end
 
@@ -604,6 +669,24 @@ module Stripe
       values.each_with_object({}) do |(k, _), update|
         update[k] = ""
       end
+    end
+
+    # Instance methods to get inner class types
+    def _get_inner_class_type(field_name)
+      self.class.inner_class_types[field_name.to_sym]
+    end
+
+    # Class methods for inner class types, similar to Python's implementation
+    def self.inner_class_types
+      @inner_class_types ||= {}
+    end
+
+    def self.field_remappings
+      @field_remappings ||= {}
+    end
+
+    def self.field_encodings
+      @field_encodings ||= {}
     end
   end
 end

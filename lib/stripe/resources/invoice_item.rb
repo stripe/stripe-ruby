@@ -2,17 +2,14 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). An invoice item is added to an
-  # invoice by creating or updating it with an `invoice` field, at which point it will be included as
-  # [an invoice line item](https://stripe.com/docs/api/invoices/line_item) within
-  # [invoice.lines](https://stripe.com/docs/api/invoices/object#invoice_object-lines).
+  # Invoice Items represent the component lines of an [invoice](https://docs.stripe.com/api/invoices). When you create an invoice item with an `invoice` field, it is attached to the specified invoice and included as [an invoice line item](https://docs.stripe.com/api/invoices/line_item) within [invoice.lines](https://docs.stripe.com/api/invoices/object#invoice_object-lines).
   #
   # Invoice Items can be created before you are ready to actually send the invoice. This can be particularly useful when combined
-  # with a [subscription](https://stripe.com/docs/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
+  # with a [subscription](https://docs.stripe.com/api/subscriptions). Sometimes you want to add a charge or credit to a customer, but actually charge
   # or credit the customer's card only at the end of a regular billing cycle. This is useful for combining several charges
   # (to minimize per-transaction fees), or for having Stripe tabulate your usage-based billing totals.
   #
-  # Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
+  # Related guides: [Integrate with the Invoicing API](https://docs.stripe.com/invoicing/integration), [Subscription Invoices](https://docs.stripe.com/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -23,6 +20,317 @@ module Stripe
     def self.object_name
       "invoiceitem"
     end
+
+    class Parent < ::Stripe::StripeObject
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+        # The pricing plan subscription that manages this charge
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this charge was generated
+        attr_reader :pricing_plan_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardSubscriptionDetails < ::Stripe::StripeObject
+        # The rate card subscription that generated this invoice item
+        attr_reader :rate_card_subscription
+        # The rate card version that generated this invoice item
+        attr_reader :rate_card_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The subscription schedule that generated this invoice item
+        attr_reader :schedule
+        # The subscription associated with this schedule
+        attr_reader :subscription
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class SubscriptionDetails < ::Stripe::StripeObject
+        # The subscription that generated this invoice item
+        attr_reader :subscription
+        # The subscription item that generated this invoice item
+        attr_reader :subscription_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the pricing plan subscription that generated this invoice item
+      attr_reader :pricing_plan_subscription_details
+      # Details about the rate card subscription that generated this invoice item
+      attr_reader :rate_card_subscription_details
+      # Details about the subscription schedule that generated this invoice item
+      attr_reader :schedule_details
+      # Details about the subscription that generated this invoice item
+      attr_reader :subscription_details
+      # The type of parent that generated this invoice item
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          schedule_details: ScheduleDetails,
+          subscription_details: SubscriptionDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Period < ::Stripe::StripeObject
+      # The end of the period, which must be greater than or equal to the start. This value is inclusive.
+      attr_reader :end
+      # The start of the period. This value is inclusive.
+      attr_reader :start
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Pricing < ::Stripe::StripeObject
+      class LicenseFeeDetails < ::Stripe::StripeObject
+        # The ID of the license fee this item is associated with
+        attr_reader :license_fee
+        # The version of the license fee this item is associated with
+        attr_reader :license_fee_version
+        # The ID of the licensed item this item is associated with
+        attr_reader :licensed_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PriceDetails < ::Stripe::StripeObject
+        # The ID of the price this item is associated with.
+        attr_reader :price
+        # The ID of the product this item is associated with.
+        attr_reader :product
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardCustomPricingUnitOverageRateDetails < ::Stripe::StripeObject
+        # The ID of the custom pricing unit this item is associated with
+        attr_reader :custom_pricing_unit
+        # The ID of the custom pricing unit overage rate this item is associated with
+        attr_reader :custom_pricing_unit_overage_rate
+        # The ID of the one-time item this custom pricing unit overage rate is associated with
+        attr_reader :one_time_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardRateDetails < ::Stripe::StripeObject
+        # The ID of billable item this item is associated with
+        attr_reader :metered_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+        # The ID of the rate card rate this item is associated with
+        attr_reader :rate_card_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field license_fee_details
+      attr_reader :license_fee_details
+      # Attribute for field price_details
+      attr_reader :price_details
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
+      # Attribute for field rate_card_rate_details
+      attr_reader :rate_card_rate_details
+      # The type of the pricing details.
+      attr_reader :type
+      # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+      attr_reader :unit_amount_decimal
+
+      def self.inner_class_types
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
+    end
+
+    class ProrationDetails < ::Stripe::StripeObject
+      class CreditedItems < ::Stripe::StripeObject
+        class InvoiceLineItemDetails < ::Stripe::StripeObject
+          # The invoice id for the debited line item(s).
+          attr_reader :invoice
+          # IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
+          attr_reader :invoice_line_items
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
+        attr_reader :invoice_item
+        # Attribute for field invoice_line_item_details
+        attr_reader :invoice_line_item_details
+        # Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { invoice_line_item_details: InvoiceLineItemDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class DiscountAmount < ::Stripe::StripeObject
+        # The amount, in cents (or local equivalent), of the discount.
+        attr_reader :amount
+        # The discount that was applied to get this discount amount.
+        attr_reader :discount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
+      attr_reader :credited_items
+      # Discount amounts applied when the proration was created.
+      attr_reader :discount_amounts
+
+      def self.inner_class_types
+        @inner_class_types = { credited_items: CreditedItems, discount_amounts: DiscountAmount }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    # Amount (in the `currency` specified) of the invoice item. This should always be equal to `unit_amount * quantity`.
+    attr_reader :amount
+    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    attr_reader :currency
+    # The ID of the customer to bill for this invoice item.
+    attr_reader :customer
+    # The ID of the account to bill for this invoice item.
+    attr_reader :customer_account
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
+    attr_reader :date
+    # Always true for a deleted object
+    attr_reader :deleted
+    # An arbitrary string attached to the object. Often useful for displaying to users.
+    attr_reader :description
+    # If true, discounts will apply to this invoice item. Always false for prorations.
+    attr_reader :discountable
+    # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
+    attr_reader :discounts
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    attr_reader :frozen_fields
+    # Unique identifier for the object.
+    attr_reader :id
+    # The ID of the invoice this invoice item belongs to.
+    attr_reader :invoice
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
+    attr_reader :margins
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
+    # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.
+    attr_reader :net_amount
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # The parent that generated this invoice item.
+    attr_reader :parent
+    # Attribute for field period
+    attr_reader :period
+    # The pricing information of the invoice item.
+    attr_reader :pricing
+    # Whether the invoice item was created automatically as a proration adjustment when the customer switched plans.
+    attr_reader :proration
+    # Attribute for field proration_details
+    attr_reader :proration_details
+    # Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    attr_reader :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
+    attr_reader :quantity_decimal
+    # The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item.
+    attr_reader :tax_rates
+    # ID of the test clock this invoice item belongs to.
+    attr_reader :test_clock
 
     # Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
     def self.create(params = {}, opts = {})
@@ -62,6 +370,26 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        parent: Parent,
+        period: Period,
+        pricing: Pricing,
+        proration_details: ProrationDetails,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+      }
     end
   end
 end

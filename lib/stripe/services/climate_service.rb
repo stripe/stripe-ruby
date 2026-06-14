@@ -6,7 +6,7 @@ module Stripe
     attr_reader :orders, :products, :suppliers
 
     def initialize(requestor)
-      super(requestor)
+      super
       @orders = Stripe::Climate::OrderService.new(@requestor)
       @products = Stripe::Climate::ProductService.new(@requestor)
       @suppliers = Stripe::Climate::SupplierService.new(@requestor)

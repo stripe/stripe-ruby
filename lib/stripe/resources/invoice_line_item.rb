@@ -2,16 +2,478 @@
 # frozen_string_literal: true
 
 module Stripe
-  # Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
+  # Invoice Line Items represent the individual lines within an [invoice](https://docs.stripe.com/api/invoices) and only exist within the context of an invoice.
   #
-  # Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
-  class InvoiceLineItem < StripeObject
+  # Each line item is backed by either an [invoice item](https://docs.stripe.com/api/invoiceitems) or a [subscription item](https://docs.stripe.com/api/subscription_items).
+  class InvoiceLineItem < APIResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "line_item"
     def self.object_name
       "line_item"
     end
+
+    class DiscountAmount < ::Stripe::StripeObject
+      # The amount, in cents (or local equivalent), of the discount.
+      attr_reader :amount
+      # The discount that was applied to get this discount amount.
+      attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class MarginAmount < ::Stripe::StripeObject
+      # The amount, in cents (or local equivalent), of the reduction in line item amount.
+      attr_reader :amount
+      # The margin that was applied to get this margin amount.
+      attr_reader :margin
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Parent < ::Stripe::StripeObject
+      class InvoiceItemDetails < ::Stripe::StripeObject
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The invoice item that generated this line item
+        attr_reader :invoice_item
+        # Whether this is a proration
+        attr_reader :proration
+        # Additional details for proration line items
+        attr_reader :proration_details
+        # The subscription that the invoice item belongs to
+        attr_reader :subscription
+
+        def self.inner_class_types
+          @inner_class_types = { proration_details: ProrationDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+        # The invoice item that generated this line item
+        attr_reader :invoice_item
+        # The pricing plan subscription that manages this charge
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this charge was generated
+        attr_reader :pricing_plan_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardSubscriptionDetails < ::Stripe::StripeObject
+        # The invoice item that generated this line item
+        attr_reader :invoice_item
+        # The rate card subscription that generated this line item
+        attr_reader :rate_card_subscription
+        # The rate card version at the time this line item was generated
+        attr_reader :rate_card_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ScheduleDetails < ::Stripe::StripeObject
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The invoice item that generated this line item.
+        attr_reader :invoice_item
+        # Whether this is a proration.
+        attr_reader :proration
+        # Additional details for proration line items.
+        attr_reader :proration_details
+        # The subscription schedule that generated this line item.
+        attr_reader :schedule
+        # The subscription that the schedule belongs to.
+        attr_reader :subscription
+
+        def self.inner_class_types
+          @inner_class_types = { proration_details: ProrationDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class SubscriptionItemDetails < ::Stripe::StripeObject
+        class ProrationDetails < ::Stripe::StripeObject
+          class CreditedItems < ::Stripe::StripeObject
+            # Invoice containing the credited invoice line items
+            attr_reader :invoice
+            # Credited invoice line items
+            attr_reader :invoice_line_items
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # For a credit proration `line_item`, the original debit line_items to which the credit proration applies.
+          attr_reader :credited_items
+
+          def self.inner_class_types
+            @inner_class_types = { credited_items: CreditedItems }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The invoice item that generated this line item
+        attr_reader :invoice_item
+        # Whether this is a proration
+        attr_reader :proration
+        # Additional details for proration line items
+        attr_reader :proration_details
+        # The subscription that the subscription item belongs to
+        attr_reader :subscription
+        # The subscription item that generated this line item
+        attr_reader :subscription_item
+
+        def self.inner_class_types
+          @inner_class_types = { proration_details: ProrationDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the invoice item that generated this line item
+      attr_reader :invoice_item_details
+      # Details about the pricing plan subscription that generated this line item
+      attr_reader :pricing_plan_subscription_details
+      # Details about the rate card subscription that generated this line item
+      attr_reader :rate_card_subscription_details
+      # Details about the subscription schedule that generated this line item
+      attr_reader :schedule_details
+      # Details about the subscription item that generated this line item
+      attr_reader :subscription_item_details
+      # The type of parent that generated this line item
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {
+          invoice_item_details: InvoiceItemDetails,
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          schedule_details: ScheduleDetails,
+          subscription_item_details: SubscriptionItemDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Period < ::Stripe::StripeObject
+      # The end of the period, which must be greater than or equal to the start. This value is inclusive.
+      attr_reader :end
+      # The start of the period. This value is inclusive.
+      attr_reader :start
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class PretaxCreditAmount < ::Stripe::StripeObject
+      # The amount, in cents (or local equivalent), of the pretax credit amount.
+      attr_reader :amount
+      # The credit balance transaction that was applied to get this pretax credit amount.
+      attr_reader :credit_balance_transaction
+      # The discount that was applied to get this pretax credit amount.
+      attr_reader :discount
+      # The margin that was applied to get this pretax credit amount.
+      attr_reader :margin
+      # Type of the pretax credit amount referenced.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Pricing < ::Stripe::StripeObject
+      class LicenseFeeDetails < ::Stripe::StripeObject
+        # The ID of the license fee this item is associated with
+        attr_reader :license_fee
+        # The version of the license fee this item is associated with
+        attr_reader :license_fee_version
+        # The ID of the licensed item this item is associated with
+        attr_reader :licensed_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PriceDetails < ::Stripe::StripeObject
+        # The ID of the price this item is associated with.
+        attr_reader :price
+        # The ID of the product this item is associated with.
+        attr_reader :product
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardCustomPricingUnitOverageRateDetails < ::Stripe::StripeObject
+        # The ID of the custom pricing unit this item is associated with
+        attr_reader :custom_pricing_unit
+        # The ID of the custom pricing unit overage rate this item is associated with
+        attr_reader :custom_pricing_unit_overage_rate
+        # The ID of the one-time item this custom pricing unit overage rate is associated with
+        attr_reader :one_time_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardRateDetails < ::Stripe::StripeObject
+        # The ID of billable item this item is associated with
+        attr_reader :metered_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+        # The ID of the rate card rate this item is associated with
+        attr_reader :rate_card_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field license_fee_details
+      attr_reader :license_fee_details
+      # Attribute for field price_details
+      attr_reader :price_details
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
+      # Attribute for field rate_card_rate_details
+      attr_reader :rate_card_rate_details
+      # The type of the pricing details.
+      attr_reader :type
+      # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
+      attr_reader :unit_amount_decimal
+
+      def self.inner_class_types
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = { unit_amount_decimal: :decimal_string }
+      end
+    end
+
+    class TaxCalculationReference < ::Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      attr_reader :calculation_id
+      # The calculation identifier for tax calculation response line item.
+      attr_reader :calculation_item_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Tax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
+        # ID of the tax rate
+        attr_reader :tax_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The amount of the tax, in cents (or local equivalent).
+      attr_reader :amount
+      # Whether this tax is inclusive or exclusive.
+      attr_reader :tax_behavior
+      # Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
+      attr_reader :tax_rate_details
+      # The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+      attr_reader :taxability_reason
+      # The amount on which tax is calculated, in cents (or local equivalent).
+      attr_reader :taxable_amount
+      # The type of tax information.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { tax_rate_details: TaxRateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    # The amount, in cents (or local equivalent).
+    attr_reader :amount
+    # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    attr_reader :currency
+    # An arbitrary string attached to the object. Often useful for displaying to users.
+    attr_reader :description
+    # The amount of discount calculated per discount for this line item.
+    attr_reader :discount_amounts
+    # If true, discounts will apply to this line item. Always false for prorations.
+    attr_reader :discountable
+    # The discounts applied to the invoice line item. Line item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
+    attr_reader :discounts
+    # Unique identifier for the object.
+    attr_reader :id
+    # The ID of the invoice that contains this line item.
+    attr_reader :invoice
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    attr_reader :livemode
+    # The amount of margin calculated per margin for this line item.
+    attr_reader :margin_amounts
+    # The margins applied to the line item. When set, the `default_margins` on the invoice do not apply to the line item. Use `expand[]=margins` to expand each margin.
+    attr_reader :margins
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
+    attr_reader :metadata
+    # String representing the object's type. Objects of the same type share the same value.
+    attr_reader :object
+    # The parent that generated this line item.
+    attr_reader :parent
+    # Attribute for field period
+    attr_reader :period
+    # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this line item.
+    attr_reader :pretax_credit_amounts
+    # The pricing information of the line item.
+    attr_reader :pricing
+    # Quantity of units for the invoice line item in integer format, with any decimal precision truncated. For the line item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the line item is a proration or subscription, the quantity of the subscription that the proration was computed for.
+    attr_reader :quantity
+    # Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
+    attr_reader :quantity_decimal
+    # Attribute for field subscription
+    attr_reader :subscription
+    # The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    attr_reader :subtotal
+    # The tax calculation identifiers of the line item.
+    attr_reader :tax_calculation_reference
+    # The tax information of the line item.
+    attr_reader :taxes
 
     # Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
@@ -24,6 +486,30 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        discount_amounts: DiscountAmount,
+        margin_amounts: MarginAmount,
+        parent: Parent,
+        period: Period,
+        pretax_credit_amounts: PretaxCreditAmount,
+        pricing: Pricing,
+        tax_calculation_reference: TaxCalculationReference,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = {
+        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        quantity_decimal: :decimal_string,
+      }
     end
   end
 end

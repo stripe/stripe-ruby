@@ -25,7 +25,8 @@ module Stripe
   # If `.logger` is set, the value of `.log_level` is ignored. The decision on
   # what levels to print is entirely deferred to the logger.
   class StripeConfiguration
-    attr_accessor :api_key, :api_version, :client_id, :enable_telemetry, :logger, :stripe_account, :stripe_context
+    attr_accessor :api_key, :api_version, :authenticator, :client_id, :enable_telemetry, :logger,
+                  :stripe_account, :stripe_context
 
     attr_reader :api_base, :uploads_base, :connect_base, :meter_events_base, :base_addresses, :ca_bundle_path,
                 :log_level, :initial_network_retry_delay, :max_network_retries, :max_network_retry_delay,
@@ -45,12 +46,7 @@ module Stripe
       imported_options = USER_CONFIGURABLE_GLOBAL_OPTIONS - StripeClient::CLIENT_OPTIONS
       client_config = StripeConfiguration.setup do |instance|
         imported_options.each do |key|
-          begin
-            instance.public_send("#{key}=", global_config.public_send(key)) if global_config.respond_to?(key)
-          rescue NotImplementedError => e
-            # In Ruby <= 2.5, we can't set write_timeout on Net::HTTP, log an error and continue
-            Util.log_error("Failed to set #{key} on client configuration: #{e}")
-          end
+          instance.public_send("#{key}=", global_config.public_send(key)) if global_config.respond_to?(key)
         end
       end
       client_config.reverse_duplicate_merge(config_opts)
@@ -71,6 +67,7 @@ module Stripe
 
     def initialize
       @api_version = ApiVersion::CURRENT
+
       @ca_bundle_path = Stripe::DEFAULT_CA_BUNDLE_PATH
       @enable_telemetry = true
       @verify_ssl_certs = true

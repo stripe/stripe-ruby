@@ -17,12 +17,12 @@ module Stripe
       context "#idempotent_replayed?" do
         should "initialize from header" do
           e = StripeError.new("message", http_headers: { "idempotent-replayed" => "true" })
-          assert_equal true, e.idempotent_replayed?
+          assert_equal true, e.instance_variable_get(:@idempotent_replayed)
         end
 
         should "be 'falsey' by default" do
           e = StripeError.new("message")
-          refute_equal true, e.idempotent_replayed?
+          refute_equal true, e.instance_variable_get(:@idempotent_replayed)
         end
       end
 

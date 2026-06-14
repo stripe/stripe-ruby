@@ -6,26 +6,27 @@ module Stripe
     attr_reader :line_items, :preview_lines
 
     def initialize(requestor)
-      super(requestor)
+      super
       @line_items = Stripe::CreditNoteLineItemService.new(@requestor)
       @preview_lines = Stripe::CreditNotePreviewLinesService.new(@requestor)
     end
 
-    # Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
-    # its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
-    # in any combination of the following:
+    # Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
+    # This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
     #
     #
-    # Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+    # Refunds: create a new refund (using refund_amount) or link existing refunds (using refunds).
     # Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
     # Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
     #
     #
-    # For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+    # The sum of refunds, customer balance credits, and outside of Stripe credits must equal the post_payment_amount.
     #
-    # You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
-    # or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+    # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
+    # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
     def create(params = {}, opts = {})
+      params = ::Stripe::CreditNoteCreateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :post,
         path: "/v1/credit_notes",
@@ -48,6 +49,8 @@ module Stripe
 
     # Get a preview of a credit note without creating it.
     def preview(params = {}, opts = {})
+      params = ::Stripe::CreditNotePreviewParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
+
       request(
         method: :get,
         path: "/v1/credit_notes/preview",
@@ -68,6 +71,20 @@ module Stripe
       )
     end
 
+    # Serializes a CreditNote create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
     # Updates an existing credit note.
     def update(id, params = {}, opts = {})
       request(
@@ -79,7 +96,7 @@ module Stripe
       )
     end
 
-    # Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    # Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
     def void_credit_note(id, params = {}, opts = {})
       request(
         method: :post,

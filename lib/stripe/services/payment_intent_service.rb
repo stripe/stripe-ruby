@@ -3,6 +3,13 @@
 
 module Stripe
   class PaymentIntentService < StripeService
+    attr_reader :amount_details_line_items
+
+    def initialize(requestor)
+      super
+      @amount_details_line_items = Stripe::PaymentIntentAmountDetailsLineItemService.new(@requestor)
+    end
+
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     def apply_customer_balance(intent, params = {}, opts = {})
       request(
@@ -14,11 +21,11 @@ module Stripe
       )
     end
 
-    # You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://stripe.com/docs/payments/intents), processing.
+    # You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
     #
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
-    # You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+    # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     def cancel(intent, params = {}, opts = {})
       request(
         method: :post,
@@ -33,7 +40,7 @@ module Stripe
     #
     # Uncaptured PaymentIntents are cancelled a set number of days (7 by default) after their creation.
     #
-    # Learn more about [separate authorization and capture](https://stripe.com/docs/payments/capture-later).
+    # Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
     def capture(intent, params = {}, opts = {})
       request(
         method: :post,
@@ -47,6 +54,7 @@ module Stripe
     # Confirm that your customer intends to pay with current or provided
     # payment method. Upon confirmation, the PaymentIntent will attempt to initiate
     # a payment.
+    #
     # If the selected payment method requires additional authentication steps, the
     # PaymentIntent will transition to the requires_action status and
     # suggest additional actions via next_action. If payment fails,
@@ -54,18 +62,22 @@ module Stripe
     # canceled status if the confirmation limit is reached. If
     # payment succeeds, the PaymentIntent will transition to the succeeded
     # status (or requires_capture, if capture_method is set to manual).
+    #
     # If the confirmation_method is automatic, payment may be attempted
-    # using our [client SDKs](https://stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
-    # and the PaymentIntent's [client_secret](https://stripe.com/docs/api#payment_intent_object-client_secret).
+    # using our [client SDKs](https://docs.stripe.com/docs/stripe-js/reference#stripe-handle-card-payment)
+    # and the PaymentIntent's [client_secret](https://docs.stripe.com/api#payment_intent_object-client_secret).
     # After next_actions are handled by the client, no additional
     # confirmation is required to complete the payment.
+    #
     # If the confirmation_method is manual, all payment attempts must be
     # initiated using a secret key.
+    #
     # If any actions are required for the payment, the PaymentIntent will
     # return to the requires_confirmation state
     # after those actions are completed. Your server needs to then
     # explicitly re-confirm the PaymentIntent to initiate the next payment
     # attempt.
+    #
     # There is a variable upper limit on how many times a PaymentIntent can be confirmed.
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.
@@ -81,13 +93,13 @@ module Stripe
 
     # Creates a PaymentIntent object.
     #
-    # After the PaymentIntent is created, attach a payment method and [confirm](https://stripe.com/docs/api/payment_intents/confirm)
+    # After the PaymentIntent is created, attach a payment method and [confirm](https://docs.stripe.com/docs/api/payment_intents/confirm)
     # to continue the payment. Learn more about <a href="/docs/payments/payment-intents">the available payment flows
     # with the Payment Intents API.
     #
     # When you use confirm=true during creation, it's equivalent to creating
     # and confirming the PaymentIntent in the same call. You can use any parameters
-    # available in the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) when you supply
+    # available in the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) when you supply
     # confirm=true.
     def create(params = {}, opts = {})
       request(
@@ -99,10 +111,36 @@ module Stripe
       )
     end
 
-    # Perform an incremental authorization on an eligible
-    # [PaymentIntent](https://stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # Perform a decremental authorization on an eligible
+    # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
-    # [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported)
+    # [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+    # must be available.
+    #
+    # Decremental authorizations decrease the authorized amount on your customer's card
+    # to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+    #
+    # After decrement, the PaymentIntent object
+    # returns with the updated
+    # [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # The PaymentIntent will now be capturable up to the new authorized amount.
+    #
+    # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
+    def decrement_authorization(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Perform an incremental authorization on an eligible
+    # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # PaymentIntent's status must be requires_capture and
+    # [incremental_authorization_supported](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported)
     # must be true.
     #
     # Incremental authorizations attempt to increase the authorized amount on
@@ -113,16 +151,18 @@ module Stripe
     #
     # If the incremental authorization succeeds, the PaymentIntent object
     # returns with the updated
-    # [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
     # If the incremental authorization fails, a
-    # [card_declined](https://stripe.com/docs/error-codes#card-declined) error returns, and no other
+    # [card_declined](https://docs.stripe.com/docs/error-codes#card-declined) error returns, and no other
     # fields on the PaymentIntent or Charge update. The PaymentIntent
     # object remains capturable for the previously authorized amount.
     #
     # Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
     # After it's captured, a PaymentIntent can no longer be incremented.
     #
-    # Learn more about [incremental authorizations](https://stripe.com/docs/terminal/features/incremental-authorizations).
+    # Learn more about incremental authorizations with
+    # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+    # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     def increment_authorization(intent, params = {}, opts = {})
       request(
         method: :post,
@@ -144,11 +184,29 @@ module Stripe
       )
     end
 
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    def reauthorize(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Retrieves the details of a PaymentIntent that has previously been created.
     #
     # You can retrieve a PaymentIntent client-side using a publishable key when the client_secret is in the query string.
     #
-    # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://stripe.com/docs/api#payment_intent_object) object reference for more details.
+    # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api#payment_intent_object) object reference for more details.
     def retrieve(intent, params = {}, opts = {})
       request(
         method: :get,
@@ -159,7 +217,7 @@ module Stripe
       )
     end
 
-    # Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+    # Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
     # conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
     # to an hour behind during outages. Search functionality is not available to merchants in India.
@@ -173,17 +231,39 @@ module Stripe
       )
     end
 
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Updates properties on a PaymentIntent object without confirming.
     #
     # Depending on which properties you update, you might need to confirm the
     # PaymentIntent again. For example, updating the payment_method
     # always requires you to confirm the PaymentIntent again. If you prefer to
     # update and confirm at the same time, we recommend updating properties through
-    # the [confirm API](https://stripe.com/docs/api/payment_intents/confirm) instead.
+    # the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
     def update(intent, params = {}, opts = {})
       request(
         method: :post,
         path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def update_crypto_refund_address(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts,
         base_address: :api

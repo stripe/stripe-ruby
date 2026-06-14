@@ -11,6 +11,12 @@ module Stripe
       # String representing the type of the object that has been deleted. Objects of the same type share the same value of the object field.
       sig { returns(T.nilable(String)) }
       def object; end
+      # String representing the object's type. Objects of the same type share the same value of the object field.
+      sig { returns(String) }
+      attr_reader :object
+      # The ID of the object that's being deleted.
+      sig { returns(String) }
+      attr_reader :id
     end
   end
 end

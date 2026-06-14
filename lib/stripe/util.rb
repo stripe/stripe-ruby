@@ -136,6 +136,7 @@ module Stripe
       requestor: nil,
       v2_deleted_object: false,
       klass: nil
+      v2_deleted_object: false
     )
       opts = normalize_opts(opts)
 
@@ -160,6 +161,11 @@ module Stripe
                            V2::DeletedObject
                          elsif object_name == "v2.core.event" && v2_event_classes.key?(object_type)
                            v2_event_classes.fetch(object_type)
+        object_class = if api_mode == :v2
+                         if v2_deleted_object
+                           V2::DeletedObject
+                         elsif object_name == "v2.core.event" && thin_event_classes.key?(object_type)
+                           thin_event_classes.fetch(object_type)
                          else
                            v2_object_classes.fetch(
                              object_name, StripeObject

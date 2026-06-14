@@ -29,6 +29,10 @@ module Stripe
     attr_reader :amount
     # Amount in cents (or local equivalent) reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
     attr_reader :amount_reversed
+    # Attribute for field application_fee
+    attr_reader :application_fee
+    # Attribute for field application_fee_amount
+    attr_reader :application_fee_amount
     # Balance transaction that describes the impact of this transfer on your account balance.
     attr_reader :balance_transaction
     # Time that this record of the transfer was first created.
@@ -41,6 +45,8 @@ module Stripe
     attr_reader :destination
     # If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
     attr_reader :destination_payment
+    # The FX Quote used for the transfer.
+    attr_reader :fx_quote
     # Unique identifier for the object.
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.

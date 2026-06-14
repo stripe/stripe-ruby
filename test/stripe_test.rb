@@ -125,6 +125,35 @@ class StripeTest < Test::Unit::TestCase
       assert_equal "https://other.stripe.com", Stripe.meter_events_base
     end
 
+    should "allow beta versions to be added multiple times" do
+      Stripe.api_version = "2018-02-28"
+
+      Stripe.add_beta_version("my_beta", "v2")
+      assert_equal "2018-02-28; my_beta=v2", Stripe.api_version
+
+      # same version should be a no-op
+      Stripe.add_beta_version("my_beta", "v2")
+      assert_equal "2018-02-28; my_beta=v2", Stripe.api_version
+
+      # higher version should use higher version
+      Stripe.add_beta_version("my_beta", "v5")
+      assert_equal "2018-02-28; my_beta=v5", Stripe.api_version
+
+      # lower version should be a no-op
+      Stripe.add_beta_version("my_beta", "v4")
+      assert_equal "2018-02-28; my_beta=v5", Stripe.api_version
+    end
+
+    should "allow append multiple beta names" do
+      Stripe.api_version = "2018-02-28"
+
+      Stripe.add_beta_version("my_beta", "v2")
+      assert_equal "2018-02-28; my_beta=v2", Stripe.api_version
+
+      Stripe.add_beta_version("my_beta_two", "v4")
+      assert_equal "2018-02-28; my_beta=v2; my_beta_two=v4", Stripe.api_version
+    end
+
     should "allow verify_ssl_certs to be configured" do
       Stripe.verify_ssl_certs = false
       assert_equal false, Stripe.verify_ssl_certs

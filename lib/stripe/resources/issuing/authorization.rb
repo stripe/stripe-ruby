@@ -33,6 +33,138 @@ module Stripe
         end
       end
 
+      class BalanceResponse < ::Stripe::StripeObject
+        # The cardholder account type affected by this authorization.
+        attr_reader :account_type
+        # The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        attr_reader :amount
+        # The currency of the remaining balance in the cardholder's account after the authorization.
+        attr_reader :currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the confirmed transaction.
+          attr_reader :chain
+          # When the transaction was confirmed onchain.
+          attr_reader :confirmed_at
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the transaction.
+          attr_reader :to_address
+          # The blockchain transaction hash.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the failed transaction.
+          attr_reader :chain
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # When the transaction failed.
+          attr_reader :failed_at
+          # The reason the transaction failed.
+          attr_reader :failure_reason
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the attempted transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the attempted transaction when one exists.
+          attr_reader :to_address
+          # The blockchain transaction hash when one exists.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        attr_reader :crypto_transaction_confirmed
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        attr_reader :crypto_transaction_failed
+        # The crypto transaction variant for this array entry.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Fleet < ::Stripe::StripeObject
         class CardholderPromptData < ::Stripe::StripeObject
           # [Deprecated] An alphanumeric ID, though typical point of sales only support numeric entry. The card program can be configured to prompt for a vehicle ID, driver ID, or generic ID.
@@ -237,10 +369,14 @@ module Stripe
         attr_reader :name
         # Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         attr_reader :network_id
+        # The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network. Null when the transaction was not processed through a PayFac.
+        attr_reader :payment_facilitator_id
         # Postal code where the seller is located
         attr_reader :postal_code
         # State where the seller is located
         attr_reader :state
+        # The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator. Null when the transaction was not processed through a PayFac or when no sub-merchant ID was provided.
+        attr_reader :sub_merchant_id
         # The seller's tax identification number. Currently populated for French merchants only.
         attr_reader :tax_id
         # An ID assigned by the seller to the location of the sale.
@@ -362,6 +498,129 @@ module Stripe
         end
       end
 
+      class TokenDetails < ::Stripe::StripeObject
+        class NetworkData < ::Stripe::StripeObject
+          class Device < ::Stripe::StripeObject
+            # The IP address of the device at provisioning time.
+            attr_reader :ip_address
+            # The ISO 639-1 language code of the device associated with the tokenization request.
+            attr_reader :language
+            # The phone number of the device used for tokenization.
+            attr_reader :phone_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Mastercard < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            attr_reader :card_reference_id
+            # The network-unique identifier for the token.
+            attr_reader :token_reference_id
+            # The ID of the entity requesting tokenization.
+            attr_reader :token_requestor_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Visa < ::Stripe::StripeObject
+            # A unique reference ID from the network to represent the card account number.
+            attr_reader :card_reference_id
+            # The network's recommendation to Stripe for this token activation request.
+            attr_reader :token_decision_recommendation
+            # The network-unique identifier for the token.
+            attr_reader :token_reference_id
+            # The ID of the entity requesting tokenization.
+            attr_reader :token_requestor_id
+            # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
+            attr_reader :token_risk_score
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class WalletProvider < ::Stripe::StripeObject
+            # An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
+            attr_reader :account_trust_score
+            # The method used for tokenizing a card.
+            attr_reader :card_number_source
+            # An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy.
+            attr_reader :device_trust_score
+            # The reasons for suggested tokenization given by the card network.
+            attr_reader :reason_codes
+            # The recommendation on responding to the tokenization request.
+            attr_reader :suggested_decision
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field device
+          attr_reader :device
+          # Attribute for field mastercard
+          attr_reader :mastercard
+          # The card network for this token.
+          attr_reader :type
+          # Attribute for field visa
+          attr_reader :visa
+          # Attribute for field wallet_provider
+          attr_reader :wallet_provider
+
+          def self.inner_class_types
+            @inner_class_types = {
+              device: Device,
+              mastercard: Mastercard,
+              visa: Visa,
+              wallet_provider: WalletProvider,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The card associated with this token.
+        attr_reader :card
+        # Time at which the object was created. Measured in seconds since the Unix epoch.
+        attr_reader :created
+        # The hashed ID derived from the device ID from the card network associated with the token.
+        attr_reader :device_fingerprint
+        # Attribute for field network_data
+        attr_reader :network_data
+        # The decision made during token provisioning.
+        attr_reader :provisioning_decision
+        # The type of the token, indicating how it is used.
+        attr_reader :token_type
+
+        def self.inner_class_types
+          @inner_class_types = { network_data: NetworkData }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
         attr_reader :received_credits
@@ -441,6 +700,8 @@ module Stripe
       attr_reader :approved
       # How the card details were provided.
       attr_reader :authorization_method
+      # Attribute for field balance_response
+      attr_reader :balance_response
       # List of balance transactions associated with this authorization.
       attr_reader :balance_transactions
       # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
@@ -451,6 +712,8 @@ module Stripe
       attr_reader :cardholder
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Array of onchain crypto transactions linked to this resource.
+      attr_reader :crypto_transactions
       # The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # Fleet-specific information for authorizations using Fleet cards.
@@ -483,6 +746,8 @@ module Stripe
       attr_reader :status
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       attr_reader :token
+      # Attribute for field token_details
+      attr_reader :token_details
       # List of [transactions](https://docs.stripe.com/api/issuing/transactions) associated with this authorization.
       attr_reader :transactions
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
@@ -714,6 +979,8 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           amount_details: AmountDetails,
+          balance_response: BalanceResponse,
+          crypto_transactions: CryptoTransaction,
           fleet: Fleet,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,
@@ -721,6 +988,7 @@ module Stripe
           network_data: NetworkData,
           pending_request: PendingRequest,
           request_history: RequestHistory,
+          token_details: TokenDetails,
           treasury: Treasury,
           verification_data: VerificationData,
         }

@@ -216,6 +216,116 @@ module Stripe
       def initialize(address: nil, shipping: nil, tax: nil, tax_exempt: nil, tax_ids: nil); end
     end
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          sig { returns(Integer) }
+          def interval_count; end
+          sig { params(_interval_count: Integer).returns(Integer) }
+          def interval_count=(_interval_count); end
+          sig { params(interval: String, interval_count: Integer).void }
+          def initialize(interval: nil, interval_count: nil); end
+        end
+        # Time span for the redeemed discount.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd::Duration))
+         }
+        def duration; end
+        sig {
+          params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd::Duration))
+         }
+        def duration=(_duration); end
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def timestamp=(_timestamp); end
+        # The type of calculation made to determine when the discount ends.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+         }
+        def initialize(duration: nil, timestamp: nil, type: nil); end
+      end
+      class Settings < ::Stripe::RequestParams
+        class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+          class Custom < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            sig { returns(Integer) }
+            def day_of_month; end
+            sig { params(_day_of_month: Integer).returns(Integer) }
+            def day_of_month=(_day_of_month); end
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            sig { returns(T.nilable(Integer)) }
+            def hour; end
+            sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def hour=(_hour); end
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            sig { returns(T.nilable(Integer)) }
+            def minute; end
+            sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def minute=(_minute); end
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            sig { returns(T.nilable(Integer)) }
+            def month; end
+            sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def month=(_month); end
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            sig { returns(T.nilable(Integer)) }
+            def second; end
+            sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def second=(_second); end
+            sig {
+              params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+             }
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
+          end
+          # Anchor the service period to a custom date. Type must be `custom` to specify.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+           }
+          def custom; end
+          sig {
+            params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+           }
+          def custom=(_custom); end
+          # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
+          sig {
+            params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+           }
+          def initialize(custom: nil, type: nil); end
+        end
+        # Configures service period cycle anchoring.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig))
+         }
+        def service_period_anchor_config; end
+        sig {
+          params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig))
+         }
+        def service_period_anchor_config=(_service_period_anchor_config); end
+        # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+        sig { returns(T.nilable(String)) }
+        def start_date; end
+        sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+        def start_date=(_start_date); end
+        sig {
+          params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+         }
+        def initialize(service_period_anchor_config: nil, start_date: nil); end
+      end
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -226,18 +336,77 @@ module Stripe
       def discount; end
       sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
       def discount=(_discount); end
+      # Details to determine how long the discount should be applied for.
+      sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd)) }
+      def discount_end; end
+      sig {
+        params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd))
+       }
+      def discount_end=(_discount_end); end
       # ID of the promotion code to create a new discount for.
       sig { returns(T.nilable(String)) }
       def promotion_code; end
       sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
       def promotion_code=(_promotion_code); end
+      # Settings for discount application including service period anchoring.
+      sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings)) }
+      def settings; end
       sig {
-        params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+        params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings))
        }
-      def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+      def settings=(_settings); end
+      sig {
+        params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::Discount::Settings)).void
+       }
+      def initialize(
+        coupon: nil,
+        discount: nil,
+        discount_end: nil,
+        promotion_code: nil,
+        settings: nil
+      ); end
     end
     class InvoiceItem < ::Stripe::RequestParams
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            sig { returns(Integer) }
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: Integer).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # Time span for the redeemed discount.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd::Duration))
+           }
+          def duration=(_duration); end
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # The type of calculation made to determine when the discount ends.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, timestamp: nil, type: nil); end
+        end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
         def coupon; end
@@ -248,15 +417,24 @@ module Stripe
         def discount; end
         sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
         def discount=(_discount); end
+        # Details to determine how long the discount should be applied for.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd))
+         }
+        def discount_end; end
+        sig {
+          params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd))
+         }
+        def discount_end=(_discount_end); end
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(String)) }
         def promotion_code; end
         sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
         def promotion_code=(_promotion_code); end
         sig {
-          params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+          params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::InvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
          }
-        def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
       end
       class Period < ::Stripe::RequestParams
         # The end of the period, which must be greater than or equal to the start. This value is inclusive.
@@ -454,6 +632,1169 @@ module Stripe
       def initialize(account: nil, type: nil); end
     end
     class ScheduleDetails < ::Stripe::RequestParams
+      class Amendment < ::Stripe::RequestParams
+        class AmendmentEnd < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            # The ID of a specific discount.
+            sig { returns(String) }
+            def discount; end
+            sig { params(_discount: String).returns(String) }
+            def discount=(_discount); end
+            sig { params(discount: String).void }
+            def initialize(discount: nil); end
+          end
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            sig { returns(Integer) }
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: Integer).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # Use the `end` time of a given discount.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd))
+           }
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
+          # Time span for the amendment starting from the `amendment_start`.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::Duration))
+           }
+          def duration=(_duration); end
+          # A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # Select one of three ways to pass the `amendment_end`.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::DiscountEnd), duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil); end
+        end
+        class AmendmentStart < ::Stripe::RequestParams
+          class AmendmentEnd < ::Stripe::RequestParams
+            # The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
+            sig { returns(Integer) }
+            def index; end
+            sig { params(_index: Integer).returns(Integer) }
+            def index=(_index); end
+            sig { params(index: Integer).void }
+            def initialize(index: nil); end
+          end
+          class DiscountEnd < ::Stripe::RequestParams
+            # The ID of a specific discount.
+            sig { returns(String) }
+            def discount; end
+            sig { params(_discount: String).returns(String) }
+            def discount=(_discount); end
+            sig { params(discount: String).void }
+            def initialize(discount: nil); end
+          end
+          # Details of another amendment in the same array, immediately after which this amendment should begin.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd))
+           }
+          def amendment_end; end
+          sig {
+            params(_amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd))
+           }
+          def amendment_end=(_amendment_end); end
+          # Use the `end` time of a given discount.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd))
+           }
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
+          # A precise Unix timestamp for the amendment to start.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # Select one of three ways to pass the `amendment_start`.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::AmendmentEnd), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart::DiscountEnd), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil); end
+        end
+        class BillingSchedulesAction < ::Stripe::RequestParams
+          class AppliesTo < ::Stripe::RequestParams
+            # The ID of the price object.
+            sig { returns(T.nilable(String)) }
+            def price; end
+            sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+            def price=(_price); end
+            # Controls which subscription items the billing schedule applies to.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(price: T.nilable(String), type: String).void }
+            def initialize(price: nil, type: nil); end
+          end
+          # Specify which subscription items the billing schedule applies to.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction::AppliesTo]))
+           }
+          def applies_to; end
+          sig {
+            params(_applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction::AppliesTo])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction::AppliesTo]))
+           }
+          def applies_to=(_applies_to); end
+          # Select the action.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction::AppliesTo]), type: String).void
+           }
+          def initialize(applies_to: nil, type: nil); end
+        end
+        class DiscountAction < ::Stripe::RequestParams
+          class Add < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              # The type of calculation made to determine when the discount ends.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(type: String).void }
+              def initialize(type: nil); end
+            end
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  sig { returns(Integer) }
+                  def day_of_month; end
+                  sig { params(_day_of_month: Integer).returns(Integer) }
+                  def day_of_month=(_day_of_month); end
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  sig { returns(T.nilable(Integer)) }
+                  def hour; end
+                  sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def hour=(_hour); end
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def minute; end
+                  sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def minute=(_minute); end
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  sig { returns(T.nilable(Integer)) }
+                  def month; end
+                  sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def month=(_month); end
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def second; end
+                  sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def second=(_second); end
+                  sig {
+                    params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                   }
+                  def initialize(
+                    day_of_month: nil,
+                    hour: nil,
+                    minute: nil,
+                    month: nil,
+                    second: nil
+                  ); end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom=(_custom); end
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              # Configures service period cycle anchoring.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config; end
+              sig {
+                params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config=(_service_period_anchor_config); end
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+              sig { returns(T.nilable(String)) }
+              def start_date; end
+              sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+              def start_date=(_start_date); end
+              sig {
+                params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+               }
+              def initialize(service_period_anchor_config: nil, start_date: nil); end
+            end
+            # The coupon code to redeem.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
+            # An ID of an existing discount for a coupon that was already redeemed.
+            sig { returns(T.nilable(String)) }
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
+            # Details to determine how long the discount should be applied for.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd))
+             }
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
+            # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+            sig { returns(T.nilable(Integer)) }
+            def index; end
+            sig { params(_index: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def index=(_index); end
+            # The promotion code to redeem.
+            sig { returns(T.nilable(String)) }
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
+            # Settings for discount application including service period anchoring.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings))
+             }
+            def settings; end
+            sig {
+              params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings))
+             }
+            def settings=(_settings); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::DiscountEnd), index: T.nilable(Integer), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add::Settings)).void
+             }
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              index: nil,
+              promotion_code: nil,
+              settings: nil
+            ); end
+          end
+          class Remove < ::Stripe::RequestParams
+            # The coupon code to remove from the `discounts` array.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
+            # The ID of a discount to remove from the `discounts` array.
+            sig { returns(T.nilable(String)) }
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
+            # The ID of a promotion code to remove from the `discounts` array.
+            sig { returns(T.nilable(String)) }
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+             }
+            def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+          end
+          class Set < ::Stripe::RequestParams
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  sig { returns(Integer) }
+                  def day_of_month; end
+                  sig { params(_day_of_month: Integer).returns(Integer) }
+                  def day_of_month=(_day_of_month); end
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  sig { returns(T.nilable(Integer)) }
+                  def hour; end
+                  sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def hour=(_hour); end
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def minute; end
+                  sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def minute=(_minute); end
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  sig { returns(T.nilable(Integer)) }
+                  def month; end
+                  sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def month=(_month); end
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def second; end
+                  sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def second=(_second); end
+                  sig {
+                    params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                   }
+                  def initialize(
+                    day_of_month: nil,
+                    hour: nil,
+                    minute: nil,
+                    month: nil,
+                    second: nil
+                  ); end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom=(_custom); end
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              # Configures service period cycle anchoring.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config; end
+              sig {
+                params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config=(_service_period_anchor_config); end
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+              sig { returns(T.nilable(String)) }
+              def start_date; end
+              sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+              def start_date=(_start_date); end
+              sig {
+                params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+               }
+              def initialize(service_period_anchor_config: nil, start_date: nil); end
+            end
+            # The coupon code to replace the `discounts` array with.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+            def coupon=(_coupon); end
+            # An ID of an existing discount to replace the `discounts` array with.
+            sig { returns(T.nilable(String)) }
+            def discount; end
+            sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+            def discount=(_discount); end
+            # An ID of an existing promotion code to replace the `discounts` array with.
+            sig { returns(T.nilable(String)) }
+            def promotion_code; end
+            sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+            def promotion_code=(_promotion_code); end
+            # Settings for discount application including service period anchoring.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings))
+             }
+            def settings; end
+            sig {
+              params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings))
+             }
+            def settings=(_settings); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set::Settings)).void
+             }
+            def initialize(coupon: nil, discount: nil, promotion_code: nil, settings: nil); end
+          end
+          # Details of the discount to add.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add))
+           }
+          def add; end
+          sig {
+            params(_add: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add))
+           }
+          def add=(_add); end
+          # Details of the discount to remove.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Remove))
+           }
+          def remove; end
+          sig {
+            params(_remove: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Remove)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Remove))
+           }
+          def remove=(_remove); end
+          # Details of the discount to replace the existing discounts with.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set))
+           }
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set))
+           }
+          def set=(_set); end
+          # Determines the type of discount action.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(add: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Add), remove: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Remove), set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction::Set), type: String).void
+           }
+          def initialize(add: nil, remove: nil, set: nil, type: nil); end
+        end
+        class ItemAction < ::Stripe::RequestParams
+          class Add < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              class DiscountEnd < ::Stripe::RequestParams
+                class Duration < ::Stripe::RequestParams
+                  # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                  sig { returns(String) }
+                  def interval; end
+                  sig { params(_interval: String).returns(String) }
+                  def interval=(_interval); end
+                  # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                  sig { returns(Integer) }
+                  def interval_count; end
+                  sig { params(_interval_count: Integer).returns(Integer) }
+                  def interval_count=(_interval_count); end
+                  sig { params(interval: String, interval_count: Integer).void }
+                  def initialize(interval: nil, interval_count: nil); end
+                end
+                # Time span for the redeemed discount.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
+                 }
+                def duration; end
+                sig {
+                  params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration))
+                 }
+                def duration=(_duration); end
+                # A precise Unix timestamp for the discount to end. Must be in the future.
+                sig { returns(T.nilable(Integer)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def timestamp=(_timestamp); end
+                # The type of calculation made to determine when the discount ends.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig {
+                  params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+                 }
+                def initialize(duration: nil, timestamp: nil, type: nil); end
+              end
+              class Settings < ::Stripe::RequestParams
+                class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                  class Custom < ::Stripe::RequestParams
+                    # The day of the month the anchor should be. Ranges from 1 to 31.
+                    sig { returns(Integer) }
+                    def day_of_month; end
+                    sig { params(_day_of_month: Integer).returns(Integer) }
+                    def day_of_month=(_day_of_month); end
+                    # The hour of the day the anchor should be. Ranges from 0 to 23.
+                    sig { returns(T.nilable(Integer)) }
+                    def hour; end
+                    sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def hour=(_hour); end
+                    # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                    sig { returns(T.nilable(Integer)) }
+                    def minute; end
+                    sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def minute=(_minute); end
+                    # The month to start full cycle periods. Ranges from 1 to 12.
+                    sig { returns(T.nilable(Integer)) }
+                    def month; end
+                    sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def month=(_month); end
+                    # The second of the minute the anchor should be. Ranges from 0 to 59.
+                    sig { returns(T.nilable(Integer)) }
+                    def second; end
+                    sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def second=(_second); end
+                    sig {
+                      params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                     }
+                    def initialize(
+                      day_of_month: nil,
+                      hour: nil,
+                      minute: nil,
+                      month: nil,
+                      second: nil
+                    ); end
+                  end
+                  # Anchor the service period to a custom date. Type must be `custom` to specify.
+                  sig {
+                    returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                   }
+                  def custom; end
+                  sig {
+                    params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                   }
+                  def custom=(_custom); end
+                  # The type of service period anchor config. Defaults to `inherit` if omitted.
+                  sig { returns(T.nilable(String)) }
+                  def type; end
+                  sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                  def type=(_type); end
+                  sig {
+                    params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                   }
+                  def initialize(custom: nil, type: nil); end
+                end
+                # Configures service period cycle anchoring.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
+                 }
+                def service_period_anchor_config; end
+                sig {
+                  params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig))
+                 }
+                def service_period_anchor_config=(_service_period_anchor_config); end
+                # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+                sig { returns(T.nilable(String)) }
+                def start_date; end
+                sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+                def start_date=(_start_date); end
+                sig {
+                  params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+                 }
+                def initialize(service_period_anchor_config: nil, start_date: nil); end
+              end
+              # ID of the coupon to create a new discount for.
+              sig { returns(T.nilable(String)) }
+              def coupon; end
+              sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+              def coupon=(_coupon); end
+              # ID of an existing discount on the object (or one of its ancestors) to reuse.
+              sig { returns(T.nilable(String)) }
+              def discount; end
+              sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+              def discount=(_discount); end
+              # Details to determine how long the discount should be applied for.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd))
+               }
+              def discount_end; end
+              sig {
+                params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd))
+               }
+              def discount_end=(_discount_end); end
+              # ID of the promotion code to create a new discount for.
+              sig { returns(T.nilable(String)) }
+              def promotion_code; end
+              sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+              def promotion_code=(_promotion_code); end
+              # Settings for discount application including service period anchoring.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings))
+               }
+              def settings; end
+              sig {
+                params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings))
+               }
+              def settings=(_settings); end
+              sig {
+                params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount::Settings)).void
+               }
+              def initialize(
+                coupon: nil,
+                discount: nil,
+                discount_end: nil,
+                promotion_code: nil,
+                settings: nil
+              ); end
+            end
+            class Trial < ::Stripe::RequestParams
+              # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+              sig { returns(T.nilable(T::Array[String])) }
+              def converts_to; end
+              sig {
+                params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def converts_to=(_converts_to); end
+              # Determines the type of trial for this item.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
+              def initialize(converts_to: nil, type: nil); end
+            end
+            # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount]))
+             }
+            def discounts; end
+            sig {
+              params(_discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount]))
+             }
+            def discounts=(_discounts); end
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
+            # The ID of the price object.
+            sig { returns(String) }
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
+            # Quantity for this item.
+            sig { returns(T.nilable(Integer)) }
+            def quantity; end
+            sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def quantity=(_quantity); end
+            # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def tax_rates; end
+            sig {
+              params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def tax_rates=(_tax_rates); end
+            # Options that configure the trial on the subscription item.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial))
+             }
+            def trial; end
+            sig {
+              params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial))
+             }
+            def trial=(_trial); end
+            # The ID of the trial offer to apply to the configuration item.
+            sig { returns(T.nilable(String)) }
+            def trial_offer; end
+            sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_offer=(_trial_offer); end
+            sig {
+              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add::Trial), trial_offer: T.nilable(String)).void
+             }
+            def initialize(
+              discounts: nil,
+              metadata: nil,
+              price: nil,
+              quantity: nil,
+              tax_rates: nil,
+              trial: nil,
+              trial_offer: nil
+            ); end
+          end
+          class Remove < ::Stripe::RequestParams
+            # ID of a price to remove.
+            sig { returns(String) }
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
+            sig { params(price: String).void }
+            def initialize(price: nil); end
+          end
+          class Set < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              class DiscountEnd < ::Stripe::RequestParams
+                class Duration < ::Stripe::RequestParams
+                  # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                  sig { returns(String) }
+                  def interval; end
+                  sig { params(_interval: String).returns(String) }
+                  def interval=(_interval); end
+                  # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                  sig { returns(Integer) }
+                  def interval_count; end
+                  sig { params(_interval_count: Integer).returns(Integer) }
+                  def interval_count=(_interval_count); end
+                  sig { params(interval: String, interval_count: Integer).void }
+                  def initialize(interval: nil, interval_count: nil); end
+                end
+                # Time span for the redeemed discount.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
+                 }
+                def duration; end
+                sig {
+                  params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration))
+                 }
+                def duration=(_duration); end
+                # A precise Unix timestamp for the discount to end. Must be in the future.
+                sig { returns(T.nilable(Integer)) }
+                def timestamp; end
+                sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def timestamp=(_timestamp); end
+                # The type of calculation made to determine when the discount ends.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig {
+                  params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+                 }
+                def initialize(duration: nil, timestamp: nil, type: nil); end
+              end
+              class Settings < ::Stripe::RequestParams
+                class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                  class Custom < ::Stripe::RequestParams
+                    # The day of the month the anchor should be. Ranges from 1 to 31.
+                    sig { returns(Integer) }
+                    def day_of_month; end
+                    sig { params(_day_of_month: Integer).returns(Integer) }
+                    def day_of_month=(_day_of_month); end
+                    # The hour of the day the anchor should be. Ranges from 0 to 23.
+                    sig { returns(T.nilable(Integer)) }
+                    def hour; end
+                    sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def hour=(_hour); end
+                    # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                    sig { returns(T.nilable(Integer)) }
+                    def minute; end
+                    sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def minute=(_minute); end
+                    # The month to start full cycle periods. Ranges from 1 to 12.
+                    sig { returns(T.nilable(Integer)) }
+                    def month; end
+                    sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def month=(_month); end
+                    # The second of the minute the anchor should be. Ranges from 0 to 59.
+                    sig { returns(T.nilable(Integer)) }
+                    def second; end
+                    sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                    def second=(_second); end
+                    sig {
+                      params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                     }
+                    def initialize(
+                      day_of_month: nil,
+                      hour: nil,
+                      minute: nil,
+                      month: nil,
+                      second: nil
+                    ); end
+                  end
+                  # Anchor the service period to a custom date. Type must be `custom` to specify.
+                  sig {
+                    returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                   }
+                  def custom; end
+                  sig {
+                    params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                   }
+                  def custom=(_custom); end
+                  # The type of service period anchor config. Defaults to `inherit` if omitted.
+                  sig { returns(T.nilable(String)) }
+                  def type; end
+                  sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                  def type=(_type); end
+                  sig {
+                    params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                   }
+                  def initialize(custom: nil, type: nil); end
+                end
+                # Configures service period cycle anchoring.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
+                 }
+                def service_period_anchor_config; end
+                sig {
+                  params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig))
+                 }
+                def service_period_anchor_config=(_service_period_anchor_config); end
+                # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+                sig { returns(T.nilable(String)) }
+                def start_date; end
+                sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+                def start_date=(_start_date); end
+                sig {
+                  params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+                 }
+                def initialize(service_period_anchor_config: nil, start_date: nil); end
+              end
+              # ID of the coupon to create a new discount for.
+              sig { returns(T.nilable(String)) }
+              def coupon; end
+              sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
+              def coupon=(_coupon); end
+              # ID of an existing discount on the object (or one of its ancestors) to reuse.
+              sig { returns(T.nilable(String)) }
+              def discount; end
+              sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
+              def discount=(_discount); end
+              # Details to determine how long the discount should be applied for.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd))
+               }
+              def discount_end; end
+              sig {
+                params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd))
+               }
+              def discount_end=(_discount_end); end
+              # ID of the promotion code to create a new discount for.
+              sig { returns(T.nilable(String)) }
+              def promotion_code; end
+              sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
+              def promotion_code=(_promotion_code); end
+              # Settings for discount application including service period anchoring.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings))
+               }
+              def settings; end
+              sig {
+                params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings))
+               }
+              def settings=(_settings); end
+              sig {
+                params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount::Settings)).void
+               }
+              def initialize(
+                coupon: nil,
+                discount: nil,
+                discount_end: nil,
+                promotion_code: nil,
+                settings: nil
+              ); end
+            end
+            class Trial < ::Stripe::RequestParams
+              # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+              sig { returns(T.nilable(T::Array[String])) }
+              def converts_to; end
+              sig {
+                params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+               }
+              def converts_to=(_converts_to); end
+              # Determines the type of trial for this item.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
+              def initialize(converts_to: nil, type: nil); end
+            end
+            # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount]))
+             }
+            def discounts; end
+            sig {
+              params(_discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount]))
+             }
+            def discounts=(_discounts); end
+            # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
+            # The ID of the price object.
+            sig { returns(String) }
+            def price; end
+            sig { params(_price: String).returns(String) }
+            def price=(_price); end
+            # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+            sig { returns(T.nilable(Integer)) }
+            def quantity; end
+            sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def quantity=(_quantity); end
+            # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def tax_rates; end
+            sig {
+              params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def tax_rates=(_tax_rates); end
+            # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial))
+             }
+            def trial; end
+            sig {
+              params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial))
+             }
+            def trial=(_trial); end
+            # The ID of the trial offer to apply to the configuration item.
+            sig { returns(T.nilable(String)) }
+            def trial_offer; end
+            sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+            def trial_offer=(_trial_offer); end
+            sig {
+              params(discounts: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Discount]), metadata: T.nilable(T::Hash[String, String]), price: String, quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String]), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set::Trial), trial_offer: T.nilable(String)).void
+             }
+            def initialize(
+              discounts: nil,
+              metadata: nil,
+              price: nil,
+              quantity: nil,
+              tax_rates: nil,
+              trial: nil,
+              trial_offer: nil
+            ); end
+          end
+          # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add))
+           }
+          def add; end
+          sig {
+            params(_add: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add))
+           }
+          def add=(_add); end
+          # Details of the subscription item to remove.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Remove))
+           }
+          def remove; end
+          sig {
+            params(_remove: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Remove)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Remove))
+           }
+          def remove=(_remove); end
+          # Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set))
+           }
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set))
+           }
+          def set=(_set); end
+          # Determines the type of item action.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(add: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Add), remove: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Remove), set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction::Set), type: String).void
+           }
+          def initialize(add: nil, remove: nil, set: nil, type: nil); end
+        end
+        class MetadataAction < ::Stripe::RequestParams
+          # Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def add; end
+          sig {
+            params(_add: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def add=(_add); end
+          # Keys to remove from schedule phase metadata.
+          sig { returns(T.nilable(T::Array[String])) }
+          def remove; end
+          sig { params(_remove: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+          def remove=(_remove); end
+          # Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
+          sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+          def set; end
+          sig {
+            params(_set: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+           }
+          def set=(_set); end
+          # Select one of three ways to update phase-level `metadata` on subscription schedules.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(add: T.nilable(T::Hash[String, String]), remove: T.nilable(T::Array[String]), set: T.nilable(T.any(String, T::Hash[String, String])), type: String).void
+           }
+          def initialize(add: nil, remove: nil, set: nil, type: nil); end
+        end
+        class SetPauseCollection < ::Stripe::RequestParams
+          class Set < ::Stripe::RequestParams
+            # The payment collection behavior for this subscription while paused.
+            sig { returns(String) }
+            def behavior; end
+            sig { params(_behavior: String).returns(String) }
+            def behavior=(_behavior); end
+            sig { params(behavior: String).void }
+            def initialize(behavior: nil); end
+          end
+          # Details of the pause_collection behavior to apply to the amendment.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection::Set))
+           }
+          def set; end
+          sig {
+            params(_set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection::Set)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection::Set))
+           }
+          def set=(_set); end
+          # Determines the type of the pause_collection amendment.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(set: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection::Set), type: String).void
+           }
+          def initialize(set: nil, type: nil); end
+        end
+        class TrialSettings < ::Stripe::RequestParams
+          class EndBehavior < ::Stripe::RequestParams
+            # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+            sig { returns(T.nilable(String)) }
+            def prorate_up_front; end
+            sig { params(_prorate_up_front: T.nilable(String)).returns(T.nilable(String)) }
+            def prorate_up_front=(_prorate_up_front); end
+            sig { params(prorate_up_front: T.nilable(String)).void }
+            def initialize(prorate_up_front: nil); end
+          end
+          # Defines how the subscription should behave when a trial ends.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior))
+           }
+          def end_behavior; end
+          sig {
+            params(_end_behavior: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior))
+           }
+          def end_behavior=(_end_behavior); end
+          sig {
+            params(end_behavior: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings::EndBehavior)).void
+           }
+          def initialize(end_behavior: nil); end
+        end
+        # Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd))
+         }
+        def amendment_end; end
+        sig {
+          params(_amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd))
+         }
+        def amendment_end=(_amendment_end); end
+        # Details to identify the earliest timestamp where the proposed change should take effect.
+        sig {
+          returns(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart)
+         }
+        def amendment_start; end
+        sig {
+          params(_amendment_start: ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart).returns(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart)
+         }
+        def amendment_start=(_amendment_start); end
+        # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+        sig { returns(T.nilable(String)) }
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
+        # Actions to apply to the billing schedules.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction]))
+         }
+        def billing_schedules_actions; end
+        sig {
+          params(_billing_schedules_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction]))
+         }
+        def billing_schedules_actions=(_billing_schedules_actions); end
+        # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction]))
+         }
+        def discount_actions; end
+        sig {
+          params(_discount_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction]))
+         }
+        def discount_actions=(_discount_actions); end
+        # Configures how the subscription schedule handles billing for phase transitions.
+        sig { returns(T.nilable(String)) }
+        def effective_at; end
+        sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+        def effective_at=(_effective_at); end
+        # Changes to the subscription items during the amendment time span.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction]))
+         }
+        def item_actions; end
+        sig {
+          params(_item_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction]))
+         }
+        def item_actions=(_item_actions); end
+        # Instructions for how to modify phase metadata
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::MetadataAction]))
+         }
+        def metadata_actions; end
+        sig {
+          params(_metadata_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::MetadataAction])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::MetadataAction]))
+         }
+        def metadata_actions=(_metadata_actions); end
+        # Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
+        sig { returns(T.nilable(String)) }
+        def proration_behavior; end
+        sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def proration_behavior=(_proration_behavior); end
+        # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection))
+         }
+        def set_pause_collection; end
+        sig {
+          params(_set_pause_collection: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection))
+         }
+        def set_pause_collection=(_set_pause_collection); end
+        # Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
+        sig { returns(T.nilable(String)) }
+        def set_schedule_end; end
+        sig { params(_set_schedule_end: T.nilable(String)).returns(T.nilable(String)) }
+        def set_schedule_end=(_set_schedule_end); end
+        # Settings related to subscription trials.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings))
+         }
+        def trial_settings; end
+        sig {
+          params(_trial_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings))
+         }
+        def trial_settings=(_trial_settings); end
+        sig {
+          params(amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentEnd), amendment_start: ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart, billing_cycle_anchor: T.nilable(String), billing_schedules_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::BillingSchedulesAction]), discount_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::DiscountAction]), effective_at: T.nilable(String), item_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::ItemAction]), metadata_actions: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::MetadataAction]), proration_behavior: T.nilable(String), set_pause_collection: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::SetPauseCollection), set_schedule_end: T.nilable(String), trial_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::TrialSettings)).void
+         }
+        def initialize(
+          amendment_end: nil,
+          amendment_start: nil,
+          billing_cycle_anchor: nil,
+          billing_schedules_actions: nil,
+          discount_actions: nil,
+          effective_at: nil,
+          item_actions: nil,
+          metadata_actions: nil,
+          proration_behavior: nil,
+          set_pause_collection: nil,
+          set_schedule_end: nil,
+          trial_settings: nil
+        ); end
+      end
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -483,9 +1824,139 @@ module Stripe
          }
         def initialize(flexible: nil, type: nil); end
       end
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          sig { returns(T.nilable(String)) }
+          def price; end
+          sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+          def price=(_price); end
+          # Controls which subscription items the billing schedule applies to.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(price: T.nilable(String), type: String).void }
+          def initialize(price: nil, type: nil); end
+        end
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The multiplier applied to the interval.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # Specifies the billing period.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil::Duration))
+           }
+          def duration=(_duration); end
+          # The end date of the billing schedule.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, timestamp: nil, type: nil); end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo]))
+         }
+        def applies_to; end
+        sig {
+          params(_applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo]))
+         }
+        def applies_to=(_applies_to); end
+        # The end date for the billing schedule.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil))
+         }
+        def bill_until; end
+        sig {
+          params(_bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil))
+         }
+        def bill_until=(_bill_until); end
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        sig { returns(T.nilable(String)) }
+        def key; end
+        sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+        def key=(_key); end
+        sig {
+          params(applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo]), bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil), key: T.nilable(String)).void
+         }
+        def initialize(applies_to: nil, bill_until: nil, key: nil); end
+      end
+      class DefaultSettings < ::Stripe::RequestParams
+        # Configures how the subscription schedule handles billing for phase transitions.
+        sig { returns(T.nilable(String)) }
+        def phase_effective_at; end
+        sig { params(_phase_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+        def phase_effective_at=(_phase_effective_at); end
+        sig { params(phase_effective_at: T.nilable(String)).void }
+        def initialize(phase_effective_at: nil); end
+      end
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                sig { returns(String) }
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                sig { returns(Integer) }
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
+                sig { params(interval: String, interval_count: Integer).void }
+                def initialize(interval: nil, interval_count: nil); end
+              end
+              # Time span for the redeemed discount.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+               }
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              sig { returns(T.nilable(Integer)) }
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
+              # The type of calculation made to determine when the discount ends.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+               }
+              def initialize(duration: nil, timestamp: nil, type: nil); end
+            end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -496,15 +1967,24 @@ module Stripe
             def discount; end
             sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
             def discount=(_discount); end
+            # Details to determine how long the discount should be applied for.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd))
+             }
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
             def promotion_code; end
             sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
             def promotion_code=(_promotion_code); end
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
              }
-            def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+            def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
           end
           class Period < ::Stripe::RequestParams
             class End < ::Stripe::RequestParams
@@ -728,6 +2208,122 @@ module Stripe
           def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
         end
         class Discount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+              sig { returns(String) }
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
+              # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+              sig { returns(Integer) }
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
+              sig { params(interval: String, interval_count: Integer).void }
+              def initialize(interval: nil, interval_count: nil); end
+            end
+            # Time span for the redeemed discount.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration))
+             }
+            def duration; end
+            sig {
+              params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration))
+             }
+            def duration=(_duration); end
+            # A precise Unix timestamp for the discount to end. Must be in the future.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
+            # The type of calculation made to determine when the discount ends.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+             }
+            def initialize(duration: nil, timestamp: nil, type: nil); end
+          end
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                sig { params(_day_of_month: Integer).returns(Integer) }
+                def day_of_month=(_day_of_month); end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def hour=(_hour); end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minute=(_minute); end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def month=(_month); end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def second=(_second); end
+                sig {
+                  params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                 }
+                def initialize(
+                  day_of_month: nil,
+                  hour: nil,
+                  minute: nil,
+                  month: nil,
+                  second: nil
+                ); end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom; end
+              sig {
+                params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom=(_custom); end
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig {
+                params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+               }
+              def initialize(custom: nil, type: nil); end
+            end
+            # Configures service period cycle anchoring.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config; end
+            sig {
+              params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config=(_service_period_anchor_config); end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+            sig { returns(T.nilable(String)) }
+            def start_date; end
+            sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+            def start_date=(_start_date); end
+            sig {
+              params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+             }
+            def initialize(service_period_anchor_config: nil, start_date: nil); end
+          end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -738,15 +2334,39 @@ module Stripe
           def discount; end
           sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
           def discount=(_discount); end
+          # Details to determine how long the discount should be applied for.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd))
+           }
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(String)) }
           def promotion_code; end
           sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
           def promotion_code=(_promotion_code); end
+          # Settings for discount application including service period anchoring.
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings))
            }
-          def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+          def settings; end
+          sig {
+            params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount::Settings)).void
+           }
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            promotion_code: nil,
+            settings: nil
+          ); end
         end
         class Duration < ::Stripe::RequestParams
           # Specifies phase duration. Either `day`, `week`, `month` or `year`.
@@ -814,6 +2434,122 @@ module Stripe
             def initialize(usage_gte: nil); end
           end
           class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                sig { returns(String) }
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                sig { returns(Integer) }
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
+                sig { params(interval: String, interval_count: Integer).void }
+                def initialize(interval: nil, interval_count: nil); end
+              end
+              # Time span for the redeemed discount.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration))
+               }
+              def duration; end
+              sig {
+                params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration))
+               }
+              def duration=(_duration); end
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              sig { returns(T.nilable(Integer)) }
+              def timestamp; end
+              sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def timestamp=(_timestamp); end
+              # The type of calculation made to determine when the discount ends.
+              sig { returns(String) }
+              def type; end
+              sig { params(_type: String).returns(String) }
+              def type=(_type); end
+              sig {
+                params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+               }
+              def initialize(duration: nil, timestamp: nil, type: nil); end
+            end
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  sig { returns(Integer) }
+                  def day_of_month; end
+                  sig { params(_day_of_month: Integer).returns(Integer) }
+                  def day_of_month=(_day_of_month); end
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  sig { returns(T.nilable(Integer)) }
+                  def hour; end
+                  sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def hour=(_hour); end
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def minute; end
+                  sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def minute=(_minute); end
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  sig { returns(T.nilable(Integer)) }
+                  def month; end
+                  sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def month=(_month); end
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  sig { returns(T.nilable(Integer)) }
+                  def second; end
+                  sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                  def second=(_second); end
+                  sig {
+                    params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                   }
+                  def initialize(
+                    day_of_month: nil,
+                    hour: nil,
+                    minute: nil,
+                    month: nil,
+                    second: nil
+                  ); end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                sig {
+                  returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom; end
+                sig {
+                  params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+                 }
+                def custom=(_custom); end
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                sig { returns(T.nilable(String)) }
+                def type; end
+                sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+                def type=(_type); end
+                sig {
+                  params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+                 }
+                def initialize(custom: nil, type: nil); end
+              end
+              # Configures service period cycle anchoring.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config; end
+              sig {
+                params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig))
+               }
+              def service_period_anchor_config=(_service_period_anchor_config); end
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+              sig { returns(T.nilable(String)) }
+              def start_date; end
+              sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+              def start_date=(_start_date); end
+              sig {
+                params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+               }
+              def initialize(service_period_anchor_config: nil, start_date: nil); end
+            end
             # ID of the coupon to create a new discount for.
             sig { returns(T.nilable(String)) }
             def coupon; end
@@ -824,15 +2560,39 @@ module Stripe
             def discount; end
             sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
             def discount=(_discount); end
+            # Details to determine how long the discount should be applied for.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd))
+             }
+            def discount_end; end
+            sig {
+              params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd))
+             }
+            def discount_end=(_discount_end); end
             # ID of the promotion code to create a new discount for.
             sig { returns(T.nilable(String)) }
             def promotion_code; end
             sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
             def promotion_code=(_promotion_code); end
+            # Settings for discount application including service period anchoring.
             sig {
-              params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings))
              }
-            def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+            def settings; end
+            sig {
+              params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings))
+             }
+            def settings=(_settings); end
+            sig {
+              params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount::Settings)).void
+             }
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            ); end
           end
           class PriceData < ::Stripe::RequestParams
             class Recurring < ::Stripe::RequestParams
@@ -900,6 +2660,22 @@ module Stripe
               @field_encodings = {unit_amount_decimal: :decimal_string}
             end
           end
+          class Trial < ::Stripe::RequestParams
+            # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+            sig { returns(T.nilable(T::Array[String])) }
+            def converts_to; end
+            sig {
+              params(_converts_to: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def converts_to=(_converts_to); end
+            # Determines the type of trial for this item.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(converts_to: T.nilable(T::Array[String]), type: String).void }
+            def initialize(converts_to: nil, type: nil); end
+          end
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
           sig {
             returns(T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)))
@@ -956,8 +2732,22 @@ module Stripe
             params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
            }
           def tax_rates=(_tax_rates); end
+          # Options that configure the trial on the subscription item.
           sig {
-            params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial))
+           }
+          def trial; end
+          sig {
+            params(_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial))
+           }
+          def trial=(_trial); end
+          # The ID of the trial offer to apply to the configuration item.
+          sig { returns(T.nilable(String)) }
+          def trial_offer; end
+          sig { params(_trial_offer: T.nilable(String)).returns(T.nilable(String)) }
+          def trial_offer=(_trial_offer); end
+          sig {
+            params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String])), trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item::Trial), trial_offer: T.nilable(String)).void
            }
           def initialize(
             billing_thresholds: nil,
@@ -967,13 +2757,24 @@ module Stripe
             price: nil,
             price_data: nil,
             quantity: nil,
-            tax_rates: nil
+            tax_rates: nil,
+            trial: nil,
+            trial_offer: nil
           ); end
           def self.field_encodings
             @field_encodings = {
               price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
             }
           end
+        end
+        class PauseCollection < ::Stripe::RequestParams
+          # The payment collection behavior for this subscription while paused.
+          sig { returns(String) }
+          def behavior; end
+          sig { params(_behavior: String).returns(String) }
+          def behavior=(_behavior); end
+          sig { params(behavior: String).void }
+          def initialize(behavior: nil); end
         end
         class TransferData < ::Stripe::RequestParams
           # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
@@ -988,6 +2789,30 @@ module Stripe
           def destination=(_destination); end
           sig { params(amount_percent: T.nilable(Float), destination: String).void }
           def initialize(amount_percent: nil, destination: nil); end
+        end
+        class TrialSettings < ::Stripe::RequestParams
+          class EndBehavior < ::Stripe::RequestParams
+            # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+            sig { returns(T.nilable(String)) }
+            def prorate_up_front; end
+            sig { params(_prorate_up_front: T.nilable(String)).returns(T.nilable(String)) }
+            def prorate_up_front=(_prorate_up_front); end
+            sig { params(prorate_up_front: T.nilable(String)).void }
+            def initialize(prorate_up_front: nil); end
+          end
+          # Defines how the subscription should behave when a trial ends.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings::EndBehavior))
+           }
+          def end_behavior; end
+          sig {
+            params(_end_behavior: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings::EndBehavior)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings::EndBehavior))
+           }
+          def end_behavior=(_end_behavior); end
+          sig {
+            params(end_behavior: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings::EndBehavior)).void
+           }
+          def initialize(end_behavior: nil); end
         end
         # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
         sig {
@@ -1071,6 +2896,11 @@ module Stripe
           params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration))
          }
         def duration=(_duration); end
+        # Configures how the subscription schedule handles billing for phase transitions.
+        sig { returns(T.nilable(String)) }
+        def effective_at; end
+        sig { params(_effective_at: T.nilable(String)).returns(T.nilable(String)) }
+        def effective_at=(_effective_at); end
         # The date at which this phase of the subscription schedule ends. If set, `duration` must not be set.
         sig { returns(T.nilable(T.any(Integer, String))) }
         def end_date; end
@@ -1108,6 +2938,15 @@ module Stripe
         def on_behalf_of; end
         sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
         def on_behalf_of=(_on_behalf_of); end
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::PauseCollection))
+         }
+        def pause_collection; end
+        sig {
+          params(_pause_collection: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::PauseCollection)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::PauseCollection))
+         }
+        def pause_collection=(_pause_collection); end
         # Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         sig { returns(T.nilable(String)) }
         def proration_behavior; end
@@ -1134,6 +2973,11 @@ module Stripe
         def trial; end
         sig { params(_trial: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def trial=(_trial); end
+        # Specify trial behavior when crossing phase boundaries
+        sig { returns(T.nilable(String)) }
+        def trial_continuation; end
+        sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
+        def trial_continuation=(_trial_continuation); end
         # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
         sig { returns(T.nilable(T.any(Integer, String))) }
         def trial_end; end
@@ -1141,8 +2985,17 @@ module Stripe
           params(_trial_end: T.nilable(T.any(Integer, String))).returns(T.nilable(T.any(Integer, String)))
          }
         def trial_end=(_trial_end); end
+        # Settings related to subscription trials.
         sig {
-          params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount])), duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_end: T.nilable(T.any(Integer, String))).void
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings))
+         }
+        def trial_settings; end
+        sig {
+          params(_trial_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings))
+         }
+        def trial_settings=(_trial_settings); end
+        sig {
+          params(add_invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AddInvoiceItem]), application_fee_percent: T.nilable(Float), automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::AutomaticTax), billing_cycle_anchor: T.nilable(String), billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::BillingThresholds)), collection_method: T.nilable(String), currency: T.nilable(String), default_payment_method: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Discount])), duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Duration), effective_at: T.nilable(String), end_date: T.nilable(T.any(Integer, String)), invoice_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::InvoiceSettings), items: T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::Item], metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), pause_collection: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::PauseCollection), proration_behavior: T.nilable(String), start_date: T.nilable(T.any(Integer, String)), transfer_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TransferData), trial: T.nilable(T::Boolean), trial_continuation: T.nilable(String), trial_end: T.nilable(T.any(Integer, String)), trial_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase::TrialSettings)).void
          }
         def initialize(
           add_invoice_items: nil,
@@ -1157,16 +3010,20 @@ module Stripe
           description: nil,
           discounts: nil,
           duration: nil,
+          effective_at: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
           metadata: nil,
           on_behalf_of: nil,
+          pause_collection: nil,
           proration_behavior: nil,
           start_date: nil,
           transfer_data: nil,
           trial: nil,
-          trial_end: nil
+          trial_continuation: nil,
+          trial_end: nil,
+          trial_settings: nil
         ); end
         def self.field_encodings
           @field_encodings = {
@@ -1191,6 +3048,97 @@ module Stripe
           }
         end
       end
+      class Prebilling < ::Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class AmendmentEnd < ::Stripe::RequestParams
+            # The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
+            sig { returns(Integer) }
+            def index; end
+            sig { params(_index: Integer).returns(Integer) }
+            def index=(_index); end
+            sig { params(index: Integer).void }
+            def initialize(index: nil); end
+          end
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            sig { returns(Integer) }
+            def interval_count; end
+            sig { params(_interval_count: Integer).returns(Integer) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: Integer).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # End the prebilled period when a specified amendment ends.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd))
+           }
+          def amendment_end; end
+          sig {
+            params(_amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd))
+           }
+          def amendment_end=(_amendment_end); end
+          # Time span for prebilling, starting from `bill_from`.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::Duration))
+           }
+          def duration=(_duration); end
+          # End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # Select one of several ways to pass the `bill_until` value.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(amendment_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::AmendmentEnd), duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(amendment_end: nil, duration: nil, timestamp: nil, type: nil); end
+        end
+        # The end of the prebilled time period.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil))
+         }
+        def bill_until; end
+        sig {
+          params(_bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil))
+         }
+        def bill_until=(_bill_until); end
+        # This is used to determine the number of billing cycles to prebill.
+        sig { returns(T.nilable(Integer)) }
+        def iterations; end
+        sig { params(_iterations: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def iterations=(_iterations); end
+        sig {
+          params(bill_until: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling::BillUntil), iterations: T.nilable(Integer)).void
+         }
+        def initialize(bill_until: nil, iterations: nil); end
+      end
+      # Changes to apply to the phases of the subscription schedule, in the order provided.
+      sig {
+        returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]))
+       }
+      def amendments; end
+      sig {
+        params(_amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]))
+       }
+      def amendments=(_amendments); end
+      # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+      sig { returns(T.nilable(String)) }
+      def billing_behavior; end
+      sig { params(_billing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+      def billing_behavior=(_billing_behavior); end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode)) }
       def billing_mode; end
@@ -1198,6 +3146,24 @@ module Stripe
         params(_billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode))
        }
       def billing_mode=(_billing_mode); end
+      # Sets the billing schedules for the subscription schedule.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])))
+       }
+      def billing_schedules; end
+      sig {
+        params(_billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])))
+       }
+      def billing_schedules=(_billing_schedules); end
+      # Object representing the subscription schedule's default settings.
+      sig {
+        returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings))
+       }
+      def default_settings; end
+      sig {
+        params(_default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings))
+       }
+      def default_settings=(_default_settings); end
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
       sig { returns(T.nilable(String)) }
       def end_behavior; end
@@ -1212,18 +3178,32 @@ module Stripe
         params(_phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]))
        }
       def phases=(_phases); end
+      # Provide any time periods to bill in advance.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])))
+       }
+      def prebilling; end
+      sig {
+        params(_prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])))
+       }
+      def prebilling=(_prebilling); end
       # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
       sig {
-        params(billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), proration_behavior: T.nilable(String)).void
+        params(amendments: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment]), billing_behavior: T.nilable(String), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule])), default_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::DefaultSettings), end_behavior: T.nilable(String), phases: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Phase]), prebilling: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Prebilling])), proration_behavior: T.nilable(String)).void
        }
       def initialize(
+        amendments: nil,
+        billing_behavior: nil,
         billing_mode: nil,
+        billing_schedules: nil,
+        default_settings: nil,
         end_behavior: nil,
         phases: nil,
+        prebilling: nil,
         proration_behavior: nil
       ); end
       def self.field_encodings
@@ -1379,7 +3359,137 @@ module Stripe
           sig { params(usage_gte: Integer).void }
           def initialize(usage_gte: nil); end
         end
+        class CurrentTrial < ::Stripe::RequestParams
+          # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+          sig { returns(T.nilable(Integer)) }
+          def trial_end; end
+          sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def trial_end=(_trial_end); end
+          # The ID of the trial offer to apply to the subscription item.
+          sig { returns(String) }
+          def trial_offer; end
+          sig { params(_trial_offer: String).returns(String) }
+          def trial_offer=(_trial_offer); end
+          sig { params(trial_end: T.nilable(Integer), trial_offer: String).void }
+          def initialize(trial_end: nil, trial_offer: nil); end
+        end
         class Discount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+              sig { returns(String) }
+              def interval; end
+              sig { params(_interval: String).returns(String) }
+              def interval=(_interval); end
+              # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+              sig { returns(Integer) }
+              def interval_count; end
+              sig { params(_interval_count: Integer).returns(Integer) }
+              def interval_count=(_interval_count); end
+              sig { params(interval: String, interval_count: Integer).void }
+              def initialize(interval: nil, interval_count: nil); end
+            end
+            # Time span for the redeemed discount.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration))
+             }
+            def duration; end
+            sig {
+              params(_duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration))
+             }
+            def duration=(_duration); end
+            # A precise Unix timestamp for the discount to end. Must be in the future.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def timestamp=(_timestamp); end
+            # The type of calculation made to determine when the discount ends.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(duration: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+             }
+            def initialize(duration: nil, timestamp: nil, type: nil); end
+          end
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                sig { params(_day_of_month: Integer).returns(Integer) }
+                def day_of_month=(_day_of_month); end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def hour=(_hour); end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def minute=(_minute); end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def month=(_month); end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def second=(_second); end
+                sig {
+                  params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+                 }
+                def initialize(
+                  day_of_month: nil,
+                  hour: nil,
+                  minute: nil,
+                  month: nil,
+                  second: nil
+                ); end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              sig {
+                returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom; end
+              sig {
+                params(_custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom))
+               }
+              def custom=(_custom); end
+              # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig {
+                params(custom: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig::Custom), type: T.nilable(String)).void
+               }
+              def initialize(custom: nil, type: nil); end
+            end
+            # Configures service period cycle anchoring.
+            sig {
+              returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config; end
+            sig {
+              params(_service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig))
+             }
+            def service_period_anchor_config=(_service_period_anchor_config); end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+            sig { returns(T.nilable(String)) }
+            def start_date; end
+            sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
+            def start_date=(_start_date); end
+            sig {
+              params(service_period_anchor_config: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings::ServicePeriodAnchorConfig), start_date: T.nilable(String)).void
+             }
+            def initialize(service_period_anchor_config: nil, start_date: nil); end
+          end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
           def coupon; end
@@ -1390,15 +3500,39 @@ module Stripe
           def discount; end
           sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
           def discount=(_discount); end
+          # Details to determine how long the discount should be applied for.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd))
+           }
+          def discount_end; end
+          sig {
+            params(_discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd))
+           }
+          def discount_end=(_discount_end); end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(String)) }
           def promotion_code; end
           sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
           def promotion_code=(_promotion_code); end
+          # Settings for discount application including service period anchoring.
           sig {
-            params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings))
            }
-          def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+          def settings; end
+          sig {
+            params(_settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings))
+           }
+          def settings=(_settings); end
+          sig {
+            params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::DiscountEnd), promotion_code: T.nilable(String), settings: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount::Settings)).void
+           }
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            promotion_code: nil,
+            settings: nil
+          ); end
         end
         class PriceData < ::Stripe::RequestParams
           class Recurring < ::Stripe::RequestParams
@@ -1478,6 +3612,15 @@ module Stripe
         def clear_usage; end
         sig { params(_clear_usage: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def clear_usage=(_clear_usage); end
+        # The trial offer to apply to this subscription item.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial; end
+        sig {
+          params(_current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial=(_current_trial); end
         # A flag that, if set to `true`, will delete the specified item.
         sig { returns(T.nilable(T::Boolean)) }
         def deleted; end
@@ -1536,11 +3679,12 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,
@@ -1556,6 +3700,15 @@ module Stripe
             price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
           }
         end
+      end
+      class Prebilling < ::Stripe::RequestParams
+        # This is used to determine the number of billing cycles to prebill.
+        sig { returns(Integer) }
+        def iterations; end
+        sig { params(_iterations: Integer).returns(Integer) }
+        def iterations=(_iterations); end
+        sig { params(iterations: Integer).void }
+        def initialize(iterations: nil); end
       end
       # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
       sig { returns(T.nilable(T.any(String, Integer))) }
@@ -1615,6 +3768,15 @@ module Stripe
         params(_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]))
        }
       def items=(_items); end
+      # The pre-billing to apply to the subscription as a preview.
+      sig {
+        returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling))
+       }
+      def prebilling; end
+      sig {
+        params(_prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling))
+       }
+      def prebilling=(_prebilling); end
       # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
@@ -1643,7 +3805,7 @@ module Stripe
        }
       def trial_end=(_trial_end); end
       sig {
-        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         billing_cycle_anchor: nil,
@@ -1654,6 +3816,7 @@ module Stripe
         cancel_now: nil,
         default_tax_rates: nil,
         items: nil,
+        prebilling: nil,
         proration_behavior: nil,
         proration_date: nil,
         resume_at: nil,
@@ -1679,6 +3842,11 @@ module Stripe
       params(_automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax))
      }
     def automatic_tax=(_automatic_tax); end
+    # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice. Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+    sig { returns(T.nilable(String)) }
+    def billing_cadence; end
+    sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
+    def billing_cadence=(_billing_cadence); end
     # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
     sig { returns(T.nilable(String)) }
     def currency; end
@@ -1764,10 +3932,11 @@ module Stripe
      }
     def subscription_details=(_subscription_details); end
     sig {
-      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
+      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
      }
     def initialize(
       automatic_tax: nil,
+      billing_cadence: nil,
       currency: nil,
       customer: nil,
       customer_account: nil,

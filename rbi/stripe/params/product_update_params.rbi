@@ -4,6 +4,47 @@
 # typed: true
 module Stripe
   class ProductUpdateParams < ::Stripe::RequestParams
+    class Identifiers < ::Stripe::RequestParams
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def ean; end
+      sig { params(_ean: T.nilable(String)).returns(T.nilable(String)) }
+      def ean=(_ean); end
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def gtin; end
+      sig { params(_gtin: T.nilable(String)).returns(T.nilable(String)) }
+      def gtin=(_gtin); end
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      sig { returns(T.nilable(String)) }
+      def isbn; end
+      sig { params(_isbn: T.nilable(String)).returns(T.nilable(String)) }
+      def isbn=(_isbn); end
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def jan; end
+      sig { params(_jan: T.nilable(String)).returns(T.nilable(String)) }
+      def jan=(_jan); end
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      sig { returns(T.nilable(String)) }
+      def mpn; end
+      sig { params(_mpn: T.nilable(String)).returns(T.nilable(String)) }
+      def mpn=(_mpn); end
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      sig { returns(T.nilable(String)) }
+      def nsn; end
+      sig { params(_nsn: T.nilable(String)).returns(T.nilable(String)) }
+      def nsn=(_nsn); end
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      sig { returns(T.nilable(String)) }
+      def upc; end
+      sig { params(_upc: T.nilable(String)).returns(T.nilable(String)) }
+      def upc=(_upc); end
+      sig {
+        params(ean: T.nilable(String), gtin: T.nilable(String), isbn: T.nilable(String), jan: T.nilable(String), mpn: T.nilable(String), nsn: T.nilable(String), upc: T.nilable(String)).void
+       }
+      def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil); end
+    end
     class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
       sig { returns(String) }
@@ -37,6 +78,20 @@ module Stripe
       sig { params(height: Float, length: Float, weight: Float, width: Float).void }
       def initialize(height: nil, length: nil, weight: nil, width: nil); end
     end
+    class TaxDetails < ::Stripe::RequestParams
+      # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
+      sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+      def performance_location=(_performance_location); end
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      sig { returns(T.nilable(String)) }
+      def tax_code; end
+      sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+      def tax_code=(_tax_code); end
+      sig { params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void }
+      def initialize(performance_location: nil, tax_code: nil); end
+    end
     # Whether the product is available for purchase.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end
@@ -57,6 +112,13 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Other identifiers for this product.
+    sig { returns(T.nilable(::Stripe::ProductUpdateParams::Identifiers)) }
+    def identifiers; end
+    sig {
+      params(_identifiers: T.nilable(::Stripe::ProductUpdateParams::Identifiers)).returns(T.nilable(::Stripe::ProductUpdateParams::Identifiers))
+     }
+    def identifiers=(_identifiers); end
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     sig { returns(T.nilable(T.any(String, T::Array[String]))) }
     def images; end
@@ -110,6 +172,13 @@ module Stripe
     def tax_code; end
     sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
     def tax_code=(_tax_code); end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(T.any(String, ::Stripe::ProductUpdateParams::TaxDetails))) }
+    def tax_details; end
+    sig {
+      params(_tax_details: T.nilable(T.any(String, ::Stripe::ProductUpdateParams::TaxDetails))).returns(T.nilable(T.any(String, ::Stripe::ProductUpdateParams::TaxDetails)))
+     }
+    def tax_details=(_tax_details); end
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
     sig { returns(T.nilable(String)) }
     def unit_label; end
@@ -121,13 +190,14 @@ module Stripe
     sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
     def url=(_url); end
     sig {
-      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[::Stripe::ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ::Stripe::ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), unit_label: T.nilable(String), url: T.nilable(String)).void
+      params(active: T.nilable(T::Boolean), default_price: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), identifiers: T.nilable(::Stripe::ProductUpdateParams::Identifiers), images: T.nilable(T.any(String, T::Array[String])), marketing_features: T.nilable(T.any(String, T::Array[::Stripe::ProductUpdateParams::MarketingFeature])), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), package_dimensions: T.nilable(T.any(String, ::Stripe::ProductUpdateParams::PackageDimensions)), shippable: T.nilable(T::Boolean), statement_descriptor: T.nilable(String), tax_code: T.nilable(String), tax_details: T.nilable(T.any(String, ::Stripe::ProductUpdateParams::TaxDetails)), unit_label: T.nilable(String), url: T.nilable(String)).void
      }
     def initialize(
       active: nil,
       default_price: nil,
       description: nil,
       expand: nil,
+      identifiers: nil,
       images: nil,
       marketing_features: nil,
       metadata: nil,
@@ -136,6 +206,7 @@ module Stripe
       shippable: nil,
       statement_descriptor: nil,
       tax_code: nil,
+      tax_details: nil,
       unit_label: nil,
       url: nil
     ); end

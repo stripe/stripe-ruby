@@ -76,6 +76,30 @@ module Stripe
         end
       end
 
+      class AgenticCommerceSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class BalanceReport < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -113,6 +137,133 @@ module Stripe
           # Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
           attr_reader :standard_payouts
 
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Bills < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether to enable the bill management feature that grants access to bill creation and payment.
+          attr_reader :bill_management
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_reader :disable_stripe_user_authentication
+          # Whether to enable the send money feature that grants access to bill creation and payment.
+          attr_reader :send_money
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CapitalFinancing < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CapitalFinancingApplication < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CapitalFinancingPromotion < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class CheckScanning < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -203,6 +354,30 @@ module Stripe
           # Whether to allow transferring balance.
           attr_reader :transfer_balance
 
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class FinancialAccountRewards < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -329,6 +504,54 @@ module Stripe
           # Whether to allow spend control management features.
           attr_reader :spend_control_management
 
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NestingDemo < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NetworkCostPassthroughReport < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -631,20 +854,82 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class TerminalHardwareOrders < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TerminalHardwareShop < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field account_management
       attr_reader :account_management
       # Attribute for field account_onboarding
       attr_reader :account_onboarding
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      attr_reader :agentic_commerce_settings
       # Attribute for field balance_report
       attr_reader :balance_report
       # Attribute for field balances
       attr_reader :balances
+      # Configuration for the [Bills](/connect/supported-embedded-components/bills/) embedded component.
+      attr_reader :bills
+      # Attribute for field capital_financing
+      attr_reader :capital_financing
+      # Attribute for field capital_financing_application
+      attr_reader :capital_financing_application
+      # Attribute for field capital_financing_promotion
+      attr_reader :capital_financing_promotion
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      attr_reader :check_scanning
       # Attribute for field disputes_list
       attr_reader :disputes_list
       # Attribute for field documents
       attr_reader :documents
       # Attribute for field financial_account
       attr_reader :financial_account
+      # Configuration for the [financial account rewards](/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+      attr_reader :financial_account_rewards
       # Attribute for field financial_account_transactions
       attr_reader :financial_account_transactions
       # Attribute for field instant_payouts_promotion
@@ -653,6 +938,10 @@ module Stripe
       attr_reader :issuing_card
       # Attribute for field issuing_cards_list
       attr_reader :issuing_cards_list
+      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
+      attr_reader :nesting_demo
+      # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+      attr_reader :network_cost_passthrough_report
       # Attribute for field notification_banner
       attr_reader :notification_banner
       # Attribute for field payment_details
@@ -673,20 +962,33 @@ module Stripe
       attr_reader :tax_registrations
       # Attribute for field tax_settings
       attr_reader :tax_settings
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      attr_reader :terminal_hardware_orders
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      attr_reader :terminal_hardware_shop
 
       def self.inner_class_types
         @inner_class_types = {
           account_management: AccountManagement,
           account_onboarding: AccountOnboarding,
+          agentic_commerce_settings: AgenticCommerceSettings,
           balance_report: BalanceReport,
           balances: Balances,
+          bills: Bills,
+          capital_financing: CapitalFinancing,
+          capital_financing_application: CapitalFinancingApplication,
+          capital_financing_promotion: CapitalFinancingPromotion,
+          check_scanning: CheckScanning,
           disputes_list: DisputesList,
           documents: Documents,
           financial_account: FinancialAccount,
+          financial_account_rewards: FinancialAccountRewards,
           financial_account_transactions: FinancialAccountTransactions,
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
+          nesting_demo: NestingDemo,
+          network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
           payment_disputes: PaymentDisputes,
@@ -697,6 +999,8 @@ module Stripe
           payouts_list: PayoutsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
+          terminal_hardware_orders: TerminalHardwareOrders,
+          terminal_hardware_shop: TerminalHardwareShop,
         }
       end
 

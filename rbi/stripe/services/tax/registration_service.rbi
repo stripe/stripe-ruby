@@ -23,6 +23,18 @@ module Stripe
        }
       def retrieve(id, params = {}, opts = {}); end
 
+      # Serializes a Registration create request into a batch job JSONL line.
+      sig {
+        params(params: ::Stripe::Tax::RegistrationCreateParams, opts: T.untyped).returns(String)
+       }
+      def serialize_batch_create(params = {}, opts = {}); end
+
+      # Serializes a Registration update request into a batch job JSONL line.
+      sig {
+        params(id: String, params: ::Stripe::Tax::RegistrationUpdateParams, opts: T.untyped).returns(String)
+       }
+      def serialize_batch_update(id, params = {}, opts = {}); end
+
       # Updates an existing Tax Registration object.
       #
       # A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.

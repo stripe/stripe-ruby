@@ -5,9 +5,9 @@
 module Stripe
   class PaymentRecordReportPaymentAttemptCanceledParams < ::Stripe::RequestParams
     # When the reported payment was canceled. Measured in seconds since the Unix epoch.
-    sig { returns(Integer) }
+    sig { returns(T.nilable(Integer)) }
     def canceled_at; end
-    sig { params(_canceled_at: Integer).returns(Integer) }
+    sig { params(_canceled_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def canceled_at=(_canceled_at); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
@@ -21,9 +21,27 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Payment evaluations associated with this reported payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    def payment_evaluations; end
     sig {
-      params(canceled_at: Integer, expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String]))).void
+      params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
      }
-    def initialize(canceled_at: nil, expand: nil, metadata: nil); end
+    def payment_evaluations=(_payment_evaluations); end
+    # The reason the payment attempt was canceled.
+    sig { returns(T.nilable(String)) }
+    def reason; end
+    sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
+    def reason=(_reason); end
+    sig {
+      params(canceled_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), reason: T.nilable(String)).void
+     }
+    def initialize(
+      canceled_at: nil,
+      expand: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      reason: nil
+    ); end
   end
 end

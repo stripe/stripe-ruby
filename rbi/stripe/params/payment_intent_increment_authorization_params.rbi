@@ -8,13 +8,38 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class FleetData < ::Stripe::RequestParams
+              # The type of product being purchased at this line item.
+              sig { returns(String) }
+              def product_type; end
+              sig { params(_product_type: String).returns(String) }
+              def product_type=(_product_type); end
+              # The type of service received at the acceptor location.
+              sig { returns(T.nilable(String)) }
+              def service_type; end
+              sig { params(_service_type: T.nilable(String)).returns(T.nilable(String)) }
+              def service_type=(_service_type); end
+              sig { params(product_type: String, service_type: T.nilable(String)).void }
+              def initialize(product_type: nil, service_type: nil); end
+            end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             sig { returns(T.nilable(String)) }
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
             def commodity_code=(_commodity_code); end
-            sig { params(commodity_code: T.nilable(String)).void }
-            def initialize(commodity_code: nil); end
+            # Fleet data for this line item.
+            sig {
+              returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data; end
+            sig {
+              params(_fleet_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
+             }
+            def fleet_data=(_fleet_data); end
+            sig {
+              params(commodity_code: T.nilable(String), fleet_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).void
+             }
+            def initialize(commodity_code: nil, fleet_data: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
@@ -162,6 +187,11 @@ module Stripe
         def quantity; end
         sig { params(_quantity: Integer).returns(Integer) }
         def quantity=(_quantity); end
+        # The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+        sig { returns(T.nilable(Integer)) }
+        def quantity_precision; end
+        sig { params(_quantity_precision: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def quantity_precision=(_quantity_precision); end
         # Contains information about the tax on the item.
         sig {
           returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax))
@@ -182,7 +212,7 @@ module Stripe
         sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
         def unit_of_measure=(_unit_of_measure); end
         sig {
-          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, tax: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, quantity_precision: T.nilable(Integer), tax: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
          }
         def initialize(
           discount_amount: nil,
@@ -190,6 +220,7 @@ module Stripe
           product_code: nil,
           product_name: nil,
           quantity: nil,
+          quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
           unit_of_measure: nil
@@ -217,6 +248,26 @@ module Stripe
           params(amount: T.nilable(T.any(String, Integer)), from_postal_code: T.nilable(String), to_postal_code: T.nilable(String)).void
          }
         def initialize(amount: nil, from_postal_code: nil, to_postal_code: nil); end
+      end
+      class Surcharge < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a surcharge.
+        sig { returns(T.nilable(T.any(String, Integer))) }
+        def amount; end
+        sig {
+          params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+         }
+        def amount=(_amount); end
+        # Indicate whether to enforce validations on the surcharge amount.
+        sig { returns(T.nilable(T.any(String, String))) }
+        def enforce_validation; end
+        sig {
+          params(_enforce_validation: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+         }
+        def enforce_validation=(_enforce_validation); end
+        sig {
+          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(T.any(String, String))).void
+         }
+        def initialize(amount: nil, enforce_validation: nil); end
       end
       class Tax < ::Stripe::RequestParams
         # The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
@@ -267,6 +318,15 @@ module Stripe
         params(_shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping)))
        }
       def shipping=(_shipping); end
+      # Contains information about the surcharge portion of the amount.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Surcharge)))
+       }
+      def surcharge; end
+      sig {
+        params(_surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Surcharge))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Surcharge)))
+       }
+      def surcharge=(_surcharge); end
       # Contains information about the tax portion of the amount.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Tax)))
@@ -277,13 +337,14 @@ module Stripe
        }
       def tax=(_tax); end
       sig {
-        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Tax))).void
+        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Shipping)), surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Surcharge)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails::Tax))).void
        }
       def initialize(
         discount_amount: nil,
         enforce_arithmetic_validation: nil,
         line_items: nil,
         shipping: nil,
+        surcharge: nil,
         tax: nil
       ); end
     end
@@ -342,6 +403,30 @@ module Stripe
       sig { params(customer_reference: T.nilable(String), order_reference: T.nilable(String)).void }
       def initialize(customer_reference: nil, order_reference: nil); end
     end
+    class PaymentMethodOptions < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        # Request partial authorization on this PaymentIntent.
+        sig { returns(T.nilable(String)) }
+        def request_partial_authorization; end
+        sig { params(_request_partial_authorization: T.nilable(String)).returns(T.nilable(String)) }
+        def request_partial_authorization=(_request_partial_authorization); end
+        sig { params(request_partial_authorization: T.nilable(String)).void }
+        def initialize(request_partial_authorization: nil); end
+      end
+      # Configuration for any card payments attempted on this PaymentIntent.
+      sig {
+        returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions::Card))
+       }
+      def card; end
+      sig {
+        params(_card: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions::Card)).returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions::Card))
+       }
+      def card=(_card); end
+      sig {
+        params(card: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions::Card)).void
+       }
+      def initialize(card: nil); end
+    end
     class TransferData < ::Stripe::RequestParams
       # The amount that will be transferred automatically when a charge succeeds.
       sig { returns(T.nilable(Integer)) }
@@ -399,6 +484,15 @@ module Stripe
       params(_payment_details: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentDetails)).returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentDetails))
      }
     def payment_details=(_payment_details); end
+    # Payment method-specific configuration for this PaymentIntent.
+    sig {
+      returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions))
+     }
+    def payment_method_options; end
+    sig {
+      params(_payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions))
+     }
+    def payment_method_options=(_payment_method_options); end
     # Text that appears on the customer's statement as the statement descriptor for a non-card or card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
     sig { returns(T.nilable(String)) }
     def statement_descriptor; end
@@ -413,7 +507,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails), application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentDetails), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::TransferData)).void
+      params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::AmountDetails), application_fee_amount: T.nilable(Integer), description: T.nilable(String), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::Hooks), metadata: T.nilable(T::Hash[String, String]), payment_details: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentDetails), payment_method_options: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::PaymentMethodOptions), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentIncrementAuthorizationParams::TransferData)).void
      }
     def initialize(
       amount: nil,
@@ -424,6 +518,7 @@ module Stripe
       hooks: nil,
       metadata: nil,
       payment_details: nil,
+      payment_method_options: nil,
       statement_descriptor: nil,
       transfer_data: nil
     ); end

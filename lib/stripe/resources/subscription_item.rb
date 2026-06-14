@@ -27,6 +27,38 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      attr_reader :end_date
+      # Attribute for field start_date
+      attr_reader :start_date
+      # Attribute for field trial_offer
+      attr_reader :trial_offer
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Trial < ::Stripe::StripeObject
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+      attr_reader :converts_to
+      # Determines the type of trial for this item.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The time period the subscription item has been billed for.
     attr_reader :billed_until
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
@@ -37,6 +69,8 @@ module Stripe
     attr_reader :current_period_end
     # The start time of this subscription item's current billing period.
     attr_reader :current_period_start
+    # The current trial that is applied to this subscription item.
+    attr_reader :current_trial
     # Always true for a deleted object
     attr_reader :deleted
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -69,6 +103,8 @@ module Stripe
     attr_reader :subscription
     # The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
     attr_reader :tax_rates
+    # Options that configure the trial on the subscription item.
+    attr_reader :trial
 
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     def self.create(params = {}, opts = {})
@@ -121,7 +157,11 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { billing_thresholds: BillingThresholds }
+      @inner_class_types = {
+        billing_thresholds: BillingThresholds,
+        current_trial: CurrentTrial,
+        trial: Trial,
+      }
     end
 
     def self.field_remappings

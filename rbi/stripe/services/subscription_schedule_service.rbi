@@ -4,6 +4,12 @@
 # typed: true
 module Stripe
   class SubscriptionScheduleService < StripeService
+    # Amends an existing subscription schedule.
+    sig {
+      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+     }
+    def amend(schedule, params = {}, opts = {}); end
+
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     sig {
       params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
@@ -33,6 +39,30 @@ module Stripe
       params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
     def retrieve(schedule, params = {}, opts = {}); end
+
+    # Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
+    sig {
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleCancelParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_cancel(schedule, params = {}, opts = {}); end
+
+    # Serializes a SubscriptionSchedule create request into a batch job JSONL line.
+    sig {
+      params(params: ::Stripe::SubscriptionScheduleCreateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a SubscriptionSchedule release request into a batch job JSONL line.
+    sig {
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleReleaseParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_release(schedule, params = {}, opts = {}); end
+
+    # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
+    sig {
+      params(schedule: String, params: ::Stripe::SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(schedule, params = {}, opts = {}); end
 
     # Updates an existing subscription schedule.
     sig {

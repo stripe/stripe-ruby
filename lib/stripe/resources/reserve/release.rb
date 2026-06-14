@@ -5,6 +5,8 @@ module Stripe
   module Reserve
     # ReserveReleases represent the release of funds from a ReserveHold.
     class Release < APIResource
+      extend Stripe::APIOperations::List
+
       OBJECT_NAME = "reserve.release"
       def self.object_name
         "reserve.release"
@@ -52,6 +54,16 @@ module Stripe
       attr_reader :reserve_plan
       # Attribute for field source_transaction
       attr_reader :source_transaction
+
+      # Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/reserve/releases",
+          params: params,
+          opts: opts
+        )
+      end
 
       def self.inner_class_types
         @inner_class_types = { source_transaction: SourceTransaction }

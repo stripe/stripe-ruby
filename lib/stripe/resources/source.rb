@@ -169,6 +169,8 @@ module Stripe
       attr_reader :address_zip_check
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field country
       attr_reader :country
       # Attribute for field cvc_check
@@ -218,6 +220,8 @@ module Stripe
       attr_reader :authorization_response_code
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field country
       attr_reader :country
       # Attribute for field cvm_type
@@ -517,6 +521,35 @@ module Stripe
       end
     end
 
+    class Paypal < ::Stripe::StripeObject
+      # Attribute for field billing_agreement
+      attr_reader :billing_agreement
+      # Attribute for field fingerprint
+      attr_reader :fingerprint
+      # Attribute for field payer_id
+      attr_reader :payer_id
+      # Attribute for field reference_id
+      attr_reader :reference_id
+      # Attribute for field reference_transaction_amount
+      attr_reader :reference_transaction_amount
+      # Attribute for field reference_transaction_charged
+      attr_reader :reference_transaction_charged
+      # Attribute for field statement_descriptor
+      attr_reader :statement_descriptor
+      # Attribute for field transaction_id
+      attr_reader :transaction_id
+      # Attribute for field verified_email
+      attr_reader :verified_email
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Receiver < ::Stripe::StripeObject
       # The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
       attr_reader :address
@@ -737,6 +770,8 @@ module Stripe
       attr_reader :authenticated
       # Attribute for field brand
       attr_reader :brand
+      # Attribute for field brand_product
+      attr_reader :brand_product
       # Attribute for field card
       attr_reader :card
       # Attribute for field country
@@ -849,6 +884,8 @@ module Stripe
     attr_reader :owner
     # Attribute for field p24
     attr_reader :p24
+    # Attribute for field paypal
+    attr_reader :paypal
     # Attribute for field receiver
     attr_reader :receiver
     # Attribute for field redirect
@@ -954,6 +991,7 @@ module Stripe
         multibanco: Multibanco,
         owner: Owner,
         p24: P24,
+        paypal: Paypal,
         receiver: Receiver,
         redirect: Redirect,
         sepa_credit_transfer: SepaCreditTransfer,

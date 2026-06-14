@@ -8,6 +8,7 @@ module Stripe
     attr_reader :external_accounts
     attr_reader :login_links
     attr_reader :persons
+    attr_reader :signals
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
@@ -56,6 +57,22 @@ module Stripe
       params(params: T.any(::Stripe::AccountRetrieveCurrentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def retrieve_current(params = {}, opts = {}); end
+
+    # Serializes an Account create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::AccountCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes an Account delete request into a batch job JSONL line.
+    sig {
+      params(account: String, params: ::Stripe::AccountDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(account, params = {}, opts = {}); end
+
+    # Serializes an Account update request into a batch job JSONL line.
+    sig {
+      params(account: String, params: ::Stripe::AccountUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(account, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.

@@ -71,6 +71,35 @@ module Stripe
       end
     end
 
+    class Protections < ::Stripe::StripeObject
+      class PspMigration < ::Stripe::StripeObject
+        # Time at which the protection expires. Measured in seconds since the Unix epoch.
+        attr_reader :expires_at
+        # Time at which the protection was requested. Measured in seconds since the Unix epoch.
+        attr_reader :requested_at
+        # The status of the capability protection.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field psp_migration
+      attr_reader :psp_migration
+
+      def self.inner_class_types
+        @inner_class_types = { psp_migration: PspMigration }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Requirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to resolve all fields in `original_fields_due`.
@@ -136,6 +165,8 @@ module Stripe
     attr_reader :id
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Attribute for field protections
+    attr_reader :protections
     # Whether the capability has been requested.
     attr_reader :requested
     # Time at which the capability was requested. Measured in seconds since the Unix epoch.
@@ -169,7 +200,11 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { future_requirements: FutureRequirements, requirements: Requirements }
+      @inner_class_types = {
+        future_requirements: FutureRequirements,
+        protections: Protections,
+        requirements: Requirements,
+      }
     end
 
     def self.field_remappings

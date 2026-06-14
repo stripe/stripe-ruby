@@ -1,0 +1,155 @@
+name: CI
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - master
+      - beta
+      - sdk-release/**
+      - feature/**
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
+    branches:
+      - master
+      - beta
+      - private-preview
+      - sdk-release/**
+      - feature/**
+
+permissions: {}
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+
+    steps:
+    - uses: extractions/setup-just@v2
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version:  3.1
+    - name: Lint
+      run: just lint
+    - name: Build
+      run: gem build stripe.gemspec
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v4
+      with:
+        name: gems
+        path: '*.gem'
+
+  test:
+    name: Test (${{ matrix.ruby-version }})
+    # this version of jruby isn't available in the new latest (24.04) so we have to pin (or update jruby)
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        # following https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
+        ruby-version: [2.7, '3.0', 3.1, 3.2, 3.3, 3.4, jruby-9.4.0.0, truffleruby-25.0.0]
+    steps:
+    - uses: extractions/setup-just@v2
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+    - uses: stripe/openapi/actions/stripe-mock@master
+    - name: test
+      run: just test typecheck
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+
+  publish:
+    name: Publish
+    if: >-
+      ((github.event_name == 'workflow_dispatch') || (github.event_name == 'push')) &&
+      startsWith(github.ref, 'refs/tags/v')
+    needs: [build, test]
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+    steps:
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: gems
+        path: gems
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version:  3.1
+    - name: Publish gems to Rubygems
+      run: gem push gems/*.gem
+      env:
+        GEM_HOST_API_KEY: ${{secrets.GEM_HOST_API_KEY}}
+    - uses: stripe/openapi/actions/notify-release@master
+      if: always()
+      with:
+        bot_token: ${{ secrets.SLACK_BOT_TOKEN }}# This workflow uses actions that are not certified by GitHub.  They are
+# provided by a third-party and are governed by separate terms of service,
+# privacy policy, and support documentation.
+#
+# This workflow will install a prebuilt Ruby version, install dependencies, and
+# run tests and linters.
+name: "Ruby on Rails CI"
+on:
+  push:
+    branches: [ "production" ]
+  pull_request:
+    branches: [ "production" ]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      # Add or replace dependency steps here
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
+        with:
+          bundler-cache: true
+      # Add or replace database setup steps here
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      # Add or replace test runners here
+      - name: Run tests
+        run: bin/rake
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@78c01b705fd9d5ad960d432d3a0cfa341d50e410 # v1.179.1
+        with:
+          bundler-cache: true
+      - name: Generate binstubs
+        run: bundle binstubs bundler-audit brakeman rubocop
+      # Add or replace any other lints here
+      - name: Security audit dependencies
+        run: bin/bundler-audit --update
+      - name: Security audit application code
+        run: bin/brakeman -q -w2
+      - name: Lint Ruby files
+        run: bin/rubocop --parallel

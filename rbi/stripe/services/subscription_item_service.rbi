@@ -28,6 +28,22 @@ module Stripe
      }
     def retrieve(item, params = {}, opts = {}); end
 
+    # Serializes a SubscriptionItem create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::SubscriptionItemCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a SubscriptionItem delete request into a batch job JSONL line.
+    sig {
+      params(item: String, params: ::Stripe::SubscriptionItemDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(item, params = {}, opts = {}); end
+
+    # Serializes a SubscriptionItem update request into a batch job JSONL line.
+    sig {
+      params(item: String, params: ::Stripe::SubscriptionItemUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(item, params = {}, opts = {}); end
+
     # Updates the plan or quantity of an item on a current subscription.
     sig {
       params(item: String, params: T.any(::Stripe::SubscriptionItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)

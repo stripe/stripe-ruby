@@ -47,6 +47,27 @@ module Stripe
          }
         def initialize(recovery: nil); end
       end
+      class AutomaticSurcharge < ::Stripe::RequestParams
+        # Determines which amount serves as the basis for calculating the surcharge.
+        sig { returns(T.nilable(String)) }
+        def calculation_basis; end
+        sig { params(_calculation_basis: T.nilable(String)).returns(T.nilable(String)) }
+        def calculation_basis=(_calculation_basis); end
+        # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        sig { returns(T.nilable(String)) }
+        def tax_behavior; end
+        sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def tax_behavior=(_tax_behavior); end
+        sig {
+          params(calculation_basis: T.nilable(String), enabled: T::Boolean, tax_behavior: T.nilable(String)).void
+         }
+        def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil); end
+      end
       class AutomaticTax < ::Stripe::RequestParams
         class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -174,6 +195,128 @@ module Stripe
           font_family: nil,
           icon: nil,
           logo: nil
+        ); end
+      end
+      class CheckoutItem < ::Stripe::RequestParams
+        class PricingPlanSubscriptionItem < ::Stripe::RequestParams
+          class ComponentConfigurations < ::Stripe::RequestParams
+            class LicenseFeeComponent < ::Stripe::RequestParams
+              # Attribute for param field quantity
+              sig { returns(Integer) }
+              def quantity; end
+              sig { params(_quantity: Integer).returns(Integer) }
+              def quantity=(_quantity); end
+              sig { params(quantity: Integer).void }
+              def initialize(quantity: nil); end
+            end
+            # Attribute for param field type
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            # Attribute for param field license_fee_component
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations::LicenseFeeComponent))
+             }
+            def license_fee_component; end
+            sig {
+              params(_license_fee_component: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations::LicenseFeeComponent)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations::LicenseFeeComponent))
+             }
+            def license_fee_component=(_license_fee_component); end
+            sig {
+              params(type: String, license_fee_component: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations::LicenseFeeComponent)).void
+             }
+            def initialize(type: nil, license_fee_component: nil); end
+          end
+          # Attribute for param field pricing_plan
+          sig { returns(String) }
+          def pricing_plan; end
+          sig { params(_pricing_plan: String).returns(String) }
+          def pricing_plan=(_pricing_plan); end
+          # Attribute for param field pricing_plan_version
+          sig { returns(T.nilable(String)) }
+          def pricing_plan_version; end
+          sig { params(_pricing_plan_version: T.nilable(String)).returns(T.nilable(String)) }
+          def pricing_plan_version=(_pricing_plan_version); end
+          # Attribute for param field metadata
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          # Attribute for param field component_configurations
+          sig {
+            returns(T.nilable(T::Hash[String, ::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations]))
+           }
+          def component_configurations; end
+          sig {
+            params(_component_configurations: T.nilable(T::Hash[String, ::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations])).returns(T.nilable(T::Hash[String, ::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations]))
+           }
+          def component_configurations=(_component_configurations); end
+          sig {
+            params(pricing_plan: String, pricing_plan_version: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), component_configurations: T.nilable(T::Hash[String, ::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem::ComponentConfigurations])).void
+           }
+          def initialize(
+            pricing_plan: nil,
+            pricing_plan_version: nil,
+            metadata: nil,
+            component_configurations: nil
+          ); end
+        end
+        class RateCardSubscriptionItem < ::Stripe::RequestParams
+          # Attribute for param field rate_card
+          sig { returns(String) }
+          def rate_card; end
+          sig { params(_rate_card: String).returns(String) }
+          def rate_card=(_rate_card); end
+          # Attribute for param field metadata
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          # Attribute for param field rate_card_version
+          sig { returns(T.nilable(String)) }
+          def rate_card_version; end
+          sig { params(_rate_card_version: T.nilable(String)).returns(T.nilable(String)) }
+          def rate_card_version=(_rate_card_version); end
+          sig {
+            params(rate_card: String, metadata: T.nilable(T::Hash[String, String]), rate_card_version: T.nilable(String)).void
+           }
+          def initialize(rate_card: nil, metadata: nil, rate_card_version: nil); end
+        end
+        # Attribute for param field type
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        # Attribute for param field rate_card_subscription_item
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::RateCardSubscriptionItem))
+         }
+        def rate_card_subscription_item; end
+        sig {
+          params(_rate_card_subscription_item: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::RateCardSubscriptionItem)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::RateCardSubscriptionItem))
+         }
+        def rate_card_subscription_item=(_rate_card_subscription_item); end
+        # Attribute for param field pricing_plan_subscription_item
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem))
+         }
+        def pricing_plan_subscription_item; end
+        sig {
+          params(_pricing_plan_subscription_item: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem))
+         }
+        def pricing_plan_subscription_item=(_pricing_plan_subscription_item); end
+        sig {
+          params(type: String, rate_card_subscription_item: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::RateCardSubscriptionItem), pricing_plan_subscription_item: T.nilable(::Stripe::Checkout::SessionCreateParams::CheckoutItem::PricingPlanSubscriptionItem)).void
+         }
+        def initialize(
+          type: nil,
+          rate_card_subscription_item: nil,
+          pricing_plan_subscription_item: nil
         ); end
       end
       class ConsentCollection < ::Stripe::RequestParams
@@ -472,18 +615,72 @@ module Stripe
         def initialize(address: nil, name: nil, shipping: nil); end
       end
       class Discount < ::Stripe::RequestParams
+        class CouponData < ::Stripe::RequestParams
+          # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+          sig { returns(T.nilable(Integer)) }
+          def amount_off; end
+          sig { params(_amount_off: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def amount_off=(_amount_off); end
+          # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+          sig { returns(T.nilable(String)) }
+          def currency; end
+          sig { params(_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def currency=(_currency); end
+          # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+          sig { returns(T.nilable(String)) }
+          def duration; end
+          sig { params(_duration: T.nilable(String)).returns(T.nilable(String)) }
+          def duration=(_duration); end
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+           }
+          def metadata=(_metadata); end
+          # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+          def name=(_name); end
+          # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+          sig { returns(T.nilable(Float)) }
+          def percent_off; end
+          sig { params(_percent_off: T.nilable(Float)).returns(T.nilable(Float)) }
+          def percent_off=(_percent_off); end
+          sig {
+            params(amount_off: T.nilable(Integer), currency: T.nilable(String), duration: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float)).void
+           }
+          def initialize(
+            amount_off: nil,
+            currency: nil,
+            duration: nil,
+            metadata: nil,
+            name: nil,
+            percent_off: nil
+          ); end
+        end
         # The ID of the coupon to apply to this Session.
         sig { returns(T.nilable(String)) }
         def coupon; end
         sig { params(_coupon: T.nilable(String)).returns(T.nilable(String)) }
         def coupon=(_coupon); end
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Discount::CouponData)) }
+        def coupon_data; end
+        sig {
+          params(_coupon_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Discount::CouponData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Discount::CouponData))
+         }
+        def coupon_data=(_coupon_data); end
         # The ID of a promotion code to apply to this Session.
         sig { returns(T.nilable(String)) }
         def promotion_code; end
         sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
         def promotion_code=(_promotion_code); end
-        sig { params(coupon: T.nilable(String), promotion_code: T.nilable(String)).void }
-        def initialize(coupon: nil, promotion_code: nil); end
+        sig {
+          params(coupon: T.nilable(String), coupon_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Discount::CouponData), promotion_code: T.nilable(String)).void
+         }
+        def initialize(coupon: nil, coupon_data: nil, promotion_code: nil); end
       end
       class InvoiceCreation < ::Stripe::RequestParams
         class InvoiceData < ::Stripe::RequestParams
@@ -616,6 +813,15 @@ module Stripe
          }
         def initialize(enabled: nil, invoice_data: nil); end
       end
+      class Item < ::Stripe::RequestParams
+        # The type of item.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(type: String).void }
+        def initialize(type: nil); end
+      end
       class LineItem < ::Stripe::RequestParams
         class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -640,6 +846,22 @@ module Stripe
         end
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              sig { returns(T.nilable(String)) }
+              def performance_location; end
+              sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+              def performance_location=(_performance_location); end
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              sig { returns(T.nilable(String)) }
+              def tax_code; end
+              sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+              def tax_code=(_tax_code); end
+              sig {
+                params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void
+               }
+              def initialize(performance_location: nil, tax_code: nil); end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             sig { returns(T.nilable(String)) }
             def description; end
@@ -669,13 +891,22 @@ module Stripe
             def tax_code; end
             sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
             def tax_code=(_tax_code); end
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+             }
+            def tax_details; end
+            sig {
+              params(_tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData::TaxDetails))
+             }
+            def tax_details=(_tax_details); end
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             sig { returns(T.nilable(String)) }
             def unit_label; end
             sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
             def unit_label=(_unit_label); end
             sig {
-              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), unit_label: T.nilable(String)).void
+              params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
              }
             def initialize(
               description: nil,
@@ -683,6 +914,7 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
+              tax_details: nil,
               unit_label: nil
             ); end
           end
@@ -1415,6 +1647,53 @@ module Stripe
           sig { params(capture_method: T.nilable(String)).void }
           def initialize(capture_method: nil); end
         end
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams; end
+          # Additional fields for mandate creation.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum::MandateOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
+          sig {
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            sig { returns(T.nilable(Integer)) }
+            def expires_after; end
+            sig { params(_expires_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def expires_after=(_expires_after); end
+            sig { params(expires_after: T.nilable(Integer)).void }
+            def initialize(expires_after: nil); end
+          end
+          # Additional fields for Mandate creation
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
+          # Attribute for param field setup_future_usage
+          sig { returns(T.nilable(T.any(String, String))) }
+          def setup_future_usage; end
+          sig {
+            params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+           }
+          def setup_future_usage=(_setup_future_usage); end
+          sig {
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+           }
+          def initialize(mandate_options: nil, setup_future_usage: nil); end
+        end
         class Boleto < ::Stripe::RequestParams
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(T.nilable(Integer)) }
@@ -1473,6 +1752,13 @@ module Stripe
             params(_installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments))
            }
           def installments=(_installments); end
+          # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+          sig { returns(T.nilable(String)) }
+          def request_decremental_authorization; end
+          sig {
+            params(_request_decremental_authorization: T.nilable(String)).returns(T.nilable(String))
+           }
+          def request_decremental_authorization=(_request_decremental_authorization); end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           sig { returns(T.nilable(String)) }
           def request_extended_authorization; end
@@ -1537,11 +1823,12 @@ module Stripe
            }
           def statement_descriptor_suffix_kanji=(_statement_descriptor_suffix_kanji); end
           sig {
-            params(capture_method: T.nilable(String), installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
+            params(capture_method: T.nilable(String), installments: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Installments), request_decremental_authorization: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), restrictions: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card::Restrictions), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String)).void
            }
           def initialize(
             capture_method: nil,
             installments: nil,
+            request_decremental_authorization: nil,
             request_extended_authorization: nil,
             request_incremental_authorization: nil,
             request_multicapture: nil,
@@ -2069,6 +2356,11 @@ module Stripe
           def reference; end
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
+          # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+          sig { returns(T.nilable(String)) }
+          def reference_id; end
+          sig { params(_reference_id: T.nilable(String)).returns(T.nilable(String)) }
+          def reference_id=(_reference_id); end
           # The risk correlation ID for an on-session payment using a saved PayPal payment method.
           sig { returns(T.nilable(String)) }
           def risk_correlation_id; end
@@ -2089,15 +2381,24 @@ module Stripe
             params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
            }
           def setup_future_usage=(_setup_future_usage); end
+          # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+          sig { returns(T.nilable(T::Array[String])) }
+          def subsellers; end
           sig {
-            params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+            params(_subsellers: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+           }
+          def subsellers=(_subsellers); end
+          sig {
+            params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
            }
           def initialize(
             capture_method: nil,
             preferred_locale: nil,
             reference: nil,
+            reference_id: nil,
             risk_correlation_id: nil,
-            setup_future_usage: nil
+            setup_future_usage: nil,
+            subsellers: nil
           ); end
         end
         class Payto < ::Stripe::RequestParams
@@ -2635,6 +2936,24 @@ module Stripe
           params(_billie: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Billie)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Billie))
          }
         def billie=(_billie); end
+        # contains details about the Bizum payment method options.
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum))
+         }
+        def bizum; end
+        sig {
+          params(_bizum: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum))
+         }
+        def bizum=(_bizum); end
+        # contains details about the BLIK payment method options.
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik))
+         }
+        def blik; end
+        sig {
+          params(_blik: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik))
+         }
+        def blik=(_blik); end
         # contains details about the Boleto payment method options.
         sig {
           returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Boleto))
@@ -2978,7 +3297,7 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Alipay), alma: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Alma), amazon_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bancontact), billie: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Billie), boleto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Boleto), card: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Cashapp), crypto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Crypto), customer_balance: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::CustomerBalance), demo_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::DemoPay), eps: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::KrCard), link: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::SamsungPay), satispay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Satispay), scalapay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Scalapay), sepa_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Swish), twint: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Twint), upi: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Upi), us_bank_account: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::WechatPay)).void
+          params(acss_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AcssDebit), affirm: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Affirm), afterpay_clearpay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AfterpayClearpay), alipay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Alipay), alma: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Alma), amazon_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AmazonPay), au_becs_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::AuBecsDebit), bacs_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit), bancontact: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bancontact), billie: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Billie), bizum: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Bizum), blik: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik), boleto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Boleto), card: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Card), cashapp: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Cashapp), crypto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Crypto), customer_balance: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::CustomerBalance), demo_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::DemoPay), eps: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Eps), fpx: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Fpx), giropay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Giropay), grabpay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Grabpay), ideal: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Ideal), kakao_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::KakaoPay), klarna: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Klarna), konbini: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Konbini), kr_card: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::KrCard), link: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Link), mobilepay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Mobilepay), multibanco: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Multibanco), naver_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::NaverPay), oxxo: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Oxxo), p24: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::P24), pay_by_bank: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::PayByBank), payco: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Payco), paynow: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Paynow), paypal: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Paypal), payto: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Payto), pix: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Pix), revolut_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::RevolutPay), samsung_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::SamsungPay), satispay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Satispay), scalapay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Scalapay), sepa_debit: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::SepaDebit), sofort: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Sofort), swish: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Swish), twint: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Twint), upi: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Upi), us_bank_account: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::UsBankAccount), wechat_pay: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::WechatPay)).void
          }
         def initialize(
           acss_debit: nil,
@@ -2991,6 +3310,8 @@ module Stripe
           bacs_debit: nil,
           bancontact: nil,
           billie: nil,
+          bizum: nil,
+          blik: nil,
           boleto: nil,
           card: nil,
           cashapp: nil,
@@ -3032,6 +3353,51 @@ module Stripe
         ); end
       end
       class Permissions < ::Stripe::RequestParams
+        class Update < ::Stripe::RequestParams
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          def line_items; end
+          sig { params(_line_items: T.nilable(String)).returns(T.nilable(String)) }
+          def line_items=(_line_items); end
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          def shipping_details; end
+          sig { params(_shipping_details: T.nilable(String)).returns(T.nilable(String)) }
+          def shipping_details=(_shipping_details); end
+          sig { params(line_items: T.nilable(String), shipping_details: T.nilable(String)).void }
+          def initialize(line_items: nil, shipping_details: nil); end
+        end
+        # Permissions for updating the Checkout Session.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions::Update)) }
+        def update; end
+        sig {
+          params(_update: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions::Update)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions::Update))
+         }
+        def update=(_update); end
+        # Determines which entity is allowed to update the discounts (coupons or promotion codes) that apply to this session.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically handle discount updates. If set to `server_only`, only your server is allowed to update discounts.
+        sig { returns(T.nilable(String)) }
+        def update_discounts; end
+        sig { params(_update_discounts: T.nilable(String)).returns(T.nilable(String)) }
+        def update_discounts=(_update_discounts); end
+        # Determines which entity is allowed to update the line items.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+        #
+        # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        sig { returns(T.nilable(String)) }
+        def update_line_items; end
+        sig { params(_update_line_items: T.nilable(String)).returns(T.nilable(String)) }
+        def update_line_items=(_update_line_items); end
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -3041,8 +3407,15 @@ module Stripe
         def update_shipping_details; end
         sig { params(_update_shipping_details: T.nilable(String)).returns(T.nilable(String)) }
         def update_shipping_details=(_update_shipping_details); end
-        sig { params(update_shipping_details: T.nilable(String)).void }
-        def initialize(update_shipping_details: nil); end
+        sig {
+          params(update: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions::Update), update_discounts: T.nilable(String), update_line_items: T.nilable(String), update_shipping_details: T.nilable(String)).void
+         }
+        def initialize(
+          update: nil,
+          update_discounts: nil,
+          update_line_items: nil,
+          update_shipping_details: nil
+        ); end
       end
       class PhoneNumberCollection < ::Stripe::RequestParams
         # Set to `true` to enable phone number collection.
@@ -3569,6 +3942,22 @@ module Stripe
       def allow_promotion_codes; end
       sig { params(_allow_promotion_codes: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def allow_promotion_codes=(_allow_promotion_codes); end
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      sig { returns(T.nilable(String)) }
+      def approval_method; end
+      sig { params(_approval_method: T.nilable(String)).returns(T.nilable(String)) }
+      def approval_method=(_approval_method); end
+      # Settings for automatic surcharge calculation for this session.
+      sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge)) }
+      def automatic_surcharge; end
+      sig {
+        params(_automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge))
+       }
+      def automatic_surcharge=(_automatic_surcharge); end
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax)) }
       def automatic_tax; end
@@ -3619,6 +4008,17 @@ module Stripe
         params(_custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]))
        }
       def custom_fields=(_custom_fields); end
+      # A list of custom payment methods (e.g., `cpmt_123`) this Checkout Session can accept.
+      #
+      # You can add custom payment methods to your account through the dashboard under Settings > Custom Payment Methods.
+      #
+      # Read more about custom payment methods in checkout in our [custom payment method types guide](https://docs.stripe.com/payments/payment-methods/custom-payment-methods).
+      sig { returns(T.nilable(T::Array[String])) }
+      def custom_payment_method_types; end
+      sig {
+        params(_custom_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+       }
+      def custom_payment_method_types=(_custom_payment_method_types); end
       # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText)) }
       def custom_text; end
@@ -3711,6 +4111,13 @@ module Stripe
         params(_invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation))
        }
       def invoice_creation=(_invoice_creation); end
+      # A list of items the customer will purchase.
+      sig { returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item])) }
+      def items; end
+      sig {
+        params(_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]))
+       }
+      def items=(_items); end
       # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
       #
       # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
@@ -3935,13 +4342,22 @@ module Stripe
         params(_wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions))
        }
       def wallet_options=(_wallet_options); end
+      # Attribute for param field checkout_items
+      sig { returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])) }
+      def checkout_items; end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions)).void
+        params(_checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).returns(T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem]))
+       }
+      def checkout_items=(_checkout_items); end
+      sig {
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
        }
       def initialize(
         adaptive_pricing: nil,
         after_expiration: nil,
         allow_promotion_codes: nil,
+        approval_method: nil,
+        automatic_surcharge: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -3950,6 +4366,7 @@ module Stripe
         consent_collection: nil,
         currency: nil,
         custom_fields: nil,
+        custom_payment_method_types: nil,
         custom_text: nil,
         customer: nil,
         customer_account: nil,
@@ -3962,6 +4379,7 @@ module Stripe
         expires_at: nil,
         integration_identifier: nil,
         invoice_creation: nil,
+        items: nil,
         line_items: nil,
         locale: nil,
         managed_payments: nil,
@@ -3989,7 +4407,8 @@ module Stripe
         success_url: nil,
         tax_id_collection: nil,
         ui_mode: nil,
-        wallet_options: nil
+        wallet_options: nil,
+        checkout_items: nil
       ); end
       def self.field_encodings
         @field_encodings = {

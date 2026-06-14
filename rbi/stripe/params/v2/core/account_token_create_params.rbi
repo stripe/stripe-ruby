@@ -80,6 +80,407 @@ module Stripe
                 sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
                 def initialize(shown_and_accepted: nil); end
               end
+              class CardCreator < ::Stripe::RequestParams
+                class Commercial < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
+                    # The boolean value indicating if the terms of service have been accepted.
+                    sig { returns(T.nilable(T::Boolean)) }
+                    def shown_and_accepted; end
+                    sig {
+                      params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                     }
+                    def shown_and_accepted=(_shown_and_accepted); end
+                    sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                    def initialize(shown_and_accepted: nil); end
+                  end
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The boolean value indicating if the terms of service have been accepted.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def shown_and_accepted; end
+                      sig {
+                        params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def shown_and_accepted=(_shown_and_accepted); end
+                      sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                      def initialize(shown_and_accepted: nil); end
+                    end
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::BankTerms)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::Platform))
+                       }
+                      def platform; end
+                      sig {
+                        params(_platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::Platform)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::Platform))
+                       }
+                      def platform=(_platform); end
+                      sig {
+                        params(bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::BankTerms), platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard::Platform)).void
+                       }
+                      def initialize(bank_terms: nil, platform: nil); end
+                    end
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::BankTerms)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures; end
+                      sig {
+                        params(_financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::FinancingDisclosures)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures=(_financing_disclosures); end
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::Platform))
+                       }
+                      def platform; end
+                      sig {
+                        params(_platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::Platform)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::Platform))
+                       }
+                      def platform=(_platform); end
+                      sig {
+                        params(bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::BankTerms), financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::FinancingDisclosures), platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard::Platform)).void
+                       }
+                      def initialize(
+                        bank_terms: nil,
+                        financing_disclosures: nil,
+                        platform: nil
+                      ); end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ApplePay))
+                     }
+                    def apple_pay; end
+                    sig {
+                      params(_apple_pay: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ApplePay)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ApplePay))
+                     }
+                    def apple_pay=(_apple_pay); end
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard))
+                     }
+                    def charge_card; end
+                    sig {
+                      params(_charge_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard))
+                     }
+                    def charge_card=(_charge_card); end
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard))
+                     }
+                    def spend_card; end
+                    sig {
+                      params(_spend_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard))
+                     }
+                    def spend_card=(_spend_card); end
+                    sig {
+                      params(apple_pay: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ApplePay), charge_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::ChargeCard), spend_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic::SpendCard)).void
+                     }
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil); end
+                  end
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The boolean value indicating if the terms of service have been accepted.
+                      sig { returns(T.nilable(T::Boolean)) }
+                      def shown_and_accepted; end
+                      sig {
+                        params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                       }
+                      def shown_and_accepted=(_shown_and_accepted); end
+                      sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                      def initialize(shown_and_accepted: nil); end
+                    end
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::BankTerms)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures; end
+                      sig {
+                        params(_financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::FinancingDisclosures)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures=(_financing_disclosures); end
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::Platform))
+                       }
+                      def platform; end
+                      sig {
+                        params(_platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::Platform)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::Platform))
+                       }
+                      def platform=(_platform); end
+                      sig {
+                        params(bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::BankTerms), financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::FinancingDisclosures), platform: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard::Platform)).void
+                       }
+                      def initialize(
+                        bank_terms: nil,
+                        financing_disclosures: nil,
+                        platform: nil
+                      ); end
+                    end
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        sig { returns(T.nilable(T::Boolean)) }
+                        def shown_and_accepted; end
+                        sig {
+                          params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                         }
+                        def shown_and_accepted=(_shown_and_accepted); end
+                        sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                        def initialize(shown_and_accepted: nil); end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::BankTerms))
+                       }
+                      def bank_terms; end
+                      sig {
+                        params(_bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::BankTerms)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::BankTerms))
+                       }
+                      def bank_terms=(_bank_terms); end
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      sig {
+                        returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures; end
+                      sig {
+                        params(_financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::FinancingDisclosures)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::FinancingDisclosures))
+                       }
+                      def financing_disclosures=(_financing_disclosures); end
+                      sig {
+                        params(bank_terms: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::BankTerms), financing_disclosures: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard::FinancingDisclosures)).void
+                       }
+                      def initialize(bank_terms: nil, financing_disclosures: nil); end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ApplePay))
+                     }
+                    def apple_pay; end
+                    sig {
+                      params(_apple_pay: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ApplePay)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ApplePay))
+                     }
+                    def apple_pay=(_apple_pay); end
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard))
+                     }
+                    def charge_card; end
+                    sig {
+                      params(_charge_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard))
+                     }
+                    def charge_card=(_charge_card); end
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard))
+                     }
+                    def spend_card; end
+                    sig {
+                      params(_spend_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard))
+                     }
+                    def spend_card=(_spend_card); end
+                    sig {
+                      params(apple_pay: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ApplePay), charge_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::ChargeCard), spend_card: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank::SpendCard)).void
+                     }
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil); end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder))
+                   }
+                  def account_holder; end
+                  sig {
+                    params(_account_holder: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder))
+                   }
+                  def account_holder=(_account_holder); end
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic))
+                   }
+                  def celtic; end
+                  sig {
+                    params(_celtic: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic))
+                   }
+                  def celtic=(_celtic); end
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  sig {
+                    returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank))
+                   }
+                  def cross_river_bank; end
+                  sig {
+                    params(_cross_river_bank: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank))
+                   }
+                  def cross_river_bank=(_cross_river_bank); end
+                  sig {
+                    params(account_holder: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::AccountHolder), celtic: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::Celtic), cross_river_bank: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial::CrossRiverBank)).void
+                   }
+                  def initialize(account_holder: nil, celtic: nil, cross_river_bank: nil); end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial))
+                 }
+                def commercial; end
+                sig {
+                  params(_commercial: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial))
+                 }
+                def commercial=(_commercial); end
+                sig {
+                  params(commercial: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator::Commercial)).void
+                 }
+                def initialize(commercial: nil); end
+              end
+              class CryptoStorer < ::Stripe::RequestParams
+                # The boolean value indicating if the terms of service have been accepted.
+                sig { returns(T.nilable(T::Boolean)) }
+                def shown_and_accepted; end
+                sig {
+                  params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                 }
+                def shown_and_accepted=(_shown_and_accepted); end
+                sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                def initialize(shown_and_accepted: nil); end
+              end
+              class Storer < ::Stripe::RequestParams
+                # The boolean value indicating if the terms of service have been accepted.
+                sig { returns(T.nilable(T::Boolean)) }
+                def shown_and_accepted; end
+                sig {
+                  params(_shown_and_accepted: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+                 }
+                def shown_and_accepted=(_shown_and_accepted); end
+                sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
+                def initialize(shown_and_accepted: nil); end
+              end
               # Details on the Account's acceptance of the [Stripe Services Agreement]; IP, date, and User Agent are expanded by Stripe.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account))
@@ -89,10 +490,37 @@ module Stripe
                 params(_account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account))
                }
               def account=(_account); end
+              # Details on the Account's acceptance of Issuing-specific terms of service.
               sig {
-                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account)).void
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator))
                }
-              def initialize(account: nil); end
+              def card_creator; end
+              sig {
+                params(_card_creator: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator))
+               }
+              def card_creator=(_card_creator); end
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+               }
+              def crypto_storer; end
+              sig {
+                params(_crypto_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+               }
+              def crypto_storer=(_crypto_storer); end
+              # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+               }
+              def storer; end
+              sig {
+                params(_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+               }
+              def storer=(_storer); end
+              sig {
+                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account), card_creator: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator), crypto_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer), storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).void
+               }
+              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.
             sig {
@@ -758,6 +1186,13 @@ module Stripe
               params(_annual_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue))
              }
             def annual_revenue=(_annual_revenue); end
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            sig { returns(T.nilable(String)) }
+            def compliance_screening_description; end
+            sig {
+              params(_compliance_screening_description: T.nilable(String)).returns(T.nilable(String))
+             }
+            def compliance_screening_description=(_compliance_screening_description); end
             # A document verifying the business.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents))
@@ -833,11 +1268,12 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(address: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), compliance_screening_description: T.nilable(String), documents: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
               address: nil,
               annual_revenue: nil,
+              compliance_screening_description: nil,
               documents: nil,
               estimated_worker_count: nil,
               id_numbers: nil,

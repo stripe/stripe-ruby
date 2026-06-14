@@ -43,6 +43,67 @@ module Stripe
       end
     end
 
+    class Reason < ::Stripe::StripeObject
+      class AutomationAction < ::Stripe::StripeObject
+        class StripeSendWebhookCustomEvent < ::Stripe::StripeObject
+          # Set of key-value pairs attached to the action when creating an Automation.
+          attr_reader :custom_data
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field stripe_send_webhook_custom_event
+        attr_reader :stripe_send_webhook_custom_event
+        # The trigger name of the automation that triggered this action.
+        #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
+        attr_reader :trigger
+        # The type of the `automation_action`.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { stripe_send_webhook_custom_event: StripeSendWebhookCustomEvent }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Request < ::Stripe::StripeObject
+        # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+        attr_reader :id
+        # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+        attr_reader :idempotency_key
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field automation_action
+      attr_reader :automation_action
+      # Attribute for field request
+      attr_reader :request
+      # The type of the reason for the event.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { automation_action: AutomationAction, request: Request }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Request < ::Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       attr_reader :id
@@ -75,6 +136,8 @@ module Stripe
     attr_reader :object
     # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     attr_reader :pending_webhooks
+    # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
+    attr_reader :reason
     # Information on the API request that triggers the event.
     attr_reader :request
     # Description of the event (for example, `invoice.created` or `charge.refunded`).
@@ -86,7 +149,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { data: Data, request: Request }
+      @inner_class_types = { data: Data, reason: Reason, request: Request }
     end
 
     def self.field_remappings

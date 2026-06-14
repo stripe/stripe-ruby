@@ -3,6 +3,33 @@
 
 module Stripe
   class ProductUpdateParams < ::Stripe::RequestParams
+    class Identifiers < ::Stripe::RequestParams
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      attr_accessor :ean
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      attr_accessor :gtin
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      attr_accessor :isbn
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      attr_accessor :jan
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      attr_accessor :mpn
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      attr_accessor :nsn
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      attr_accessor :upc
+
+      def initialize(ean: nil, gtin: nil, isbn: nil, jan: nil, mpn: nil, nsn: nil, upc: nil)
+        @ean = ean
+        @gtin = gtin
+        @isbn = isbn
+        @jan = jan
+        @mpn = mpn
+        @nsn = nsn
+        @upc = upc
+      end
+    end
+
     class MarketingFeature < ::Stripe::RequestParams
       # The marketing feature name. Up to 80 characters long.
       attr_accessor :name
@@ -29,6 +56,18 @@ module Stripe
         @width = width
       end
     end
+
+    class TaxDetails < ::Stripe::RequestParams
+      # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+      attr_accessor :performance_location
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      attr_accessor :tax_code
+
+      def initialize(performance_location: nil, tax_code: nil)
+        @performance_location = performance_location
+        @tax_code = tax_code
+      end
+    end
     # Whether the product is available for purchase.
     attr_accessor :active
     # The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
@@ -37,6 +76,8 @@ module Stripe
     attr_accessor :description
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Other identifiers for this product.
+    attr_accessor :identifiers
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     attr_accessor :images
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
@@ -56,6 +97,8 @@ module Stripe
     attr_accessor :statement_descriptor
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_accessor :tax_code
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_accessor :tax_details
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
     attr_accessor :unit_label
     # A URL of a publicly-accessible webpage for this product.
@@ -66,6 +109,7 @@ module Stripe
       default_price: nil,
       description: nil,
       expand: nil,
+      identifiers: nil,
       images: nil,
       marketing_features: nil,
       metadata: nil,
@@ -74,6 +118,7 @@ module Stripe
       shippable: nil,
       statement_descriptor: nil,
       tax_code: nil,
+      tax_details: nil,
       unit_label: nil,
       url: nil
     )
@@ -81,6 +126,7 @@ module Stripe
       @default_price = default_price
       @description = description
       @expand = expand
+      @identifiers = identifiers
       @images = images
       @marketing_features = marketing_features
       @metadata = metadata
@@ -89,6 +135,7 @@ module Stripe
       @shippable = shippable
       @statement_descriptor = statement_descriptor
       @tax_code = tax_code
+      @tax_details = tax_details
       @unit_label = unit_label
       @url = url
     end

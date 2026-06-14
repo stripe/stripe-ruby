@@ -6,9 +6,11 @@ module Stripe
   autoload :AccountExternalAccountService, "stripe/services/account_external_account_service"
   autoload :AccountLinkService, "stripe/services/account_link_service"
   autoload :AccountLoginLinkService, "stripe/services/account_login_link_service"
+  autoload :AccountNoticeService, "stripe/services/account_notice_service"
   autoload :AccountPersonService, "stripe/services/account_person_service"
   autoload :AccountService, "stripe/services/account_service"
   autoload :AccountSessionService, "stripe/services/account_session_service"
+  autoload :AccountSignalsService, "stripe/services/account_signals_service"
   autoload :ApplePayDomainService, "stripe/services/apple_pay_domain_service"
   autoload :ApplicationFeeRefundService, "stripe/services/application_fee_refund_service"
   autoload :ApplicationFeeService, "stripe/services/application_fee_service"
@@ -16,8 +18,10 @@ module Stripe
   autoload :BalanceService, "stripe/services/balance_service"
   autoload :BalanceSettingsService, "stripe/services/balance_settings_service"
   autoload :BalanceTransactionService, "stripe/services/balance_transaction_service"
+  autoload :BalanceTransferService, "stripe/services/balance_transfer_service"
   autoload :BillingPortalService, "stripe/services/billing_portal_service"
   autoload :BillingService, "stripe/services/billing_service"
+  autoload :CapitalService, "stripe/services/capital_service"
   autoload :ChargeService, "stripe/services/charge_service"
   autoload :CheckoutService, "stripe/services/checkout_service"
   autoload :ClimateService, "stripe/services/climate_service"
@@ -36,15 +40,21 @@ module Stripe
   autoload :CustomerService, "stripe/services/customer_service"
   autoload :CustomerSessionService, "stripe/services/customer_session_service"
   autoload :CustomerTaxIdService, "stripe/services/customer_tax_id_service"
+  autoload :DelegatedCheckoutService, "stripe/services/delegated_checkout_service"
   autoload :DisputeService, "stripe/services/dispute_service"
   autoload :EntitlementsService, "stripe/services/entitlements_service"
   autoload :EphemeralKeyService, "stripe/services/ephemeral_key_service"
   autoload :EventService, "stripe/services/event_service"
   autoload :ExchangeRateService, "stripe/services/exchange_rate_service"
+  autoload :ExternalAccountService, "stripe/services/external_account_service"
   autoload :FileLinkService, "stripe/services/file_link_service"
   autoload :FileService, "stripe/services/file_service"
   autoload :FinancialConnectionsService, "stripe/services/financial_connections_service"
   autoload :ForwardingService, "stripe/services/forwarding_service"
+  autoload :FrMealVouchersOnboardingService, "stripe/services/fr_meal_vouchers_onboarding_service"
+  autoload :FxQuoteService, "stripe/services/fx_quote_service"
+  autoload :GiftCardOperationService, "stripe/services/gift_card_operation_service"
+  autoload :GiftCardService, "stripe/services/gift_card_service"
   autoload :IdentityService, "stripe/services/identity_service"
   autoload :InvoiceItemService, "stripe/services/invoice_item_service"
   autoload :InvoiceLineItemService, "stripe/services/invoice_line_item_service"
@@ -53,11 +63,16 @@ module Stripe
   autoload :InvoiceService, "stripe/services/invoice_service"
   autoload :IssuingService, "stripe/services/issuing_service"
   autoload :MandateService, "stripe/services/mandate_service"
+  autoload :MarginService, "stripe/services/margin_service"
+  autoload :OrchestrationService, "stripe/services/orchestration_service"
+  autoload :OrderService, "stripe/services/order_service"
   autoload :PaymentAttemptRecordService, "stripe/services/payment_attempt_record_service"
   autoload :PaymentIntentAmountDetailsLineItemService, "stripe/services/payment_intent_amount_details_line_item_service"
   autoload :PaymentIntentService, "stripe/services/payment_intent_service"
   autoload :PaymentLinkLineItemService, "stripe/services/payment_link_line_item_service"
   autoload :PaymentLinkService, "stripe/services/payment_link_service"
+  autoload :PaymentLocationCapabilityService, "stripe/services/payment_location_capability_service"
+  autoload :PaymentLocationService, "stripe/services/payment_location_service"
   autoload :PaymentMethodConfigurationService, "stripe/services/payment_method_configuration_service"
   autoload :PaymentMethodDomainService, "stripe/services/payment_method_domain_service"
   autoload :PaymentMethodService, "stripe/services/payment_method_service"
@@ -65,18 +80,25 @@ module Stripe
   autoload :PayoutService, "stripe/services/payout_service"
   autoload :PlanService, "stripe/services/plan_service"
   autoload :PriceService, "stripe/services/price_service"
+  autoload :PrivacyService, "stripe/services/privacy_service"
+  autoload :ProductCatalogService, "stripe/services/product_catalog_service"
   autoload :ProductFeatureService, "stripe/services/product_feature_service"
   autoload :ProductService, "stripe/services/product_service"
   autoload :PromotionCodeService, "stripe/services/promotion_code_service"
   autoload :QuoteComputedUpfrontLineItemsService, "stripe/services/quote_computed_upfront_line_items_service"
   autoload :QuoteLineItemService, "stripe/services/quote_line_item_service"
+  autoload :QuoteLineService, "stripe/services/quote_line_service"
+  autoload :QuotePreviewInvoiceService, "stripe/services/quote_preview_invoice_service"
+  autoload :QuotePreviewSubscriptionScheduleService, "stripe/services/quote_preview_subscription_schedule_service"
   autoload :QuoteService, "stripe/services/quote_service"
   autoload :RadarService, "stripe/services/radar_service"
   autoload :RefundService, "stripe/services/refund_service"
   autoload :ReportingService, "stripe/services/reporting_service"
+  autoload :ReserveService, "stripe/services/reserve_service"
   autoload :ReviewService, "stripe/services/review_service"
   autoload :SetupAttemptService, "stripe/services/setup_attempt_service"
   autoload :SetupIntentService, "stripe/services/setup_intent_service"
+  autoload :SharedPaymentService, "stripe/services/shared_payment_service"
   autoload :ShippingRateService, "stripe/services/shipping_rate_service"
   autoload :SigmaService, "stripe/services/sigma_service"
   autoload :SourceService, "stripe/services/source_service"
@@ -85,6 +107,7 @@ module Stripe
   autoload :SubscriptionScheduleService, "stripe/services/subscription_schedule_service"
   autoload :SubscriptionService, "stripe/services/subscription_service"
   autoload :TaxCodeService, "stripe/services/tax_code_service"
+  autoload :TaxFundService, "stripe/services/tax_fund_service"
   autoload :TaxIdService, "stripe/services/tax_id_service"
   autoload :TaxRateService, "stripe/services/tax_rate_service"
   autoload :TaxService, "stripe/services/tax_service"
@@ -105,6 +128,7 @@ module Stripe
 
   module Billing
     autoload :AlertService, "stripe/services/billing/alert_service"
+    autoload :AnalyticsService, "stripe/services/billing/analytics_service"
     autoload :CreditBalanceSummaryService, "stripe/services/billing/credit_balance_summary_service"
     autoload :CreditBalanceTransactionService, "stripe/services/billing/credit_balance_transaction_service"
     autoload :CreditGrantService, "stripe/services/billing/credit_grant_service"
@@ -112,11 +136,21 @@ module Stripe
     autoload :MeterEventService, "stripe/services/billing/meter_event_service"
     autoload :MeterEventSummaryService, "stripe/services/billing/meter_event_summary_service"
     autoload :MeterService, "stripe/services/billing/meter_service"
+
+    module Analytics
+      autoload :MeterUsageService, "stripe/services/billing/analytics/meter_usage_service"
+    end
   end
 
   module BillingPortal
     autoload :ConfigurationService, "stripe/services/billing_portal/configuration_service"
     autoload :SessionService, "stripe/services/billing_portal/session_service"
+  end
+
+  module Capital
+    autoload :FinancingOfferService, "stripe/services/capital/financing_offer_service"
+    autoload :FinancingSummaryService, "stripe/services/capital/financing_summary_service"
+    autoload :FinancingTransactionService, "stripe/services/capital/financing_transaction_service"
   end
 
   module Checkout
@@ -130,14 +164,23 @@ module Stripe
     autoload :SupplierService, "stripe/services/climate/supplier_service"
   end
 
+  module DelegatedCheckout
+    autoload :OrderService, "stripe/services/delegated_checkout/order_service"
+    autoload :RequestedSessionOrderService, "stripe/services/delegated_checkout/requested_session_order_service"
+    autoload :RequestedSessionService, "stripe/services/delegated_checkout/requested_session_service"
+  end
+
   module Entitlements
     autoload :ActiveEntitlementService, "stripe/services/entitlements/active_entitlement_service"
     autoload :FeatureService, "stripe/services/entitlements/feature_service"
   end
 
   module FinancialConnections
+    autoload :AccountInferredBalanceService, "stripe/services/financial_connections/account_inferred_balance_service"
     autoload :AccountOwnerService, "stripe/services/financial_connections/account_owner_service"
     autoload :AccountService, "stripe/services/financial_connections/account_service"
+    autoload :AuthorizationService, "stripe/services/financial_connections/authorization_service"
+    autoload :InstitutionService, "stripe/services/financial_connections/institution_service"
     autoload :SessionService, "stripe/services/financial_connections/session_service"
     autoload :TransactionService, "stripe/services/financial_connections/transaction_service"
   end
@@ -147,6 +190,7 @@ module Stripe
   end
 
   module Identity
+    autoload :BlocklistEntryService, "stripe/services/identity/blocklist_entry_service"
     autoload :VerificationReportService, "stripe/services/identity/verification_report_service"
     autoload :VerificationSessionService, "stripe/services/identity/verification_session_service"
   end
@@ -155,15 +199,35 @@ module Stripe
     autoload :AuthorizationService, "stripe/services/issuing/authorization_service"
     autoload :CardholderService, "stripe/services/issuing/cardholder_service"
     autoload :CardService, "stripe/services/issuing/card_service"
+    autoload :CreditUnderwritingRecordService, "stripe/services/issuing/credit_underwriting_record_service"
     autoload :DisputeService, "stripe/services/issuing/dispute_service"
+    autoload :DisputeSettlementDetailService, "stripe/services/issuing/dispute_settlement_detail_service"
+    autoload :FraudLiabilityDebitService, "stripe/services/issuing/fraud_liability_debit_service"
     autoload :PersonalizationDesignService, "stripe/services/issuing/personalization_design_service"
     autoload :PhysicalBundleService, "stripe/services/issuing/physical_bundle_service"
+    autoload :ProgramService, "stripe/services/issuing/program_service"
     autoload :TokenService, "stripe/services/issuing/token_service"
     autoload :TransactionService, "stripe/services/issuing/transaction_service"
   end
 
+  module Orchestration
+    autoload :PaymentAttemptService, "stripe/services/orchestration/payment_attempt_service"
+  end
+
+  module Privacy
+    autoload :RedactionJobService, "stripe/services/privacy/redaction_job_service"
+    autoload :RedactionJobValidationErrorService, "stripe/services/privacy/redaction_job_validation_error_service"
+  end
+
+  module ProductCatalog
+    autoload :TrialOfferService, "stripe/services/product_catalog/trial_offer_service"
+  end
+
   module Radar
+    autoload :AccountEvaluationService, "stripe/services/radar/account_evaluation_service"
+    autoload :CustomerEvaluationService, "stripe/services/radar/customer_evaluation_service"
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
+    autoload :IssuingAuthorizationEvaluationService, "stripe/services/radar/issuing_authorization_evaluation_service"
     autoload :PaymentEvaluationService, "stripe/services/radar/payment_evaluation_service"
     autoload :ValueListItemService, "stripe/services/radar/value_list_item_service"
     autoload :ValueListService, "stripe/services/radar/value_list_service"
@@ -174,6 +238,17 @@ module Stripe
     autoload :ReportTypeService, "stripe/services/reporting/report_type_service"
   end
 
+  module Reserve
+    autoload :HoldService, "stripe/services/reserve/hold_service"
+    autoload :PlanService, "stripe/services/reserve/plan_service"
+    autoload :ReleaseService, "stripe/services/reserve/release_service"
+  end
+
+  module SharedPayment
+    autoload :GrantedTokenService, "stripe/services/shared_payment/granted_token_service"
+    autoload :IssuedTokenService, "stripe/services/shared_payment/issued_token_service"
+  end
+
   module Sigma
     autoload :ScheduledQueryRunService, "stripe/services/sigma/scheduled_query_run_service"
   end
@@ -182,6 +257,8 @@ module Stripe
     autoload :AssociationService, "stripe/services/tax/association_service"
     autoload :CalculationLineItemService, "stripe/services/tax/calculation_line_item_service"
     autoload :CalculationService, "stripe/services/tax/calculation_service"
+    autoload :FormService, "stripe/services/tax/form_service"
+    autoload :LocationService, "stripe/services/tax/location_service"
     autoload :RegistrationService, "stripe/services/tax/registration_service"
     autoload :SettingsService, "stripe/services/tax/settings_service"
     autoload :TransactionLineItemService, "stripe/services/tax/transaction_line_item_service"
@@ -193,23 +270,36 @@ module Stripe
     autoload :ConnectionTokenService, "stripe/services/terminal/connection_token_service"
     autoload :LocationService, "stripe/services/terminal/location_service"
     autoload :OnboardingLinkService, "stripe/services/terminal/onboarding_link_service"
+    autoload :ReaderCollectedDataService, "stripe/services/terminal/reader_collected_data_service"
     autoload :ReaderService, "stripe/services/terminal/reader_service"
   end
 
   module TestHelpers
+    autoload :CapitalService, "stripe/services/test_helpers/capital_service"
     autoload :ConfirmationTokenService, "stripe/services/test_helpers/confirmation_token_service"
     autoload :CustomerService, "stripe/services/test_helpers/customer_service"
     autoload :IssuingService, "stripe/services/test_helpers/issuing_service"
+    autoload :PaymentIntentService, "stripe/services/test_helpers/payment_intent_service"
     autoload :RefundService, "stripe/services/test_helpers/refund_service"
+    autoload :SharedPaymentService, "stripe/services/test_helpers/shared_payment_service"
     autoload :TerminalService, "stripe/services/test_helpers/terminal_service"
     autoload :TestClockService, "stripe/services/test_helpers/test_clock_service"
     autoload :TreasuryService, "stripe/services/test_helpers/treasury_service"
 
+    module Capital
+      autoload :FinancingOfferService, "stripe/services/test_helpers/capital/financing_offer_service"
+    end
+
     module Issuing
       autoload :AuthorizationService, "stripe/services/test_helpers/issuing/authorization_service"
       autoload :CardService, "stripe/services/test_helpers/issuing/card_service"
+      autoload :DisputeService, "stripe/services/test_helpers/issuing/dispute_service"
       autoload :PersonalizationDesignService, "stripe/services/test_helpers/issuing/personalization_design_service"
       autoload :TransactionService, "stripe/services/test_helpers/issuing/transaction_service"
+    end
+
+    module SharedPayment
+      autoload :GrantedTokenService, "stripe/services/test_helpers/shared_payment/granted_token_service"
     end
 
     module Terminal
@@ -243,12 +333,80 @@ module Stripe
     autoload :BillingService, "stripe/services/v2/billing_service"
     autoload :CommerceService, "stripe/services/v2/commerce_service"
     autoload :CoreService, "stripe/services/v2/core_service"
+    autoload :DataService, "stripe/services/v2/data_service"
+    autoload :ExtendService, "stripe/services/v2/extend_service"
+    autoload :IamService, "stripe/services/v2/iam_service"
+    autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
+    autoload :NetworkService, "stripe/services/v2/network_service"
+    autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
+    autoload :PaymentsService, "stripe/services/v2/payments_service"
+    autoload :ReportingService, "stripe/services/v2/reporting_service"
+    autoload :SignalsService, "stripe/services/v2/signals_service"
+    autoload :TaxService, "stripe/services/v2/tax_service"
+    autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
     module Billing
+      autoload :BillSettingService, "stripe/services/v2/billing/bill_setting_service"
+      autoload :CadenceService, "stripe/services/v2/billing/cadence_service"
+      autoload :CollectionSettingService, "stripe/services/v2/billing/collection_setting_service"
+      autoload :ContractService, "stripe/services/v2/billing/contract_service"
+      autoload :CustomPricingUnitService, "stripe/services/v2/billing/custom_pricing_unit_service"
+      autoload :IntentService, "stripe/services/v2/billing/intent_service"
+      autoload :LicensedItemService, "stripe/services/v2/billing/licensed_item_service"
+      autoload :LicenseFeeService, "stripe/services/v2/billing/license_fee_service"
+      autoload :MeteredItemService, "stripe/services/v2/billing/metered_item_service"
       autoload :MeterEventAdjustmentService, "stripe/services/v2/billing/meter_event_adjustment_service"
       autoload :MeterEventService, "stripe/services/v2/billing/meter_event_service"
       autoload :MeterEventSessionService, "stripe/services/v2/billing/meter_event_session_service"
       autoload :MeterEventStreamService, "stripe/services/v2/billing/meter_event_stream_service"
+      autoload :OneTimeItemService, "stripe/services/v2/billing/one_time_item_service"
+      autoload :PricingPlanService, "stripe/services/v2/billing/pricing_plan_service"
+      autoload :PricingPlanSubscriptionService, "stripe/services/v2/billing/pricing_plan_subscription_service"
+      autoload :ProfileService, "stripe/services/v2/billing/profile_service"
+      autoload :RateCardService, "stripe/services/v2/billing/rate_card_service"
+      autoload :RateCardSubscriptionService, "stripe/services/v2/billing/rate_card_subscription_service"
+      autoload :ServiceActionService, "stripe/services/v2/billing/service_action_service"
+
+      module BillSettings
+        autoload :VersionService, "stripe/services/v2/billing/bill_settings/version_service"
+      end
+
+      module Cadences
+        autoload :SpendModifierRuleService, "stripe/services/v2/billing/cadences/spend_modifier_rule_service"
+      end
+
+      module CollectionSettings
+        autoload :VersionService, "stripe/services/v2/billing/collection_settings/version_service"
+      end
+
+      module Contracts
+        autoload :LicensePricingService, "stripe/services/v2/billing/contracts/license_pricing_service"
+
+        module LicensePricing
+          autoload :QuantityChangeService,
+                   "stripe/services/v2/billing/contracts/license_pricing/quantity_change_service"
+        end
+      end
+
+      module Intents
+        autoload :ActionService, "stripe/services/v2/billing/intents/action_service"
+      end
+
+      module LicenseFees
+        autoload :VersionService, "stripe/services/v2/billing/license_fees/version_service"
+      end
+
+      module PricingPlans
+        autoload :ComponentService, "stripe/services/v2/billing/pricing_plans/component_service"
+        autoload :VersionService, "stripe/services/v2/billing/pricing_plans/version_service"
+      end
+
+      module RateCards
+        autoload :CustomPricingUnitOverageRateService,
+                 "stripe/services/v2/billing/rate_cards/custom_pricing_unit_overage_rate_service"
+        autoload :RateService, "stripe/services/v2/billing/rate_cards/rate_service"
+        autoload :VersionService, "stripe/services/v2/billing/rate_cards/version_service"
+      end
     end
 
     module Commerce
@@ -260,29 +418,128 @@ module Stripe
     end
 
     module Core
+      autoload :AccountEvaluationService, "stripe/services/v2/core/account_evaluation_service"
       autoload :AccountLinkService, "stripe/services/v2/core/account_link_service"
       autoload :AccountService, "stripe/services/v2/core/account_service"
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
+      autoload :ApprovalRequestService, "stripe/services/v2/core/approval_request_service"
+      autoload :BatchJobService, "stripe/services/v2/core/batch_job_service"
+      autoload :ClaimableSandboxService, "stripe/services/v2/core/claimable_sandbox_service"
+      autoload :ConnectionSessionService, "stripe/services/v2/core/connection_session_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
+      autoload :FeeBatchService, "stripe/services/v2/core/fee_batch_service"
+      autoload :FeeEntryService, "stripe/services/v2/core/fee_entry_service"
+      autoload :VaultService, "stripe/services/v2/core/vault_service"
 
       module Accounts
         autoload :PersonService, "stripe/services/v2/core/accounts/person_service"
         autoload :PersonTokenService, "stripe/services/v2/core/accounts/person_token_service"
       end
+
+      module Vault
+        autoload :GbBankAccountService, "stripe/services/v2/core/vault/gb_bank_account_service"
+        autoload :UsBankAccountService, "stripe/services/v2/core/vault/us_bank_account_service"
+      end
+    end
+
+    module Data
+      autoload :AnalyticsService, "stripe/services/v2/data/analytics_service"
+      autoload :ReportingService, "stripe/services/v2/data/reporting_service"
+
+      module Analytics
+        autoload :MetricQueryService, "stripe/services/v2/data/analytics/metric_query_service"
+      end
+
+      module Reporting
+        autoload :QueryRunService, "stripe/services/v2/data/reporting/query_run_service"
+      end
+    end
+
+    module Extend
+      autoload :WorkflowRunService, "stripe/services/v2/extend/workflow_run_service"
+      autoload :WorkflowService, "stripe/services/v2/extend/workflow_service"
+    end
+
+    module Iam
+      autoload :ActivityLogService, "stripe/services/v2/iam/activity_log_service"
+      autoload :ApiKeyService, "stripe/services/v2/iam/api_key_service"
+    end
+
+    module MoneyManagement
+      autoload :AdjustmentService, "stripe/services/v2/money_management/adjustment_service"
+      autoload :CurrencyConversionService, "stripe/services/v2/money_management/currency_conversion_service"
+      autoload :DebitDisputeService, "stripe/services/v2/money_management/debit_dispute_service"
+      autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
+      autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
+      autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
+      autoload :OutboundPaymentQuoteService, "stripe/services/v2/money_management/outbound_payment_quote_service"
+      autoload :OutboundPaymentService, "stripe/services/v2/money_management/outbound_payment_service"
+      autoload :OutboundSetupIntentService, "stripe/services/v2/money_management/outbound_setup_intent_service"
+      autoload :OutboundTransferService, "stripe/services/v2/money_management/outbound_transfer_service"
+      autoload :PayoutMethodsBankAccountSpecService,
+               "stripe/services/v2/money_management/payout_methods_bank_account_spec_service"
+      autoload :PayoutMethodService, "stripe/services/v2/money_management/payout_method_service"
+      autoload :ReceivedCreditService, "stripe/services/v2/money_management/received_credit_service"
+      autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
+      autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
+      autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
+      autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
+
+      module FinancialAccounts
+        autoload :StatementService, "stripe/services/v2/money_management/financial_accounts/statement_service"
+      end
+    end
+
+    module Network
+      autoload :BusinessProfileService, "stripe/services/v2/network/business_profile_service"
+    end
+
+    module OrchestratedCommerce
+      autoload :AgreementService, "stripe/services/v2/orchestrated_commerce/agreement_service"
+    end
+
+    module Payments
+      autoload :OffSessionPaymentService, "stripe/services/v2/payments/off_session_payment_service"
+      autoload :SettlementAllocationIntentService, "stripe/services/v2/payments/settlement_allocation_intent_service"
+
+      module SettlementAllocationIntents
+        autoload :SplitService, "stripe/services/v2/payments/settlement_allocation_intents/split_service"
+      end
+    end
+
+    module Reporting
+      autoload :ReportRunService, "stripe/services/v2/reporting/report_run_service"
+      autoload :ReportService, "stripe/services/v2/reporting/report_service"
+    end
+
+    module Signals
+      autoload :AccountSignalService, "stripe/services/v2/signals/account_signal_service"
+    end
+
+    module Tax
+      autoload :ManualRuleService, "stripe/services/v2/tax/manual_rule_service"
+    end
+
+    module TestHelpers
+      autoload :FinancialAddressService, "stripe/services/v2/test_helpers/financial_address_service"
+      autoload :MoneyManagementService, "stripe/services/v2/test_helpers/money_management_service"
     end
   end
 end
 
 module Stripe
+  # rubocop:disable Metrics/CollectionLiteralLength
   SERVICE_FILES = %w[
     stripe/services/account_capability_service
     stripe/services/account_external_account_service
     stripe/services/account_link_service
     stripe/services/account_login_link_service
+    stripe/services/account_notice_service
     stripe/services/account_person_service
     stripe/services/account_service
     stripe/services/account_session_service
+    stripe/services/account_signals_service
     stripe/services/apple_pay_domain_service
     stripe/services/application_fee_refund_service
     stripe/services/application_fee_service
@@ -291,7 +548,10 @@ module Stripe
     stripe/services/balance_service
     stripe/services/balance_settings_service
     stripe/services/balance_transaction_service
+    stripe/services/balance_transfer_service
     stripe/services/billing/alert_service
+    stripe/services/billing/analytics/meter_usage_service
+    stripe/services/billing/analytics_service
     stripe/services/billing/credit_balance_summary_service
     stripe/services/billing/credit_balance_transaction_service
     stripe/services/billing/credit_grant_service
@@ -303,6 +563,10 @@ module Stripe
     stripe/services/billing_portal/session_service
     stripe/services/billing_portal_service
     stripe/services/billing_service
+    stripe/services/capital/financing_offer_service
+    stripe/services/capital/financing_summary_service
+    stripe/services/capital/financing_transaction_service
+    stripe/services/capital_service
     stripe/services/charge_service
     stripe/services/checkout/session_line_item_service
     stripe/services/checkout/session_service
@@ -326,6 +590,10 @@ module Stripe
     stripe/services/customer_service
     stripe/services/customer_session_service
     stripe/services/customer_tax_id_service
+    stripe/services/delegated_checkout/order_service
+    stripe/services/delegated_checkout/requested_session_order_service
+    stripe/services/delegated_checkout/requested_session_service
+    stripe/services/delegated_checkout_service
     stripe/services/dispute_service
     stripe/services/entitlements/active_entitlement_service
     stripe/services/entitlements/feature_service
@@ -333,15 +601,24 @@ module Stripe
     stripe/services/ephemeral_key_service
     stripe/services/event_service
     stripe/services/exchange_rate_service
+    stripe/services/external_account_service
     stripe/services/file_link_service
     stripe/services/file_service
+    stripe/services/financial_connections/account_inferred_balance_service
     stripe/services/financial_connections/account_owner_service
     stripe/services/financial_connections/account_service
+    stripe/services/financial_connections/authorization_service
+    stripe/services/financial_connections/institution_service
     stripe/services/financial_connections/session_service
     stripe/services/financial_connections/transaction_service
     stripe/services/financial_connections_service
     stripe/services/forwarding/request_service
     stripe/services/forwarding_service
+    stripe/services/fr_meal_vouchers_onboarding_service
+    stripe/services/fx_quote_service
+    stripe/services/gift_card_operation_service
+    stripe/services/gift_card_service
+    stripe/services/identity/blocklist_entry_service
     stripe/services/identity/verification_report_service
     stripe/services/identity/verification_session_service
     stripe/services/identity_service
@@ -353,18 +630,28 @@ module Stripe
     stripe/services/issuing/authorization_service
     stripe/services/issuing/card_service
     stripe/services/issuing/cardholder_service
+    stripe/services/issuing/credit_underwriting_record_service
     stripe/services/issuing/dispute_service
+    stripe/services/issuing/dispute_settlement_detail_service
+    stripe/services/issuing/fraud_liability_debit_service
     stripe/services/issuing/personalization_design_service
     stripe/services/issuing/physical_bundle_service
+    stripe/services/issuing/program_service
     stripe/services/issuing/token_service
     stripe/services/issuing/transaction_service
     stripe/services/issuing_service
     stripe/services/mandate_service
+    stripe/services/margin_service
+    stripe/services/orchestration/payment_attempt_service
+    stripe/services/orchestration_service
+    stripe/services/order_service
     stripe/services/payment_attempt_record_service
     stripe/services/payment_intent_amount_details_line_item_service
     stripe/services/payment_intent_service
     stripe/services/payment_link_line_item_service
     stripe/services/payment_link_service
+    stripe/services/payment_location_capability_service
+    stripe/services/payment_location_service
     stripe/services/payment_method_configuration_service
     stripe/services/payment_method_domain_service
     stripe/services/payment_method_service
@@ -372,13 +659,24 @@ module Stripe
     stripe/services/payout_service
     stripe/services/plan_service
     stripe/services/price_service
+    stripe/services/privacy/redaction_job_service
+    stripe/services/privacy/redaction_job_validation_error_service
+    stripe/services/privacy_service
+    stripe/services/product_catalog/trial_offer_service
+    stripe/services/product_catalog_service
     stripe/services/product_feature_service
     stripe/services/product_service
     stripe/services/promotion_code_service
     stripe/services/quote_computed_upfront_line_items_service
     stripe/services/quote_line_item_service
+    stripe/services/quote_line_service
+    stripe/services/quote_preview_invoice_service
+    stripe/services/quote_preview_subscription_schedule_service
     stripe/services/quote_service
+    stripe/services/radar/account_evaluation_service
+    stripe/services/radar/customer_evaluation_service
     stripe/services/radar/early_fraud_warning_service
+    stripe/services/radar/issuing_authorization_evaluation_service
     stripe/services/radar/payment_evaluation_service
     stripe/services/radar/value_list_item_service
     stripe/services/radar/value_list_service
@@ -387,9 +685,16 @@ module Stripe
     stripe/services/reporting/report_run_service
     stripe/services/reporting/report_type_service
     stripe/services/reporting_service
+    stripe/services/reserve/hold_service
+    stripe/services/reserve/plan_service
+    stripe/services/reserve/release_service
+    stripe/services/reserve_service
     stripe/services/review_service
     stripe/services/setup_attempt_service
     stripe/services/setup_intent_service
+    stripe/services/shared_payment/granted_token_service
+    stripe/services/shared_payment/issued_token_service
+    stripe/services/shared_payment_service
     stripe/services/shipping_rate_service
     stripe/services/sigma/scheduled_query_run_service
     stripe/services/sigma_service
@@ -401,11 +706,14 @@ module Stripe
     stripe/services/tax/association_service
     stripe/services/tax/calculation_line_item_service
     stripe/services/tax/calculation_service
+    stripe/services/tax/form_service
+    stripe/services/tax/location_service
     stripe/services/tax/registration_service
     stripe/services/tax/settings_service
     stripe/services/tax/transaction_line_item_service
     stripe/services/tax/transaction_service
     stripe/services/tax_code_service
+    stripe/services/tax_fund_service
     stripe/services/tax_id_service
     stripe/services/tax_rate_service
     stripe/services/tax_service
@@ -413,16 +721,23 @@ module Stripe
     stripe/services/terminal/connection_token_service
     stripe/services/terminal/location_service
     stripe/services/terminal/onboarding_link_service
+    stripe/services/terminal/reader_collected_data_service
     stripe/services/terminal/reader_service
     stripe/services/terminal_service
+    stripe/services/test_helpers/capital/financing_offer_service
+    stripe/services/test_helpers/capital_service
     stripe/services/test_helpers/confirmation_token_service
     stripe/services/test_helpers/customer_service
     stripe/services/test_helpers/issuing/authorization_service
     stripe/services/test_helpers/issuing/card_service
+    stripe/services/test_helpers/issuing/dispute_service
     stripe/services/test_helpers/issuing/personalization_design_service
     stripe/services/test_helpers/issuing/transaction_service
     stripe/services/test_helpers/issuing_service
+    stripe/services/test_helpers/payment_intent_service
     stripe/services/test_helpers/refund_service
+    stripe/services/test_helpers/shared_payment/granted_token_service
+    stripe/services/test_helpers/shared_payment_service
     stripe/services/test_helpers/terminal/reader_service
     stripe/services/test_helpers/terminal_service
     stripe/services/test_helpers/test_clock_service
@@ -450,23 +765,110 @@ module Stripe
     stripe/services/treasury/transaction_service
     stripe/services/treasury_service
     stripe/services/v1_services
+    stripe/services/v2/billing/bill_setting_service
+    stripe/services/v2/billing/bill_settings/version_service
+    stripe/services/v2/billing/cadence_service
+    stripe/services/v2/billing/cadences/spend_modifier_rule_service
+    stripe/services/v2/billing/collection_setting_service
+    stripe/services/v2/billing/collection_settings/version_service
+    stripe/services/v2/billing/contract_service
+    stripe/services/v2/billing/contracts/license_pricing/quantity_change_service
+    stripe/services/v2/billing/contracts/license_pricing_service
+    stripe/services/v2/billing/custom_pricing_unit_service
+    stripe/services/v2/billing/intent_service
+    stripe/services/v2/billing/intents/action_service
+    stripe/services/v2/billing/license_fee_service
+    stripe/services/v2/billing/license_fees/version_service
+    stripe/services/v2/billing/licensed_item_service
     stripe/services/v2/billing/meter_event_adjustment_service
     stripe/services/v2/billing/meter_event_service
     stripe/services/v2/billing/meter_event_session_service
     stripe/services/v2/billing/meter_event_stream_service
+    stripe/services/v2/billing/metered_item_service
+    stripe/services/v2/billing/one_time_item_service
+    stripe/services/v2/billing/pricing_plan_service
+    stripe/services/v2/billing/pricing_plan_subscription_service
+    stripe/services/v2/billing/pricing_plans/component_service
+    stripe/services/v2/billing/pricing_plans/version_service
+    stripe/services/v2/billing/profile_service
+    stripe/services/v2/billing/rate_card_service
+    stripe/services/v2/billing/rate_card_subscription_service
+    stripe/services/v2/billing/rate_cards/custom_pricing_unit_overage_rate_service
+    stripe/services/v2/billing/rate_cards/rate_service
+    stripe/services/v2/billing/rate_cards/version_service
+    stripe/services/v2/billing/service_action_service
     stripe/services/v2/billing_service
     stripe/services/v2/commerce/product_catalog/import_service
     stripe/services/v2/commerce/product_catalog_service
     stripe/services/v2/commerce_service
+    stripe/services/v2/core/account_evaluation_service
     stripe/services/v2/core/account_link_service
     stripe/services/v2/core/account_service
     stripe/services/v2/core/account_token_service
     stripe/services/v2/core/accounts/person_service
     stripe/services/v2/core/accounts/person_token_service
+    stripe/services/v2/core/approval_request_service
+    stripe/services/v2/core/batch_job_service
+    stripe/services/v2/core/claimable_sandbox_service
+    stripe/services/v2/core/connection_session_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
+    stripe/services/v2/core/fee_batch_service
+    stripe/services/v2/core/fee_entry_service
+    stripe/services/v2/core/vault/gb_bank_account_service
+    stripe/services/v2/core/vault/us_bank_account_service
+    stripe/services/v2/core/vault_service
     stripe/services/v2/core_service
+    stripe/services/v2/data/analytics/metric_query_service
+    stripe/services/v2/data/analytics_service
+    stripe/services/v2/data/reporting/query_run_service
+    stripe/services/v2/data/reporting_service
+    stripe/services/v2/data_service
+    stripe/services/v2/extend/workflow_run_service
+    stripe/services/v2/extend/workflow_service
+    stripe/services/v2/extend_service
+    stripe/services/v2/iam/activity_log_service
+    stripe/services/v2/iam/api_key_service
+    stripe/services/v2/iam_service
+    stripe/services/v2/money_management/adjustment_service
+    stripe/services/v2/money_management/currency_conversion_service
+    stripe/services/v2/money_management/debit_dispute_service
+    stripe/services/v2/money_management/financial_account_service
+    stripe/services/v2/money_management/financial_accounts/statement_service
+    stripe/services/v2/money_management/financial_address_service
+    stripe/services/v2/money_management/inbound_transfer_service
+    stripe/services/v2/money_management/outbound_payment_quote_service
+    stripe/services/v2/money_management/outbound_payment_service
+    stripe/services/v2/money_management/outbound_setup_intent_service
+    stripe/services/v2/money_management/outbound_transfer_service
+    stripe/services/v2/money_management/payout_method_service
+    stripe/services/v2/money_management/payout_methods_bank_account_spec_service
+    stripe/services/v2/money_management/received_credit_service
+    stripe/services/v2/money_management/received_debit_service
+    stripe/services/v2/money_management/recipient_verification_service
+    stripe/services/v2/money_management/transaction_entry_service
+    stripe/services/v2/money_management/transaction_service
+    stripe/services/v2/money_management_service
+    stripe/services/v2/network/business_profile_service
+    stripe/services/v2/network_service
+    stripe/services/v2/orchestrated_commerce/agreement_service
+    stripe/services/v2/orchestrated_commerce_service
+    stripe/services/v2/payments/off_session_payment_service
+    stripe/services/v2/payments/settlement_allocation_intent_service
+    stripe/services/v2/payments/settlement_allocation_intents/split_service
+    stripe/services/v2/payments_service
+    stripe/services/v2/reporting/report_run_service
+    stripe/services/v2/reporting/report_service
+    stripe/services/v2/reporting_service
+    stripe/services/v2/signals/account_signal_service
+    stripe/services/v2/signals_service
+    stripe/services/v2/tax/manual_rule_service
+    stripe/services/v2/tax_service
+    stripe/services/v2/test_helper_service
+    stripe/services/v2/test_helpers/financial_address_service
+    stripe/services/v2/test_helpers/money_management_service
     stripe/services/v2_services
     stripe/services/webhook_endpoint_service
   ].freeze
+  # rubocop:enable Metrics/CollectionLiteralLength
 end

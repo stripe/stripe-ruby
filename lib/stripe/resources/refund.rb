@@ -222,6 +222,21 @@ module Stripe
         end
       end
 
+      class IdBankTransfer < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        attr_reader :reference
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        attr_reader :reference_status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class JpBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         attr_reader :reference
@@ -490,6 +505,8 @@ module Stripe
       attr_reader :giropay
       # Attribute for field grabpay
       attr_reader :grabpay
+      # Attribute for field id_bank_transfer
+      attr_reader :id_bank_transfer
       # Attribute for field jp_bank_transfer
       attr_reader :jp_bank_transfer
       # Attribute for field klarna
@@ -550,6 +567,7 @@ module Stripe
           gb_bank_transfer: GbBankTransfer,
           giropay: Giropay,
           grabpay: Grabpay,
+          id_bank_transfer: IdBankTransfer,
           jp_bank_transfer: JpBankTransfer,
           klarna: Klarna,
           mb_way: MbWay,

@@ -106,6 +106,64 @@ module Stripe
         ); end
       end
       class LineItem < ::Stripe::RequestParams
+        class PerformanceLocationDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(String) }
+            def country; end
+            sig { params(_country: String).returns(String) }
+            def country=(_country); end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+            def line1=(_line1); end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
+            # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
+            sig { returns(T.nilable(String)) }
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
+            sig {
+              params(city: T.nilable(String), country: String, line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+             }
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            ); end
+          end
+          # The address of the performance venue.
+          sig {
+            returns(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails::Address)
+           }
+          def address; end
+          sig {
+            params(_address: ::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails::Address).returns(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails::Address)
+           }
+          def address=(_address); end
+          sig {
+            params(address: ::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails::Address).void
+           }
+          def initialize(address: nil); end
+        end
         # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         sig { returns(Integer) }
@@ -119,6 +177,20 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        sig { returns(T.nilable(String)) }
+        def performance_location; end
+        sig { params(_performance_location: T.nilable(String)).returns(T.nilable(String)) }
+        def performance_location=(_performance_location); end
+        # Details of the performance location for this line item. Use this to specify an address directly instead of a tax location ID.
+        sig {
+          returns(T.nilable(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails))
+         }
+        def performance_location_details; end
+        sig {
+          params(_performance_location_details: T.nilable(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails))
+         }
+        def performance_location_details=(_performance_location_details); end
         # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
         sig { returns(T.nilable(String)) }
         def product; end
@@ -145,11 +217,13 @@ module Stripe
         sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
         def tax_code=(_tax_code); end
         sig {
-          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
+          params(amount: Integer, metadata: T.nilable(T::Hash[String, String]), performance_location: T.nilable(String), performance_location_details: T.nilable(::Stripe::Tax::CalculationCreateParams::LineItem::PerformanceLocationDetails), product: T.nilable(String), quantity: T.nilable(Integer), reference: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
           metadata: nil,
+          performance_location: nil,
+          performance_location_details: nil,
           product: nil,
           quantity: nil,
           reference: nil,

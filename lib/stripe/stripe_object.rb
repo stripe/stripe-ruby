@@ -369,7 +369,7 @@ module Stripe
       end
     end
 
-    protected def add_accessors(keys, values) # rubocop:todo Metrics/PerceivedComplexity
+    protected def add_accessors(keys, values)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
 

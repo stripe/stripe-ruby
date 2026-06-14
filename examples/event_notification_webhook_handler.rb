@@ -1,4 +1,6 @@
+# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
+
 # typed: false
 
 # event_notification_webhook_handler.rb - receive and process event notification like the

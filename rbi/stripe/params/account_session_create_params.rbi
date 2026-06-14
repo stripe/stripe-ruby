@@ -91,6 +91,89 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class AgenticCommerceSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class AppInstall < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # The list of apps allowed to be enabled in the embedded component.
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+          def allowed_apps; end
+          sig {
+            params(_allowed_apps: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def allowed_apps=(_allowed_apps); end
+          sig { params(allowed_apps: T.nilable(T.any(String, T::Array[String]))).void }
+          def initialize(allowed_apps: nil); end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # The list of features enabled in the embedded component.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class AppViewport < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # The list of apps allowed to be enabled in the embedded component.
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+          def allowed_apps; end
+          sig {
+            params(_allowed_apps: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def allowed_apps=(_allowed_apps); end
+          sig { params(allowed_apps: T.nilable(T.any(String, T::Array[String]))).void }
+          def initialize(allowed_apps: nil); end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # The list of features enabled in the embedded component.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       class BalanceReport < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -175,6 +258,121 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class CapitalFinancing < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class CapitalFinancingApplication < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class CapitalFinancingPromotion < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class CapitalOverview < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class CheckScanning < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Attribute for param field create_us_paper_check_on_application
+          sig { returns(T.nilable(T::Boolean)) }
+          def create_us_paper_check_on_application; end
+          sig {
+            params(_create_us_paper_check_on_application: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def create_us_paper_check_on_application=(_create_us_paper_check_on_application); end
+          sig { params(create_us_paper_check_on_application: T.nilable(T::Boolean)).void }
+          def initialize(create_us_paper_check_on_application: nil); end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # The list of features enabled in the embedded component.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       class DisputesList < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -248,6 +446,27 @@ module Stripe
         def features=(_features); end
         sig {
           params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class ExportTaxTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions::Features)).void
          }
         def initialize(enabled: nil, features: nil); end
       end
@@ -655,6 +874,27 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class PaymentMethodSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       class Payments < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -836,6 +1076,77 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class ProductTaxCodeSelector < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class Recipients < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether to allow sending money.
+          sig { returns(T.nilable(T::Boolean)) }
+          def send_money; end
+          sig { params(_send_money: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def send_money=(_send_money); end
+          sig { params(send_money: T.nilable(T::Boolean)).void }
+          def initialize(send_money: nil); end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # Attribute for param field features
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class ReportingChart < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       class TaxRegistrations < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -878,6 +1189,69 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class TaxThresholdMonitoring < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class TerminalHardwareOrders < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
+      class TerminalHardwareShop < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        # An empty list, because this embedded component has no features.
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(enabled: T::Boolean, features: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop::Features)).void
+         }
+        def initialize(enabled: nil, features: nil); end
+      end
       # Configuration for the [account management](/connect/supported-embedded-components/account-management/) embedded component.
       sig {
         returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement))
@@ -896,6 +1270,29 @@ module Stripe
         params(_account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding))
        }
       def account_onboarding=(_account_onboarding); end
+      # Configuration for the [agentic commerce settings](/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings))
+       }
+      def agentic_commerce_settings; end
+      sig {
+        params(_agentic_commerce_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings))
+       }
+      def agentic_commerce_settings=(_agentic_commerce_settings); end
+      # Configuration for the [app install](/connect/supported-embedded-components/app-install/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall)) }
+      def app_install; end
+      sig {
+        params(_app_install: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall))
+       }
+      def app_install=(_app_install); end
+      # Configuration for the [app viewport](/connect/supported-embedded-components/app-viewport/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport)) }
+      def app_viewport; end
+      sig {
+        params(_app_viewport: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport))
+       }
+      def app_viewport=(_app_viewport); end
       # Configuration for the [balance report](/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::BalanceReport)) }
       def balance_report; end
@@ -910,6 +1307,45 @@ module Stripe
         params(_balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances))
        }
       def balances=(_balances); end
+      # Configuration for the [Capital financing](/connect/supported-embedded-components/capital-financing/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing)) }
+      def capital_financing; end
+      sig {
+        params(_capital_financing: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing))
+       }
+      def capital_financing=(_capital_financing); end
+      # Configuration for the [Capital financing application](/connect/supported-embedded-components/capital-financing-application/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication))
+       }
+      def capital_financing_application; end
+      sig {
+        params(_capital_financing_application: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication))
+       }
+      def capital_financing_application=(_capital_financing_application); end
+      # Configuration for the [Capital financing promotion](/connect/supported-embedded-components/capital-financing-promotion/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion))
+       }
+      def capital_financing_promotion; end
+      sig {
+        params(_capital_financing_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion))
+       }
+      def capital_financing_promotion=(_capital_financing_promotion); end
+      # Configuration for the [Capital overview](/connect/supported-embedded-components/capital-overview/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview)) }
+      def capital_overview; end
+      sig {
+        params(_capital_overview: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview))
+       }
+      def capital_overview=(_capital_overview); end
+      # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning)) }
+      def check_scanning; end
+      sig {
+        params(_check_scanning: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning))
+       }
+      def check_scanning=(_check_scanning); end
       # Configuration for the [disputes list](/connect/supported-embedded-components/disputes-list/) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList)) }
       def disputes_list; end
@@ -924,6 +1360,15 @@ module Stripe
         params(_documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents))
        }
       def documents=(_documents); end
+      # Configuration for the [export tax transactions](/connect/supported-embedded-components/export-tax-transactions/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions))
+       }
+      def export_tax_transactions; end
+      sig {
+        params(_export_tax_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions))
+       }
+      def export_tax_transactions=(_export_tax_transactions); end
       # Configuration for the [financial account](/connect/supported-embedded-components/financial-account/) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount)) }
       def financial_account; end
@@ -986,6 +1431,15 @@ module Stripe
         params(_payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes))
        }
       def payment_disputes=(_payment_disputes); end
+      # Configuration for the [payment method settings](/connect/supported-embedded-components/payment-method-settings/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings))
+       }
+      def payment_method_settings; end
+      sig {
+        params(_payment_method_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings))
+       }
+      def payment_method_settings=(_payment_method_settings); end
       # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments)) }
       def payments; end
@@ -1023,6 +1477,29 @@ module Stripe
         params(_payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList))
        }
       def payouts_list=(_payouts_list); end
+      # Configuration for the [product tax code selector](/connect/supported-embedded-components/product-tax-code-selector/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector))
+       }
+      def product_tax_code_selector; end
+      sig {
+        params(_product_tax_code_selector: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector))
+       }
+      def product_tax_code_selector=(_product_tax_code_selector); end
+      # Configuration for the [recipients](/connect/supported-embedded-components/recipients/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients)) }
+      def recipients; end
+      sig {
+        params(_recipients: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients))
+       }
+      def recipients=(_recipients); end
+      # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart)) }
+      def reporting_chart; end
+      sig {
+        params(_reporting_chart: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart))
+       }
+      def reporting_chart=(_reporting_chart); end
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations)) }
       def tax_registrations; end
@@ -1037,16 +1514,52 @@ module Stripe
         params(_tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings))
        }
       def tax_settings=(_tax_settings); end
+      # Configuration for the [tax threshold monitoring](/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
       sig {
-        params(account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding), balance_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::BalanceReport), balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances), disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents), financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes), payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails), payout_reconciliation_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutReconciliationReport), payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList), tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings)).void
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring))
+       }
+      def tax_threshold_monitoring; end
+      sig {
+        params(_tax_threshold_monitoring: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring))
+       }
+      def tax_threshold_monitoring=(_tax_threshold_monitoring); end
+      # Configuration for the [Terminal hardware orders](/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders))
+       }
+      def terminal_hardware_orders; end
+      sig {
+        params(_terminal_hardware_orders: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders))
+       }
+      def terminal_hardware_orders=(_terminal_hardware_orders); end
+      # Configuration for the [Terminal hardware shop](/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop))
+       }
+      def terminal_hardware_shop; end
+      sig {
+        params(_terminal_hardware_shop: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop))
+       }
+      def terminal_hardware_shop=(_terminal_hardware_shop); end
+      sig {
+        params(account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding), agentic_commerce_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings), app_install: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport), balance_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::BalanceReport), balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview), check_scanning: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning), disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents), export_tax_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails), payout_reconciliation_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutReconciliationReport), payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients), reporting_chart: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring), terminal_hardware_orders: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders), terminal_hardware_shop: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop)).void
        }
       def initialize(
         account_management: nil,
         account_onboarding: nil,
+        agentic_commerce_settings: nil,
+        app_install: nil,
+        app_viewport: nil,
         balance_report: nil,
         balances: nil,
+        capital_financing: nil,
+        capital_financing_application: nil,
+        capital_financing_promotion: nil,
+        capital_overview: nil,
+        check_scanning: nil,
         disputes_list: nil,
         documents: nil,
+        export_tax_transactions: nil,
         financial_account: nil,
         financial_account_transactions: nil,
         instant_payouts_promotion: nil,
@@ -1055,13 +1568,20 @@ module Stripe
         notification_banner: nil,
         payment_details: nil,
         payment_disputes: nil,
+        payment_method_settings: nil,
         payments: nil,
         payout_details: nil,
         payout_reconciliation_report: nil,
         payouts: nil,
         payouts_list: nil,
+        product_tax_code_selector: nil,
+        recipients: nil,
+        reporting_chart: nil,
         tax_registrations: nil,
-        tax_settings: nil
+        tax_settings: nil,
+        tax_threshold_monitoring: nil,
+        terminal_hardware_orders: nil,
+        terminal_hardware_shop: nil
       ); end
     end
     # The identifier of the account to create an Account Session for.

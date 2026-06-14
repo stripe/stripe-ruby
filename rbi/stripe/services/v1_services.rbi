@@ -6,6 +6,7 @@ module Stripe
   class V1Services < StripeService
     attr_reader :accounts
     attr_reader :account_links
+    attr_reader :account_notices
     attr_reader :account_sessions
     attr_reader :apple_pay_domains
     attr_reader :application_fees
@@ -13,8 +14,10 @@ module Stripe
     attr_reader :balance
     attr_reader :balance_settings
     attr_reader :balance_transactions
+    attr_reader :balance_transfers
     attr_reader :billing
     attr_reader :billing_portal
+    attr_reader :capital
     attr_reader :charges
     attr_reader :checkout
     attr_reader :climate
@@ -24,15 +27,21 @@ module Stripe
     attr_reader :credit_notes
     attr_reader :customers
     attr_reader :customer_sessions
+    attr_reader :delegated_checkout
     attr_reader :disputes
     attr_reader :entitlements
     attr_reader :ephemeral_keys
     attr_reader :events
     attr_reader :exchange_rates
+    attr_reader :external_accounts
     attr_reader :files
     attr_reader :file_links
     attr_reader :financial_connections
     attr_reader :forwarding
+    attr_reader :fr_meal_vouchers_onboardings
+    attr_reader :fx_quotes
+    attr_reader :gift_cards
+    attr_reader :gift_card_operations
     attr_reader :identity
     attr_reader :invoices
     attr_reader :invoice_items
@@ -40,9 +49,14 @@ module Stripe
     attr_reader :invoice_rendering_templates
     attr_reader :issuing
     attr_reader :mandates
+    attr_reader :margins
+    attr_reader :orchestration
+    attr_reader :orders
     attr_reader :payment_attempt_records
     attr_reader :payment_intents
     attr_reader :payment_links
+    attr_reader :payment_locations
+    attr_reader :payment_location_capabilities
     attr_reader :payment_methods
     attr_reader :payment_method_configurations
     attr_reader :payment_method_domains
@@ -50,15 +64,19 @@ module Stripe
     attr_reader :payouts
     attr_reader :plans
     attr_reader :prices
+    attr_reader :privacy
     attr_reader :products
+    attr_reader :product_catalog
     attr_reader :promotion_codes
     attr_reader :quotes
     attr_reader :radar
     attr_reader :refunds
     attr_reader :reporting
+    attr_reader :reserve
     attr_reader :reviews
     attr_reader :setup_attempts
     attr_reader :setup_intents
+    attr_reader :shared_payment
     attr_reader :shipping_rates
     attr_reader :sigma
     attr_reader :sources
@@ -67,6 +85,7 @@ module Stripe
     attr_reader :subscription_schedules
     attr_reader :tax
     attr_reader :tax_codes
+    attr_reader :tax_funds
     attr_reader :tax_ids
     attr_reader :tax_rates
     attr_reader :terminal

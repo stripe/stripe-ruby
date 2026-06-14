@@ -1,0 +1,691 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module Billing
+      # A Billing Intent Action represents a specific operation within a Billing Intent, such as subscribing to a Pricing Plan,
+      # modifying a subscription's quantity, or deactivating service. Each action has a specific type and associated details that
+      # define what change will be made when the Intent is committed.
+      class IntentAction < APIResource
+        class Apply < ::Stripe::StripeObject
+          class Discount < ::Stripe::StripeObject
+            # The ID of the Coupon applied.
+            sig { returns(T.nilable(String)) }
+            def coupon; end
+            # The ID of the created Discount.
+            sig { returns(T.nilable(String)) }
+            def discount; end
+            # The ID of the PromotionCode applied.
+            sig { returns(T.nilable(String)) }
+            def promotion_code; end
+            # Type of the discount.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
+            # When the apply action takes effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InvoiceDiscountRule < ::Stripe::StripeObject
+            class PercentOff < ::Stripe::StripeObject
+              class MaximumApplications < ::Stripe::StripeObject
+                # The type of maximum applications configuration.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The maximum number of times this discount can be applied for this Billing Cadence.
+              sig { returns(MaximumApplications) }
+              def maximum_applications; end
+              # Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
+              sig { returns(BigDecimal) }
+              def percent_off; end
+              def self.inner_class_types
+                @inner_class_types = {maximum_applications: MaximumApplications}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {percent_off: :decimal_string}
+              end
+            end
+            # The entity that the discount rule applies to, for example, the Billing Cadence.
+            sig { returns(String) }
+            def applies_to; end
+            # The ID of the created discount rule. This is only present once the Billing Intent is committed and the discount rule is created.
+            sig { returns(T.nilable(String)) }
+            def invoice_discount_rule; end
+            # Configuration for percentage off discount.
+            sig { returns(T.nilable(PercentOff)) }
+            def percent_off; end
+            # Type of the discount rule.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {percent_off: PercentOff}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                percent_off: {kind: :object, fields: {percent_off: :decimal_string}},
+              }
+            end
+          end
+          class SpendModifierRule < ::Stripe::StripeObject
+            class MaxBillingPeriodSpend < ::Stripe::StripeObject
+              class Amount < ::Stripe::StripeObject
+                class CustomPricingUnit < ::Stripe::StripeObject
+                  # The id of the custom pricing unit.
+                  sig { returns(T.nilable(String)) }
+                  def id; end
+                  # The value of the custom pricing unit.
+                  sig { returns(String) }
+                  def value; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The custom pricing unit amount.
+                sig { returns(T.nilable(CustomPricingUnit)) }
+                def custom_pricing_unit; end
+                # The type of the amount.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {custom_pricing_unit: CustomPricingUnit}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class CustomPricingUnitOverageRate < ::Stripe::StripeObject
+                # ID of the custom pricing unit overage rate.
+                sig { returns(String) }
+                def id; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # The maximum amount allowed for the billing period.
+              sig { returns(Amount) }
+              def amount; end
+              # The configuration for the overage rate for the custom pricing unit.
+              sig { returns(CustomPricingUnitOverageRate) }
+              def custom_pricing_unit_overage_rate; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  amount: Amount,
+                  custom_pricing_unit_overage_rate: CustomPricingUnitOverageRate,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # What the spend modifier applies to.
+            sig { returns(String) }
+            def applies_to; end
+            # The ID of the spend modifier.
+            sig { returns(String) }
+            def id; end
+            # Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+            sig { returns(T.nilable(MaxBillingPeriodSpend)) }
+            def max_billing_period_spend; end
+            # Type of the spend modifier.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {max_billing_period_spend: MaxBillingPeriodSpend}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details for applying a discount.
+          sig { returns(T.nilable(Discount)) }
+          def discount; end
+          # When the apply action takes effect. If not specified, defaults to on_reserve.
+          sig { returns(T.nilable(EffectiveAt)) }
+          def effective_at; end
+          # Details for applying a discount rule to future invoices.
+          sig { returns(T.nilable(InvoiceDiscountRule)) }
+          def invoice_discount_rule; end
+          # Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+          sig { returns(T.nilable(SpendModifierRule)) }
+          def spend_modifier_rule; end
+          # Type of the apply action details.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              discount: Discount,
+              effective_at: EffectiveAt,
+              invoice_discount_rule: InvoiceDiscountRule,
+              spend_modifier_rule: SpendModifierRule,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              invoice_discount_rule: {
+                kind: :object,
+                fields: {percent_off: {kind: :object, fields: {percent_off: :decimal_string}}},
+              },
+            }
+          end
+        end
+        class Deactivate < ::Stripe::StripeObject
+          class CancellationDetails < ::Stripe::StripeObject
+            # Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+            sig { returns(T.nilable(String)) }
+            def comment; end
+            # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+            sig { returns(T.nilable(String)) }
+            def feedback; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
+            # When the deactivate action takes effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
+                  sig { returns(String) }
+                  def credit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {license_fee: LicenseFee}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Configurations for behaviors when the action takes effect during the service period.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Configurations for overriding behaviors related to the subscription.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
+            # ID of the Pricing Plan Subscription to deactivate.
+            sig { returns(String) }
+            def pricing_plan_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {overrides: Overrides}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about why the cancellation was requested by the user.
+          sig { returns(T.nilable(CancellationDetails)) }
+          def cancellation_details; end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
+          # When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
+          sig { returns(EffectiveAt) }
+          def effective_at; end
+          # Details for deactivating a Pricing Plan Subscription.
+          sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
+          def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              cancellation_details: CancellationDetails,
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Modify < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the modify action takes effect. Only present if type is timestamp.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
+            # When the modify action takes effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
+              # Lookup key for the pricing plan component.
+              sig { returns(T.nilable(String)) }
+              def lookup_key; end
+              # ID of the pricing plan component.
+              sig { returns(T.nilable(String)) }
+              def pricing_plan_component; end
+              # Quantity of the component to be used.
+              sig { returns(T.nilable(Integer)) }
+              def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
+                  sig { returns(String) }
+                  def credit_proration_behavior; end
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
+                  sig { returns(String) }
+                  def debit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  sig { returns(String) }
+                  def create_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                sig { returns(T.nilable(RecurringCreditGrant)) }
+                def recurring_credit_grant; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Configurations for behaviors when the action takes effect during the service period.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # New configurations for the components of the Pricing Plan.
+            sig { returns(T::Array[ComponentConfiguration]) }
+            def component_configurations; end
+            # ID of the new Pricing Plan.
+            sig { returns(String) }
+            def new_pricing_plan; end
+            # Version of the Pricing Plan to use.
+            sig { returns(String) }
+            def new_pricing_plan_version; end
+            # Configurations for overriding behaviors related to the subscription.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
+            # ID of the Pricing Plan Subscription to modify.
+            sig { returns(String) }
+            def pricing_plan_subscription; end
+            def self.inner_class_types
+              @inner_class_types = {
+                component_configurations: ComponentConfiguration,
+                overrides: Overrides,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
+          # When the modify action takes effect. If not specified, the default behavior is on_reserve.
+          sig { returns(EffectiveAt) }
+          def effective_at; end
+          # Details for modifying a Pricing Plan Subscription.
+          sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
+          def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Remove < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # When the remove action takes effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # When the remove action takes effect. If not specified, defaults to on_reserve.
+          sig { returns(T.nilable(EffectiveAt)) }
+          def effective_at; end
+          # The ID of the discount rule to remove for future invoices.
+          sig { returns(T.nilable(String)) }
+          def invoice_discount_rule; end
+          # The ID of the spend modifier rule removed.
+          sig { returns(T.nilable(String)) }
+          def spend_modifier_rule; end
+          # Type of the remove action.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {effective_at: EffectiveAt}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Subscribe < ::Stripe::StripeObject
+          class EffectiveAt < ::Stripe::StripeObject
+            # The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
+            # When the subscribe action takes effect.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+            class ComponentConfiguration < ::Stripe::StripeObject
+              # Lookup key for the pricing plan component.
+              sig { returns(T.nilable(String)) }
+              def lookup_key; end
+              # ID of the pricing plan component.
+              sig { returns(T.nilable(String)) }
+              def pricing_plan_component; end
+              # Quantity of the component to be used.
+              sig { returns(T.nilable(Integer)) }
+              def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Overrides < ::Stripe::StripeObject
+              class PartialPeriodBehavior < ::Stripe::StripeObject
+                class LicenseFee < ::Stripe::StripeObject
+                  # The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
+                  sig { returns(String) }
+                  def debit_proration_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class RecurringCreditGrant < ::Stripe::StripeObject
+                  # Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                  sig { returns(String) }
+                  def create_behavior; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Overrides the behavior for license fee components when the action takes effect during the service period.
+                sig { returns(T.nilable(LicenseFee)) }
+                def license_fee; end
+                # Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+                sig { returns(T.nilable(RecurringCreditGrant)) }
+                def recurring_credit_grant; end
+                # The type of behavior to override.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    license_fee: LicenseFee,
+                    recurring_credit_grant: RecurringCreditGrant,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Configurations for behaviors when the action takes effect during the service period.
+              sig { returns(T::Array[PartialPeriodBehavior]) }
+              def partial_period_behaviors; end
+              def self.inner_class_types
+                @inner_class_types = {partial_period_behaviors: PartialPeriodBehavior}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Configurations for the components of the Pricing Plan.
+            sig { returns(T::Array[ComponentConfiguration]) }
+            def component_configurations; end
+            # Set of [key-value pairs](/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            # Configurations for overriding behaviors related to the subscription.
+            sig { returns(T.nilable(Overrides)) }
+            def overrides; end
+            # ID of the Pricing Plan to subscribe to.
+            sig { returns(String) }
+            def pricing_plan; end
+            # ID of the created Pricing Plan Subscription. This is only present once the Billing Intent is committed and the Pricing Plan Subscription is created.
+            sig { returns(T.nilable(String)) }
+            def pricing_plan_subscription; end
+            # Version of the Pricing Plan to use.
+            sig { returns(String) }
+            def pricing_plan_version; end
+            def self.inner_class_types
+              @inner_class_types = {
+                component_configurations: ComponentConfiguration,
+                overrides: Overrides,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class V1SubscriptionDetails < ::Stripe::StripeObject
+            class Item < ::Stripe::StripeObject
+              # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              sig { returns(T.nilable(T::Hash[String, String])) }
+              def metadata; end
+              # The ID of the price object.
+              sig { returns(String) }
+              def price; end
+              # Quantity for this item. If not provided, defaults to 1.
+              sig { returns(T.nilable(Integer)) }
+              def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The subscription’s description, meant to be displayable to the customer.
+            # Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+            sig { returns(T.nilable(String)) }
+            def description; end
+            # A list of up to 20 subscription items, each with an attached price.
+            sig { returns(T::Array[Item]) }
+            def items; end
+            # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            def self.inner_class_types
+              @inner_class_types = {items: Item}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Allows users to override the collect at behavior.
+          sig { returns(String) }
+          def collect_at; end
+          # When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
+          sig { returns(EffectiveAt) }
+          def effective_at; end
+          # Details for subscribing to a Pricing Plan.
+          sig { returns(T.nilable(PricingPlanSubscriptionDetails)) }
+          def pricing_plan_subscription_details; end
+          # Type of the action details.
+          sig { returns(String) }
+          def type; end
+          # Details for subscribing to a V1 subscription.
+          sig { returns(T.nilable(V1SubscriptionDetails)) }
+          def v1_subscription_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              effective_at: EffectiveAt,
+              pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+              v1_subscription_details: V1SubscriptionDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details for an apply action.
+        sig { returns(T.nilable(Apply)) }
+        def apply; end
+        # Time at which the object was created.
+        sig { returns(String) }
+        def created; end
+        # Details for a deactivate action.
+        sig { returns(T.nilable(Deactivate)) }
+        def deactivate; end
+        # Unique identifier for the object.
+        sig { returns(String) }
+        def id; end
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        sig { returns(T::Boolean) }
+        def livemode; end
+        # Details for a modify action.
+        sig { returns(T.nilable(Modify)) }
+        def modify; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
+        # Details for a remove action.
+        sig { returns(T.nilable(Remove)) }
+        def remove; end
+        # Details for a subscribe action.
+        sig { returns(T.nilable(Subscribe)) }
+        def subscribe; end
+        # Type of the Billing Intent Action.
+        sig { returns(String) }
+        def type; end
+      end
+    end
+  end
+end

@@ -282,6 +282,8 @@ module Stripe
       attr_reader :past_due
       # The number of times evidence has been submitted. Typically, you may only submit evidence once.
       attr_reader :submission_count
+      # Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+      attr_reader :submission_method
 
       def self.inner_class_types
         @inner_class_types = { enhanced_eligibility: EnhancedEligibility }
@@ -371,8 +373,25 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class SmartDisputes < ::Stripe::StripeObject
+      # Evidence that could be provided to improve the SmartDisputes packet
+      attr_reader :recommended_evidence
+      # Smart Disputes auto representment packet availability status.
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     attr_reader :amount
+    # The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
+    attr_reader :amount_to_counter
     # List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
     attr_reader :balance_transactions
     # ID of the charge that's disputed.
@@ -389,6 +408,8 @@ module Stripe
     attr_reader :evidence_details
     # Unique identifier for the object.
     attr_reader :id
+    # Intended submission method for the dispute.
+    attr_reader :intended_submission_method
     # If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
     attr_reader :is_charge_refundable
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -405,6 +426,8 @@ module Stripe
     attr_reader :payment_method_details
     # Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://docs.stripe.com/disputes/categories).
     attr_reader :reason
+    # Attribute for field smart_disputes
+    attr_reader :smart_disputes
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     attr_reader :status
 
@@ -454,6 +477,7 @@ module Stripe
         evidence: Evidence,
         evidence_details: EvidenceDetails,
         payment_method_details: PaymentMethodDetails,
+        smart_disputes: SmartDisputes,
       }
     end
 

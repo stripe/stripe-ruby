@@ -40,6 +40,16 @@ module Stripe
      }
     def retrieve(refund, params = {}, opts = {}); end
 
+    # Serializes a Refund cancel request into a batch job JSONL line.
+    sig {
+      params(refund: String, params: ::Stripe::RefundCancelParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_cancel(refund, params = {}, opts = {}); end
+
+    # Serializes a Refund create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::RefundCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
     # Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
     #
     # This request only accepts metadata as an argument.

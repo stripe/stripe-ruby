@@ -448,6 +448,11 @@ module Stripe
         uncategorized_text: nil
       ); end
     end
+    # If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
+    sig { returns(T.nilable(Integer)) }
+    def amount_to_counter; end
+    sig { params(_amount_to_counter: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def amount_to_counter=(_amount_to_counter); end
     # Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
     sig { returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence)) }
     def evidence; end
@@ -460,6 +465,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Intended submission method for the dispute.
+    sig { returns(T.nilable(String)) }
+    def intended_submission_method; end
+    sig { params(_intended_submission_method: T.nilable(String)).returns(T.nilable(String)) }
+    def intended_submission_method=(_intended_submission_method); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -473,8 +483,15 @@ module Stripe
     sig { params(_submit: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def submit=(_submit); end
     sig {
-      params(evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
+      params(amount_to_counter: T.nilable(Integer), evidence: T.nilable(::Stripe::DisputeUpdateParams::Evidence), expand: T.nilable(T::Array[String]), intended_submission_method: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), submit: T.nilable(T::Boolean)).void
      }
-    def initialize(evidence: nil, expand: nil, metadata: nil, submit: nil); end
+    def initialize(
+      amount_to_counter: nil,
+      evidence: nil,
+      expand: nil,
+      intended_submission_method: nil,
+      metadata: nil,
+      submit: nil
+    ); end
   end
 end

@@ -22,6 +22,12 @@ module Stripe
      }
     def attach(payment_method, params = {}, opts = {}); end
 
+    # Retrieves a PaymentMethod's Balance.
+    sig {
+      params(payment_method: String, params: T.any(::Stripe::PaymentMethodCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodBalance)
+     }
+    def check_balance(payment_method, params = {}, opts = {}); end
+
     # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
     # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
@@ -47,6 +53,12 @@ module Stripe
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def retrieve(payment_method, params = {}, opts = {}); end
+
+    # Serializes a PaymentMethod attach request into a batch job JSONL line.
+    sig {
+      params(payment_method: String, params: ::Stripe::PaymentMethodAttachParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_attach(payment_method, params = {}, opts = {}); end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     sig {

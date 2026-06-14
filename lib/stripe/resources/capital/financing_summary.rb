@@ -1,0 +1,82 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module Capital
+    # A financing summary object describes a connected account's financing status in real time.
+    # A financing status is either `accepted`, `delivered`, or `none`.
+    # You can read the status of your connected accounts.
+    class FinancingSummary < SingletonAPIResource
+      OBJECT_NAME = "capital.financing_summary"
+      def self.object_name
+        "capital.financing_summary"
+      end
+
+      class Details < ::Stripe::StripeObject
+        class CurrentRepaymentInterval < ::Stripe::StripeObject
+          # The time at which the minimum payment amount will be due. If not met through withholding, the Connected account's linked bank account or account balance will be debited.
+          # Given in seconds since unix epoch.
+          attr_reader :due_at
+          # The amount that has already been paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
+          attr_reader :paid_amount
+          # The amount that is yet to be paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
+          attr_reader :remaining_amount
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
+        attr_reader :advance_amount
+        # The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
+        attr_reader :advance_paid_out_at
+        # Currency that the financing offer is transacted in. For example, `usd`.
+        attr_reader :currency
+        # The chronologically current repayment interval for the financing offer.
+        attr_reader :current_repayment_interval
+        # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
+        attr_reader :fee_amount
+        # The amount the Connected account has paid toward the financing debt so far, in minor units. For example, 1,000 USD is represented as 100000.
+        attr_reader :paid_amount
+        # The balance remaining to be paid on the financing, in minor units. For example, 1,000 USD is represented as 100000.
+        attr_reader :remaining_amount
+        # The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.
+        attr_reader :repayments_begin_at
+        # Per-transaction rate at which Stripe withholds funds to repay the financing.
+        attr_reader :withhold_rate
+
+        def self.inner_class_types
+          @inner_class_types = { current_repayment_interval: CurrentRepaymentInterval }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Additional information about the financing summary. Describes currency, advance amount,
+      # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
+      # repayment start date, and advance payout date.
+      #
+      # Only present for financing offers with the `paid_out` status.
+      attr_reader :details
+      # The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
+      attr_reader :financing_offer
+      # The object type: financing_summary
+      attr_reader :object
+      # The financing status of the connected account.
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = { details: Details }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+  end
+end

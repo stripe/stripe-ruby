@@ -33,6 +33,8 @@ module Stripe
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
+      # Only return transactions that are associated with the given settlement.
+      attr_accessor :settlement
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
       # Only return transactions that have the given type. One of `capture` or `refund`.
@@ -45,6 +47,7 @@ module Stripe
         ending_before: nil,
         expand: nil,
         limit: nil,
+        settlement: nil,
         starting_after: nil,
         type: nil
       )
@@ -54,6 +57,7 @@ module Stripe
         @ending_before = ending_before
         @expand = expand
         @limit = limit
+        @settlement = settlement
         @starting_after = starting_after
         @type = type
       end

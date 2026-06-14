@@ -113,6 +113,8 @@ module Stripe
         end
         # Address as it appears in the document.
         attr_reader :address
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
         # Date of birth as it appears in the document.
         attr_reader :dob
         # Details on the verification error. Present when status is `unverified`.
@@ -158,6 +160,23 @@ module Stripe
       end
 
       class Email < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # Number of days from the time when the email domain was first observed to the time of verification.
+          attr_reader :days_since_domain_creation
+          # Number of days from the time when the email address was first observed to the time of verification.
+          attr_reader :days_since_ownership_started
+          # Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
+          attr_reader :domain_country
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           attr_reader :code
@@ -172,6 +191,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Additional email verification details
+        attr_reader :details
         # Email to be verified.
         attr_reader :email
         # Details on the verification error. Present when status is `unverified`.
@@ -180,7 +201,7 @@ module Stripe
         attr_reader :status
 
         def self.inner_class_types
-          @inner_class_types = { error: Error }
+          @inner_class_types = { details: Details, error: Error }
         end
 
         def self.field_remappings
@@ -333,6 +354,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        attr_reader :blocked_by_entry
         # ID of the [File](https://docs.stripe.com/api/files) holding the image of the identity document used in this check.
         attr_reader :document
         # Details on the verification error. Present when status is `unverified`.

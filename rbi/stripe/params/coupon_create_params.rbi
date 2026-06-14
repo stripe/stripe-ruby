@@ -22,6 +22,57 @@ module Stripe
       sig { params(amount_off: Integer).void }
       def initialize(amount_off: nil); end
     end
+    class Script < ::Stripe::RequestParams
+      # The configuration values of the script. The keys and values are specific to the script implementation.
+      sig { returns(T::Hash[String, T.untyped]) }
+      def configuration; end
+      sig { params(_configuration: T::Hash[String, T.untyped]).returns(T::Hash[String, T.untyped]) }
+      def configuration=(_configuration); end
+      # The script implementation ID for this coupon.
+      sig { returns(String) }
+      def id; end
+      sig { params(_id: String).returns(String) }
+      def id=(_id); end
+      sig { params(configuration: T::Hash[String, T.untyped], id: String).void }
+      def initialize(configuration: nil, id: nil); end
+    end
+    class ServicePeriod < ::Stripe::RequestParams
+      class Iterations < ::Stripe::RequestParams
+        # The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
+        sig { returns(T.nilable(Integer)) }
+        def count; end
+        sig { params(_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def count=(_count); end
+        # The type of iterations, defaults to `count` if omitted.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(count: T.nilable(Integer), type: String).void }
+        def initialize(count: nil, type: nil); end
+      end
+      # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+      sig { returns(String) }
+      def interval; end
+      sig { params(_interval: String).returns(String) }
+      def interval=(_interval); end
+      # The number of intervals for which the coupon will be applied.
+      sig { returns(Integer) }
+      def interval_count; end
+      sig { params(_interval_count: Integer).returns(Integer) }
+      def interval_count=(_interval_count); end
+      # Specifies the number of times the coupon is contiguously applied.
+      sig { returns(T.nilable(::Stripe::CouponCreateParams::ServicePeriod::Iterations)) }
+      def iterations; end
+      sig {
+        params(_iterations: T.nilable(::Stripe::CouponCreateParams::ServicePeriod::Iterations)).returns(T.nilable(::Stripe::CouponCreateParams::ServicePeriod::Iterations))
+       }
+      def iterations=(_iterations); end
+      sig {
+        params(interval: String, interval_count: Integer, iterations: T.nilable(::Stripe::CouponCreateParams::ServicePeriod::Iterations)).void
+       }
+      def initialize(interval: nil, interval_count: nil, iterations: nil); end
+    end
     # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
     sig { returns(T.nilable(Integer)) }
     def amount_off; end
@@ -93,8 +144,22 @@ module Stripe
     def redeem_by; end
     sig { params(_redeem_by: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def redeem_by=(_redeem_by); end
+    # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    sig { returns(T.nilable(::Stripe::CouponCreateParams::Script)) }
+    def script; end
     sig {
-      params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponCreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer)).void
+      params(_script: T.nilable(::Stripe::CouponCreateParams::Script)).returns(T.nilable(::Stripe::CouponCreateParams::Script))
+     }
+    def script=(_script); end
+    # A hash specifying the service period for the coupon.
+    sig { returns(T.nilable(::Stripe::CouponCreateParams::ServicePeriod)) }
+    def service_period; end
+    sig {
+      params(_service_period: T.nilable(::Stripe::CouponCreateParams::ServicePeriod)).returns(T.nilable(::Stripe::CouponCreateParams::ServicePeriod))
+     }
+    def service_period=(_service_period); end
+    sig {
+      params(amount_off: T.nilable(Integer), applies_to: T.nilable(::Stripe::CouponCreateParams::AppliesTo), currency: T.nilable(String), currency_options: T.nilable(T::Hash[String, ::Stripe::CouponCreateParams::CurrencyOptions]), duration: T.nilable(String), duration_in_months: T.nilable(Integer), expand: T.nilable(T::Array[String]), id: T.nilable(String), max_redemptions: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), percent_off: T.nilable(Float), redeem_by: T.nilable(Integer), script: T.nilable(::Stripe::CouponCreateParams::Script), service_period: T.nilable(::Stripe::CouponCreateParams::ServicePeriod)).void
      }
     def initialize(
       amount_off: nil,
@@ -109,7 +174,9 @@ module Stripe
       metadata: nil,
       name: nil,
       percent_off: nil,
-      redeem_by: nil
+      redeem_by: nil,
+      script: nil,
+      service_period: nil
     ); end
   end
 end

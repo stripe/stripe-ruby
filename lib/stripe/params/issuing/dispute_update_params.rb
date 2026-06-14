@@ -255,6 +255,18 @@ module Stripe
           @service_not_as_described = service_not_as_described
         end
       end
+
+      class ProvisionalCredit < ::Stripe::RequestParams
+        # The time at which the platform granted the provisional credit to their user.
+        attr_accessor :granted_at
+        # The time at which the platform revoked the provisional credit from their user.
+        attr_accessor :revoked_at
+
+        def initialize(granted_at: nil, revoked_at: nil)
+          @granted_at = granted_at
+          @revoked_at = revoked_at
+        end
+      end
       # The dispute amount in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
       attr_accessor :amount
       # Evidence provided for the dispute.
@@ -263,12 +275,21 @@ module Stripe
       attr_accessor :expand
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # Provisional credit information for this dispute.
+      attr_accessor :provisional_credit
 
-      def initialize(amount: nil, evidence: nil, expand: nil, metadata: nil)
+      def initialize(
+        amount: nil,
+        evidence: nil,
+        expand: nil,
+        metadata: nil,
+        provisional_credit: nil
+      )
         @amount = amount
         @evidence = evidence
         @expand = expand
         @metadata = metadata
+        @provisional_credit = provisional_credit
       end
     end
   end

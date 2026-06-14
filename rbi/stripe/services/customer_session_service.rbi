@@ -9,5 +9,9 @@ module Stripe
       params(params: T.any(::Stripe::CustomerSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerSession)
      }
     def create(params = {}, opts = {}); end
+
+    # Serializes a CustomerSession create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::CustomerSessionCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
   end
 end

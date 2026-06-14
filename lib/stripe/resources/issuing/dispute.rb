@@ -16,6 +16,121 @@ module Stripe
         "issuing.dispute"
       end
 
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the confirmed transaction.
+          attr_reader :chain
+          # When the transaction was confirmed onchain.
+          attr_reader :confirmed_at
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the transaction.
+          attr_reader :to_address
+          # The blockchain transaction hash.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            attr_reader :amount
+            # The fee currency.
+            attr_reader :currency
+            # The fee type.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          attr_reader :amount
+          # The upcharged MCC amount, if one was applied.
+          attr_reader :amount_mcc_upcharged
+          # The blockchain network for the failed transaction.
+          attr_reader :chain
+          # The currency of the crypto transaction amount.
+          attr_reader :currency
+          # When the transaction failed.
+          attr_reader :failed_at
+          # The reason the transaction failed.
+          attr_reader :failure_reason
+          # Fees associated with the transaction.
+          attr_reader :fees
+          # The source wallet address for the attempted transaction.
+          attr_reader :from_address
+          # Memo metadata attached to the transaction, if present.
+          attr_reader :memo
+          # The destination wallet address for the attempted transaction when one exists.
+          attr_reader :to_address
+          # The blockchain transaction hash when one exists.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = { fees: Fee }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        attr_reader :crypto_transaction_confirmed
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        attr_reader :crypto_transaction_failed
+        # The crypto transaction variant for this array entry.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Evidence < ::Stripe::StripeObject
         class Canceled < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -221,6 +336,92 @@ module Stripe
         end
       end
 
+      class NetworkLifecycle < ::Stripe::StripeObject
+        class DisputeResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's initial dispute response failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PreArbitrationResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration response failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PreArbitrationSubmission < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration submission failed.
+          attr_reader :error
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+          attr_reader :merchant_evidence_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information related to the acquiring merchant's initial response to this dispute.
+        attr_reader :dispute_response
+        # Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        attr_reader :pre_arbitration_response
+        # Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        attr_reader :pre_arbitration_submission
+
+        def self.inner_class_types
+          @inner_class_types = {
+            dispute_response: DisputeResponse,
+            pre_arbitration_response: PreArbitrationResponse,
+            pre_arbitration_submission: PreArbitrationSubmission,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ProvisionalCredit < ::Stripe::StripeObject
+        # The time by which the platform must grant a provisional credit to the consumer.
+        attr_reader :grant_deadline
+        # The time at which the platform reported granting the provisional credit.
+        attr_reader :granted_at
+        # The earliest time after which the platform can revoke the provisional credit.
+        attr_reader :revocable_after
+        # The time at which the platform reported revoking the provisional credit.
+        attr_reader :revoked_at
+        # The status of the provisional credit obligation.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         attr_reader :debit_reversal
@@ -241,6 +442,8 @@ module Stripe
       attr_reader :balance_transactions
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Array of onchain crypto transactions linked to this resource.
+      attr_reader :crypto_transactions
       # The currency the `transaction` was made in.
       attr_reader :currency
       # Attribute for field evidence
@@ -253,8 +456,12 @@ module Stripe
       attr_reader :loss_reason
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
+      attr_reader :network_lifecycle
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Provisional credit details for this dispute.
+      attr_reader :provisional_credit
       # Current status of the dispute.
       attr_reader :status
       # The transaction being disputed.
@@ -312,8 +519,113 @@ module Stripe
         )
       end
 
+      def test_helpers
+        TestHelpers.new(self)
+      end
+
+      class TestHelpers < APIResourceTestHelpers
+        RESOURCE_CLASS = Dispute
+        def self.resource_class
+          "Dispute"
+        end
+
+        # Test helper: closes a test-mode Issuing dispute as won or lost.
+        def self.close(dispute, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: closes a test-mode Issuing dispute as won or lost.
+        def close(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/close", { dispute: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def self.simulate_network_lifecycle_dispute_response(dispute, params = {}, opts = {})
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_dispute_response", { dispute: CGI.escape(dispute) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def simulate_network_lifecycle_dispute_response(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_dispute_response", { dispute: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes in the collaboration flow.
+        def self.simulate_network_lifecycle_pre_arbitration_response(
+          dispute,
+          params = {},
+          opts = {}
+        )
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_response", { dispute: CGI.escape(dispute) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes in the collaboration flow.
+        def simulate_network_lifecycle_pre_arbitration_response(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_response", { dispute: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def self.simulate_network_lifecycle_pre_arbitration_submission(
+          dispute,
+          params = {},
+          opts = {}
+        )
+          request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_submission", { dispute: CGI.escape(dispute) }),
+            params: params,
+            opts: opts
+          )
+        end
+
+        # Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+        def simulate_network_lifecycle_pre_arbitration_submission(params = {}, opts = {})
+          @resource.request_stripe_object(
+            method: :post,
+            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_submission", { dispute: CGI.escape(@resource["id"]) }),
+            params: params,
+            opts: opts
+          )
+        end
+      end
+
       def self.inner_class_types
-        @inner_class_types = { evidence: Evidence, treasury: Treasury }
+        @inner_class_types = {
+          crypto_transactions: CryptoTransaction,
+          evidence: Evidence,
+          network_lifecycle: NetworkLifecycle,
+          provisional_credit: ProvisionalCredit,
+          treasury: Treasury,
+        }
       end
 
       def self.field_remappings

@@ -8,6 +8,139 @@ module Stripe
     #
     # Related guide: [Issuing disputes](https://docs.stripe.com/issuing/purchases/disputes)
     class Dispute < APIResource
+      class CryptoTransaction < ::Stripe::StripeObject
+        class CryptoTransactionConfirmed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the confirmed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the confirmed transaction.
+          sig { returns(String) }
+          def chain; end
+          # When the transaction was confirmed onchain.
+          sig { returns(Integer) }
+          def confirmed_at; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the transaction.
+          sig { returns(String) }
+          def to_address; end
+          # The blockchain transaction hash.
+          sig { returns(String) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CryptoTransactionFailed < ::Stripe::StripeObject
+          class Fee < ::Stripe::StripeObject
+            # The fee amount.
+            sig { returns(String) }
+            def amount; end
+            # The fee currency.
+            sig { returns(String) }
+            def currency; end
+            # The fee type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The crypto amount for the failed transaction.
+          sig { returns(String) }
+          def amount; end
+          # The upcharged MCC amount, if one was applied.
+          sig { returns(T.nilable(String)) }
+          def amount_mcc_upcharged; end
+          # The blockchain network for the failed transaction.
+          sig { returns(String) }
+          def chain; end
+          # The currency of the crypto transaction amount.
+          sig { returns(String) }
+          def currency; end
+          # When the transaction failed.
+          sig { returns(Integer) }
+          def failed_at; end
+          # The reason the transaction failed.
+          sig { returns(String) }
+          def failure_reason; end
+          # Fees associated with the transaction.
+          sig { returns(T::Array[Fee]) }
+          def fees; end
+          # The source wallet address for the attempted transaction.
+          sig { returns(String) }
+          def from_address; end
+          # Memo metadata attached to the transaction, if present.
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # The destination wallet address for the attempted transaction when one exists.
+          sig { returns(T.nilable(String)) }
+          def to_address; end
+          # The blockchain transaction hash when one exists.
+          sig { returns(T.nilable(String)) }
+          def transaction_hash; end
+          def self.inner_class_types
+            @inner_class_types = {fees: Fee}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionConfirmed)) }
+        def crypto_transaction_confirmed; end
+        # The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        sig { returns(T.nilable(CryptoTransactionFailed)) }
+        def crypto_transaction_failed; end
+        # The crypto transaction variant for this array entry.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {
+            crypto_transaction_confirmed: CryptoTransactionConfirmed,
+            crypto_transaction_failed: CryptoTransactionFailed,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Evidence < ::Stripe::StripeObject
         class Canceled < ::Stripe::StripeObject
           # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
@@ -236,6 +369,92 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class NetworkLifecycle < ::Stripe::StripeObject
+        class DisputeResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's initial dispute response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationResponse < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration response failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PreArbitrationSubmission < ::Stripe::StripeObject
+          # Error message if processing the acquiring merchant's pre-arbitration submission failed.
+          sig { returns(T.nilable(String)) }
+          def error; end
+          # Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+          sig { returns(T.nilable(T::Array[String])) }
+          def merchant_evidence_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information related to the acquiring merchant's initial response to this dispute.
+        sig { returns(T.nilable(DisputeResponse)) }
+        def dispute_response; end
+        # Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        sig { returns(T.nilable(PreArbitrationResponse)) }
+        def pre_arbitration_response; end
+        # Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        sig { returns(T.nilable(PreArbitrationSubmission)) }
+        def pre_arbitration_submission; end
+        def self.inner_class_types
+          @inner_class_types = {
+            dispute_response: DisputeResponse,
+            pre_arbitration_response: PreArbitrationResponse,
+            pre_arbitration_submission: PreArbitrationSubmission,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class ProvisionalCredit < ::Stripe::StripeObject
+        # The time by which the platform must grant a provisional credit to the consumer.
+        sig { returns(T.nilable(Integer)) }
+        def grant_deadline; end
+        # The time at which the platform reported granting the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def granted_at; end
+        # The earliest time after which the platform can revoke the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revocable_after; end
+        # The time at which the platform reported revoking the provisional credit.
+        sig { returns(T.nilable(Integer)) }
+        def revoked_at; end
+        # The status of the provisional credit obligation.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
@@ -259,6 +478,9 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
+      # Array of onchain crypto transactions linked to this resource.
+      sig { returns(T.nilable(T::Array[CryptoTransaction])) }
+      def crypto_transactions; end
       # The currency the `transaction` was made in.
       sig { returns(String) }
       def currency; end
@@ -277,9 +499,15 @@ module Stripe
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
       def metadata; end
+      # Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
+      sig { returns(T.nilable(NetworkLifecycle)) }
+      def network_lifecycle; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Provisional credit details for this dispute.
+      sig { returns(T.nilable(ProvisionalCredit)) }
+      def provisional_credit; end
       # Current status of the dispute.
       sig { returns(String) }
       def status; end

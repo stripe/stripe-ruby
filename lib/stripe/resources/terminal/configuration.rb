@@ -68,6 +68,19 @@ module Stripe
         end
       end
 
+      class ReaderSecurity < ::Stripe::StripeObject
+        # Passcode used to access a reader's admin menu.
+        attr_reader :admin_menu_passcode
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RebootWindow < ::Stripe::StripeObject
         # Integer between 0 to 23 that represents the end hour of the reboot time window. The value must be different than the start_hour.
         attr_reader :end_hour
@@ -701,6 +714,8 @@ module Stripe
       attr_reader :object
       # Attribute for field offline
       attr_reader :offline
+      # Attribute for field reader_security
+      attr_reader :reader_security
       # Attribute for field reboot_window
       attr_reader :reboot_window
       # Attribute for field stripe_s700
@@ -778,6 +793,7 @@ module Stripe
           bbpos_wisepos_e: BbposWiseposE,
           cellular: Cellular,
           offline: Offline,
+          reader_security: ReaderSecurity,
           reboot_window: RebootWindow,
           stripe_s700: StripeS700,
           stripe_s710: StripeS710,

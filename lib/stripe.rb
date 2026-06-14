@@ -51,6 +51,7 @@ require "stripe/api_resource"
 require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
+require "stripe/stripe_event_notification_handler"
 require "stripe/stripe_configuration"
 
 # Named API resources — autoloaded on first use to reduce boot time.
@@ -116,6 +117,7 @@ module Stripe
 
     # User configurable options
     def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :authenticator, :authenticator=
     def_delegators :@config, :api_version, :api_version=
     def_delegators :@config, :stripe_account, :stripe_account=
     def_delegators :@config, :api_base, :api_base=
@@ -179,6 +181,58 @@ module Stripe
       url: url,
       version: version,
     }
+  end
+
+  def self.add_beta_version(beta_name, version)
+    unless version.start_with?("v") && version[1..].to_i.to_s == version[1..]
+      raise ArgumentError, "Version must be in the format 'v' followed by a number (e.g., 'v3')"
+    end
+
+    if (index = api_version.index("; #{beta_name}="))
+      start_index = index + "; #{beta_name}=".length
+      end_index = api_version.index(";", start_index) || api_version.length
+      current_version = api_version[start_index...end_index][1..].to_i
+      new_version = version[1..].to_i
+      return if new_version <= current_version # Keep the higher version, no update needed
+
+      self.api_version = api_version[0...index] + "; #{beta_name}=#{version}" + api_version[end_index..]
+    else
+      self.api_version = "#{api_version}; #{beta_name}=#{version}"
+    end
+  end
+
+  class RawRequest
+    def initialize
+      @opts = {}
+    end
+
+    def execute(method, url, base_address: :api, params: {}, opts: {}, usage: [])
+      opts = Util.normalize_opts(opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+
+      requestor = APIRequestor.active_requestor
+      resp, = requestor.send(:execute_request_internal, method, url, base_address, params, req_opts,
+                             usage)
+
+      requestor.interpret_response(resp)
+    end
+  end
+
+  # Sends a request to Stripe REST API
+  def self.raw_request(method, url, params = {}, opts = {}, base_address: :api)
+    req = RawRequest.new
+    req.execute(method, url, base_address: base_address, params: params, opts: opts,
+                             usage: ["raw_request"])
+  end
+
+  def self.deserialize(data, api_mode: :v1)
+    data = JSON.parse(data) if data.is_a?(String)
+    Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
+  end
+  class << self
+    extend Gem::Deprecate
+    deprecate :raw_request, "StripeClient#raw_request", 2024, 9
+    deprecate :deserialize, "StripeClient#deserialize", 2024, 9
   end
 end
 

@@ -4,6 +4,26 @@
 module Stripe
   module Checkout
     class SessionUpdateParams < ::Stripe::RequestParams
+      class AutomaticTax < ::Stripe::RequestParams
+        class Liability < ::Stripe::RequestParams
+          # The connected account being referenced when `type` is `account`.
+          attr_accessor :account
+          # Type of the account referenced in the request.
+          attr_accessor :type
+
+          def initialize(account: nil, type: nil)
+            @account = account
+            @type = type
+          end
+        end
+        # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        attr_accessor :liability
+
+        def initialize(liability: nil)
+          @liability = liability
+        end
+      end
+
       class CollectedInformation < ::Stripe::RequestParams
         class ShippingDetails < ::Stripe::RequestParams
           class Address < ::Stripe::RequestParams
@@ -54,6 +74,76 @@ module Stripe
         end
       end
 
+      class Discount < ::Stripe::RequestParams
+        class CouponData < ::Stripe::RequestParams
+          # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+          attr_accessor :amount_off
+          # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+          attr_accessor :currency
+          # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+          attr_accessor :duration
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          attr_accessor :metadata
+          # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+          attr_accessor :name
+          # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+          attr_accessor :percent_off
+
+          def initialize(
+            amount_off: nil,
+            currency: nil,
+            duration: nil,
+            metadata: nil,
+            name: nil,
+            percent_off: nil
+          )
+            @amount_off = amount_off
+            @currency = currency
+            @duration = duration
+            @metadata = metadata
+            @name = name
+            @percent_off = percent_off
+          end
+        end
+        # The ID of the [Coupon](https://docs.stripe.com/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+        attr_accessor :coupon
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        attr_accessor :coupon_data
+
+        def initialize(coupon: nil, coupon_data: nil)
+          @coupon = coupon
+          @coupon_data = coupon_data
+        end
+      end
+
+      class InvoiceCreation < ::Stripe::RequestParams
+        class InvoiceData < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
+            # The connected account being referenced when `type` is `account`.
+            attr_accessor :account
+            # Type of the account referenced in the request.
+            attr_accessor :type
+
+            def initialize(account: nil, type: nil)
+              @account = account
+              @type = type
+            end
+          end
+          # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+          attr_accessor :issuer
+
+          def initialize(issuer: nil)
+            @issuer = issuer
+          end
+        end
+        # Parameters passed when creating invoices for payment-mode Checkout Sessions.
+        attr_accessor :invoice_data
+
+        def initialize(invoice_data: nil)
+          @invoice_data = invoice_data
+        end
+      end
+
       class LineItem < ::Stripe::RequestParams
         class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any positive integer. Setting to false will remove any previously specified constraints on quantity.
@@ -72,6 +162,17 @@ module Stripe
 
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              attr_accessor :performance_location
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              attr_accessor :tax_code
+
+              def initialize(performance_location: nil, tax_code: nil)
+                @performance_location = performance_location
+                @tax_code = tax_code
+              end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -82,6 +183,8 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            attr_accessor :tax_details
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             attr_accessor :unit_label
 
@@ -91,6 +194,7 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
+              tax_details: nil,
               unit_label: nil
             )
               @description = description
@@ -98,6 +202,7 @@ module Stripe
               @metadata = metadata
               @name = name
               @tax_code = tax_code
+              @tax_details = tax_details
               @unit_label = unit_label
             end
           end
@@ -295,10 +400,70 @@ module Stripe
           @shipping_rate_data = shipping_rate_data
         end
       end
+
+      class SubscriptionData < ::Stripe::RequestParams
+        class InvoiceSettings < ::Stripe::RequestParams
+          class Issuer < ::Stripe::RequestParams
+            # The connected account being referenced when `type` is `account`.
+            attr_accessor :account
+            # Type of the account referenced in the request.
+            attr_accessor :type
+
+            def initialize(account: nil, type: nil)
+              @account = account
+              @type = type
+            end
+          end
+          # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+          attr_accessor :issuer
+
+          def initialize(issuer: nil)
+            @issuer = issuer
+          end
+        end
+
+        class PendingInvoiceItemInterval < ::Stripe::RequestParams
+          # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # All invoices will be billed using the specified settings.
+        attr_accessor :invoice_settings
+        # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+        attr_accessor :pending_invoice_item_interval
+        # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+        attr_accessor :trial_end
+        # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        attr_accessor :trial_period_days
+
+        def initialize(
+          invoice_settings: nil,
+          pending_invoice_item_interval: nil,
+          trial_end: nil,
+          trial_period_days: nil
+        )
+          @invoice_settings = invoice_settings
+          @pending_invoice_item_interval = pending_invoice_item_interval
+          @trial_end = trial_end
+          @trial_period_days = trial_period_days
+        end
+      end
+      # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
+      attr_accessor :automatic_tax
       # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
       attr_accessor :collected_information
+      # List of coupons and promotion codes attached to the Checkout Session.
+      attr_accessor :discounts
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # Generate a post-purchase Invoice for one-time payments.
+      attr_accessor :invoice_creation
       # A list of items the customer is purchasing.
       #
       # When updating line items, you must retransmit the entire array of line items.
@@ -317,19 +482,29 @@ module Stripe
       attr_accessor :metadata
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       attr_accessor :shipping_options
+      # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
+      attr_accessor :subscription_data
 
       def initialize(
+        automatic_tax: nil,
         collected_information: nil,
+        discounts: nil,
         expand: nil,
+        invoice_creation: nil,
         line_items: nil,
         metadata: nil,
-        shipping_options: nil
+        shipping_options: nil,
+        subscription_data: nil
       )
+        @automatic_tax = automatic_tax
         @collected_information = collected_information
+        @discounts = discounts
         @expand = expand
+        @invoice_creation = invoice_creation
         @line_items = line_items
         @metadata = metadata
         @shipping_options = shipping_options
+        @subscription_data = subscription_data
       end
 
       def self.field_encodings

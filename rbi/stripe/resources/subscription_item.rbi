@@ -17,6 +17,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      sig { returns(Integer) }
+      def end_date; end
+      # Attribute for field start_date
+      sig { returns(Integer) }
+      def start_date; end
+      # Attribute for field trial_offer
+      sig { returns(String) }
+      def trial_offer; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Trial < ::Stripe::StripeObject
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+      sig { returns(T.nilable(T::Array[String])) }
+      def converts_to; end
+      # Determines the type of trial for this item.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The time period the subscription item has been billed for.
     sig { returns(T.nilable(Integer)) }
     def billed_until; end
@@ -32,6 +63,9 @@ module Stripe
     # The start time of this subscription item's current billing period.
     sig { returns(Integer) }
     def current_period_start; end
+    # The current trial that is applied to this subscription item.
+    sig { returns(T.nilable(CurrentTrial)) }
+    def current_trial; end
     # Always true for a deleted object
     sig { returns(T.nilable(T::Boolean)) }
     def deleted; end
@@ -74,6 +108,9 @@ module Stripe
     # The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
     sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
     def tax_rates; end
+    # Options that configure the trial on the subscription item.
+    sig { returns(T.nilable(Trial)) }
+    def trial; end
     # Adds a new item to an existing subscription. No existing items will be changed or replaced.
     sig {
       params(params: T.any(::Stripe::SubscriptionItemCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)

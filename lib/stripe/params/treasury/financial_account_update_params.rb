@@ -25,10 +25,13 @@ module Stripe
 
         class FinancialAddresses < ::Stripe::RequestParams
           class Aba < ::Stripe::RequestParams
+            # Requested bank partner
+            attr_accessor :bank
             # Whether the FinancialAccount should have the Feature.
             attr_accessor :requested
 
-            def initialize(requested: nil)
+            def initialize(bank: nil, requested: nil)
+              @bank = bank
               @requested = requested
             end
           end
@@ -183,6 +186,8 @@ module Stripe
           @outbound_flows = outbound_flows
         end
       end
+      # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+      attr_accessor :display_name
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Encodes whether a FinancialAccount has access to a particular feature, with a status enum and associated `status_details`. Stripe or the platform may control features via the requested field.
@@ -197,6 +202,7 @@ module Stripe
       attr_accessor :platform_restrictions
 
       def initialize(
+        display_name: nil,
         expand: nil,
         features: nil,
         forwarding_settings: nil,
@@ -204,6 +210,7 @@ module Stripe
         nickname: nil,
         platform_restrictions: nil
       )
+        @display_name = display_name
         @expand = expand
         @features = features
         @forwarding_settings = forwarding_settings

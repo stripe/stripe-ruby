@@ -10,6 +10,11 @@ module Stripe
       def alert_type; end
       sig { params(_alert_type: T.nilable(String)).returns(T.nilable(String)) }
       def alert_type=(_alert_type); end
+      # Filter results to only include alerts for the given customer.
+      sig { returns(T.nilable(String)) }
+      def customer; end
+      sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+      def customer=(_customer); end
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       sig { returns(T.nilable(String)) }
       def ending_before; end
@@ -36,10 +41,11 @@ module Stripe
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
       sig {
-        params(alert_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), meter: T.nilable(String), starting_after: T.nilable(String)).void
+        params(alert_type: T.nilable(String), customer: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), meter: T.nilable(String), starting_after: T.nilable(String)).void
        }
       def initialize(
         alert_type: nil,
+        customer: nil,
         ending_before: nil,
         expand: nil,
         limit: nil,

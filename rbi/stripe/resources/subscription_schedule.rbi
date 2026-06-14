@@ -35,6 +35,71 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class BillingSchedule < ::Stripe::StripeObject
+      class AppliesTo < ::Stripe::StripeObject
+        # The billing schedule will apply to the subscription item with the given price ID.
+        sig { returns(T.nilable(T.any(String, ::Stripe::Price))) }
+        def price; end
+        # Controls which subscription items the billing schedule applies to.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BillUntil < ::Stripe::StripeObject
+        class Duration < ::Stripe::StripeObject
+          # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          # The multiplier applied to the interval.
+          sig { returns(T.nilable(Integer)) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The timestamp the billing schedule will apply until.
+        sig { returns(Integer) }
+        def computed_timestamp; end
+        # Specifies the billing period.
+        sig { returns(T.nilable(Duration)) }
+        def duration; end
+        # If specified, the billing schedule will apply until the specified timestamp.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {duration: Duration}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies which subscription items the billing schedule applies to.
+      sig { returns(T.nilable(T::Array[AppliesTo])) }
+      def applies_to; end
+      # Specifies the end of billing period.
+      sig { returns(BillUntil) }
+      def bill_until; end
+      # Unique identifier for the billing schedule.
+      sig { returns(String) }
+      def key; end
+      def self.inner_class_types
+        @inner_class_types = {applies_to: AppliesTo, bill_until: BillUntil}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class CurrentPhase < ::Stripe::StripeObject
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
@@ -167,6 +232,9 @@ module Stripe
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
       def on_behalf_of; end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def phase_effective_at; end
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
       def transfer_data; end
@@ -182,20 +250,68 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class LastPriceMigrationError < ::Stripe::StripeObject
+      class FailedTransition < ::Stripe::StripeObject
+        # The original price to be migrated.
+        sig { returns(String) }
+        def source_price; end
+        # The intended resulting price of the migration.
+        sig { returns(String) }
+        def target_price; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The time at which the price migration encountered an error.
+      sig { returns(Integer) }
+      def errored_at; end
+      # The involved price pairs in each failed transition.
+      sig { returns(T::Array[FailedTransition]) }
+      def failed_transitions; end
+      # The type of error encountered by the price migration.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {failed_transitions: FailedTransition}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Phase < ::Stripe::StripeObject
       class AddInvoiceItem < ::Stripe::StripeObject
         class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
+            # The discount end timestamp.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            # The discount end type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
           def coupon; end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
           def discount; end
+          # Details to determine how long the discount should be applied for.
+          sig { returns(T.nilable(DiscountEnd)) }
+          def discount_end; end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
           def promotion_code; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {discount_end: DiscountEnd}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -317,17 +433,88 @@ module Stripe
         end
       end
       class Discount < ::Stripe::StripeObject
+        class DiscountEnd < ::Stripe::StripeObject
+          # The discount end timestamp.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          # The discount end type.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Settings < ::Stripe::StripeObject
+          class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+            class Custom < ::Stripe::StripeObject
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              sig { returns(Integer) }
+              def day_of_month; end
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              sig { returns(T.nilable(Integer)) }
+              def hour; end
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              sig { returns(T.nilable(Integer)) }
+              def minute; end
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              sig { returns(T.nilable(Integer)) }
+              def month; end
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              sig { returns(T.nilable(Integer)) }
+              def second; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field custom
+            sig { returns(T.nilable(Custom)) }
+            def custom; end
+            # The type of service period anchor config.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {custom: Custom}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field service_period_anchor_config
+          sig { returns(ServicePeriodAnchorConfig) }
+          def service_period_anchor_config; end
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+          sig { returns(String) }
+          def start_date; end
+          def self.inner_class_types
+            @inner_class_types = {service_period_anchor_config: ServicePeriodAnchorConfig}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
         def coupon; end
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
         def discount; end
+        # Details to determine how long the discount should be applied for.
+        sig { returns(T.nilable(DiscountEnd)) }
+        def discount_end; end
         # ID of the promotion code to create a new discount for.
         sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
         def promotion_code; end
+        # Attribute for field settings
+        sig { returns(T.nilable(Settings)) }
+        def settings; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {discount_end: DiscountEnd, settings: Settings}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -377,15 +564,100 @@ module Stripe
           end
         end
         class Discount < ::Stripe::StripeObject
+          class DiscountEnd < ::Stripe::StripeObject
+            # The discount end timestamp.
+            sig { returns(T.nilable(Integer)) }
+            def timestamp; end
+            # The discount end type.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Settings < ::Stripe::StripeObject
+            class ServicePeriodAnchorConfig < ::Stripe::StripeObject
+              class Custom < ::Stripe::StripeObject
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                sig { returns(Integer) }
+                def day_of_month; end
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                sig { returns(T.nilable(Integer)) }
+                def hour; end
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def minute; end
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                sig { returns(T.nilable(Integer)) }
+                def month; end
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                sig { returns(T.nilable(Integer)) }
+                def second; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Attribute for field custom
+              sig { returns(T.nilable(Custom)) }
+              def custom; end
+              # The type of service period anchor config.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {custom: Custom}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field service_period_anchor_config
+            sig { returns(ServicePeriodAnchorConfig) }
+            def service_period_anchor_config; end
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+            sig { returns(String) }
+            def start_date; end
+            def self.inner_class_types
+              @inner_class_types = {service_period_anchor_config: ServicePeriodAnchorConfig}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::Coupon))) }
           def coupon; end
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
           def discount; end
+          # Details to determine how long the discount should be applied for.
+          sig { returns(T.nilable(DiscountEnd)) }
+          def discount_end; end
           # ID of the promotion code to create a new discount for.
           sig { returns(T.nilable(T.any(String, ::Stripe::PromotionCode))) }
           def promotion_code; end
+          # Attribute for field settings
+          sig { returns(T.nilable(Settings)) }
+          def settings; end
+          def self.inner_class_types
+            @inner_class_types = {discount_end: DiscountEnd, settings: Settings}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Trial < ::Stripe::StripeObject
+          # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+          sig { returns(T.nilable(T::Array[String])) }
+          def converts_to; end
+          # Determines the type of trial for this item.
+          sig { returns(String) }
+          def type; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -414,8 +686,29 @@ module Stripe
         # The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
         sig { returns(T.nilable(T::Array[::Stripe::TaxRate])) }
         def tax_rates; end
+        # Options that configure the trial on the subscription item.
+        sig { returns(T.nilable(Trial)) }
+        def trial; end
+        # The ID of the trial offer to apply to the configuration item.
+        sig { returns(T.nilable(String)) }
+        def trial_offer; end
         def self.inner_class_types
-          @inner_class_types = {billing_thresholds: BillingThresholds, discounts: Discount}
+          @inner_class_types = {
+            billing_thresholds: BillingThresholds,
+            discounts: Discount,
+            trial: Trial,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PauseCollection < ::Stripe::StripeObject
+        # The payment collection behavior for this subscription while paused.
+        sig { returns(String) }
+        def behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -430,6 +723,28 @@ module Stripe
         def destination; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TrialSettings < ::Stripe::StripeObject
+        class EndBehavior < ::Stripe::StripeObject
+          # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+          sig { returns(T.nilable(String)) }
+          def prorate_up_front; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Defines how the subscription should behave when a trial ends.
+        sig { returns(T.nilable(EndBehavior)) }
+        def end_behavior; end
+        def self.inner_class_types
+          @inner_class_types = {end_behavior: EndBehavior}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -468,6 +783,9 @@ module Stripe
       # The stackable discounts that will be applied to the subscription on this phase. Subscription item discounts are applied before subscription discounts.
       sig { returns(T::Array[Discount]) }
       def discounts; end
+      # Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+      sig { returns(T.nilable(String)) }
+      def effective_at; end
       # The end of this phase of the subscription schedule.
       sig { returns(Integer) }
       def end_date; end
@@ -483,6 +801,9 @@ module Stripe
       # The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
       sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
       def on_behalf_of; end
+      # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+      sig { returns(T.nilable(PauseCollection)) }
+      def pause_collection; end
       # When transitioning phases, controls how prorations are handled (if any). Possible values are `create_prorations`, `none`, and `always_invoice`.
       sig { returns(String) }
       def proration_behavior; end
@@ -492,9 +813,15 @@ module Stripe
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
       def transfer_data; end
+      # Specify behavior of the trial when crossing schedule phase boundaries
+      sig { returns(T.nilable(String)) }
+      def trial_continuation; end
       # When the trial ends within the phase.
       sig { returns(T.nilable(Integer)) }
       def trial_end; end
+      # Settings related to any trials on the subscription during this phase.
+      sig { returns(T.nilable(TrialSettings)) }
+      def trial_settings; end
       def self.inner_class_types
         @inner_class_types = {
           add_invoice_items: AddInvoiceItem,
@@ -503,8 +830,30 @@ module Stripe
           discounts: Discount,
           invoice_settings: InvoiceSettings,
           items: Item,
+          pause_collection: PauseCollection,
           transfer_data: TransferData,
+          trial_settings: TrialSettings,
         }
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Prebilling < ::Stripe::StripeObject
+      # ID of the prebilling invoice.
+      sig { returns(T.any(String, ::Stripe::Invoice)) }
+      def invoice; end
+      # The end of the last period for which the invoice pre-bills.
+      sig { returns(Integer) }
+      def period_end; end
+      # The start of the first period for which the invoice pre-bills.
+      sig { returns(Integer) }
+      def period_start; end
+      # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+      sig { returns(T.nilable(String)) }
+      def update_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -513,9 +862,15 @@ module Stripe
     # ID of the Connect Application that created the schedule.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
+    # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+    sig { returns(T.nilable(String)) }
+    def billing_behavior; end
     # The billing mode of the subscription.
     sig { returns(BillingMode) }
     def billing_mode; end
+    # Billing schedules for this subscription schedule.
+    sig { returns(T.nilable(T::Array[BillingSchedule])) }
+    def billing_schedules; end
     # Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     def canceled_at; end
@@ -543,6 +898,12 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # Details of the most recent price migration that failed for the subscription schedule.
+    sig { returns(T.nilable(LastPriceMigrationError)) }
+    def last_price_migration_error; end
+    # The most recent invoice this subscription schedule has generated.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
+    def latest_invoice; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
@@ -555,6 +916,9 @@ module Stripe
     # Configuration for the subscription schedule's phases.
     sig { returns(T::Array[Phase]) }
     def phases; end
+    # Time period and invoice for a Subscription billed in advance.
+    sig { returns(T.nilable(Prebilling)) }
+    def prebilling; end
     # Time at which the subscription schedule was released. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     def released_at; end
@@ -570,6 +934,18 @@ module Stripe
     # ID of the test clock this subscription schedule belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
+    # Amends an existing subscription schedule.
+    sig {
+      params(params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+     }
+    def amend(params = {}, opts = {}); end
+
+    # Amends an existing subscription schedule.
+    sig {
+      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+     }
+    def self.amend(schedule, params = {}, opts = {}); end
+
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     sig {
       params(params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)

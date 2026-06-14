@@ -14,13 +14,76 @@ module Stripe
 
         class Reason < ::Stripe::StripeObject
           class Request < ::Stripe::StripeObject
+            class Client < ::Stripe::StripeObject
+              class ApiKey < ::Stripe::StripeObject
+                # The ID of the API key.
+                attr_reader :id
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class DashboardUser < ::Stripe::StripeObject
+                # The email of the dashboard user.
+                attr_reader :email
+                # The IP address of the user.
+                attr_reader :ip_address
+                # The machine identifier of the user.
+                attr_reader :machine_identifier
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class StripeAction < ::Stripe::StripeObject
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # API key that triggered the event.
+              attr_reader :api_key
+              # Dashboard user that triggered the event.
+              attr_reader :dashboard_user
+              # Stripe action that triggered the event.
+              attr_reader :stripe_action
+              # The type of the client.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  api_key: ApiKey,
+                  dashboard_user: DashboardUser,
+                  stripe_action: StripeAction,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The client details that made the request.
+            attr_reader :client
             # ID of the API request that caused the event.
             attr_reader :id
             # The idempotency key transmitted during the request.
             attr_reader :idempotency_key
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { client: Client }
             end
 
             def self.field_remappings
@@ -54,6 +117,8 @@ module Stripe
         attr_reader :object
         # Reason for the event.
         attr_reader :reason
+        # For interop events, this is the snapshot event ID.
+        attr_reader :snapshot_event
         # The type of the event.
         attr_reader :type
 

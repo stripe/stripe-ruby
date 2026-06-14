@@ -4,16 +4,44 @@
 module Stripe
   class InvoiceItemCreateParams < ::Stripe::RequestParams
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
       end
     end
@@ -87,6 +115,8 @@ module Stripe
     attr_accessor :expand
     # The ID of an existing invoice to add this invoice item to. For subscription invoices, when left blank, the invoice item will be added to the next upcoming scheduled invoice. For standalone invoices, the invoice item won't be automatically added unless you pass `pending_invoice_item_behavior: 'include'` when creating the invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice.
     attr_accessor :invoice
+    # The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
+    attr_accessor :margins
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
@@ -120,6 +150,7 @@ module Stripe
       discounts: nil,
       expand: nil,
       invoice: nil,
+      margins: nil,
       metadata: nil,
       period: nil,
       price_data: nil,
@@ -141,6 +172,7 @@ module Stripe
       @discounts = discounts
       @expand = expand
       @invoice = invoice
+      @margins = margins
       @metadata = metadata
       @period = period
       @price_data = price_data

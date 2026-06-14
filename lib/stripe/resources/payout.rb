@@ -9,7 +9,7 @@ module Stripe
   # schedules](https://docs.stripe.com/docs/connect/manage-payout-schedule), depending on your country and
   # industry.
   #
-  # Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
+  # Related guide: [Receiving payouts](https://docs.stripe.com/payouts)
   class Payout < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
@@ -20,171 +20,29 @@ module Stripe
       "payout"
     end
 
-    class TraceId < Stripe::StripeObject
+    class TraceId < ::Stripe::StripeObject
       # Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
       attr_reader :status
       # The trace ID value if `trace_id.status` is `supported`, otherwise `nil`.
       attr_reader :value
-    end
 
-    class ListParams < Stripe::RequestParams
-      class ArrivalDate < Stripe::RequestParams
-        # Minimum value to filter by (exclusive)
-        attr_accessor :gt
-        # Minimum value to filter by (inclusive)
-        attr_accessor :gte
-        # Maximum value to filter by (exclusive)
-        attr_accessor :lt
-        # Maximum value to filter by (inclusive)
-        attr_accessor :lte
-
-        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
-          @gt = gt
-          @gte = gte
-          @lt = lt
-          @lte = lte
-        end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
-      class Created < Stripe::RequestParams
-        # Minimum value to filter by (exclusive)
-        attr_accessor :gt
-        # Minimum value to filter by (inclusive)
-        attr_accessor :gte
-        # Maximum value to filter by (exclusive)
-        attr_accessor :lt
-        # Maximum value to filter by (inclusive)
-        attr_accessor :lte
-
-        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
-          @gt = gt
-          @gte = gte
-          @lt = lt
-          @lte = lte
-        end
-      end
-      # Only return payouts that are expected to arrive during the given date interval.
-      attr_accessor :arrival_date
-      # Only return payouts that were created during the given date interval.
-      attr_accessor :created
-      # The ID of an external account - only return payouts sent to this external account.
-      attr_accessor :destination
-      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      attr_accessor :ending_before
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      attr_accessor :limit
-      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      attr_accessor :starting_after
-      # Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
-      attr_accessor :status
-
-      def initialize(
-        arrival_date: nil,
-        created: nil,
-        destination: nil,
-        ending_before: nil,
-        expand: nil,
-        limit: nil,
-        starting_after: nil,
-        status: nil
-      )
-        @arrival_date = arrival_date
-        @created = created
-        @destination = destination
-        @ending_before = ending_before
-        @expand = expand
-        @limit = limit
-        @starting_after = starting_after
-        @status = status
-      end
-    end
-
-    class CreateParams < Stripe::RequestParams
-      # A positive integer in cents representing how much to payout.
-      attr_accessor :amount
-      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-      attr_accessor :currency
-      # An arbitrary string attached to the object. Often useful for displaying to users.
-      attr_accessor :description
-      # The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
-      attr_accessor :destination
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      attr_accessor :metadata
-      # The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
-      attr_accessor :method
-      # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
-      attr_accessor :source_type
-      # A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
-      attr_accessor :statement_descriptor
-
-      def initialize(
-        amount: nil,
-        currency: nil,
-        description: nil,
-        destination: nil,
-        expand: nil,
-        metadata: nil,
-        method: nil,
-        source_type: nil,
-        statement_descriptor: nil
-      )
-        @amount = amount
-        @currency = currency
-        @description = description
-        @destination = destination
-        @expand = expand
-        @metadata = metadata
-        @method = method
-        @source_type = source_type
-        @statement_descriptor = statement_descriptor
-      end
-    end
-
-    class UpdateParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      attr_accessor :metadata
-
-      def initialize(expand: nil, metadata: nil)
-        @expand = expand
-        @metadata = metadata
-      end
-    end
-
-    class CancelParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
-
-    class ReverseParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      attr_accessor :metadata
-
-      def initialize(expand: nil, metadata: nil)
-        @expand = expand
-        @metadata = metadata
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
     # The amount (in cents (or local equivalent)) that transfers to your bank account or debit card.
     attr_reader :amount
-    # The application fee (if any) for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
+    # The application fee (if any) for the payout. [See the Connect documentation](https://docs.stripe.com/connect/instant-payouts#monetization-and-fees) for details.
     attr_reader :application_fee
-    # The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
+    # The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://docs.stripe.com/connect/instant-payouts#monetization-and-fees) for details.
     attr_reader :application_fee_amount
     # Date that you can expect the payout to arrive in the bank. This factors in delays to account for weekends or bank holidays.
     attr_reader :arrival_date
-    # Returns `true` if the payout is created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts).
+    # Returns `true` if the payout is created by an [automated payout schedule](https://docs.stripe.com/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts).
     attr_reader :automatic
     # ID of the balance transaction that describes the impact of this payout on your account balance.
     attr_reader :balance_transaction
@@ -198,15 +56,15 @@ module Stripe
     attr_reader :destination
     # If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance.
     attr_reader :failure_balance_transaction
-    # Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://stripe.com/docs/api#payout_failures).
+    # Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://docs.stripe.com/api#payout_failures).
     attr_reader :failure_code
     # Message that provides the reason for a payout failure, if available.
     attr_reader :failure_message
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
     attr_reader :method
@@ -214,7 +72,9 @@ module Stripe
     attr_reader :object
     # If the payout reverses another, this is the ID of the original payout.
     attr_reader :original_payout
-    # If `completed`, you can use the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
+    # ID of the v2 FinancialAccount the funds are sent to.
+    attr_reader :payout_method
+    # If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     attr_reader :reconciliation_status
     # If the payout reverses, this is the ID of the payout that reverses this payout.
     attr_reader :reversed_by
@@ -253,7 +113,7 @@ module Stripe
     #
     # If your API key is in test mode, money won't actually be sent, though every other action occurs as if you're in live mode.
     #
-    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api#balance_object) details available and pending amounts by source type.
+    # If you create a manual payout on a Stripe account that uses multiple payment source types, you need to specify the source type balance that the payout draws from. The [balance object](https://docs.stripe.com/api/balances/object) details available and pending amounts by source type.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/payouts", params: params, opts: opts)
     end
@@ -263,7 +123,7 @@ module Stripe
       request_stripe_object(method: :get, path: "/v1/payouts", params: params, opts: opts)
     end
 
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     def reverse(params = {}, opts = {})
@@ -275,7 +135,7 @@ module Stripe
       )
     end
 
-    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
+    # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     def self.reverse(payout, params = {}, opts = {})
@@ -295,6 +155,14 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { trace_id: TraceId }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

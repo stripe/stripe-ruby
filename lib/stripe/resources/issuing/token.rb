@@ -3,7 +3,7 @@
 
 module Stripe
   module Issuing
-    # An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://stripe.com/docs/issuing), you can [view and manage these tokens](https://stripe.com/docs/issuing/controls/token-management) through Stripe.
+    # An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://docs.stripe.com/issuing), you can [view and manage these tokens](https://docs.stripe.com/issuing/controls/token-management) through Stripe.
     class Token < APIResource
       extend Stripe::APIOperations::List
       include Stripe::APIOperations::Save
@@ -13,8 +13,8 @@ module Stripe
         "issuing.token"
       end
 
-      class NetworkData < Stripe::StripeObject
-        class Device < Stripe::StripeObject
+      class NetworkData < ::Stripe::StripeObject
+        class Device < ::Stripe::StripeObject
           # An obfuscated ID derived from the device ID.
           attr_reader :device_fingerprint
           # The IP address of the device at provisioning time.
@@ -27,9 +27,17 @@ module Stripe
           attr_reader :phone_number
           # The type of device used for tokenization.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Mastercard < Stripe::StripeObject
+        class Mastercard < ::Stripe::StripeObject
           # A unique reference ID from MasterCard to represent the card account number.
           attr_reader :card_reference_id
           # The network-unique identifier for the token.
@@ -38,9 +46,17 @@ module Stripe
           attr_reader :token_requestor_id
           # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
           attr_reader :token_requestor_name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Visa < Stripe::StripeObject
+        class Visa < ::Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
           attr_reader :card_reference_id
           # The network-unique identifier for the token.
@@ -49,14 +65,30 @@ module Stripe
           attr_reader :token_requestor_id
           # Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
           attr_reader :token_risk_score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class WalletProvider < Stripe::StripeObject
-          class CardholderAddress < Stripe::StripeObject
+        class WalletProvider < ::Stripe::StripeObject
+          class CardholderAddress < ::Stripe::StripeObject
             # The street address of the cardholder tokenizing the card.
             attr_reader :line1
             # The postal code of the cardholder tokenizing the card.
             attr_reader :postal_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The wallet provider-given account ID of the digital wallet the token belongs to.
           attr_reader :account_id
@@ -78,6 +110,14 @@ module Stripe
           attr_reader :suggested_decision
           # The version of the standard for mapping reason codes followed by the wallet provider.
           attr_reader :suggested_decision_version
+
+          def self.inner_class_types
+            @inner_class_types = { cardholder_address: CardholderAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field device
         attr_reader :device
@@ -89,69 +129,18 @@ module Stripe
         attr_reader :visa
         # Attribute for field wallet_provider
         attr_reader :wallet_provider
-      end
 
-      class ListParams < Stripe::RequestParams
-        class Created < Stripe::RequestParams
-          # Minimum value to filter by (exclusive)
-          attr_accessor :gt
-          # Minimum value to filter by (inclusive)
-          attr_accessor :gte
-          # Maximum value to filter by (exclusive)
-          attr_accessor :lt
-          # Maximum value to filter by (inclusive)
-          attr_accessor :lte
-
-          def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
-            @gt = gt
-            @gte = gte
-            @lt = lt
-            @lte = lte
-          end
+        def self.inner_class_types
+          @inner_class_types = {
+            device: Device,
+            mastercard: Mastercard,
+            visa: Visa,
+            wallet_provider: WalletProvider,
+          }
         end
-        # The Issuing card identifier to list tokens for.
-        attr_accessor :card
-        # Only return Issuing tokens that were created during the given date interval.
-        attr_accessor :created
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
-        # Select Issuing tokens with the given status.
-        attr_accessor :status
 
-        def initialize(
-          card: nil,
-          created: nil,
-          ending_before: nil,
-          expand: nil,
-          limit: nil,
-          starting_after: nil,
-          status: nil
-        )
-          @card = card
-          @created = created
-          @ending_before = ending_before
-          @expand = expand
-          @limit = limit
-          @starting_after = starting_after
-          @status = status
-        end
-      end
-
-      class UpdateParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # Specifies which status the token should be updated to.
-        attr_accessor :status
-
-        def initialize(expand: nil, status: nil)
-          @expand = expand
-          @status = status
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       # Card associated with this token.
@@ -164,7 +153,7 @@ module Stripe
       attr_reader :id
       # The last four digits of the token.
       attr_reader :last4
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The token service provider / card network associated with the token.
       attr_reader :network
@@ -192,6 +181,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { network_data: NetworkData }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -9,14 +9,22 @@ module Stripe
       "credit_note_line_item"
     end
 
-    class DiscountAmount < Stripe::StripeObject
+    class DiscountAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the discount.
       attr_reader :amount
       # The discount that was applied to get this discount amount.
       attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class PretaxCreditAmount < Stripe::StripeObject
+    class PretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
       # The credit balance transaction that was applied to get this pretax credit amount.
@@ -25,12 +33,28 @@ module Stripe
       attr_reader :discount
       # Type of the pretax credit amount referenced.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Tax < Stripe::StripeObject
-      class TaxRateDetails < Stripe::StripeObject
-        # Attribute for field tax_rate
+    class Tax < ::Stripe::StripeObject
+      class TaxRateDetails < ::Stripe::StripeObject
+        # ID of the tax rate
         attr_reader :tax_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The amount of the tax, in cents (or local equivalent).
       attr_reader :amount
@@ -44,6 +68,14 @@ module Stripe
       attr_reader :taxable_amount
       # The type of tax information.
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { tax_rate_details: TaxRateDetails }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The integer amount in cents (or local equivalent) representing the gross amount being credited for this line item, excluding (exclusive) tax and discounts.
     attr_reader :amount
@@ -57,8 +89,10 @@ module Stripe
     attr_reader :id
     # ID of the invoice line item being credited
     attr_reader :invoice_line_item
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The pretax credit amounts (ex: discount, credit grants, etc) for this line item.
@@ -75,5 +109,21 @@ module Stripe
     attr_reader :unit_amount
     # Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     attr_reader :unit_amount_decimal
+
+    def self.inner_class_types
+      @inner_class_types = {
+        discount_amounts: DiscountAmount,
+        pretax_credit_amounts: PretaxCreditAmount,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
+
+    def self.field_encodings
+      @field_encodings = { unit_amount_decimal: :decimal_string }
+    end
   end
 end

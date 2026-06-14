@@ -14,466 +14,303 @@ module Stripe
     # the verification flow. The VerificationSession contains the user's verified data after
     # verification checks are complete.
     #
-    # Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
+    # Related guide: [The Verification Sessions API](https://docs.stripe.com/identity/verification-sessions)
     class VerificationSession < APIResource
-      class LastError < Stripe::StripeObject
+      class LastError < ::Stripe::StripeObject
         # A short machine-readable string giving the reason for the verification or user-session failure.
         sig { returns(T.nilable(String)) }
-        attr_reader :code
+        def code; end
         # A message that explains the reason for verification or user-session failure.
         sig { returns(T.nilable(String)) }
-        attr_reader :reason
+        def reason; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class Options < Stripe::StripeObject
-        class Document < Stripe::StripeObject
+      class Options < ::Stripe::StripeObject
+        class Document < ::Stripe::StripeObject
           # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-          sig { returns(T::Array[String]) }
-          attr_reader :allowed_types
-          # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
-          sig { returns(T::Boolean) }
-          attr_reader :require_id_number
+          sig { returns(T.nilable(T::Array[String])) }
+          def allowed_types; end
+          # Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
+          sig { returns(T.nilable(T::Boolean)) }
+          def require_id_number; end
           # Disable image uploads, identity document images have to be captured using the device’s camera.
-          sig { returns(T::Boolean) }
-          attr_reader :require_live_capture
-          # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
-          sig { returns(T::Boolean) }
-          attr_reader :require_matching_selfie
+          sig { returns(T.nilable(T::Boolean)) }
+          def require_live_capture; end
+          # Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://docs.stripe.com/identity/selfie).
+          sig { returns(T.nilable(T::Boolean)) }
+          def require_matching_selfie; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
-        class Email < Stripe::StripeObject
+        class Email < ::Stripe::StripeObject
           # Request one time password verification of `provided_details.email`.
-          sig { returns(T::Boolean) }
-          attr_reader :require_verification
+          sig { returns(T.nilable(T::Boolean)) }
+          def require_verification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
-        class IdNumber < Stripe::StripeObject; end
-        class Matching < Stripe::StripeObject
+        class IdNumber < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Matching < ::Stripe::StripeObject
           # Strictness of the DOB matching policy to apply.
-          sig { returns(String) }
-          attr_reader :dob
+          sig { returns(T.nilable(String)) }
+          def dob; end
           # Strictness of the name matching policy to apply.
-          sig { returns(String) }
-          attr_reader :name
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
-        class Phone < Stripe::StripeObject
+        class Phone < ::Stripe::StripeObject
           # Request one time password verification of `provided_details.phone`.
-          sig { returns(T::Boolean) }
-          attr_reader :require_verification
+          sig { returns(T.nilable(T::Boolean)) }
+          def require_verification; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field document
-        sig { returns(Document) }
-        attr_reader :document
+        sig { returns(T.nilable(Document)) }
+        def document; end
         # Attribute for field email
-        sig { returns(Email) }
-        attr_reader :email
+        sig { returns(T.nilable(Email)) }
+        def email; end
         # Attribute for field id_number
-        sig { returns(IdNumber) }
-        attr_reader :id_number
+        sig { returns(T.nilable(IdNumber)) }
+        def id_number; end
         # Attribute for field matching
-        sig { returns(Matching) }
-        attr_reader :matching
+        sig { returns(T.nilable(Matching)) }
+        def matching; end
         # Attribute for field phone
-        sig { returns(Phone) }
-        attr_reader :phone
+        sig { returns(T.nilable(Phone)) }
+        def phone; end
+        def self.inner_class_types
+          @inner_class_types = {
+            document: Document,
+            email: Email,
+            id_number: IdNumber,
+            matching: Matching,
+            phone: Phone,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class ProvidedDetails < Stripe::StripeObject
+      class ProvidedDetails < ::Stripe::StripeObject
         # Email of user being verified
-        sig { returns(String) }
-        attr_reader :email
+        sig { returns(T.nilable(String)) }
+        def email; end
         # Phone number of user being verified
-        sig { returns(String) }
-        attr_reader :phone
+        sig { returns(T.nilable(String)) }
+        def phone; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class Redaction < Stripe::StripeObject
+      class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
-        attr_reader :status
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class RelatedPerson < Stripe::StripeObject
+      class RelatedPerson < ::Stripe::StripeObject
         # Token referencing the associated Account of the related Person resource.
         sig { returns(String) }
-        attr_reader :account
+        def account; end
         # Token referencing the related Person resource.
         sig { returns(String) }
-        attr_reader :person
+        def person; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      class VerifiedOutputs < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class VerifiedOutputs < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           sig { returns(T.nilable(String)) }
-          attr_reader :city
+          def city; end
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           sig { returns(T.nilable(String)) }
-          attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          def country; end
+          # Address line 1, such as the street, PO Box, or company name.
           sig { returns(T.nilable(String)) }
-          attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          def line1; end
+          # Address line 2, such as the apartment, suite, unit, or building.
           sig { returns(T.nilable(String)) }
-          attr_reader :line2
+          def line2; end
           # ZIP or postal code.
           sig { returns(T.nilable(String)) }
-          attr_reader :postal_code
-          # State, county, province, or region.
+          def postal_code; end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(T.nilable(String)) }
-          attr_reader :state
+          def state; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
-        class Dob < Stripe::StripeObject
+        class Dob < ::Stripe::StripeObject
           # Numerical day between 1 and 31.
           sig { returns(T.nilable(Integer)) }
-          attr_reader :day
+          def day; end
           # Numerical month between 1 and 12.
           sig { returns(T.nilable(Integer)) }
-          attr_reader :month
+          def month; end
           # The four-digit year.
           sig { returns(T.nilable(Integer)) }
-          attr_reader :year
+          def year; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The user's verified address.
         sig { returns(T.nilable(Address)) }
-        attr_reader :address
+        def address; end
         # The user’s verified date of birth.
         sig { returns(T.nilable(Dob)) }
-        attr_reader :dob
+        def dob; end
         # The user's verified email address
         sig { returns(T.nilable(String)) }
-        attr_reader :email
+        def email; end
         # The user's verified first name.
         sig { returns(T.nilable(String)) }
-        attr_reader :first_name
+        def first_name; end
         # The user's verified id number.
         sig { returns(T.nilable(String)) }
-        attr_reader :id_number
+        def id_number; end
         # The user's verified id number type.
         sig { returns(T.nilable(String)) }
-        attr_reader :id_number_type
+        def id_number_type; end
         # The user's verified last name.
         sig { returns(T.nilable(String)) }
-        attr_reader :last_name
+        def last_name; end
         # The user's verified phone number
         sig { returns(T.nilable(String)) }
-        attr_reader :phone
+        def phone; end
         # The user's verified sex.
         sig { returns(T.nilable(String)) }
-        attr_reader :sex
+        def sex; end
         # The user's verified place of birth as it appears in the document.
         sig { returns(T.nilable(String)) }
-        attr_reader :unparsed_place_of_birth
+        def unparsed_place_of_birth; end
         # The user's verified sex as it appears in the document.
         sig { returns(T.nilable(String)) }
-        attr_reader :unparsed_sex
+        def unparsed_sex; end
+        def self.inner_class_types
+          @inner_class_types = {address: Address, dob: Dob}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }
-      attr_reader :client_reference_id
-      # The short-lived client secret used by Stripe.js to [show a verification modal](https://stripe.com/docs/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://stripe.com/docs/identity/verification-sessions#client-secret) to learn more.
+      def client_reference_id; end
+      # The short-lived client secret used by Stripe.js to [show a verification modal](https://docs.stripe.com/js/identity/modal) inside your app. This client secret expires after 24 hours and can only be used once. Don’t store it, log it, embed it in a URL, or expose it to anyone other than the user. Make sure that you have TLS enabled on any page that includes the client secret. Refer to our docs on [passing the client secret to the frontend](https://docs.stripe.com/identity/verification-sessions#client-secret) to learn more.
       sig { returns(T.nilable(String)) }
-      attr_reader :client_secret
+      def client_secret; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
-      attr_reader :created
+      def created; end
       # Unique identifier for the object.
       sig { returns(String) }
-      attr_reader :id
+      def id; end
       # If present, this property tells you the last error encountered when processing the verification.
       sig { returns(T.nilable(LastError)) }
-      attr_reader :last_error
-      # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://stripe.com/docs/identity/verification-sessions#results)
-      sig { returns(T.nilable(T.any(String, Stripe::Identity::VerificationReport))) }
-      attr_reader :last_verification_report
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      def last_error; end
+      # ID of the most recent VerificationReport. [Learn more about accessing detailed verification results.](https://docs.stripe.com/identity/verification-sessions#results)
+      sig { returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationReport))) }
+      def last_verification_report; end
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
-      attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      def livemode; end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T::Hash[String, String]) }
-      attr_reader :metadata
+      def metadata; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
-      attr_reader :object
+      def object; end
       # A set of options for the session’s verification checks.
       sig { returns(T.nilable(Options)) }
-      attr_reader :options
+      def options; end
       # Details provided about the user being verified. These details may be shown to the user.
       sig { returns(T.nilable(ProvidedDetails)) }
-      attr_reader :provided_details
+      def provided_details; end
       # Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
-      attr_reader :redaction
+      def redaction; end
       # Customer ID
       sig { returns(T.nilable(String)) }
-      attr_reader :related_customer
-      # Attribute for field related_person
-      sig { returns(RelatedPerson) }
-      attr_reader :related_person
-      # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
-      sig { returns(String) }
-      attr_reader :status
-      # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
-      sig { returns(String) }
-      attr_reader :type
-      # The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
+      def related_customer; end
+      # The ID of the Account representing a customer.
       sig { returns(T.nilable(String)) }
-      attr_reader :url
-      # The configuration token of a verification flow from the dashboard.
+      def related_customer_account; end
+      # Attribute for field related_person
+      sig { returns(T.nilable(RelatedPerson)) }
+      def related_person; end
+      # Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
       sig { returns(String) }
-      attr_reader :verification_flow
+      def status; end
+      # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
+      sig { returns(String) }
+      def type; end
+      # The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don’t store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://docs.stripe.com/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
+      sig { returns(T.nilable(String)) }
+      def url; end
+      # The configuration token of a verification flow from the dashboard.
+      sig { returns(T.nilable(String)) }
+      def verification_flow; end
       # The user’s verified data.
       sig { returns(T.nilable(VerifiedOutputs)) }
-      attr_reader :verified_outputs
-      class ListParams < Stripe::RequestParams
-        class Created < Stripe::RequestParams
-          # Minimum value to filter by (exclusive)
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :gt
-          # Minimum value to filter by (inclusive)
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :gte
-          # Maximum value to filter by (exclusive)
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :lt
-          # Maximum value to filter by (inclusive)
-          sig { returns(T.nilable(Integer)) }
-          attr_accessor :lte
-          sig {
-            params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
-           }
-          def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
-        end
-        # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :client_reference_id
-        # Only return VerificationSessions that were created during the given date interval.
-        sig {
-          returns(T.nilable(T.any(::Stripe::Identity::VerificationSession::ListParams::Created, Integer)))
-         }
-        attr_accessor :created
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :limit
-        # Attribute for param field related_customer
-        sig { returns(T.nilable(String)) }
-        attr_accessor :related_customer
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :starting_after
-        # Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
-        sig { returns(T.nilable(String)) }
-        attr_accessor :status
-        sig {
-          params(client_reference_id: T.nilable(String), created: T.nilable(T.any(::Stripe::Identity::VerificationSession::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), related_customer: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
-         }
-        def initialize(
-          client_reference_id: nil,
-          created: nil,
-          ending_before: nil,
-          expand: nil,
-          limit: nil,
-          related_customer: nil,
-          starting_after: nil,
-          status: nil
-        ); end
-      end
-      class CreateParams < Stripe::RequestParams
-        class Options < Stripe::RequestParams
-          class Document < Stripe::RequestParams
-            # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-            sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :allowed_types
-            # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_id_number
-            # Disable image uploads, identity document images have to be captured using the device’s camera.
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_live_capture
-            # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_matching_selfie
-            sig {
-              params(allowed_types: T.nilable(T::Array[String]), require_id_number: T.nilable(T::Boolean), require_live_capture: T.nilable(T::Boolean), require_matching_selfie: T.nilable(T::Boolean)).void
-             }
-            def initialize(
-              allowed_types: nil,
-              require_id_number: nil,
-              require_live_capture: nil,
-              require_matching_selfie: nil
-            ); end
-          end
-          # Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
-          sig {
-            returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSession::CreateParams::Options::Document)))
-           }
-          attr_accessor :document
-          sig {
-            params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSession::CreateParams::Options::Document))).void
-           }
-          def initialize(document: nil); end
-        end
-        class ProvidedDetails < Stripe::RequestParams
-          # Email of user being verified
-          sig { returns(T.nilable(String)) }
-          attr_accessor :email
-          # Phone number of user being verified
-          sig { returns(T.nilable(String)) }
-          attr_accessor :phone
-          sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
-          def initialize(email: nil, phone: nil); end
-        end
-        class RelatedPerson < Stripe::RequestParams
-          # A token representing a connected account. If provided, the person parameter is also required and must be associated with the account.
-          sig { returns(String) }
-          attr_accessor :account
-          # A token referencing a Person resource that this verification is being used to verify.
-          sig { returns(String) }
-          attr_accessor :person
-          sig { params(account: String, person: String).void }
-          def initialize(account: nil, person: nil); end
-        end
-        # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :client_reference_id
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
-        # A set of options for the session’s verification checks.
-        sig { returns(T.nilable(::Stripe::Identity::VerificationSession::CreateParams::Options)) }
-        attr_accessor :options
-        # Details provided about the user being verified. These details may be shown to the user.
-        sig {
-          returns(T.nilable(::Stripe::Identity::VerificationSession::CreateParams::ProvidedDetails))
-         }
-        attr_accessor :provided_details
-        # Customer ID
-        sig { returns(T.nilable(String)) }
-        attr_accessor :related_customer
-        # Tokens referencing a Person resource and it's associated account.
-        sig {
-          returns(T.nilable(::Stripe::Identity::VerificationSession::CreateParams::RelatedPerson))
-         }
-        attr_accessor :related_person
-        # The URL that the user will be redirected to upon completing the verification flow.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :return_url
-        # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :type
-        # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :verification_flow
-        sig {
-          params(client_reference_id: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSession::CreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSession::CreateParams::ProvidedDetails), related_customer: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSession::CreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
-         }
-        def initialize(
-          client_reference_id: nil,
-          expand: nil,
-          metadata: nil,
-          options: nil,
-          provided_details: nil,
-          related_customer: nil,
-          related_person: nil,
-          return_url: nil,
-          type: nil,
-          verification_flow: nil
-        ); end
-      end
-      class UpdateParams < Stripe::RequestParams
-        class Options < Stripe::RequestParams
-          class Document < Stripe::RequestParams
-            # Array of strings of allowed identity document types. If the provided identity document isn’t one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-            sig { returns(T.nilable(T::Array[String])) }
-            attr_accessor :allowed_types
-            # Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document’s extracted name and date of birth.
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_id_number
-            # Disable image uploads, identity document images have to be captured using the device’s camera.
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_live_capture
-            # Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user’s face. [Learn more](https://stripe.com/docs/identity/selfie).
-            sig { returns(T.nilable(T::Boolean)) }
-            attr_accessor :require_matching_selfie
-            sig {
-              params(allowed_types: T.nilable(T::Array[String]), require_id_number: T.nilable(T::Boolean), require_live_capture: T.nilable(T::Boolean), require_matching_selfie: T.nilable(T::Boolean)).void
-             }
-            def initialize(
-              allowed_types: nil,
-              require_id_number: nil,
-              require_live_capture: nil,
-              require_matching_selfie: nil
-            ); end
-          end
-          # Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
-          sig {
-            returns(T.nilable(T.any(String, ::Stripe::Identity::VerificationSession::UpdateParams::Options::Document)))
-           }
-          attr_accessor :document
-          sig {
-            params(document: T.nilable(T.any(String, ::Stripe::Identity::VerificationSession::UpdateParams::Options::Document))).void
-           }
-          def initialize(document: nil); end
-        end
-        class ProvidedDetails < Stripe::RequestParams
-          # Email of user being verified
-          sig { returns(T.nilable(String)) }
-          attr_accessor :email
-          # Phone number of user being verified
-          sig { returns(T.nilable(String)) }
-          attr_accessor :phone
-          sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
-          def initialize(email: nil, phone: nil); end
-        end
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        sig { returns(T.nilable(T::Hash[String, String])) }
-        attr_accessor :metadata
-        # A set of options for the session’s verification checks.
-        sig { returns(T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::Options)) }
-        attr_accessor :options
-        # Details provided about the user being verified. These details may be shown to the user.
-        sig {
-          returns(T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::ProvidedDetails))
-         }
-        attr_accessor :provided_details
-        # The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
-        sig { returns(T.nilable(String)) }
-        attr_accessor :type
-        sig {
-          params(expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSession::UpdateParams::ProvidedDetails), type: T.nilable(String)).void
-         }
-        def initialize(
-          expand: nil,
-          metadata: nil,
-          options: nil,
-          provided_details: nil,
-          type: nil
-        ); end
-      end
-      class CancelParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
-      class RedactParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        sig { returns(T.nilable(T::Array[String])) }
-        attr_accessor :expand
-        sig { params(expand: T.nilable(T::Array[String])).void }
-        def initialize(expand: nil); end
-      end
+      def verified_outputs; end
       # A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSession::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def cancel(params = {}, opts = {}); end
 
@@ -481,7 +318,7 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSession::CancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.cancel(session, params = {}, opts = {}); end
 
@@ -493,13 +330,13 @@ module Stripe
       #
       # Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSession::CreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.create(params = {}, opts = {}); end
 
       # Returns a list of VerificationSessions
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSession::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+        params(params: T.any(::Stripe::Identity::VerificationSessionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
 
@@ -523,7 +360,7 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(params: T.any(::Stripe::Identity::VerificationSession::RedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def redact(params = {}, opts = {}); end
 
@@ -547,7 +384,7 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSession::RedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.redact(session, params = {}, opts = {}); end
 
@@ -556,7 +393,7 @@ module Stripe
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSession::UpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Identity::VerificationSession)
+        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
       def self.update(session, params = {}, opts = {}); end
     end

@@ -6,7 +6,7 @@ module Stripe
   # later. You can also store multiple debit cards on a recipient in order to
   # transfer to those cards later.
   #
-  # Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
+  # Related guide: [Card payments with Sources](https://docs.stripe.com/sources/cards)
   class Card < APIResource
     include Stripe::APIOperations::Delete
     extend Stripe::APIOperations::List
@@ -17,9 +17,17 @@ module Stripe
       "card"
     end
 
-    class Networks < Stripe::StripeObject
+    class Networks < ::Stripe::StripeObject
       # The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
       attr_reader :preferred
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field account
     attr_reader :account
@@ -43,7 +51,7 @@ module Stripe
     attr_reader :allow_redisplay
     # A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     attr_reader :available_payout_methods
-    # Card brand. Can be `American Express`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
+    # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     attr_reader :brand
     # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
     attr_reader :country
@@ -55,6 +63,8 @@ module Stripe
     attr_reader :cvc_check
     # Whether this card is the default external account for its currency. This property is only available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts.
     attr_reader :default_for_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
     attr_reader :description
     # (For tokenized numbers only.) The last four digits of the device account number.
@@ -77,7 +87,7 @@ module Stripe
     attr_reader :issuer
     # The last four digits of the card.
     attr_reader :last4
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Cardholder name.
     attr_reader :name
@@ -91,8 +101,6 @@ module Stripe
     attr_reader :status
     # If the card number is tokenized, this is the method that was used. Can be `android_pay` (includes Google Pay), `apple_pay`, `masterpass`, `visa_checkout`, or null.
     attr_reader :tokenization_method
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def resource_url
       if respond_to?(:customer) && !customer.nil? && !customer.empty?
@@ -141,6 +149,14 @@ module Stripe
             "ID. List cards using `Customer.list_sources(" \
             "'customer_id')` or " \
             "`Account.list_external_accounts('account_id')`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { networks: Networks }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

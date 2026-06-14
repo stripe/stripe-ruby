@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "stripe/events/unknown_event_notification"
 
 module Stripe
   class StripeClient
@@ -42,7 +43,7 @@ module Stripe
         connect_base: connect_base,
         meter_events_base: meter_events_base,
         client_id: client_id,
-      }.reject { |_k, v| v.nil? }
+      }.compact
 
       config = StripeConfiguration.client_init(config_opts)
       @requestor = APIRequestor.new(config)
@@ -59,7 +60,7 @@ module Stripe
     extend Gem::Deprecate
     deprecate :request, :raw_request, 2024, 9
 
-    def parse_thin_event(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
+    def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
 
       # v2 events use the same signing mechanism as v1 events
@@ -67,15 +68,23 @@ module Stripe
 
       parsed = JSON.parse(payload, symbolize_names: true)
 
-      Stripe::ThinEvent.new(parsed)
+      if parsed[:object] == "event"
+        raise ArgumentError,
+              "You passed a webhook payload to StripeClient#parse_event_notification, which " \
+              "expects an event notification. Use Webhook.construct_event instead."
+      end
+
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
+
+      cls.new(parsed, self)
     end
 
-    def raw_request(method, url, base_address: :api, params: {}, opts: {})
+    def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)
 
       params = params.to_h if params.is_a?(Stripe::RequestParams)
-      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
+      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: usage || ["raw_request"])
 
       @requestor.interpret_response(resp)
     end

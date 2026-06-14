@@ -12,7 +12,7 @@ module Stripe
       "source_transaction"
     end
 
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Customer data associated with the transfer.
       attr_reader :customer_data
       # Bank account fingerprint associated with the transfer.
@@ -21,9 +21,17 @@ module Stripe
       attr_reader :last4
       # Routing number associated with the transfer.
       attr_reader :routing_number
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class ChfCreditTransfer < Stripe::StripeObject
+    class ChfCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       attr_reader :reference
       # Sender's country address.
@@ -34,9 +42,17 @@ module Stripe
       attr_reader :sender_iban
       # Sender's name.
       attr_reader :sender_name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class GbpCreditTransfer < Stripe::StripeObject
+    class GbpCreditTransfer < ::Stripe::StripeObject
       # Bank account fingerprint associated with the Stripe owned bank account receiving the transfer.
       attr_reader :fingerprint
       # The credit transfer rails the sender used to push this transfer. The possible rails are: Faster Payments, BACS, CHAPS, and wire transfers. Currently only Faster Payments is supported.
@@ -51,22 +67,46 @@ module Stripe
       attr_reader :sender_name
       # Sender sort code associated with the transfer.
       attr_reader :sender_sort_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class PaperCheck < Stripe::StripeObject
+    class PaperCheck < ::Stripe::StripeObject
       # Time at which the deposited funds will be available for use. Measured in seconds since the Unix epoch.
       attr_reader :available_at
       # Comma-separated list of invoice IDs associated with the paper check.
       attr_reader :invoices
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Reference associated with the transfer.
       attr_reader :reference
       # Sender's bank account IBAN.
       attr_reader :sender_iban
       # Sender's name.
       attr_reader :sender_name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field ach_credit_transfer
     attr_reader :ach_credit_transfer
@@ -82,7 +122,7 @@ module Stripe
     attr_reader :gbp_credit_transfer
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -96,5 +136,19 @@ module Stripe
     attr_reader :status
     # The type of source this transaction is attached to.
     attr_reader :type
+
+    def self.inner_class_types
+      @inner_class_types = {
+        ach_credit_transfer: AchCreditTransfer,
+        chf_credit_transfer: ChfCreditTransfer,
+        gbp_credit_transfer: GbpCreditTransfer,
+        paper_check: PaperCheck,
+        sepa_credit_transfer: SepaCreditTransfer,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

@@ -3,11 +3,11 @@
 
 module Stripe
   module Tax
-    # A Tax `Registration` lets us know that your business is registered to collect tax on payments within a region, enabling you to [automatically collect tax](https://stripe.com/docs/tax).
+    # A Tax `Registration` lets us know that your business is registered to collect tax on payments within a region, enabling you to [automatically collect tax](https://docs.stripe.com/tax).
     #
-    # Stripe doesn't register on your behalf with the relevant authorities when you create a Tax `Registration` object. For more information on how to register to collect tax, see [our guide](https://stripe.com/docs/tax/registering).
+    # Stripe doesn't register on your behalf with the relevant authorities when you create a Tax `Registration` object. For more information on how to register to collect tax, see [our guide](https://docs.stripe.com/tax/registering).
     #
-    # Related guide: [Using the Registrations API](https://stripe.com/docs/tax/registrations-api)
+    # Related guide: [Using the Registrations API](https://docs.stripe.com/tax/registrations-api)
     class Registration < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -18,703 +18,1785 @@ module Stripe
         "tax.registration"
       end
 
-      class CountryOptions < Stripe::StripeObject
-        class Ae < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+      class CountryOptions < ::Stripe::StripeObject
+        class Ae < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Al < Stripe::StripeObject
+        class Al < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Am < Stripe::StripeObject
+        class Am < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ao < Stripe::StripeObject
+        class Ao < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class At < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class At < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Au < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Au < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Aw < Stripe::StripeObject
+        class Aw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Az < Stripe::StripeObject
+        class Az < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ba < Stripe::StripeObject
+        class Ba < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bb < Stripe::StripeObject
+        class Bb < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bd < Stripe::StripeObject
+        class Bd < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Be < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Be < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bf < Stripe::StripeObject
+        class Bf < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Bg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bh < Stripe::StripeObject
+        class Bh < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bj < Stripe::StripeObject
+        class Bj < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Bs < Stripe::StripeObject
+        class Bs < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class By < Stripe::StripeObject
+        class By < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ca < Stripe::StripeObject
-          class ProvinceStandard < Stripe::StripeObject
+        class Ca < ::Stripe::StripeObject
+          class ProvinceStandard < ::Stripe::StripeObject
             # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :province
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field province_standard
           attr_reader :province_standard
           # Type of registration in Canada.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { province_standard: ProvinceStandard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cd < Stripe::StripeObject
+        class Cd < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ch < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ch < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cl < Stripe::StripeObject
+        class Cl < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cm < Stripe::StripeObject
+        class Cm < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Co < Stripe::StripeObject
+        class Co < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cr < Stripe::StripeObject
+        class Cr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cv < Stripe::StripeObject
+        class Cv < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cy < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cy < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Cz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Cz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class De < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class De < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Dk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Dk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ec < Stripe::StripeObject
+        class Ec < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ee < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ee < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Eg < Stripe::StripeObject
+        class Eg < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Es < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Es < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Et < Stripe::StripeObject
+        class Et < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Fi < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fi < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Fr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Fr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Gb < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gb < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ge < Stripe::StripeObject
+        class Ge < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Gn < Stripe::StripeObject
+        class Gn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Gr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Gr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Hr < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hr < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Hu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Hu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Id < Stripe::StripeObject
+        class Id < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ie < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ie < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class In < Stripe::StripeObject
+        class In < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Is < Stripe::StripeObject
+        class Is < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class It < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class It < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Jp < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Jp < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ke < Stripe::StripeObject
+        class Ke < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Kg < Stripe::StripeObject
+        class Kg < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Kh < Stripe::StripeObject
+        class Kh < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Kr < Stripe::StripeObject
+        class Kr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Kz < Stripe::StripeObject
+        class Kz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class La < Stripe::StripeObject
+        class La < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Lt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lk < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Lt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Lu < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lu < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Lv < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Lv < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ma < Stripe::StripeObject
+        class Ma < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Md < Stripe::StripeObject
+        class Md < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Me < Stripe::StripeObject
+        class Me < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Mk < Stripe::StripeObject
+        class Mk < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Mr < Stripe::StripeObject
+        class Mr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Mt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Mt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Mx < Stripe::StripeObject
+        class Mx < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class My < Stripe::StripeObject
+        class My < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ng < Stripe::StripeObject
+        class Ng < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Nl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class No < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class No < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Np < Stripe::StripeObject
+        class Np < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Nz < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Nz < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Om < Stripe::StripeObject
+        class Om < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Pe < Stripe::StripeObject
+        class Pe < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ph < Stripe::StripeObject
+        class Ph < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Pl < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pl < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Pt < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Pt < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ro < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Ro < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Rs < Stripe::StripeObject
+        class Rs < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ru < Stripe::StripeObject
+        class Ru < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Sa < Stripe::StripeObject
+        class Sa < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Se < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Se < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Sg < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sg < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an Default standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Si < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Si < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Sk < Stripe::StripeObject
-          class Standard < Stripe::StripeObject
+        class Sk < ::Stripe::StripeObject
+          class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { standard: Standard }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Sn < Stripe::StripeObject
+        class Sn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Sr < Stripe::StripeObject
+        class Sr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Th < Stripe::StripeObject
+        class Th < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Tj < Stripe::StripeObject
+        class Tj < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Tr < Stripe::StripeObject
+        class Tr < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Tz < Stripe::StripeObject
+        class Tw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ua < Stripe::StripeObject
+        class Tz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Ug < Stripe::StripeObject
+        class Ua < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Us < Stripe::StripeObject
-          class LocalAmusementTax < Stripe::StripeObject
+        class Ug < ::Stripe::StripeObject
+          # Type of registration in `country`.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Us < ::Stripe::StripeObject
+          class LocalAmusementTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
-          class LocalLeaseTax < Stripe::StripeObject
+          class LocalLeaseTax < ::Stripe::StripeObject
             # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
             attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
 
-          class StateSalesTax < Stripe::StripeObject
-            class Election < Stripe::StripeObject
+          class StateSalesTax < ::Stripe::StripeObject
+            class Election < ::Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
               attr_reader :jurisdiction
               # The type of the election for the state sales tax registration.
               attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
             end
             # Elections for the state sales tax registration.
             attr_reader :elections
+
+            def self.inner_class_types
+              @inner_class_types = { elections: Election }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field local_amusement_tax
           attr_reader :local_amusement_tax
@@ -726,36 +1808,96 @@ module Stripe
           attr_reader :state_sales_tax
           # Type of registration in the US.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              local_amusement_tax: LocalAmusementTax,
+              local_lease_tax: LocalLeaseTax,
+              state_sales_tax: StateSalesTax,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Uy < Stripe::StripeObject
+        class Uy < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Uz < Stripe::StripeObject
+        class Uz < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Vn < Stripe::StripeObject
+        class Vn < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Za < Stripe::StripeObject
+        class Za < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Zm < Stripe::StripeObject
+        class Zm < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Zw < Stripe::StripeObject
+        class Zw < ::Stripe::StripeObject
           # Type of registration in `country`.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field ae
         attr_reader :ae
@@ -867,6 +2009,8 @@ module Stripe
         attr_reader :kz
         # Attribute for field la
         attr_reader :la
+        # Attribute for field lk
+        attr_reader :lk
         # Attribute for field lt
         attr_reader :lt
         # Attribute for field lu
@@ -935,6 +2079,8 @@ module Stripe
         attr_reader :tj
         # Attribute for field tr
         attr_reader :tr
+        # Attribute for field tw
+        attr_reader :tw
         # Attribute for field tz
         attr_reader :tz
         # Attribute for field ua
@@ -955,2059 +2101,115 @@ module Stripe
         attr_reader :zm
         # Attribute for field zw
         attr_reader :zw
-      end
 
-      class ListParams < Stripe::RequestParams
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
-        # The status of the Tax Registration.
-        attr_accessor :status
-
-        def initialize(
-          ending_before: nil,
-          expand: nil,
-          limit: nil,
-          starting_after: nil,
-          status: nil
-        )
-          @ending_before = ending_before
-          @expand = expand
-          @limit = limit
-          @starting_after = starting_after
-          @status = status
+        def self.inner_class_types
+          @inner_class_types = {
+            ae: Ae,
+            al: Al,
+            am: Am,
+            ao: Ao,
+            at: At,
+            au: Au,
+            aw: Aw,
+            az: Az,
+            ba: Ba,
+            bb: Bb,
+            bd: Bd,
+            be: Be,
+            bf: Bf,
+            bg: Bg,
+            bh: Bh,
+            bj: Bj,
+            bs: Bs,
+            by: By,
+            ca: Ca,
+            cd: Cd,
+            ch: Ch,
+            cl: Cl,
+            cm: Cm,
+            co: Co,
+            cr: Cr,
+            cv: Cv,
+            cy: Cy,
+            cz: Cz,
+            de: De,
+            dk: Dk,
+            ec: Ec,
+            ee: Ee,
+            eg: Eg,
+            es: Es,
+            et: Et,
+            fi: Fi,
+            fr: Fr,
+            gb: Gb,
+            ge: Ge,
+            gn: Gn,
+            gr: Gr,
+            hr: Hr,
+            hu: Hu,
+            id: Id,
+            ie: Ie,
+            in: In,
+            is: Is,
+            it: It,
+            jp: Jp,
+            ke: Ke,
+            kg: Kg,
+            kh: Kh,
+            kr: Kr,
+            kz: Kz,
+            la: La,
+            lk: Lk,
+            lt: Lt,
+            lu: Lu,
+            lv: Lv,
+            ma: Ma,
+            md: Md,
+            me: Me,
+            mk: Mk,
+            mr: Mr,
+            mt: Mt,
+            mx: Mx,
+            my: My,
+            ng: Ng,
+            nl: Nl,
+            no: No,
+            np: Np,
+            nz: Nz,
+            om: Om,
+            pe: Pe,
+            ph: Ph,
+            pl: Pl,
+            pt: Pt,
+            ro: Ro,
+            rs: Rs,
+            ru: Ru,
+            sa: Sa,
+            se: Se,
+            sg: Sg,
+            si: Si,
+            sk: Sk,
+            sn: Sn,
+            sr: Sr,
+            th: Th,
+            tj: Tj,
+            tr: Tr,
+            tw: Tw,
+            tz: Tz,
+            ua: Ua,
+            ug: Ug,
+            us: Us,
+            uy: Uy,
+            uz: Uz,
+            vn: Vn,
+            za: Za,
+            zm: Zm,
+            zw: Zw,
+          }
         end
-      end
 
-      class CreateParams < Stripe::RequestParams
-        class CountryOptions < Stripe::RequestParams
-          class Ae < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Al < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Am < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ao < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class At < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Au < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Aw < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Az < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ba < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bb < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bd < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Be < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bf < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bg < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bh < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Bj < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Bs < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class By < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ca < Stripe::RequestParams
-            class ProvinceStandard < Stripe::RequestParams
-              # Two-letter CA province code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-              attr_accessor :province
-
-              def initialize(province: nil)
-                @province = province
-              end
-            end
-            # Options for the provincial tax registration.
-            attr_accessor :province_standard
-            # Type of registration to be created in Canada.
-            attr_accessor :type
-
-            def initialize(province_standard: nil, type: nil)
-              @province_standard = province_standard
-              @type = type
-            end
-          end
-
-          class Cd < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ch < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Cl < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Cm < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Co < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Cr < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Cv < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Cy < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Cz < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class De < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Dk < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ec < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ee < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Eg < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Es < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Et < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Fi < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Fr < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Gb < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ge < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Gn < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Gr < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Hr < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Hu < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Id < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ie < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class In < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Is < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class It < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Jp < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ke < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Kg < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Kh < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Kr < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Kz < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class La < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Lt < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Lu < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Lv < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ma < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Md < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Me < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Mk < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Mr < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Mt < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Mx < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class My < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ng < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Nl < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class No < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Np < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Nz < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Om < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Pe < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ph < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Pl < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Pt < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ro < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Rs < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Ru < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Sa < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Se < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Sg < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Si < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Sk < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an EU standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in an EU country.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Sn < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Sr < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Th < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Tj < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Tr < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Tz < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ua < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Ug < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Us < Stripe::RequestParams
-            class LocalAmusementTax < Stripe::RequestParams
-              # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `06613` (Bloomington), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), and `68081` (Schiller Park).
-              attr_accessor :jurisdiction
-
-              def initialize(jurisdiction: nil)
-                @jurisdiction = jurisdiction
-              end
-            end
-
-            class LocalLeaseTax < Stripe::RequestParams
-              # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
-              attr_accessor :jurisdiction
-
-              def initialize(jurisdiction: nil)
-                @jurisdiction = jurisdiction
-              end
-            end
-
-            class StateSalesTax < Stripe::RequestParams
-              class Election < Stripe::RequestParams
-                # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
-                attr_accessor :jurisdiction
-                # The type of the election for the state sales tax registration.
-                attr_accessor :type
-
-                def initialize(jurisdiction: nil, type: nil)
-                  @jurisdiction = jurisdiction
-                  @type = type
-                end
-              end
-              # Elections for the state sales tax registration.
-              attr_accessor :elections
-
-              def initialize(elections: nil)
-                @elections = elections
-              end
-            end
-            # Options for the local amusement tax registration.
-            attr_accessor :local_amusement_tax
-            # Options for the local lease tax registration.
-            attr_accessor :local_lease_tax
-            # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-            attr_accessor :state
-            # Options for the state sales tax registration.
-            attr_accessor :state_sales_tax
-            # Type of registration to be created in the US.
-            attr_accessor :type
-
-            def initialize(
-              local_amusement_tax: nil,
-              local_lease_tax: nil,
-              state: nil,
-              state_sales_tax: nil,
-              type: nil
-            )
-              @local_amusement_tax = local_amusement_tax
-              @local_lease_tax = local_lease_tax
-              @state = state
-              @state_sales_tax = state_sales_tax
-              @type = type
-            end
-          end
-
-          class Uy < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Uz < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Vn < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Za < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-
-          class Zm < Stripe::RequestParams
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(type: nil)
-              @type = type
-            end
-          end
-
-          class Zw < Stripe::RequestParams
-            class Standard < Stripe::RequestParams
-              # Place of supply scheme used in an standard registration.
-              attr_accessor :place_of_supply_scheme
-
-              def initialize(place_of_supply_scheme: nil)
-                @place_of_supply_scheme = place_of_supply_scheme
-              end
-            end
-            # Options for the standard registration.
-            attr_accessor :standard
-            # Type of registration to be created in `country`.
-            attr_accessor :type
-
-            def initialize(standard: nil, type: nil)
-              @standard = standard
-              @type = type
-            end
-          end
-          # Options for the registration in AE.
-          attr_accessor :ae
-          # Options for the registration in AL.
-          attr_accessor :al
-          # Options for the registration in AM.
-          attr_accessor :am
-          # Options for the registration in AO.
-          attr_accessor :ao
-          # Options for the registration in AT.
-          attr_accessor :at
-          # Options for the registration in AU.
-          attr_accessor :au
-          # Options for the registration in AW.
-          attr_accessor :aw
-          # Options for the registration in AZ.
-          attr_accessor :az
-          # Options for the registration in BA.
-          attr_accessor :ba
-          # Options for the registration in BB.
-          attr_accessor :bb
-          # Options for the registration in BD.
-          attr_accessor :bd
-          # Options for the registration in BE.
-          attr_accessor :be
-          # Options for the registration in BF.
-          attr_accessor :bf
-          # Options for the registration in BG.
-          attr_accessor :bg
-          # Options for the registration in BH.
-          attr_accessor :bh
-          # Options for the registration in BJ.
-          attr_accessor :bj
-          # Options for the registration in BS.
-          attr_accessor :bs
-          # Options for the registration in BY.
-          attr_accessor :by
-          # Options for the registration in CA.
-          attr_accessor :ca
-          # Options for the registration in CD.
-          attr_accessor :cd
-          # Options for the registration in CH.
-          attr_accessor :ch
-          # Options for the registration in CL.
-          attr_accessor :cl
-          # Options for the registration in CM.
-          attr_accessor :cm
-          # Options for the registration in CO.
-          attr_accessor :co
-          # Options for the registration in CR.
-          attr_accessor :cr
-          # Options for the registration in CV.
-          attr_accessor :cv
-          # Options for the registration in CY.
-          attr_accessor :cy
-          # Options for the registration in CZ.
-          attr_accessor :cz
-          # Options for the registration in DE.
-          attr_accessor :de
-          # Options for the registration in DK.
-          attr_accessor :dk
-          # Options for the registration in EC.
-          attr_accessor :ec
-          # Options for the registration in EE.
-          attr_accessor :ee
-          # Options for the registration in EG.
-          attr_accessor :eg
-          # Options for the registration in ES.
-          attr_accessor :es
-          # Options for the registration in ET.
-          attr_accessor :et
-          # Options for the registration in FI.
-          attr_accessor :fi
-          # Options for the registration in FR.
-          attr_accessor :fr
-          # Options for the registration in GB.
-          attr_accessor :gb
-          # Options for the registration in GE.
-          attr_accessor :ge
-          # Options for the registration in GN.
-          attr_accessor :gn
-          # Options for the registration in GR.
-          attr_accessor :gr
-          # Options for the registration in HR.
-          attr_accessor :hr
-          # Options for the registration in HU.
-          attr_accessor :hu
-          # Options for the registration in ID.
-          attr_accessor :id
-          # Options for the registration in IE.
-          attr_accessor :ie
-          # Options for the registration in IN.
-          attr_accessor :in
-          # Options for the registration in IS.
-          attr_accessor :is
-          # Options for the registration in IT.
-          attr_accessor :it
-          # Options for the registration in JP.
-          attr_accessor :jp
-          # Options for the registration in KE.
-          attr_accessor :ke
-          # Options for the registration in KG.
-          attr_accessor :kg
-          # Options for the registration in KH.
-          attr_accessor :kh
-          # Options for the registration in KR.
-          attr_accessor :kr
-          # Options for the registration in KZ.
-          attr_accessor :kz
-          # Options for the registration in LA.
-          attr_accessor :la
-          # Options for the registration in LT.
-          attr_accessor :lt
-          # Options for the registration in LU.
-          attr_accessor :lu
-          # Options for the registration in LV.
-          attr_accessor :lv
-          # Options for the registration in MA.
-          attr_accessor :ma
-          # Options for the registration in MD.
-          attr_accessor :md
-          # Options for the registration in ME.
-          attr_accessor :me
-          # Options for the registration in MK.
-          attr_accessor :mk
-          # Options for the registration in MR.
-          attr_accessor :mr
-          # Options for the registration in MT.
-          attr_accessor :mt
-          # Options for the registration in MX.
-          attr_accessor :mx
-          # Options for the registration in MY.
-          attr_accessor :my
-          # Options for the registration in NG.
-          attr_accessor :ng
-          # Options for the registration in NL.
-          attr_accessor :nl
-          # Options for the registration in NO.
-          attr_accessor :no
-          # Options for the registration in NP.
-          attr_accessor :np
-          # Options for the registration in NZ.
-          attr_accessor :nz
-          # Options for the registration in OM.
-          attr_accessor :om
-          # Options for the registration in PE.
-          attr_accessor :pe
-          # Options for the registration in PH.
-          attr_accessor :ph
-          # Options for the registration in PL.
-          attr_accessor :pl
-          # Options for the registration in PT.
-          attr_accessor :pt
-          # Options for the registration in RO.
-          attr_accessor :ro
-          # Options for the registration in RS.
-          attr_accessor :rs
-          # Options for the registration in RU.
-          attr_accessor :ru
-          # Options for the registration in SA.
-          attr_accessor :sa
-          # Options for the registration in SE.
-          attr_accessor :se
-          # Options for the registration in SG.
-          attr_accessor :sg
-          # Options for the registration in SI.
-          attr_accessor :si
-          # Options for the registration in SK.
-          attr_accessor :sk
-          # Options for the registration in SN.
-          attr_accessor :sn
-          # Options for the registration in SR.
-          attr_accessor :sr
-          # Options for the registration in TH.
-          attr_accessor :th
-          # Options for the registration in TJ.
-          attr_accessor :tj
-          # Options for the registration in TR.
-          attr_accessor :tr
-          # Options for the registration in TZ.
-          attr_accessor :tz
-          # Options for the registration in UA.
-          attr_accessor :ua
-          # Options for the registration in UG.
-          attr_accessor :ug
-          # Options for the registration in US.
-          attr_accessor :us
-          # Options for the registration in UY.
-          attr_accessor :uy
-          # Options for the registration in UZ.
-          attr_accessor :uz
-          # Options for the registration in VN.
-          attr_accessor :vn
-          # Options for the registration in ZA.
-          attr_accessor :za
-          # Options for the registration in ZM.
-          attr_accessor :zm
-          # Options for the registration in ZW.
-          attr_accessor :zw
-
-          def initialize(
-            ae: nil,
-            al: nil,
-            am: nil,
-            ao: nil,
-            at: nil,
-            au: nil,
-            aw: nil,
-            az: nil,
-            ba: nil,
-            bb: nil,
-            bd: nil,
-            be: nil,
-            bf: nil,
-            bg: nil,
-            bh: nil,
-            bj: nil,
-            bs: nil,
-            by: nil,
-            ca: nil,
-            cd: nil,
-            ch: nil,
-            cl: nil,
-            cm: nil,
-            co: nil,
-            cr: nil,
-            cv: nil,
-            cy: nil,
-            cz: nil,
-            de: nil,
-            dk: nil,
-            ec: nil,
-            ee: nil,
-            eg: nil,
-            es: nil,
-            et: nil,
-            fi: nil,
-            fr: nil,
-            gb: nil,
-            ge: nil,
-            gn: nil,
-            gr: nil,
-            hr: nil,
-            hu: nil,
-            id: nil,
-            ie: nil,
-            in_: nil,
-            is: nil,
-            it: nil,
-            jp: nil,
-            ke: nil,
-            kg: nil,
-            kh: nil,
-            kr: nil,
-            kz: nil,
-            la: nil,
-            lt: nil,
-            lu: nil,
-            lv: nil,
-            ma: nil,
-            md: nil,
-            me: nil,
-            mk: nil,
-            mr: nil,
-            mt: nil,
-            mx: nil,
-            my: nil,
-            ng: nil,
-            nl: nil,
-            no: nil,
-            np: nil,
-            nz: nil,
-            om: nil,
-            pe: nil,
-            ph: nil,
-            pl: nil,
-            pt: nil,
-            ro: nil,
-            rs: nil,
-            ru: nil,
-            sa: nil,
-            se: nil,
-            sg: nil,
-            si: nil,
-            sk: nil,
-            sn: nil,
-            sr: nil,
-            th: nil,
-            tj: nil,
-            tr: nil,
-            tz: nil,
-            ua: nil,
-            ug: nil,
-            us: nil,
-            uy: nil,
-            uz: nil,
-            vn: nil,
-            za: nil,
-            zm: nil,
-            zw: nil
-          )
-            @ae = ae
-            @al = al
-            @am = am
-            @ao = ao
-            @at = at
-            @au = au
-            @aw = aw
-            @az = az
-            @ba = ba
-            @bb = bb
-            @bd = bd
-            @be = be
-            @bf = bf
-            @bg = bg
-            @bh = bh
-            @bj = bj
-            @bs = bs
-            @by = by
-            @ca = ca
-            @cd = cd
-            @ch = ch
-            @cl = cl
-            @cm = cm
-            @co = co
-            @cr = cr
-            @cv = cv
-            @cy = cy
-            @cz = cz
-            @de = de
-            @dk = dk
-            @ec = ec
-            @ee = ee
-            @eg = eg
-            @es = es
-            @et = et
-            @fi = fi
-            @fr = fr
-            @gb = gb
-            @ge = ge
-            @gn = gn
-            @gr = gr
-            @hr = hr
-            @hu = hu
-            @id = id
-            @ie = ie
-            @in = in_
-            @is = is
-            @it = it
-            @jp = jp
-            @ke = ke
-            @kg = kg
-            @kh = kh
-            @kr = kr
-            @kz = kz
-            @la = la
-            @lt = lt
-            @lu = lu
-            @lv = lv
-            @ma = ma
-            @md = md
-            @me = me
-            @mk = mk
-            @mr = mr
-            @mt = mt
-            @mx = mx
-            @my = my
-            @ng = ng
-            @nl = nl
-            @no = no
-            @np = np
-            @nz = nz
-            @om = om
-            @pe = pe
-            @ph = ph
-            @pl = pl
-            @pt = pt
-            @ro = ro
-            @rs = rs
-            @ru = ru
-            @sa = sa
-            @se = se
-            @sg = sg
-            @si = si
-            @sk = sk
-            @sn = sn
-            @sr = sr
-            @th = th
-            @tj = tj
-            @tr = tr
-            @tz = tz
-            @ua = ua
-            @ug = ug
-            @us = us
-            @uy = uy
-            @uz = uz
-            @vn = vn
-            @za = za
-            @zm = zm
-            @zw = zw
-          end
-        end
-        # Time at which the Tax Registration becomes active. It can be either `now` to indicate the current time, or a future timestamp measured in seconds since the Unix epoch.
-        attr_accessor :active_from
-        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        attr_accessor :country
-        # Specific options for a registration in the specified `country`.
-        attr_accessor :country_options
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
-        attr_accessor :expires_at
-
-        def initialize(
-          active_from: nil,
-          country: nil,
-          country_options: nil,
-          expand: nil,
-          expires_at: nil
-        )
-          @active_from = active_from
-          @country = country
-          @country_options = country_options
-          @expand = expand
-          @expires_at = expires_at
-        end
-      end
-
-      class UpdateParams < Stripe::RequestParams
-        # Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
-        attr_accessor :active_from
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
-        attr_accessor :expires_at
-
-        def initialize(active_from: nil, expand: nil, expires_at: nil)
-          @active_from = active_from
-          @expand = expand
-          @expires_at = expires_at
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       # Time at which the registration becomes active. Measured in seconds since the Unix epoch.
@@ -3022,7 +2224,7 @@ module Stripe
       attr_reader :expires_at
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
@@ -3059,6 +2261,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { country_options: CountryOptions }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

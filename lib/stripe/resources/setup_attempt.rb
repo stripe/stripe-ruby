@@ -14,13 +14,48 @@ module Stripe
       "setup_attempt"
     end
 
-    class PaymentMethodDetails < Stripe::StripeObject
-      class AcssDebit < Stripe::StripeObject; end
-      class AmazonPay < Stripe::StripeObject; end
-      class AuBecsDebit < Stripe::StripeObject; end
-      class BacsDebit < Stripe::StripeObject; end
+    class PaymentMethodDetails < ::Stripe::StripeObject
+      class AcssDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
 
-      class Bancontact < Stripe::StripeObject
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AmazonPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class AuBecsDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BacsDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Bancontact < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         attr_reader :bank_code
         # Name of the bank associated with the bank account.
@@ -39,21 +74,45 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by Bancontact directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Boleto < Stripe::StripeObject; end
+      class Boleto < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
 
-      class Card < Stripe::StripeObject
-        class Checks < Stripe::StripeObject
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Card < ::Stripe::StripeObject
+        class Checks < ::Stripe::StripeObject
           # If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_line1_check
           # If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :address_postal_code_check
           # If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
           attr_reader :cvc_check
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class ThreeDSecure < Stripe::StripeObject
+        class ThreeDSecure < ::Stripe::StripeObject
           # For authenticated transactions: how the customer was authenticated by
           # the issuing bank.
           attr_reader :authentication_flow
@@ -70,17 +129,50 @@ module Stripe
           attr_reader :transaction_id
           # The version of 3D Secure that was used.
           attr_reader :version
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class Wallet < Stripe::StripeObject
-          class ApplePay < Stripe::StripeObject; end
-          class GooglePay < Stripe::StripeObject; end
+        class Wallet < ::Stripe::StripeObject
+          class ApplePay < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class GooglePay < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field apple_pay
           attr_reader :apple_pay
           # Attribute for field google_pay
           attr_reader :google_pay
           # The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
         attr_reader :brand
@@ -106,31 +198,65 @@ module Stripe
         attr_reader :issuer
         # The last four digits of the card.
         attr_reader :last4
+        # True if this payment was marked as MOTO and out of scope for SCA.
+        attr_reader :moto
         # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
         attr_reader :network
         # Populated if this authorization used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
         attr_reader :wallet
+
+        def self.inner_class_types
+          @inner_class_types = { checks: Checks, three_d_secure: ThreeDSecure, wallet: Wallet }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class CardPresent < Stripe::StripeObject
-        class Offline < Stripe::StripeObject
+      class CardPresent < ::Stripe::StripeObject
+        class Offline < ::Stripe::StripeObject
           # Time at which the payment was collected while offline
           attr_reader :stored_at
           # The method used to process this payment method offline. Only deferred is allowed.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # The ID of the Card PaymentMethod which was generated by this SetupAttempt.
         attr_reader :generated_card
         # Details about payments collected offline.
         attr_reader :offline
+
+        def self.inner_class_types
+          @inner_class_types = { offline: Offline }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Cashapp < Stripe::StripeObject; end
+      class Cashapp < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
 
-      class Ideal < Stripe::StripeObject
-        # The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Ideal < ::Stripe::StripeObject
+        # The customer's bank. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
         # The Bank Identifier Code of the customer's bank.
         attr_reader :bic
@@ -143,24 +269,130 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by iDEAL directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class KakaoPay < Stripe::StripeObject; end
-      class Klarna < Stripe::StripeObject; end
-      class KrCard < Stripe::StripeObject; end
-      class Link < Stripe::StripeObject; end
+      class KakaoPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
 
-      class NaverPay < Stripe::StripeObject
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Klarna < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class KrCard < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Link < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NaverPay < ::Stripe::StripeObject
         # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
         attr_reader :buyer_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class NzBankAccount < Stripe::StripeObject; end
-      class Paypal < Stripe::StripeObject; end
-      class RevolutPay < Stripe::StripeObject; end
-      class SepaDebit < Stripe::StripeObject; end
+      class NzBankAccount < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
 
-      class Sofort < Stripe::StripeObject
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Paypal < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Payto < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Pix < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RevolutPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class SepaDebit < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Sofort < ::Stripe::StripeObject
         # Bank code of bank associated with the bank account.
         attr_reader :bank_code
         # Name of the bank associated with the bank account.
@@ -179,9 +411,45 @@ module Stripe
         # Owner's verified full name. Values are verified or provided by Sofort directly
         # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
         attr_reader :verified_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class UsBankAccount < Stripe::StripeObject; end
+      class Twint < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Upi < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class UsBankAccount < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field acss_debit
       attr_reader :acss_debit
       # Attribute for field amazon_pay
@@ -216,34 +484,76 @@ module Stripe
       attr_reader :nz_bank_account
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field payto
+      attr_reader :payto
+      # Attribute for field pix
+      attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field twint
+      attr_reader :twint
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
       attr_reader :type
+      # Attribute for field upi
+      attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
+
+      def self.inner_class_types
+        @inner_class_types = {
+          acss_debit: AcssDebit,
+          amazon_pay: AmazonPay,
+          au_becs_debit: AuBecsDebit,
+          bacs_debit: BacsDebit,
+          bancontact: Bancontact,
+          boleto: Boleto,
+          card: Card,
+          card_present: CardPresent,
+          cashapp: Cashapp,
+          ideal: Ideal,
+          kakao_pay: KakaoPay,
+          klarna: Klarna,
+          kr_card: KrCard,
+          link: Link,
+          naver_pay: NaverPay,
+          nz_bank_account: NzBankAccount,
+          paypal: Paypal,
+          payto: Payto,
+          pix: Pix,
+          revolut_pay: RevolutPay,
+          sepa_debit: SepaDebit,
+          sofort: Sofort,
+          twint: Twint,
+          upi: Upi,
+          us_bank_account: UsBankAccount,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SetupError < Stripe::StripeObject
-      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+    class SetupError < ::Stripe::StripeObject
+      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
       attr_reader :charge
-      # For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+      # For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :code
-      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
       attr_reader :decline_code
-      # A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+      # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
       attr_reader :network_advice_code
-      # For card errors resulting from a card issuer decline, a brand specific 2, 3, or 4 digit code which indicates the reason the authorization failed.
+      # For payments declined by the network, an alphanumeric code which indicates the reason the payment failed.
       attr_reader :network_decline_code
       # If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
       attr_reader :param
@@ -253,17 +563,17 @@ module Stripe
       # see the history of payment attempts for a particular session.
       #
       # A PaymentIntent transitions through
-      # [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+      # [multiple statuses](/payments/paymentintents/lifecycle)
       # throughout its lifetime as it interfaces with Stripe.js to perform
       # authentication flows and ultimately creates at most one successful charge.
       #
-      # Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+      # Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
       attr_reader :payment_intent
       # PaymentMethod objects represent your customer's payment instruments.
-      # You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+      # You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
       # Customer objects to store instrument details for future payments.
       #
-      # Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+      # Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
       attr_reader :payment_method
       # If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
       attr_reader :payment_method_type
@@ -271,7 +581,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -282,9 +592,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -295,59 +605,16 @@ module Stripe
       attr_reader :source
       # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
       attr_reader :type
-    end
 
-    class ListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
-        # Minimum value to filter by (exclusive)
-        attr_accessor :gt
-        # Minimum value to filter by (inclusive)
-        attr_accessor :gte
-        # Maximum value to filter by (exclusive)
-        attr_accessor :lt
-        # Maximum value to filter by (inclusive)
-        attr_accessor :lte
-
-        def initialize(gt: nil, gte: nil, lt: nil, lte: nil)
-          @gt = gt
-          @gte = gte
-          @lt = lt
-          @lte = lte
-        end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
-      # A filter on the list, based on the object `created` field. The value
-      # can be a string with an integer Unix timestamp or a
-      # dictionary with a number of different query options.
-      attr_accessor :created
-      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      attr_accessor :ending_before
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      attr_accessor :limit
-      # Only return SetupAttempts created by the SetupIntent specified by
-      # this ID.
-      attr_accessor :setup_intent
-      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      attr_accessor :starting_after
 
-      def initialize(
-        created: nil,
-        ending_before: nil,
-        expand: nil,
-        limit: nil,
-        setup_intent: nil,
-        starting_after: nil
-      )
-        @created = created
-        @ending_before = ending_before
-        @expand = expand
-        @limit = limit
-        @setup_intent = setup_intent
-        @starting_after = starting_after
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
-    # The value of [application](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation.
+    # The value of [application](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-application) on the SetupIntent at the time of this confirmation.
     attr_reader :application
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
@@ -355,19 +622,21 @@ module Stripe
     attr_reader :attach_to_self
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-    # The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
+    # The value of [customer](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
     attr_reader :customer
+    # The value of [customer_account](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-customer_account) on the SetupIntent at the time of this confirmation.
+    attr_reader :customer_account
     # Indicates the directions of money movement for which this payment method is intended to be used.
     #
     # Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
     attr_reader :flow_directions
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # The value of [on_behalf_of](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation.
+    # The value of [on_behalf_of](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-on_behalf_of) on the SetupIntent at the time of this confirmation.
     attr_reader :on_behalf_of
     # ID of the payment method used with this SetupAttempt.
     attr_reader :payment_method
@@ -379,12 +648,20 @@ module Stripe
     attr_reader :setup_intent
     # Status of this SetupAttempt, one of `requires_confirmation`, `requires_action`, `processing`, `succeeded`, `failed`, or `abandoned`.
     attr_reader :status
-    # The value of [usage](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-usage) on the SetupIntent at the time of this confirmation, one of `off_session` or `on_session`.
+    # The value of [usage](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-usage) on the SetupIntent at the time of this confirmation, one of `off_session` or `on_session`.
     attr_reader :usage
 
     # Returns a list of SetupAttempts that associate with a provided SetupIntent.
     def self.list(params = {}, opts = {})
       request_stripe_object(method: :get, path: "/v1/setup_attempts", params: params, opts: opts)
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { payment_method_details: PaymentMethodDetails, setup_error: SetupError }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

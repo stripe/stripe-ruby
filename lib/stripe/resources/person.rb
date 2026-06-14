@@ -15,35 +15,59 @@ module Stripe
       "person"
     end
 
-    class AdditionalTosAcceptances < Stripe::StripeObject
-      class Account < Stripe::StripeObject
+    class AdditionalTosAcceptances < ::Stripe::StripeObject
+      class Account < ::Stripe::StripeObject
         # The Unix timestamp marking when the legal guardian accepted the service agreement.
         attr_reader :date
         # The IP address from which the legal guardian accepted the service agreement.
         attr_reader :ip
         # The user agent of the browser from which the legal guardian accepted the service agreement.
         attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Details on the legal guardian's acceptance of the main Stripe service agreement.
       attr_reader :account
+
+      def self.inner_class_types
+        @inner_class_types = { account: Account }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Address < Stripe::StripeObject
+    class Address < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       attr_reader :country
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       attr_reader :line1
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       attr_reader :line2
       # ZIP or postal code.
       attr_reader :postal_code
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class AddressKana < Stripe::StripeObject
+    class AddressKana < ::Stripe::StripeObject
       # City/Ward.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -58,9 +82,17 @@ module Stripe
       attr_reader :state
       # Town/cho-me.
       attr_reader :town
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class AddressKanji < Stripe::StripeObject
+    class AddressKanji < ::Stripe::StripeObject
       # City/Ward.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
@@ -75,63 +107,111 @@ module Stripe
       attr_reader :state
       # Town/cho-me.
       attr_reader :town
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Dob < Stripe::StripeObject
+    class Dob < ::Stripe::StripeObject
       # The day of birth, between 1 and 31.
       attr_reader :day
       # The month of birth, between 1 and 12.
       attr_reader :month
       # The four-digit year of birth.
       attr_reader :year
-    end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
-        attr_reader :alternative_fields_due
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
-        attr_reader :original_fields_due
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
-      class Error < Stripe::StripeObject
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class FutureRequirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
+        attr_reader :alternative_fields_due
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
+        attr_reader :original_fields_due
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       attr_reader :alternatives
-      # Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
+      # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
       attr_reader :currently_due
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
       attr_reader :eventually_due
-      # Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+      # Fields that haven't been resolved by the account's `requirements.current_deadline`. These fields need to be resolved to enable the person's account. `future_requirements.past_due` is a subset of `requirements.past_due`.
       attr_reader :past_due
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { alternatives: Alternative, errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class RegisteredAddress < Stripe::StripeObject
+    class RegisteredAddress < ::Stripe::StripeObject
       # City, district, suburb, town, or village.
       attr_reader :city
       # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
       attr_reader :country
-      # Address line 1 (e.g., street, PO Box, or company name).
+      # Address line 1, such as the street, PO Box, or company name.
       attr_reader :line1
-      # Address line 2 (e.g., apartment, suite, unit, or building).
+      # Address line 2, such as the apartment, suite, unit, or building.
       attr_reader :line2
       # ZIP or postal code.
       attr_reader :postal_code
-      # State, county, province, or region.
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
       attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Relationship < Stripe::StripeObject
+    class Relationship < ::Stripe::StripeObject
       # Whether the person is the authorizer of the account's representative.
       attr_reader :authorizer
       # Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
@@ -148,51 +228,99 @@ module Stripe
       attr_reader :representative
       # The person's title (e.g., CEO, Support Engineer).
       attr_reader :title
-    end
 
-    class Requirements < Stripe::StripeObject
-      class Alternative < Stripe::StripeObject
-        # Fields that can be provided to satisfy all fields in `original_fields_due`.
-        attr_reader :alternative_fields_due
-        # Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
-        attr_reader :original_fields_due
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
-      class Error < Stripe::StripeObject
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Requirements < ::Stripe::StripeObject
+      class Alternative < ::Stripe::StripeObject
+        # Fields that can be provided to resolve all fields in `original_fields_due`.
+        attr_reader :alternative_fields_due
+        # Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
+        attr_reader :original_fields_due
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      # Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+      # Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
       attr_reader :alternatives
-      # Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
       attr_reader :eventually_due
-      # Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account.
+      # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the person's account.
       attr_reader :past_due
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { alternatives: Alternative, errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class UsCfpbData < Stripe::StripeObject
-      class EthnicityDetails < Stripe::StripeObject
+    class UsCfpbData < ::Stripe::StripeObject
+      class EthnicityDetails < ::Stripe::StripeObject
         # The persons ethnicity
         attr_reader :ethnicity
         # Please specify your origin, when other is selected.
         attr_reader :ethnicity_other
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class RaceDetails < Stripe::StripeObject
+      class RaceDetails < ::Stripe::StripeObject
         # The persons race.
         attr_reader :race
         # Please specify your race, when other is selected.
         attr_reader :race_other
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # The persons ethnicity details
       attr_reader :ethnicity_details
@@ -200,29 +328,53 @@ module Stripe
       attr_reader :race_details
       # The persons self-identified gender
       attr_reader :self_identified_gender
-    end
 
-    class Verification < Stripe::StripeObject
-      class AdditionalDocument < Stripe::StripeObject
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        attr_reader :back
-        # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
-        attr_reader :details
-        # One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
-        attr_reader :details_code
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
-        attr_reader :front
+      def self.inner_class_types
+        @inner_class_types = { ethnicity_details: EthnicityDetails, race_details: RaceDetails }
       end
 
-      class Document < Stripe::StripeObject
-        # The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Verification < ::Stripe::StripeObject
+      class AdditionalDocument < ::Stripe::StripeObject
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         attr_reader :back
         # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
         attr_reader :details
         # One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
         attr_reader :details_code
-        # The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
         attr_reader :front
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Document < ::Stripe::StripeObject
+        # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+        attr_reader :back
+        # A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
+        attr_reader :details
+        # One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
+        attr_reader :details_code
+        # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+        attr_reader :front
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
       attr_reader :additional_document
@@ -232,8 +384,16 @@ module Stripe
       attr_reader :details_code
       # Attribute for field document
       attr_reader :document
-      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
+      # The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://docs.stripe.com/connect/handling-api-verification) to handle verification updates.
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = { additional_document: AdditionalDocument, document: Document }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The account the person is associated with.
     attr_reader :account
@@ -247,6 +407,8 @@ module Stripe
     attr_reader :address_kanji
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
+    # Always true for a deleted object
+    attr_reader :deleted
     # Attribute for field dob
     attr_reader :dob
     # The person's email address. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
@@ -259,7 +421,7 @@ module Stripe
     attr_reader :first_name_kanji
     # A list of alternate names or aliases that the person is known by. Also available for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `stripe`.
     attr_reader :full_name_aliases
-    # Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    # Information about the [upcoming new requirements for this person](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     attr_reader :future_requirements
     # The person's gender.
     attr_reader :gender
@@ -277,7 +439,7 @@ module Stripe
     attr_reader :last_name_kanji
     # The person's maiden name.
     attr_reader :maiden_name
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The country where the person is a national.
     attr_reader :nationality
@@ -299,8 +461,6 @@ module Stripe
     attr_reader :us_cfpb_data
     # Attribute for field verification
     attr_reader :verification
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def resource_url
       if !respond_to?(:account) || account.nil?
@@ -321,6 +481,26 @@ module Stripe
             "Persons cannot be updated without an account ID. Update a " \
             "person using `Account.update_person('account_id', 'person_id', " \
             "update_params)`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {
+        additional_tos_acceptances: AdditionalTosAcceptances,
+        address: Address,
+        address_kana: AddressKana,
+        address_kanji: AddressKanji,
+        dob: Dob,
+        future_requirements: FutureRequirements,
+        registered_address: RegisteredAddress,
+        relationship: Relationship,
+        requirements: Requirements,
+        us_cfpb_data: UsCfpbData,
+        verification: Verification,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

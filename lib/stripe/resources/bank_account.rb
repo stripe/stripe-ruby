@@ -19,42 +19,74 @@ module Stripe
       "bank_account"
     end
 
-    class FutureRequirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class FutureRequirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       attr_reader :errors
-      # Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+      # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
       attr_reader :past_due
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Requirements < Stripe::StripeObject
-      class Error < Stripe::StripeObject
+    class Requirements < ::Stripe::StripeObject
+      class Error < ::Stripe::StripeObject
         # The code for the type of error.
         attr_reader :code
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
-      # Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
-      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
+      # Details about validation and verification failures for `due` requirements that must be resolved.
       attr_reader :errors
-      # Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+      # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
       attr_reader :past_due
-      # Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+      # Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
       attr_reader :pending_verification
+
+      def self.inner_class_types
+        @inner_class_types = { errors: Error }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The account this bank account belongs to. Only applicable on Accounts (not customers or recipients) This property is only available when returned as an [External Account](/api/external_account_bank_accounts/object) where [controller.is_controller](/api/accounts/object#account_object-controller-is_controller) is `true`.
     attr_reader :account
@@ -76,15 +108,17 @@ module Stripe
     attr_reader :customer
     # Whether this bank account is the default external account for its currency.
     attr_reader :default_for_currency
+    # Always true for a deleted object
+    attr_reader :deleted
     # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
     attr_reader :fingerprint
-    # Information about the [upcoming new requirements for the bank account](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    # Information about the [upcoming new requirements for the bank account](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     attr_reader :future_requirements
     # Unique identifier for the object.
     attr_reader :id
     # The last four digits of the bank account number.
     attr_reader :last4
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -92,12 +126,10 @@ module Stripe
     attr_reader :requirements
     # The routing transit number for the bank account.
     attr_reader :routing_number
-    # For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
+    # For bank accounts, possible values are `new`, `validated`, `verified`, `verification_failed`, `tokenized_account_number_deactivated` or `errored`. A bank account that hasn't had any activity or validation performed is `new`. If Stripe can determine that the bank account exists, its status will be `validated`. Note that there often isn’t enough information to know (e.g., for smaller credit unions), and the validation is not always run. If customer bank account verification has succeeded, the bank account status will be `verified`. If the verification failed for any reason, such as microdeposit failure, the status will be `verification_failed`. If the status is `tokenized_account_number_deactivated`, the account utilizes a tokenized account number which has been deactivated due to expiration or revocation. This account will need to be reverified to continue using it for money movement. If a payout sent to this bank account fails, we'll set the status to `errored` and will not continue to send [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) until the bank details are updated.
     #
-    # For external accounts, possible values are `new`, `errored` and `verification_failed`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
+    # For external accounts, possible values are `new`, `errored`, `verification_failed`, and `tokenized_account_number_deactivated`. If a payout fails, the status is set to `errored` and scheduled payouts are stopped until account details are updated. In the US and India, if we can't [verify the owner of the bank account](https://support.stripe.com/questions/bank-account-ownership-verification), we'll set the status to `verification_failed`. Other validations aren't run against external accounts because they're only used for payouts. This means the other statuses don't apply.
     attr_reader :status
-    # Always true for a deleted object
-    attr_reader :deleted
 
     def verify(params = {}, opts = {})
       request_stripe_object(
@@ -169,6 +201,14 @@ module Stripe
             "account ID. List bank accounts using " \
             "`Customer.list_sources('customer_id')` " \
             "or `Account.list_external_accounts('account_id')`"
+    end
+
+    def self.inner_class_types
+      @inner_class_types = { future_requirements: FutureRequirements, requirements: Requirements }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

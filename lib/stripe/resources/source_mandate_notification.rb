@@ -11,23 +11,47 @@ module Stripe
       "source_mandate_notification"
     end
 
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # The statement descriptor associate with the debit.
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class BacsDebit < Stripe::StripeObject
+    class BacsDebit < ::Stripe::StripeObject
       # Last 4 digits of the account number associated with the debit.
       attr_reader :last4
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # SEPA creditor ID.
       attr_reader :creditor_identifier
       # Last 4 digits of the account number associated with the debit.
       attr_reader :last4
       # Mandate reference associated with the debit.
       attr_reader :mandate_reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # Attribute for field acss_debit
     attr_reader :acss_debit
@@ -39,7 +63,7 @@ module Stripe
     attr_reader :created
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -52,15 +76,23 @@ module Stripe
     # just like a `Card` object: once chargeable, they can be charged, or can be
     # attached to customers.
     #
-    # Stripe doesn't recommend using the deprecated [Sources API](https://stripe.com/docs/api/sources).
-    # We recommend that you adopt the [PaymentMethods API](https://stripe.com/docs/api/payment_methods).
+    # Stripe doesn't recommend using the deprecated [Sources API](https://docs.stripe.com/api/sources).
+    # We recommend that you adopt the [PaymentMethods API](https://docs.stripe.com/api/payment_methods).
     # This newer API provides access to our latest features and payment method types.
     #
-    # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
+    # Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
     attr_reader :source
     # The status of the mandate notification. Valid statuses are `pending` or `submitted`.
     attr_reader :status
     # The type of source this mandate notification is attached to. Should be the source type identifier code for the payment method, such as `three_d_secure`.
     attr_reader :type
+
+    def self.inner_class_types
+      @inner_class_types = { acss_debit: AcssDebit, bacs_debit: BacsDebit, sepa_debit: SepaDebit }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

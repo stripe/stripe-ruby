@@ -18,5 +18,13 @@ module Stripe
     attr_reader :period_start
     # The TAN that was supplied to Stripe when TDS was assessed
     attr_reader :tax_deduction_account_number
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

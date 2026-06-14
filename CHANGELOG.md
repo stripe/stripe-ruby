@@ -1,4 +1,384 @@
 # Changelog
+
+## 19.2.1 - 2026-06-12
+* [#1874](https://github.com/stripe/stripe-ruby/pull/1874) Add "source" field to user-agent header
+
+## 19.2.0 - 2026-05-27
+This release changes the pinned API version to 2026-05-27.dahlia.
+
+* [#1864](https://github.com/stripe/stripe-ruby/pull/1864) Update generated code
+  * Add support for new resource `V2::Commerce::ProductCatalogImport`
+  * Add support for `create` and `retrieve` methods on resource `V2::Commerce::ProductCatalogImport`
+  * Add support for `bizum_payments` and `scalapay_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `automatic_transfer_rules_by_currency` on `BalanceSettings::Payment::Payout` and `BalanceSettingsUpdateParams::Payment::Payout`
+  * Add support for `start_of_day` on `BalanceSettings::Payment::SettlementTiming` and `BalanceSettingsUpdateParams::Payment::SettlementTiming`
+  * Add support for `description` on `ChargeCreateParams::TransferDatum`, `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, and `PaymentIntentUpdateParams::TransferDatum`
+  * Add support for `bizum` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
+  * Add support for `scalapay` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `Refund::DestinationDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
+  * Add support for `mandate` on `Charge::PaymentMethodDetail::Twint`, `PaymentAttemptRecord::PaymentMethodDetail::Twint`, and `PaymentRecord::PaymentMethodDetail::Twint`
+  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Twint.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Twint.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Twint.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Twint.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Twint.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Twint.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * Add support for `credited_items` on `InvoiceItem::ProrationDetail`
+  * Add support for `discountable` on `InvoiceCreatePreviewParams::ScheduleDetail::Phase::AddInvoiceItem`, `SubscriptionCreateParams::AddInvoiceItem`, `SubscriptionSchedule::Phase::AddInvoiceItem`, `SubscriptionScheduleCreateParams::Phase::AddInvoiceItem`, `SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem`, and `SubscriptionUpdateParams::AddInvoiceItem`
+  * Add support for `billing_schedules` on `InvoiceCreatePreviewParams::SubscriptionDetail`, `SubscriptionCreateParams`, `SubscriptionUpdateParams`, and `Subscription`
+  * Add support for `amount_paid_off_stripe` on `Invoice`
+  * Add support for `twint` on `Mandate::PaymentMethodDetail` and `SetupAttempt::PaymentMethodDetail`
+  * Add support for `metadata` on `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, `PaymentIntentUpdateParams::TransferDatum`, and `Subscription::PendingUpdate`
+  * Add support for `payment_data` on `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, and `PaymentIntentUpdateParams::TransferDatum`
+  * Add support for `blik_authorize` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
+  * Add support for `payment_method_options` on `PaymentLinkCreateParams`, `PaymentLinkUpdateParams`, and `PaymentLink`
+  * Add support for `active` on `PaymentMethodConfigurationListParams`
+  * Add support for `billed_until` on `SubscriptionItem`
+  * Add support for `discount` and `discounts` on `Subscription::PendingUpdate`
+  * Add support for `verifone_m425`, `verifone_p630`, `verifone_ux700`, and `verifone_v660p` on `Terminal::ConfigurationCreateParams`, `Terminal::ConfigurationUpdateParams`, and `Terminal::Configuration`
+  * Add support for `api_error` and `print_content` on `Terminal::Reader::Action`
+  * Add support for `customer` on `TestHelpers::TestClockCreateParams`
+  * Add support for `signer` on `V2::Core::Account::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::Account::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountCreateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::AccountCreateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountUpdateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`
+  * Add support for `azure_event_grid` on `V2::Core::EventDestinationCreateParams` and `V2::Core::EventDestination`
+  * Add support for event notifications `V2CommerceProductCatalogImportsFailedEvent`, `V2CommerceProductCatalogImportsProcessingEvent`, `V2CommerceProductCatalogImportsSucceededEvent`, and `V2CommerceProductCatalogImportsSucceededWithErrorsEvent` with related object `V2::Commerce::ProductCatalogImport`
+* [#1866](https://github.com/stripe/stripe-ruby/pull/1866) Emit warning when `stripe-notify` header is present in response
+* [#1855](https://github.com/stripe/stripe-ruby/pull/1855) Use autoload instead of eager require for generated resource, service, and param files
+
+## 19.1.0 - 2026-04-23
+This release changes the pinned API version to 2026-04-22.dahlia.
+
+* [#1842](https://github.com/stripe/stripe-ruby/pull/1842) Update generated code
+  * Add support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSessionCreateParams::Component`
+  * Add support for `app_distribution` and `sunbit_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `sunbit` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
+  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Klarna`, `PaymentAttemptRecord::PaymentMethodDetail::Klarna`, and `PaymentRecord::PaymentMethodDetail::Klarna`
+  * Add support for `mandate` on `Charge::PaymentMethodDetail::Pix`, `PaymentAttemptRecord::PaymentMethodDetail::Pix`, and `PaymentRecord::PaymentMethodDetail::Pix`
+  * Add support for `managed_payments` on `Checkout::SessionCreateParams`, `Checkout::Session`, `PaymentIntent`, `PaymentLinkCreateParams`, `PaymentLink`, `SetupIntent`, and `Subscription`
+  * Add support for `mandate_options` on `Checkout::Session::PaymentMethodOption::Pix`, `Checkout::SessionCreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix`, `PaymentIntentCreateParams::PaymentMethodOption::Pix`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix`
+  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Pix.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Pix.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * Add support for `pix` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `upi` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `card_presence` on `Issuing::Authorization`
+  * Add support for `allowed_card_presences` and `blocked_card_presences` on `Issuing::Card::SpendingControl`, `Issuing::CardCreateParams::SpendingControl`, `Issuing::CardUpdateParams::SpendingControl`, `Issuing::Cardholder::SpendingControl`, `Issuing::CardholderCreateParams::SpendingControl`, and `Issuing::CardholderUpdateParams::SpendingControl`
+  * Add support for `amount` and `currency` on `Mandate::MultiUse`
+  * Add support for `amount_to_confirm` on `PaymentIntentConfirmParams`
+  * Add support for `klarna_display_qr_code` on `PaymentIntent::NextAction`
+  * Add support for `moto` on `SetupAttempt::PaymentMethodDetail::Card`
+  * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
+* [#1846](https://github.com/stripe/stripe-ruby/pull/1846) Fix 2D array parameter encoding
+  - Fixes an issue encoding two-dimensional array request params where the SDK incorrectly flattens the array.
+* [#1841](https://github.com/stripe/stripe-ruby/pull/1841) Replace other require cgi with require cgi/escape
+
+## 19.0.0 - 2026-03-25
+
+This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v19) to simplify your upgrade process.
+
+Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/dahlia) before upgrading.
+
+* ⚠️ **Breaking change:** [#1829](https://github.com/stripe/stripe-ruby/pull/1829) Add decimal_string coercion for v1 and v2 API fields
+  - All `decimal_string` fields changed type from `String` to `BigDecimal` in both request params and response objects. Code that reads or writes these fields as `String` will need to use `BigDecimal` instead. Affected fields across v1 and v2 APIs:
+    - **Checkout::Session**: `fx_rate`
+    - **Climate::Order**: `metric_tons`; **Climate::Product**: `metric_tons_available`
+    - **CreditNoteLineItem**: `unit_amount_decimal`
+    - **InvoiceItem**: `quantity_decimal`, `unit_amount_decimal`
+    - **InvoiceLineItem**: `quantity_decimal`, `unit_amount_decimal`
+    - **Issuing::Authorization** / **Issuing::Transaction** (and TestHelpers): `quantity_decimal`, `unit_cost_decimal`, `gross_amount_decimal`, `local_amount_decimal`, `national_amount_decimal`
+    - **Plan**: `amount_decimal`, `flat_amount_decimal`, `unit_amount_decimal`
+    - **Price**: `unit_amount_decimal`, `flat_amount_decimal` (including `currency_options` and `tiers`)
+    - **V2::Core::Account** / **V2::Core::AccountPerson**: `percent_ownership`
+    - Request params on **Invoice**, **Product**, **Quote**, **Subscription**, **SubscriptionItem**, **SubscriptionSchedule**, **PaymentLink**: `unit_amount_decimal`, `flat_amount_decimal`, `quantity_decimal` (where applicable)
+* ⚠️ **Breaking change:** [#1828](https://github.com/stripe/stripe-ruby/pull/1828) ⚠️ Throw an error when using the wrong webhook parsing method
+* ⚠️ **Breaking change:** [#1823](https://github.com/stripe/stripe-ruby/pull/1823) ⚠️ Drop support for Ruby 2.6
+* [#1825](https://github.com/stripe/stripe-ruby/pull/1825) Require cgi/escape instead of cgi
+* [#1814](https://github.com/stripe/stripe-ruby/pull/1814) Add runtime support for V2 int64 string-encoded fields
+* [#1817](https://github.com/stripe/stripe-ruby/pull/1817) Remove AlipayAccount and RecipientTransfer resource files
+  - ⚠️ Removes `Stripe::AlipayAccount` and `Stripe::RecipientTransfer` resource classes (dead code since v7.0.0)
+* [#1816](https://github.com/stripe/stripe-ruby/pull/1816) remove v2-specific guards for removing nils from request params
+* [#1824](https://github.com/stripe/stripe-ruby/pull/1824) Add gem dependency on logger
+
+### ⚠️ Breaking changes due to changes in the Stripe API
+
+* Generated changes from [#1804](https://github.com/stripe/stripe-ruby/pull/1804), [#1834](https://github.com/stripe/stripe-ruby/pull/1834), [#1831](https://github.com/stripe/stripe-ruby/pull/1831), [#1830](https://github.com/stripe/stripe-ruby/pull/1830)
+  * Add support for `upi_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `upi` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
+  * Add support for `integration_identifier` on `Checkout::SessionCreateParams` and `Checkout::Session`
+  * Add support for `crypto` on `Checkout::SessionCreateParams::PaymentMethodOption`
+  * Add support for `pending_invoice_item_interval` on `Checkout::SessionCreateParams::SubscriptionDatum`
+  * Add support for `metadata` on `CreditNoteCreateParams::Line`, `CreditNoteLineItem`, `CreditNoteListPreviewLineItemsParams::Line`, and `CreditNotePreviewParams::Line`
+  * Add support for `quantity_decimal` on `InvoiceAddLinesParams::Line`, `InvoiceCreatePreviewParams::InvoiceItem`, `InvoiceItemCreateParams`, `InvoiceItemUpdateParams`, `InvoiceItem`, `InvoiceLineItemUpdateParams`, `InvoiceLineItem`, and `InvoiceUpdateLinesParams::Line`
+  * ⚠️ Add support for `level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * ⚠️ Remove support for `risk_level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
+  * Add support for `lifecycle_controls` on `Issuing::CardCreateParams` and `Issuing::Card`
+  * ⚠️ Change type of `Issuing::Token::NetworkDatum::Visa.card_reference_id` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.brand` and `PaymentRecord::PaymentMethodDetail::Card.brand` from `enum` to `nullable(enum)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_month` and `PaymentRecord::PaymentMethodDetail::Card.exp_month` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_year` and `PaymentRecord::PaymentMethodDetail::Card.exp_year` from `longInteger` to `nullable(longInteger)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.funding` and `PaymentRecord::PaymentMethodDetail::Card.funding` from `enum('credit'|'debit'|'prepaid'|'unknown')` to `nullable(enum('credit'|'debit'|'prepaid'|'unknown'))`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.last4` and `PaymentRecord::PaymentMethodDetail::Card.last4` from `string` to `nullable(string)`
+  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.moto` and `PaymentRecord::PaymentMethodDetail::Card.moto` from `boolean` to `nullable(boolean)`
+  * Add support for `cryptogram`, `electronic_commerce_indicator`, `exemption_indicator_applied`, and `exemption_indicator` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
+  * Add support for `upi_handle_redirect_or_display_qr_code` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
+  * Add support for `recommended_action` and `signals` on `Radar::PaymentEvaluation`
+  * ⚠️ Remove support for `insights` on `Radar::PaymentEvaluation`
+
+## 18.4.2 - 2026-03-10
+* [#1811](https://github.com/stripe/stripe-ruby/pull/1811) Retry on Net::HTTPFatalError
+  - Fixes a bug where `Net::HTTPFatalError` errors were being thrown and not retried (unlike other 5xx responses from the Stripe API)
+  
+
+## 18.4.1 - 2026-03-06
+* [#1805](https://github.com/stripe/stripe-ruby/pull/1805) Add Stripe-Request-Trigger header
+* [#1803](https://github.com/stripe/stripe-ruby/pull/1803) Add agent information to UserAgent
+
+## 18.4.0 - 2026-02-25
+This release changes the pinned API version to `2026-02-25.clover`.
+
+* [#1797](https://github.com/stripe/stripe-ruby/pull/1797) Update generated code
+  * Add support for new resources `Reserve::Hold`, `Reserve::Plan`, and `Reserve::Release`
+  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::CardPresent`, `Charge::PaymentMethodDetail::InteracPresent`, `ConfirmationToken::PaymentMethodPreview::Card::GeneratedFrom::PaymentMethodDetail::CardPresent`, `PaymentAttemptRecord::PaymentMethodDetail::CardPresent`, `PaymentAttemptRecord::PaymentMethodDetail::InteracPresent`, `PaymentMethod::Card::GeneratedFrom::PaymentMethodDetail::CardPresent`, `PaymentRecord::PaymentMethodDetail::CardPresent`, and `PaymentRecord::PaymentMethodDetail::InteracPresent`
+  * Add support for `display_name` and `service_user_number` on `Mandate::PaymentMethodDetail::BacsDebit`
+  * Change type of `PaymentAttemptRecord::PaymentMethodDetail::Boleto.tax_id` and `PaymentRecord::PaymentMethodDetail::Boleto.tax_id` from `string` to `nullable(string)`
+  * Change type of `PaymentAttemptRecord::PaymentMethodDetail::UsBankAccount.expected_debit_date` and `PaymentRecord::PaymentMethodDetail::UsBankAccount.expected_debit_date` from `nullable(string)` to `string`
+  * Add support for `transaction_purpose` on `PaymentIntent::PaymentMethodOption::UsBankAccount`, `PaymentIntentConfirmParams::PaymentMethodOption::UsBankAccount`, `PaymentIntentCreateParams::PaymentMethodOption::UsBankAccount`, and `PaymentIntentUpdateParams::PaymentMethodOption::UsBankAccount`
+  * Add support for `optional_items` on `PaymentLinkUpdateParams`
+  * Remove support for unused `card_issuer_decline` on `Radar::PaymentEvaluation::Insight`
+  * Add support for `payment_behavior` on `SubscriptionItemDeleteParams`
+  * Add support for `lk` on `Tax::Registration::CountryOption` and `Tax::RegistrationCreateParams::CountryOption`
+  * Add support for `cellular` and `stripe_s710` on `Terminal::ConfigurationCreateParams`, `Terminal::ConfigurationUpdateParams`, and `Terminal::Configuration`
+* [#1796](https://github.com/stripe/stripe-ruby/pull/1796) Ignore unset properties of V2 Request param classes when making requests
+* [#1786](https://github.com/stripe/stripe-ruby/pull/1786) Properly serialize null values in V2
+  - Fixes a bug where V2 POST requests were not serializing `null` values.
+
+
+## 18.3.1 - 2026-02-03
+* [#1777](https://github.com/stripe/stripe-ruby/pull/1777)
+  * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
+
+## 18.3.0 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.clover`.
+
+* [#1771](https://github.com/stripe/stripe-ruby/pull/1771) Update generated code
+  * Add support for new resource `Radar::PaymentEvaluation`
+  * Add support for `create` method on resource `Radar::PaymentEvaluation`
+  * Add support for `adjustable_quantity` on `LineItem`
+  * Change `Invoice::PaymentSetting::PaymentMethodOption.payto` and `Subscription::PaymentSetting::PaymentMethodOption.payto` to be required
+  * Add support for `enforce_arithmetic_validation` on `PaymentIntentCaptureParams::AmountDetail`, `PaymentIntentConfirmParams::AmountDetail`, `PaymentIntentCreateParams::AmountDetail`, `PaymentIntentIncrementAuthorizationParams::AmountDetail`, and `PaymentIntentUpdateParams::AmountDetail`
+  * Add support for `error` on `PaymentIntent::AmountDetail`
+  * Remove support for `bgn` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
+  * Add support for `topup` on `Treasury::ReceivedDebit::LinkedFlow`
+  * Add support for `contact_phone` on `V2::Core::AccountCreateParams`, `V2::Core::AccountTokenCreateParams`, `V2::Core::AccountUpdateParams`, and `V2::Core::Account`
+  * Add support for `registration_date` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
+* [#1769](https://github.com/stripe/stripe-ruby/pull/1769) Document usage of undocumented API parameters
+
+## 18.2.0 - 2026-01-16
+* [#1767](https://github.com/stripe/stripe-ruby/pull/1767) Update generated code
+  * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `V2::Core::Account`
+  * Add support for event notification `V2CoreAccountLinkReturnedEvent`
+  * Add support for event notifications `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2::Core::AccountPerson`
+
+## 18.1.0 - 2025-12-16
+This release changes the pinned API version to `2025-12-15.clover`.
+
+* [#1744](https://github.com/stripe/stripe-ruby/pull/1744) Update generated code
+  * Add support for new resources `V2::Core::AccountLink`, `V2::Core::AccountPersonToken`, `V2::Core::AccountPerson`, `V2::Core::AccountToken`, and `V2::Core::Account`
+  * Add support for `create` and `retrieve` methods on resources `V2::Core::AccountPersonToken` and `V2::Core::AccountToken`
+  * Add support for `create` method on resource `V2::Core::AccountLink`
+  * Add support for `close`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Core::Account`
+  * Add support for `create`, `delete`, `list`, `retrieve`, and `update` methods on resource `V2::Core::AccountPerson`
+  * Add support for `customer_account` on `Billing::CreditBalanceSummaryRetrieveParams`, `Billing::CreditBalanceSummary`, `Billing::CreditBalanceTransactionListParams`, `Billing::CreditGrantCreateParams`, `Billing::CreditGrantListParams`, `Billing::CreditGrant`, `BillingPortal::SessionCreateParams`, `BillingPortal::Session`, `CashBalance`, `Checkout::SessionCreateParams`, `Checkout::SessionListParams`, `Checkout::Session`, `ConfirmationToken::PaymentMethodPreview`, `CreditNoteListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerSessionCreateParams`, `CustomerSession`, `Customer`, `Discount`, `FinancialConnections::Account::AccountHolder`, `FinancialConnections::AccountListParams::AccountHolder`, `FinancialConnections::Session::AccountHolder`, `FinancialConnections::SessionCreateParams::AccountHolder`, `InvoiceCreateParams`, `InvoiceCreatePreviewParams`, `InvoiceItemCreateParams`, `InvoiceItemListParams`, `InvoiceItem`, `InvoiceListParams`, `Invoice`, `PaymentIntentCreateParams`, `PaymentIntentListParams`, `PaymentIntentUpdateParams`, `PaymentIntent`, `PaymentMethodAttachParams`, `PaymentMethodListParams`, `PaymentMethod`, `PromotionCodeCreateParams`, `PromotionCodeListParams`, `PromotionCode`, `QuoteCreateParams`, `QuoteListParams`, `QuoteUpdateParams`, `Quote`, `SetupAttempt`, `SetupIntentCreateParams`, `SetupIntentListParams`, `SetupIntentUpdateParams`, `SetupIntent`, `SubscriptionCreateParams`, `SubscriptionListParams`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId::Owner`, `TaxIdCreateParams::Owner`, `TaxIdListParams::Owner`, and `TaxId`
+  * Add support for `metadata` on `Checkout::SessionCreateParams::LineItem` and `LineItem`
+  * Add support for `payto_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
+  * Add support for `signer` on `AccountCreateParams::Document::ProofOfRegistration`, `AccountCreateParams::Document::ProofOfUltimateBeneficialOwnership`, `AccountUpdateParams::Document::ProofOfRegistration`, and `AccountUpdateParams::Document::ProofOfUltimateBeneficialOwnership`
+  * Change `Billing::CreditBalanceSummaryRetrieveParams.customer`, `Billing::CreditBalanceTransactionListParams.customer`, `Billing::CreditGrantCreateParams.customer`, `BillingPortal::SessionCreateParams.customer`, `CustomerSessionCreateParams.customer`, `InvoiceItemCreateParams.customer`, `PaymentMethodAttachParams.customer`, and `SubscriptionCreateParams.customer` to be optional
+  * Add support for `billing_cycle_anchor` on `BillingPortal::Configuration::Feature::SubscriptionUpdate`, `BillingPortal::ConfigurationCreateParams::Feature::SubscriptionUpdate`, and `BillingPortal::ConfigurationUpdateParams::Feature::SubscriptionUpdate`
+  * Add support for `payto` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethodUpdateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Add support for `expected_debit_date` on `Charge::PaymentMethodDetail::AcssDebit`, `Charge::PaymentMethodDetail::AuBecsDebit`, `Charge::PaymentMethodDetail::BacsDebit`, `Charge::PaymentMethodDetail::NzBankAccount`, `Charge::PaymentMethodDetail::SepaDebit`, `Charge::PaymentMethodDetail::UsBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::AcssDebit`, `PaymentAttemptRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::BacsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::NzBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::SepaDebit`, `PaymentAttemptRecord::PaymentMethodDetail::UsBankAccount`, `PaymentRecord::PaymentMethodDetail::AcssDebit`, `PaymentRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentRecord::PaymentMethodDetail::BacsDebit`, `PaymentRecord::PaymentMethodDetail::NzBankAccount`, `PaymentRecord::PaymentMethodDetail::SepaDebit`, and `PaymentRecord::PaymentMethodDetail::UsBankAccount`
+  * Add support for `line_items` on `Checkout::SessionUpdateParams`
+  * Add support for `invoice` on `CustomerCustomerBalanceTransactionListParams`
+  * Add support for `related_customer_account` on `Identity::VerificationSessionCreateParams`, `Identity::VerificationSessionListParams`, and `Identity::VerificationSession`
+  * Change type of `InvoiceItem::Pricing::PriceDetail.price` and `InvoiceLineItem::Pricing::PriceDetail.price` from `string` to `expandable($Price)`
+  * Add support for `subtotal` on `InvoiceLineItem`
+  * Add support for `authorization_code`, `description`, `iin`, `installments`, `issuer`, `network_advice_code`, `network_decline_code`, and `stored_credential_usage` on `PaymentAttemptRecord::PaymentMethodDetail::Card` and `PaymentRecord::PaymentMethodDetail::Card`
+  * Change `PaymentIntent.transfer_data` to be optional
+  * Add support for `allow_redisplay` on `PaymentMethodListParams`
+  * Add support for `reported_by` on `PaymentRecord`
+  * Change `Product.tax_code` to be optional
+  * Add support for `changes` on `V2::Core::Event`
+* [#1741](https://github.com/stripe/stripe-ruby/pull/1741) Format breaking change warning to improve discoverability
+* [#1742](https://github.com/stripe/stripe-ruby/pull/1742) Updated bundled CA certs
+
+## 18.0.1 - 2025-11-21
+* [#1736](https://github.com/stripe/stripe-ruby/pull/1736) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging. 
+
+## 18.0.0 - 2025-11-18
+This release changes the pinned API version to `2025-11-17.clover`.
+
+* [#1729](https://github.com/stripe/stripe-ruby/pull/1729) Update generated code
+  * ⚠️ Remove support for `gt`, `gte`, `lt`, and `lte` on `V2::Core::EventListParams` in favor of `created`.
+* [#1727](https://github.com/stripe/stripe-ruby/pull/1727) Update v2 array parameter serialization to use indexed format
+  - `Retrieve` and `List` calls for `/v2` endpoints now use indexed format (e.g., `?include[0]=foo&include[1]=bar`) instead of repeated parameter format (e.g., `?include=foo&include=bar`) when communicating with the Stripe API. This may break any unit tests that expect the latter behavior when setting up a mock server. Instead, they should now expect the former.
+* [#1725](https://github.com/stripe/stripe-ruby/pull/1725) Update generated code
+  * Add support for new resources `Tax::Association` and `Terminal::OnboardingLink`
+  * Add support for `find` method on resource `Tax::Association`
+  * Add support for `create` method on resource `Terminal::OnboardingLink`
+  * Add support for `payment_method_configuration` on `BillingPortal::Configuration::Feature::PaymentMethodUpdate`
+  * Add support for `transaction_id` on `Charge::PaymentMethodDetail::Ideal`, `PaymentAttemptRecord::PaymentMethodDetail::Ideal`, and `PaymentRecord::PaymentMethodDetail::Ideal`
+  * Add support for `created` on `CustomerCustomerBalanceTransactionListParams` and `InvoicePaymentListParams`
+  * Add support for `account_numbers` on `FinancialConnections::Account`
+  * Change type of `FinancialConnections::Session.client_secret` from `string` to `nullable(string)`
+  * Add support for `fraud_risk` on `Issuing::AuthorizationCreateParams::RiskAssessment`
+  * Add support for `latest_fraud_warning` on `Issuing::Card`
+  * Add support for `hooks` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, `PaymentIntentUpdateParams`, and `PaymentIntent`
+  * Add support for `mb_way` and `twint` on `Refund::DestinationDetail`
+
+## 17.2.0 - 2025-11-05
+* [#1721](https://github.com/stripe/stripe-ruby/pull/1721) Update generated code
+  * Add support for `capture_method` on `PaymentIntent::PaymentMethodOption::CardPresent`, `PaymentIntentConfirmParams::PaymentMethodOption::CardPresent`, `PaymentIntentCreateParams::PaymentMethodOption::CardPresent`, and `PaymentIntentUpdateParams::PaymentMethodOption::CardPresent`
+
+## 17.1.0 - 2025-10-29
+
+This release changes the pinned API version to `2025-10-29.clover`.
+
+* [#1715](https://github.com/stripe/stripe-ruby/pull/1715) Update generated code
+  * Improve docs for PaymentIntent related endpoints
+* [#1700](https://github.com/stripe/stripe-ruby/pull/1700) Update generated code
+  * Add support for new resources `PaymentAttemptRecord`, `PaymentIntentAmountDetailsLineItem`, and `PaymentRecord`
+  * Add support for `list` and `retrieve` methods on resource `PaymentAttemptRecord`
+  * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt_informational`, `report_payment_attempt`, `report_payment`, `report_refund`, and `retrieve` methods on resource `PaymentRecord`
+  * Add support for `list` method on resource `PaymentIntentAmountDetailsLineItem`
+  * Add support for `representative_declaration` on `Account::Company`, `AccountCreateParams::Company`, `AccountUpdateParams::Company`, and `TokenCreateParams::Account::Company`
+  * Change `Billing::CreditGrantCreateParams.category` to be optional
+  * Add support for `payment_method_configuration` on `BillingPortal::ConfigurationCreateParams::Feature::PaymentMethodUpdate` and `BillingPortal::ConfigurationUpdateParams::Feature::PaymentMethodUpdate`
+  * Add support for `twint` on `Checkout::Session::PaymentMethodOption` and `Checkout::SessionCreateParams::PaymentMethodOption`
+  * Add support for `payment_record_refund` and `type` on `CreditNote::Refund`, `CreditNoteCreateParams::Refund`, `CreditNoteListPreviewLineItemsParams::Refund`, and `CreditNotePreviewParams::Refund`
+  * Add support for `customer_sheet` and `mobile_payment_element` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
+  * Add support for `provider` on `Customer::Tax`
+  * Add support for `payment_record` on `InvoiceAttachPaymentParams`, `InvoicePayment::Payment`, and `InvoicePaymentListParams::Payment`
+  * Change type of `InvoicePaymentListParams::Payment.type` from `literal('payment_intent')` to `enum('payment_intent'|'payment_record')`
+  * Add support for `amount_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, and `PaymentIntentUpdateParams`
+  * Add support for `payment_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, `PaymentIntentUpdateParams`, and `PaymentIntent`
+  * Add support for `discount_amount`, `line_items`, `shipping`, and `tax` on `PaymentIntent::AmountDetail`
+  * Add support for `name_collection` on `PaymentLinkCreateParams`, `PaymentLinkUpdateParams`, and `PaymentLink`
+  * Add support for `crypto` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, and `Refund::DestinationDetail`
+  * Add support for `mb_way` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, and `PaymentMethodConfiguration`
+  * Add support for `custom` on `PaymentMethodCreateParams` and `PaymentMethod`
+  * Add support for `excluded_payment_method_types` on `SetupIntentCreateParams`, `SetupIntentUpdateParams`, and `SetupIntent`
+  * Change `SetupIntent.flow_directions` to be optional
+  * Add support for `tw` on `Tax::Registration::CountryOption` and `Tax::RegistrationCreateParams::CountryOption`
+  * Add support for `gip` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
+  * Add support for `last_seen_at` on `Terminal::Reader`
+  * Add support for `gt`, `gte`, `lt`, `lte`, and `types` on `V2::Core::EventListParams`
+  * Change `V2::Core::EventListParams.object_id` to be optional
+
+## 17.0.1 - 2025-10-16
+* [#1705](https://github.com/stripe/stripe-ruby/pull/1705) Require `V2::Amount` and `V2::DeletedObject` in gem
+
+## 17.0.0 - 2025-10-09
+* [#1698](https://github.com/stripe/stripe-ruby/pull/1698) Remove expanded instance variables after a resource has been updated
+  - ⚠️ Removes dynamically added instance variables on subsequent non-expanded updates to a resource that had previously been expanded. For example,
+  ```ruby
+  # expand `payments` field on an invoice
+  invoice = Stripe::Invoice.retrieve(id: 'in_123', expand: ['payments'])
+  
+  # `pay` invoice without expanding `payments`, so that field would have stale data
+  # Use `expand` to keep `payments` like this: `invoice.pay(expand: ['payments'])`
+  invoice.pay
+  
+  # This is now nil instead of a stale Hash
+  invoice.payments
+  ```
+* [#1699](https://github.com/stripe/stripe-ruby/pull/1699) Improve event notification example
+* [#1693](https://github.com/stripe/stripe-ruby/pull/1693) Improve event notification example
+* [#1691](https://github.com/stripe/stripe-ruby/pull/1691) Remove manual promotion code test
+* [#1690](https://github.com/stripe/stripe-ruby/pull/1690) Update param in deprecation docs link
+* [#1687](https://github.com/stripe/stripe-ruby/pull/1687) Update CHANGELOG.md to point to right API version
+
+## 16.0.0 - 2025-09-30
+This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
+
+* [#1652](https://github.com/stripe/stripe-ruby/pull/1652) ⚠️  Deserialize inner types in resources for more detailed types
+  * ⚠️ Deserialize inner classes, so inner class types will now reflect generated inner classes
+    * For example, `Stripe::Customer.address` is deserialized to specific a `Stripe::Customer::Address` class instead of the generic `Stripe::StripeObject`, as is suggested by the static type annotations
+    * This should not affect any normal use cases of the SDK, as inner types remain children of `Stripe::StripeObject`
+* [#1649](https://github.com/stripe/stripe-ruby/pull/1649) Explicitly define methods for RBIs and ship combined RBI for Tapioca
+  * Improvements for Tapioca
+       * Explicitly define methods for attributes in RBIs to allow Tapioca to reflect them
+       * Ship combined RBI for shorter Tapioca time
+* [#1677](https://github.com/stripe/stripe-ruby/pull/1677) Move `V2.Event` API resources to `V2.Core.Events`
+  - ⚠️ Move `Stripe::V2::Event` and `Stripe::V2::EventDestination` to `Stripe::V2::Core::Event` and `Stripe::V2::Core::EventDestination` respectively. They now correctly match their API path 
+* [#1664](https://github.com/stripe/stripe-ruby/pull/1664) Add `StripeContext` object
+  - Add the `StripeContext` class. Previously you could set the stripe_context to only a string value. Now you can use the new class as well
+  - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
+* [#1684](https://github.com/stripe/stripe-ruby/pull/1684) ⚠️ Drop support for Ruby < 2.6 & clarify version policy
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy)
+      - ⚠️ In this release, we drop support for Ruby 2.3, 2.4, and 2.5
+      -  Ruby 2.6 support is deprecated and will be removed in the next scheduled major release (March 2026)
+* [#1651](https://github.com/stripe/stripe-ruby/pull/1651) ⚠️ Build SDK w/ V2 OpenAPI spec
+  - ⚠️ The delete methods for v2 APIs (the ones in the `StripeClient.v2` namespace) now return a `V2DeletedObject` which has the id of the object that has been deleted and a string representing the type of the object that has been deleted.
+  - ⚠️ Deeply nested param hashes with no properties no longer have classes generated for them. Instead, they're typed as `T::Hash[String, T.untyped]`. Because there were no params, it's unlikely you were using these classes.
+* [#1650](https://github.com/stripe/stripe-ruby/pull/1650) ⚠️ Add strongly typed EventNotifications
+  We've overhauled how V2 Events are handled in the SDK! This approach should provide a lot more information at authoring and compile time, leading to more robust integrations. As part of this process, there are a number of changes to be aware of.
+  - Added matching `EventNotification` classes to every v2 `Event`
+    - For example, there's now a `V1BillingMeterErrorReportTriggeredEventNotification` to match the existing `V1BillingMeterErrorReportTriggeredEvent`
+    - Each notification class defines a `fetch_event()` method to retrieve its corresponding event
+    - For events with related objects, there's a `fetch_related_object()` method that performs the API call and casts the response to the correct type on both the `EventNotification` and `Event`.
+  - ⚠️ Rename function `StripeClient.parse_thin_event` to `StripeClient.parse_event_notification` and remove the `Stripe::ThinEvent` class.
+      - This function now returns a `Stripe::V2::Core::EventNotification` (which is the shared base class that all of the more specific `Stripe::Event::*EventNotification` classes  share) instead of `Stripe::ThinEvent`. When applicable, these event notifications will have the `relatedObject` property and a `fetch_related_object()` function. They also have a `fetch_event()` method to retrieve their corresponding `Stripe::Events::*Event` instance.
+      - If you parse an event the SDK doesn't have types for (e.g. it's newer than the SDK you're using), you'll get an instance of `Stripe::Events::UnknownEventNotification` instead of a more specific type. It has both the `related_object` property and the `fetch_related_object()` function (but they may be/return `nil`)
+  - ⚠️ Move all Event Classes into the `Events` module
+    - For example, `Stripe::V1BillingMeterErrorReportTriggeredEvent` is now `Stripe::Events::V1BillingMeterErrorReportTriggeredEvent`
+* [#1670](https://github.com/stripe/stripe-ruby/pull/1670) ⚠️ Unify resource and service method parameters into one class
+  * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared.
+    * For example, `Stripe::Account::CreateParams` and `Stripe::AccountService::CreateParams` have moved to `Stripe::AccountCreateParams`
+    * This change only affects users who use Sorbet types for parameters
+    
+* [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
+  * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
+  * Change `Invoice.id` to be required (i.e. not nilable).
+  * Add support for new resource `BalanceSettings`
+  * Add support for `retrieve` and `update` methods on resource `BalanceSettings`
+  * Add support for `source` on `Discount`
+  * Remove support for `coupon` on `Discount`, `PromotionCode::CreateParams`, and `PromotionCode`
+  * Add support for `mb_way_payments`on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
+  * Add support for `trial_update_behavior` on `BillingPortal::Configuration::CreateParams::Feature::SubscriptionUpdate`, `BillingPortal::Configuration::Feature::SubscriptionUpdate`, and `BillingPortal::Configuration::UpdateParams::Feature::SubscriptionUpdate`
+  * Add support for `mb_way` on `Charge::PaymentMethodDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum`, `ConfirmationToken::PaymentMethodPreview`, `PaymentIntent::ConfirmParams::PaymentMethodDatum`, `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodDatum`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntent::UpdateParams::PaymentMethodDatum`, `PaymentIntent::UpdateParams::PaymentMethodOption`, `PaymentMethod::CreateParams`, `PaymentMethod`, `SetupIntent::ConfirmParams::PaymentMethodDatum`, `SetupIntent::CreateParams::PaymentMethodDatum`, and `SetupIntent::UpdateParams::PaymentMethodDatum`
+  * Add support for `branding_settings` and `name_collection` on `Checkout::Session::CreateParams` and `Checkout::Session`
+  * Add support for `excluded_payment_method_types` on `Checkout::Session::CreateParams`, `Checkout::Session`, `PaymentIntent::ConfirmParams`, and `PaymentIntent::UpdateParams`
+  * Add support for `unit_label` on `Checkout::Session::CreateParams::LineItem::PriceDatum::ProductDatum`, `Invoice::AddLinesParams::Line::PriceDatum::ProductDatum`, `Invoice::UpdateLinesParams::Line::PriceDatum::ProductDatum`, `InvoiceLineItem::UpdateParams::PriceDatum::ProductDatum`, and `PaymentLink::CreateParams::LineItem::PriceDatum::ProductDatum`
+  * Add support for `alma`, `billie`, and `satispay` on `Checkout::Session::CreateParams::PaymentMethodOption` and `Checkout::Session::PaymentMethodOption`
+  * Add support for `demo_pay` on `Checkout::Session::CreateParams::PaymentMethodOption`
+  * Add support for `capture_method` on `Checkout::Session::CreateParams::PaymentMethodOption::Affirm`, `Checkout::Session::CreateParams::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::CreateParams::PaymentMethodOption::AmazonPay`, `Checkout::Session::CreateParams::PaymentMethodOption::Card`, `Checkout::Session::CreateParams::PaymentMethodOption::Cashapp`, `Checkout::Session::CreateParams::PaymentMethodOption::Klarna`, `Checkout::Session::CreateParams::PaymentMethodOption::Link`, `Checkout::Session::CreateParams::PaymentMethodOption::Mobilepay`, `Checkout::Session::CreateParams::PaymentMethodOption::RevolutPay`, `Checkout::Session::PaymentMethodOption::Affirm`, `Checkout::Session::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::PaymentMethodOption::AmazonPay`, `Checkout::Session::PaymentMethodOption::Card`, `Checkout::Session::PaymentMethodOption::Cashapp`, `Checkout::Session::PaymentMethodOption::Klarna`, `Checkout::Session::PaymentMethodOption::Link`, `Checkout::Session::PaymentMethodOption::Mobilepay`, and `Checkout::Session::PaymentMethodOption::RevolutPay`
+  * Add support for `flexible` on `Checkout::Session::CreateParams::SubscriptionDatum::BillingMode`, `Invoice::CreatePreviewParams::ScheduleDetail::BillingMode`, `Invoice::CreatePreviewParams::SubscriptionDetail::BillingMode`, `Quote::CreateParams::SubscriptionDatum::BillingMode`, `Quote::SubscriptionDatum::BillingMode`, `Subscription::BillingMode`, `Subscription::CreateParams::BillingMode`, `Subscription::MigrateParams::BillingMode`, `SubscriptionSchedule::BillingMode`, and `SubscriptionSchedule::CreateParams::BillingMode`
+  * Add support for `business_name` and `individual_name` on `Checkout::Session::CollectedInformation`, `Checkout::Session::CustomerDetail`, `Customer::CreateParams`, `Customer::UpdateParams`, and `Customer`
+  * Add support for `chargeback_loss_reason_code` on `Dispute::PaymentMethodDetail::Klarna`
+  * Add support for `net_amount` and `proration_details` on `InvoiceItem`
+  * Remove support for `iterations` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase`, `SubscriptionSchedule::CreateParams::Phase`, and `SubscriptionSchedule::UpdateParams::Phase`
+  * Add support for `fraud_disputability_likelihood` and `risk_assessment` on `Issuing::Authorization::CreateParams`
+  * Add support for `second_line` on `Issuing::Card`
+  * Add support for `fr_meal_voucher_conecs` on `PaymentMethodConfiguration::CreateParams` and `PaymentMethodConfiguration::UpdateParams`
+  * Remove support for `link` and `pay_by_bank` on `PaymentMethod::UpdateParams`
+  * Add support for `promotion` on `PromotionCode::CreateParams` and `PromotionCode`
+  * Add support for `provider` on `Tax::Settings::Default`
+  * Add support for `bbpos_wisepad3` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
+  * Add support for `address_kana`, `address_kanji`, `display_name_kana`, `display_name_kanji`, and `phone` on `Terminal::Location::CreateParams`, `Terminal::Location::UpdateParams`, and `Terminal::Location`
+  * Change `Terminal::Location::CreateParams.address` to be optional
+  * Change `Terminal::Location::CreateParams.display_name` to be optional
+
+
+## 15.5.0 - 2025-08-27
+* [#1638](https://github.com/stripe/stripe-ruby/pull/1638) Add section on private preview SDKs in readme
+* [#1631](https://github.com/stripe/stripe-ruby/pull/1631) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
+  * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
+  * Add support for `name` on `BillingPortal::Configuration::CreateParams`, `BillingPortal::Configuration::UpdateParams`, and `BillingPortal::Configuration`
+  * Add support for `installments` on `Charge::PaymentMethodDetail::Alma`
+  * Add support for `transaction_id` on `Charge::PaymentMethodDetail::Alma`, `Charge::PaymentMethodDetail::AmazonPay`, `Charge::PaymentMethodDetail::Billie`, `Charge::PaymentMethodDetail::KakaoPay`, `Charge::PaymentMethodDetail::KrCard`, `Charge::PaymentMethodDetail::NaverPay`, `Charge::PaymentMethodDetail::Payco`, `Charge::PaymentMethodDetail::RevolutPay`, `Charge::PaymentMethodDetail::SamsungPay`, and `Charge::PaymentMethodDetail::Satispay`
+  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Paynow`
+  * Add support for `amount_includes_iof` on `Checkout::Session::CreateParams::PaymentMethodOption::Pix`, `Checkout::Session::PaymentMethodOption::Pix`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Pix`, `PaymentIntent::CreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Pix`
+  * Add support for `metadata` and `period` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase::AddInvoiceItem`, `Subscription::CreateParams::AddInvoiceItem`, `Subscription::UpdateParams::AddInvoiceItem`, `SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem`, `SubscriptionSchedule::Phase::AddInvoiceItem`, and `SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem`
+  * Add support for `exp_month` and `exp_year` on `Issuing::Card::CreateParams`
+  * Add support for `excluded_payment_method_types` on `PaymentIntent::CreateParams` and `PaymentIntent`
+  * Add support for `payout_method` on `Payout::CreateParams` and `Payout`
+  * Add support for `mxn` on `Terminal::Configuration::CreateParams::Tipping`, `Terminal::Configuration::Tipping`, and `Terminal::Configuration::UpdateParams::Tipping`
+  * Add support for `card` on `Terminal::Reader::PresentPaymentMethodParams`
+* [#1637](https://github.com/stripe/stripe-ruby/pull/1637) Add `stripe_client` usage tracking for StripeClient
+* [#1633](https://github.com/stripe/stripe-ruby/pull/1633) Remove double `T.nilable` before every emptyable field in update methods
+
 ## 15.4.0 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.basil`.
 

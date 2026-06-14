@@ -5,51 +5,6 @@ module Stripe
   module TestHelpers
     module Issuing
       class CardService < StripeService
-        class DeliverCardParams < Stripe::RequestParams
-          # Specifies which fields in the response should be expanded.
-          attr_accessor :expand
-
-          def initialize(expand: nil)
-            @expand = expand
-          end
-        end
-
-        class FailCardParams < Stripe::RequestParams
-          # Specifies which fields in the response should be expanded.
-          attr_accessor :expand
-
-          def initialize(expand: nil)
-            @expand = expand
-          end
-        end
-
-        class ReturnCardParams < Stripe::RequestParams
-          # Specifies which fields in the response should be expanded.
-          attr_accessor :expand
-
-          def initialize(expand: nil)
-            @expand = expand
-          end
-        end
-
-        class ShipCardParams < Stripe::RequestParams
-          # Specifies which fields in the response should be expanded.
-          attr_accessor :expand
-
-          def initialize(expand: nil)
-            @expand = expand
-          end
-        end
-
-        class SubmitCardParams < Stripe::RequestParams
-          # Specifies which fields in the response should be expanded.
-          attr_accessor :expand
-
-          def initialize(expand: nil)
-            @expand = expand
-          end
-        end
-
         # Updates the shipping status of the specified Issuing Card object to delivered.
         def deliver_card(card, params = {}, opts = {})
           request(

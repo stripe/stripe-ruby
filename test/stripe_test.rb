@@ -4,23 +4,21 @@ require File.expand_path("test_helper", __dir__)
 
 class StripeTest < Test::Unit::TestCase
   should "allow app_info to be configured" do
-    begin
-      old = Stripe.app_info
-      Stripe.set_app_info(
-        "MyAwesomePlugin",
-        partner_id: "partner_1234",
-        url: "https://myawesomeplugin.info",
-        version: "1.2.34"
-      )
-      assert_equal({
-        name: "MyAwesomePlugin",
-        partner_id: "partner_1234",
-        url: "https://myawesomeplugin.info",
-        version: "1.2.34",
-      }, Stripe.app_info)
-    ensure
-      Stripe.app_info = old
-    end
+    old = Stripe.app_info
+    Stripe.set_app_info(
+      "MyAwesomePlugin",
+      partner_id: "partner_1234",
+      url: "https://myawesomeplugin.info",
+      version: "1.2.34"
+    )
+    assert_equal({
+      name: "MyAwesomePlugin",
+      partner_id: "partner_1234",
+      url: "https://myawesomeplugin.info",
+      version: "1.2.34",
+    }, Stripe.app_info)
+  ensure
+    Stripe.app_info = old
   end
 
   context "forwardable configurations" do
@@ -78,14 +76,12 @@ class StripeTest < Test::Unit::TestCase
     end
 
     should "allow enable_telemetry to be configured" do
-      begin
-        old = Stripe.enable_telemetry?
+      old = Stripe.enable_telemetry?
 
-        Stripe.enable_telemetry = false
-        assert_equal false, Stripe.enable_telemetry?
-      ensure
-        Stripe.enable_telemetry = old
-      end
+      Stripe.enable_telemetry = false
+      assert_equal false, Stripe.enable_telemetry?
+    ensure
+      Stripe.enable_telemetry = old
     end
 
     should "allow log_level to be configured" do

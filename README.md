@@ -3,6 +3,9 @@
 [![Gem Version](https://badge.fury.io/rb/stripe.svg)](https://badge.fury.io/rb/stripe)
 [![Build Status](https://github.com/stripe/stripe-ruby/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-ruby/actions?query=branch%3Amaster)
 
+> [!TIP]
+> Want to chat live with Stripe engineers? Join us on our [Discord server](https://stripe.com/go/discord/ruby).
+
 The Stripe Ruby library provides convenient access to the Stripe API from
 applications written in the Ruby language. It includes a pre-defined set of
 classes for API resources that initialize themselves dynamically from API
@@ -37,7 +40,9 @@ gem build stripe.gemspec
 
 ### Requirements
 
-- Ruby 2.3+.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy), we currently support **Ruby 2.7+**.
+
+Support for Ruby 2.7 is deprecated and will be removed in upcoming major versions. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
 
 ### Bundler
 
@@ -55,8 +60,7 @@ gem 'stripe'
 ## Usage
 
 The library needs to be configured with your account's secret key which is
-available in your [Stripe Dashboard][api-keys]. Set `Stripe.api_key` to its
-value:
+available in your [Stripe Dashboard][api-keys]. Initialize a new client with your API key:
 
 ```ruby
 require 'stripe'
@@ -66,7 +70,7 @@ client = Stripe::StripeClient.new("sk_test_...")
 # list customers
 customers = client.v1.customers.list()
 
-# retrieve single customer 
+# retrieve single customer
 customer = client.v1.customers.retrieve('cus_123456789')
 ```
 
@@ -264,6 +268,12 @@ Stripe::Instrumentation.subscribe(:request_end) do |request_event|
 end
 ```
 
+### How to use undocumented parameters and properties
+
+In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK.
+See [undocumented params and properties](https://docs.stripe.com/sdks/server-side?lang=ruby#undocumented-params-and-fields) to send those parameters or access those fields.
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you
@@ -291,7 +301,7 @@ Stripe.enable_telemetry = false
 ### Types
 
 In [v14.0.0](https://github.com/stripe/stripe-python/releases/tag/v7.1.0) and newer, the library provides RBI
-static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations)
+static type annotations. See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations-(with-Sorbet))
 for an detailed guide.
 
 Please note that these types are available only for static analysis and we only support RBIs at the moment.
@@ -322,13 +332,11 @@ you see at runtime may not match the types.
 Stripe has features in the [public preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-beta.X` suffix like `11.2.0-beta.2`.
 We would love for you to try these as we incrementally release new features and improve them based on your feedback.
 
-To install, choose the version that includes support for the preview feature you are interested in by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
+To install, pick the latest version with the `beta` suffix by reviewing the [releases page](https://github.com/stripe/stripe-ruby/releases/) and use it in the `gem install` command:
 
 ```sh
 gem install stripe -v <replace-with-the-version-of-your-choice>
 ```
-
-You can find the latest version to use in this command from the [releases page](https://github.com/stripe/stripe-ruby/releases/)
 
 > **Note**
 > There can be breaking changes between two versions of the public preview SDKs without a bump in the major version. Therefore we recommend pinning the package version to a specific version in your Gemfile. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest version of the public preview SDK.
@@ -341,7 +349,13 @@ Some preview features require a name and version to be set in the `Stripe-Versio
 Stripe.add_beta_version("feature_beta", "v3")
 ```
 
+### Private Preview SDKs
+
+Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `-alpha.X` suffix like `11.2.0-alpha.2`. You can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#public-preview-sdks) above and replacing the term `beta` with `alpha`. Note that access to specific private preview API features may require separate approval.
+
 ### Custom requests
+
+> This feature is only available from version 13 of this SDK.
 
 If you:
 
@@ -408,9 +422,6 @@ Update bundled CA certificates from the [Mozilla cURL release][curl]:
 just update-certs
 # or: bundle exec rake update_certs
 ```
-
-Update the bundled [stripe-mock] by editing the version number found in
-`.travis.yml`.
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect

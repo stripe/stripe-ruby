@@ -11,21 +11,13 @@ module Stripe
       "ephemeral_key"
     end
 
-    class DeleteParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-
-      def initialize(expand: nil)
-        @expand = expand
-      end
-    end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
     # Time at which the key will expire. Measured in seconds since the Unix epoch.
     attr_reader :expires
     # Unique identifier for the object.
     attr_reader :id
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
@@ -59,6 +51,14 @@ module Stripe
               "stripe_version must be specified to create an ephemeral key"
       end
       super
+    end
+
+    def self.inner_class_types
+      @inner_class_types = {}
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
     end
   end
 end

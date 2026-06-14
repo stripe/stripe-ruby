@@ -14,7 +14,7 @@ module Stripe
         "issuing.personalization_design"
       end
 
-      class CarrierText < Stripe::StripeObject
+      class CarrierText < ::Stripe::StripeObject
         # The footer body text of the carrier letter.
         attr_reader :footer_body
         # The footer title text of the carrier letter.
@@ -23,247 +23,46 @@ module Stripe
         attr_reader :header_body
         # The header title text of the carrier letter.
         attr_reader :header_title
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Preferences < Stripe::StripeObject
+      class Preferences < ::Stripe::StripeObject
         # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         attr_reader :is_default
         # Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
         attr_reader :is_platform_default
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class RejectionReasons < Stripe::StripeObject
+      class RejectionReasons < ::Stripe::StripeObject
         # The reason(s) the card logo was rejected.
         attr_reader :card_logo
         # The reason(s) the carrier text was rejected.
         attr_reader :carrier_text
-      end
 
-      class ListParams < Stripe::RequestParams
-        class Preferences < Stripe::RequestParams
-          # Only return the personalization design that's set as the default. A connected account uses the Connect platform's default design if no personalization design is set as the default.
-          attr_accessor :is_default
-          # Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.
-          attr_accessor :is_platform_default
-
-          def initialize(is_default: nil, is_platform_default: nil)
-            @is_default = is_default
-            @is_platform_default = is_platform_default
-          end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # Only return personalization designs with the given lookup keys.
-        attr_accessor :lookup_keys
-        # Only return personalization designs with the given preferences.
-        attr_accessor :preferences
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
-        # Only return personalization designs with the given status.
-        attr_accessor :status
 
-        def initialize(
-          ending_before: nil,
-          expand: nil,
-          limit: nil,
-          lookup_keys: nil,
-          preferences: nil,
-          starting_after: nil,
-          status: nil
-        )
-          @ending_before = ending_before
-          @expand = expand
-          @limit = limit
-          @lookup_keys = lookup_keys
-          @preferences = preferences
-          @starting_after = starting_after
-          @status = status
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
-
-      class CreateParams < Stripe::RequestParams
-        class CarrierText < Stripe::RequestParams
-          # The footer body text of the carrier letter.
-          attr_accessor :footer_body
-          # The footer title text of the carrier letter.
-          attr_accessor :footer_title
-          # The header body text of the carrier letter.
-          attr_accessor :header_body
-          # The header title text of the carrier letter.
-          attr_accessor :header_title
-
-          def initialize(footer_body: nil, footer_title: nil, header_body: nil, header_title: nil)
-            @footer_body = footer_body
-            @footer_title = footer_title
-            @header_body = header_body
-            @header_title = header_title
-          end
-        end
-
-        class Preferences < Stripe::RequestParams
-          # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
-          attr_accessor :is_default
-
-          def initialize(is_default: nil)
-            @is_default = is_default
-          end
-        end
-        # The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
-        attr_accessor :card_logo
-        # Hash containing carrier text, for use with physical bundles that support carrier text.
-        attr_accessor :carrier_text
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
-        attr_accessor :lookup_key
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        attr_accessor :metadata
-        # Friendly display name.
-        attr_accessor :name
-        # The physical bundle object belonging to this personalization design.
-        attr_accessor :physical_bundle
-        # Information on whether this personalization design is used to create cards when one is not specified.
-        attr_accessor :preferences
-        # If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
-        attr_accessor :transfer_lookup_key
-
-        def initialize(
-          card_logo: nil,
-          carrier_text: nil,
-          expand: nil,
-          lookup_key: nil,
-          metadata: nil,
-          name: nil,
-          physical_bundle: nil,
-          preferences: nil,
-          transfer_lookup_key: nil
-        )
-          @card_logo = card_logo
-          @carrier_text = carrier_text
-          @expand = expand
-          @lookup_key = lookup_key
-          @metadata = metadata
-          @name = name
-          @physical_bundle = physical_bundle
-          @preferences = preferences
-          @transfer_lookup_key = transfer_lookup_key
-        end
-      end
-
-      class UpdateParams < Stripe::RequestParams
-        class CarrierText < Stripe::RequestParams
-          # The footer body text of the carrier letter.
-          attr_accessor :footer_body
-          # The footer title text of the carrier letter.
-          attr_accessor :footer_title
-          # The header body text of the carrier letter.
-          attr_accessor :header_body
-          # The header title text of the carrier letter.
-          attr_accessor :header_title
-
-          def initialize(footer_body: nil, footer_title: nil, header_body: nil, header_title: nil)
-            @footer_body = footer_body
-            @footer_title = footer_title
-            @header_body = header_body
-            @header_title = header_title
-          end
-        end
-
-        class Preferences < Stripe::RequestParams
-          # Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
-          attr_accessor :is_default
-
-          def initialize(is_default: nil)
-            @is_default = is_default
-          end
-        end
-        # The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
-        attr_accessor :card_logo
-        # Hash containing carrier text, for use with physical bundles that support carrier text.
-        attr_accessor :carrier_text
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
-        attr_accessor :lookup_key
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        attr_accessor :metadata
-        # Friendly display name. Providing an empty string will set the field to null.
-        attr_accessor :name
-        # The physical bundle object belonging to this personalization design.
-        attr_accessor :physical_bundle
-        # Information on whether this personalization design is used to create cards when one is not specified.
-        attr_accessor :preferences
-        # If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
-        attr_accessor :transfer_lookup_key
-
-        def initialize(
-          card_logo: nil,
-          carrier_text: nil,
-          expand: nil,
-          lookup_key: nil,
-          metadata: nil,
-          name: nil,
-          physical_bundle: nil,
-          preferences: nil,
-          transfer_lookup_key: nil
-        )
-          @card_logo = card_logo
-          @carrier_text = carrier_text
-          @expand = expand
-          @lookup_key = lookup_key
-          @metadata = metadata
-          @name = name
-          @physical_bundle = physical_bundle
-          @preferences = preferences
-          @transfer_lookup_key = transfer_lookup_key
-        end
-      end
-
-      class ActivateParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
-      class DeactivateParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
-      class RejectParams < Stripe::RequestParams
-        class RejectionReasons < Stripe::RequestParams
-          # The reason(s) the card logo was rejected.
-          attr_accessor :card_logo
-          # The reason(s) the carrier text was rejected.
-          attr_accessor :carrier_text
-
-          def initialize(card_logo: nil, carrier_text: nil)
-            @card_logo = card_logo
-            @carrier_text = carrier_text
-          end
-        end
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # The reason(s) the personalization design was rejected.
-        attr_accessor :rejection_reasons
-
-        def initialize(expand: nil, rejection_reasons: nil)
-          @expand = expand
-          @rejection_reasons = rejection_reasons
-        end
-      end
-      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
+      # The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`. Image must be in PNG format with dimensions of 1000px by 200px. It must be a binary (black and white) image containing a black logo on a white background. We don't accept grayscale.
       attr_reader :card_logo
       # Hash containing carrier text, for use with physical bundles that support carrier text.
       attr_reader :carrier_text
@@ -271,11 +70,11 @@ module Stripe
       attr_reader :created
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
       attr_reader :lookup_key
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # Friendly display name.
       attr_reader :name
@@ -389,6 +188,18 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          carrier_text: CarrierText,
+          preferences: Preferences,
+          rejection_reasons: RejectionReasons,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

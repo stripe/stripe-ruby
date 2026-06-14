@@ -5,26 +5,27 @@
 module Stripe
   module V2
     module Billing
+      # A Meter Event Session is an authentication session for the high-throughput meter event API. Meter Event Sessions provide temporary authentication tokens with expiration times, enabling secure and efficient bulk submission of usage events.
       class MeterEventSession < APIResource
-        # The authentication token for this session.  Use this token when calling the
+        # The authentication token for this session. Use this token when calling the
         # high-throughput meter event API.
         sig { returns(String) }
-        attr_reader :authentication_token
+        def authentication_token; end
         # The creation time of this session.
         sig { returns(String) }
-        attr_reader :created
-        # The time at which this session will expire.
+        def created; end
+        # The time at which this session expires.
         sig { returns(String) }
-        attr_reader :expires_at
-        # The unique id of this auth session.
+        def expires_at; end
+        # The unique ID of this auth session.
         sig { returns(String) }
-        attr_reader :id
-        # String representing the object's type. Objects of the same type share the same value of the object field.
-        sig { returns(String) }
-        attr_reader :object
+        def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
-        attr_reader :livemode
+        def livemode; end
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        sig { returns(String) }
+        def object; end
       end
     end
   end

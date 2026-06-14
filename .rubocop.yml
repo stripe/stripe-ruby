@@ -2,7 +2,8 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7
+  SuggestExtensions: false
 
 Layout/CaseIndentation:
   EnforcedStyle: end
@@ -19,12 +20,13 @@ Layout/LineLength:
     - "lib/stripe/stripe_client.rb"
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/events/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
     - "test/**/*.rb"
 
 Lint/MissingSuper:
   Exclude:
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
     - "test/stripe/request_params_test.rb"
 
 Metrics/AbcSize:
@@ -39,6 +41,12 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Enabled: false
+
+Metrics/CollectionLiteralLength:
+  Enabled: true
+  Exclude:
+    # We have thin event types that are automatically generated from the OpenAPI spec
+    - "lib/stripe/event_types.rb"
 
 # There are several methods with many branches in api_requestor due to
 # request logic.
@@ -63,14 +71,8 @@ Metrics/MethodLength:
     - "lib/stripe/api_requestor.rb"
   AllowedMethods:
     - initialize
-
-# TODO(xavdid): remove this once the first `basil` release is out
-Naming/MethodName:
-  # these endpoints are removed soon so we pulled their overrides, meaning their names are wrong
-  # that won't make it out to users, but it's breaking linting/formatting in the meantime
-  Exclude:
-    - "lib/stripe/services/invoice_service.rb"
-    - "lib/stripe/resources/invoice.rb"
+    - inner_class_types
+    - field_encodings
 
 Metrics/ModuleLength:
   Enabled: false
@@ -84,20 +86,18 @@ Metrics/ParameterLists:
     - "lib/stripe/api_operations/request.rb"
     - "lib/stripe/stripe_object.rb"
     - "lib/stripe/stripe_client.rb"
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Naming/MethodParameterName:
   # We have many parameters that are less than 3 characters for tax codes
   Exclude:
-    - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Naming/VariableNumber:
   # We use a variety of variable number syntaxes
   Exclude:
     - "lib/stripe/resources/**/*.rb"
-    - "lib/stripe/services/**/*.rb"
+    - "lib/stripe/params/**/*.rb"
 
 Style/AccessModifierDeclarations:
   EnforcedStyle: inline
@@ -116,6 +116,9 @@ Style/HashTransformKeys:
 
 Style/HashTransformValues:
   Enabled: true
+  Exclude:
+    # RUN_DEVSDK-1956
+    - "lib/stripe/api_requestor.rb"
 
 Style/NumericPredicate:
   Enabled: false
@@ -208,8 +211,6 @@ Lint/UselessRescue: # new in 1.43
   Enabled: true
 Lint/UselessRuby2Keywords: # new in 1.23
   Enabled: true
-Metrics/CollectionLiteralLength: # new in 1.47
-  Enabled: true
 Naming/BlockForwarding: # new in 1.24
   Enabled: true
 Security/CompoundHash: # new in 1.28
@@ -262,6 +263,9 @@ Style/MapCompactWithConditionalBlock: # new in 1.30
   Enabled: true
 Style/MapToHash: # new in 1.24
   Enabled: true
+  Exclude:
+    # RUN_DEVSDK-1956
+    - "lib/stripe/api_requestor.rb"
 Style/MapToSet: # new in 1.42
   Enabled: true
 Style/MinMaxComparison: # new in 1.42

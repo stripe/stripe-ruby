@@ -47,6 +47,35 @@ module Stripe
            }
           def initialize(type: nil, us_bank_account: nil); end
         end
+        class NetworkDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # ACH Addenda record
+            sig { returns(T.nilable(String)) }
+            def addenda; end
+            sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+            def addenda=(_addenda); end
+            sig { params(addenda: T.nilable(String)).void }
+            def initialize(addenda: nil); end
+          end
+          # Optional fields for `ach`.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails::Ach))
+           }
+          def ach; end
+          sig {
+            params(_ach: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails::Ach)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails::Ach))
+           }
+          def ach=(_ach); end
+          # The type of flow that originated the ReceivedCredit.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(ach: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails::Ach), type: String).void
+           }
+          def initialize(ach: nil, type: nil); end
+        end
         # Amount (in cents) to be transferred.
         sig { returns(Integer) }
         def amount; end
@@ -86,8 +115,17 @@ module Stripe
         def network; end
         sig { params(_network: String).returns(String) }
         def network=(_network); end
+        # Details about the network used for the ReceivedCredit.
         sig {
-          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::InitiatingPaymentMethodDetails), network: String).void
+          returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails))
+         }
+        def network_details; end
+        sig {
+          params(_network_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails)).returns(T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails))
+         }
+        def network_details=(_network_details); end
+        sig {
+          params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, initiating_payment_method_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::InitiatingPaymentMethodDetails), network: String, network_details: T.nilable(::Stripe::TestHelpers::Treasury::ReceivedCreditCreateParams::NetworkDetails)).void
          }
         def initialize(
           amount: nil,
@@ -96,7 +134,8 @@ module Stripe
           expand: nil,
           financial_account: nil,
           initiating_payment_method_details: nil,
-          network: nil
+          network: nil,
+          network_details: nil
         ); end
       end
     end

@@ -222,6 +222,37 @@ module Stripe
       end
     end
 
+    class LastPriceMigrationError < ::Stripe::StripeObject
+      class FailedTransition < ::Stripe::StripeObject
+        # The original price to be migrated.
+        attr_reader :source_price
+        # The intended resulting price of the migration.
+        attr_reader :target_price
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The time at which the price migration encountered an error.
+      attr_reader :errored_at
+      # The involved price pairs in each failed transition.
+      attr_reader :failed_transitions
+      # The type of error encountered by the price migration.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = { failed_transitions: FailedTransition }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class ManagedPayments < ::Stripe::StripeObject
       # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
       attr_reader :enabled
@@ -292,6 +323,58 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            attr_reader :amount
+            # Indicates the mandate amount type.
+            attr_reader :amount_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Blik < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_reader :expires_after
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -318,6 +401,16 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CheckScan < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -359,6 +452,16 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { bank_transfer: BankTransfer }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class IdBankTransfer < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -484,6 +587,8 @@ module Stripe
             class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
+              # The institution to use to filter for possible accounts to link.
+              attr_reader :institution
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -521,14 +626,37 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          attr_reader :app_id
+          # The client type that the end customer will pay from.
+          attr_reader :client
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
         attr_reader :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         attr_reader :bancontact
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        attr_reader :bizum
+        # This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+        attr_reader :blik
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         attr_reader :card
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        attr_reader :check_scan
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
         attr_reader :customer_balance
+        # This sub-hash contains details about the Indonesia bank transfer payment method options to pass to invoices created by the subscription.
+        attr_reader :id_bank_transfer
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         attr_reader :konbini
         # This sub-hash contains details about the PayTo payment method options to pass to invoices created by the subscription.
@@ -541,19 +669,26 @@ module Stripe
         attr_reader :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         attr_reader :us_bank_account
+        # This sub-hash contains details about the WeChat Pay payment method options to pass to invoices created by the subscription.
+        attr_reader :wechat_pay
 
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
+            blik: Blik,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
             payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
 
@@ -603,6 +738,8 @@ module Stripe
       attr_reader :expires_at
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # The number of iterations of prebilling to apply.
+      attr_reader :prebilling_iterations
       # List of subscription items, each with an attached plan, that will be set if the update is applied.
       attr_reader :subscription_items
       # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
@@ -619,12 +756,72 @@ module Stripe
       end
     end
 
+    class Prebilling < ::Stripe::StripeObject
+      # ID of the prebilling invoice.
+      attr_reader :invoice
+      # The end of the last period for which the invoice pre-bills.
+      attr_reader :period_end
+      # The start of the first period for which the invoice pre-bills.
+      attr_reader :period_start
+      # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+      attr_reader :update_behavior
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class PresentmentDetails < ::Stripe::StripeObject
       # Currency used for customer payments.
       attr_reader :presentment_currency
 
       def self.inner_class_types
         @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class StatusDetails < ::Stripe::StripeObject
+      class Paused < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          # The reason that the subscription was paused.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information on the `type=subscription` pause.
+        attr_reader :subscription
+        # Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+        attr_reader :transitioned_at
+        # The type of pause.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { subscription: Subscription }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Indicates when and why the subscription transitioned to the paused status.
+      attr_reader :paused
+
+      def self.inner_class_types
+        @inner_class_types = { paused: Paused }
       end
 
       def self.field_remappings
@@ -649,6 +846,8 @@ module Stripe
 
     class TrialSettings < ::Stripe::StripeObject
       class EndBehavior < ::Stripe::StripeObject
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+        attr_reader :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
 
@@ -677,6 +876,8 @@ module Stripe
     attr_reader :application_fee_percent
     # Attribute for field automatic_tax
     attr_reader :automatic_tax
+    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    attr_reader :billing_cadence
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     attr_reader :billing_cycle_anchor
     # The fixed values used to calculate the `billing_cycle_anchor`.
@@ -725,6 +926,8 @@ module Stripe
     attr_reader :invoice_settings
     # List of subscription items, each with an attached price.
     attr_reader :items
+    # Details of the most recent price migration that failed for the subscription.
+    attr_reader :last_price_migration_error
     # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     attr_reader :latest_invoice
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -749,6 +952,8 @@ module Stripe
     attr_reader :pending_setup_intent
     # If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     attr_reader :pending_update
+    # Time period and invoice for a Subscription billed in advance.
+    attr_reader :prebilling
     # Attribute for field presentment_details
     attr_reader :presentment_details
     # The schedule attached to the subscription
@@ -767,6 +972,8 @@ module Stripe
     #
     # If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
     attr_reader :status
+    # Describes changes to the subscription's status.
+    attr_reader :status_details
     # ID of the test clock this subscription belongs to.
     attr_reader :test_clock
     # The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
@@ -777,6 +984,26 @@ module Stripe
     attr_reader :trial_settings
     # If the subscription has a trial, the beginning of that trial.
     attr_reader :trial_start
+
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+    def attach_cadence(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+    def self.attach_cadence(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
+    end
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
@@ -862,6 +1089,26 @@ module Stripe
       )
     end
 
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def pause(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def self.pause(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     def resume(params = {}, opts = {})
       request_stripe_object(
@@ -936,12 +1183,15 @@ module Stripe
         billing_thresholds: BillingThresholds,
         cancellation_details: CancellationDetails,
         invoice_settings: InvoiceSettings,
+        last_price_migration_error: LastPriceMigrationError,
         managed_payments: ManagedPayments,
         pause_collection: PauseCollection,
         payment_settings: PaymentSettings,
         pending_invoice_item_interval: PendingInvoiceItemInterval,
         pending_update: PendingUpdate,
+        prebilling: Prebilling,
         presentment_details: PresentmentDetails,
+        status_details: StatusDetails,
         transfer_data: TransferData,
         trial_settings: TrialSettings,
       }

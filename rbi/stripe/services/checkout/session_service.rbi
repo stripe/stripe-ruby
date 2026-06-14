@@ -6,6 +6,12 @@ module Stripe
   module Checkout
     class SessionService < StripeService
       attr_reader :line_items
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      sig {
+        params(session: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+       }
+      def approve(session, params = {}, opts = {}); end
+
       # Creates a Checkout Session object.
       sig {
         params(params: T.any(::Stripe::Checkout::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)

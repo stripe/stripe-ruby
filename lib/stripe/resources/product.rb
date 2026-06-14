@@ -25,6 +25,60 @@ module Stripe
 
     nested_resource_class_methods :feature, operations: %i[create retrieve delete list]
 
+    class Identifiers < ::Stripe::StripeObject
+      # European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+      attr_reader :ean
+      # Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+      attr_reader :gtin
+      # International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+      attr_reader :isbn
+      # Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+      attr_reader :jan
+      # Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+      attr_reader :mpn
+      # National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+      attr_reader :nsn
+      # Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+      attr_reader :upc
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class ManagedPayments < ::Stripe::StripeObject
+      class IneligibilityReason < ::Stripe::StripeObject
+        # A code identifying the reason this product can't be used with Managed Payments. Additional values might be added as Managed Payments evolves its eligibility criteria.
+        attr_reader :code
+        # A human-readable description of the reason this product can't be used with Managed Payments.
+        attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this product is eligible for use with Managed Payments. Possible values are `eligible` and `ineligible`.
+      attr_reader :eligibility
+      # The reasons this product is ineligible for use with Managed Payments, if any. This field isn't present if the product is eligible.
+      attr_reader :ineligibility_reasons
+
+      def self.inner_class_types
+        @inner_class_types = { ineligibility_reasons: IneligibilityReason }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       attr_reader :name
@@ -56,6 +110,21 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class TaxDetails < ::Stripe::StripeObject
+      # The performance location.
+      attr_reader :performance_location
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      attr_reader :tax_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the product is currently available for purchase.
     attr_reader :active
     # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -68,10 +137,14 @@ module Stripe
     attr_reader :description
     # Unique identifier for the object.
     attr_reader :id
+    # Attribute for field identifiers
+    attr_reader :identifiers
     # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     attr_reader :images
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Attribute for field managed_payments
+    attr_reader :managed_payments
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
     attr_reader :marketing_features
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -88,6 +161,8 @@ module Stripe
     attr_reader :statement_descriptor
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_reader :tax_code
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_reader :tax_details
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     attr_reader :type
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
@@ -147,8 +222,11 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        identifiers: Identifiers,
+        managed_payments: ManagedPayments,
         marketing_features: MarketingFeature,
         package_dimensions: PackageDimensions,
+        tax_details: TaxDetails,
       }
     end
 

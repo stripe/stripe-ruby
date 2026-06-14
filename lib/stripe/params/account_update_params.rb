@@ -110,6 +110,8 @@ module Stripe
       attr_accessor :name
       # Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
       attr_accessor :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      attr_accessor :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_accessor :support_address
       # A publicly available email address for sending support issues to.
@@ -129,6 +131,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -142,6 +145,7 @@ module Stripe
         @monthly_estimated_revenue = monthly_estimated_revenue
         @name = name
         @product_description = product_description
+        @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
         @support_address = support_address
         @support_email = support_email
         @support_phone = support_phone
@@ -206,6 +210,15 @@ module Stripe
       end
 
       class AuBecsDebitPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class AutomaticIndirectTax < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -287,10 +300,29 @@ module Stripe
       end
 
       class CardPayments < ::Stripe::RequestParams
+        class Protections < ::Stripe::RequestParams
+          class PspMigration < ::Stripe::RequestParams
+            # Passing true requests the protection.
+            attr_accessor :requested
+
+            def initialize(requested: nil)
+              @requested = requested
+            end
+          end
+          # Protection for connected accounts migrating from another PSP.
+          attr_accessor :psp_migration
+
+          def initialize(psp_migration: nil)
+            @psp_migration = psp_migration
+          end
+        end
+        # Protections to apply to this capability.
+        attr_accessor :protections
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
-        def initialize(requested: nil)
+        def initialize(protections: nil, requested: nil)
+          @protections = protections
           @requested = requested
         end
       end
@@ -358,7 +390,34 @@ module Stripe
         end
       end
 
+      class GopayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class GrabpayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class IdBankTransferPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class IdBankTransferPaymentsBca < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -556,6 +615,24 @@ module Stripe
         end
       end
 
+      class PaypalPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class PaypayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class PaytoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -575,6 +652,24 @@ module Stripe
       end
 
       class PromptpayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class QrisPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class RechnungPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -637,7 +732,25 @@ module Stripe
         end
       end
 
+      class ShopeepayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class SofortPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class StripeBalancePayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -692,6 +805,33 @@ module Stripe
       end
 
       class Treasury < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class TreasuryEvolve < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class TreasuryFifthThird < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class TreasuryGoldmanSachs < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -758,6 +898,8 @@ module Stripe
       attr_accessor :app_distribution
       # The au_becs_debit_payments capability.
       attr_accessor :au_becs_debit_payments
+      # The automatic_indirect_tax capability.
+      attr_accessor :automatic_indirect_tax
       # The bacs_debit_payments capability.
       attr_accessor :bacs_debit_payments
       # The bancontact_payments capability.
@@ -790,8 +932,14 @@ module Stripe
       attr_accessor :gb_bank_transfer_payments
       # The giropay_payments capability.
       attr_accessor :giropay_payments
+      # The gopay_payments capability.
+      attr_accessor :gopay_payments
       # The grabpay_payments capability.
       attr_accessor :grabpay_payments
+      # The id_bank_transfer_payments capability.
+      attr_accessor :id_bank_transfer_payments
+      # The id_bank_transfer_payments_bca capability.
+      attr_accessor :id_bank_transfer_payments_bca
       # The ideal_payments capability.
       attr_accessor :ideal_payments
       # The india_international_payments capability.
@@ -834,12 +982,20 @@ module Stripe
       attr_accessor :payco_payments
       # The paynow_payments capability.
       attr_accessor :paynow_payments
+      # The paypal_payments capability.
+      attr_accessor :paypal_payments
+      # The paypay_payments capability.
+      attr_accessor :paypay_payments
       # The payto_payments capability.
       attr_accessor :payto_payments
       # The pix_payments capability.
       attr_accessor :pix_payments
       # The promptpay_payments capability.
       attr_accessor :promptpay_payments
+      # The qris_payments capability.
+      attr_accessor :qris_payments
+      # The rechnung_payments capability.
+      attr_accessor :rechnung_payments
       # The revolut_pay_payments capability.
       attr_accessor :revolut_pay_payments
       # The samsung_pay_payments capability.
@@ -852,8 +1008,12 @@ module Stripe
       attr_accessor :sepa_bank_transfer_payments
       # The sepa_debit_payments capability.
       attr_accessor :sepa_debit_payments
+      # The shopeepay_payments capability.
+      attr_accessor :shopeepay_payments
       # The sofort_payments capability.
       attr_accessor :sofort_payments
+      # The stripe_balance_payments capability.
+      attr_accessor :stripe_balance_payments
       # The sunbit_payments capability.
       attr_accessor :sunbit_payments
       # The swish_payments capability.
@@ -866,6 +1026,12 @@ module Stripe
       attr_accessor :transfers
       # The treasury capability.
       attr_accessor :treasury
+      # The treasury_evolve capability.
+      attr_accessor :treasury_evolve
+      # The treasury_fifth_third capability.
+      attr_accessor :treasury_fifth_third
+      # The treasury_goldman_sachs capability.
+      attr_accessor :treasury_goldman_sachs
       # The twint_payments capability.
       attr_accessor :twint_payments
       # The upi_payments capability.
@@ -885,6 +1051,7 @@ module Stripe
         amazon_pay_payments: nil,
         app_distribution: nil,
         au_becs_debit_payments: nil,
+        automatic_indirect_tax: nil,
         bacs_debit_payments: nil,
         bancontact_payments: nil,
         bank_transfer_payments: nil,
@@ -901,7 +1068,10 @@ module Stripe
         fpx_payments: nil,
         gb_bank_transfer_payments: nil,
         giropay_payments: nil,
+        gopay_payments: nil,
         grabpay_payments: nil,
+        id_bank_transfer_payments: nil,
+        id_bank_transfer_payments_bca: nil,
         ideal_payments: nil,
         india_international_payments: nil,
         jcb_payments: nil,
@@ -923,22 +1093,31 @@ module Stripe
         pay_by_bank_payments: nil,
         payco_payments: nil,
         paynow_payments: nil,
+        paypal_payments: nil,
+        paypay_payments: nil,
         payto_payments: nil,
         pix_payments: nil,
         promptpay_payments: nil,
+        qris_payments: nil,
+        rechnung_payments: nil,
         revolut_pay_payments: nil,
         samsung_pay_payments: nil,
         satispay_payments: nil,
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        shopeepay_payments: nil,
         sofort_payments: nil,
+        stripe_balance_payments: nil,
         sunbit_payments: nil,
         swish_payments: nil,
         tax_reporting_us_1099_k: nil,
         tax_reporting_us_1099_misc: nil,
         transfers: nil,
         treasury: nil,
+        treasury_evolve: nil,
+        treasury_fifth_third: nil,
+        treasury_goldman_sachs: nil,
         twint_payments: nil,
         upi_payments: nil,
         us_bank_account_ach_payments: nil,
@@ -952,6 +1131,7 @@ module Stripe
         @amazon_pay_payments = amazon_pay_payments
         @app_distribution = app_distribution
         @au_becs_debit_payments = au_becs_debit_payments
+        @automatic_indirect_tax = automatic_indirect_tax
         @bacs_debit_payments = bacs_debit_payments
         @bancontact_payments = bancontact_payments
         @bank_transfer_payments = bank_transfer_payments
@@ -968,7 +1148,10 @@ module Stripe
         @fpx_payments = fpx_payments
         @gb_bank_transfer_payments = gb_bank_transfer_payments
         @giropay_payments = giropay_payments
+        @gopay_payments = gopay_payments
         @grabpay_payments = grabpay_payments
+        @id_bank_transfer_payments = id_bank_transfer_payments
+        @id_bank_transfer_payments_bca = id_bank_transfer_payments_bca
         @ideal_payments = ideal_payments
         @india_international_payments = india_international_payments
         @jcb_payments = jcb_payments
@@ -990,22 +1173,31 @@ module Stripe
         @pay_by_bank_payments = pay_by_bank_payments
         @payco_payments = payco_payments
         @paynow_payments = paynow_payments
+        @paypal_payments = paypal_payments
+        @paypay_payments = paypay_payments
         @payto_payments = payto_payments
         @pix_payments = pix_payments
         @promptpay_payments = promptpay_payments
+        @qris_payments = qris_payments
+        @rechnung_payments = rechnung_payments
         @revolut_pay_payments = revolut_pay_payments
         @samsung_pay_payments = samsung_pay_payments
         @satispay_payments = satispay_payments
         @scalapay_payments = scalapay_payments
         @sepa_bank_transfer_payments = sepa_bank_transfer_payments
         @sepa_debit_payments = sepa_debit_payments
+        @shopeepay_payments = shopeepay_payments
         @sofort_payments = sofort_payments
+        @stripe_balance_payments = stripe_balance_payments
         @sunbit_payments = sunbit_payments
         @swish_payments = swish_payments
         @tax_reporting_us_1099_k = tax_reporting_us_1099_k
         @tax_reporting_us_1099_misc = tax_reporting_us_1099_misc
         @transfers = transfers
         @treasury = treasury
+        @treasury_evolve = treasury_evolve
+        @treasury_fifth_third = treasury_fifth_third
+        @treasury_goldman_sachs = treasury_goldman_sachs
         @twint_payments = twint_payments
         @upi_payments = upi_payments
         @us_bank_account_ach_payments = us_bank_account_ach_payments
@@ -1631,6 +1823,37 @@ module Stripe
         end
       end
 
+      class BirthAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        attr_accessor :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_accessor :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_accessor :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_accessor :line2
+        # ZIP or postal code.
+        attr_accessor :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_accessor :state
+
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        )
+          @city = city
+          @country = country
+          @line1 = line1
+          @line2 = line2
+          @postal_code = postal_code
+          @state = state
+        end
+      end
+
       class Dob < ::Stripe::RequestParams
         # The day of birth, between 1 and 31.
         attr_accessor :day
@@ -1704,6 +1927,30 @@ module Stripe
         end
       end
 
+      class SelfReportedIncome < ::Stripe::RequestParams
+        # The amount in the minor currency unit (for example, cents for USD).
+        attr_accessor :amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_accessor :currency
+
+        def initialize(amount: nil, currency: nil)
+          @amount = amount
+          @currency = currency
+        end
+      end
+
+      class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+        # The amount in the minor currency unit (for example, cents for USD).
+        attr_accessor :amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_accessor :currency
+
+        def initialize(amount: nil, currency: nil)
+          @amount = amount
+          @currency = currency
+        end
+      end
+
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
           # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -1744,6 +1991,8 @@ module Stripe
       attr_accessor :address_kana
       # The Kanji variation of the individual's primary address (Japan only).
       attr_accessor :address_kanji
+      # Attribute for param field birth_address
+      attr_accessor :birth_address
       # The individual's date of birth.
       attr_accessor :dob
       # The individual's email address.
@@ -1780,6 +2029,10 @@ module Stripe
       attr_accessor :registered_address
       # Describes the person’s relationship to the account.
       attr_accessor :relationship
+      # The credit applicant's self-reported yearly income in minor units.
+      attr_accessor :self_reported_income
+      # The credit applicant's self-reported monthly housing payment in minor units.
+      attr_accessor :self_reported_monthly_housing_payment
       # The last four digits of the individual's Social Security Number (U.S. only).
       attr_accessor :ssn_last_4
       # The individual's verification document information.
@@ -1789,6 +2042,7 @@ module Stripe
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        birth_address: nil,
         dob: nil,
         email: nil,
         first_name: nil,
@@ -1807,12 +2061,15 @@ module Stripe
         political_exposure: nil,
         registered_address: nil,
         relationship: nil,
+        self_reported_income: nil,
+        self_reported_monthly_housing_payment: nil,
         ssn_last_4: nil,
         verification: nil
       )
         @address = address
         @address_kana = address_kana
         @address_kanji = address_kanji
+        @birth_address = birth_address
         @dob = dob
         @email = email
         @first_name = first_name
@@ -1831,8 +2088,41 @@ module Stripe
         @political_exposure = political_exposure
         @registered_address = registered_address
         @relationship = relationship
+        @self_reported_income = self_reported_income
+        @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
         @ssn_last_4 = ssn_last_4
         @verification = verification
+      end
+    end
+
+    class RiskControls < ::Stripe::RequestParams
+      class Charges < ::Stripe::RequestParams
+        # To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        # There can be a delay before the risk control is paused or unpaused.
+        attr_accessor :pause_requested
+
+        def initialize(pause_requested: nil)
+          @pause_requested = pause_requested
+        end
+      end
+
+      class Payouts < ::Stripe::RequestParams
+        # To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+        # There can be a delay before the risk control is paused or unpaused.
+        attr_accessor :pause_requested
+
+        def initialize(pause_requested: nil)
+          @pause_requested = pause_requested
+        end
+      end
+      # Represents the risk control status of charges. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
+      attr_accessor :charges
+      # Represents the risk control status of payouts. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
+      attr_accessor :payouts
+
+      def initialize(charges: nil, payouts: nil)
+        @charges = charges
+        @payouts = payouts
       end
     end
 
@@ -1843,6 +2133,18 @@ module Stripe
 
         def initialize(display_name: nil)
           @display_name = display_name
+        end
+      end
+
+      class BankBcaOnboarding < ::Stripe::RequestParams
+        # Bank BCA business account holder name
+        attr_accessor :account_holder_name
+        # Bank BCA business account number
+        attr_accessor :business_account_number
+
+        def initialize(account_holder_name: nil, business_account_number: nil)
+          @account_holder_name = account_holder_name
+          @business_account_number = business_account_number
         end
       end
 
@@ -1861,6 +2163,18 @@ module Stripe
           @logo = logo
           @primary_color = primary_color
           @secondary_color = secondary_color
+        end
+      end
+
+      class Capital < ::Stripe::RequestParams
+        # Per-currency mapping of user-selected destination accounts used to pay out loans.
+        attr_accessor :payout_destination
+        # Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
+        attr_accessor :payout_destination_selector
+
+        def initialize(payout_destination: nil, payout_destination_selector: nil)
+          @payout_destination = payout_destination
+          @payout_destination_selector = payout_destination_selector
         end
       end
 
@@ -1934,6 +2248,8 @@ module Stripe
       end
 
       class Payments < ::Stripe::RequestParams
+        # When you enable this parameter, the customer of this Account receives an email receipt when their payment succeeds. If this parameter isn't set, the default value is `false`.
+        attr_accessor :email_customers_on_successful_payment
         # The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
         attr_accessor :statement_descriptor
         # The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
@@ -1942,10 +2258,12 @@ module Stripe
         attr_accessor :statement_descriptor_kanji
 
         def initialize(
+          email_customers_on_successful_payment: nil,
           statement_descriptor: nil,
           statement_descriptor_kana: nil,
           statement_descriptor_kanji: nil
         )
+          @email_customers_on_successful_payment = email_customers_on_successful_payment
           @statement_descriptor = statement_descriptor
           @statement_descriptor_kana = statement_descriptor_kana
           @statement_descriptor_kanji = statement_descriptor_kanji
@@ -1997,6 +2315,86 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::RequestParams
+        class Site < ::Stripe::RequestParams
+          class Accessible < ::Stripe::RequestParams; end
+
+          class InDevelopment < ::Stripe::RequestParams
+            # The password needed to access your business's website.
+            attr_accessor :password
+            # The username needed to access your business's website.
+            attr_accessor :username
+
+            def initialize(password: nil, username: nil)
+              @password = password
+              @username = username
+            end
+          end
+
+          class Restricted < ::Stripe::RequestParams
+            # The file explaining the payment flow for your business.
+            attr_accessor :payment_flow_file
+
+            def initialize(payment_flow_file: nil)
+              @payment_flow_file = payment_flow_file
+            end
+          end
+          # Additional information about your business's website.
+          attr_accessor :accessible
+          # Additional information about your business's website.
+          attr_accessor :in_development
+          # Additional information about your business's website.
+          attr_accessor :restricted
+          # The status of your business's website.
+          attr_accessor :type
+
+          def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil)
+            @accessible = accessible
+            @in_development = in_development
+            @restricted = restricted
+            @type = type
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_accessor :additional_files
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        attr_accessor :goods_type
+        # Details regarding your business's website.
+        attr_accessor :site
+
+        def initialize(additional_files: nil, goods_type: nil, site: nil)
+          @additional_files = additional_files
+          @goods_type = goods_type
+          @site = site
+        end
+      end
+
+      class SmartDisputes < ::Stripe::RequestParams
+        class AutoRespond < ::Stripe::RequestParams
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          attr_accessor :preference
+
+          def initialize(preference: nil)
+            @preference = preference
+          end
+        end
+        # Smart Disputes auto-respond settings for the account.
+        attr_accessor :auto_respond
+
+        def initialize(auto_respond: nil)
+          @auto_respond = auto_respond
+        end
+      end
+
+      class TaxForms < ::Stripe::RequestParams
+        # Whether the account opted out of receiving their tax forms by postal delivery.
+        attr_accessor :consented_to_paperless_delivery
+
+        def initialize(consented_to_paperless_delivery: nil)
+          @consented_to_paperless_delivery = consented_to_paperless_delivery
+        end
+      end
+
       class Treasury < ::Stripe::RequestParams
         class TosAcceptance < ::Stripe::RequestParams
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -2021,8 +2419,12 @@ module Stripe
       end
       # Settings specific to Bacs Direct Debit payments.
       attr_accessor :bacs_debit_payments
+      # Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+      attr_accessor :bank_bca_onboarding
       # Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
       attr_accessor :branding
+      # Settings specific to the account's use of the Capital product.
+      attr_accessor :capital
       # Settings specific to the account's use of the Card Issuing product.
       attr_accessor :card_issuing
       # Settings specific to card charging on the account.
@@ -2033,26 +2435,42 @@ module Stripe
       attr_accessor :payments
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # Settings specific to the PayPay payments method.
+      attr_accessor :paypay_payments
+      # Settings specific to the account's use of Smart Disputes.
+      attr_accessor :smart_disputes
+      # Settings specific to the account's tax forms.
+      attr_accessor :tax_forms
       # Settings specific to the account's Treasury FinancialAccounts.
       attr_accessor :treasury
 
       def initialize(
         bacs_debit_payments: nil,
+        bank_bca_onboarding: nil,
         branding: nil,
+        capital: nil,
         card_issuing: nil,
         card_payments: nil,
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
+        smart_disputes: nil,
+        tax_forms: nil,
         treasury: nil
       )
         @bacs_debit_payments = bacs_debit_payments
+        @bank_bca_onboarding = bank_bca_onboarding
         @branding = branding
+        @capital = capital
         @card_issuing = card_issuing
         @card_payments = card_payments
         @invoices = invoices
         @payments = payments
         @payouts = payouts
+        @paypay_payments = paypay_payments
+        @smart_disputes = smart_disputes
+        @tax_forms = tax_forms
         @treasury = treasury
       end
     end
@@ -2107,6 +2525,8 @@ module Stripe
     attr_accessor :individual
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # A hash to configure risk controls on the account. Please see [this page for more details](/connect/pausing-payments-or-payouts-on-connected-accounts).
+    attr_accessor :risk_controls
     # Options for customizing how the account functions within Stripe.
     attr_accessor :settings
     # Details on the account's acceptance of the [Stripe Services Agreement](/connect/updating-accounts#tos-acceptance). This property can only be updated for accounts where [controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. This property defaults to a `full` service agreement when empty.
@@ -2126,6 +2546,7 @@ module Stripe
       groups: nil,
       individual: nil,
       metadata: nil,
+      risk_controls: nil,
       settings: nil,
       tos_acceptance: nil
     )
@@ -2142,6 +2563,7 @@ module Stripe
       @groups = groups
       @individual = individual
       @metadata = metadata
+      @risk_controls = risk_controls
       @settings = settings
       @tos_acceptance = tos_acceptance
     end

@@ -23,6 +23,12 @@ module Stripe
         params(transaction: String, params: T.any(::Stripe::Tax::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Transaction)
        }
       def retrieve(transaction, params = {}, opts = {}); end
+
+      # Serializes a Transaction create_reversal request into a batch job JSONL line.
+      sig {
+        params(params: ::Stripe::Tax::TransactionCreateReversalParams, opts: T.untyped).returns(String)
+       }
+      def serialize_batch_create_reversal(params = {}, opts = {}); end
     end
   end
 end

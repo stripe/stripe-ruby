@@ -26,13 +26,18 @@ module Stripe
         end
         class FinancialAddresses < ::Stripe::RequestParams
           class Aba < ::Stripe::RequestParams
+            # Requested bank partner
+            sig { returns(T.nilable(String)) }
+            def bank; end
+            sig { params(_bank: T.nilable(String)).returns(T.nilable(String)) }
+            def bank=(_bank); end
             # Whether the FinancialAccount should have the Feature.
             sig { returns(T::Boolean) }
             def requested; end
             sig { params(_requested: T::Boolean).returns(T::Boolean) }
             def requested=(_requested); end
-            sig { params(requested: T::Boolean).void }
-            def initialize(requested: nil); end
+            sig { params(bank: T.nilable(String), requested: T::Boolean).void }
+            def initialize(bank: nil, requested: nil); end
           end
           # Adds an ABA FinancialAddress to the FinancialAccount.
           sig {
@@ -255,6 +260,11 @@ module Stripe
         sig { params(inbound_flows: T.nilable(String), outbound_flows: T.nilable(String)).void }
         def initialize(inbound_flows: nil, outbound_flows: nil); end
       end
+      # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+      sig { returns(T.nilable(String)) }
+      def display_name; end
+      sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
+      def display_name=(_display_name); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -294,9 +304,10 @@ module Stripe
       sig { params(_supported_currencies: T::Array[String]).returns(T::Array[String]) }
       def supported_currencies=(_supported_currencies); end
       sig {
-        params(expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccountCreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccountCreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
+        params(display_name: T.nilable(String), expand: T.nilable(T::Array[String]), features: T.nilable(::Stripe::Treasury::FinancialAccountCreateParams::Features), metadata: T.nilable(T::Hash[String, String]), nickname: T.nilable(String), platform_restrictions: T.nilable(::Stripe::Treasury::FinancialAccountCreateParams::PlatformRestrictions), supported_currencies: T::Array[String]).void
        }
       def initialize(
+        display_name: nil,
         expand: nil,
         features: nil,
         metadata: nil,

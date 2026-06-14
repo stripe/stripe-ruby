@@ -323,6 +323,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          sig { returns(T.nilable(String)) }
+          def account; end
           # Represents a per-transaction override of a reader configuration
           sig { returns(T.nilable(CollectConfig)) }
           def collect_config; end
@@ -355,6 +358,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          sig { returns(T.nilable(String)) }
+          def account; end
           # Represents a per-transaction override of a reader configuration
           sig { returns(T.nilable(ConfirmConfig)) }
           def confirm_config; end
@@ -434,6 +440,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          sig { returns(T.nilable(String)) }
+          def account; end
           # Most recent PaymentIntent processed by the reader.
           sig { returns(T.any(String, ::Stripe::PaymentIntent)) }
           def payment_intent; end
@@ -487,6 +496,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Account the payment intent belongs to.
+          sig { returns(T.nilable(String)) }
+          def account; end
           # The amount being refunded.
           sig { returns(T.nilable(Integer)) }
           def amount; end

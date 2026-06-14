@@ -114,6 +114,23 @@ module Stripe
       end
     end
 
+    class MigrateTo < ::Stripe::StripeObject
+      # The behavior controlling at what point in the subscription lifecycle to migrate the price
+      attr_reader :behavior
+      # The unix timestamp after at which subscriptions will start to migrate to the new price.
+      attr_reader :effective_after
+      # The id of the price being migrated to
+      attr_reader :price
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Recurring < ::Stripe::StripeObject
       # The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
       attr_reader :interval
@@ -191,6 +208,8 @@ module Stripe
     attr_reader :custom_unit_amount
     # Always true for a deleted object
     attr_reader :deleted
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_reader :external_reference
     # Unique identifier for the object.
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -199,6 +218,8 @@ module Stripe
     attr_reader :lookup_key
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
+    # Subscriptions using this price will be migrated to use the new referenced price.
+    attr_reader :migrate_to
     # A brief description of the price, hidden from customers.
     attr_reader :nickname
     # String representing the object's type. Objects of the same type share the same value.
@@ -254,6 +275,7 @@ module Stripe
       @inner_class_types = {
         currency_options: CurrencyOptions,
         custom_unit_amount: CustomUnitAmount,
+        migrate_to: MigrateTo,
         recurring: Recurring,
         tiers: Tier,
         transform_quantity: TransformQuantity,

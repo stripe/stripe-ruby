@@ -111,6 +111,9 @@ module Stripe
         # Address as it appears in the document.
         sig { returns(T.nilable(Address)) }
         def address; end
+        # If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         # Date of birth as it appears in the document.
         sig { returns(T.nilable(Dob)) }
         def dob; end
@@ -167,6 +170,23 @@ module Stripe
         end
       end
       class Email < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # Number of days from the time when the email domain was first observed to the time of verification.
+          sig { returns(T.nilable(Float)) }
+          def days_since_domain_creation; end
+          # Number of days from the time when the email address was first observed to the time of verification.
+          sig { returns(T.nilable(Float)) }
+          def days_since_ownership_started; end
+          # Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
+          sig { returns(T.nilable(String)) }
+          def domain_country; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Error < ::Stripe::StripeObject
           # A short machine-readable string giving the reason for the verification failure.
           sig { returns(T.nilable(String)) }
@@ -181,6 +201,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Additional email verification details
+        sig { returns(T.nilable(Details)) }
+        def details; end
         # Email to be verified.
         sig { returns(T.nilable(String)) }
         def email; end
@@ -191,7 +214,7 @@ module Stripe
         sig { returns(String) }
         def status; end
         def self.inner_class_types
-          @inner_class_types = {error: Error}
+          @inner_class_types = {details: Details, error: Error}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -345,6 +368,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        sig { returns(T.nilable(T.any(String, ::Stripe::Identity::BlocklistEntry))) }
+        def blocked_by_entry; end
         # ID of the [File](https://docs.stripe.com/api/files) holding the image of the identity document used in this check.
         sig { returns(T.nilable(String)) }
         def document; end

@@ -31,6 +31,11 @@ module Stripe
         def network_id; end
         sig { params(_network_id: T.nilable(String)).returns(T.nilable(String)) }
         def network_id=(_network_id); end
+        # The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network.
+        sig { returns(T.nilable(String)) }
+        def payment_facilitator_id; end
+        sig { params(_payment_facilitator_id: T.nilable(String)).returns(T.nilable(String)) }
+        def payment_facilitator_id=(_payment_facilitator_id); end
         # Postal code where the seller is located
         sig { returns(T.nilable(String)) }
         def postal_code; end
@@ -41,6 +46,11 @@ module Stripe
         def state; end
         sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
         def state=(_state); end
+        # The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator.
+        sig { returns(T.nilable(String)) }
+        def sub_merchant_id; end
+        sig { params(_sub_merchant_id: T.nilable(String)).returns(T.nilable(String)) }
+        def sub_merchant_id=(_sub_merchant_id); end
         # An ID assigned by the seller to the location of the sale.
         sig { returns(T.nilable(String)) }
         def terminal_id; end
@@ -52,7 +62,7 @@ module Stripe
         sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
         def url=(_url); end
         sig {
-          params(category: T.nilable(String), city: T.nilable(String), country: T.nilable(String), name: T.nilable(String), network_id: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), terminal_id: T.nilable(String), url: T.nilable(String)).void
+          params(category: T.nilable(String), city: T.nilable(String), country: T.nilable(String), name: T.nilable(String), network_id: T.nilable(String), payment_facilitator_id: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String), sub_merchant_id: T.nilable(String), terminal_id: T.nilable(String), url: T.nilable(String)).void
          }
         def initialize(
           category: nil,
@@ -60,8 +70,10 @@ module Stripe
           country: nil,
           name: nil,
           network_id: nil,
+          payment_facilitator_id: nil,
           postal_code: nil,
           state: nil,
+          sub_merchant_id: nil,
           terminal_id: nil,
           url: nil
         ); end

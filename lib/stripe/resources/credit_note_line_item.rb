@@ -43,6 +43,21 @@ module Stripe
       end
     end
 
+    class TaxCalculationReference < ::Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      attr_reader :calculation_id
+      # The calculation identifier for tax calculation response line item.
+      attr_reader :calculation_item_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Tax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
         # ID of the tax rate
@@ -99,6 +114,8 @@ module Stripe
     attr_reader :pretax_credit_amounts
     # The number of units of product being credited.
     attr_reader :quantity
+    # The tax calculation identifiers of the line item.
+    attr_reader :tax_calculation_reference
     # The tax rates which apply to the line item.
     attr_reader :tax_rates
     # The tax information of the line item.
@@ -114,6 +131,7 @@ module Stripe
       @inner_class_types = {
         discount_amounts: DiscountAmount,
         pretax_credit_amounts: PretaxCreditAmount,
+        tax_calculation_reference: TaxCalculationReference,
         taxes: Tax,
       }
     end

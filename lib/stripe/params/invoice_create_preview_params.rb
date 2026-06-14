@@ -144,32 +144,140 @@ module Stripe
     end
 
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class Settings < ::Stripe::RequestParams
+        class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+          class Custom < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            attr_accessor :day_of_month
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            attr_accessor :hour
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            attr_accessor :minute
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            attr_accessor :month
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            attr_accessor :second
+
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+              @day_of_month = day_of_month
+              @hour = hour
+              @minute = minute
+              @month = month
+              @second = second
+            end
+          end
+          # Anchor the service period to a custom date. Type must be `custom` to specify.
+          attr_accessor :custom
+          # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+          attr_accessor :type
+
+          def initialize(custom: nil, type: nil)
+            @custom = custom
+            @type = type
+          end
+        end
+        # Configures service period cycle anchoring.
+        attr_accessor :service_period_anchor_config
+        # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+        attr_accessor :start_date
+
+        def initialize(service_period_anchor_config: nil, start_date: nil)
+          @service_period_anchor_config = service_period_anchor_config
+          @start_date = start_date
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
+      # Settings for discount application including service period anchoring.
+      attr_accessor :settings
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(
+        coupon: nil,
+        discount: nil,
+        discount_end: nil,
+        promotion_code: nil,
+        settings: nil
+      )
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
+        @settings = settings
       end
     end
 
     class InvoiceItem < ::Stripe::RequestParams
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Time span for the redeemed discount.
+          attr_accessor :duration
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          attr_accessor :timestamp
+          # The type of calculation made to determine when the discount ends.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
+        # Details to determine how long the discount should be applied for.
+        attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
-        def initialize(coupon: nil, discount: nil, promotion_code: nil)
+        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
+          @discount_end = discount_end
           @promotion_code = promotion_code
         end
       end
@@ -311,6 +419,705 @@ module Stripe
     end
 
     class ScheduleDetails < ::Stripe::RequestParams
+      class Amendment < ::Stripe::RequestParams
+        class AmendmentEnd < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            # The ID of a specific discount.
+            attr_accessor :discount
+
+            def initialize(discount: nil)
+              @discount = discount
+            end
+          end
+
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Use the `end` time of a given discount.
+          attr_accessor :discount_end
+          # Time span for the amendment starting from the `amendment_start`.
+          attr_accessor :duration
+          # A precise Unix timestamp for the amendment to end. Must be after the `amendment_start`.
+          attr_accessor :timestamp
+          # Select one of three ways to pass the `amendment_end`.
+          attr_accessor :type
+
+          def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil)
+            @discount_end = discount_end
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class AmendmentStart < ::Stripe::RequestParams
+          class AmendmentEnd < ::Stripe::RequestParams
+            # The position of the previous amendment in the `amendments` array after which this amendment should begin. Indexes start from 0 and must be less than the index of the current amendment in the array.
+            attr_accessor :index
+
+            def initialize(index: nil)
+              @index = index
+            end
+          end
+
+          class DiscountEnd < ::Stripe::RequestParams
+            # The ID of a specific discount.
+            attr_accessor :discount
+
+            def initialize(discount: nil)
+              @discount = discount
+            end
+          end
+          # Details of another amendment in the same array, immediately after which this amendment should begin.
+          attr_accessor :amendment_end
+          # Use the `end` time of a given discount.
+          attr_accessor :discount_end
+          # A precise Unix timestamp for the amendment to start.
+          attr_accessor :timestamp
+          # Select one of three ways to pass the `amendment_start`.
+          attr_accessor :type
+
+          def initialize(amendment_end: nil, discount_end: nil, timestamp: nil, type: nil)
+            @amendment_end = amendment_end
+            @discount_end = discount_end
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillingSchedulesAction < ::Stripe::RequestParams
+          class AppliesTo < ::Stripe::RequestParams
+            # The ID of the price object.
+            attr_accessor :price
+            # Controls which subscription items the billing schedule applies to.
+            attr_accessor :type
+
+            def initialize(price: nil, type: nil)
+              @price = price
+              @type = type
+            end
+          end
+          # Specify which subscription items the billing schedule applies to.
+          attr_accessor :applies_to
+          # Select the action.
+          attr_accessor :type
+
+          def initialize(applies_to: nil, type: nil)
+            @applies_to = applies_to
+            @type = type
+          end
+        end
+
+        class DiscountAction < ::Stripe::RequestParams
+          class Add < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              # The type of calculation made to determine when the discount ends.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  attr_accessor :day_of_month
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  attr_accessor :hour
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :minute
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  attr_accessor :month
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :second
+
+                  def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                    @day_of_month = day_of_month
+                    @hour = hour
+                    @minute = minute
+                    @month = month
+                    @second = second
+                  end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                attr_accessor :custom
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+              # Configures service period cycle anchoring.
+              attr_accessor :service_period_anchor_config
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+              attr_accessor :start_date
+
+              def initialize(service_period_anchor_config: nil, start_date: nil)
+                @service_period_anchor_config = service_period_anchor_config
+                @start_date = start_date
+              end
+            end
+            # The coupon code to redeem.
+            attr_accessor :coupon
+            # An ID of an existing discount for a coupon that was already redeemed.
+            attr_accessor :discount
+            # Details to determine how long the discount should be applied for.
+            attr_accessor :discount_end
+            # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+            attr_accessor :index
+            # The promotion code to redeem.
+            attr_accessor :promotion_code
+            # Settings for discount application including service period anchoring.
+            attr_accessor :settings
+
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              index: nil,
+              promotion_code: nil,
+              settings: nil
+            )
+              @coupon = coupon
+              @discount = discount
+              @discount_end = discount_end
+              @index = index
+              @promotion_code = promotion_code
+              @settings = settings
+            end
+          end
+
+          class Remove < ::Stripe::RequestParams
+            # The coupon code to remove from the `discounts` array.
+            attr_accessor :coupon
+            # The ID of a discount to remove from the `discounts` array.
+            attr_accessor :discount
+            # The ID of a promotion code to remove from the `discounts` array.
+            attr_accessor :promotion_code
+
+            def initialize(coupon: nil, discount: nil, promotion_code: nil)
+              @coupon = coupon
+              @discount = discount
+              @promotion_code = promotion_code
+            end
+          end
+
+          class Set < ::Stripe::RequestParams
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  attr_accessor :day_of_month
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  attr_accessor :hour
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :minute
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  attr_accessor :month
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :second
+
+                  def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                    @day_of_month = day_of_month
+                    @hour = hour
+                    @minute = minute
+                    @month = month
+                    @second = second
+                  end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                attr_accessor :custom
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+              # Configures service period cycle anchoring.
+              attr_accessor :service_period_anchor_config
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+              attr_accessor :start_date
+
+              def initialize(service_period_anchor_config: nil, start_date: nil)
+                @service_period_anchor_config = service_period_anchor_config
+                @start_date = start_date
+              end
+            end
+            # The coupon code to replace the `discounts` array with.
+            attr_accessor :coupon
+            # An ID of an existing discount to replace the `discounts` array with.
+            attr_accessor :discount
+            # An ID of an existing promotion code to replace the `discounts` array with.
+            attr_accessor :promotion_code
+            # Settings for discount application including service period anchoring.
+            attr_accessor :settings
+
+            def initialize(coupon: nil, discount: nil, promotion_code: nil, settings: nil)
+              @coupon = coupon
+              @discount = discount
+              @promotion_code = promotion_code
+              @settings = settings
+            end
+          end
+          # Details of the discount to add.
+          attr_accessor :add
+          # Details of the discount to remove.
+          attr_accessor :remove
+          # Details of the discount to replace the existing discounts with.
+          attr_accessor :set
+          # Determines the type of discount action.
+          attr_accessor :type
+
+          def initialize(add: nil, remove: nil, set: nil, type: nil)
+            @add = add
+            @remove = remove
+            @set = set
+            @type = type
+          end
+        end
+
+        class ItemAction < ::Stripe::RequestParams
+          class Add < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              class DiscountEnd < ::Stripe::RequestParams
+                class Duration < ::Stripe::RequestParams
+                  # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                  attr_accessor :interval
+                  # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                  attr_accessor :interval_count
+
+                  def initialize(interval: nil, interval_count: nil)
+                    @interval = interval
+                    @interval_count = interval_count
+                  end
+                end
+                # Time span for the redeemed discount.
+                attr_accessor :duration
+                # A precise Unix timestamp for the discount to end. Must be in the future.
+                attr_accessor :timestamp
+                # The type of calculation made to determine when the discount ends.
+                attr_accessor :type
+
+                def initialize(duration: nil, timestamp: nil, type: nil)
+                  @duration = duration
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
+              class Settings < ::Stripe::RequestParams
+                class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                  class Custom < ::Stripe::RequestParams
+                    # The day of the month the anchor should be. Ranges from 1 to 31.
+                    attr_accessor :day_of_month
+                    # The hour of the day the anchor should be. Ranges from 0 to 23.
+                    attr_accessor :hour
+                    # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                    attr_accessor :minute
+                    # The month to start full cycle periods. Ranges from 1 to 12.
+                    attr_accessor :month
+                    # The second of the minute the anchor should be. Ranges from 0 to 59.
+                    attr_accessor :second
+
+                    def initialize(
+                      day_of_month: nil,
+                      hour: nil,
+                      minute: nil,
+                      month: nil,
+                      second: nil
+                    )
+                      @day_of_month = day_of_month
+                      @hour = hour
+                      @minute = minute
+                      @month = month
+                      @second = second
+                    end
+                  end
+                  # Anchor the service period to a custom date. Type must be `custom` to specify.
+                  attr_accessor :custom
+                  # The type of service period anchor config. Defaults to `inherit` if omitted.
+                  attr_accessor :type
+
+                  def initialize(custom: nil, type: nil)
+                    @custom = custom
+                    @type = type
+                  end
+                end
+                # Configures service period cycle anchoring.
+                attr_accessor :service_period_anchor_config
+                # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+                attr_accessor :start_date
+
+                def initialize(service_period_anchor_config: nil, start_date: nil)
+                  @service_period_anchor_config = service_period_anchor_config
+                  @start_date = start_date
+                end
+              end
+              # ID of the coupon to create a new discount for.
+              attr_accessor :coupon
+              # ID of an existing discount on the object (or one of its ancestors) to reuse.
+              attr_accessor :discount
+              # Details to determine how long the discount should be applied for.
+              attr_accessor :discount_end
+              # ID of the promotion code to create a new discount for.
+              attr_accessor :promotion_code
+              # Settings for discount application including service period anchoring.
+              attr_accessor :settings
+
+              def initialize(
+                coupon: nil,
+                discount: nil,
+                discount_end: nil,
+                promotion_code: nil,
+                settings: nil
+              )
+                @coupon = coupon
+                @discount = discount
+                @discount_end = discount_end
+                @promotion_code = promotion_code
+                @settings = settings
+              end
+            end
+
+            class Trial < ::Stripe::RequestParams
+              # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+              attr_accessor :converts_to
+              # Determines the type of trial for this item.
+              attr_accessor :type
+
+              def initialize(converts_to: nil, type: nil)
+                @converts_to = converts_to
+                @type = type
+              end
+            end
+            # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+            attr_accessor :discounts
+            # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            attr_accessor :metadata
+            # The ID of the price object.
+            attr_accessor :price
+            # Quantity for this item.
+            attr_accessor :quantity
+            # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+            attr_accessor :tax_rates
+            # Options that configure the trial on the subscription item.
+            attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
+
+            def initialize(
+              discounts: nil,
+              metadata: nil,
+              price: nil,
+              quantity: nil,
+              tax_rates: nil,
+              trial: nil,
+              trial_offer: nil
+            )
+              @discounts = discounts
+              @metadata = metadata
+              @price = price
+              @quantity = quantity
+              @tax_rates = tax_rates
+              @trial = trial
+              @trial_offer = trial_offer
+            end
+          end
+
+          class Remove < ::Stripe::RequestParams
+            # ID of a price to remove.
+            attr_accessor :price
+
+            def initialize(price: nil)
+              @price = price
+            end
+          end
+
+          class Set < ::Stripe::RequestParams
+            class Discount < ::Stripe::RequestParams
+              class DiscountEnd < ::Stripe::RequestParams
+                class Duration < ::Stripe::RequestParams
+                  # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                  attr_accessor :interval
+                  # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                  attr_accessor :interval_count
+
+                  def initialize(interval: nil, interval_count: nil)
+                    @interval = interval
+                    @interval_count = interval_count
+                  end
+                end
+                # Time span for the redeemed discount.
+                attr_accessor :duration
+                # A precise Unix timestamp for the discount to end. Must be in the future.
+                attr_accessor :timestamp
+                # The type of calculation made to determine when the discount ends.
+                attr_accessor :type
+
+                def initialize(duration: nil, timestamp: nil, type: nil)
+                  @duration = duration
+                  @timestamp = timestamp
+                  @type = type
+                end
+              end
+
+              class Settings < ::Stripe::RequestParams
+                class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                  class Custom < ::Stripe::RequestParams
+                    # The day of the month the anchor should be. Ranges from 1 to 31.
+                    attr_accessor :day_of_month
+                    # The hour of the day the anchor should be. Ranges from 0 to 23.
+                    attr_accessor :hour
+                    # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                    attr_accessor :minute
+                    # The month to start full cycle periods. Ranges from 1 to 12.
+                    attr_accessor :month
+                    # The second of the minute the anchor should be. Ranges from 0 to 59.
+                    attr_accessor :second
+
+                    def initialize(
+                      day_of_month: nil,
+                      hour: nil,
+                      minute: nil,
+                      month: nil,
+                      second: nil
+                    )
+                      @day_of_month = day_of_month
+                      @hour = hour
+                      @minute = minute
+                      @month = month
+                      @second = second
+                    end
+                  end
+                  # Anchor the service period to a custom date. Type must be `custom` to specify.
+                  attr_accessor :custom
+                  # The type of service period anchor config. Defaults to `inherit` if omitted.
+                  attr_accessor :type
+
+                  def initialize(custom: nil, type: nil)
+                    @custom = custom
+                    @type = type
+                  end
+                end
+                # Configures service period cycle anchoring.
+                attr_accessor :service_period_anchor_config
+                # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+                attr_accessor :start_date
+
+                def initialize(service_period_anchor_config: nil, start_date: nil)
+                  @service_period_anchor_config = service_period_anchor_config
+                  @start_date = start_date
+                end
+              end
+              # ID of the coupon to create a new discount for.
+              attr_accessor :coupon
+              # ID of an existing discount on the object (or one of its ancestors) to reuse.
+              attr_accessor :discount
+              # Details to determine how long the discount should be applied for.
+              attr_accessor :discount_end
+              # ID of the promotion code to create a new discount for.
+              attr_accessor :promotion_code
+              # Settings for discount application including service period anchoring.
+              attr_accessor :settings
+
+              def initialize(
+                coupon: nil,
+                discount: nil,
+                discount_end: nil,
+                promotion_code: nil,
+                settings: nil
+              )
+                @coupon = coupon
+                @discount = discount
+                @discount_end = discount_end
+                @promotion_code = promotion_code
+                @settings = settings
+              end
+            end
+
+            class Trial < ::Stripe::RequestParams
+              # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+              attr_accessor :converts_to
+              # Determines the type of trial for this item.
+              attr_accessor :type
+
+              def initialize(converts_to: nil, type: nil)
+                @converts_to = converts_to
+                @type = type
+              end
+            end
+            # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+            attr_accessor :discounts
+            # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+            attr_accessor :metadata
+            # The ID of the price object.
+            attr_accessor :price
+            # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+            attr_accessor :quantity
+            # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+            attr_accessor :tax_rates
+            # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+            attr_accessor :trial
+            # The ID of the trial offer to apply to the configuration item.
+            attr_accessor :trial_offer
+
+            def initialize(
+              discounts: nil,
+              metadata: nil,
+              price: nil,
+              quantity: nil,
+              tax_rates: nil,
+              trial: nil,
+              trial_offer: nil
+            )
+              @discounts = discounts
+              @metadata = metadata
+              @price = price
+              @quantity = quantity
+              @tax_rates = tax_rates
+              @trial = trial
+              @trial_offer = trial_offer
+            end
+          end
+          # Details of the subscription item to add. If an item with the same `price` exists, it will be replaced by this new item. Otherwise, it adds the new item.
+          attr_accessor :add
+          # Details of the subscription item to remove.
+          attr_accessor :remove
+          # Details of the subscription item to replace the existing items with. If an item with the `set[price]` already exists, the `items` array is not cleared. Instead, all of the other `set` properties that are passed in this request will replace the existing values for the configuration item.
+          attr_accessor :set
+          # Determines the type of item action.
+          attr_accessor :type
+
+          def initialize(add: nil, remove: nil, set: nil, type: nil)
+            @add = add
+            @remove = remove
+            @set = set
+            @type = type
+          end
+        end
+
+        class MetadataAction < ::Stripe::RequestParams
+          # Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
+          attr_accessor :add
+          # Keys to remove from schedule phase metadata.
+          attr_accessor :remove
+          # Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
+          attr_accessor :set
+          # Select one of three ways to update phase-level `metadata` on subscription schedules.
+          attr_accessor :type
+
+          def initialize(add: nil, remove: nil, set: nil, type: nil)
+            @add = add
+            @remove = remove
+            @set = set
+            @type = type
+          end
+        end
+
+        class SetPauseCollection < ::Stripe::RequestParams
+          class Set < ::Stripe::RequestParams
+            # The payment collection behavior for this subscription while paused.
+            attr_accessor :behavior
+
+            def initialize(behavior: nil)
+              @behavior = behavior
+            end
+          end
+          # Details of the pause_collection behavior to apply to the amendment.
+          attr_accessor :set
+          # Determines the type of the pause_collection amendment.
+          attr_accessor :type
+
+          def initialize(set: nil, type: nil)
+            @set = set
+            @type = type
+          end
+        end
+
+        class TrialSettings < ::Stripe::RequestParams
+          class EndBehavior < ::Stripe::RequestParams
+            # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+            attr_accessor :prorate_up_front
+
+            def initialize(prorate_up_front: nil)
+              @prorate_up_front = prorate_up_front
+            end
+          end
+          # Defines how the subscription should behave when a trial ends.
+          attr_accessor :end_behavior
+
+          def initialize(end_behavior: nil)
+            @end_behavior = end_behavior
+          end
+        end
+        # Details to identify the end of the time range modified by the proposed change. If not supplied, the amendment is considered a point-in-time operation that only affects the exact timestamp at `amendment_start`, and a restricted set of attributes is supported on the amendment.
+        attr_accessor :amendment_end
+        # Details to identify the earliest timestamp where the proposed change should take effect.
+        attr_accessor :amendment_start
+        # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+        attr_accessor :billing_cycle_anchor
+        # Actions to apply to the billing schedules.
+        attr_accessor :billing_schedules_actions
+        # Changes to the coupons being redeemed or discounts being applied during the amendment time span.
+        attr_accessor :discount_actions
+        # Configures how the subscription schedule handles billing for phase transitions.
+        attr_accessor :effective_at
+        # Changes to the subscription items during the amendment time span.
+        attr_accessor :item_actions
+        # Instructions for how to modify phase metadata
+        attr_accessor :metadata_actions
+        # Changes to how Stripe handles prorations during the amendment time span. Affects if and how prorations are created when a future phase starts. In cases where the amendment changes the currently active phase, it is used to determine whether or how to prorate now, at the time of the request. Also supported as a point-in-time operation when `amendment_end` is `null`.
+        attr_accessor :proration_behavior
+        # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+        attr_accessor :set_pause_collection
+        # Ends the subscription schedule early as dictated by either the accompanying amendment's start or end.
+        attr_accessor :set_schedule_end
+        # Settings related to subscription trials.
+        attr_accessor :trial_settings
+
+        def initialize(
+          amendment_end: nil,
+          amendment_start: nil,
+          billing_cycle_anchor: nil,
+          billing_schedules_actions: nil,
+          discount_actions: nil,
+          effective_at: nil,
+          item_actions: nil,
+          metadata_actions: nil,
+          proration_behavior: nil,
+          set_pause_collection: nil,
+          set_schedule_end: nil,
+          trial_settings: nil
+        )
+          @amendment_end = amendment_end
+          @amendment_start = amendment_start
+          @billing_cycle_anchor = billing_cycle_anchor
+          @billing_schedules_actions = billing_schedules_actions
+          @discount_actions = discount_actions
+          @effective_at = effective_at
+          @item_actions = item_actions
+          @metadata_actions = metadata_actions
+          @proration_behavior = proration_behavior
+          @set_pause_collection = set_pause_collection
+          @set_schedule_end = set_schedule_end
+          @trial_settings = trial_settings
+        end
+      end
+
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -331,19 +1138,108 @@ module Stripe
         end
       end
 
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies billing duration. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The multiplier applied to the interval.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Specifies the billing period.
+          attr_accessor :duration
+          # The end date of the billing schedule.
+          attr_accessor :timestamp
+          # Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The end date for the billing schedule.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+
+      class DefaultSettings < ::Stripe::RequestParams
+        # Configures how the subscription schedule handles billing for phase transitions.
+        attr_accessor :phase_effective_at
+
+        def initialize(phase_effective_at: nil)
+          @phase_effective_at = phase_effective_at
+        end
+      end
+
       class Phase < ::Stripe::RequestParams
         class AddInvoiceItem < ::Stripe::RequestParams
           class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                attr_accessor :interval
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # Time span for the redeemed discount.
+              attr_accessor :duration
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              attr_accessor :timestamp
+              # The type of calculation made to determine when the discount ends.
+              attr_accessor :type
+
+              def initialize(duration: nil, timestamp: nil, type: nil)
+                @duration = duration
+                @timestamp = timestamp
+                @type = type
+              end
+            end
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             attr_accessor :discount
+            # Details to determine how long the discount should be applied for.
+            attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
 
-            def initialize(coupon: nil, discount: nil, promotion_code: nil)
+            def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
               @coupon = coupon
               @discount = discount
+              @discount_end = discount_end
               @promotion_code = promotion_code
             end
           end
@@ -493,17 +1389,97 @@ module Stripe
         end
 
         class Discount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+              attr_accessor :interval
+              # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # Time span for the redeemed discount.
+            attr_accessor :duration
+            # A precise Unix timestamp for the discount to end. Must be in the future.
+            attr_accessor :timestamp
+            # The type of calculation made to determine when the discount ends.
+            attr_accessor :type
+
+            def initialize(duration: nil, timestamp: nil, type: nil)
+              @duration = duration
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_accessor :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_accessor :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_accessor :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_accessor :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_accessor :second
+
+                def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                  @day_of_month = day_of_month
+                  @hour = hour
+                  @minute = minute
+                  @month = month
+                  @second = second
+                end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              attr_accessor :custom
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+            # Configures service period cycle anchoring.
+            attr_accessor :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+            attr_accessor :start_date
+
+            def initialize(service_period_anchor_config: nil, start_date: nil)
+              @service_period_anchor_config = service_period_anchor_config
+              @start_date = start_date
+            end
+          end
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           attr_accessor :discount
+          # Details to determine how long the discount should be applied for.
+          attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
+          # Settings for discount application including service period anchoring.
+          attr_accessor :settings
 
-          def initialize(coupon: nil, discount: nil, promotion_code: nil)
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            promotion_code: nil,
+            settings: nil
+          )
             @coupon = coupon
             @discount = discount
+            @discount_end = discount_end
             @promotion_code = promotion_code
+            @settings = settings
           end
         end
 
@@ -556,17 +1532,97 @@ module Stripe
           end
 
           class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                attr_accessor :interval
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # Time span for the redeemed discount.
+              attr_accessor :duration
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              attr_accessor :timestamp
+              # The type of calculation made to determine when the discount ends.
+              attr_accessor :type
+
+              def initialize(duration: nil, timestamp: nil, type: nil)
+                @duration = duration
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  attr_accessor :day_of_month
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  attr_accessor :hour
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :minute
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  attr_accessor :month
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :second
+
+                  def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                    @day_of_month = day_of_month
+                    @hour = hour
+                    @minute = minute
+                    @month = month
+                    @second = second
+                  end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                attr_accessor :custom
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+              # Configures service period cycle anchoring.
+              attr_accessor :service_period_anchor_config
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+              attr_accessor :start_date
+
+              def initialize(service_period_anchor_config: nil, start_date: nil)
+                @service_period_anchor_config = service_period_anchor_config
+                @start_date = start_date
+              end
+            end
             # ID of the coupon to create a new discount for.
             attr_accessor :coupon
             # ID of an existing discount on the object (or one of its ancestors) to reuse.
             attr_accessor :discount
+            # Details to determine how long the discount should be applied for.
+            attr_accessor :discount_end
             # ID of the promotion code to create a new discount for.
             attr_accessor :promotion_code
+            # Settings for discount application including service period anchoring.
+            attr_accessor :settings
 
-            def initialize(coupon: nil, discount: nil, promotion_code: nil)
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            )
               @coupon = coupon
               @discount = discount
+              @discount_end = discount_end
               @promotion_code = promotion_code
+              @settings = settings
             end
           end
 
@@ -615,6 +1671,18 @@ module Stripe
               @field_encodings = { unit_amount_decimal: :decimal_string }
             end
           end
+
+          class Trial < ::Stripe::RequestParams
+            # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+            attr_accessor :converts_to
+            # Determines the type of trial for this item.
+            attr_accessor :type
+
+            def initialize(converts_to: nil, type: nil)
+              @converts_to = converts_to
+              @type = type
+            end
+          end
           # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
           attr_accessor :billing_thresholds
           # The coupons to redeem into discounts for the subscription item.
@@ -631,6 +1699,10 @@ module Stripe
           attr_accessor :quantity
           # A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
           attr_accessor :tax_rates
+          # Options that configure the trial on the subscription item.
+          attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
 
           def initialize(
             billing_thresholds: nil,
@@ -640,7 +1712,9 @@ module Stripe
             price: nil,
             price_data: nil,
             quantity: nil,
-            tax_rates: nil
+            tax_rates: nil,
+            trial: nil,
+            trial_offer: nil
           )
             @billing_thresholds = billing_thresholds
             @discounts = discounts
@@ -650,12 +1724,23 @@ module Stripe
             @price_data = price_data
             @quantity = quantity
             @tax_rates = tax_rates
+            @trial = trial
+            @trial_offer = trial_offer
           end
 
           def self.field_encodings
             @field_encodings = {
               price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
             }
+          end
+        end
+
+        class PauseCollection < ::Stripe::RequestParams
+          # The payment collection behavior for this subscription while paused.
+          attr_accessor :behavior
+
+          def initialize(behavior: nil)
+            @behavior = behavior
           end
         end
 
@@ -668,6 +1753,23 @@ module Stripe
           def initialize(amount_percent: nil, destination: nil)
             @amount_percent = amount_percent
             @destination = destination
+          end
+        end
+
+        class TrialSettings < ::Stripe::RequestParams
+          class EndBehavior < ::Stripe::RequestParams
+            # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+            attr_accessor :prorate_up_front
+
+            def initialize(prorate_up_front: nil)
+              @prorate_up_front = prorate_up_front
+            end
+          end
+          # Defines how the subscription should behave when a trial ends.
+          attr_accessor :end_behavior
+
+          def initialize(end_behavior: nil)
+            @end_behavior = end_behavior
           end
         end
         # A list of prices and quantities that will generate invoice items appended to the next invoice for this phase. You may pass up to 20 items.
@@ -694,6 +1796,8 @@ module Stripe
         attr_accessor :discounts
         # The number of intervals the phase should last. If set, `end_date` must not be set.
         attr_accessor :duration
+        # Configures how the subscription schedule handles billing for phase transitions.
+        attr_accessor :effective_at
         # The date at which this phase of the subscription schedule ends. If set, `duration` must not be set.
         attr_accessor :end_date
         # All invoices will be billed using the specified settings.
@@ -704,6 +1808,8 @@ module Stripe
         attr_accessor :metadata
         # The account on behalf of which to charge, for each of the associated subscription's invoices.
         attr_accessor :on_behalf_of
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+        attr_accessor :pause_collection
         # Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
         attr_accessor :proration_behavior
         # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
@@ -712,8 +1818,12 @@ module Stripe
         attr_accessor :transfer_data
         # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         attr_accessor :trial
+        # Specify trial behavior when crossing phase boundaries
+        attr_accessor :trial_continuation
         # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
         attr_accessor :trial_end
+        # Settings related to subscription trials.
+        attr_accessor :trial_settings
 
         def initialize(
           add_invoice_items: nil,
@@ -728,16 +1838,20 @@ module Stripe
           description: nil,
           discounts: nil,
           duration: nil,
+          effective_at: nil,
           end_date: nil,
           invoice_settings: nil,
           items: nil,
           metadata: nil,
           on_behalf_of: nil,
+          pause_collection: nil,
           proration_behavior: nil,
           start_date: nil,
           transfer_data: nil,
           trial: nil,
-          trial_end: nil
+          trial_continuation: nil,
+          trial_end: nil,
+          trial_settings: nil
         )
           @add_invoice_items = add_invoice_items
           @application_fee_percent = application_fee_percent
@@ -751,16 +1865,20 @@ module Stripe
           @description = description
           @discounts = discounts
           @duration = duration
+          @effective_at = effective_at
           @end_date = end_date
           @invoice_settings = invoice_settings
           @items = items
           @metadata = metadata
           @on_behalf_of = on_behalf_of
+          @pause_collection = pause_collection
           @proration_behavior = proration_behavior
           @start_date = start_date
           @transfer_data = transfer_data
           @trial = trial
+          @trial_continuation = trial_continuation
           @trial_end = trial_end
+          @trial_settings = trial_settings
         end
 
         def self.field_encodings
@@ -786,19 +1904,93 @@ module Stripe
           }
         end
       end
+
+      class Prebilling < ::Stripe::RequestParams
+        class BillUntil < ::Stripe::RequestParams
+          class AmendmentEnd < ::Stripe::RequestParams
+            # The position of the amendment in the `amendments` array at which prebilling should end. Indexes start from 0 and must be less than the total number of supplied amendments.
+            attr_accessor :index
+
+            def initialize(index: nil)
+              @index = index
+            end
+          end
+
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # End the prebilled period when a specified amendment ends.
+          attr_accessor :amendment_end
+          # Time span for prebilling, starting from `bill_from`.
+          attr_accessor :duration
+          # End the prebilled period at a precise integer timestamp, starting from the Unix epoch.
+          attr_accessor :timestamp
+          # Select one of several ways to pass the `bill_until` value.
+          attr_accessor :type
+
+          def initialize(amendment_end: nil, duration: nil, timestamp: nil, type: nil)
+            @amendment_end = amendment_end
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # The end of the prebilled time period.
+        attr_accessor :bill_until
+        # This is used to determine the number of billing cycles to prebill.
+        attr_accessor :iterations
+
+        def initialize(bill_until: nil, iterations: nil)
+          @bill_until = bill_until
+          @iterations = iterations
+        end
+      end
+      # Changes to apply to the phases of the subscription schedule, in the order provided.
+      attr_accessor :amendments
+      # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+      attr_accessor :billing_behavior
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Sets the billing schedules for the subscription schedule.
+      attr_accessor :billing_schedules
+      # Object representing the subscription schedule's default settings.
+      attr_accessor :default_settings
       # Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
       attr_accessor :end_behavior
       # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
       attr_accessor :phases
+      # Provide any time periods to bill in advance.
+      attr_accessor :prebilling
       # In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
       attr_accessor :proration_behavior
 
-      def initialize(billing_mode: nil, end_behavior: nil, phases: nil, proration_behavior: nil)
+      def initialize(
+        amendments: nil,
+        billing_behavior: nil,
+        billing_mode: nil,
+        billing_schedules: nil,
+        default_settings: nil,
+        end_behavior: nil,
+        phases: nil,
+        prebilling: nil,
+        proration_behavior: nil
+      )
+        @amendments = amendments
+        @billing_behavior = billing_behavior
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
+        @default_settings = default_settings
         @end_behavior = end_behavior
         @phases = phases
+        @prebilling = prebilling
         @proration_behavior = proration_behavior
       end
 
@@ -917,18 +2109,110 @@ module Stripe
           end
         end
 
+        class CurrentTrial < ::Stripe::RequestParams
+          # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+          attr_accessor :trial_end
+          # The ID of the trial offer to apply to the subscription item.
+          attr_accessor :trial_offer
+
+          def initialize(trial_end: nil, trial_offer: nil)
+            @trial_end = trial_end
+            @trial_offer = trial_offer
+          end
+        end
+
         class Discount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            class Duration < ::Stripe::RequestParams
+              # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+              attr_accessor :interval
+              # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+              attr_accessor :interval_count
+
+              def initialize(interval: nil, interval_count: nil)
+                @interval = interval
+                @interval_count = interval_count
+              end
+            end
+            # Time span for the redeemed discount.
+            attr_accessor :duration
+            # A precise Unix timestamp for the discount to end. Must be in the future.
+            attr_accessor :timestamp
+            # The type of calculation made to determine when the discount ends.
+            attr_accessor :type
+
+            def initialize(duration: nil, timestamp: nil, type: nil)
+              @duration = duration
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_accessor :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_accessor :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_accessor :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_accessor :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_accessor :second
+
+                def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                  @day_of_month = day_of_month
+                  @hour = hour
+                  @minute = minute
+                  @month = month
+                  @second = second
+                end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              attr_accessor :custom
+              # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+            # Configures service period cycle anchoring.
+            attr_accessor :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+            attr_accessor :start_date
+
+            def initialize(service_period_anchor_config: nil, start_date: nil)
+              @service_period_anchor_config = service_period_anchor_config
+              @start_date = start_date
+            end
+          end
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
           # ID of an existing discount on the object (or one of its ancestors) to reuse.
           attr_accessor :discount
+          # Details to determine how long the discount should be applied for.
+          attr_accessor :discount_end
           # ID of the promotion code to create a new discount for.
           attr_accessor :promotion_code
+          # Settings for discount application including service period anchoring.
+          attr_accessor :settings
 
-          def initialize(coupon: nil, discount: nil, promotion_code: nil)
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            promotion_code: nil,
+            settings: nil
+          )
             @coupon = coupon
             @discount = discount
+            @discount_end = discount_end
             @promotion_code = promotion_code
+            @settings = settings
           end
         end
 
@@ -981,6 +2265,8 @@ module Stripe
         attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         attr_accessor :clear_usage
+        # The trial offer to apply to this subscription item.
+        attr_accessor :current_trial
         # A flag that, if set to `true`, will delete the specified item.
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
@@ -1003,6 +2289,7 @@ module Stripe
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,
@@ -1015,6 +2302,7 @@ module Stripe
         )
           @billing_thresholds = billing_thresholds
           @clear_usage = clear_usage
+          @current_trial = current_trial
           @deleted = deleted
           @discounts = discounts
           @id = id
@@ -1030,6 +2318,15 @@ module Stripe
           @field_encodings = {
             price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
           }
+        end
+      end
+
+      class Prebilling < ::Stripe::RequestParams
+        # This is used to determine the number of billing cycles to prebill.
+        attr_accessor :iterations
+
+        def initialize(iterations: nil)
+          @iterations = iterations
         end
       end
       # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
@@ -1048,6 +2345,8 @@ module Stripe
       attr_accessor :default_tax_rates
       # A list of up to 20 subscription items, each with an attached price.
       attr_accessor :items
+      # The pre-billing to apply to the subscription as a preview.
+      attr_accessor :prebilling
       # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
       attr_accessor :proration_behavior
       # If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
@@ -1068,6 +2367,7 @@ module Stripe
         cancel_now: nil,
         default_tax_rates: nil,
         items: nil,
+        prebilling: nil,
         proration_behavior: nil,
         proration_date: nil,
         resume_at: nil,
@@ -1082,6 +2382,7 @@ module Stripe
         @cancel_now = cancel_now
         @default_tax_rates = default_tax_rates
         @items = items
+        @prebilling = prebilling
         @proration_behavior = proration_behavior
         @proration_date = proration_date
         @resume_at = resume_at
@@ -1103,6 +2404,8 @@ module Stripe
     end
     # Settings for automatic tax lookup for this invoice preview.
     attr_accessor :automatic_tax
+    # The identifier of the billing cadence for which you’d like to retrieve the upcoming invoice. Cannot be provided when `subscription`, `schedule`, `subscription_details` or `schedule_details` are provided.
+    attr_accessor :billing_cadence
     # The currency to preview this invoice in. Defaults to that of `customer` if not specified.
     attr_accessor :currency
     # The identifier of the customer whose upcoming invoice you're retrieving. If `automatic_tax` is enabled then one of `customer`, `customer_details`, `subscription`, or `schedule` must be set.
@@ -1134,6 +2437,7 @@ module Stripe
 
     def initialize(
       automatic_tax: nil,
+      billing_cadence: nil,
       currency: nil,
       customer: nil,
       customer_account: nil,
@@ -1150,6 +2454,7 @@ module Stripe
       subscription_details: nil
     )
       @automatic_tax = automatic_tax
+      @billing_cadence = billing_cadence
       @currency = currency
       @customer = customer
       @customer_account = customer_account

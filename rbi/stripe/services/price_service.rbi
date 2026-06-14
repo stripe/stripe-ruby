@@ -31,6 +31,16 @@ module Stripe
      }
     def search(params = {}, opts = {}); end
 
+    # Serializes a Price create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::PriceCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a Price update request into a batch job JSONL line.
+    sig {
+      params(price: String, params: ::Stripe::PriceUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(price, params = {}, opts = {}); end
+
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
     sig {
       params(price: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)

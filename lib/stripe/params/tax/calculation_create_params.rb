@@ -74,11 +74,53 @@ module Stripe
       end
 
       class LineItem < ::Stripe::RequestParams
+        class PerformanceLocationDetails < ::Stripe::RequestParams
+          class Address < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_accessor :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_accessor :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # The address of the performance venue.
+          attr_accessor :address
+
+          def initialize(address: nil)
+            @address = address
+          end
+        end
         # A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         # If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
         attr_accessor :amount
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         attr_accessor :metadata
+        # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+        attr_accessor :performance_location
+        # Details of the performance location for this line item. Use this to specify an address directly instead of a tax location ID.
+        attr_accessor :performance_location_details
         # If provided, the product's `tax_code` will be used as the line item's `tax_code`.
         attr_accessor :product
         # The number of units of the item being purchased. Used to calculate the per-unit price from the total `amount` for the line. For example, if `amount=100` and `quantity=4`, the calculated unit price is 25.
@@ -93,6 +135,8 @@ module Stripe
         def initialize(
           amount: nil,
           metadata: nil,
+          performance_location: nil,
+          performance_location_details: nil,
           product: nil,
           quantity: nil,
           reference: nil,
@@ -101,6 +145,8 @@ module Stripe
         )
           @amount = amount
           @metadata = metadata
+          @performance_location = performance_location
+          @performance_location_details = performance_location_details
           @product = product
           @quantity = quantity
           @reference = reference

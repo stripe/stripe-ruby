@@ -1,0 +1,306 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module Billing
+      # Service Actions represent actions applied during service assessment periods, such as granting credits to a customer.
+      class ServiceAction < APIResource
+        OBJECT_NAME = "v2.billing.service_action"
+        def self.object_name
+          "v2.billing.service_action"
+        end
+
+        class CreditGrant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              attr_reader :custom_pricing_unit_details
+              # The id of the custom pricing unit.
+              attr_reader :id
+              # The value of the credit grant, decimal value represented as a string.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
+            end
+            # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
+            attr_reader :custom_pricing_unit
+            # The monetary amount of the credit grant. Required if `type` is `monetary`.
+            attr_reader :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
+            end
+          end
+
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
+              # The billable items to apply the credit grant to.
+              attr_reader :billable_items
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              attr_reader :price_type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The applicability scope of the credit grant.
+            attr_reader :scope
+
+            def self.inner_class_types
+              @inner_class_types = { scope: Scope }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExpiryConfig < ::Stripe::StripeObject
+            # The type of the expiry configuration. We currently support `end_of_service_period`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount of the credit grant.
+          attr_reader :amount
+          # Defines the scope where the credit grant is applicable.
+          attr_reader :applicability_config
+          # The category of the credit grant.
+          attr_reader :category
+          # The expiry configuration for the credit grant.
+          attr_reader :expiry_config
+          # A descriptive name shown in dashboard.
+          attr_reader :name
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          attr_reader :priority
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amount: Amount,
+              applicability_config: ApplicabilityConfig,
+              expiry_config: ExpiryConfig,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
+        end
+
+        class CreditGrantPerTenant < ::Stripe::StripeObject
+          class Amount < ::Stripe::StripeObject
+            class CustomPricingUnit < ::Stripe::StripeObject
+              # The Custom Pricing Unit object.
+              attr_reader :custom_pricing_unit_details
+              # The id of the custom pricing unit.
+              attr_reader :id
+              # The value of the credit grant, decimal value represented as a string.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { value: :decimal_string }
+              end
+            end
+            # The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
+            attr_reader :custom_pricing_unit
+            # The monetary amount of the credit grant. Required if `type` is `monetary`.
+            attr_reader :monetary
+            # The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit: CustomPricingUnit }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              }
+            end
+          end
+
+          class ApplicabilityConfig < ::Stripe::StripeObject
+            class Scope < ::Stripe::StripeObject
+              # The billable items to apply the credit grant to.
+              attr_reader :billable_items
+              # The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+              attr_reader :price_type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The applicability scope of the credit grant.
+            attr_reader :scope
+
+            def self.inner_class_types
+              @inner_class_types = { scope: Scope }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ExpiryConfig < ::Stripe::StripeObject
+            # The type of the expiry configuration. We currently support `end_of_service_period`.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The amount of the credit grant.
+          attr_reader :amount
+          # Defines the scope where the credit grant is applicable.
+          attr_reader :applicability_config
+          # The category of the credit grant.
+          attr_reader :category
+          # The expiry configuration for the credit grant.
+          attr_reader :expiry_config
+          # Customer-facing name for the credit grant.
+          attr_reader :name
+          # The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
+          attr_reader :priority
+
+          def self.inner_class_types
+            @inner_class_types = {
+              amount: Amount,
+              applicability_config: ApplicabilityConfig,
+              expiry_config: ExpiryConfig,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            }
+          end
+        end
+        # Timestamp of when the object was created.
+        attr_reader :created
+        # Details for the credit grant. Provided only if `type` is "credit_grant".
+        attr_reader :credit_grant
+        # Details for the credit grant per tenant. Provided only if `type` is "credit_grant_per_tenant".
+        attr_reader :credit_grant_per_tenant
+        # Unique identifier for the object.
+        attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # An internal key you can use to search for this service action.
+        attr_reader :lookup_key
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # The interval for assessing service.
+        attr_reader :service_interval
+        # The length of the interval for assessing service.
+        attr_reader :service_interval_count
+        # The type of the service action.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            credit_grant: CreditGrant,
+            credit_grant_per_tenant: CreditGrantPerTenant,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            credit_grant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+            credit_grant_per_tenant: {
+              kind: :object,
+              fields: {
+                amount: {
+                  kind: :object,
+                  fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+                },
+              },
+            },
+          }
+        end
+      end
+    end
+  end
+end

@@ -32,6 +32,26 @@ module Stripe
           @us_bank_account = us_bank_account
         end
       end
+
+      class NetworkDetails < ::Stripe::RequestParams
+        class Ach < ::Stripe::RequestParams
+          # Addenda record data associated with this OutboundTransfer.
+          attr_accessor :addenda
+
+          def initialize(addenda: nil)
+            @addenda = addenda
+          end
+        end
+        # Optional fields for `ach`.
+        attr_accessor :ach
+        # The type of flow that originated the OutboundTransfer.
+        attr_accessor :type
+
+        def initialize(ach: nil, type: nil)
+          @ach = ach
+          @type = type
+        end
+      end
       # Amount (in cents) to be transferred.
       attr_accessor :amount
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -50,6 +70,8 @@ module Stripe
       attr_accessor :financial_account
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # Details about the network used for the OutboundTransfer.
+      attr_accessor :network_details
       # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer". Can only include -#.$&*, spaces, and alphanumeric characters.
       attr_accessor :statement_descriptor
 
@@ -63,6 +85,7 @@ module Stripe
         expand: nil,
         financial_account: nil,
         metadata: nil,
+        network_details: nil,
         statement_descriptor: nil
       )
         @amount = amount
@@ -74,6 +97,7 @@ module Stripe
         @expand = expand
         @financial_account = financial_account
         @metadata = metadata
+        @network_details = network_details
         @statement_descriptor = statement_descriptor
       end
     end

@@ -77,6 +77,18 @@ module Stripe
       end
     end
 
+    class Custom < ::Stripe::RequestParams
+      # A reference to an external payment method, such as a PayPal Billing Agreement ID.
+      attr_accessor :payment_method_reference
+      # Indicates whether the payment method supports off-session payments.
+      attr_accessor :usage
+
+      def initialize(payment_method_reference: nil, usage: nil)
+        @payment_method_reference = payment_method_reference
+        @usage = usage
+      end
+    end
+
     class Payto < ::Stripe::RequestParams
       # The account number for the bank account.
       attr_accessor :account_number
@@ -109,6 +121,8 @@ module Stripe
     attr_accessor :billing_details
     # If this is a `card` PaymentMethod, this hash contains the user's card details.
     attr_accessor :card
+    # If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    attr_accessor :custom
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -122,6 +136,7 @@ module Stripe
       allow_redisplay: nil,
       billing_details: nil,
       card: nil,
+      custom: nil,
       expand: nil,
       metadata: nil,
       payto: nil,
@@ -130,6 +145,7 @@ module Stripe
       @allow_redisplay = allow_redisplay
       @billing_details = billing_details
       @card = card
+      @custom = custom
       @expand = expand
       @metadata = metadata
       @payto = payto

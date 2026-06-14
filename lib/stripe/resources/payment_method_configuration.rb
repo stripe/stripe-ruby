@@ -739,7 +739,69 @@ module Stripe
       end
     end
 
+    class Gopay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Grabpay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class IdBankTransfer < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1328,6 +1390,37 @@ module Stripe
       end
     end
 
+    class Paypay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Payto < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -1391,6 +1484,37 @@ module Stripe
     end
 
     class Promptpay < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Qris < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1546,6 +1670,37 @@ module Stripe
     end
 
     class SepaDebit < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Shopeepay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
         attr_reader :overridable
@@ -1873,10 +2028,14 @@ module Stripe
     attr_reader :giropay
     # Attribute for field google_pay
     attr_reader :google_pay
+    # Attribute for field gopay
+    attr_reader :gopay
     # Attribute for field grabpay
     attr_reader :grabpay
     # Unique identifier for the object.
     attr_reader :id
+    # Attribute for field id_bank_transfer
+    attr_reader :id_bank_transfer
     # Attribute for field ideal
     attr_reader :ideal
     # The default configuration is used whenever a payment method configuration is not specified.
@@ -1923,12 +2082,16 @@ module Stripe
     attr_reader :paynow
     # Attribute for field paypal
     attr_reader :paypal
+    # Attribute for field paypay
+    attr_reader :paypay
     # Attribute for field payto
     attr_reader :payto
     # Attribute for field pix
     attr_reader :pix
     # Attribute for field promptpay
     attr_reader :promptpay
+    # Attribute for field qris
+    attr_reader :qris
     # Attribute for field revolut_pay
     attr_reader :revolut_pay
     # Attribute for field samsung_pay
@@ -1939,6 +2102,8 @@ module Stripe
     attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
+    # Attribute for field shopeepay
+    attr_reader :shopeepay
     # Attribute for field sofort
     attr_reader :sofort
     # Attribute for field sunbit
@@ -2011,7 +2176,9 @@ module Stripe
         fpx: Fpx,
         giropay: Giropay,
         google_pay: GooglePay,
+        gopay: Gopay,
         grabpay: Grabpay,
+        id_bank_transfer: IdBankTransfer,
         ideal: Ideal,
         jcb: Jcb,
         kakao_pay: KakaoPay,
@@ -2030,14 +2197,17 @@ module Stripe
         payco: Payco,
         paynow: Paynow,
         paypal: Paypal,
+        paypay: Paypay,
         payto: Payto,
         pix: Pix,
         promptpay: Promptpay,
+        qris: Qris,
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,
         scalapay: Scalapay,
         sepa_debit: SepaDebit,
+        shopeepay: Shopeepay,
         sofort: Sofort,
         sunbit: Sunbit,
         swish: Swish,

@@ -10,6 +10,69 @@ module Stripe
       class Event < APIResource
         class Reason < ::Stripe::StripeObject
           class Request < ::Stripe::StripeObject
+            class Client < ::Stripe::StripeObject
+              class ApiKey < ::Stripe::StripeObject
+                # The ID of the API key.
+                sig { returns(String) }
+                def id; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class DashboardUser < ::Stripe::StripeObject
+                # The email of the dashboard user.
+                sig { returns(String) }
+                def email; end
+                # The IP address of the user.
+                sig { returns(String) }
+                def ip_address; end
+                # The machine identifier of the user.
+                sig { returns(String) }
+                def machine_identifier; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class StripeAction < ::Stripe::StripeObject
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # API key that triggered the event.
+              sig { returns(T.nilable(ApiKey)) }
+              def api_key; end
+              # Dashboard user that triggered the event.
+              sig { returns(T.nilable(DashboardUser)) }
+              def dashboard_user; end
+              # Stripe action that triggered the event.
+              sig { returns(T.nilable(StripeAction)) }
+              def stripe_action; end
+              # The type of the client.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  api_key: ApiKey,
+                  dashboard_user: DashboardUser,
+                  stripe_action: StripeAction,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The client details that made the request.
+            sig { returns(T.nilable(Client)) }
+            def client; end
             # ID of the API request that caused the event.
             sig { returns(String) }
             def id; end
@@ -17,7 +80,7 @@ module Stripe
             sig { returns(String) }
             def idempotency_key; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {client: Client}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -57,6 +120,9 @@ module Stripe
         # Reason for the event.
         sig { returns(T.nilable(Reason)) }
         def reason; end
+        # For interop events, this is the snapshot event ID.
+        sig { returns(T.nilable(String)) }
+        def snapshot_event; end
         # The type of the event.
         sig { returns(String) }
         def type; end

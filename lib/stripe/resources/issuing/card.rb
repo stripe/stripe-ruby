@@ -218,6 +218,8 @@ module Stripe
           attr_reader :eligible
           # Reason the card is ineligible for Apple Pay
           attr_reader :ineligible_reason
+          # Unique identifier for the card in Apple Pay
+          attr_reader :primary_account_identifier
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -233,6 +235,8 @@ module Stripe
           attr_reader :eligible
           # Reason the card is ineligible for Google Pay
           attr_reader :ineligible_reason
+          # Unique identifier for the card in Google Pay
+          attr_reader :primary_account_identifier
 
           def self.inner_class_types
             @inner_class_types = {}

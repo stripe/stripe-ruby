@@ -14,6 +14,49 @@ module Stripe
 
       class Credit < ::Stripe::StripeObject
         class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive integer representing the amount.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
+          end
+
           class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
@@ -28,17 +71,25 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The custom pricing unit amount.
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { monetary: Monetary }
+            @inner_class_types = { custom_pricing_unit: CustomPricingUnit, monetary: Monetary }
           end
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
           end
         end
 
@@ -73,10 +124,62 @@ module Stripe
         def self.field_remappings
           @field_remappings = {}
         end
+
+        def self.field_encodings
+          @field_encodings = {
+            amount: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
+        end
       end
 
       class Debit < ::Stripe::StripeObject
         class Amount < ::Stripe::StripeObject
+          class CustomPricingUnit < ::Stripe::StripeObject
+            class CustomPricingUnitDetails < ::Stripe::StripeObject
+              # Time at which the object was created. Measured in seconds since the Unix epoch.
+              attr_reader :created
+              # The name of the custom pricing unit.
+              attr_reader :display_name
+              # Unique identifier for the object.
+              attr_reader :id
+              # A lookup key for the custom pricing unit.
+              attr_reader :lookup_key
+              # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+              attr_reader :metadata
+              # The status of the custom pricing unit.
+              attr_reader :status
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The custom pricing unit object.
+            attr_reader :custom_pricing_unit_details
+            # Unique identifier for the object.
+            attr_reader :id
+            # A positive integer representing the amount.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = { custom_pricing_unit_details: CustomPricingUnitDetails }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
+          end
+
           class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
@@ -91,17 +194,25 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The custom pricing unit amount.
+          attr_reader :custom_pricing_unit
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { monetary: Monetary }
+            @inner_class_types = { custom_pricing_unit: CustomPricingUnit, monetary: Monetary }
           end
 
           def self.field_remappings
             @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
           end
         end
 
@@ -132,6 +243,15 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            amount: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
         end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -171,6 +291,29 @@ module Stripe
 
       def self.field_remappings
         @field_remappings = {}
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          credit: {
+            kind: :object,
+            fields: {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+          debit: {
+            kind: :object,
+            fields: {
+              amount: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+        }
       end
     end
   end

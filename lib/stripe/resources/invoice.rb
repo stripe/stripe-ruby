@@ -49,6 +49,33 @@ module Stripe
 
     nested_resource_class_methods :line, operations: %i[list]
 
+    class AmountsDue < ::Stripe::StripeObject
+      # Incremental amount due for this payment in cents (or local equivalent).
+      attr_reader :amount
+      # The amount in cents (or local equivalent) that was paid for this payment.
+      attr_reader :amount_paid
+      # The difference between the payment’s amount and amount_paid, in cents (or local equivalent).
+      attr_reader :amount_remaining
+      # Number of days from when invoice is finalized until the payment is due.
+      attr_reader :days_until_due
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      attr_reader :description
+      # Date on which a payment plan’s payment is due.
+      attr_reader :due_date
+      # Timestamp when the payment was paid.
+      attr_reader :paid_at
+      # The status of the payment, one of `open`, `paid`, or `past_due`
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class AutomaticTax < ::Stripe::StripeObject
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
@@ -303,6 +330,19 @@ module Stripe
     end
 
     class Parent < ::Stripe::StripeObject
+      class BillingCadenceDetails < ::Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        attr_reader :billing_cadence
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class QuoteDetails < ::Stripe::StripeObject
         # The quote that generated this invoice
         attr_reader :quote
@@ -316,14 +356,11 @@ module Stripe
         end
       end
 
-      class SubscriptionDetails < ::Stripe::StripeObject
-        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
-        attr_reader :metadata
-        # The subscription that generated this invoice
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The schedule that generated this invoice
+        attr_reader :schedule
+        # The subscription associated with this schedule
         attr_reader :subscription
-        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-        attr_reader :subscription_proration_date
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -333,8 +370,46 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class SubscriptionDetails < ::Stripe::StripeObject
+        class PauseCollection < ::Stripe::StripeObject
+          # The payment collection behavior for this subscription while paused.
+          attr_reader :behavior
+          # The time after which the subscription will resume collecting payments.
+          attr_reader :resumes_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+        attr_reader :metadata
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+        attr_reader :pause_collection
+        # The subscription that generated this invoice
+        attr_reader :subscription
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
+        attr_reader :subscription_proration_date
+
+        def self.inner_class_types
+          @inner_class_types = { pause_collection: PauseCollection }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the billing cadence that generated this invoice
+      attr_reader :billing_cadence_details
       # Details about the quote that generated this invoice
       attr_reader :quote_details
+      # Details about the schedule that generated this invoice
+      attr_reader :schedule_details
       # Details about the subscription that generated this invoice
       attr_reader :subscription_details
       # The type of parent that generated this invoice
@@ -342,7 +417,9 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
+          schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
         }
       end
@@ -394,6 +471,26 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Blik < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Card < ::Stripe::StripeObject
           class Installments < ::Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
@@ -414,6 +511,16 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { installments: Installments }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CheckScan < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -455,6 +562,16 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = { bank_transfer: BankTransfer }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class IdBankTransfer < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -562,6 +679,8 @@ module Stripe
             class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
+              # The institution to use to filter for possible accounts to link.
+              attr_reader :institution
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -599,14 +718,37 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          attr_reader :app_id
+          # The client type that the end customer will pay from.
+          attr_reader :client
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :bancontact
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :bizum
+        # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :blik
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :card
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :check_scan
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :customer_balance
+        # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :id_bank_transfer
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :konbini
         # If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
@@ -619,19 +761,26 @@ module Stripe
         attr_reader :upi
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :us_bank_account
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :wechat_pay
 
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
+            blik: Blik,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
             payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
 
@@ -833,6 +982,21 @@ module Stripe
       end
     end
 
+    class TotalMarginAmount < ::Stripe::StripeObject
+      # The amount, in cents (or local equivalent), of the reduction in line item amount.
+      attr_reader :amount
+      # The margin that was applied to get this margin amount.
+      attr_reader :margin
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TotalPretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       attr_reader :amount
@@ -840,6 +1004,8 @@ module Stripe
       attr_reader :credit_balance_transaction
       # The discount that was applied to get this pretax credit amount.
       attr_reader :discount
+      # The margin that was applied to get this pretax credit amount.
+      attr_reader :margin
       # Type of the pretax credit amount referenced.
       attr_reader :type
 
@@ -904,6 +1070,8 @@ module Stripe
     attr_reader :amount_remaining
     # This is the sum of all the shipping amounts.
     attr_reader :amount_shipping
+    # List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
+    attr_reader :amounts_due
     # ID of the Connect Application that created the invoice.
     attr_reader :application
     # Number of payment attempts made for this invoice, from the perspective of the payment retry schedule. Any payment attempt counts as the first attempt, and subsequently only automatic retries increment the attempt count. In other words, manual payment attempts after the first attempt do not affect the retry schedule. If a failure is returned with a non-retryable return code, the invoice can no longer be retried unless a new payment method is obtained. Retries will continue to be scheduled, and attempt_count will continue to increment, but retries will only be executed if a new payment method is obtained.
@@ -954,6 +1122,8 @@ module Stripe
     attr_reader :customer_tax_exempt
     # The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
     attr_reader :customer_tax_ids
+    # The margins applied to the invoice. Can be overridden by line item `margins`. Use `expand[]=default_margins` to expand each margin.
+    attr_reader :default_margins
     # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     attr_reader :default_payment_method
     # ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
@@ -1046,6 +1216,8 @@ module Stripe
     attr_reader :total_discount_amounts
     # The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     attr_reader :total_excluding_tax
+    # The aggregate amounts calculated per margin across all line items.
+    attr_reader :total_margin_amounts
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     attr_reader :total_pretax_credit_amounts
     # The aggregate tax information of all line items.
@@ -1149,6 +1321,26 @@ module Stripe
       request_stripe_object(
         method: :delete,
         path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    def detach_payment(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    def self.detach_payment(invoice, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(invoice) }),
         params: params,
         opts: opts
       )
@@ -1332,6 +1524,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        amounts_due: AmountsDue,
         automatic_tax: AutomaticTax,
         confirmation_secret: ConfirmationSecret,
         custom_fields: CustomField,
@@ -1349,6 +1542,7 @@ module Stripe
         status_transitions: StatusTransitions,
         threshold_reason: ThresholdReason,
         total_discount_amounts: TotalDiscountAmount,
+        total_margin_amounts: TotalMarginAmount,
         total_pretax_credit_amounts: TotalPretaxCreditAmount,
         total_taxes: TotalTax,
       }

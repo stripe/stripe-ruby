@@ -6,6 +6,23 @@ module Stripe
   module Billing
     class CreditGrantCreateParams < ::Stripe::RequestParams
       class Amount < ::Stripe::RequestParams
+        class CustomPricingUnit < ::Stripe::RequestParams
+          # The ID of the custom pricing unit.
+          sig { returns(String) }
+          def id; end
+          sig { params(_id: String).returns(String) }
+          def id=(_id); end
+          # A positive integer representing the amount of the credit grant.
+          sig { returns(BigDecimal) }
+          def value; end
+          sig { params(_value: BigDecimal).returns(BigDecimal) }
+          def value=(_value); end
+          sig { params(id: String, value: BigDecimal).void }
+          def initialize(id: nil, value: nil); end
+          def self.field_encodings
+            @field_encodings = {value: :decimal_string}
+          end
+        end
         class Monetary < ::Stripe::RequestParams
           # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
           sig { returns(String) }
@@ -20,6 +37,15 @@ module Stripe
           sig { params(currency: String, value: Integer).void }
           def initialize(currency: nil, value: nil); end
         end
+        # The custom pricing unit amount.
+        sig {
+          returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit))
+         }
+        def custom_pricing_unit; end
+        sig {
+          params(_custom_pricing_unit: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit)).returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit))
+         }
+        def custom_pricing_unit=(_custom_pricing_unit); end
         # The monetary amount.
         sig { returns(T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary)) }
         def monetary; end
@@ -33,12 +59,26 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(monetary: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary), type: String).void
+          params(custom_pricing_unit: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::CustomPricingUnit), monetary: T.nilable(::Stripe::Billing::CreditGrantCreateParams::Amount::Monetary), type: String).void
          }
-        def initialize(monetary: nil, type: nil); end
+        def initialize(custom_pricing_unit: nil, monetary: nil, type: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+          }
+        end
       end
       class ApplicabilityConfig < ::Stripe::RequestParams
         class Scope < ::Stripe::RequestParams
+          class BillableItem < ::Stripe::RequestParams
+            # The billable item ID this credit grant should apply to.
+            sig { returns(String) }
+            def id; end
+            sig { params(_id: String).returns(String) }
+            def id=(_id); end
+            sig { params(id: String).void }
+            def initialize(id: nil); end
+          end
           class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             sig { returns(String) }
@@ -48,6 +88,15 @@ module Stripe
             sig { params(id: String).void }
             def initialize(id: nil); end
           end
+          # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
+           }
+          def billable_items; end
+          sig {
+            params(_billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
+           }
+          def billable_items=(_billable_items); end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
           sig { returns(T.nilable(String)) }
           def price_type; end
@@ -63,9 +112,9 @@ module Stripe
            }
           def prices=(_prices); end
           sig {
-            params(price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).void
+            params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).void
            }
-          def initialize(price_type: nil, prices: nil); end
+          def initialize(billable_items: nil, price_type: nil, prices: nil); end
         end
         # Specify the scope of this applicability config.
         sig { returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope) }
@@ -156,6 +205,14 @@ module Stripe
         name: nil,
         priority: nil
       ); end
+      def self.field_encodings
+        @field_encodings = {
+          amount: {
+            kind: :object,
+            fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+          },
+        }
+      end
     end
   end
 end

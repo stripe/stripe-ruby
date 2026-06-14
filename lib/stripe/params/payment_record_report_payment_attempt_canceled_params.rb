@@ -9,11 +9,23 @@ module Stripe
     attr_accessor :expand
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # Payment evaluations associated with this reported payment.
+    attr_accessor :payment_evaluations
+    # The reason the payment attempt was canceled.
+    attr_accessor :reason
 
-    def initialize(canceled_at: nil, expand: nil, metadata: nil)
+    def initialize(
+      canceled_at: nil,
+      expand: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      reason: nil
+    )
       @canceled_at = canceled_at
       @expand = expand
       @metadata = metadata
+      @payment_evaluations = payment_evaluations
+      @reason = reason
     end
   end
 end

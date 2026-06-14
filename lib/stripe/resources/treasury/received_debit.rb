@@ -120,11 +120,40 @@ module Stripe
         attr_reader :issuing_transaction
         # Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
         attr_reader :payout
+        # The ReceivedCredit that Capital withheld from
+        attr_reader :received_credit_capital_withholding
         # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
         attr_reader :topup
 
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class NetworkDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          # ACH Addenda record
+          attr_reader :addenda
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about an ACH transaction.
+        attr_reader :ach
+        # The type of flow that originated the ReceivedDebit.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach }
         end
 
         def self.field_remappings
@@ -170,6 +199,8 @@ module Stripe
       attr_reader :livemode
       # The network used for the ReceivedDebit.
       attr_reader :network
+      # Details specific to the money movement rails.
+      attr_reader :network_details
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # Details describing when a ReceivedDebit might be reversed.
@@ -214,6 +245,7 @@ module Stripe
         @inner_class_types = {
           initiating_payment_method_details: InitiatingPaymentMethodDetails,
           linked_flows: LinkedFlows,
+          network_details: NetworkDetails,
           reversal_details: ReversalDetails,
         }
       end

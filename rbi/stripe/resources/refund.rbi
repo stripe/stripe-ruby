@@ -188,6 +188,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class IdBankTransfer < ::Stripe::StripeObject
+        # The reference assigned to the refund.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        # Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+        sig { returns(T.nilable(String)) }
+        def reference_status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class JpBankTransfer < ::Stripe::StripeObject
         # The reference assigned to the refund.
         sig { returns(T.nilable(String)) }
@@ -445,6 +459,9 @@ module Stripe
       # Attribute for field grabpay
       sig { returns(T.nilable(Grabpay)) }
       def grabpay; end
+      # Attribute for field id_bank_transfer
+      sig { returns(T.nilable(IdBankTransfer)) }
+      def id_bank_transfer; end
       # Attribute for field jp_bank_transfer
       sig { returns(T.nilable(JpBankTransfer)) }
       def jp_bank_transfer; end
@@ -524,6 +541,7 @@ module Stripe
           gb_bank_transfer: GbBankTransfer,
           giropay: Giropay,
           grabpay: Grabpay,
+          id_bank_transfer: IdBankTransfer,
           jp_bank_transfer: JpBankTransfer,
           klarna: Klarna,
           mb_way: MbWay,

@@ -4,15 +4,23 @@
 module Stripe
   module V2
     class CoreService < StripeService
-      attr_reader :accounts, :account_links, :account_tokens, :events, :event_destinations
+      attr_reader :accounts, :account_evaluations, :account_links, :account_tokens, :approval_requests, :batch_jobs, :claimable_sandboxes, :connection_sessions, :events, :event_destinations, :fee_batches, :fee_entries, :vault
 
       def initialize(requestor)
         super
         @accounts = Stripe::V2::Core::AccountService.new(@requestor)
+        @account_evaluations = Stripe::V2::Core::AccountEvaluationService.new(@requestor)
         @account_links = Stripe::V2::Core::AccountLinkService.new(@requestor)
         @account_tokens = Stripe::V2::Core::AccountTokenService.new(@requestor)
+        @approval_requests = Stripe::V2::Core::ApprovalRequestService.new(@requestor)
+        @batch_jobs = Stripe::V2::Core::BatchJobService.new(@requestor)
+        @claimable_sandboxes = Stripe::V2::Core::ClaimableSandboxService.new(@requestor)
+        @connection_sessions = Stripe::V2::Core::ConnectionSessionService.new(@requestor)
         @events = Stripe::V2::Core::EventService.new(@requestor)
         @event_destinations = Stripe::V2::Core::EventDestinationService.new(@requestor)
+        @fee_batches = Stripe::V2::Core::FeeBatchService.new(@requestor)
+        @fee_entries = Stripe::V2::Core::FeeEntryService.new(@requestor)
+        @vault = Stripe::V2::Core::VaultService.new(@requestor)
       end
     end
   end

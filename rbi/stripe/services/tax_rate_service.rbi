@@ -22,6 +22,16 @@ module Stripe
      }
     def retrieve(tax_rate, params = {}, opts = {}); end
 
+    # Serializes a TaxRate create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::TaxRateCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes a TaxRate update request into a batch job JSONL line.
+    sig {
+      params(tax_rate: String, params: ::Stripe::TaxRateUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(tax_rate, params = {}, opts = {}); end
+
     # Updates an existing tax rate.
     sig {
       params(tax_rate: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)

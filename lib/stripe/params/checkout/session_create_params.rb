@@ -35,6 +35,21 @@ module Stripe
         end
       end
 
+      class AutomaticSurcharge < ::Stripe::RequestParams
+        # Determines which amount serves as the basis for calculating the surcharge.
+        attr_accessor :calculation_basis
+        # Set to `true` to calculate surcharge automatically using the customer's card details and location.
+        attr_accessor :enabled
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        attr_accessor :tax_behavior
+
+        def initialize(calculation_basis: nil, enabled: nil, tax_behavior: nil)
+          @calculation_basis = calculation_basis
+          @enabled = enabled
+          @tax_behavior = tax_behavior
+        end
+      end
+
       class AutomaticTax < ::Stripe::RequestParams
         class Liability < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
@@ -121,6 +136,81 @@ module Stripe
           @font_family = font_family
           @icon = icon
           @logo = logo
+        end
+      end
+
+      class CheckoutItem < ::Stripe::RequestParams
+        class PricingPlanSubscriptionItem < ::Stripe::RequestParams
+          class ComponentConfigurations < ::Stripe::RequestParams
+            class LicenseFeeComponent < ::Stripe::RequestParams
+              # Attribute for param field quantity
+              attr_accessor :quantity
+
+              def initialize(quantity: nil)
+                @quantity = quantity
+              end
+            end
+            # Attribute for param field type
+            attr_accessor :type
+            # Attribute for param field license_fee_component
+            attr_accessor :license_fee_component
+
+            def initialize(type: nil, license_fee_component: nil)
+              @type = type
+              @license_fee_component = license_fee_component
+            end
+          end
+          # Attribute for param field pricing_plan
+          attr_accessor :pricing_plan
+          # Attribute for param field pricing_plan_version
+          attr_accessor :pricing_plan_version
+          # Attribute for param field metadata
+          attr_accessor :metadata
+          # Attribute for param field component_configurations
+          attr_accessor :component_configurations
+
+          def initialize(
+            pricing_plan: nil,
+            pricing_plan_version: nil,
+            metadata: nil,
+            component_configurations: nil
+          )
+            @pricing_plan = pricing_plan
+            @pricing_plan_version = pricing_plan_version
+            @metadata = metadata
+            @component_configurations = component_configurations
+          end
+        end
+
+        class RateCardSubscriptionItem < ::Stripe::RequestParams
+          # Attribute for param field rate_card
+          attr_accessor :rate_card
+          # Attribute for param field metadata
+          attr_accessor :metadata
+          # Attribute for param field rate_card_version
+          attr_accessor :rate_card_version
+
+          def initialize(rate_card: nil, metadata: nil, rate_card_version: nil)
+            @rate_card = rate_card
+            @metadata = metadata
+            @rate_card_version = rate_card_version
+          end
+        end
+        # Attribute for param field type
+        attr_accessor :type
+        # Attribute for param field rate_card_subscription_item
+        attr_accessor :rate_card_subscription_item
+        # Attribute for param field pricing_plan_subscription_item
+        attr_accessor :pricing_plan_subscription_item
+
+        def initialize(
+          type: nil,
+          rate_card_subscription_item: nil,
+          pricing_plan_subscription_item: nil
+        )
+          @type = type
+          @rate_card_subscription_item = rate_card_subscription_item
+          @pricing_plan_subscription_item = pricing_plan_subscription_item
         end
       end
 
@@ -326,13 +416,46 @@ module Stripe
       end
 
       class Discount < ::Stripe::RequestParams
+        class CouponData < ::Stripe::RequestParams
+          # A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+          attr_accessor :amount_off
+          # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+          attr_accessor :currency
+          # Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+          attr_accessor :duration
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          attr_accessor :metadata
+          # Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+          attr_accessor :name
+          # A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+          attr_accessor :percent_off
+
+          def initialize(
+            amount_off: nil,
+            currency: nil,
+            duration: nil,
+            metadata: nil,
+            name: nil,
+            percent_off: nil
+          )
+            @amount_off = amount_off
+            @currency = currency
+            @duration = duration
+            @metadata = metadata
+            @name = name
+            @percent_off = percent_off
+          end
+        end
         # The ID of the coupon to apply to this Session.
         attr_accessor :coupon
+        # Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+        attr_accessor :coupon_data
         # The ID of a promotion code to apply to this Session.
         attr_accessor :promotion_code
 
-        def initialize(coupon: nil, promotion_code: nil)
+        def initialize(coupon: nil, coupon_data: nil, promotion_code: nil)
           @coupon = coupon
+          @coupon_data = coupon_data
           @promotion_code = promotion_code
         end
       end
@@ -418,6 +541,15 @@ module Stripe
         end
       end
 
+      class Item < ::Stripe::RequestParams
+        # The type of item.
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class LineItem < ::Stripe::RequestParams
         class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -436,6 +568,17 @@ module Stripe
 
         class PriceData < ::Stripe::RequestParams
           class ProductData < ::Stripe::RequestParams
+            class TaxDetails < ::Stripe::RequestParams
+              # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+              attr_accessor :performance_location
+              # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+              attr_accessor :tax_code
+
+              def initialize(performance_location: nil, tax_code: nil)
+                @performance_location = performance_location
+                @tax_code = tax_code
+              end
+            end
             # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
             attr_accessor :description
             # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -446,6 +589,8 @@ module Stripe
             attr_accessor :name
             # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
             attr_accessor :tax_code
+            # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+            attr_accessor :tax_details
             # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
             attr_accessor :unit_label
 
@@ -455,6 +600,7 @@ module Stripe
               metadata: nil,
               name: nil,
               tax_code: nil,
+              tax_details: nil,
               unit_label: nil
             )
               @description = description
@@ -462,6 +608,7 @@ module Stripe
               @metadata = metadata
               @name = name
               @tax_code = tax_code
+              @tax_details = tax_details
               @unit_label = unit_label
             end
           end
@@ -991,6 +1138,36 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams; end
+          # Additional fields for mandate creation.
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_accessor :expires_after
+
+            def initialize(expires_after: nil)
+              @expires_after = expires_after
+            end
+          end
+          # Additional fields for Mandate creation
+          attr_accessor :mandate_options
+          # Attribute for param field setup_future_usage
+          attr_accessor :setup_future_usage
+
+          def initialize(mandate_options: nil, setup_future_usage: nil)
+            @mandate_options = mandate_options
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Boleto < ::Stripe::RequestParams
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
           attr_accessor :expires_after_days
@@ -1033,6 +1210,8 @@ module Stripe
           # Installment options for card payments
           attr_accessor :installments
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+          attr_accessor :request_decremental_authorization
+          # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           attr_accessor :request_extended_authorization
           # Request ability to [increment the authorization](/payments/incremental-authorization) for this CheckoutSession.
           attr_accessor :request_incremental_authorization
@@ -1060,6 +1239,7 @@ module Stripe
           def initialize(
             capture_method: nil,
             installments: nil,
+            request_decremental_authorization: nil,
             request_extended_authorization: nil,
             request_incremental_authorization: nil,
             request_multicapture: nil,
@@ -1072,6 +1252,7 @@ module Stripe
           )
             @capture_method = capture_method
             @installments = installments
+            @request_decremental_authorization = request_decremental_authorization
             @request_extended_authorization = request_extended_authorization
             @request_incremental_authorization = request_incremental_authorization
             @request_multicapture = request_multicapture
@@ -1502,6 +1683,8 @@ module Stripe
           attr_accessor :preferred_locale
           # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
           attr_accessor :reference
+          # A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+          attr_accessor :reference_id
           # The risk correlation ID for an on-session payment using a saved PayPal payment method.
           attr_accessor :risk_correlation_id
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1514,19 +1697,25 @@ module Stripe
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
           attr_accessor :setup_future_usage
+          # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+          attr_accessor :subsellers
 
           def initialize(
             capture_method: nil,
             preferred_locale: nil,
             reference: nil,
+            reference_id: nil,
             risk_correlation_id: nil,
-            setup_future_usage: nil
+            setup_future_usage: nil,
+            subsellers: nil
           )
             @capture_method = capture_method
             @preferred_locale = preferred_locale
             @reference = reference
+            @reference_id = reference_id
             @risk_correlation_id = risk_correlation_id
             @setup_future_usage = setup_future_usage
+            @subsellers = subsellers
           end
         end
 
@@ -1871,6 +2060,10 @@ module Stripe
         attr_accessor :bancontact
         # contains details about the Billie payment method options.
         attr_accessor :billie
+        # contains details about the Bizum payment method options.
+        attr_accessor :bizum
+        # contains details about the BLIK payment method options.
+        attr_accessor :blik
         # contains details about the Boleto payment method options.
         attr_accessor :boleto
         # contains details about the Card payment method options.
@@ -1959,6 +2152,8 @@ module Stripe
           bacs_debit: nil,
           bancontact: nil,
           billie: nil,
+          bizum: nil,
+          blik: nil,
           boleto: nil,
           card: nil,
           cashapp: nil,
@@ -2008,6 +2203,8 @@ module Stripe
           @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
+          @bizum = bizum
+          @blik = blik
           @boleto = boleto
           @card = card
           @cashapp = cashapp
@@ -2050,6 +2247,37 @@ module Stripe
       end
 
       class Permissions < ::Stripe::RequestParams
+        class Update < ::Stripe::RequestParams
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          attr_accessor :line_items
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          attr_accessor :shipping_details
+
+          def initialize(line_items: nil, shipping_details: nil)
+            @line_items = line_items
+            @shipping_details = shipping_details
+          end
+        end
+        # Permissions for updating the Checkout Session.
+        attr_accessor :update
+        # Determines which entity is allowed to update the discounts (coupons or promotion codes) that apply to this session.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically handle discount updates. If set to `server_only`, only your server is allowed to update discounts.
+        attr_accessor :update_discounts
+        # Determines which entity is allowed to update the line items.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+        #
+        # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        attr_accessor :update_line_items
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -2057,7 +2285,15 @@ module Stripe
         # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
         attr_accessor :update_shipping_details
 
-        def initialize(update_shipping_details: nil)
+        def initialize(
+          update: nil,
+          update_discounts: nil,
+          update_line_items: nil,
+          update_shipping_details: nil
+        )
+          @update = update
+          @update_discounts = update_discounts
+          @update_line_items = update_line_items
           @update_shipping_details = update_shipping_details
         end
       end
@@ -2404,6 +2640,14 @@ module Stripe
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      attr_accessor :approval_method
+      # Settings for automatic surcharge calculation for this session.
+      attr_accessor :automatic_surcharge
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2422,6 +2666,12 @@ module Stripe
       attr_accessor :currency
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_fields
+      # A list of custom payment methods (e.g., `cpmt_123`) this Checkout Session can accept.
+      #
+      # You can add custom payment methods to your account through the dashboard under Settings > Custom Payment Methods.
+      #
+      # Read more about custom payment methods in checkout in our [custom payment method types guide](https://docs.stripe.com/payments/payment-methods/custom-payment-methods).
+      attr_accessor :custom_payment_method_types
       # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :custom_text
       # ID of an existing Customer, if one exists. In `payment` mode, the customer’s most recently saved card
@@ -2468,6 +2718,8 @@ module Stripe
       attr_accessor :integration_identifier
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
+      # A list of items the customer will purchase.
+      attr_accessor :items
       # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
       #
       # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
@@ -2572,11 +2824,15 @@ module Stripe
       attr_accessor :ui_mode
       # Wallet-specific configuration.
       attr_accessor :wallet_options
+      # Attribute for param field checkout_items
+      attr_accessor :checkout_items
 
       def initialize(
         adaptive_pricing: nil,
         after_expiration: nil,
         allow_promotion_codes: nil,
+        approval_method: nil,
+        automatic_surcharge: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -2585,6 +2841,7 @@ module Stripe
         consent_collection: nil,
         currency: nil,
         custom_fields: nil,
+        custom_payment_method_types: nil,
         custom_text: nil,
         customer: nil,
         customer_account: nil,
@@ -2597,6 +2854,7 @@ module Stripe
         expires_at: nil,
         integration_identifier: nil,
         invoice_creation: nil,
+        items: nil,
         line_items: nil,
         locale: nil,
         managed_payments: nil,
@@ -2624,11 +2882,14 @@ module Stripe
         success_url: nil,
         tax_id_collection: nil,
         ui_mode: nil,
-        wallet_options: nil
+        wallet_options: nil,
+        checkout_items: nil
       )
         @adaptive_pricing = adaptive_pricing
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
+        @approval_method = approval_method
+        @automatic_surcharge = automatic_surcharge
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection
         @branding_settings = branding_settings
@@ -2637,6 +2898,7 @@ module Stripe
         @consent_collection = consent_collection
         @currency = currency
         @custom_fields = custom_fields
+        @custom_payment_method_types = custom_payment_method_types
         @custom_text = custom_text
         @customer = customer
         @customer_account = customer_account
@@ -2649,6 +2911,7 @@ module Stripe
         @expires_at = expires_at
         @integration_identifier = integration_identifier
         @invoice_creation = invoice_creation
+        @items = items
         @line_items = line_items
         @locale = locale
         @managed_payments = managed_payments
@@ -2677,6 +2940,7 @@ module Stripe
         @tax_id_collection = tax_id_collection
         @ui_mode = ui_mode
         @wallet_options = wallet_options
+        @checkout_items = checkout_items
       end
 
       def self.field_encodings

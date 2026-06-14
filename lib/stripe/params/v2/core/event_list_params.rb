@@ -24,6 +24,8 @@ module Stripe
         end
         # Set of filters to query events within a range of `created` timestamps.
         attr_accessor :created
+        # Additional fields to include in the response.
+        attr_accessor :include
         # The page size.
         attr_accessor :limit
         # Primary object ID used to retrieve related events.
@@ -33,8 +35,9 @@ module Stripe
         # An array of up to 20 strings containing specific event names.
         attr_accessor :types
 
-        def initialize(created: nil, limit: nil, object_id_: nil, types: nil)
+        def initialize(created: nil, include: nil, limit: nil, object_id_: nil, types: nil)
           @created = created
+          @include = include
           @limit = limit
           @object_id_ = object_id_
           @types = types

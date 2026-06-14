@@ -1,0 +1,179 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module V2
+    module MoneyManagement
+      # Use Transactions to view changes to your FinancialAccount balance over time. Every flow that moves money, such as OutboundPayments or ReceivedCredits, will have one or more Transactions that describes how the flow impacted your balance. Note that while the FinancialAccount balance will always be up to date, be aware that Transactions and TransactionEntries are created shortly after to reflect changes.
+      class Transaction < APIResource
+        OBJECT_NAME = "v2.money_management.transaction"
+        def self.object_name
+          "v2.money_management.transaction"
+        end
+
+        class BalanceImpact < ::Stripe::StripeObject
+          # Impact to the available balance.
+          attr_reader :available
+          # Impact to the inbound_pending balance.
+          attr_reader :inbound_pending
+          # Impact to the outbound_pending balance.
+          attr_reader :outbound_pending
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Counterparty < ::Stripe::StripeObject
+          # Name of the counterparty.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Flow < ::Stripe::StripeObject
+          # If applicable, the ID of the Adjustment that created this Transaction.
+          attr_reader :adjustment
+          # If applicable, the ID of the Application Fee that created this Transaction.
+          attr_reader :application_fee
+          # If applicable, the ID of the Application Fee Refund that created this Transaction.
+          attr_reader :application_fee_refund
+          # If applicable, the ID of the Charge that created this Transaction.
+          attr_reader :charge
+          # In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
+          attr_reader :currency_conversion
+          # If applicable, the ID of the DebitDispute that created this Transaction.
+          attr_reader :debit_dispute
+          # If applicable, the ID of the Dispute that created this Transaction.
+          attr_reader :dispute
+          # If applicable, the ID of the FeeTransaction that created this Transaction.
+          attr_reader :fee_transaction
+          # If applicable, the ID of the InboundTransfer that created this Transaction.
+          attr_reader :inbound_transfer
+          # If applicable, the ID of the OutboundPayment that created this Transaction.
+          attr_reader :outbound_payment
+          # If applicable, the ID of the OutboundTransfer that created this Transaction.
+          attr_reader :outbound_transfer
+          # If applicable, the ID of the Payout that created this Transaction.
+          attr_reader :payout
+          # If applicable, the ID of the ReceivedCredit that created this Transaction.
+          attr_reader :received_credit
+          # If applicable, the ID of the ReceivedDebit that created this Transaction.
+          attr_reader :received_debit
+          # If applicable, the ID of the Refund that created this Transaction.
+          attr_reader :refund
+          # If applicable, the ID of the Reserve Hold that created this Transaction.
+          attr_reader :reserve_hold
+          # If applicable, the ID of the Reserve Release that created this Transaction.
+          attr_reader :reserve_release
+          # If applicable, the ID of the TaxFund that created this Transaction.
+          attr_reader :tax_fund
+          # If applicable, the ID of the Topup that created this Transaction.
+          attr_reader :topup
+          # If applicable, the ID of the Transfer that created this Transaction.
+          attr_reader :transfer
+          # If applicable, the ID of the Transfer Reversal that created this Transaction.
+          attr_reader :transfer_reversal
+          # If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+          attr_reader :treasury_credit_reversal
+          # If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+          attr_reader :treasury_debit_reversal
+          # If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+          attr_reader :treasury_inbound_transfer
+          # If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+          attr_reader :treasury_issuing_authorization
+          # If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+          attr_reader :treasury_outbound_payment
+          # If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+          attr_reader :treasury_outbound_transfer
+          # If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+          attr_reader :treasury_received_credit
+          # If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+          attr_reader :treasury_received_debit
+          # Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StatusTransitions < ::Stripe::StripeObject
+          # The time at which the Transaction became posted. Only present if status == posted.
+          attr_reader :posted_at
+          # The time at which the Transaction became void. Only present if status == void.
+          attr_reader :void_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The amount of the Transaction.
+        attr_reader :amount
+        # The delta to the FinancialAccount's balance. The balance_impact for the Transaction is equal to sum of its
+        # TransactionEntries that have `effective_at`s in the past.
+        attr_reader :balance_impact
+        # Open Enum. A descriptive category used to classify the Transaction.
+        attr_reader :category
+        # Counterparty to this Transaction.
+        attr_reader :counterparty
+        # Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+        attr_reader :created
+        # Description of this Transaction. When applicable, the description is copied from the Flow object at the time
+        # of transaction creation.
+        attr_reader :description
+        # Indicates the FinancialAccount affected by this Transaction.
+        attr_reader :financial_account
+        # Details about the Flow object that created the Transaction.
+        attr_reader :flow
+        # Unique identifier for the object.
+        attr_reader :id
+        # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+        attr_reader :livemode
+        # String representing the object's type. Objects of the same type share the same value of the object field.
+        attr_reader :object
+        # Closed Enum. Current status of the Transaction.
+        # A Transaction is `pending` if either `balance_impact.inbound_pending` or `balance_impact.outbound_pending` is non-zero.
+        # A Transaction is `posted` if only `balance_impact.available` is non-zero.
+        # A Transaction is `void` if there is no balance impact.
+        # `posted` and `void` are terminal states, and no additional entries will be added to the Transaction.
+        attr_reader :status
+        # Timestamps for when the Transaction transitioned to a particular status.
+        attr_reader :status_transitions
+        # The v1 Treasury transaction associated with this transaction.
+        attr_reader :treasury_transaction
+
+        def self.inner_class_types
+          @inner_class_types = {
+            balance_impact: BalanceImpact,
+            counterparty: Counterparty,
+            flow: Flow,
+            status_transitions: StatusTransitions,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+    end
+  end
+end

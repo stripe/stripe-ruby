@@ -269,13 +269,18 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # The purpose of the OutboundPayment, if applicable. This list is not exhaustive, do not specify this parameter if your purpose does not match any that are provided.
+      sig { returns(T.nilable(String)) }
+      def purpose; end
+      sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
+      def purpose=(_purpose); end
       # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. Can only include -#.$&*, spaces, and alphanumeric characters. The default value is "payment".
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
       sig {
-        params(amount: Integer, currency: String, customer: T.nilable(String), description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions), end_user_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, customer: T.nilable(String), description: T.nilable(String), destination_payment_method: T.nilable(String), destination_payment_method_data: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodData), destination_payment_method_options: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::DestinationPaymentMethodOptions), end_user_details: T.nilable(::Stripe::Treasury::OutboundPaymentCreateParams::EndUserDetails), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), purpose: T.nilable(String), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -289,6 +294,7 @@ module Stripe
         expand: nil,
         financial_account: nil,
         metadata: nil,
+        purpose: nil,
         statement_descriptor: nil
       ); end
     end

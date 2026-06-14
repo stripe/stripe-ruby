@@ -93,16 +93,35 @@ module Stripe
         }
       end
     end
+
+    class MigrateTo < ::Stripe::RequestParams
+      # The behavior controlling the point in the subscription lifecycle after which to migrate the price. Currently must be `at_cycle_end`.
+      attr_accessor :behavior
+      # The time after which subscriptions should start using the new price.
+      attr_accessor :effective_after
+      # The ID of the price object.
+      attr_accessor :price
+
+      def initialize(behavior: nil, effective_after: nil, price: nil)
+        @behavior = behavior
+        @effective_after = effective_after
+        @price = price
+      end
+    end
     # Whether the price can be used for new purchases. Defaults to `true`.
     attr_accessor :active
     # Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     attr_accessor :currency_options
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    attr_accessor :external_reference
     # A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     attr_accessor :lookup_key
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # If specified, subscriptions using this price will be updated to use the new referenced price.
+    attr_accessor :migrate_to
     # A brief description of the price, hidden from customers.
     attr_accessor :nickname
     # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
@@ -114,8 +133,10 @@ module Stripe
       active: nil,
       currency_options: nil,
       expand: nil,
+      external_reference: nil,
       lookup_key: nil,
       metadata: nil,
+      migrate_to: nil,
       nickname: nil,
       tax_behavior: nil,
       transfer_lookup_key: nil
@@ -123,8 +144,10 @@ module Stripe
       @active = active
       @currency_options = currency_options
       @expand = expand
+      @external_reference = external_reference
       @lookup_key = lookup_key
       @metadata = metadata
+      @migrate_to = migrate_to
       @nickname = nickname
       @tax_behavior = tax_behavior
       @transfer_lookup_key = transfer_lookup_key

@@ -155,6 +155,8 @@ module Stripe
       attr_accessor :financial_account
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # The purpose of the OutboundPayment, if applicable. This list is not exhaustive, do not specify this parameter if your purpose does not match any that are provided.
+      attr_accessor :purpose
       # The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. Can only include -#.$&*, spaces, and alphanumeric characters. The default value is "payment".
       attr_accessor :statement_descriptor
 
@@ -170,6 +172,7 @@ module Stripe
         expand: nil,
         financial_account: nil,
         metadata: nil,
+        purpose: nil,
         statement_descriptor: nil
       )
         @amount = amount
@@ -183,6 +186,7 @@ module Stripe
         @expand = expand
         @financial_account = financial_account
         @metadata = metadata
+        @purpose = purpose
         @statement_descriptor = statement_descriptor
       end
     end

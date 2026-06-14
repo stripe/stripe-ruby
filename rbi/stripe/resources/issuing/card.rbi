@@ -230,6 +230,9 @@ module Stripe
           # Reason the card is ineligible for Apple Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          # Unique identifier for the card in Apple Pay
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -244,6 +247,9 @@ module Stripe
           # Reason the card is ineligible for Google Pay
           sig { returns(T.nilable(String)) }
           def ineligible_reason; end
+          # Unique identifier for the card in Google Pay
+          sig { returns(T.nilable(String)) }
+          def primary_account_identifier; end
           def self.inner_class_types
             @inner_class_types = {}
           end

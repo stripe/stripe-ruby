@@ -24,6 +24,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # The subscription which the quote updates.
+    sig { returns(T.nilable(String)) }
+    def from_subscription; end
+    sig { params(_from_subscription: T.nilable(String)).returns(T.nilable(String)) }
+    def from_subscription=(_from_subscription); end
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     sig { returns(T.nilable(Integer)) }
     def limit; end
@@ -45,13 +50,14 @@ module Stripe
     sig { params(_test_clock: T.nilable(String)).returns(T.nilable(String)) }
     def test_clock=(_test_clock); end
     sig {
-      params(customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
+      params(customer: T.nilable(String), customer_account: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), from_subscription: T.nilable(String), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), test_clock: T.nilable(String)).void
      }
     def initialize(
       customer: nil,
       customer_account: nil,
       ending_before: nil,
       expand: nil,
+      from_subscription: nil,
       limit: nil,
       starting_after: nil,
       status: nil,

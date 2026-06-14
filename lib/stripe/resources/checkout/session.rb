@@ -73,6 +73,27 @@ module Stripe
         end
       end
 
+      class AutomaticSurcharge < ::Stripe::StripeObject
+        # Determines which amount serves as the basis for calculating the surcharge.
+        attr_reader :calculation_basis
+        # Indicates whether automatic surcharge is enabled for the session.
+        attr_reader :enabled
+        # The surcharge provider used for this session.
+        attr_reader :provider
+        # The status of the most recent surcharge calculation for this session.
+        attr_reader :status
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        attr_reader :tax_behavior
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class AutomaticTax < ::Stripe::StripeObject
         class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -201,15 +222,36 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class TaxId < ::Stripe::StripeObject
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          attr_reader :type
+          # The value of the tax ID.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Customer’s business name for this Checkout Session
         attr_reader :business_name
+        # Customer’s email for this Checkout Session
+        attr_reader :email
         # Customer’s individual name for this Checkout Session
         attr_reader :individual_name
+        # Customer’s phone number for this Checkout Session
+        attr_reader :phone
         # Shipping information for this Checkout Session.
         attr_reader :shipping_details
+        # Customer’s tax ids for this Checkout Session.
+        attr_reader :tax_ids
 
         def self.inner_class_types
-          @inner_class_types = { shipping_details: ShippingDetails }
+          @inner_class_types = { shipping_details: ShippingDetails, tax_ids: TaxId }
         end
 
         def self.field_remappings
@@ -286,6 +328,277 @@ module Stripe
 
         def self.field_encodings
           @field_encodings = { fx_rate: :decimal_string }
+        end
+      end
+
+      class CurrentAttempt < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Customer name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PaymentMethodDetails < ::Stripe::StripeObject
+          class AuBecsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class BacsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Boleto < ::Stripe::StripeObject
+            # Uniquely identifies this particular boleto payment method. You can use this attribute to check whether two boleto payment methods are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Card < ::Stripe::StripeObject
+            class Wallet < ::Stripe::StripeObject
+              # The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            attr_reader :country
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            #
+            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            attr_reader :fingerprint
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            attr_reader :funding
+            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            attr_reader :iin
+            # The last four digits of the card.
+            attr_reader :last4
+            # If this Card is part of a card wallet, this contains the details of the card wallet.
+            attr_reader :wallet
+
+            def self.inner_class_types
+              @inner_class_types = { wallet: Wallet }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Link < ::Stripe::StripeObject
+            # Unique, encrypted bank account identifier.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Pix < ::Stripe::StripeObject
+            # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class SepaDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class UsBankAccount < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            attr_reader :fingerprint
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Indicates whether this payment method can be shown again to its customer in a checkout flow.
+          attr_reader :allow_redisplay
+          # Attribute for field au_becs_debit
+          attr_reader :au_becs_debit
+          # Attribute for field bacs_debit
+          attr_reader :bacs_debit
+          # Attribute for field boleto
+          attr_reader :boleto
+          # Attribute for field card
+          attr_reader :card
+          # Attribute for field link
+          attr_reader :link
+          # Attribute for field pix
+          attr_reader :pix
+          # Attribute for field sepa_debit
+          attr_reader :sepa_debit
+          # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
+          attr_reader :type
+          # Attribute for field us_bank_account
+          attr_reader :us_bank_account
+
+          def self.inner_class_types
+            @inner_class_types = {
+              au_becs_debit: AuBecsDebit,
+              bacs_debit: BacsDebit,
+              boleto: Boleto,
+              card: Card,
+              link: Link,
+              pix: Pix,
+              sepa_debit: SepaDebit,
+              us_bank_account: UsBankAccount,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ShippingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1, such as the street, PO Box, or company name.
+            attr_reader :line1
+            # Address line 2, such as the apartment, suite, unit, or building.
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Customer name.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The customer's billing information, if provided.
+        attr_reader :billing_details
+        # The customer's email.
+        attr_reader :email
+        # The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
+        attr_reader :id
+        # Information about the payment method the customer is attempting to pay with. Relevant payment method information is provided when available. Some payment details are only available after the payment has completed and can't be returned in the manual approval flow.
+        attr_reader :payment_method_details
+        # The customer's phone number.
+        attr_reader :phone
+        # The customer's shipping information, if provided.
+        attr_reader :shipping_details
+
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            payment_method_details: PaymentMethodDetails,
+            shipping_details: ShippingDetails,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
 
@@ -975,6 +1288,28 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Boleto < ::Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           attr_reader :expires_after_days
@@ -1026,6 +1361,8 @@ module Stripe
           attr_reader :capture_method
           # Attribute for field installments
           attr_reader :installments
+          # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+          attr_reader :request_decremental_authorization
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           attr_reader :request_extended_authorization
           # Request ability to [increment the authorization](/payments/incremental-authorization) for this CheckoutSession.
@@ -1482,6 +1819,8 @@ module Stripe
           #
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           attr_reader :setup_future_usage
+          # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+          attr_reader :subsellers
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -1778,6 +2117,21 @@ module Stripe
             class Filters < ::Stripe::StripeObject
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               attr_reader :account_subcategories
+              # The institution to use to filter for possible accounts to link.
+              attr_reader :institution
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ManualEntry < ::Stripe::StripeObject
+              # Settings for configuring manual entry of account details.
+              attr_reader :mode
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -1789,6 +2143,8 @@ module Stripe
             end
             # Attribute for field filters
             attr_reader :filters
+            # Attribute for field manual_entry
+            attr_reader :manual_entry
             # The list of permissions to request. The `payment_method` permission must be included.
             attr_reader :permissions
             # Data features requested to be retrieved upon account creation.
@@ -1797,7 +2153,7 @@ module Stripe
             attr_reader :return_url
 
             def self.inner_class_types
-              @inner_class_types = { filters: Filters }
+              @inner_class_types = { filters: Filters, manual_entry: ManualEntry }
             end
 
             def self.field_remappings
@@ -1847,6 +2203,8 @@ module Stripe
         attr_reader :bancontact
         # Attribute for field billie
         attr_reader :billie
+        # Attribute for field bizum
+        attr_reader :bizum
         # Attribute for field boleto
         attr_reader :boleto
         # Attribute for field card
@@ -1928,6 +2286,7 @@ module Stripe
             bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
+            bizum: Bizum,
             boleto: Boleto,
             card: Card,
             cashapp: Cashapp,
@@ -1971,6 +2330,36 @@ module Stripe
       end
 
       class Permissions < ::Stripe::StripeObject
+        class Update < ::Stripe::StripeObject
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          attr_reader :line_items
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          attr_reader :shipping_details
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Permissions for updating the Checkout Session.
+        attr_reader :update
+        # Determines which entity is allowed to update the line items.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+        #
+        # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        attr_reader :update_line_items
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -1979,7 +2368,7 @@ module Stripe
         attr_reader :update_shipping_details
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { update: Update }
         end
 
         def self.field_remappings
@@ -2102,6 +2491,23 @@ module Stripe
         end
       end
 
+      class SurchargeCost < ::Stripe::StripeObject
+        # Total surcharge cost before taxes are applied.
+        attr_reader :amount_subtotal
+        # Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        attr_reader :amount_tax
+        # Total surcharge cost after taxes are applied.
+        attr_reader :amount_total
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TaxIdCollection < ::Stripe::StripeObject
         # Indicates whether tax ID collection is enabled for the session
         attr_reader :enabled
@@ -2174,6 +2580,8 @@ module Stripe
         attr_reader :amount_discount
         # This is the sum of all the shipping amounts.
         attr_reader :amount_shipping
+        # The surcharge amount that was applied to the Checkout Session.
+        attr_reader :amount_surcharge
         # This is the sum of all the tax amounts.
         attr_reader :amount_tax
         # Attribute for field breakdown
@@ -2212,6 +2620,95 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class CheckoutItem < ::Stripe::StripeObject
+        class PricingPlanSubscriptionItem < ::Stripe::StripeObject
+          class ComponentConfigurations < ::Stripe::StripeObject
+            class LicenseFeeComponent < ::Stripe::StripeObject
+              # Attribute for field quantity
+              attr_reader :quantity
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field type
+            attr_reader :type
+            # Attribute for field license_fee_component
+            attr_reader :license_fee_component
+
+            def self.inner_class_types
+              @inner_class_types = { license_fee_component: LicenseFeeComponent }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field pricing_plan
+          attr_reader :pricing_plan
+          # Attribute for field pricing_plan_version
+          attr_reader :pricing_plan_version
+          # Attribute for field metadata
+          attr_reader :metadata
+          # Attribute for field component_configurations
+          attr_reader :component_configurations
+          # Attribute for field pricing_plan_subscription
+          attr_reader :pricing_plan_subscription
+          # Attribute for field billing_cadence
+          attr_reader :billing_cadence
+
+          def self.inner_class_types
+            @inner_class_types = { component_configurations: ComponentConfigurations }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class RateCardSubscriptionItem < ::Stripe::StripeObject
+          # Attribute for field rate_card
+          attr_reader :rate_card
+          # Attribute for field metadata
+          attr_reader :metadata
+          # Attribute for field rate_card_version
+          attr_reader :rate_card_version
+          # Attribute for field billing_cadence
+          attr_reader :billing_cadence
+          # Attribute for field rate_card_subscription
+          attr_reader :rate_card_subscription
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field type
+        attr_reader :type
+        # Attribute for field rate_card_subscription_item
+        attr_reader :rate_card_subscription_item
+        # Attribute for field pricing_plan_subscription_item
+        attr_reader :pricing_plan_subscription_item
+
+        def self.inner_class_types
+          @inner_class_types = {
+            rate_card_subscription_item: RateCardSubscriptionItem,
+            pricing_plan_subscription_item: PricingPlanSubscriptionItem,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       attr_reader :adaptive_pricing
       # When set, provides configuration for actions to take if this Checkout Session expires.
@@ -2222,6 +2719,14 @@ module Stripe
       attr_reader :amount_subtotal
       # Total of all items after discounts and taxes are applied.
       attr_reader :amount_total
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      attr_reader :approval_method
+      # Attribute for field automatic_surcharge
+      attr_reader :automatic_surcharge
       # Attribute for field automatic_tax
       attr_reader :automatic_tax
       # Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2230,6 +2735,8 @@ module Stripe
       attr_reader :branding_settings
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       attr_reader :cancel_url
+      # Attribute for field checkout_items
+      attr_reader :checkout_items
       # A unique string to reference the Checkout Session. This can be a
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
@@ -2249,8 +2756,13 @@ module Stripe
       attr_reader :currency
       # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
       attr_reader :currency_conversion
+      # The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
+      attr_reader :current_attempt
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       attr_reader :custom_fields
+      # A list of the types of [custom payment methods](https://docs.stripe.com/payments/payment-methods/custom-payment-methods) (e.g. cpmt_123) this Checkout
+      # Session is allowed to accept.
+      attr_reader :custom_payment_method_types
       # Attribute for field custom_text
       attr_reader :custom_text
       # The ID of the customer for this Session.
@@ -2318,6 +2830,8 @@ module Stripe
       # A list of the types of payment methods (e.g. card) this Checkout
       # Session is allowed to accept.
       attr_reader :payment_method_types
+      # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
+      attr_reader :payment_record
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       attr_reader :payment_status
@@ -2356,6 +2870,8 @@ module Stripe
       # The URL the customer will be directed to after the payment or
       # subscription creation is successful.
       attr_reader :success_url
+      # Attribute for field surcharge_cost
+      attr_reader :surcharge_cost
       # Attribute for field tax_id_collection
       attr_reader :tax_id_collection
       # Tax and discount details for the computed total amount.
@@ -2367,6 +2883,26 @@ module Stripe
       attr_reader :url
       # Wallet-specific configuration for this Checkout Session.
       attr_reader :wallet_options
+
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def approve(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      def self.approve(session, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(session) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       # Creates a Checkout Session object.
       def self.create(params = {}, opts = {})
@@ -2448,12 +2984,14 @@ module Stripe
         @inner_class_types = {
           adaptive_pricing: AdaptivePricing,
           after_expiration: AfterExpiration,
+          automatic_surcharge: AutomaticSurcharge,
           automatic_tax: AutomaticTax,
           branding_settings: BrandingSettings,
           collected_information: CollectedInformation,
           consent: Consent,
           consent_collection: ConsentCollection,
           currency_conversion: CurrencyConversion,
+          current_attempt: CurrentAttempt,
           custom_fields: CustomField,
           custom_text: CustomText,
           customer_details: CustomerDetails,
@@ -2471,9 +3009,11 @@ module Stripe
           shipping_address_collection: ShippingAddressCollection,
           shipping_cost: ShippingCost,
           shipping_options: ShippingOption,
+          surcharge_cost: SurchargeCost,
           tax_id_collection: TaxIdCollection,
           total_details: TotalDetails,
           wallet_options: WalletOptions,
+          checkout_items: CheckoutItem,
         }
       end
 

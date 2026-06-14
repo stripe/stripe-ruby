@@ -37,6 +37,8 @@ module Stripe
       attr_accessor :customer_mapping
       # The default settings to aggregate a meter's events with.
       attr_accessor :default_aggregation
+      # Set of keys that will be used to group meter events by. Each key must be present in the event payload.
+      attr_accessor :dimension_payload_keys
       # The meter’s name. Not visible to the customer.
       attr_accessor :display_name
       # The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
@@ -51,6 +53,7 @@ module Stripe
       def initialize(
         customer_mapping: nil,
         default_aggregation: nil,
+        dimension_payload_keys: nil,
         display_name: nil,
         event_name: nil,
         event_time_window: nil,
@@ -59,6 +62,7 @@ module Stripe
       )
         @customer_mapping = customer_mapping
         @default_aggregation = default_aggregation
+        @dimension_payload_keys = dimension_payload_keys
         @display_name = display_name
         @event_name = event_name
         @event_time_window = event_time_window

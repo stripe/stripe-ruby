@@ -255,6 +255,25 @@ module Stripe
         end
       end
 
+      class IdBankTransfer < ::Stripe::StripeObject
+        # Bank where the account is located.
+        attr_reader :bank
+        # Local bank code of the bank.
+        attr_reader :bank_code
+        # Name of the bank associated with the bank account.
+        attr_reader :bank_name
+        # Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
+        attr_reader :display_name
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Ideal < ::Stripe::StripeObject
         # The customer's bank. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         attr_reader :bank
@@ -421,6 +440,16 @@ module Stripe
         end
       end
 
+      class StripeBalance < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Twint < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -468,6 +497,8 @@ module Stripe
       attr_reader :card_present
       # Attribute for field cashapp
       attr_reader :cashapp
+      # Attribute for field id_bank_transfer
+      attr_reader :id_bank_transfer
       # Attribute for field ideal
       attr_reader :ideal
       # Attribute for field kakao_pay
@@ -494,6 +525,8 @@ module Stripe
       attr_reader :sepa_debit
       # Attribute for field sofort
       attr_reader :sofort
+      # Attribute for field stripe_balance
+      attr_reader :stripe_balance
       # Attribute for field twint
       attr_reader :twint
       # The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
@@ -514,6 +547,7 @@ module Stripe
           card: Card,
           card_present: CardPresent,
           cashapp: Cashapp,
+          id_bank_transfer: IdBankTransfer,
           ideal: Ideal,
           kakao_pay: KakaoPay,
           klarna: Klarna,
@@ -527,6 +561,7 @@ module Stripe
           revolut_pay: RevolutPay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
+          stripe_balance: StripeBalance,
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,

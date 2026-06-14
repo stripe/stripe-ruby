@@ -4,6 +4,233 @@
 module Stripe
   module Billing
     class AlertCreateParams < ::Stripe::RequestParams
+      class CreditBalanceThreshold < ::Stripe::RequestParams
+        class Filter < ::Stripe::RequestParams
+          class CreditGrants < ::Stripe::RequestParams
+            class ApplicabilityConfig < ::Stripe::RequestParams
+              class Scope < ::Stripe::RequestParams
+                class BillableItem < ::Stripe::RequestParams
+                  # The billable item ID this credit grant should apply to.
+                  attr_accessor :id
+
+                  def initialize(id: nil)
+                    @id = id
+                  end
+                end
+
+                class Price < ::Stripe::RequestParams
+                  # The price ID this credit grant should apply to.
+                  attr_accessor :id
+
+                  def initialize(id: nil)
+                    @id = id
+                  end
+                end
+                # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+                attr_accessor :billable_items
+                # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
+                attr_accessor :price_type
+                # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+                attr_accessor :prices
+
+                def initialize(billable_items: nil, price_type: nil, prices: nil)
+                  @billable_items = billable_items
+                  @price_type = price_type
+                  @prices = prices
+                end
+              end
+              # Specify the scope of this applicability config.
+              attr_accessor :scope
+
+              def initialize(scope: nil)
+                @scope = scope
+              end
+            end
+            # The applicability configuration for this credit grants filter.
+            attr_accessor :applicability_config
+
+            def initialize(applicability_config: nil)
+              @applicability_config = applicability_config
+            end
+          end
+          # The credit grants for which to configure the credit balance alert.
+          attr_accessor :credit_grants
+          # Limit the scope to this credit balance alert only to this customer.
+          attr_accessor :customer
+          # What type of filter is being applied to this credit balance alert.
+          attr_accessor :type
+
+          def initialize(credit_grants: nil, customer: nil, type: nil)
+            @credit_grants = credit_grants
+            @customer = customer
+            @type = type
+          end
+        end
+
+        class Lte < ::Stripe::RequestParams
+          class CustomPricingUnit < ::Stripe::RequestParams
+            # The ID of the custom pricing unit.
+            attr_accessor :id
+            # A positive decimal string representing the amount of the custom pricing unit threshold.
+            attr_accessor :value
+
+            def initialize(id: nil, value: nil)
+              @id = id
+              @value = value
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
+          end
+
+          class Monetary < ::Stripe::RequestParams
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+            attr_accessor :currency
+            # An integer representing the amount of the threshold.
+            attr_accessor :value
+
+            def initialize(currency: nil, value: nil)
+              @currency = currency
+              @value = value
+            end
+          end
+          # Specify the type of this balance. We currently only support `monetary` billing credits.
+          attr_accessor :balance_type
+          # The custom pricing unit amount.
+          attr_accessor :custom_pricing_unit
+          # The monetary amount.
+          attr_accessor :monetary
+
+          def initialize(balance_type: nil, custom_pricing_unit: nil, monetary: nil)
+            @balance_type = balance_type
+            @custom_pricing_unit = custom_pricing_unit
+            @monetary = monetary
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
+          end
+        end
+        # The filters allows limiting the scope of this credit balance alert. You must specify a customer filter at this time.
+        attr_accessor :filters
+        # Defines at which value the alert will fire.
+        attr_accessor :lte
+
+        def initialize(filters: nil, lte: nil)
+          @filters = filters
+          @lte = lte
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            lte: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
+        end
+      end
+
+      class SpendThreshold < ::Stripe::RequestParams
+        class Filters < ::Stripe::RequestParams
+          # Filter by billable item IDs. Maximum of 20 billable items.
+          attr_accessor :billable_items
+          # Filter by billing cadence ID.
+          attr_accessor :billing_cadence
+          # Filter by pricing plan ID.
+          attr_accessor :pricing_plan
+          # Filter by pricing plan subscription ID.
+          attr_accessor :pricing_plan_subscription
+
+          def initialize(
+            billable_items: nil,
+            billing_cadence: nil,
+            pricing_plan: nil,
+            pricing_plan_subscription: nil
+          )
+            @billable_items = billable_items
+            @billing_cadence = billing_cadence
+            @pricing_plan = pricing_plan
+            @pricing_plan_subscription = pricing_plan_subscription
+          end
+        end
+
+        class Gte < ::Stripe::RequestParams
+          class Amount < ::Stripe::RequestParams
+            # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+            attr_accessor :currency
+            # An integer representing the amount of the threshold.
+            attr_accessor :value
+
+            def initialize(currency: nil, value: nil)
+              @currency = currency
+              @value = value
+            end
+          end
+
+          class CustomPricingUnit < ::Stripe::RequestParams
+            # The ID of the custom pricing unit.
+            attr_accessor :id
+            # A positive decimal string representing the amount of the custom pricing unit threshold.
+            attr_accessor :value
+
+            def initialize(id: nil, value: nil)
+              @id = id
+              @value = value
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :decimal_string }
+            end
+          end
+          # The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
+          attr_accessor :amount
+          # The custom pricing unit amount. Required when type is `custom_pricing_unit`.
+          attr_accessor :custom_pricing_unit
+          # The type of the threshold amount.
+          attr_accessor :type
+
+          def initialize(amount: nil, custom_pricing_unit: nil, type: nil)
+            @amount = amount
+            @custom_pricing_unit = custom_pricing_unit
+            @type = type
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+            }
+          end
+        end
+        # Defines the period over which spend is aggregated.
+        attr_accessor :aggregation_period
+        # Filters to scope the spend calculation.
+        attr_accessor :filters
+        # Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
+        attr_accessor :group_by
+        # Defines at which value the alert will fire.
+        attr_accessor :gte
+
+        def initialize(aggregation_period: nil, filters: nil, group_by: nil, gte: nil)
+          @aggregation_period = aggregation_period
+          @filters = filters
+          @group_by = group_by
+          @gte = gte
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            gte: {
+              kind: :object,
+              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            },
+          }
+        end
+      end
+
       class UsageThreshold < ::Stripe::RequestParams
         class Filter < ::Stripe::RequestParams
           # Limit the scope to this usage alert only to this customer.
@@ -34,18 +261,54 @@ module Stripe
       end
       # The type of alert to create.
       attr_accessor :alert_type
+      # The configuration of the credit balance threshold.
+      attr_accessor :credit_balance_threshold
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
+      # The configuration of the spend threshold. An event fires when the amount consumed exceeds the threshold, after all credits and discounts are applied but before tax is applied.
+      attr_accessor :spend_threshold
       # The title of the alert.
       attr_accessor :title
       # The configuration of the usage threshold.
       attr_accessor :usage_threshold
 
-      def initialize(alert_type: nil, expand: nil, title: nil, usage_threshold: nil)
+      def initialize(
+        alert_type: nil,
+        credit_balance_threshold: nil,
+        expand: nil,
+        spend_threshold: nil,
+        title: nil,
+        usage_threshold: nil
+      )
         @alert_type = alert_type
+        @credit_balance_threshold = credit_balance_threshold
         @expand = expand
+        @spend_threshold = spend_threshold
         @title = title
         @usage_threshold = usage_threshold
+      end
+
+      def self.field_encodings
+        @field_encodings = {
+          credit_balance_threshold: {
+            kind: :object,
+            fields: {
+              lte: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+          spend_threshold: {
+            kind: :object,
+            fields: {
+              gte: {
+                kind: :object,
+                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              },
+            },
+          },
+        }
       end
     end
   end

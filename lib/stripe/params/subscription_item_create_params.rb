@@ -12,18 +12,110 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::RequestParams
+      # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+      attr_accessor :trial_end
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_end: nil, trial_offer: nil)
+        @trial_end = trial_end
+        @trial_offer = trial_offer
+      end
+    end
+
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class Settings < ::Stripe::RequestParams
+        class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+          class Custom < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            attr_accessor :day_of_month
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            attr_accessor :hour
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            attr_accessor :minute
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            attr_accessor :month
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            attr_accessor :second
+
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+              @day_of_month = day_of_month
+              @hour = hour
+              @minute = minute
+              @month = month
+              @second = second
+            end
+          end
+          # Anchor the service period to a custom date. Type must be `custom` to specify.
+          attr_accessor :custom
+          # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+          attr_accessor :type
+
+          def initialize(custom: nil, type: nil)
+            @custom = custom
+            @type = type
+          end
+        end
+        # Configures service period cycle anchoring.
+        attr_accessor :service_period_anchor_config
+        # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+        attr_accessor :start_date
+
+        def initialize(service_period_anchor_config: nil, start_date: nil)
+          @service_period_anchor_config = service_period_anchor_config
+          @start_date = start_date
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
+      # Settings for discount application including service period anchoring.
+      attr_accessor :settings
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(
+        coupon: nil,
+        discount: nil,
+        discount_end: nil,
+        promotion_code: nil,
+        settings: nil
+      )
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
+        @settings = settings
       end
     end
 
@@ -72,8 +164,22 @@ module Stripe
         @field_encodings = { unit_amount_decimal: :decimal_string }
       end
     end
+
+    class Trial < ::Stripe::RequestParams
+      # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+      attr_accessor :converts_to
+      # Determines the type of trial for this item.
+      attr_accessor :type
+
+      def initialize(converts_to: nil, type: nil)
+        @converts_to = converts_to
+        @type = type
+      end
+    end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
     # The coupons to redeem into discounts for the subscription item.
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
@@ -98,9 +204,12 @@ module Stripe
     attr_accessor :subscription
     # A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
     attr_accessor :tax_rates
+    # Options that configure the trial on the subscription item.
+    attr_accessor :trial
 
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,
@@ -112,9 +221,11 @@ module Stripe
       proration_date: nil,
       quantity: nil,
       subscription: nil,
-      tax_rates: nil
+      tax_rates: nil,
+      trial: nil
     )
       @billing_thresholds = billing_thresholds
+      @current_trial = current_trial
       @discounts = discounts
       @expand = expand
       @metadata = metadata
@@ -127,6 +238,7 @@ module Stripe
       @quantity = quantity
       @subscription = subscription
       @tax_rates = tax_rates
+      @trial = trial
     end
 
     def self.field_encodings

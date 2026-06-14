@@ -9,6 +9,11 @@ module Stripe
     def amount; end
     sig { params(_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def amount=(_amount); end
+    # Attribute for param field application_fee_amount
+    sig { returns(T.nilable(Integer)) }
+    def application_fee_amount; end
+    sig { params(_application_fee_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def application_fee_amount=(_application_fee_amount); end
     # Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
     sig { returns(String) }
     def currency; end
@@ -29,6 +34,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # The FX rate in the quote is validated and used to convert the transfer amount to the destination currency.
+    sig { returns(T.nilable(String)) }
+    def fx_quote; end
+    sig { params(_fx_quote: T.nilable(String)).returns(T.nilable(String)) }
+    def fx_quote=(_fx_quote); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end
@@ -52,14 +62,16 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
+      params(amount: T.nilable(Integer), application_fee_amount: T.nilable(Integer), currency: String, description: T.nilable(String), destination: String, expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), source_transaction: T.nilable(String), source_type: T.nilable(String), transfer_group: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
+      application_fee_amount: nil,
       currency: nil,
       description: nil,
       destination: nil,
       expand: nil,
+      fx_quote: nil,
       metadata: nil,
       source_transaction: nil,
       source_type: nil,

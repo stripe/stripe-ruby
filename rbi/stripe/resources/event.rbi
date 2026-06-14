@@ -36,6 +36,66 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Reason < ::Stripe::StripeObject
+      class AutomationAction < ::Stripe::StripeObject
+        class StripeSendWebhookCustomEvent < ::Stripe::StripeObject
+          # Set of key-value pairs attached to the action when creating an Automation.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def custom_data; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field stripe_send_webhook_custom_event
+        sig { returns(T.nilable(StripeSendWebhookCustomEvent)) }
+        def stripe_send_webhook_custom_event; end
+        # The trigger name of the automation that triggered this action.
+        #  Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
+        sig { returns(String) }
+        def trigger; end
+        # The type of the `automation_action`.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {stripe_send_webhook_custom_event: StripeSendWebhookCustomEvent}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Request < ::Stripe::StripeObject
+        # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+        sig { returns(T.nilable(String)) }
+        def id; end
+        # The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+        sig { returns(T.nilable(String)) }
+        def idempotency_key; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field automation_action
+      sig { returns(T.nilable(AutomationAction)) }
+      def automation_action; end
+      # Attribute for field request
+      sig { returns(T.nilable(Request)) }
+      def request; end
+      # The type of the reason for the event.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {automation_action: AutomationAction, request: Request}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Request < ::Stripe::StripeObject
       # ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
       sig { returns(T.nilable(String)) }
@@ -77,6 +137,9 @@ module Stripe
     # Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     sig { returns(Integer) }
     def pending_webhooks; end
+    # Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
+    sig { returns(T.nilable(Reason)) }
+    def reason; end
     # Information on the API request that triggers the event.
     sig { returns(T.nilable(Request)) }
     def request; end

@@ -105,6 +105,8 @@ module Stripe
       attr_reader :name
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       attr_reader :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      attr_reader :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_reader :support_address
       # A publicly available email address for sending support issues to.
@@ -144,6 +146,8 @@ module Stripe
       attr_reader :app_distribution
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       attr_reader :au_becs_debit_payments
+      # The status of the automatic_indirect_tax capability of the account.
+      attr_reader :automatic_indirect_tax
       # The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
       attr_reader :bacs_debit_payments
       # The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
@@ -176,8 +180,14 @@ module Stripe
       attr_reader :gb_bank_transfer_payments
       # The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
       attr_reader :giropay_payments
+      # The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
+      attr_reader :gopay_payments
       # The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
       attr_reader :grabpay_payments
+      # The status of the Indonesia Bank Transfer payments capability of the account, or whether the account can directly process Indonesia Bank Transfer charges.
+      attr_reader :id_bank_transfer_payments
+      # The status of Bank BCA onboarding of the account.
+      attr_reader :id_bank_transfer_payments_bca
       # The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
       attr_reader :ideal_payments
       # The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
@@ -220,12 +230,20 @@ module Stripe
       attr_reader :payco_payments
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
       attr_reader :paynow_payments
+      # The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
+      attr_reader :paypal_payments
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      attr_reader :paypay_payments
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       attr_reader :payto_payments
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
       attr_reader :pix_payments
       # The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
       attr_reader :promptpay_payments
+      # The status of the Qris capability of the account, or whether the account can directly process Qris payments.
+      attr_reader :qris_payments
+      # The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
+      attr_reader :rechnung_payments
       # The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
       attr_reader :revolut_pay_payments
       # The status of the SamsungPay capability of the account, or whether the account can directly process SamsungPay payments.
@@ -238,8 +256,12 @@ module Stripe
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       attr_reader :sepa_debit_payments
+      # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
+      attr_reader :shopeepay_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       attr_reader :sofort_payments
+      # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
+      attr_reader :stripe_balance_payments
       # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
       attr_reader :sunbit_payments
       # The status of the Swish capability of the account, or whether the account can directly process Swish payments.
@@ -252,6 +274,12 @@ module Stripe
       attr_reader :transfers
       # The status of the banking capability, or whether the account can have bank accounts.
       attr_reader :treasury
+      # The status of the treasury_evolve capability of the account.
+      attr_reader :treasury_evolve
+      # The status of the treasury_fifth_third capability of the account.
+      attr_reader :treasury_fifth_third
+      # The status of the treasury_goldman_sachs capability of the account.
+      attr_reader :treasury_goldman_sachs
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
       attr_reader :twint_payments
       # The status of the upi payments capability of the account, or whether the account can directly process upi charges.
@@ -508,6 +536,36 @@ module Stripe
     end
 
     class Controller < ::Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
+        # `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
+        attr_reader :loss_liable
+        # `true` if the Connect application is responsible for onboarding the account.
+        attr_reader :onboarding_owner
+        # `true` if the Connect application is responsible for paying Stripe fees on pricing-control eligible products.
+        attr_reader :pricing_controls
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Dashboard < ::Stripe::StripeObject
+        # Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Fees < ::Stripe::StripeObject
         # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         attr_reader :payer
@@ -546,6 +604,10 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field application
+      attr_reader :application
+      # Attribute for field dashboard
+      attr_reader :dashboard
       # Attribute for field fees
       attr_reader :fees
       # `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
@@ -560,7 +622,13 @@ module Stripe
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { fees: Fees, losses: Losses, stripe_dashboard: StripeDashboard }
+        @inner_class_types = {
+          application: Application,
+          dashboard: Dashboard,
+          fees: Fees,
+          losses: Losses,
+          stripe_dashboard: StripeDashboard,
+        }
       end
 
       def self.field_remappings
@@ -697,12 +765,69 @@ module Stripe
       end
     end
 
+    class RiskControls < ::Stripe::StripeObject
+      class Charges < ::Stripe::StripeObject
+        # Whether a pause of the risk control has been requested.
+        attr_reader :pause_requested
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Payouts < ::Stripe::StripeObject
+        # Whether a pause of the risk control has been requested.
+        attr_reader :pause_requested
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field charges
+      attr_reader :charges
+      # Attribute for field payouts
+      attr_reader :payouts
+      # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://docs.stripe.com/connect/)
+      attr_reader :rejected_reason
+
+      def self.inner_class_types
+        @inner_class_types = { charges: Charges, payouts: Payouts }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Settings < ::Stripe::StripeObject
       class BacsDebitPayments < ::Stripe::StripeObject
         # The Bacs Direct Debit display name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. The fee appears 5 business days after requesting Bacs. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
         attr_reader :display_name
         # The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
         attr_reader :service_user_number
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class BankBcaOnboarding < ::Stripe::StripeObject
+        # Bank BCA business account holder name.
+        attr_reader :account_holder_name
+        # Bank BCA business account number.
+        attr_reader :business_account_number
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -825,6 +950,8 @@ module Stripe
       end
 
       class Payments < ::Stripe::StripeObject
+        # When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+        attr_reader :email_customers_on_successful_payment
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         attr_reader :statement_descriptor
         # The Kana variation of `statement_descriptor` used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
@@ -884,9 +1011,125 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            attr_reader :password_provided
+            # The username needed to access your business's website.
+            attr_reader :username
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            attr_reader :payment_flow_file
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          attr_reader :accessible
+          # Attribute for field in_development
+          attr_reader :in_development
+          # Attribute for field restricted
+          attr_reader :restricted
+          # The status of your business's website.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_reader :additional_files
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        attr_reader :goods_type
+        # Attribute for field site
+        attr_reader :site
+
+        def self.inner_class_types
+          @inner_class_types = { site: Site }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         attr_reader :creditor_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class SmartDisputes < ::Stripe::StripeObject
+        class AutoRespond < ::Stripe::StripeObject
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          attr_reader :preference
+          # The effective value for auto-respond. Can be 'on' or 'off'.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field auto_respond
+        attr_reader :auto_respond
+
+        def self.inner_class_types
+          @inner_class_types = { auto_respond: AutoRespond }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TaxForms < ::Stripe::StripeObject
+        # Whether the account opted out of receiving their tax forms by postal delivery.
+        attr_reader :consented_to_paperless_delivery
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -927,6 +1170,8 @@ module Stripe
       end
       # Attribute for field bacs_debit_payments
       attr_reader :bacs_debit_payments
+      # Attribute for field bank_bca_onboarding
+      attr_reader :bank_bca_onboarding
       # Attribute for field branding
       attr_reader :branding
       # Attribute for field card_issuing
@@ -941,14 +1186,21 @@ module Stripe
       attr_reader :payments
       # Attribute for field payouts
       attr_reader :payouts
+      # Attribute for field paypay_payments
+      attr_reader :paypay_payments
       # Attribute for field sepa_debit_payments
       attr_reader :sepa_debit_payments
+      # Attribute for field smart_disputes
+      attr_reader :smart_disputes
+      # Attribute for field tax_forms
+      attr_reader :tax_forms
       # Attribute for field treasury
       attr_reader :treasury
 
       def self.inner_class_types
         @inner_class_types = {
           bacs_debit_payments: BacsDebitPayments,
+          bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
@@ -956,7 +1208,10 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
+          smart_disputes: SmartDisputes,
+          tax_forms: TaxForms,
           treasury: Treasury,
         }
       end
@@ -1030,6 +1285,10 @@ module Stripe
     attr_reader :payouts_enabled
     # Attribute for field requirements
     attr_reader :requirements
+    # Attribute for field risk_controls
+    attr_reader :risk_controls
+    # A hash containing information about risk signal collection
+    attr_reader :risk_signals
     # Options for customizing how the account functions within Stripe.
     attr_reader :settings
     # Attribute for field tos_acceptance
@@ -1123,6 +1382,16 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Retrieves the account's Signal objects
+    def self.retrieve_signal(account_id, params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: format("/v1/accounts/%<account_id>s/signals", { account_id: CGI.escape(account_id) }),
         params: params,
         opts: opts
       )
@@ -1283,6 +1552,7 @@ module Stripe
         future_requirements: FutureRequirements,
         groups: Groups,
         requirements: Requirements,
+        risk_controls: RiskControls,
         settings: Settings,
         tos_acceptance: TosAcceptance,
       }

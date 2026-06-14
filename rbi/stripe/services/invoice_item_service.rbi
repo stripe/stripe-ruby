@@ -28,6 +28,22 @@ module Stripe
      }
     def retrieve(invoiceitem, params = {}, opts = {}); end
 
+    # Serializes an InvoiceItem create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::InvoiceItemCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
+
+    # Serializes an InvoiceItem delete request into a batch job JSONL line.
+    sig {
+      params(invoiceitem: String, params: ::Stripe::InvoiceItemDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(invoiceitem, params = {}, opts = {}); end
+
+    # Serializes an InvoiceItem update request into a batch job JSONL line.
+    sig {
+      params(invoiceitem: String, params: ::Stripe::InvoiceItemUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(invoiceitem, params = {}, opts = {}); end
+
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
     sig {
       params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)

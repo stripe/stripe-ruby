@@ -62,6 +62,11 @@ module Stripe
       # Attribute for field source_transaction
       sig { returns(T.nilable(SourceTransaction)) }
       def source_transaction; end
+      # Returns a list of ReserveReleases previously created. The ReserveReleases are returned in sorted order, with the most recent ReserveReleases appearing first.
+      sig {
+        params(params: T.any(::Stripe::Reserve::ReleaseListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end

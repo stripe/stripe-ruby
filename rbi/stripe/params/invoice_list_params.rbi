@@ -56,6 +56,11 @@ module Stripe
        }
       def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
     end
+    # Only return invoices for the cadence specified by this billing cadence ID.
+    sig { returns(T.nilable(String)) }
+    def billing_cadence; end
+    sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
+    def billing_cadence=(_billing_cadence); end
     # The collection method of the invoice to retrieve. Either `charge_automatically` or `send_invoice`.
     sig { returns(T.nilable(String)) }
     def collection_method; end
@@ -116,9 +121,10 @@ module Stripe
     sig { params(_subscription: T.nilable(String)).returns(T.nilable(String)) }
     def subscription=(_subscription); end
     sig {
-      params(collection_method: T.nilable(String), created: T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), due_date: T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
+      params(billing_cadence: T.nilable(String), collection_method: T.nilable(String), created: T.nilable(T.any(::Stripe::InvoiceListParams::Created, Integer)), customer: T.nilable(String), customer_account: T.nilable(String), due_date: T.nilable(T.any(::Stripe::InvoiceListParams::DueDate, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), status: T.nilable(String), subscription: T.nilable(String)).void
      }
     def initialize(
+      billing_cadence: nil,
       collection_method: nil,
       created: nil,
       customer: nil,

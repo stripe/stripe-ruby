@@ -120,6 +120,30 @@ module Stripe
       end
     end
 
+    class BirthAddress < ::Stripe::RequestParams
+      # City, district, suburb, town, or village.
+      attr_accessor :city
+      # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+      attr_accessor :country
+      # Address line 1, such as the street, PO Box, or company name.
+      attr_accessor :line1
+      # Address line 2, such as the apartment, suite, unit, or building.
+      attr_accessor :line2
+      # ZIP or postal code.
+      attr_accessor :postal_code
+      # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+      attr_accessor :state
+
+      def initialize(city: nil, country: nil, line1: nil, line2: nil, postal_code: nil, state: nil)
+        @city = city
+        @country = country
+        @line1 = line1
+        @line2 = line2
+        @postal_code = postal_code
+        @state = state
+      end
+    end
+
     class Dob < ::Stripe::RequestParams
       # The day of birth, between 1 and 31.
       attr_accessor :day
@@ -239,6 +263,30 @@ module Stripe
       end
     end
 
+    class SelfReportedIncome < ::Stripe::RequestParams
+      # The amount in the minor currency unit (for example, cents for USD).
+      attr_accessor :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_accessor :currency
+
+      def initialize(amount: nil, currency: nil)
+        @amount = amount
+        @currency = currency
+      end
+    end
+
+    class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+      # The amount in the minor currency unit (for example, cents for USD).
+      attr_accessor :amount
+      # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+      attr_accessor :currency
+
+      def initialize(amount: nil, currency: nil)
+        @amount = amount
+        @currency = currency
+      end
+    end
+
     class UsCfpbData < ::Stripe::RequestParams
       class EthnicityDetails < ::Stripe::RequestParams
         # The persons ethnicity
@@ -319,6 +367,8 @@ module Stripe
     attr_accessor :address_kana
     # The Kanji variation of the person's address (Japan only).
     attr_accessor :address_kanji
+    # The person's place of birth.
+    attr_accessor :birth_address
     # The person's date of birth.
     attr_accessor :dob
     # Documents that may be submitted to satisfy various informational requests.
@@ -363,6 +413,10 @@ module Stripe
     attr_accessor :registered_address
     # The relationship that this person has with the account's legal entity.
     attr_accessor :relationship
+    # The credit applicant's self-reported yearly income in minor units.
+    attr_accessor :self_reported_income
+    # The credit applicant's self-reported monthly housing payment in minor units.
+    attr_accessor :self_reported_monthly_housing_payment
     # The last four digits of the person's Social Security number (U.S. only).
     attr_accessor :ssn_last_4
     # Demographic data related to the person.
@@ -375,6 +429,7 @@ module Stripe
       address: nil,
       address_kana: nil,
       address_kanji: nil,
+      birth_address: nil,
       dob: nil,
       documents: nil,
       email: nil,
@@ -397,6 +452,8 @@ module Stripe
       political_exposure: nil,
       registered_address: nil,
       relationship: nil,
+      self_reported_income: nil,
+      self_reported_monthly_housing_payment: nil,
       ssn_last_4: nil,
       us_cfpb_data: nil,
       verification: nil
@@ -405,6 +462,7 @@ module Stripe
       @address = address
       @address_kana = address_kana
       @address_kanji = address_kanji
+      @birth_address = birth_address
       @dob = dob
       @documents = documents
       @email = email
@@ -427,6 +485,8 @@ module Stripe
       @political_exposure = political_exposure
       @registered_address = registered_address
       @relationship = relationship
+      @self_reported_income = self_reported_income
+      @self_reported_monthly_housing_payment = self_reported_monthly_housing_payment
       @ssn_last_4 = ssn_last_4
       @us_cfpb_data = us_cfpb_data
       @verification = verification

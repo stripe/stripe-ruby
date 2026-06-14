@@ -19,6 +19,8 @@ module Stripe
           attr_reader :device_fingerprint
           # The IP address of the device at provisioning time.
           attr_reader :ip_address
+          # The ISO 639-1 language code of the device associated with the tokenization request.
+          attr_reader :language
           # The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal.
           attr_reader :location
           # The name of the device used for tokenization.
@@ -59,6 +61,8 @@ module Stripe
         class Visa < ::Stripe::StripeObject
           # A unique reference ID from Visa to represent the card account number.
           attr_reader :card_reference_id
+          # The network's recommendation to Stripe for this token activation request.
+          attr_reader :token_decision_recommendation
           # The network-unique identifier for the token.
           attr_reader :token_reference_id
           # The ID of the entity requesting tokenization, specific to Visa.
@@ -163,8 +167,12 @@ module Stripe
       attr_reader :network_updated_at
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The decision made during token provisioning.
+      attr_reader :provisioning_decision
       # The usage state of the token.
       attr_reader :status
+      # The type of the token, indicating how it is used.
+      attr_reader :token_type
       # The digital wallet for this token, if one was used.
       attr_reader :wallet_provider
 

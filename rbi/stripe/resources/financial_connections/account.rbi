@@ -120,6 +120,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class InferredBalancesRefresh < ::Stripe::StripeObject
+        # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def last_attempted_at; end
+        # Time at which the next inferred balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        sig { returns(T.nilable(Integer)) }
+        def next_refresh_available_at; end
+        # The status of the last refresh attempt.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class OwnershipRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
@@ -132,6 +149,31 @@ module Stripe
         def status; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class StatusDetails < ::Stripe::StripeObject
+        class Inactive < ::Stripe::StripeObject
+          # The action (if any) to relink the inactive Account.
+          sig { returns(String) }
+          def action; end
+          # The underlying cause of the Account being inactive.
+          sig { returns(String) }
+          def cause; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field inactive
+        sig { returns(T.nilable(Inactive)) }
+        def inactive; end
+        def self.inner_class_types
+          @inner_class_types = {inactive: Inactive}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -163,6 +205,9 @@ module Stripe
       # Details about the account numbers.
       sig { returns(T.nilable(T::Array[AccountNumber])) }
       def account_numbers; end
+      # The ID of the Financial Connections Authorization this account belongs to.
+      sig { returns(T.nilable(String)) }
+      def authorization; end
       # The most recent information about the account's balance.
       sig { returns(T.nilable(Balance)) }
       def balance; end
@@ -181,6 +226,12 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # The state of the most recent attempt to refresh the account's inferred balance history.
+      sig { returns(T.nilable(InferredBalancesRefresh)) }
+      def inferred_balances_refresh; end
+      # The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
+      sig { returns(T.nilable(T.any(String, ::Stripe::FinancialConnections::Institution))) }
+      def institution; end
       # The name of the institution that holds this account.
       sig { returns(String) }
       def institution_name; end
@@ -205,6 +256,9 @@ module Stripe
       # The status of the link to the account.
       sig { returns(String) }
       def status; end
+      # Attribute for field status_details
+      sig { returns(T.nilable(StatusDetails)) }
+      def status_details; end
       # If `category` is `cash`, one of:
       #
       #  - `checking`

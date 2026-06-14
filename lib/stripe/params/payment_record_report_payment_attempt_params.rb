@@ -4,20 +4,78 @@
 module Stripe
   class PaymentRecordReportPaymentAttemptParams < ::Stripe::RequestParams
     class Failed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          attr_accessor :payment_reference
+
+          def initialize(payment_reference: nil)
+            @payment_reference = payment_reference
+          end
+        end
+        # Information about the custom processor used to make this payment.
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        attr_accessor :type
+
+        def initialize(custom: nil, type: nil)
+          @custom = custom
+          @type = type
+        end
+      end
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      attr_accessor :failure_code
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
+      # Processor information for this payment.
+      attr_accessor :processor_details
 
-      def initialize(failed_at: nil)
+      def initialize(
+        failed_at: nil,
+        failure_code: nil,
+        payment_evaluations: nil,
+        processor_details: nil
+      )
         @failed_at = failed_at
+        @failure_code = failure_code
+        @payment_evaluations = payment_evaluations
+        @processor_details = processor_details
       end
     end
 
     class Guaranteed < ::Stripe::RequestParams
+      class ProcessorDetails < ::Stripe::RequestParams
+        class Custom < ::Stripe::RequestParams
+          # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+          attr_accessor :payment_reference
+
+          def initialize(payment_reference: nil)
+            @payment_reference = payment_reference
+          end
+        end
+        # Information about the custom processor used to make this payment.
+        attr_accessor :custom
+        # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+        attr_accessor :type
+
+        def initialize(custom: nil, type: nil)
+          @custom = custom
+          @type = type
+        end
+      end
       # When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
       attr_accessor :guaranteed_at
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
+      # Processor information for this payment.
+      attr_accessor :processor_details
 
-      def initialize(guaranteed_at: nil)
+      def initialize(guaranteed_at: nil, payment_evaluations: nil, processor_details: nil)
         @guaranteed_at = guaranteed_at
+        @payment_evaluations = payment_evaluations
+        @processor_details = processor_details
       end
     end
 
@@ -70,6 +128,29 @@ module Stripe
         end
       end
 
+      class Card < ::Stripe::RequestParams
+        class Checks < ::Stripe::RequestParams
+          # The result of the check on the cardholder's address line 1.
+          attr_accessor :address_line1_check
+          # The result of the check on the cardholder's postal code.
+          attr_accessor :address_postal_code_check
+          # The result of the check on the card's CVC.
+          attr_accessor :cvc_check
+
+          def initialize(address_line1_check: nil, address_postal_code_check: nil, cvc_check: nil)
+            @address_line1_check = address_line1_check
+            @address_postal_code_check = address_postal_code_check
+            @cvc_check = cvc_check
+          end
+        end
+        # Verification checks performed on the card.
+        attr_accessor :checks
+
+        def initialize(checks: nil)
+          @checks = checks
+        end
+      end
+
       class Custom < ::Stripe::RequestParams
         # Display name for the custom (user-defined) payment method type used to make this payment.
         attr_accessor :display_name
@@ -83,6 +164,8 @@ module Stripe
       end
       # The billing details associated with the method of payment.
       attr_accessor :billing_details
+      # Information about the card payment method used to make this payment.
+      attr_accessor :card
       # Information about the custom (user-defined) payment method used to make this payment.
       attr_accessor :custom
       # ID of the Stripe Payment Method used to make this payment.
@@ -90,8 +173,9 @@ module Stripe
       # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
       attr_accessor :type
 
-      def initialize(billing_details: nil, custom: nil, payment_method: nil, type: nil)
+      def initialize(billing_details: nil, card: nil, custom: nil, payment_method: nil, type: nil)
         @billing_details = billing_details
+        @card = card
         @custom = custom
         @payment_method = payment_method
         @type = type

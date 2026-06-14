@@ -36,6 +36,36 @@ module Stripe
       )
     end
 
+    # Serializes an InvoiceRenderingTemplate archive request into a batch job JSONL line.
+    def serialize_batch_archive(template, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { template: template }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes an InvoiceRenderingTemplate unarchive request into a batch job JSONL line.
+    def serialize_batch_unarchive(template, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { template: template }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
     # Unarchive an invoice rendering template so it can be used on new Stripe objects again.
     def unarchive(template, params = {}, opts = {})
       request(

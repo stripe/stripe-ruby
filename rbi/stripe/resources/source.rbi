@@ -180,6 +180,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       def brand; end
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      def brand_product; end
       # Attribute for field country
       sig { returns(T.nilable(String)) }
       def country; end
@@ -245,6 +248,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       def brand; end
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      def brand_product; end
       # Attribute for field country
       sig { returns(T.nilable(String)) }
       def country; end
@@ -602,6 +608,41 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Paypal < ::Stripe::StripeObject
+      # Attribute for field billing_agreement
+      sig { returns(T.nilable(String)) }
+      def billing_agreement; end
+      # Attribute for field fingerprint
+      sig { returns(T.nilable(String)) }
+      def fingerprint; end
+      # Attribute for field payer_id
+      sig { returns(T.nilable(String)) }
+      def payer_id; end
+      # Attribute for field reference_id
+      sig { returns(T.nilable(String)) }
+      def reference_id; end
+      # Attribute for field reference_transaction_amount
+      sig { returns(T.nilable(String)) }
+      def reference_transaction_amount; end
+      # Attribute for field reference_transaction_charged
+      sig { returns(T.nilable(T::Boolean)) }
+      def reference_transaction_charged; end
+      # Attribute for field statement_descriptor
+      sig { returns(T.nilable(String)) }
+      def statement_descriptor; end
+      # Attribute for field transaction_id
+      sig { returns(T.nilable(String)) }
+      def transaction_id; end
+      # Attribute for field verified_email
+      sig { returns(T.nilable(String)) }
+      def verified_email; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Receiver < ::Stripe::StripeObject
       # The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
       sig { returns(T.nilable(String)) }
@@ -858,6 +899,9 @@ module Stripe
       # Attribute for field brand
       sig { returns(T.nilable(String)) }
       def brand; end
+      # Attribute for field brand_product
+      sig { returns(T.nilable(String)) }
+      def brand_product; end
       # Attribute for field card
       sig { returns(T.nilable(String)) }
       def card; end
@@ -1011,6 +1055,9 @@ module Stripe
     # Attribute for field p24
     sig { returns(T.nilable(P24)) }
     def p24; end
+    # Attribute for field paypal
+    sig { returns(T.nilable(Paypal)) }
+    def paypal; end
     # Attribute for field receiver
     sig { returns(T.nilable(Receiver)) }
     def receiver; end

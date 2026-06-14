@@ -94,6 +94,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Requested bank partner for this Financial Account
+          sig { returns(T.nilable(String)) }
+          def bank; end
           # Whether the FinancialAccount should have the Feature.
           sig { returns(T::Boolean) }
           def requested; end

@@ -14,6 +14,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Controls whether Stripe attempts payment on the resumption invoice in the resume request, and how payment on that invoice affects the subscription's status. The default is `resume_on_payment_attempt`.
+    sig { returns(T.nilable(String)) }
+    def payment_behavior; end
+    sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_behavior=(_payment_behavior); end
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) resulting from the `billing_cycle_anchor` being `unchanged`. When the `billing_cycle_anchor` is set to `now` (default value), no prorations are generated. If no value is passed, the default is `create_prorations`.
     sig { returns(T.nilable(String)) }
     def proration_behavior; end
@@ -25,11 +30,12 @@ module Stripe
     sig { params(_proration_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def proration_date=(_proration_date); end
     sig {
-      params(billing_cycle_anchor: T.nilable(String), expand: T.nilable(T::Array[String]), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer)).void
+      params(billing_cycle_anchor: T.nilable(String), expand: T.nilable(T::Array[String]), payment_behavior: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer)).void
      }
     def initialize(
       billing_cycle_anchor: nil,
       expand: nil,
+      payment_behavior: nil,
       proration_behavior: nil,
       proration_date: nil
     ); end

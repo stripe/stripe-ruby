@@ -141,8 +141,27 @@ module Stripe
           end
         end
 
+        class GiftCard < ::Stripe::RequestParams
+          # The gift card ID to redeem
+          attr_accessor :gift_card
+
+          def initialize(gift_card: nil)
+            @gift_card = gift_card
+          end
+        end
+
         class Giropay < ::Stripe::RequestParams; end
+        class Gopay < ::Stripe::RequestParams; end
         class Grabpay < ::Stripe::RequestParams; end
+
+        class IdBankTransfer < ::Stripe::RequestParams
+          # Bank where the account is held.
+          attr_accessor :bank
+
+          def initialize(bank: nil)
+            @bank = bank
+          end
+        end
 
         class Ideal < ::Stripe::RequestParams
           # The customer's bank. Only use this parameter for existing customers. Don't use it for new customers.
@@ -241,6 +260,7 @@ module Stripe
         class Payco < ::Stripe::RequestParams; end
         class Paynow < ::Stripe::RequestParams; end
         class Paypal < ::Stripe::RequestParams; end
+        class Paypay < ::Stripe::RequestParams; end
 
         class Payto < ::Stripe::RequestParams
           # The account number for the bank account.
@@ -259,6 +279,7 @@ module Stripe
 
         class Pix < ::Stripe::RequestParams; end
         class Promptpay < ::Stripe::RequestParams; end
+        class Qris < ::Stripe::RequestParams; end
 
         class RadarOptions < ::Stripe::RequestParams
           # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
@@ -266,6 +287,29 @@ module Stripe
 
           def initialize(session: nil)
             @session = session
+          end
+        end
+
+        class Rechnung < ::Stripe::RequestParams
+          class Dob < ::Stripe::RequestParams
+            # The day of birth, between 1 and 31.
+            attr_accessor :day
+            # The month of birth, between 1 and 12.
+            attr_accessor :month
+            # The four-digit year of birth.
+            attr_accessor :year
+
+            def initialize(day: nil, month: nil, year: nil)
+              @day = day
+              @month = month
+              @year = year
+            end
+          end
+          # Customer's date of birth
+          attr_accessor :dob
+
+          def initialize(dob: nil)
+            @dob = dob
           end
         end
 
@@ -283,6 +327,8 @@ module Stripe
           end
         end
 
+        class Shopeepay < ::Stripe::RequestParams; end
+
         class Sofort < ::Stripe::RequestParams
           # Two-letter ISO code representing the country the bank account is located in.
           attr_accessor :country
@@ -292,8 +338,18 @@ module Stripe
           end
         end
 
+        class StripeBalance < ::Stripe::RequestParams
+          # The connected account ID whose Stripe balance to use as the source of payment
+          attr_accessor :account
+
+          def initialize(account: nil)
+            @account = account
+          end
+        end
+
         class Sunbit < ::Stripe::RequestParams; end
         class Swish < ::Stripe::RequestParams; end
+        class Tamara < ::Stripe::RequestParams; end
         class Twint < ::Stripe::RequestParams; end
 
         class Upi < ::Stripe::RequestParams
@@ -391,10 +447,16 @@ module Stripe
         attr_accessor :eps
         # If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
         attr_accessor :fpx
+        # If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+        attr_accessor :gift_card
         # If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
         attr_accessor :giropay
+        # If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+        attr_accessor :gopay
         # If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
         attr_accessor :grabpay
+        # If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
+        attr_accessor :id_bank_transfer
         # If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
         attr_accessor :ideal
         # If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
@@ -433,14 +495,20 @@ module Stripe
         attr_accessor :paynow
         # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
         attr_accessor :paypal
+        # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+        attr_accessor :paypay
         # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
         attr_accessor :payto
         # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
         attr_accessor :pix
         # If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
         attr_accessor :promptpay
+        # If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+        attr_accessor :qris
         # Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
         attr_accessor :radar_options
+        # If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
+        attr_accessor :rechnung
         # If this is a `revolut_pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
         attr_accessor :revolut_pay
         # If this is a `samsung_pay` PaymentMethod, this hash contains details about the SamsungPay payment method.
@@ -451,12 +519,20 @@ module Stripe
         attr_accessor :scalapay
         # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
         attr_accessor :sepa_debit
+        # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+        attr_accessor :shared_payment_granted_token
+        # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+        attr_accessor :shopeepay
         # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
         attr_accessor :sofort
+        # This hash contains details about the Stripe balance payment method.
+        attr_accessor :stripe_balance
         # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
         attr_accessor :sunbit
         # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
         attr_accessor :swish
+        # If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+        attr_accessor :tamara
         # If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
         attr_accessor :twint
         # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -491,8 +567,11 @@ module Stripe
           customer_balance: nil,
           eps: nil,
           fpx: nil,
+          gift_card: nil,
           giropay: nil,
+          gopay: nil,
           grabpay: nil,
+          id_bank_transfer: nil,
           ideal: nil,
           interac_present: nil,
           kakao_pay: nil,
@@ -512,18 +591,25 @@ module Stripe
           payco: nil,
           paynow: nil,
           paypal: nil,
+          paypay: nil,
           payto: nil,
           pix: nil,
           promptpay: nil,
+          qris: nil,
           radar_options: nil,
+          rechnung: nil,
           revolut_pay: nil,
           samsung_pay: nil,
           satispay: nil,
           scalapay: nil,
           sepa_debit: nil,
+          shared_payment_granted_token: nil,
+          shopeepay: nil,
           sofort: nil,
+          stripe_balance: nil,
           sunbit: nil,
           swish: nil,
+          tamara: nil,
           twint: nil,
           type: nil,
           upi: nil,
@@ -551,8 +637,11 @@ module Stripe
           @customer_balance = customer_balance
           @eps = eps
           @fpx = fpx
+          @gift_card = gift_card
           @giropay = giropay
+          @gopay = gopay
           @grabpay = grabpay
+          @id_bank_transfer = id_bank_transfer
           @ideal = ideal
           @interac_present = interac_present
           @kakao_pay = kakao_pay
@@ -572,18 +661,25 @@ module Stripe
           @payco = payco
           @paynow = paynow
           @paypal = paypal
+          @paypay = paypay
           @payto = payto
           @pix = pix
           @promptpay = promptpay
+          @qris = qris
           @radar_options = radar_options
+          @rechnung = rechnung
           @revolut_pay = revolut_pay
           @samsung_pay = samsung_pay
           @satispay = satispay
           @scalapay = scalapay
           @sepa_debit = sepa_debit
+          @shared_payment_granted_token = shared_payment_granted_token
+          @shopeepay = shopeepay
           @sofort = sofort
+          @stripe_balance = stripe_balance
           @sunbit = sunbit
           @swish = swish
+          @tamara = tamara
           @twint = twint
           @type = type
           @upi = upi

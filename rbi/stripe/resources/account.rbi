@@ -97,6 +97,9 @@ module Stripe
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       sig { returns(T.nilable(String)) }
       def product_description; end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(SupportAddress)) }
       def support_address; end
@@ -145,6 +148,9 @@ module Stripe
       # The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
       sig { returns(T.nilable(String)) }
       def au_becs_debit_payments; end
+      # The status of the automatic_indirect_tax capability of the account.
+      sig { returns(T.nilable(String)) }
+      def automatic_indirect_tax; end
       # The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
       sig { returns(T.nilable(String)) }
       def bacs_debit_payments; end
@@ -193,9 +199,18 @@ module Stripe
       # The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
       sig { returns(T.nilable(String)) }
       def giropay_payments; end
+      # The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
+      sig { returns(T.nilable(String)) }
+      def gopay_payments; end
       # The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
       sig { returns(T.nilable(String)) }
       def grabpay_payments; end
+      # The status of the Indonesia Bank Transfer payments capability of the account, or whether the account can directly process Indonesia Bank Transfer charges.
+      sig { returns(T.nilable(String)) }
+      def id_bank_transfer_payments; end
+      # The status of Bank BCA onboarding of the account.
+      sig { returns(T.nilable(String)) }
+      def id_bank_transfer_payments_bca; end
       # The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
       sig { returns(T.nilable(String)) }
       def ideal_payments; end
@@ -259,6 +274,12 @@ module Stripe
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
       sig { returns(T.nilable(String)) }
       def paynow_payments; end
+      # The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
+      sig { returns(T.nilable(String)) }
+      def paypal_payments; end
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      sig { returns(T.nilable(String)) }
+      def paypay_payments; end
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       sig { returns(T.nilable(String)) }
       def payto_payments; end
@@ -268,6 +289,12 @@ module Stripe
       # The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
       sig { returns(T.nilable(String)) }
       def promptpay_payments; end
+      # The status of the Qris capability of the account, or whether the account can directly process Qris payments.
+      sig { returns(T.nilable(String)) }
+      def qris_payments; end
+      # The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
+      sig { returns(T.nilable(String)) }
+      def rechnung_payments; end
       # The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
       sig { returns(T.nilable(String)) }
       def revolut_pay_payments; end
@@ -286,9 +313,15 @@ module Stripe
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       sig { returns(T.nilable(String)) }
       def sepa_debit_payments; end
+      # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
+      sig { returns(T.nilable(String)) }
+      def shopeepay_payments; end
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       sig { returns(T.nilable(String)) }
       def sofort_payments; end
+      # The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
+      sig { returns(T.nilable(String)) }
+      def stripe_balance_payments; end
       # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
       sig { returns(T.nilable(String)) }
       def sunbit_payments; end
@@ -307,6 +340,15 @@ module Stripe
       # The status of the banking capability, or whether the account can have bank accounts.
       sig { returns(T.nilable(String)) }
       def treasury; end
+      # The status of the treasury_evolve capability of the account.
+      sig { returns(T.nilable(String)) }
+      def treasury_evolve; end
+      # The status of the treasury_fifth_third capability of the account.
+      sig { returns(T.nilable(String)) }
+      def treasury_fifth_third; end
+      # The status of the treasury_goldman_sachs capability of the account.
+      sig { returns(T.nilable(String)) }
+      def treasury_goldman_sachs; end
       # The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
       sig { returns(T.nilable(String)) }
       def twint_payments; end
@@ -596,6 +638,34 @@ module Stripe
       end
     end
     class Controller < ::Stripe::StripeObject
+      class Application < ::Stripe::StripeObject
+        # `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
+        sig { returns(T::Boolean) }
+        def loss_liable; end
+        # `true` if the Connect application is responsible for onboarding the account.
+        sig { returns(T::Boolean) }
+        def onboarding_owner; end
+        # `true` if the Connect application is responsible for paying Stripe fees on pricing-control eligible products.
+        sig { returns(T::Boolean) }
+        def pricing_controls; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Dashboard < ::Stripe::StripeObject
+        # Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Fees < ::Stripe::StripeObject
         # A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
         sig { returns(String) }
@@ -629,6 +699,12 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Attribute for field application
+      sig { returns(T.nilable(Application)) }
+      def application; end
+      # Attribute for field dashboard
+      sig { returns(T.nilable(Dashboard)) }
+      def dashboard; end
       # Attribute for field fees
       sig { returns(T.nilable(Fees)) }
       def fees; end
@@ -648,7 +724,13 @@ module Stripe
       sig { returns(String) }
       def type; end
       def self.inner_class_types
-        @inner_class_types = {fees: Fees, losses: Losses, stripe_dashboard: StripeDashboard}
+        @inner_class_types = {
+          application: Application,
+          dashboard: Dashboard,
+          fees: Fees,
+          losses: Losses,
+          stripe_dashboard: StripeDashboard,
+        }
       end
       def self.field_remappings
         @field_remappings = {}
@@ -791,6 +873,45 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class RiskControls < ::Stripe::StripeObject
+      class Charges < ::Stripe::StripeObject
+        # Whether a pause of the risk control has been requested.
+        sig { returns(T::Boolean) }
+        def pause_requested; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Payouts < ::Stripe::StripeObject
+        # Whether a pause of the risk control has been requested.
+        sig { returns(T::Boolean) }
+        def pause_requested; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field charges
+      sig { returns(Charges) }
+      def charges; end
+      # Attribute for field payouts
+      sig { returns(Payouts) }
+      def payouts; end
+      # Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://docs.stripe.com/connect/)
+      sig { returns(T.nilable(String)) }
+      def rejected_reason; end
+      def self.inner_class_types
+        @inner_class_types = {charges: Charges, payouts: Payouts}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Settings < ::Stripe::StripeObject
       class BacsDebitPayments < ::Stripe::StripeObject
         # The Bacs Direct Debit display name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. The fee appears 5 business days after requesting Bacs. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
@@ -799,6 +920,20 @@ module Stripe
         # The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
         sig { returns(T.nilable(String)) }
         def service_user_number; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class BankBcaOnboarding < ::Stripe::StripeObject
+        # Bank BCA business account holder name.
+        sig { returns(T.nilable(String)) }
+        def account_holder_name; end
+        # Bank BCA business account number.
+        sig { returns(T.nilable(String)) }
+        def business_account_number; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -917,6 +1052,9 @@ module Stripe
         end
       end
       class Payments < ::Stripe::StripeObject
+        # When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+        sig { returns(T.nilable(T::Boolean)) }
+        def email_customers_on_successful_payment; end
         # The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
@@ -982,10 +1120,120 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            sig { returns(T.nilable(T::Boolean)) }
+            def password_provided; end
+            # The username needed to access your business's website.
+            sig { returns(T.nilable(String)) }
+            def username; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            sig { returns(T.nilable(String)) }
+            def payment_flow_file; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          sig { returns(T.nilable(Accessible)) }
+          def accessible; end
+          # Attribute for field in_development
+          sig { returns(T.nilable(InDevelopment)) }
+          def in_development; end
+          # Attribute for field restricted
+          sig { returns(T.nilable(Restricted)) }
+          def restricted; end
+          # The status of your business's website.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        sig { returns(T.nilable(T::Array[String])) }
+        def additional_files; end
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        # Attribute for field site
+        sig { returns(T.nilable(Site)) }
+        def site; end
+        def self.inner_class_types
+          @inner_class_types = {site: Site}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         sig { returns(T.nilable(String)) }
         def creditor_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class SmartDisputes < ::Stripe::StripeObject
+        class AutoRespond < ::Stripe::StripeObject
+          # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+          sig { returns(String) }
+          def preference; end
+          # The effective value for auto-respond. Can be 'on' or 'off'.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field auto_respond
+        sig { returns(AutoRespond) }
+        def auto_respond; end
+        def self.inner_class_types
+          @inner_class_types = {auto_respond: AutoRespond}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TaxForms < ::Stripe::StripeObject
+        # Whether the account opted out of receiving their tax forms by postal delivery.
+        sig { returns(T::Boolean) }
+        def consented_to_paperless_delivery; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1024,6 +1272,9 @@ module Stripe
       # Attribute for field bacs_debit_payments
       sig { returns(T.nilable(BacsDebitPayments)) }
       def bacs_debit_payments; end
+      # Attribute for field bank_bca_onboarding
+      sig { returns(T.nilable(BankBcaOnboarding)) }
+      def bank_bca_onboarding; end
       # Attribute for field branding
       sig { returns(Branding) }
       def branding; end
@@ -1045,15 +1296,25 @@ module Stripe
       # Attribute for field payouts
       sig { returns(T.nilable(Payouts)) }
       def payouts; end
+      # Attribute for field paypay_payments
+      sig { returns(T.nilable(PaypayPayments)) }
+      def paypay_payments; end
       # Attribute for field sepa_debit_payments
       sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
+      # Attribute for field smart_disputes
+      sig { returns(T.nilable(SmartDisputes)) }
+      def smart_disputes; end
+      # Attribute for field tax_forms
+      sig { returns(T.nilable(TaxForms)) }
+      def tax_forms; end
       # Attribute for field treasury
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
       def self.inner_class_types
         @inner_class_types = {
           bacs_debit_payments: BacsDebitPayments,
+          bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
@@ -1061,7 +1322,10 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
+          smart_disputes: SmartDisputes,
+          tax_forms: TaxForms,
           treasury: Treasury,
         }
       end
@@ -1156,6 +1420,12 @@ module Stripe
     # Attribute for field requirements
     sig { returns(T.nilable(Requirements)) }
     def requirements; end
+    # Attribute for field risk_controls
+    sig { returns(T.nilable(RiskControls)) }
+    def risk_controls; end
+    # A hash containing information about risk signal collection
+    sig { returns(T.nilable(::Stripe::RiskSignals)) }
+    def risk_signals; end
     # Options for customizing how the account functions within Stripe.
     sig { returns(T.nilable(Settings)) }
     def settings; end
@@ -1233,6 +1503,12 @@ module Stripe
       params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.reject(account, params = {}, opts = {}); end
+
+    # Retrieves the account's Signal objects
+    sig {
+      params(account_id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
+     }
+    def self.retrieve_signal(account_id, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.

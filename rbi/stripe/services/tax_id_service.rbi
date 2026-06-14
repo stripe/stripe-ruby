@@ -27,5 +27,9 @@ module Stripe
       params(id: String, params: T.any(::Stripe::TaxIdRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxId)
      }
     def retrieve(id, params = {}, opts = {}); end
+
+    # Serializes a TaxId create request into a batch job JSONL line.
+    sig { params(params: ::Stripe::TaxIdCreateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_create(params = {}, opts = {}); end
   end
 end

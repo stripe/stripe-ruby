@@ -5,16 +5,44 @@ module Stripe
   class SubscriptionUpdateParams < ::Stripe::RequestParams
     class AddInvoiceItem < ::Stripe::RequestParams
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Time span for the redeemed discount.
+          attr_accessor :duration
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          attr_accessor :timestamp
+          # The type of calculation made to determine when the discount ends.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
+        # Details to determine how long the discount should be applied for.
+        attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
-        def initialize(coupon: nil, discount: nil, promotion_code: nil)
+        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
+          @discount_end = discount_end
           @promotion_code = promotion_code
         end
       end
@@ -228,17 +256,97 @@ module Stripe
     end
 
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class Settings < ::Stripe::RequestParams
+        class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+          class Custom < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            attr_accessor :day_of_month
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            attr_accessor :hour
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            attr_accessor :minute
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            attr_accessor :month
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            attr_accessor :second
+
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+              @day_of_month = day_of_month
+              @hour = hour
+              @minute = minute
+              @month = month
+              @second = second
+            end
+          end
+          # Anchor the service period to a custom date. Type must be `custom` to specify.
+          attr_accessor :custom
+          # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+          attr_accessor :type
+
+          def initialize(custom: nil, type: nil)
+            @custom = custom
+            @type = type
+          end
+        end
+        # Configures service period cycle anchoring.
+        attr_accessor :service_period_anchor_config
+        # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+        attr_accessor :start_date
+
+        def initialize(service_period_anchor_config: nil, start_date: nil)
+          @service_period_anchor_config = service_period_anchor_config
+          @start_date = start_date
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
+      # Settings for discount application including service period anchoring.
+      attr_accessor :settings
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(
+        coupon: nil,
+        discount: nil,
+        discount_end: nil,
+        promotion_code: nil,
+        settings: nil
+      )
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
+        @settings = settings
       end
     end
 
@@ -275,18 +383,110 @@ module Stripe
         end
       end
 
+      class CurrentTrial < ::Stripe::RequestParams
+        # Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+        attr_accessor :trial_end
+        # The ID of the trial offer to apply to the subscription item.
+        attr_accessor :trial_offer
+
+        def initialize(trial_end: nil, trial_offer: nil)
+          @trial_end = trial_end
+          @trial_offer = trial_offer
+        end
+      end
+
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Time span for the redeemed discount.
+          attr_accessor :duration
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          attr_accessor :timestamp
+          # The type of calculation made to determine when the discount ends.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class Settings < ::Stripe::RequestParams
+          class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+            class Custom < ::Stripe::RequestParams
+              # The day of the month the anchor should be. Ranges from 1 to 31.
+              attr_accessor :day_of_month
+              # The hour of the day the anchor should be. Ranges from 0 to 23.
+              attr_accessor :hour
+              # The minute of the hour the anchor should be. Ranges from 0 to 59.
+              attr_accessor :minute
+              # The month to start full cycle periods. Ranges from 1 to 12.
+              attr_accessor :month
+              # The second of the minute the anchor should be. Ranges from 0 to 59.
+              attr_accessor :second
+
+              def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                @day_of_month = day_of_month
+                @hour = hour
+                @minute = minute
+                @month = month
+                @second = second
+              end
+            end
+            # Anchor the service period to a custom date. Type must be `custom` to specify.
+            attr_accessor :custom
+            # The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+            attr_accessor :type
+
+            def initialize(custom: nil, type: nil)
+              @custom = custom
+              @type = type
+            end
+          end
+          # Configures service period cycle anchoring.
+          attr_accessor :service_period_anchor_config
+          # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+          attr_accessor :start_date
+
+          def initialize(service_period_anchor_config: nil, start_date: nil)
+            @service_period_anchor_config = service_period_anchor_config
+            @start_date = start_date
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
+        # Details to determine how long the discount should be applied for.
+        attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
+        # Settings for discount application including service period anchoring.
+        attr_accessor :settings
 
-        def initialize(coupon: nil, discount: nil, promotion_code: nil)
+        def initialize(
+          coupon: nil,
+          discount: nil,
+          discount_end: nil,
+          promotion_code: nil,
+          settings: nil
+        )
           @coupon = coupon
           @discount = discount
+          @discount_end = discount_end
           @promotion_code = promotion_code
+          @settings = settings
         end
       end
 
@@ -339,6 +539,8 @@ module Stripe
       attr_accessor :billing_thresholds
       # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
       attr_accessor :clear_usage
+      # The trial offer to apply to this subscription item.
+      attr_accessor :current_trial
       # A flag that, if set to `true`, will delete the specified item.
       attr_accessor :deleted
       # The coupons to redeem into discounts for the subscription item.
@@ -361,6 +563,7 @@ module Stripe
       def initialize(
         billing_thresholds: nil,
         clear_usage: nil,
+        current_trial: nil,
         deleted: nil,
         discounts: nil,
         id: nil,
@@ -373,6 +576,7 @@ module Stripe
       )
         @billing_thresholds = billing_thresholds
         @clear_usage = clear_usage
+        @current_trial = current_trial
         @deleted = deleted
         @discounts = discounts
         @id = id
@@ -434,6 +638,43 @@ module Stripe
           end
         end
 
+        class Bizum < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            attr_accessor :amount
+            # Indicates the mandate amount type.
+            attr_accessor :amount_type
+
+            def initialize(amount: nil, amount_type: nil)
+              @amount = amount
+              @amount_type = amount_type
+            end
+          end
+          # Configuration options for setting up a mandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_accessor :expires_after
+
+            def initialize(expires_after: nil)
+              @expires_after = expires_after
+            end
+          end
+          # Configuration options for setting up a mandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
+
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -462,6 +703,8 @@ module Stripe
             @request_three_d_secure = request_three_d_secure
           end
         end
+
+        class CheckScan < ::Stripe::RequestParams; end
 
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
@@ -494,6 +737,7 @@ module Stripe
           end
         end
 
+        class IdBankTransfer < ::Stripe::RequestParams; end
         class Konbini < ::Stripe::RequestParams; end
 
         class Payto < ::Stripe::RequestParams
@@ -583,9 +827,12 @@ module Stripe
             class Filters < ::Stripe::RequestParams
               # The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
               attr_accessor :account_subcategories
+              # ID of the institution to use to filter for selectable accounts.
+              attr_accessor :institution
 
-              def initialize(account_subcategories: nil)
+              def initialize(account_subcategories: nil, institution: nil)
                 @account_subcategories = account_subcategories
+                @institution = institution
               end
             end
             # Provide filters for the linked accounts that the customer can select for the payment method.
@@ -611,14 +858,34 @@ module Stripe
             @verification_method = verification_method
           end
         end
+
+        class WechatPay < ::Stripe::RequestParams
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          attr_accessor :app_id
+          # The client type that the end customer will pay from.
+          attr_accessor :client
+
+          def initialize(app_id: nil, client: nil)
+            @app_id = app_id
+            @client = client
+          end
+        end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # This sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bizum
+        # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :blik
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
+        # This sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :check_scan
         # This sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :customer_balance
+        # This sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :id_bank_transfer
         # This sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :konbini
         # This sub-hash contains details about the PayTo payment method options to pass to the invoice’s PaymentIntent.
@@ -631,29 +898,41 @@ module Stripe
         attr_accessor :upi
         # This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :us_bank_account
+        # This sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :wechat_pay
 
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
+          blik: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
+          id_bank_transfer: nil,
           konbini: nil,
           payto: nil,
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil
+          us_bank_account: nil,
+          wechat_pay: nil
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @bizum = bizum
+          @blik = blik
           @card = card
+          @check_scan = check_scan
           @customer_balance = customer_balance
+          @id_bank_transfer = id_bank_transfer
           @konbini = konbini
           @payto = payto
           @pix = pix
           @sepa_debit = sepa_debit
           @upi = upi
           @us_bank_account = us_bank_account
+          @wechat_pay = wechat_pay
         end
       end
       # Payment-method-specific configuration to provide to invoices created by the subscription.
@@ -686,6 +965,18 @@ module Stripe
       end
     end
 
+    class Prebilling < ::Stripe::RequestParams
+      # This is used to determine the number of billing cycles to prebill.
+      attr_accessor :iterations
+      # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+      attr_accessor :update_behavior
+
+      def initialize(iterations: nil, update_behavior: nil)
+        @iterations = iterations
+        @update_behavior = update_behavior
+      end
+    end
+
     class TransferData < ::Stripe::RequestParams
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_accessor :amount_percent
@@ -700,10 +991,13 @@ module Stripe
 
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        attr_accessor :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_accessor :missing_payment_method
 
-        def initialize(missing_payment_method: nil)
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+          @billing_cycle_anchor = billing_cycle_anchor
           @missing_payment_method = missing_payment_method
         end
       end
@@ -720,6 +1014,8 @@ module Stripe
     attr_accessor :application_fee_percent
     # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     attr_accessor :automatic_tax
+    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    attr_accessor :billing_cadence
     # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # Sets the billing schedules for the subscription.
@@ -766,6 +1062,8 @@ module Stripe
     attr_accessor :payment_settings
     # Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](/api/invoices/create) for the given subscription at the specified interval.
     attr_accessor :pending_invoice_item_interval
+    # If specified, the invoicing for the given billing cycle iterations will be processed now.
+    attr_accessor :prebilling
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
     attr_accessor :proration_behavior
     # If set, prorations will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint. `proration_date` can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
@@ -783,6 +1081,7 @@ module Stripe
       add_invoice_items: nil,
       application_fee_percent: nil,
       automatic_tax: nil,
+      billing_cadence: nil,
       billing_cycle_anchor: nil,
       billing_schedules: nil,
       billing_thresholds: nil,
@@ -806,6 +1105,7 @@ module Stripe
       payment_behavior: nil,
       payment_settings: nil,
       pending_invoice_item_interval: nil,
+      prebilling: nil,
       proration_behavior: nil,
       proration_date: nil,
       transfer_data: nil,
@@ -816,6 +1116,7 @@ module Stripe
       @add_invoice_items = add_invoice_items
       @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
+      @billing_cadence = billing_cadence
       @billing_cycle_anchor = billing_cycle_anchor
       @billing_schedules = billing_schedules
       @billing_thresholds = billing_thresholds
@@ -839,6 +1140,7 @@ module Stripe
       @payment_behavior = payment_behavior
       @payment_settings = payment_settings
       @pending_invoice_item_interval = pending_invoice_item_interval
+      @prebilling = prebilling
       @proration_behavior = proration_behavior
       @proration_date = proration_date
       @transfer_data = transfer_data

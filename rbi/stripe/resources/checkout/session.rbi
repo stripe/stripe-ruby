@@ -63,6 +63,29 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AutomaticSurcharge < ::Stripe::StripeObject
+        # Determines which amount serves as the basis for calculating the surcharge.
+        sig { returns(T.nilable(String)) }
+        def calculation_basis; end
+        # Indicates whether automatic surcharge is enabled for the session.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # The surcharge provider used for this session.
+        sig { returns(T.nilable(String)) }
+        def provider; end
+        # The status of the most recent surcharge calculation for this session.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        # Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        sig { returns(T.nilable(String)) }
+        def tax_behavior; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class AutomaticTax < ::Stripe::StripeObject
         class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
@@ -201,17 +224,40 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class TaxId < ::Stripe::StripeObject
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          sig { returns(String) }
+          def type; end
+          # The value of the tax ID.
+          sig { returns(T.nilable(String)) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Customer’s business name for this Checkout Session
         sig { returns(T.nilable(String)) }
         def business_name; end
+        # Customer’s email for this Checkout Session
+        sig { returns(T.nilable(String)) }
+        def email; end
         # Customer’s individual name for this Checkout Session
         sig { returns(T.nilable(String)) }
         def individual_name; end
+        # Customer’s phone number for this Checkout Session
+        sig { returns(T.nilable(String)) }
+        def phone; end
         # Shipping information for this Checkout Session.
         sig { returns(T.nilable(ShippingDetails)) }
         def shipping_details; end
+        # Customer’s tax ids for this Checkout Session.
+        sig { returns(T.nilable(T::Array[TaxId])) }
+        def tax_ids; end
         def self.inner_class_types
-          @inner_class_types = {shipping_details: ShippingDetails}
+          @inner_class_types = {shipping_details: ShippingDetails, tax_ids: TaxId}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -285,6 +331,285 @@ module Stripe
         end
         def self.field_encodings
           @field_encodings = {fx_rate: :decimal_string}
+        end
+      end
+      class CurrentAttempt < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(Address) }
+          def address; end
+          # Customer name.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PaymentMethodDetails < ::Stripe::StripeObject
+          class AuBecsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class BacsDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Boleto < ::Stripe::StripeObject
+            # Uniquely identifies this particular boleto payment method. You can use this attribute to check whether two boleto payment methods are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Card < ::Stripe::StripeObject
+            class Wallet < ::Stripe::StripeObject
+              # The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Two-digit number representing the card's expiration month.
+            sig { returns(Integer) }
+            def exp_month; end
+            # Four-digit number representing the card's expiration year.
+            sig { returns(Integer) }
+            def exp_year; end
+            # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+            #
+            # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            sig { returns(String) }
+            def funding; end
+            # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            sig { returns(T.nilable(String)) }
+            def iin; end
+            # The last four digits of the card.
+            sig { returns(String) }
+            def last4; end
+            # If this Card is part of a card wallet, this contains the details of the card wallet.
+            sig { returns(T.nilable(Wallet)) }
+            def wallet; end
+            def self.inner_class_types
+              @inner_class_types = {wallet: Wallet}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Link < ::Stripe::StripeObject
+            # Unique, encrypted bank account identifier.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Pix < ::Stripe::StripeObject
+            # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SepaDebit < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class UsBankAccount < ::Stripe::StripeObject
+            # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            sig { returns(T.nilable(String)) }
+            def fingerprint; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Indicates whether this payment method can be shown again to its customer in a checkout flow.
+          sig { returns(String) }
+          def allow_redisplay; end
+          # Attribute for field au_becs_debit
+          sig { returns(T.nilable(AuBecsDebit)) }
+          def au_becs_debit; end
+          # Attribute for field bacs_debit
+          sig { returns(T.nilable(BacsDebit)) }
+          def bacs_debit; end
+          # Attribute for field boleto
+          sig { returns(T.nilable(Boleto)) }
+          def boleto; end
+          # Attribute for field card
+          sig { returns(T.nilable(Card)) }
+          def card; end
+          # Attribute for field link
+          sig { returns(T.nilable(Link)) }
+          def link; end
+          # Attribute for field pix
+          sig { returns(T.nilable(Pix)) }
+          def pix; end
+          # Attribute for field sepa_debit
+          sig { returns(T.nilable(SepaDebit)) }
+          def sepa_debit; end
+          # The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
+          sig { returns(String) }
+          def type; end
+          # Attribute for field us_bank_account
+          sig { returns(T.nilable(UsBankAccount)) }
+          def us_bank_account; end
+          def self.inner_class_types
+            @inner_class_types = {
+              au_becs_debit: AuBecsDebit,
+              bacs_debit: BacsDebit,
+              boleto: Boleto,
+              card: Card,
+              link: Link,
+              pix: Pix,
+              sepa_debit: SepaDebit,
+              us_bank_account: UsBankAccount,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ShippingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1, such as the street, PO Box, or company name.
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2, such as the apartment, suite, unit, or building.
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          sig { returns(Address) }
+          def address; end
+          # Customer name.
+          sig { returns(String) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {address: Address}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The customer's billing information, if provided.
+        sig { returns(T.nilable(BillingDetails)) }
+        def billing_details; end
+        # The customer's email.
+        sig { returns(T.nilable(String)) }
+        def email; end
+        # The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
+        sig { returns(String) }
+        def id; end
+        # Information about the payment method the customer is attempting to pay with. Relevant payment method information is provided when available. Some payment details are only available after the payment has completed and can't be returned in the manual approval flow.
+        sig { returns(T.nilable(PaymentMethodDetails)) }
+        def payment_method_details; end
+        # The customer's phone number.
+        sig { returns(T.nilable(String)) }
+        def phone; end
+        # The customer's shipping information, if provided.
+        sig { returns(T.nilable(ShippingDetails)) }
+        def shipping_details; end
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            payment_method_details: PaymentMethodDetails,
+            shipping_details: ShippingDetails,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       class CustomField < ::Stripe::StripeObject
@@ -970,6 +1295,25 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Boleto < ::Stripe::StripeObject
           # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
           sig { returns(Integer) }
@@ -1019,6 +1363,9 @@ module Stripe
           # Attribute for field installments
           sig { returns(T.nilable(Installments)) }
           def installments; end
+          # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
+          sig { returns(T.nilable(String)) }
+          def request_decremental_authorization; end
           # Request ability to [capture beyond the standard authorization validity window](/payments/extended-authorization) for this CheckoutSession.
           sig { returns(T.nilable(String)) }
           def request_extended_authorization; end
@@ -1458,6 +1805,9 @@ module Stripe
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           sig { returns(T.nilable(String)) }
           def setup_future_usage; end
+          # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+          sig { returns(T.nilable(T::Array[String])) }
+          def subsellers; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -1750,6 +2100,20 @@ module Stripe
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
+              # The institution to use to filter for possible accounts to link.
+              sig { returns(T.nilable(String)) }
+              def institution; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class ManualEntry < ::Stripe::StripeObject
+              # Settings for configuring manual entry of account details.
+              sig { returns(T.nilable(String)) }
+              def mode; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -1760,6 +2124,9 @@ module Stripe
             # Attribute for field filters
             sig { returns(T.nilable(Filters)) }
             def filters; end
+            # Attribute for field manual_entry
+            sig { returns(T.nilable(ManualEntry)) }
+            def manual_entry; end
             # The list of permissions to request. The `payment_method` permission must be included.
             sig { returns(T.nilable(T::Array[String])) }
             def permissions; end
@@ -1770,7 +2137,7 @@ module Stripe
             sig { returns(T.nilable(String)) }
             def return_url; end
             def self.inner_class_types
-              @inner_class_types = {filters: Filters}
+              @inner_class_types = {filters: Filters, manual_entry: ManualEntry}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -1831,6 +2198,9 @@ module Stripe
         # Attribute for field billie
         sig { returns(T.nilable(Billie)) }
         def billie; end
+        # Attribute for field bizum
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
         # Attribute for field boleto
         sig { returns(T.nilable(Boleto)) }
         def boleto; end
@@ -1945,6 +2315,7 @@ module Stripe
             bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
+            bizum: Bizum,
             boleto: Boleto,
             card: Card,
             cashapp: Cashapp,
@@ -1986,6 +2357,38 @@ module Stripe
         end
       end
       class Permissions < ::Stripe::StripeObject
+        class Update < ::Stripe::StripeObject
+          # Determines which entity is allowed to update the line items.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+          #
+          # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          def line_items; end
+          # Determines which entity is allowed to update the shipping details.
+          #
+          # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
+          #
+          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          sig { returns(T.nilable(String)) }
+          def shipping_details; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Permissions for updating the Checkout Session.
+        sig { returns(T.nilable(Update)) }
+        def update; end
+        # Determines which entity is allowed to update the line items.
+        #
+        # Default is `client_only`. Stripe Checkout client will automatically update the line items. If set to `server_only`, only your server is allowed to update the line items.
+        #
+        # When set to `server_only`, you must add the onLineItemsChange event handler when initializing the Stripe Checkout client and manually update the line items from your server using the Stripe API.
+        sig { returns(T.nilable(String)) }
+        def update_line_items; end
         # Determines which entity is allowed to update the shipping details.
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
@@ -1994,7 +2397,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def update_shipping_details; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {update: Update}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2113,6 +2516,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SurchargeCost < ::Stripe::StripeObject
+        # Total surcharge cost before taxes are applied.
+        sig { returns(Integer) }
+        def amount_subtotal; end
+        # Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        sig { returns(Integer) }
+        def amount_tax; end
+        # Total surcharge cost after taxes are applied.
+        sig { returns(Integer) }
+        def amount_total; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class TaxIdCollection < ::Stripe::StripeObject
         # Indicates whether tax ID collection is enabled for the session
         sig { returns(T::Boolean) }
@@ -2187,6 +2607,9 @@ module Stripe
         # This is the sum of all the shipping amounts.
         sig { returns(T.nilable(Integer)) }
         def amount_shipping; end
+        # The surcharge amount that was applied to the Checkout Session.
+        sig { returns(T.nilable(Integer)) }
+        def amount_surcharge; end
         # This is the sum of all the tax amounts.
         sig { returns(Integer) }
         def amount_tax; end
@@ -2222,6 +2645,100 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CheckoutItem < ::Stripe::StripeObject
+        class PricingPlanSubscriptionItem < ::Stripe::StripeObject
+          class ComponentConfigurations < ::Stripe::StripeObject
+            class LicenseFeeComponent < ::Stripe::StripeObject
+              # Attribute for field quantity
+              sig { returns(Integer) }
+              def quantity; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field type
+            sig { returns(String) }
+            def type; end
+            # Attribute for field license_fee_component
+            sig { returns(T.nilable(LicenseFeeComponent)) }
+            def license_fee_component; end
+            def self.inner_class_types
+              @inner_class_types = {license_fee_component: LicenseFeeComponent}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field pricing_plan
+          sig { returns(String) }
+          def pricing_plan; end
+          # Attribute for field pricing_plan_version
+          sig { returns(String) }
+          def pricing_plan_version; end
+          # Attribute for field metadata
+          sig { returns(T::Hash[String, String]) }
+          def metadata; end
+          # Attribute for field component_configurations
+          sig { returns(T::Hash[String, ComponentConfigurations]) }
+          def component_configurations; end
+          # Attribute for field pricing_plan_subscription
+          sig { returns(T.nilable(String)) }
+          def pricing_plan_subscription; end
+          # Attribute for field billing_cadence
+          sig { returns(T.nilable(String)) }
+          def billing_cadence; end
+          def self.inner_class_types
+            @inner_class_types = {component_configurations: ComponentConfigurations}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class RateCardSubscriptionItem < ::Stripe::StripeObject
+          # Attribute for field rate_card
+          sig { returns(String) }
+          def rate_card; end
+          # Attribute for field metadata
+          sig { returns(T::Hash[String, String]) }
+          def metadata; end
+          # Attribute for field rate_card_version
+          sig { returns(String) }
+          def rate_card_version; end
+          # Attribute for field billing_cadence
+          sig { returns(T.nilable(String)) }
+          def billing_cadence; end
+          # Attribute for field rate_card_subscription
+          sig { returns(T.nilable(String)) }
+          def rate_card_subscription; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field type
+        sig { returns(String) }
+        def type; end
+        # Attribute for field rate_card_subscription_item
+        sig { returns(T.nilable(RateCardSubscriptionItem)) }
+        def rate_card_subscription_item; end
+        # Attribute for field pricing_plan_subscription_item
+        sig { returns(T.nilable(PricingPlanSubscriptionItem)) }
+        def pricing_plan_subscription_item; end
+        def self.inner_class_types
+          @inner_class_types = {
+            rate_card_subscription_item: RateCardSubscriptionItem,
+            pricing_plan_subscription_item: PricingPlanSubscriptionItem,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Settings for price localization with [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing).
       sig { returns(T.nilable(AdaptivePricing)) }
       def adaptive_pricing; end
@@ -2237,6 +2754,16 @@ module Stripe
       # Total of all items after discounts and taxes are applied.
       sig { returns(T.nilable(Integer)) }
       def amount_total; end
+      # Determines whether the customer's attempt to pay must be manually approved.
+      #
+      # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+      #
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      sig { returns(T.nilable(String)) }
+      def approval_method; end
+      # Attribute for field automatic_surcharge
+      sig { returns(T.nilable(AutomaticSurcharge)) }
+      def automatic_surcharge; end
       # Attribute for field automatic_tax
       sig { returns(AutomaticTax) }
       def automatic_tax; end
@@ -2249,6 +2776,9 @@ module Stripe
       # If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website.
       sig { returns(T.nilable(String)) }
       def cancel_url; end
+      # Attribute for field checkout_items
+      sig { returns(T.nilable(T::Array[CheckoutItem])) }
+      def checkout_items; end
       # A unique string to reference the Checkout Session. This can be a
       # customer ID, a cart ID, or similar, and can be used to reconcile the
       # Session with your internal systems.
@@ -2276,9 +2806,16 @@ module Stripe
       # Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
       sig { returns(T.nilable(CurrencyConversion)) }
       def currency_conversion; end
+      # The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
+      sig { returns(T.nilable(CurrentAttempt)) }
+      def current_attempt; end
       # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
       sig { returns(T::Array[CustomField]) }
       def custom_fields; end
+      # A list of the types of [custom payment methods](https://docs.stripe.com/payments/payment-methods/custom-payment-methods) (e.g. cpmt_123) this Checkout
+      # Session is allowed to accept.
+      sig { returns(T.nilable(T::Array[String])) }
+      def custom_payment_method_types; end
       # Attribute for field custom_text
       sig { returns(CustomText) }
       def custom_text; end
@@ -2375,6 +2912,9 @@ module Stripe
       # Session is allowed to accept.
       sig { returns(T::Array[String]) }
       def payment_method_types; end
+      # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
+      sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
+      def payment_record; end
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }
@@ -2429,6 +2969,9 @@ module Stripe
       # subscription creation is successful.
       sig { returns(T.nilable(String)) }
       def success_url; end
+      # Attribute for field surcharge_cost
+      sig { returns(T.nilable(SurchargeCost)) }
+      def surcharge_cost; end
       # Attribute for field tax_id_collection
       sig { returns(T.nilable(TaxIdCollection)) }
       def tax_id_collection; end
@@ -2445,6 +2988,18 @@ module Stripe
       # Wallet-specific configuration for this Checkout Session.
       sig { returns(T.nilable(WalletOptions)) }
       def wallet_options; end
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      sig {
+        params(params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+       }
+      def approve(params = {}, opts = {}); end
+
+      # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+      sig {
+        params(session: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+       }
+      def self.approve(session, params = {}, opts = {}); end
+
       # Creates a Checkout Session object.
       sig {
         params(params: T.any(::Stripe::Checkout::SessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)

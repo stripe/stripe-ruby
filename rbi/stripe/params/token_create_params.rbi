@@ -580,6 +580,49 @@ module Stripe
             town: nil
           ); end
         end
+        class BirthAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(T.nilable(String)) }
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
+          sig {
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+           }
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          ); end
+        end
         class Dob < ::Stripe::RequestParams
           # The day of birth, between 1 and 31.
           sig { returns(Integer) }
@@ -681,6 +724,34 @@ module Stripe
             title: nil
           ); end
         end
+        class SelfReportedIncome < ::Stripe::RequestParams
+          # The amount in the minor currency unit (for example, cents for USD).
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(amount: Integer, currency: String).void }
+          def initialize(amount: nil, currency: nil); end
+        end
+        class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+          # The amount in the minor currency unit (for example, cents for USD).
+          sig { returns(Integer) }
+          def amount; end
+          sig { params(_amount: Integer).returns(Integer) }
+          def amount=(_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          sig { params(amount: Integer, currency: String).void }
+          def initialize(amount: nil, currency: nil); end
+        end
         class Verification < ::Stripe::RequestParams
           class AdditionalDocument < ::Stripe::RequestParams
             # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
@@ -754,6 +825,13 @@ module Stripe
           params(_address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKanji)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKanji))
          }
         def address_kanji=(_address_kanji); end
+        # Attribute for param field birth_address
+        sig { returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::BirthAddress)) }
+        def birth_address; end
+        sig {
+          params(_birth_address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::BirthAddress)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::BirthAddress))
+         }
+        def birth_address=(_birth_address); end
         # The individual's date of birth.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Individual::Dob)))
@@ -858,6 +936,24 @@ module Stripe
           params(_relationship: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Relationship)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::Relationship))
          }
         def relationship=(_relationship); end
+        # The credit applicant's self-reported yearly income in minor units.
+        sig {
+          returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedIncome))
+         }
+        def self_reported_income; end
+        sig {
+          params(_self_reported_income: T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedIncome)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedIncome))
+         }
+        def self_reported_income=(_self_reported_income); end
+        # The credit applicant's self-reported monthly housing payment in minor units.
+        sig {
+          returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment))
+         }
+        def self_reported_monthly_housing_payment; end
+        sig {
+          params(_self_reported_monthly_housing_payment: T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment))
+         }
+        def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
         # The last four digits of the individual's Social Security Number (U.S. only).
         sig { returns(T.nilable(String)) }
         def ssn_last_4; end
@@ -871,12 +967,13 @@ module Stripe
          }
         def verification=(_verification); end
         sig {
-          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Relationship), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Verification)).void
+          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Individual::AddressKanji), birth_address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::BirthAddress), dob: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Individual::Dob)), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenCreateParams::Account::Individual::RegisteredAddress), relationship: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Relationship), self_reported_income: T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(::Stripe::TokenCreateParams::Account::Individual::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Individual::Verification)).void
          }
         def initialize(
           address: nil,
           address_kana: nil,
           address_kanji: nil,
+          birth_address: nil,
           dob: nil,
           email: nil,
           first_name: nil,
@@ -895,6 +992,8 @@ module Stripe
           political_exposure: nil,
           registered_address: nil,
           relationship: nil,
+          self_reported_income: nil,
+          self_reported_monthly_housing_payment: nil,
           ssn_last_4: nil,
           verification: nil
         ); end
@@ -1271,6 +1370,49 @@ module Stripe
           town: nil
         ); end
       end
+      class BirthAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
+      end
       class Dob < ::Stripe::RequestParams
         # The day of birth, between 1 and 31.
         sig { returns(Integer) }
@@ -1446,6 +1588,34 @@ module Stripe
           title: nil
         ); end
       end
+      class SelfReportedIncome < ::Stripe::RequestParams
+        # The amount in the minor currency unit (for example, cents for USD).
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        sig { params(amount: Integer, currency: String).void }
+        def initialize(amount: nil, currency: nil); end
+      end
+      class SelfReportedMonthlyHousingPayment < ::Stripe::RequestParams
+        # The amount in the minor currency unit (for example, cents for USD).
+        sig { returns(Integer) }
+        def amount; end
+        sig { params(_amount: Integer).returns(Integer) }
+        def amount=(_amount); end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        sig { params(amount: Integer, currency: String).void }
+        def initialize(amount: nil, currency: nil); end
+      end
       class UsCfpbData < ::Stripe::RequestParams
         class EthnicityDetails < ::Stripe::RequestParams
           # The persons ethnicity
@@ -1583,6 +1753,13 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::TokenCreateParams::Person::AddressKanji)).returns(T.nilable(::Stripe::TokenCreateParams::Person::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
+      # The person's place of birth.
+      sig { returns(T.nilable(::Stripe::TokenCreateParams::Person::BirthAddress)) }
+      def birth_address; end
+      sig {
+        params(_birth_address: T.nilable(::Stripe::TokenCreateParams::Person::BirthAddress)).returns(T.nilable(::Stripe::TokenCreateParams::Person::BirthAddress))
+       }
+      def birth_address=(_birth_address); end
       # The person's date of birth.
       sig { returns(T.nilable(T.any(String, ::Stripe::TokenCreateParams::Person::Dob))) }
       def dob; end
@@ -1695,6 +1872,22 @@ module Stripe
         params(_relationship: T.nilable(::Stripe::TokenCreateParams::Person::Relationship)).returns(T.nilable(::Stripe::TokenCreateParams::Person::Relationship))
        }
       def relationship=(_relationship); end
+      # The credit applicant's self-reported yearly income in minor units.
+      sig { returns(T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedIncome)) }
+      def self_reported_income; end
+      sig {
+        params(_self_reported_income: T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedIncome)).returns(T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedIncome))
+       }
+      def self_reported_income=(_self_reported_income); end
+      # The credit applicant's self-reported monthly housing payment in minor units.
+      sig {
+        returns(T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedMonthlyHousingPayment))
+       }
+      def self_reported_monthly_housing_payment; end
+      sig {
+        params(_self_reported_monthly_housing_payment: T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedMonthlyHousingPayment)).returns(T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedMonthlyHousingPayment))
+       }
+      def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
       # The last four digits of the person's Social Security number (U.S. only).
       sig { returns(T.nilable(String)) }
       def ssn_last_4; end
@@ -1715,13 +1908,14 @@ module Stripe
        }
       def verification=(_verification); end
       sig {
-        params(additional_tos_acceptances: T.nilable(::Stripe::TokenCreateParams::Person::AdditionalTosAcceptances), address: T.nilable(::Stripe::TokenCreateParams::Person::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Person::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Person::AddressKanji), dob: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Person::Dob)), documents: T.nilable(::Stripe::TokenCreateParams::Person::Documents), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenCreateParams::Person::RegisteredAddress), relationship: T.nilable(::Stripe::TokenCreateParams::Person::Relationship), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::TokenCreateParams::Person::UsCfpbData), verification: T.nilable(::Stripe::TokenCreateParams::Person::Verification)).void
+        params(additional_tos_acceptances: T.nilable(::Stripe::TokenCreateParams::Person::AdditionalTosAcceptances), address: T.nilable(::Stripe::TokenCreateParams::Person::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Person::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Person::AddressKanji), birth_address: T.nilable(::Stripe::TokenCreateParams::Person::BirthAddress), dob: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Person::Dob)), documents: T.nilable(::Stripe::TokenCreateParams::Person::Documents), email: T.nilable(String), first_name: T.nilable(String), first_name_kana: T.nilable(String), first_name_kanji: T.nilable(String), full_name_aliases: T.nilable(T.any(String, T::Array[String])), gender: T.nilable(String), id_number: T.nilable(String), id_number_secondary: T.nilable(String), last_name: T.nilable(String), last_name_kana: T.nilable(String), last_name_kanji: T.nilable(String), maiden_name: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), nationality: T.nilable(String), phone: T.nilable(String), political_exposure: T.nilable(String), registered_address: T.nilable(::Stripe::TokenCreateParams::Person::RegisteredAddress), relationship: T.nilable(::Stripe::TokenCreateParams::Person::Relationship), self_reported_income: T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedIncome), self_reported_monthly_housing_payment: T.nilable(::Stripe::TokenCreateParams::Person::SelfReportedMonthlyHousingPayment), ssn_last_4: T.nilable(String), us_cfpb_data: T.nilable(::Stripe::TokenCreateParams::Person::UsCfpbData), verification: T.nilable(::Stripe::TokenCreateParams::Person::Verification)).void
        }
       def initialize(
         additional_tos_acceptances: nil,
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        birth_address: nil,
         dob: nil,
         documents: nil,
         email: nil,
@@ -1742,6 +1936,8 @@ module Stripe
         political_exposure: nil,
         registered_address: nil,
         relationship: nil,
+        self_reported_income: nil,
+        self_reported_monthly_housing_payment: nil,
         ssn_last_4: nil,
         us_cfpb_data: nil,
         verification: nil

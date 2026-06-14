@@ -22,6 +22,51 @@ module Stripe
     end
 
     class Parent < ::Stripe::StripeObject
+      class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
+        # The pricing plan subscription that manages this charge
+        attr_reader :pricing_plan_subscription
+        # The pricing plan version at the time this charge was generated
+        attr_reader :pricing_plan_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardSubscriptionDetails < ::Stripe::StripeObject
+        # The rate card subscription that generated this invoice item
+        attr_reader :rate_card_subscription
+        # The rate card version that generated this invoice item
+        attr_reader :rate_card_version
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The subscription schedule that generated this invoice item
+        attr_reader :schedule
+        # The subscription associated with this schedule
+        attr_reader :subscription
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SubscriptionDetails < ::Stripe::StripeObject
         # The subscription that generated this invoice item
         attr_reader :subscription
@@ -36,13 +81,24 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Details about the pricing plan subscription that generated this invoice item
+      attr_reader :pricing_plan_subscription_details
+      # Details about the rate card subscription that generated this invoice item
+      attr_reader :rate_card_subscription_details
+      # Details about the subscription schedule that generated this invoice item
+      attr_reader :schedule_details
       # Details about the subscription that generated this invoice item
       attr_reader :subscription_details
       # The type of parent that generated this invoice item
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { subscription_details: SubscriptionDetails }
+        @inner_class_types = {
+          pricing_plan_subscription_details: PricingPlanSubscriptionDetails,
+          rate_card_subscription_details: RateCardSubscriptionDetails,
+          schedule_details: ScheduleDetails,
+          subscription_details: SubscriptionDetails,
+        }
       end
 
       def self.field_remappings
@@ -66,6 +122,23 @@ module Stripe
     end
 
     class Pricing < ::Stripe::StripeObject
+      class LicenseFeeDetails < ::Stripe::StripeObject
+        # The ID of the license fee this item is associated with
+        attr_reader :license_fee
+        # The version of the license fee this item is associated with
+        attr_reader :license_fee_version
+        # The ID of the licensed item this item is associated with
+        attr_reader :licensed_item
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class PriceDetails < ::Stripe::StripeObject
         # The ID of the price this item is associated with.
         attr_reader :price
@@ -80,15 +153,62 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class RateCardCustomPricingUnitOverageRateDetails < ::Stripe::StripeObject
+        # The ID of the custom pricing unit this item is associated with
+        attr_reader :custom_pricing_unit
+        # The ID of the custom pricing unit overage rate this item is associated with
+        attr_reader :custom_pricing_unit_overage_rate
+        # The ID of the one-time item this custom pricing unit overage rate is associated with
+        attr_reader :one_time_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class RateCardRateDetails < ::Stripe::StripeObject
+        # The ID of billable item this item is associated with
+        attr_reader :metered_item
+        # The ID of the rate card this item is associated with
+        attr_reader :rate_card
+        # The ID of the rate card rate this item is associated with
+        attr_reader :rate_card_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field license_fee_details
+      attr_reader :license_fee_details
       # Attribute for field price_details
       attr_reader :price_details
+      # Attribute for field rate_card_custom_pricing_unit_overage_rate_details
+      attr_reader :rate_card_custom_pricing_unit_overage_rate_details
+      # Attribute for field rate_card_rate_details
+      attr_reader :rate_card_rate_details
       # The type of the pricing details.
       attr_reader :type
       # The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
       attr_reader :unit_amount_decimal
 
       def self.inner_class_types
-        @inner_class_types = { price_details: PriceDetails }
+        @inner_class_types = {
+          license_fee_details: LicenseFeeDetails,
+          price_details: PriceDetails,
+          rate_card_custom_pricing_unit_overage_rate_details: RateCardCustomPricingUnitOverageRateDetails,
+          rate_card_rate_details: RateCardRateDetails,
+        }
       end
 
       def self.field_remappings
@@ -177,12 +297,16 @@ module Stripe
     attr_reader :discountable
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    attr_reader :frozen_fields
     # Unique identifier for the object.
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
     attr_reader :invoice
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
+    attr_reader :margins
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The amount after discounts, but before credits and taxes. This field is `null` for `discountable=true` items.

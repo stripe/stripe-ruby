@@ -158,6 +158,38 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class TaxIdElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+          sig { returns(String) }
+          def tax_id_redisplay; end
+          # Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+          sig { returns(String) }
+          def tax_id_save; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the Tax ID Element is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # This hash defines whether the Tax ID Element supports certain features.
+        sig { returns(T.nilable(Features)) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # This hash contains whether the buy button is enabled.
       sig { returns(BuyButton) }
       def buy_button; end
@@ -173,6 +205,9 @@ module Stripe
       # This hash contains whether the pricing table is enabled.
       sig { returns(PricingTable) }
       def pricing_table; end
+      # This hash contains whether the Tax ID Element is enabled and the features it supports.
+      sig { returns(T.nilable(TaxIdElement)) }
+      def tax_id_element; end
       def self.inner_class_types
         @inner_class_types = {
           buy_button: BuyButton,
@@ -180,6 +215,7 @@ module Stripe
           mobile_payment_element: MobilePaymentElement,
           payment_element: PaymentElement,
           pricing_table: PricingTable,
+          tax_id_element: TaxIdElement,
         }
       end
       def self.field_remappings

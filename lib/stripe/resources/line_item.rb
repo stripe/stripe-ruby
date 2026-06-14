@@ -44,6 +44,38 @@ module Stripe
       end
     end
 
+    class Display < ::Stripe::StripeObject
+      # Attribute for field description
+      attr_reader :description
+      # Attribute for field images
+      attr_reader :images
+      # Attribute for field name
+      attr_reader :name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class TaxCalculationReference < ::Stripe::StripeObject
+      # The calculation identifier for tax calculation response.
+      attr_reader :calculation_id
+      # The calculation identifier for tax calculation response line item.
+      attr_reader :calculation_item_id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Tax < ::Stripe::StripeObject
       # Amount of tax applied for this rate.
       attr_reader :amount
@@ -80,6 +112,8 @@ module Stripe
     attr_reader :description
     # The discounts applied to the line item.
     attr_reader :discounts
+    # Attribute for field display
+    attr_reader :display
     # Unique identifier for the object.
     attr_reader :id
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -88,8 +122,14 @@ module Stripe
     attr_reader :object
     # The price used to generate the line item.
     attr_reader :price
+    # The ID of the product for this line item.
+    #
+    # This will always be the same as `price.product`.
+    attr_reader :product
     # The quantity of products being purchased.
     attr_reader :quantity
+    # The tax calculation identifiers of the line item.
+    attr_reader :tax_calculation_reference
     # The taxes applied to the line item.
     attr_reader :taxes
 
@@ -97,6 +137,8 @@ module Stripe
       @inner_class_types = {
         adjustable_quantity: AdjustableQuantity,
         discounts: Discount,
+        display: Display,
+        tax_calculation_reference: TaxCalculationReference,
         taxes: Tax,
       }
     end

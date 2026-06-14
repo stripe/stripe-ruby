@@ -3,7 +3,7 @@
 
 module Stripe
   class AccountService < StripeService
-    attr_reader :capabilities, :external_accounts, :login_links, :persons
+    attr_reader :capabilities, :external_accounts, :login_links, :persons, :signals
 
     def initialize(requestor)
       super
@@ -11,6 +11,7 @@ module Stripe
       @external_accounts = Stripe::AccountExternalAccountService.new(@requestor)
       @login_links = Stripe::AccountLoginLinkService.new(@requestor)
       @persons = Stripe::AccountPersonService.new(@requestor)
+      @signals = Stripe::AccountSignalsService.new(@requestor)
     end
 
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -72,6 +73,50 @@ module Stripe
     # Retrieves the details of an account.
     def retrieve_current(params = {}, opts = {})
       request(method: :get, path: "/v1/account", params: params, opts: opts, base_address: :api)
+    end
+
+    # Serializes an Account create request into a batch job JSONL line.
+    def serialize_batch_create(params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes an Account delete request into a batch job JSONL line.
+    def serialize_batch_delete(account, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { account: account }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
+    end
+
+    # Serializes an Account update request into a batch job JSONL line.
+    def serialize_batch_update(account, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { account: account }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are

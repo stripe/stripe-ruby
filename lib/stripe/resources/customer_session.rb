@@ -163,6 +163,39 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class TaxIdElement < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+          attr_reader :tax_id_redisplay
+          # Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+          #
+          # When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+          attr_reader :tax_id_save
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the Tax ID Element is enabled.
+        attr_reader :enabled
+        # This hash defines whether the Tax ID Element supports certain features.
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # This hash contains whether the buy button is enabled.
       attr_reader :buy_button
       # This hash contains whether the customer sheet is enabled and the features it supports.
@@ -173,6 +206,8 @@ module Stripe
       attr_reader :payment_element
       # This hash contains whether the pricing table is enabled.
       attr_reader :pricing_table
+      # This hash contains whether the Tax ID Element is enabled and the features it supports.
+      attr_reader :tax_id_element
 
       def self.inner_class_types
         @inner_class_types = {
@@ -181,6 +216,7 @@ module Stripe
           mobile_payment_element: MobilePaymentElement,
           payment_element: PaymentElement,
           pricing_table: PricingTable,
+          tax_id_element: TaxIdElement,
         }
       end
 

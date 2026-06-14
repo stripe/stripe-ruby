@@ -26,6 +26,17 @@ module Stripe
       )
     end
 
+    # Retrieves a PaymentMethod's Balance.
+    def check_balance(payment_method, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(payment_method) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
     # Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://docs.stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
@@ -70,6 +81,21 @@ module Stripe
         opts: opts,
         base_address: :api
       )
+    end
+
+    # Serializes a PaymentMethod attach request into a batch job JSONL line.
+    def serialize_batch_attach(payment_method, params = {}, opts = {})
+      request_id = SecureRandom.uuid
+      stripe_version = opts[:stripe_version] || Stripe.api_version
+
+      request_body = {
+        id: request_id,
+        params: params,
+        stripe_version: stripe_version,
+      }
+      request_body[:path_params] = { payment_method: payment_method }
+      request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
+      JSON.generate(request_body)
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.

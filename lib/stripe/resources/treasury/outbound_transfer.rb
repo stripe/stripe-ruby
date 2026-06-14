@@ -120,6 +120,33 @@ module Stripe
         end
       end
 
+      class NetworkDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          # ACH Addenda record
+          attr_reader :addenda
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Details about an ACH transaction.
+        attr_reader :ach
+        # The type of flow that originated the OutboundTransfer.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class ReturnedDetails < ::Stripe::StripeObject
         # Reason for the return.
         attr_reader :code
@@ -225,6 +252,8 @@ module Stripe
       attr_reader :livemode
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
+      # Details about the network used for the OutboundTransfer.
+      attr_reader :network_details
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # Details about a returned OutboundTransfer. Only set when the status is `returned`.
@@ -374,6 +403,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           destination_payment_method_details: DestinationPaymentMethodDetails,
+          network_details: NetworkDetails,
           returned_details: ReturnedDetails,
           status_transitions: StatusTransitions,
           tracking_details: TrackingDetails,

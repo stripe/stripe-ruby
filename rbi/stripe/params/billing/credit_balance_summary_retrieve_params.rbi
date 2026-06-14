@@ -7,6 +7,15 @@ module Stripe
     class CreditBalanceSummaryRetrieveParams < ::Stripe::RequestParams
       class Filter < ::Stripe::RequestParams
         class ApplicabilityScope < ::Stripe::RequestParams
+          class BillableItem < ::Stripe::RequestParams
+            # The billable item ID this credit grant should apply to.
+            sig { returns(String) }
+            def id; end
+            sig { params(_id: String).returns(String) }
+            def id=(_id); end
+            sig { params(id: String).void }
+            def initialize(id: nil); end
+          end
           class Price < ::Stripe::RequestParams
             # The price ID this credit grant should apply to.
             sig { returns(String) }
@@ -16,6 +25,15 @@ module Stripe
             sig { params(id: String).void }
             def initialize(id: nil); end
           end
+          # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::BillableItem]))
+           }
+          def billable_items; end
+          sig {
+            params(_billable_items: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::BillableItem])).returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::BillableItem]))
+           }
+          def billable_items=(_billable_items); end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
           sig { returns(T.nilable(String)) }
           def price_type; end
@@ -31,9 +49,9 @@ module Stripe
            }
           def prices=(_prices); end
           sig {
-            params(price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::Price])).void
+            params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::Price])).void
            }
-          def initialize(price_type: nil, prices: nil); end
+          def initialize(billable_items: nil, price_type: nil, prices: nil); end
         end
         # The billing credit applicability scope for which to fetch credit balance summary.
         sig {

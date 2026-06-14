@@ -7,5 +7,16 @@ module Stripe
     attr_reader :billing
     attr_reader :commerce
     attr_reader :core
+    attr_reader :data
+    attr_reader :extend
+    attr_reader :iam
+    attr_reader :money_management
+    attr_reader :network
+    attr_reader :orchestrated_commerce
+    attr_reader :payments
+    attr_reader :reporting
+    attr_reader :signals
+    attr_reader :tax
+    attr_reader :test_helpers
   end
 end

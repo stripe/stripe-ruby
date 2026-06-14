@@ -27,16 +27,44 @@ module Stripe
     end
 
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Time span for the redeemed discount.
+        attr_accessor :duration
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        attr_accessor :timestamp
+        # The type of calculation made to determine when the discount ends.
+        attr_accessor :type
+
+        def initialize(duration: nil, timestamp: nil, type: nil)
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
       # ID of an existing discount on the object (or one of its ancestors) to reuse.
       attr_accessor :discount
+      # Details to determine how long the discount should be applied for.
+      attr_accessor :discount_end
       # ID of the promotion code to create a new discount for.
       attr_accessor :promotion_code
 
-      def initialize(coupon: nil, discount: nil, promotion_code: nil)
+      def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
         @coupon = coupon
         @discount = discount
+        @discount_end = discount_end
         @promotion_code = promotion_code
       end
     end
@@ -76,18 +104,730 @@ module Stripe
       end
     end
 
+    class Line < ::Stripe::RequestParams
+      class Action < ::Stripe::RequestParams
+        class AddDiscount < ::Stripe::RequestParams
+          class DiscountEnd < ::Stripe::RequestParams
+            # The type of calculation made to determine when the discount ends.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_accessor :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_accessor :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_accessor :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_accessor :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_accessor :second
+
+                def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                  @day_of_month = day_of_month
+                  @hour = hour
+                  @minute = minute
+                  @month = month
+                  @second = second
+                end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              attr_accessor :custom
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+            # Configures service period cycle anchoring.
+            attr_accessor :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+            attr_accessor :start_date
+
+            def initialize(service_period_anchor_config: nil, start_date: nil)
+              @service_period_anchor_config = service_period_anchor_config
+              @start_date = start_date
+            end
+          end
+          # The coupon code to redeem.
+          attr_accessor :coupon
+          # An ID of an existing discount for a coupon that was already redeemed.
+          attr_accessor :discount
+          # Details to determine how long the discount should be applied for.
+          attr_accessor :discount_end
+          # The index, starting at 0, at which to position the new discount. When not supplied, Stripe defaults to appending the discount to the end of the `discounts` array.
+          attr_accessor :index
+          # The promotion code to redeem.
+          attr_accessor :promotion_code
+          # Settings for discount application including service period anchoring.
+          attr_accessor :settings
+
+          def initialize(
+            coupon: nil,
+            discount: nil,
+            discount_end: nil,
+            index: nil,
+            promotion_code: nil,
+            settings: nil
+          )
+            @coupon = coupon
+            @discount = discount
+            @discount_end = discount_end
+            @index = index
+            @promotion_code = promotion_code
+            @settings = settings
+          end
+        end
+
+        class AddItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                attr_accessor :interval
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # Time span for the redeemed discount.
+              attr_accessor :duration
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              attr_accessor :timestamp
+              # The type of calculation made to determine when the discount ends.
+              attr_accessor :type
+
+              def initialize(duration: nil, timestamp: nil, type: nil)
+                @duration = duration
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  attr_accessor :day_of_month
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  attr_accessor :hour
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :minute
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  attr_accessor :month
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :second
+
+                  def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                    @day_of_month = day_of_month
+                    @hour = hour
+                    @minute = minute
+                    @month = month
+                    @second = second
+                  end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                attr_accessor :custom
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+              # Configures service period cycle anchoring.
+              attr_accessor :service_period_anchor_config
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+              attr_accessor :start_date
+
+              def initialize(service_period_anchor_config: nil, start_date: nil)
+                @service_period_anchor_config = service_period_anchor_config
+                @start_date = start_date
+              end
+            end
+            # ID of the coupon to create a new discount for.
+            attr_accessor :coupon
+            # ID of an existing discount on the object (or one of its ancestors) to reuse.
+            attr_accessor :discount
+            # Details to determine how long the discount should be applied for.
+            attr_accessor :discount_end
+            # ID of the promotion code to create a new discount for.
+            attr_accessor :promotion_code
+            # Settings for discount application including service period anchoring.
+            attr_accessor :settings
+
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            )
+              @coupon = coupon
+              @discount = discount
+              @discount_end = discount_end
+              @promotion_code = promotion_code
+              @settings = settings
+            end
+          end
+
+          class Trial < ::Stripe::RequestParams
+            # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+            attr_accessor :converts_to
+            # Determines the type of trial for this item.
+            attr_accessor :type
+
+            def initialize(converts_to: nil, type: nil)
+              @converts_to = converts_to
+              @type = type
+            end
+          end
+          # The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
+          attr_accessor :discounts
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          attr_accessor :metadata
+          # The ID of the price object.
+          attr_accessor :price
+          # Quantity for this item.
+          attr_accessor :quantity
+          # The tax rates that apply to this subscription item. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+          attr_accessor :tax_rates
+          # Options that configure the trial on the subscription item.
+          attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
+
+          def initialize(
+            discounts: nil,
+            metadata: nil,
+            price: nil,
+            quantity: nil,
+            tax_rates: nil,
+            trial: nil,
+            trial_offer: nil
+          )
+            @discounts = discounts
+            @metadata = metadata
+            @price = price
+            @quantity = quantity
+            @tax_rates = tax_rates
+            @trial = trial
+            @trial_offer = trial_offer
+          end
+        end
+
+        class RemoveDiscount < ::Stripe::RequestParams
+          # The coupon code to remove from the `discounts` array.
+          attr_accessor :coupon
+          # The ID of a discount to remove from the `discounts` array.
+          attr_accessor :discount
+          # The ID of a promotion code to remove from the `discounts` array.
+          attr_accessor :promotion_code
+
+          def initialize(coupon: nil, discount: nil, promotion_code: nil)
+            @coupon = coupon
+            @discount = discount
+            @promotion_code = promotion_code
+          end
+        end
+
+        class RemoveItem < ::Stripe::RequestParams
+          # ID of a price to remove.
+          attr_accessor :price
+
+          def initialize(price: nil)
+            @price = price
+          end
+        end
+
+        class SetDiscount < ::Stripe::RequestParams
+          class Settings < ::Stripe::RequestParams
+            class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+              class Custom < ::Stripe::RequestParams
+                # The day of the month the anchor should be. Ranges from 1 to 31.
+                attr_accessor :day_of_month
+                # The hour of the day the anchor should be. Ranges from 0 to 23.
+                attr_accessor :hour
+                # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                attr_accessor :minute
+                # The month to start full cycle periods. Ranges from 1 to 12.
+                attr_accessor :month
+                # The second of the minute the anchor should be. Ranges from 0 to 59.
+                attr_accessor :second
+
+                def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                  @day_of_month = day_of_month
+                  @hour = hour
+                  @minute = minute
+                  @month = month
+                  @second = second
+                end
+              end
+              # Anchor the service period to a custom date. Type must be `custom` to specify.
+              attr_accessor :custom
+              # The type of service period anchor config. Defaults to `inherit` if omitted.
+              attr_accessor :type
+
+              def initialize(custom: nil, type: nil)
+                @custom = custom
+                @type = type
+              end
+            end
+            # Configures service period cycle anchoring.
+            attr_accessor :service_period_anchor_config
+            # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+            attr_accessor :start_date
+
+            def initialize(service_period_anchor_config: nil, start_date: nil)
+              @service_period_anchor_config = service_period_anchor_config
+              @start_date = start_date
+            end
+          end
+          # The coupon code to replace the `discounts` array with.
+          attr_accessor :coupon
+          # An ID of an existing discount to replace the `discounts` array with.
+          attr_accessor :discount
+          # An ID of an existing promotion code to replace the `discounts` array with.
+          attr_accessor :promotion_code
+          # Settings for discount application including service period anchoring.
+          attr_accessor :settings
+
+          def initialize(coupon: nil, discount: nil, promotion_code: nil, settings: nil)
+            @coupon = coupon
+            @discount = discount
+            @promotion_code = promotion_code
+            @settings = settings
+          end
+        end
+
+        class SetItem < ::Stripe::RequestParams
+          class Discount < ::Stripe::RequestParams
+            class DiscountEnd < ::Stripe::RequestParams
+              class Duration < ::Stripe::RequestParams
+                # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                attr_accessor :interval
+                # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # Time span for the redeemed discount.
+              attr_accessor :duration
+              # A precise Unix timestamp for the discount to end. Must be in the future.
+              attr_accessor :timestamp
+              # The type of calculation made to determine when the discount ends.
+              attr_accessor :type
+
+              def initialize(duration: nil, timestamp: nil, type: nil)
+                @duration = duration
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+
+            class Settings < ::Stripe::RequestParams
+              class ServicePeriodAnchorConfig < ::Stripe::RequestParams
+                class Custom < ::Stripe::RequestParams
+                  # The day of the month the anchor should be. Ranges from 1 to 31.
+                  attr_accessor :day_of_month
+                  # The hour of the day the anchor should be. Ranges from 0 to 23.
+                  attr_accessor :hour
+                  # The minute of the hour the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :minute
+                  # The month to start full cycle periods. Ranges from 1 to 12.
+                  attr_accessor :month
+                  # The second of the minute the anchor should be. Ranges from 0 to 59.
+                  attr_accessor :second
+
+                  def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+                    @day_of_month = day_of_month
+                    @hour = hour
+                    @minute = minute
+                    @month = month
+                    @second = second
+                  end
+                end
+                # Anchor the service period to a custom date. Type must be `custom` to specify.
+                attr_accessor :custom
+                # The type of service period anchor config. Defaults to `inherit` if omitted.
+                attr_accessor :type
+
+                def initialize(custom: nil, type: nil)
+                  @custom = custom
+                  @type = type
+                end
+              end
+              # Configures service period cycle anchoring.
+              attr_accessor :service_period_anchor_config
+              # The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+              attr_accessor :start_date
+
+              def initialize(service_period_anchor_config: nil, start_date: nil)
+                @service_period_anchor_config = service_period_anchor_config
+                @start_date = start_date
+              end
+            end
+            # ID of the coupon to create a new discount for.
+            attr_accessor :coupon
+            # ID of an existing discount on the object (or one of its ancestors) to reuse.
+            attr_accessor :discount
+            # Details to determine how long the discount should be applied for.
+            attr_accessor :discount_end
+            # ID of the promotion code to create a new discount for.
+            attr_accessor :promotion_code
+            # Settings for discount application including service period anchoring.
+            attr_accessor :settings
+
+            def initialize(
+              coupon: nil,
+              discount: nil,
+              discount_end: nil,
+              promotion_code: nil,
+              settings: nil
+            )
+              @coupon = coupon
+              @discount = discount
+              @discount_end = discount_end
+              @promotion_code = promotion_code
+              @settings = settings
+            end
+          end
+
+          class Trial < ::Stripe::RequestParams
+            # List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
+            attr_accessor :converts_to
+            # Determines the type of trial for this item.
+            attr_accessor :type
+
+            def initialize(converts_to: nil, type: nil)
+              @converts_to = converts_to
+              @type = type
+            end
+          end
+          # If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
+          attr_accessor :discounts
+          # If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
+          attr_accessor :metadata
+          # The ID of the price object.
+          attr_accessor :price
+          # If an item with the `price` already exists, passing this will override the quantity on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `quantity`.
+          attr_accessor :quantity
+          # If an item with the `price` already exists, passing this will override the `tax_rates` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `tax_rates`.
+          attr_accessor :tax_rates
+          # If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+          attr_accessor :trial
+          # The ID of the trial offer to apply to the configuration item.
+          attr_accessor :trial_offer
+
+          def initialize(
+            discounts: nil,
+            metadata: nil,
+            price: nil,
+            quantity: nil,
+            tax_rates: nil,
+            trial: nil,
+            trial_offer: nil
+          )
+            @discounts = discounts
+            @metadata = metadata
+            @price = price
+            @quantity = quantity
+            @tax_rates = tax_rates
+            @trial = trial
+            @trial_offer = trial_offer
+          end
+        end
+        # Details for the `add_discount` type.
+        attr_accessor :add_discount
+        # Details for the `add_item` type.
+        attr_accessor :add_item
+        # Details for the `add_metadata` type: specify a hash of key-value pairs.
+        attr_accessor :add_metadata
+        # Details for the `remove_discount` type.
+        attr_accessor :remove_discount
+        # Details for the `remove_item` type.
+        attr_accessor :remove_item
+        # Details for the `remove_metadata` type: specify an array of metadata keys.
+        attr_accessor :remove_metadata
+        # Details for the `set_discounts` type.
+        attr_accessor :set_discounts
+        # Details for the `set_items` type.
+        attr_accessor :set_items
+        # Details for the `set_metadata` type: specify an array of key-value pairs.
+        attr_accessor :set_metadata
+        # The type of action the quote line performs.
+        attr_accessor :type
+
+        def initialize(
+          add_discount: nil,
+          add_item: nil,
+          add_metadata: nil,
+          remove_discount: nil,
+          remove_item: nil,
+          remove_metadata: nil,
+          set_discounts: nil,
+          set_items: nil,
+          set_metadata: nil,
+          type: nil
+        )
+          @add_discount = add_discount
+          @add_item = add_item
+          @add_metadata = add_metadata
+          @remove_discount = remove_discount
+          @remove_item = remove_item
+          @remove_metadata = remove_metadata
+          @set_discounts = set_discounts
+          @set_items = set_items
+          @set_metadata = set_metadata
+          @type = type
+        end
+      end
+
+      class AppliesTo < ::Stripe::RequestParams
+        # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        attr_accessor :new_reference
+        # The ID of the schedule the line applies to.
+        attr_accessor :subscription_schedule
+        # Describes whether the quote line is affecting a new schedule or an existing schedule.
+        attr_accessor :type
+
+        def initialize(new_reference: nil, subscription_schedule: nil, type: nil)
+          @new_reference = new_reference
+          @subscription_schedule = subscription_schedule
+          @type = type
+        end
+      end
+
+      class CancelSubscriptionSchedule < ::Stripe::RequestParams
+        # Timestamp helper to cancel the underlying schedule on the accompanying line's start date. Must be set to `line_starts_at`.
+        attr_accessor :cancel_at
+        # If the subscription schedule is `active`, indicates if a final invoice will be generated that contains any un-invoiced metered usage and new/pending proration invoice items. Boolean that defaults to `true`.
+        attr_accessor :invoice_now
+        # If the subscription schedule is `active`, indicates if the cancellation should be prorated. Boolean that defaults to `true`.
+        attr_accessor :prorate
+
+        def initialize(cancel_at: nil, invoice_now: nil, prorate: nil)
+          @cancel_at = cancel_at
+          @invoice_now = invoice_now
+          @prorate = prorate
+        end
+      end
+
+      class EndsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          # The ID of a specific discount.
+          attr_accessor :discount
+
+          def initialize(discount: nil)
+            @discount = discount
+          end
+        end
+
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          attr_accessor :interval
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
+        # Use the `end` time of a given discount.
+        attr_accessor :discount_end
+        # Time span for the quote line starting from the `starts_at` date.
+        attr_accessor :duration
+        # A precise Unix timestamp.
+        attr_accessor :timestamp
+        # Select a way to pass in `ends_at`.
+        attr_accessor :type
+
+        def initialize(discount_end: nil, duration: nil, timestamp: nil, type: nil)
+          @discount_end = discount_end
+          @duration = duration
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class SetPauseCollection < ::Stripe::RequestParams
+        class Set < ::Stripe::RequestParams
+          # The payment collection behavior for this subscription while paused.
+          attr_accessor :behavior
+
+          def initialize(behavior: nil)
+            @behavior = behavior
+          end
+        end
+        # Details of the pause_collection behavior to apply to the amendment.
+        attr_accessor :set
+        # Determines the type of the pause_collection amendment.
+        attr_accessor :type
+
+        def initialize(set: nil, type: nil)
+          @set = set
+          @type = type
+        end
+      end
+
+      class StartsAt < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          # The ID of a specific discount.
+          attr_accessor :discount
+
+          def initialize(discount: nil)
+            @discount = discount
+          end
+        end
+
+        class LineEndsAt < ::Stripe::RequestParams
+          # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+          attr_accessor :index
+
+          def initialize(index: nil)
+            @index = index
+          end
+        end
+        # Use the `end` time of a given discount.
+        attr_accessor :discount_end
+        # The timestamp the given line ends at.
+        attr_accessor :line_ends_at
+        # A precise Unix timestamp.
+        attr_accessor :timestamp
+        # Select a way to pass in `starts_at`.
+        attr_accessor :type
+
+        def initialize(discount_end: nil, line_ends_at: nil, timestamp: nil, type: nil)
+          @discount_end = discount_end
+          @line_ends_at = line_ends_at
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
+      class TrialSettings < ::Stripe::RequestParams
+        class EndBehavior < ::Stripe::RequestParams
+          # Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+          attr_accessor :prorate_up_front
+
+          def initialize(prorate_up_front: nil)
+            @prorate_up_front = prorate_up_front
+          end
+        end
+        # Defines how the subscription should behave when a trial ends.
+        attr_accessor :end_behavior
+
+        def initialize(end_behavior: nil)
+          @end_behavior = end_behavior
+        end
+      end
+      # An array of operations the quote line performs.
+      attr_accessor :actions
+      # Details to identify the subscription schedule the quote line applies to.
+      attr_accessor :applies_to
+      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+      attr_accessor :billing_cycle_anchor
+      # A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
+      attr_accessor :cancel_subscription_schedule
+      # Configures how the quote handles billing for line transitions.
+      attr_accessor :effective_at
+      # Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
+      attr_accessor :ends_at
+      # Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
+      attr_accessor :proration_behavior
+      # Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
+      attr_accessor :set_pause_collection
+      # Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
+      attr_accessor :set_schedule_end
+      # Details to identify the earliest timestamp where the proposed change should take effect.
+      attr_accessor :starts_at
+      # Settings related to subscription trials.
+      attr_accessor :trial_settings
+
+      def initialize(
+        actions: nil,
+        applies_to: nil,
+        billing_cycle_anchor: nil,
+        cancel_subscription_schedule: nil,
+        effective_at: nil,
+        ends_at: nil,
+        proration_behavior: nil,
+        set_pause_collection: nil,
+        set_schedule_end: nil,
+        starts_at: nil,
+        trial_settings: nil
+      )
+        @actions = actions
+        @applies_to = applies_to
+        @billing_cycle_anchor = billing_cycle_anchor
+        @cancel_subscription_schedule = cancel_subscription_schedule
+        @effective_at = effective_at
+        @ends_at = ends_at
+        @proration_behavior = proration_behavior
+        @set_pause_collection = set_pause_collection
+        @set_schedule_end = set_schedule_end
+        @starts_at = starts_at
+        @trial_settings = trial_settings
+      end
+    end
+
     class LineItem < ::Stripe::RequestParams
       class Discount < ::Stripe::RequestParams
+        class DiscountEnd < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # Time span for the redeemed discount.
+          attr_accessor :duration
+          # A precise Unix timestamp for the discount to end. Must be in the future.
+          attr_accessor :timestamp
+          # The type of calculation made to determine when the discount ends.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
         # ID of an existing discount on the object (or one of its ancestors) to reuse.
         attr_accessor :discount
+        # Details to determine how long the discount should be applied for.
+        attr_accessor :discount_end
         # ID of the promotion code to create a new discount for.
         attr_accessor :promotion_code
 
-        def initialize(coupon: nil, discount: nil, promotion_code: nil)
+        def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil)
           @coupon = coupon
           @discount = discount
+          @discount_end = discount_end
           @promotion_code = promotion_code
         end
       end
@@ -164,6 +904,84 @@ module Stripe
     end
 
     class SubscriptionData < ::Stripe::RequestParams
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+
+        def initialize(bill_from: nil, bill_until: nil)
+          @bill_from = bill_from
+          @bill_until = bill_until
+        end
+      end
+
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -183,29 +1001,413 @@ module Stripe
           @type = type
         end
       end
+
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_from = bill_from
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+
+      class Prebilling < ::Stripe::RequestParams
+        # This is used to determine the number of billing cycles to prebill.
+        attr_accessor :iterations
+
+        def initialize(iterations: nil)
+          @iterations = iterations
+        end
+      end
+      # Describes the period to bill for upon accepting the quote.
+      attr_accessor :bill_on_acceptance
+      # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+      attr_accessor :billing_behavior
+      # When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
+      attr_accessor :billing_cycle_anchor
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
       attr_accessor :billing_mode
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
       # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
       attr_accessor :description
-      # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
+      # When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
       attr_accessor :effective_date
+      # Behavior of the subscription schedule and underlying subscription when it ends.
+      attr_accessor :end_behavior
+      # The id of a subscription that the quote will update. By default, the quote will contain the state of the subscription (such as line items, collection method and billing thresholds) unless overridden.
+      attr_accessor :from_subscription
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
+      attr_accessor :phase_effective_at
+      # If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
+      attr_accessor :prebilling
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+      #
+      # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+      #
+      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://docs.stripe.com/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+      #
+      # Prorations can be disabled by passing `none`.
+      attr_accessor :proration_behavior
       # Integer representing the number of trial period days before the customer is charged for the first time.
       attr_accessor :trial_period_days
 
       def initialize(
+        bill_on_acceptance: nil,
+        billing_behavior: nil,
+        billing_cycle_anchor: nil,
         billing_mode: nil,
+        billing_schedules: nil,
         description: nil,
         effective_date: nil,
+        end_behavior: nil,
+        from_subscription: nil,
         metadata: nil,
+        phase_effective_at: nil,
+        prebilling: nil,
+        proration_behavior: nil,
         trial_period_days: nil
       )
+        @bill_on_acceptance = bill_on_acceptance
+        @billing_behavior = billing_behavior
+        @billing_cycle_anchor = billing_cycle_anchor
         @billing_mode = billing_mode
+        @billing_schedules = billing_schedules
         @description = description
         @effective_date = effective_date
+        @end_behavior = end_behavior
+        @from_subscription = from_subscription
         @metadata = metadata
+        @phase_effective_at = phase_effective_at
+        @prebilling = prebilling
+        @proration_behavior = proration_behavior
         @trial_period_days = trial_period_days
+      end
+    end
+
+    class SubscriptionDataOverride < ::Stripe::RequestParams
+      class AppliesTo < ::Stripe::RequestParams
+        # A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+        attr_accessor :new_reference
+        # The ID of the schedule the line applies to.
+        attr_accessor :subscription_schedule
+        # Describes whether the quote line is affecting a new schedule or an existing schedule.
+        attr_accessor :type
+
+        def initialize(new_reference: nil, subscription_schedule: nil, type: nil)
+          @new_reference = new_reference
+          @subscription_schedule = subscription_schedule
+          @type = type
+        end
+      end
+
+      class BillOnAcceptance < ::Stripe::RequestParams
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+
+        def initialize(bill_from: nil, bill_until: nil)
+          @bill_from = bill_from
+          @bill_until = bill_until
+        end
+      end
+
+      class BillingSchedule < ::Stripe::RequestParams
+        class AppliesTo < ::Stripe::RequestParams
+          # The ID of the price object.
+          attr_accessor :price
+          # Controls which subscription items the billing schedule applies to.
+          attr_accessor :type
+
+          def initialize(price: nil, type: nil)
+            @price = price
+            @type = type
+          end
+        end
+
+        class BillFrom < ::Stripe::RequestParams
+          class LineStartsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of a Quote line to start the bill period from.
+          attr_accessor :line_starts_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_from` time.
+          attr_accessor :type
+
+          def initialize(line_starts_at: nil, timestamp: nil, type: nil)
+            @line_starts_at = line_starts_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class BillUntil < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class LineEndsAt < ::Stripe::RequestParams
+            # The ID of a quote line.
+            attr_accessor :id
+            # The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+            attr_accessor :index
+
+            def initialize(id: nil, index: nil)
+              @id = id
+              @index = index
+            end
+          end
+          # Details of the duration over which to bill.
+          attr_accessor :duration
+          # Details of a Quote line item from which to bill until.
+          attr_accessor :line_ends_at
+          # A precise Unix timestamp.
+          attr_accessor :timestamp
+          # The type of method to specify the `bill_until` time.
+          attr_accessor :type
+
+          def initialize(duration: nil, line_ends_at: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @line_ends_at = line_ends_at
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+        # Configure billing schedule differently for individual subscription items.
+        attr_accessor :applies_to
+        # The start of the period to bill from when the Quote is accepted.
+        attr_accessor :bill_from
+        # The end of the period to bill until when the Quote is accepted.
+        attr_accessor :bill_until
+        # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+        attr_accessor :key
+
+        def initialize(applies_to: nil, bill_from: nil, bill_until: nil, key: nil)
+          @applies_to = applies_to
+          @bill_from = bill_from
+          @bill_until = bill_until
+          @key = key
+        end
+      end
+      # Whether the override applies to an existing Subscription Schedule or a new Subscription Schedule.
+      attr_accessor :applies_to
+      # Describes the period to bill for upon accepting the quote.
+      attr_accessor :bill_on_acceptance
+      # Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+      attr_accessor :billing_behavior
+      # Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+      attr_accessor :billing_schedules
+      # The customer the Subscription Data override applies to. This is only relevant when `applies_to.type=new_reference`.
+      attr_accessor :customer
+      # The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+      attr_accessor :description
+      # Behavior of the subscription schedule and underlying subscription when it ends.
+      attr_accessor :end_behavior
+      # Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
+      attr_accessor :phase_effective_at
+      # Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations). When creating a subscription, valid values are `create_prorations` or `none`.
+      #
+      # When updating a subscription, valid values are `create_prorations`, `none`, or `always_invoice`.
+      #
+      # Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://docs.stripe.com/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
+      #
+      # Prorations can be disabled by passing `none`.
+      attr_accessor :proration_behavior
+
+      def initialize(
+        applies_to: nil,
+        bill_on_acceptance: nil,
+        billing_behavior: nil,
+        billing_schedules: nil,
+        customer: nil,
+        description: nil,
+        end_behavior: nil,
+        phase_effective_at: nil,
+        proration_behavior: nil
+      )
+        @applies_to = applies_to
+        @bill_on_acceptance = bill_on_acceptance
+        @billing_behavior = billing_behavior
+        @billing_schedules = billing_schedules
+        @customer = customer
+        @description = description
+        @end_behavior = end_behavior
+        @phase_effective_at = phase_effective_at
+        @proration_behavior = proration_behavior
       end
     end
 
@@ -223,6 +1425,8 @@ module Stripe
         @destination = destination
       end
     end
+    # Set to true to allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
+    attr_accessor :allow_backdated_lines
     # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. There cannot be any line items with recurring prices when using this field.
     attr_accessor :application_fee_amount
     # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
@@ -255,18 +1459,23 @@ module Stripe
     attr_accessor :invoice_settings
     # A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
     attr_accessor :line_items
+    # A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+    attr_accessor :lines
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The account on behalf of which to charge.
     attr_accessor :on_behalf_of
     # When creating a subscription or subscription schedule, the specified configuration data will be used. There must be at least one line item with a recurring price for a subscription or subscription schedule to be created. A subscription schedule is created if `subscription_data[effective_date]` is present and in the future, otherwise a subscription is created.
     attr_accessor :subscription_data
+    # List representing overrides for `subscription_data` configurations for specific subscription schedules.
+    attr_accessor :subscription_data_overrides
     # ID of the test clock to attach to the quote.
     attr_accessor :test_clock
     # The data with which to automatically create a Transfer for each of the invoices.
     attr_accessor :transfer_data
 
     def initialize(
+      allow_backdated_lines: nil,
       application_fee_amount: nil,
       application_fee_percent: nil,
       automatic_tax: nil,
@@ -283,12 +1492,15 @@ module Stripe
       header: nil,
       invoice_settings: nil,
       line_items: nil,
+      lines: nil,
       metadata: nil,
       on_behalf_of: nil,
       subscription_data: nil,
+      subscription_data_overrides: nil,
       test_clock: nil,
       transfer_data: nil
     )
+      @allow_backdated_lines = allow_backdated_lines
       @application_fee_amount = application_fee_amount
       @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
@@ -305,9 +1517,11 @@ module Stripe
       @header = header
       @invoice_settings = invoice_settings
       @line_items = line_items
+      @lines = lines
       @metadata = metadata
       @on_behalf_of = on_behalf_of
       @subscription_data = subscription_data
+      @subscription_data_overrides = subscription_data_overrides
       @test_clock = test_clock
       @transfer_data = transfer_data
     end

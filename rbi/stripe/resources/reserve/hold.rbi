@@ -65,6 +65,11 @@ module Stripe
       # Which source balance type this ReserveHold reserves funds from. One of `bank_account`, `card`, or `fpx`.
       sig { returns(String) }
       def source_type; end
+      # Returns a list of ReserveHolds previously created. The ReserveHolds are returned in sorted order, with the most recent ReserveHolds appearing first.
+      sig {
+        params(params: T.any(::Stripe::Reserve::HoldListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end

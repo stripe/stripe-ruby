@@ -4,6 +4,32 @@
 # typed: true
 module Stripe
   class InvoiceUpdateParams < ::Stripe::RequestParams
+    class AmountsDue < ::Stripe::RequestParams
+      # The amount in cents (or local equivalent).
+      sig { returns(Integer) }
+      def amount; end
+      sig { params(_amount: Integer).returns(Integer) }
+      def amount=(_amount); end
+      # Number of days from when invoice is finalized until the payment is due.
+      sig { returns(T.nilable(Integer)) }
+      def days_until_due; end
+      sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def days_until_due=(_days_until_due); end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(String) }
+      def description; end
+      sig { params(_description: String).returns(String) }
+      def description=(_description); end
+      # Date on which a payment plan’s payment is due.
+      sig { returns(T.nilable(Integer)) }
+      def due_date; end
+      sig { params(_due_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def due_date=(_due_date); end
+      sig {
+        params(amount: Integer, days_until_due: T.nilable(Integer), description: String, due_date: T.nilable(Integer)).void
+       }
+      def initialize(amount: nil, days_until_due: nil, description: nil, due_date: nil); end
+    end
     class AutomaticTax < ::Stripe::RequestParams
       class Liability < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
@@ -51,6 +77,43 @@ module Stripe
       def initialize(name: nil, value: nil); end
     end
     class Discount < ::Stripe::RequestParams
+      class DiscountEnd < ::Stripe::RequestParams
+        class Duration < ::Stripe::RequestParams
+          # Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+          sig { returns(String) }
+          def interval; end
+          sig { params(_interval: String).returns(String) }
+          def interval=(_interval); end
+          # The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+          sig { returns(Integer) }
+          def interval_count; end
+          sig { params(_interval_count: Integer).returns(Integer) }
+          def interval_count=(_interval_count); end
+          sig { params(interval: String, interval_count: Integer).void }
+          def initialize(interval: nil, interval_count: nil); end
+        end
+        # Time span for the redeemed discount.
+        sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd::Duration)) }
+        def duration; end
+        sig {
+          params(_duration: T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd::Duration)).returns(T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd::Duration))
+         }
+        def duration=(_duration); end
+        # A precise Unix timestamp for the discount to end. Must be in the future.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def timestamp=(_timestamp); end
+        # The type of calculation made to determine when the discount ends.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig {
+          params(duration: T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd::Duration), timestamp: T.nilable(Integer), type: String).void
+         }
+        def initialize(duration: nil, timestamp: nil, type: nil); end
+      end
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
       def coupon; end
@@ -61,15 +124,22 @@ module Stripe
       def discount; end
       sig { params(_discount: T.nilable(String)).returns(T.nilable(String)) }
       def discount=(_discount); end
+      # Details to determine how long the discount should be applied for.
+      sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd)) }
+      def discount_end; end
+      sig {
+        params(_discount_end: T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd)).returns(T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd))
+       }
+      def discount_end=(_discount_end); end
       # ID of the promotion code to create a new discount for.
       sig { returns(T.nilable(String)) }
       def promotion_code; end
       sig { params(_promotion_code: T.nilable(String)).returns(T.nilable(String)) }
       def promotion_code=(_promotion_code); end
       sig {
-        params(coupon: T.nilable(String), discount: T.nilable(String), promotion_code: T.nilable(String)).void
+        params(coupon: T.nilable(String), discount: T.nilable(String), discount_end: T.nilable(::Stripe::InvoiceUpdateParams::Discount::DiscountEnd), promotion_code: T.nilable(String)).void
        }
-      def initialize(coupon: nil, discount: nil, promotion_code: nil); end
+      def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
     class Issuer < ::Stripe::RequestParams
       # The connected account being referenced when `type` is `account`.
@@ -125,6 +195,8 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
+        class Bizum < ::Stripe::RequestParams; end
+        class Blik < ::Stripe::RequestParams; end
         class Card < ::Stripe::RequestParams
           class Installments < ::Stripe::RequestParams
             class Plan < ::Stripe::RequestParams
@@ -190,6 +262,7 @@ module Stripe
            }
           def initialize(installments: nil, request_three_d_secure: nil); end
         end
+        class CheckScan < ::Stripe::RequestParams; end
         class CustomerBalance < ::Stripe::RequestParams
           class BankTransfer < ::Stripe::RequestParams
             class EuBankTransfer < ::Stripe::RequestParams
@@ -239,6 +312,7 @@ module Stripe
            }
           def initialize(bank_transfer: nil, funding_type: nil); end
         end
+        class IdBankTransfer < ::Stripe::RequestParams; end
         class Konbini < ::Stripe::RequestParams; end
         class Payto < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
@@ -337,8 +411,15 @@ module Stripe
                 params(_account_subcategories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
                }
               def account_subcategories=(_account_subcategories); end
-              sig { params(account_subcategories: T.nilable(T::Array[String])).void }
-              def initialize(account_subcategories: nil); end
+              # ID of the institution to use to filter for selectable accounts.
+              sig { returns(T.nilable(String)) }
+              def institution; end
+              sig { params(_institution: T.nilable(String)).returns(T.nilable(String)) }
+              def institution=(_institution); end
+              sig {
+                params(account_subcategories: T.nilable(T::Array[String]), institution: T.nilable(String)).void
+               }
+              def initialize(account_subcategories: nil, institution: nil); end
             end
             # Provide filters for the linked accounts that the customer can select for the payment method.
             sig {
@@ -387,6 +468,20 @@ module Stripe
            }
           def initialize(financial_connections: nil, verification_method: nil); end
         end
+        class WechatPay < ::Stripe::RequestParams
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          sig { returns(T.nilable(String)) }
+          def app_id; end
+          sig { params(_app_id: T.nilable(String)).returns(T.nilable(String)) }
+          def app_id=(_app_id); end
+          # The client type that the end customer will pay from.
+          sig { returns(T.nilable(String)) }
+          def client; end
+          sig { params(_client: T.nilable(String)).returns(T.nilable(String)) }
+          def client=(_client); end
+          sig { params(app_id: T.nilable(String), client: T.nilable(String)).void }
+          def initialize(app_id: nil, client: nil); end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
@@ -405,6 +500,24 @@ module Stripe
           params(_bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact=(_bancontact); end
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
+         }
+        def bizum; end
+        sig {
+          params(_bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)))
+         }
+        def bizum=(_bizum); end
+        # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik; end
+        sig {
+          params(_blik: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik=(_blik); end
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
@@ -414,6 +527,15 @@ module Stripe
           params(_card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)))
          }
         def card=(_card); end
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
+         }
+        def check_scan; end
+        sig {
+          params(_check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)))
+         }
+        def check_scan=(_check_scan); end
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
@@ -423,6 +545,15 @@ module Stripe
           params(_customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)))
          }
         def customer_balance=(_customer_balance); end
+        # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)))
+         }
+        def id_bank_transfer; end
+        sig {
+          params(_id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)))
+         }
+        def id_bank_transfer=(_id_bank_transfer); end
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)))
@@ -477,20 +608,34 @@ module Stripe
           params(_us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)))
          }
         def us_bank_account=(_us_bank_account); end
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay)))
+         }
+        def wechat_pay; end
+        sig {
+          params(_wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay)))
+         }
+        def wechat_pay=(_wechat_pay); end
+        sig {
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
          }
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          bizum: nil,
+          blik: nil,
           card: nil,
+          check_scan: nil,
           customer_balance: nil,
+          id_bank_transfer: nil,
           konbini: nil,
           payto: nil,
           pix: nil,
           sepa_debit: nil,
           upi: nil,
-          us_bank_account: nil
+          us_bank_account: nil,
+          wechat_pay: nil
         ); end
       end
       # ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
@@ -821,6 +966,13 @@ module Stripe
       params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
      }
     def account_tax_ids=(_account_tax_ids); end
+    # List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
+    sig { returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::AmountsDue]))) }
+    def amounts_due; end
+    sig {
+      params(_amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::AmountsDue]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::AmountsDue])))
+     }
+    def amounts_due=(_amounts_due); end
     # A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://docs.stripe.com/billing/invoices/connect#collecting-fees).
     sig { returns(T.nilable(Integer)) }
     def application_fee_amount; end
@@ -860,6 +1012,13 @@ module Stripe
     def days_until_due; end
     sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def days_until_due=(_days_until_due); end
+    # The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
+    sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+    def default_margins; end
+    sig {
+      params(_default_margins: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+     }
+    def default_margins=(_default_margins); end
     # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     sig { returns(T.nilable(String)) }
     def default_payment_method; end
@@ -976,10 +1135,11 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField])), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(::Stripe::InvoiceUpdateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings), rendering: T.nilable(::Stripe::InvoiceUpdateParams::Rendering), shipping_cost: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails)), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData))).void
+      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::AmountsDue])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceUpdateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::CustomField])), days_until_due: T.nilable(Integer), default_margins: T.nilable(T.any(String, T::Array[String])), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceUpdateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(T.any(String, Integer)), expand: T.nilable(T::Array[String]), footer: T.nilable(String), issuer: T.nilable(::Stripe::InvoiceUpdateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings), rendering: T.nilable(::Stripe::InvoiceUpdateParams::Rendering), shipping_cost: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingCost)), shipping_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::ShippingDetails)), statement_descriptor: T.nilable(String), transfer_data: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::TransferData))).void
      }
     def initialize(
       account_tax_ids: nil,
+      amounts_due: nil,
       application_fee_amount: nil,
       auto_advance: nil,
       automatic_tax: nil,
@@ -987,6 +1147,7 @@ module Stripe
       collection_method: nil,
       custom_fields: nil,
       days_until_due: nil,
+      default_margins: nil,
       default_payment_method: nil,
       default_source: nil,
       default_tax_rates: nil,

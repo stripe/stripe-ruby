@@ -70,6 +70,34 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Protections < ::Stripe::StripeObject
+      class PspMigration < ::Stripe::StripeObject
+        # Time at which the protection expires. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def expires_at; end
+        # Time at which the protection was requested. Measured in seconds since the Unix epoch.
+        sig { returns(Integer) }
+        def requested_at; end
+        # The status of the capability protection.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field psp_migration
+      sig { returns(T.nilable(PspMigration)) }
+      def psp_migration; end
+      def self.inner_class_types
+        @inner_class_types = {psp_migration: PspMigration}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Requirements < ::Stripe::StripeObject
       class Alternative < ::Stripe::StripeObject
         # Fields that can be provided to resolve all fields in `original_fields_due`.
@@ -145,6 +173,9 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # Attribute for field protections
+    sig { returns(T.nilable(Protections)) }
+    def protections; end
     # Whether the capability has been requested.
     sig { returns(T::Boolean) }
     def requested; end

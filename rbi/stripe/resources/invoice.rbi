@@ -36,6 +36,38 @@ module Stripe
   #
   # Related guide: [Send invoices to customers](https://docs.stripe.com/billing/invoices/sending)
   class Invoice < APIResource
+    class AmountsDue < ::Stripe::StripeObject
+      # Incremental amount due for this payment in cents (or local equivalent).
+      sig { returns(Integer) }
+      def amount; end
+      # The amount in cents (or local equivalent) that was paid for this payment.
+      sig { returns(Integer) }
+      def amount_paid; end
+      # The difference between the payment’s amount and amount_paid, in cents (or local equivalent).
+      sig { returns(Integer) }
+      def amount_remaining; end
+      # Number of days from when invoice is finalized until the payment is due.
+      sig { returns(T.nilable(Integer)) }
+      def days_until_due; end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      # Date on which a payment plan’s payment is due.
+      sig { returns(T.nilable(Integer)) }
+      def due_date; end
+      # Timestamp when the payment was paid.
+      sig { returns(T.nilable(Integer)) }
+      def paid_at; end
+      # The status of the payment, one of `open`, `paid`, or `past_due`
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class AutomaticTax < ::Stripe::StripeObject
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
@@ -311,6 +343,17 @@ module Stripe
       end
     end
     class Parent < ::Stripe::StripeObject
+      class BillingCadenceDetails < ::Stripe::StripeObject
+        # The billing cadence that generated this invoice
+        sig { returns(String) }
+        def billing_cadence; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class QuoteDetails < ::Stripe::StripeObject
         # The quote that generated this invoice
         sig { returns(String) }
@@ -322,17 +365,13 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class SubscriptionDetails < ::Stripe::StripeObject
-        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
-        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
-        sig { returns(T.nilable(T::Hash[String, String])) }
-        def metadata; end
-        # The subscription that generated this invoice
-        sig { returns(T.any(String, ::Stripe::Subscription)) }
+      class ScheduleDetails < ::Stripe::StripeObject
+        # The schedule that generated this invoice
+        sig { returns(String) }
+        def schedule; end
+        # The subscription associated with this schedule
+        sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
         def subscription; end
-        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
-        sig { returns(T.nilable(Integer)) }
-        def subscription_proration_date; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -340,9 +379,50 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SubscriptionDetails < ::Stripe::StripeObject
+        class PauseCollection < ::Stripe::StripeObject
+          # The payment collection behavior for this subscription while paused.
+          sig { returns(T.nilable(String)) }
+          def behavior; end
+          # The time after which the subscription will resume collecting payments.
+          sig { returns(T.nilable(Integer)) }
+          def resumes_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+        #  *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        # If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
+        sig { returns(T.nilable(PauseCollection)) }
+        def pause_collection; end
+        # The subscription that generated this invoice
+        sig { returns(T.any(String, ::Stripe::Subscription)) }
+        def subscription; end
+        # Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
+        sig { returns(T.nilable(Integer)) }
+        def subscription_proration_date; end
+        def self.inner_class_types
+          @inner_class_types = {pause_collection: PauseCollection}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Details about the billing cadence that generated this invoice
+      sig { returns(T.nilable(BillingCadenceDetails)) }
+      def billing_cadence_details; end
       # Details about the quote that generated this invoice
       sig { returns(T.nilable(QuoteDetails)) }
       def quote_details; end
+      # Details about the schedule that generated this invoice
+      sig { returns(T.nilable(ScheduleDetails)) }
+      def schedule_details; end
       # Details about the subscription that generated this invoice
       sig { returns(T.nilable(SubscriptionDetails)) }
       def subscription_details; end
@@ -351,7 +431,9 @@ module Stripe
       def type; end
       def self.inner_class_types
         @inner_class_types = {
+          billing_cadence_details: BillingCadenceDetails,
           quote_details: QuoteDetails,
+          schedule_details: ScheduleDetails,
           subscription_details: SubscriptionDetails,
         }
       end
@@ -397,6 +479,22 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Blik < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Card < ::Stripe::StripeObject
           class Installments < ::Stripe::StripeObject
             # Whether Installments are enabled for this Invoice.
@@ -417,6 +515,14 @@ module Stripe
           def request_three_d_secure; end
           def self.inner_class_types
             @inner_class_types = {installments: Installments}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CheckScan < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -456,6 +562,14 @@ module Stripe
           def funding_type; end
           def self.inner_class_types
             @inner_class_types = {bank_transfer: BankTransfer}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class IdBankTransfer < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -556,6 +670,9 @@ module Stripe
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
+              # The institution to use to filter for possible accounts to link.
+              sig { returns(T.nilable(String)) }
+              def institution; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -592,18 +709,44 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          sig { returns(T.nilable(String)) }
+          def app_id; end
+          # The client type that the end customer will pay from.
+          sig { returns(T.nilable(String)) }
+          def client; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
+        # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Blik)) }
+        def blik; end
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(CheckScan)) }
+        def check_scan; end
         # If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(CustomerBalance)) }
         def customer_balance; end
+        # If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(IdBankTransfer)) }
+        def id_bank_transfer; end
         # If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
@@ -622,18 +765,26 @@ module Stripe
         # If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(WechatPay)) }
+        def wechat_pay; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
+            blik: Blik,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
             payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
         def self.field_remappings
@@ -843,6 +994,20 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class TotalMarginAmount < ::Stripe::StripeObject
+      # The amount, in cents (or local equivalent), of the reduction in line item amount.
+      sig { returns(Integer) }
+      def amount; end
+      # The margin that was applied to get this margin amount.
+      sig { returns(T.any(String, ::Stripe::Margin)) }
+      def margin; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class TotalPretaxCreditAmount < ::Stripe::StripeObject
       # The amount, in cents (or local equivalent), of the pretax credit amount.
       sig { returns(Integer) }
@@ -853,6 +1018,9 @@ module Stripe
       # The discount that was applied to get this pretax credit amount.
       sig { returns(T.nilable(T.any(String, ::Stripe::Discount))) }
       def discount; end
+      # The margin that was applied to get this pretax credit amount.
+      sig { returns(T.nilable(T.any(String, ::Stripe::Margin))) }
+      def margin; end
       # Type of the pretax credit amount referenced.
       sig { returns(String) }
       def type; end
@@ -866,7 +1034,7 @@ module Stripe
     class TotalTax < ::Stripe::StripeObject
       class TaxRateDetails < ::Stripe::StripeObject
         # ID of the tax rate
-        sig { returns(String) }
+        sig { returns(T.any(String, ::Stripe::TaxRate)) }
         def tax_rate; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -927,6 +1095,9 @@ module Stripe
     # This is the sum of all the shipping amounts.
     sig { returns(Integer) }
     def amount_shipping; end
+    # List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
+    sig { returns(T.nilable(T::Array[AmountsDue])) }
+    def amounts_due; end
     # ID of the Connect Application that created the invoice.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
@@ -998,6 +1169,9 @@ module Stripe
     # The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(T::Array[CustomerTaxId])) }
     def customer_tax_ids; end
+    # The margins applied to the invoice. Can be overridden by line item `margins`. Use `expand[]=default_margins` to expand each margin.
+    sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Margin)])) }
+    def default_margins; end
     # ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
     def default_payment_method; end
@@ -1138,6 +1312,9 @@ module Stripe
     # The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     sig { returns(T.nilable(Integer)) }
     def total_excluding_tax; end
+    # The aggregate amounts calculated per margin across all line items.
+    sig { returns(T.nilable(T::Array[TotalMarginAmount])) }
+    def total_margin_amounts; end
     # Contains pretax credit amounts (ex: discount, credit grants, etc) that apply to this invoice. This is a combined list of total_pretax_credit_amounts across all invoice line items.
     sig { returns(T.nilable(T::Array[TotalPretaxCreditAmount])) }
     def total_pretax_credit_amounts; end
@@ -1220,6 +1397,18 @@ module Stripe
       params(params: T.any(::Stripe::InvoiceDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
     def delete(params = {}, opts = {}); end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    sig {
+      params(params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+     }
+    def detach_payment(params = {}, opts = {}); end
+
+    # Detaches a payment from the invoice, removing it from the list of payments
+    sig {
+      params(invoice: String, params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+     }
+    def self.detach_payment(invoice, params = {}, opts = {}); end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     sig {

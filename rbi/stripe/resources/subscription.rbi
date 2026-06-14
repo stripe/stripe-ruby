@@ -213,6 +213,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class LastPriceMigrationError < ::Stripe::StripeObject
+      class FailedTransition < ::Stripe::StripeObject
+        # The original price to be migrated.
+        sig { returns(String) }
+        def source_price; end
+        # The intended resulting price of the migration.
+        sig { returns(String) }
+        def target_price; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The time at which the price migration encountered an error.
+      sig { returns(Integer) }
+      def errored_at; end
+      # The involved price pairs in each failed transition.
+      sig { returns(T::Array[FailedTransition]) }
+      def failed_transitions; end
+      # The type of error encountered by the price migration.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {failed_transitions: FailedTransition}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class ManagedPayments < ::Stripe::StripeObject
       # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
       sig { returns(T::Boolean) }
@@ -276,6 +307,53 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Bizum < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Amount to be charged for future payments. Required when `amount_type=fixed`.
+            sig { returns(T.nilable(Integer)) }
+            def amount; end
+            # Indicates the mandate amount type.
+            sig { returns(T.nilable(String)) }
+            def amount_type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Blik < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            sig { returns(T.nilable(Integer)) }
+            def expires_after; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          sig { returns(T.nilable(MandateOptions)) }
+          def mandate_options; end
+          def self.inner_class_types
+            @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Card < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -305,6 +383,14 @@ module Stripe
           def request_three_d_secure; end
           def self.inner_class_types
             @inner_class_types = {mandate_options: MandateOptions}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CheckScan < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -344,6 +430,14 @@ module Stripe
           def funding_type; end
           def self.inner_class_types
             @inner_class_types = {bank_transfer: BankTransfer}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class IdBankTransfer < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -464,6 +558,9 @@ module Stripe
               # The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
               sig { returns(T.nilable(T::Array[String])) }
               def account_subcategories; end
+              # The institution to use to filter for possible accounts to link.
+              sig { returns(T.nilable(String)) }
+              def institution; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -500,18 +597,44 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+          sig { returns(T.nilable(String)) }
+          def app_id; end
+          # The client type that the end customer will pay from.
+          sig { returns(T.nilable(String)) }
+          def client; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Bizum)) }
+        def bizum; end
+        # This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(Blik)) }
+        def blik; end
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Card)) }
         def card; end
+        # This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(CheckScan)) }
+        def check_scan; end
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(CustomerBalance)) }
         def customer_balance; end
+        # This sub-hash contains details about the Indonesia bank transfer payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(IdBankTransfer)) }
+        def id_bank_transfer; end
         # This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Konbini)) }
         def konbini; end
@@ -530,18 +653,26 @@ module Stripe
         # This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # This sub-hash contains details about the WeChat Pay payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(WechatPay)) }
+        def wechat_pay; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            bizum: Bizum,
+            blik: Blik,
             card: Card,
+            check_scan: CheckScan,
             customer_balance: CustomerBalance,
+            id_bank_transfer: IdBankTransfer,
             konbini: Konbini,
             payto: Payto,
             pix: Pix,
             sepa_debit: SepaDebit,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
         def self.field_remappings
@@ -594,6 +725,9 @@ module Stripe
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
+      # The number of iterations of prebilling to apply.
+      sig { returns(T.nilable(Integer)) }
+      def prebilling_iterations; end
       # List of subscription items, each with an attached plan, that will be set if the update is applied.
       sig { returns(T.nilable(T::Array[::Stripe::SubscriptionItem])) }
       def subscription_items; end
@@ -610,12 +744,71 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Prebilling < ::Stripe::StripeObject
+      # ID of the prebilling invoice.
+      sig { returns(T.any(String, ::Stripe::Invoice)) }
+      def invoice; end
+      # The end of the last period for which the invoice pre-bills.
+      sig { returns(Integer) }
+      def period_end; end
+      # The start of the first period for which the invoice pre-bills.
+      sig { returns(Integer) }
+      def period_start; end
+      # Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+      sig { returns(T.nilable(String)) }
+      def update_behavior; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class PresentmentDetails < ::Stripe::StripeObject
       # Currency used for customer payments.
       sig { returns(String) }
       def presentment_currency; end
       def self.inner_class_types
         @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class StatusDetails < ::Stripe::StripeObject
+      class Paused < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          # The reason that the subscription was paused.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information on the `type=subscription` pause.
+        sig { returns(Subscription) }
+        def subscription; end
+        # Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+        sig { returns(Integer) }
+        def transitioned_at; end
+        # The type of pause.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {subscription: Subscription}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Indicates when and why the subscription transitioned to the paused status.
+      sig { returns(Paused) }
+      def paused; end
+      def self.inner_class_types
+        @inner_class_types = {paused: Paused}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -637,6 +830,9 @@ module Stripe
     end
     class TrialSettings < ::Stripe::StripeObject
       class EndBehavior < ::Stripe::StripeObject
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+        sig { returns(T.nilable(String)) }
+        def billing_cycle_anchor; end
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         sig { returns(String) }
         def missing_payment_method; end
@@ -666,6 +862,9 @@ module Stripe
     # Attribute for field automatic_tax
     sig { returns(AutomaticTax) }
     def automatic_tax; end
+    # The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    sig { returns(T.nilable(String)) }
+    def billing_cadence; end
     # The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     sig { returns(Integer) }
     def billing_cycle_anchor; end
@@ -740,6 +939,9 @@ module Stripe
     # List of subscription items, each with an attached price.
     sig { returns(::Stripe::ListObject) }
     def items; end
+    # Details of the most recent price migration that failed for the subscription.
+    sig { returns(T.nilable(LastPriceMigrationError)) }
+    def last_price_migration_error; end
     # The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def latest_invoice; end
@@ -776,6 +978,9 @@ module Stripe
     # If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     sig { returns(T.nilable(PendingUpdate)) }
     def pending_update; end
+    # Time period and invoice for a Subscription billed in advance.
+    sig { returns(T.nilable(Prebilling)) }
+    def prebilling; end
     # Attribute for field presentment_details
     sig { returns(T.nilable(PresentmentDetails)) }
     def presentment_details; end
@@ -798,6 +1003,9 @@ module Stripe
     # If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
     sig { returns(String) }
     def status; end
+    # Describes changes to the subscription's status.
+    sig { returns(T.nilable(StatusDetails)) }
+    def status_details; end
     # ID of the test clock this subscription belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::TestHelpers::TestClock))) }
     def test_clock; end
@@ -813,6 +1021,18 @@ module Stripe
     # If the subscription has a trial, the beginning of that trial.
     sig { returns(T.nilable(Integer)) }
     def trial_start; end
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+    sig {
+      params(params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def attach_cadence(params = {}, opts = {}); end
+
+    # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+    sig {
+      params(subscription: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def self.attach_cadence(subscription, params = {}, opts = {}); end
+
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
@@ -874,6 +1094,18 @@ module Stripe
       params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
     def self.migrate(subscription, params = {}, opts = {}); end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    sig {
+      params(params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def pause(params = {}, opts = {}); end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    sig {
+      params(subscription: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+     }
+    def self.pause(subscription, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     sig {

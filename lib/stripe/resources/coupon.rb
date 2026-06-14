@@ -41,6 +41,54 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class Script < ::Stripe::StripeObject
+      # The configuration values of the script. The keys and values are specific to the script implementation.
+      attr_reader :configuration
+      # The name of the script used to calculate the discount.
+      attr_reader :display_name
+      # The script implementation ID for this coupon.
+      attr_reader :id
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class ServicePeriod < ::Stripe::StripeObject
+      class Iterations < ::Stripe::StripeObject
+        # The number of iterations the service period will repeat for. Only used when type is `count`.
+        attr_reader :count
+        # The type of iterations.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+      attr_reader :interval
+      # The number of intervals for which the coupon will be applied.
+      attr_reader :interval_count
+      # Attribute for field iterations
+      attr_reader :iterations
+
+      def self.inner_class_types
+        @inner_class_types = { iterations: Iterations }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     attr_reader :amount_off
     # Attribute for field applies_to
@@ -73,8 +121,14 @@ module Stripe
     attr_reader :percent_off
     # Date after which the coupon can no longer be redeemed.
     attr_reader :redeem_by
+    # Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    attr_reader :script
+    # Attribute for field service_period
+    attr_reader :service_period
     # Number of times this coupon has been applied to a customer.
     attr_reader :times_redeemed
+    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    attr_reader :type
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid
 
@@ -121,7 +175,12 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { applies_to: AppliesTo, currency_options: CurrencyOptions }
+      @inner_class_types = {
+        applies_to: AppliesTo,
+        currency_options: CurrencyOptions,
+        script: Script,
+        service_period: ServicePeriod,
+      }
     end
 
     def self.field_remappings

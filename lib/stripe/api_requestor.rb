@@ -858,8 +858,46 @@ module Stripe
       when "idempotency_error"
         IdempotencyError.new(error_data[:message], **opts)
       # switch cases: The beginning of the section generated from our OpenAPI spec
+      when "already_canceled"
+        AlreadyCanceledError.new(error_data[:message], **opts)
+      when "already_exists"
+        AlreadyExistsError.new(error_data[:message], **opts)
+      when "blocked_by_stripe"
+        BlockedByStripeError.new(error_data[:message], **opts)
+      when "cannot_proceed"
+        CannotProceedError.new(error_data[:message], **opts, reason: error_data[:reason])
+      when "controlled_by_alternate_resource"
+        ControlledByAlternateResourceError.new(error_data[:message], **opts)
+      when "controlled_by_dashboard"
+        ControlledByDashboardError.new(error_data[:message], **opts)
+      when "feature_not_enabled"
+        FeatureNotEnabledError.new(error_data[:message], **opts)
+      when "financial_account_not_open"
+        FinancialAccountNotOpenError.new(error_data[:message], **opts)
+      when "fx_quote_expired"
+        FxQuoteExpiredError.new(error_data[:message], **opts)
+      when "insufficient_funds"
+        InsufficientFundsError.new(error_data[:message], **opts)
+      when "invalid_payment_method"
+
+        InvalidPaymentMethodError.new(
+          error_data[:message],
+          **opts,
+          invalid_param: error_data[:invalid_param]
+        )
+
+      when "invalid_payout_method"
+        InvalidPayoutMethodError.new(error_data[:message], **opts)
+      when "non_zero_balance"
+        NonZeroBalanceError.new(error_data[:message], **opts)
+      when "not_cancelable"
+        NotCancelableError.new(error_data[:message], **opts)
+      when "quota_exceeded"
+        QuotaExceededError.new(error_data[:message], **opts)
       when "rate_limit"
         RateLimitError.new(error_data[:message], **opts)
+      when "recipient_not_notifiable"
+        RecipientNotNotifiableError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec

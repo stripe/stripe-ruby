@@ -3,7 +3,9 @@
 .rvmrc
 Gemfile.lock
 tags
-/.bundle/
-coverage/
+
+
+
 .idea/
-.ruby-version
+.ru
+@

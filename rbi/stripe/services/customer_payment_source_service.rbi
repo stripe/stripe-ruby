@@ -32,6 +32,30 @@ module Stripe
      }
     def retrieve(customer, id, params = {}, opts = {}); end
 
+    # Serializes a CustomerPaymentSource create request into a batch job JSONL line.
+    sig {
+      params(customer: String, params: ::Stripe::CustomerPaymentSourceCreateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_create(customer, params = {}, opts = {}); end
+
+    # Serializes a CustomerPaymentSource delete request into a batch job JSONL line.
+    sig {
+      params(customer: String, id: String, params: ::Stripe::CustomerPaymentSourceDeleteParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_delete(customer, id, params = {}, opts = {}); end
+
+    # Serializes a CustomerPaymentSource update request into a batch job JSONL line.
+    sig {
+      params(customer: String, id: String, params: ::Stripe::CustomerPaymentSourceUpdateParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_update(customer, id, params = {}, opts = {}); end
+
+    # Serializes a CustomerPaymentSource verify request into a batch job JSONL line.
+    sig {
+      params(customer: String, id: String, params: ::Stripe::CustomerPaymentSourceVerifyParams, opts: T.untyped).returns(String)
+     }
+    def serialize_batch_verify(customer, id, params = {}, opts = {}); end
+
     # Update a specified source for a given customer.
     sig {
       params(customer: String, id: String, params: T.any(::Stripe::CustomerPaymentSourceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))

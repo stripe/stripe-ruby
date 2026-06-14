@@ -112,6 +112,9 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
+      # The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+      sig { returns(T.nilable(String)) }
+      def display_name; end
       # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
       # Stripe or the platform can control Features via the requested field.
       sig { returns(T.nilable(::Stripe::Treasury::FinancialAccountFeatures)) }

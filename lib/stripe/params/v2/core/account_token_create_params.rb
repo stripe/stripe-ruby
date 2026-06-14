@@ -66,11 +66,255 @@ module Stripe
                   @shown_and_accepted = shown_and_accepted
                 end
               end
+
+              class CardCreator < ::Stripe::RequestParams
+                class Commercial < ::Stripe::RequestParams
+                  class AccountHolder < ::Stripe::RequestParams
+                    # The boolean value indicating if the terms of service have been accepted.
+                    attr_accessor :shown_and_accepted
+
+                    def initialize(shown_and_accepted: nil)
+                      @shown_and_accepted = shown_and_accepted
+                    end
+                  end
+
+                  class Celtic < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The boolean value indicating if the terms of service have been accepted.
+                      attr_accessor :shown_and_accepted
+
+                      def initialize(shown_and_accepted: nil)
+                        @shown_and_accepted = shown_and_accepted
+                      end
+                    end
+
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @spend_card = spend_card
+                    end
+                  end
+
+                  class CrossRiverBank < ::Stripe::RequestParams
+                    class ApplePay < ::Stripe::RequestParams
+                      # The boolean value indicating if the terms of service have been accepted.
+                      attr_accessor :shown_and_accepted
+
+                      def initialize(shown_and_accepted: nil)
+                        @shown_and_accepted = shown_and_accepted
+                      end
+                    end
+
+                    class ChargeCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class Platform < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+                      # Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :platform
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil, platform: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                        @platform = platform
+                      end
+                    end
+
+                    class SpendCard < ::Stripe::RequestParams
+                      class BankTerms < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+
+                      class FinancingDisclosures < ::Stripe::RequestParams
+                        # The boolean value indicating if the terms of service have been accepted.
+                        attr_accessor :shown_and_accepted
+
+                        def initialize(shown_and_accepted: nil)
+                          @shown_and_accepted = shown_and_accepted
+                        end
+                      end
+                      # Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :bank_terms
+                      # Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                      attr_accessor :financing_disclosures
+
+                      def initialize(bank_terms: nil, financing_disclosures: nil)
+                        @bank_terms = bank_terms
+                        @financing_disclosures = financing_disclosures
+                      end
+                    end
+                    # Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :apple_pay
+                    # Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :charge_card
+                    # Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+                    attr_accessor :spend_card
+
+                    def initialize(apple_pay: nil, charge_card: nil, spend_card: nil)
+                      @apple_pay = apple_pay
+                      @charge_card = charge_card
+                      @spend_card = spend_card
+                    end
+                  end
+                  # Terms of service acceptances for Stripe commercial card issuing.
+                  attr_accessor :account_holder
+                  # Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+                  attr_accessor :celtic
+                  # Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+                  attr_accessor :cross_river_bank
+
+                  def initialize(account_holder: nil, celtic: nil, cross_river_bank: nil)
+                    @account_holder = account_holder
+                    @celtic = celtic
+                    @cross_river_bank = cross_river_bank
+                  end
+                end
+                # Terms of service acceptances to create cards for commercial issuing use cases.
+                attr_accessor :commercial
+
+                def initialize(commercial: nil)
+                  @commercial = commercial
+                end
+              end
+
+              class CryptoStorer < ::Stripe::RequestParams
+                # The boolean value indicating if the terms of service have been accepted.
+                attr_accessor :shown_and_accepted
+
+                def initialize(shown_and_accepted: nil)
+                  @shown_and_accepted = shown_and_accepted
+                end
+              end
+
+              class Storer < ::Stripe::RequestParams
+                # The boolean value indicating if the terms of service have been accepted.
+                attr_accessor :shown_and_accepted
+
+                def initialize(shown_and_accepted: nil)
+                  @shown_and_accepted = shown_and_accepted
+                end
+              end
               # Details on the Account's acceptance of the [Stripe Services Agreement]; IP, date, and User Agent are expanded by Stripe.
               attr_accessor :account
+              # Details on the Account's acceptance of Issuing-specific terms of service.
+              attr_accessor :card_creator
+              # Details on the Account's acceptance of Crypto-storer-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              attr_accessor :crypto_storer
+              # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              attr_accessor :storer
 
-              def initialize(account: nil)
+              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil)
                 @account = account
+                @card_creator = card_creator
+                @crypto_storer = crypto_storer
+                @storer = storer
               end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.
@@ -498,6 +742,8 @@ module Stripe
             attr_accessor :address
             # The business gross annual revenue for its preceding fiscal year.
             attr_accessor :annual_revenue
+            # A detailed description of the business's compliance and anti-money laundering controls and practices.
+            attr_accessor :compliance_screening_description
             # A document verifying the business.
             attr_accessor :documents
             # Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
@@ -522,6 +768,7 @@ module Stripe
             def initialize(
               address: nil,
               annual_revenue: nil,
+              compliance_screening_description: nil,
               documents: nil,
               estimated_worker_count: nil,
               id_numbers: nil,
@@ -535,6 +782,7 @@ module Stripe
             )
               @address = address
               @annual_revenue = annual_revenue
+              @compliance_screening_description = compliance_screening_description
               @documents = documents
               @estimated_worker_count = estimated_worker_count
               @id_numbers = id_numbers

@@ -30,6 +30,26 @@ module Stripe
             @us_bank_account = us_bank_account
           end
         end
+
+        class NetworkDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # Addenda record data associated with this ReceivedDebit.
+            attr_accessor :addenda
+
+            def initialize(addenda: nil)
+              @addenda = addenda
+            end
+          end
+          # Optional fields for `ach`.
+          attr_accessor :ach
+          # The type of flow that originated the ReceivedDebit.
+          attr_accessor :type
+
+          def initialize(ach: nil, type: nil)
+            @ach = ach
+            @type = type
+          end
+        end
         # Amount (in cents) to be transferred.
         attr_accessor :amount
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -44,6 +64,8 @@ module Stripe
         attr_accessor :initiating_payment_method_details
         # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
         attr_accessor :network
+        # Details about the network used for the ReceivedDebit.
+        attr_accessor :network_details
 
         def initialize(
           amount: nil,
@@ -52,7 +74,8 @@ module Stripe
           expand: nil,
           financial_account: nil,
           initiating_payment_method_details: nil,
-          network: nil
+          network: nil,
+          network_details: nil
         )
           @amount = amount
           @currency = currency
@@ -61,6 +84,7 @@ module Stripe
           @financial_account = financial_account
           @initiating_payment_method_details = initiating_payment_method_details
           @network = network
+          @network_details = network_details
         end
       end
     end

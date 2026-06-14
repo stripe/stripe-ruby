@@ -63,6 +63,11 @@ module Stripe
       def limit; end
       sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def limit=(_limit); end
+      # Only return transactions that are associated with the given settlement.
+      sig { returns(T.nilable(String)) }
+      def settlement; end
+      sig { params(_settlement: T.nilable(String)).returns(T.nilable(String)) }
+      def settlement=(_settlement); end
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       sig { returns(T.nilable(String)) }
       def starting_after; end
@@ -74,7 +79,7 @@ module Stripe
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(card: T.nilable(String), cardholder: T.nilable(String), created: T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String), type: T.nilable(String)).void
+        params(card: T.nilable(String), cardholder: T.nilable(String), created: T.nilable(T.any(::Stripe::Issuing::TransactionListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), settlement: T.nilable(String), starting_after: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(
         card: nil,
@@ -83,6 +88,7 @@ module Stripe
         ending_before: nil,
         expand: nil,
         limit: nil,
+        settlement: nil,
         starting_after: nil,
         type: nil
       ); end

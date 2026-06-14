@@ -111,6 +111,32 @@ module Stripe
       )
     end
 
+    # Perform a decremental authorization on an eligible
+    # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+    # PaymentIntent's status must be requires_capture and
+    # [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+    # must be available.
+    #
+    # Decremental authorizations decrease the authorized amount on your customer's card
+    # to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+    #
+    # After decrement, the PaymentIntent object
+    # returns with the updated
+    # [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+    # The PaymentIntent will now be capturable up to the new authorized amount.
+    #
+    # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+    # After it's fully captured, a PaymentIntent can no longer be decremented.
+    def decrement_authorization(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Perform an incremental authorization on an eligible
     # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
     # PaymentIntent's status must be requires_capture and
@@ -158,6 +184,24 @@ module Stripe
       )
     end
 
+    # Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+    #
+    # When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+    # requires_reauthorization status with amount_capturable set to 0. This endpoint
+    # brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+    #
+    # This is useful for retail and ecommerce scenarios with delayed shipments where
+    # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+    def reauthorize(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Retrieves the details of a PaymentIntent that has previously been created.
     #
     # You can retrieve a PaymentIntent client-side using a publishable key when the client_secret is in the query string.
@@ -187,6 +231,17 @@ module Stripe
       )
     end
 
+    # Trigger an external action on a PaymentIntent.
+    def trigger_action(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Updates properties on a PaymentIntent object without confirming.
     #
     # Depending on which properties you update, you might need to confirm the
@@ -198,6 +253,17 @@ module Stripe
       request(
         method: :post,
         path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
+    # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+    def update_crypto_refund_address(intent, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
         params: params,
         opts: opts,
         base_address: :api

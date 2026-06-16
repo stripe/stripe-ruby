@@ -75,6 +75,9 @@ This release changes the pinned API version to 2026-05-27.private.
   * Add support for `canonical_path` on `EventsV2CoreHealthTrafficVolumeDropFiringEvent` and `EventsV2CoreHealthTrafficVolumeDropResolvedEvent`
   * Add support for event notifications `V2CoreHealthElementsErrorFiringEvent`, `V2CoreHealthElementsErrorResolvedEvent`, `V2CoreHealthInvoiceCountDroppedFiringEvent`, and `V2CoreHealthInvoiceCountDroppedResolvedEvent`
 
+## 19.2.1 - 2026-06-12
+* [#1874](https://github.com/stripe/stripe-ruby/pull/1874) Add "source" field to user-agent header
+
 ## 19.2.0 - 2026-05-27
 This release changes the pinned API version to 2026-05-27.dahlia.
 

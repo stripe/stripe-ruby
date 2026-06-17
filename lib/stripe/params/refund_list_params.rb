@@ -30,8 +30,12 @@ module Stripe
     attr_accessor :expand
     # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     attr_accessor :limit
+    # Only return refunds for the PaymentAttemptRecord specified by this ID.
+    attr_accessor :payment_attempt_record
     # Only return refunds for the PaymentIntent specified by this ID.
     attr_accessor :payment_intent
+    # Only return refunds for the PaymentRecord specified by this ID.
+    attr_accessor :payment_record
     # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     attr_accessor :starting_after
 
@@ -41,7 +45,9 @@ module Stripe
       ending_before: nil,
       expand: nil,
       limit: nil,
+      payment_attempt_record: nil,
       payment_intent: nil,
+      payment_record: nil,
       starting_after: nil
     )
       @charge = charge
@@ -49,7 +55,9 @@ module Stripe
       @ending_before = ending_before
       @expand = expand
       @limit = limit
+      @payment_attempt_record = payment_attempt_record
       @payment_intent = payment_intent
+      @payment_record = payment_record
       @starting_after = starting_after
     end
   end

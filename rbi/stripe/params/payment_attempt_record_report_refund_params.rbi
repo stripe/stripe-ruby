@@ -18,6 +18,20 @@ module Stripe
       sig { params(currency: String, value: Integer).void }
       def initialize(currency: nil, value: nil); end
     end
+    class Failed < ::Stripe::RequestParams
+      # When the reported refund failed. Measured in seconds since the Unix epoch.
+      sig { returns(T.nilable(Integer)) }
+      def failed_at; end
+      sig { params(_failed_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def failed_at=(_failed_at); end
+      # Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
+      sig { returns(T.nilable(String)) }
+      def failure_reason; end
+      sig { params(_failure_reason: T.nilable(String)).returns(T.nilable(String)) }
+      def failure_reason=(_failure_reason); end
+      sig { params(failed_at: T.nilable(Integer), failure_reason: T.nilable(String)).void }
+      def initialize(failed_at: nil, failure_reason: nil); end
+    end
     class ProcessorDetails < ::Stripe::RequestParams
       class Custom < ::Stripe::RequestParams
         # A reference to the external refund. This field must be unique across all refunds.
@@ -68,6 +82,13 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Information about the refund failure.
+    sig { returns(T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed)) }
+    def failed; end
+    sig {
+      params(_failed: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed))
+     }
+    def failed=(_failed); end
     # When the reported refund was initiated. Measured in seconds since the Unix epoch.
     sig { returns(T.nilable(Integer)) }
     def initiated_at; end
@@ -92,6 +113,11 @@ module Stripe
       params(_processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails).returns(::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails)
      }
     def processor_details=(_processor_details); end
+    # A key to group refunds together.
+    sig { returns(T.nilable(String)) }
+    def refund_group; end
+    sig { params(_refund_group: T.nilable(String)).returns(T.nilable(String)) }
+    def refund_group=(_refund_group); end
     # Information about the payment attempt refund.
     sig { returns(T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Refunded)) }
     def refunded; end
@@ -100,15 +126,17 @@ module Stripe
      }
     def refunded=(_refunded); end
     sig {
-      params(amount: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails, refunded: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Refunded)).void
+      params(amount: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails, refund_group: T.nilable(String), refunded: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Refunded)).void
      }
     def initialize(
       amount: nil,
       expand: nil,
+      failed: nil,
       initiated_at: nil,
       metadata: nil,
       outcome: nil,
       processor_details: nil,
+      refund_group: nil,
       refunded: nil
     ); end
   end

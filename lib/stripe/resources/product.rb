@@ -50,6 +50,35 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      class IneligibilityReason < ::Stripe::StripeObject
+        # A code identifying the reason this product can't be used with Managed Payments. Additional values might be added as Managed Payments evolves its eligibility criteria.
+        attr_reader :code
+        # A human-readable description of the reason this product can't be used with Managed Payments.
+        attr_reader :message
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this product is eligible for use with Managed Payments. Possible values are `eligible` and `ineligible`.
+      attr_reader :eligibility
+      # The reasons this product is ineligible for use with Managed Payments, if any. This field isn't present if the product is eligible.
+      attr_reader :ineligibility_reasons
+
+      def self.inner_class_types
+        @inner_class_types = { ineligibility_reasons: IneligibilityReason }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class MarketingFeature < ::Stripe::StripeObject
       # The marketing feature name. Up to 80 characters long.
       attr_reader :name
@@ -114,6 +143,8 @@ module Stripe
     attr_reader :images
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Attribute for field managed_payments
+    attr_reader :managed_payments
     # A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
     attr_reader :marketing_features
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -192,6 +223,7 @@ module Stripe
     def self.inner_class_types
       @inner_class_types = {
         identifiers: Identifiers,
+        managed_payments: ManagedPayments,
         marketing_features: MarketingFeature,
         package_dimensions: PackageDimensions,
         tax_details: TaxDetails,

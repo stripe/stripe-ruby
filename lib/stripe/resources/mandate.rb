@@ -135,6 +135,21 @@ module Stripe
         end
       end
 
+      class Blik < ::Stripe::StripeObject
+        # Date at which the mandate expires.
+        attr_reader :expires_after
+        # Type of the mandate.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Card < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -357,6 +372,8 @@ module Stripe
       attr_reader :au_becs_debit
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
+      # Attribute for field blik
+      attr_reader :blik
       # Attribute for field card
       attr_reader :card
       # Attribute for field cashapp
@@ -398,6 +415,7 @@ module Stripe
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
           bacs_debit: BacsDebit,
+          blik: Blik,
           card: Card,
           cashapp: Cashapp,
           kakao_pay: KakaoPay,

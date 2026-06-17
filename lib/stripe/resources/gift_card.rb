@@ -17,6 +17,8 @@ module Stripe
     attr_reader :exp_month
     # The expiration year of the gift card.
     attr_reader :exp_year
+    # Uniquely identifies this particular gift card number. You can use this attribute to check whether two gift cards are the same.
+    attr_reader :fingerprint
     # Unique identifier for the object.
     attr_reader :id
     # The last four digits of the gift card number.

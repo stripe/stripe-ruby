@@ -41,6 +41,21 @@ module Stripe
         end
       end
 
+      class ForcedCapture < ::Stripe::StripeObject
+        # Timestamp at which the forced capture window expires.
+        attr_reader :expires_at
+        # Indicates whether forced capture is supported.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class IncrementalAuthorization < ::Stripe::StripeObject
         # Indicates whether the feature is supported.
         attr_reader :status
@@ -85,6 +100,8 @@ module Stripe
       attr_reader :capture_before
       # Attribute for field decremental_authorization
       attr_reader :decremental_authorization
+      # Attribute for field forced_capture
+      attr_reader :forced_capture
       # Attribute for field incremental_authorization
       attr_reader :incremental_authorization
       # Attribute for field multicapture
@@ -95,6 +112,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           decremental_authorization: DecrementalAuthorization,
+          forced_capture: ForcedCapture,
           incremental_authorization: IncrementalAuthorization,
           multicapture: Multicapture,
           overcapture: Overcapture,
@@ -529,7 +547,69 @@ module Stripe
             class SupportedToken < ::Stripe::StripeObject
               # The on-chain contract address for the supported token currency on this specific network.
               attr_reader :token_contract_address
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Ethereum < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
+              attr_reader :token_currency
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address of the deposit address.
+            attr_reader :address
+            # The wallet address that should receive refunds for deposits on this network.
+            attr_reader :refund_address
+            # The token currencies supported on this network.
+            attr_reader :supported_tokens
+
+            def self.inner_class_types
+              @inner_class_types = { supported_tokens: SupportedToken }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Polygon < ::Stripe::StripeObject
+            class SupportedToken < ::Stripe::StripeObject
+              # The on-chain contract address for the supported token currency on this specific network.
+              attr_reader :token_contract_address
+              # The supported token currency.
               attr_reader :token_currency
 
               def self.inner_class_types
@@ -560,7 +640,7 @@ module Stripe
             class SupportedToken < ::Stripe::StripeObject
               # The on-chain contract address for the supported token currency on this specific network.
               attr_reader :token_contract_address
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
               attr_reader :token_currency
 
               def self.inner_class_types
@@ -591,7 +671,7 @@ module Stripe
             class SupportedToken < ::Stripe::StripeObject
               # The on-chain contract address for the supported token currency on this specific network.
               attr_reader :token_contract_address
-              # The supported token currency. Supported token currencies include: `usdc`.
+              # The supported token currency.
               attr_reader :token_currency
 
               def self.inner_class_types
@@ -619,13 +699,23 @@ module Stripe
           end
           # Attribute for field base
           attr_reader :base
+          # Attribute for field ethereum
+          attr_reader :ethereum
+          # Attribute for field polygon
+          attr_reader :polygon
           # Attribute for field solana
           attr_reader :solana
           # Attribute for field tempo
           attr_reader :tempo
 
           def self.inner_class_types
-            @inner_class_types = { base: Base, solana: Solana, tempo: Tempo }
+            @inner_class_types = {
+              base: Base,
+              ethereum: Ethereum,
+              polygon: Polygon,
+              solana: Solana,
+              tempo: Tempo,
+            }
           end
 
           def self.field_remappings
@@ -1463,6 +1553,19 @@ module Stripe
         end
       end
 
+      class WechatPayHandleAppRedirect < ::Stripe::StripeObject
+        # Session ID of the WeChat Pay signing session
+        attr_reader :session_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class WechatPayRedirectToAndroidApp < ::Stripe::StripeObject
         # app_id is the APP ID registered on WeChat open platform
         attr_reader :app_id
@@ -1542,6 +1645,8 @@ module Stripe
       attr_reader :verify_with_microdeposits
       # Attribute for field wechat_pay_display_qr_code
       attr_reader :wechat_pay_display_qr_code
+      # Attribute for field wechat_pay_handle_app_redirect
+      attr_reader :wechat_pay_handle_app_redirect
       # Attribute for field wechat_pay_redirect_to_android_app
       attr_reader :wechat_pay_redirect_to_android_app
       # Attribute for field wechat_pay_redirect_to_ios_app
@@ -1568,6 +1673,7 @@ module Stripe
           upi_handle_redirect_or_display_qr_code: UpiHandleRedirectOrDisplayQrCode,
           verify_with_microdeposits: VerifyWithMicrodeposits,
           wechat_pay_display_qr_code: WechatPayDisplayQrCode,
+          wechat_pay_handle_app_redirect: WechatPayHandleAppRedirect,
           wechat_pay_redirect_to_android_app: WechatPayRedirectToAndroidApp,
           wechat_pay_redirect_to_ios_app: WechatPayRedirectToIosApp,
         }
@@ -2789,66 +2895,6 @@ module Stripe
 
       class MoneyServices < ::Stripe::StripeObject
         class AccountFunding < ::Stripe::StripeObject
-          class BeneficiaryDetails < ::Stripe::StripeObject
-            class Address < ::Stripe::StripeObject
-              # City, district, suburb, town, or village.
-              attr_reader :city
-              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-              attr_reader :country
-              # Address line 1 (e.g., street, PO Box, or company name).
-              attr_reader :line1
-              # Address line 2 (e.g., apartment, suite, unit, or building).
-              attr_reader :line2
-              # ZIP or postal code.
-              attr_reader :postal_code
-              # State, county, province, or region.
-              attr_reader :state
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-
-            class DateOfBirth < ::Stripe::StripeObject
-              # Day of birth, between 1 and 31.
-              attr_reader :day
-              # Month of birth, between 1 and 12.
-              attr_reader :month
-              # Four-digit year of birth.
-              attr_reader :year
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Attribute for field address
-            attr_reader :address
-            # Attribute for field date_of_birth
-            attr_reader :date_of_birth
-            # Email address.
-            attr_reader :email
-            # Full name.
-            attr_reader :name
-            # Phone number.
-            attr_reader :phone
-
-            def self.inner_class_types
-              @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
           class SenderDetails < ::Stripe::StripeObject
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
@@ -2895,10 +2941,12 @@ module Stripe
             attr_reader :date_of_birth
             # Email address.
             attr_reader :email
-            # Full name.
-            attr_reader :name
+            # Given name (first name).
+            attr_reader :given_name
             # Phone number.
             attr_reader :phone
+            # Surname (last name).
+            attr_reader :surname
 
             def self.inner_class_types
               @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
@@ -2908,20 +2956,75 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the beneficiary in this account funding transaction.
-          attr_reader :beneficiary_account
-          # Attribute for field beneficiary_details
-          attr_reader :beneficiary_details
           # ID of the Account representing the sender in this account funding transaction.
           attr_reader :sender_account
           # Attribute for field sender_details
           attr_reader :sender_details
 
           def self.inner_class_types
-            @inner_class_types = {
-              beneficiary_details: BeneficiaryDetails,
-              sender_details: SenderDetails,
-            }
+            @inner_class_types = { sender_details: SenderDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class BeneficiaryDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class DateOfBirth < ::Stripe::StripeObject
+            # Day of birth, between 1 and 31.
+            attr_reader :day
+            # Month of birth, between 1 and 12.
+            attr_reader :month
+            # Four-digit year of birth.
+            attr_reader :year
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
+          attr_reader :address
+          # Attribute for field date_of_birth
+          attr_reader :date_of_birth
+          # Email address.
+          attr_reader :email
+          # Given name (first name).
+          attr_reader :given_name
+          # Phone number.
+          attr_reader :phone
+          # Surname (last name).
+          attr_reader :surname
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address, date_of_birth: DateOfBirth }
           end
 
           def self.field_remappings
@@ -2930,11 +3033,18 @@ module Stripe
         end
         # Attribute for field account_funding
         attr_reader :account_funding
+        # ID of the Account representing the beneficiary in this account funding transaction.
+        attr_reader :beneficiary_account
+        # Attribute for field beneficiary_details
+        attr_reader :beneficiary_details
         # The type of money services transaction.
         attr_reader :transaction_type
 
         def self.inner_class_types
-          @inner_class_types = { account_funding: AccountFunding }
+          @inner_class_types = {
+            account_funding: AccountFunding,
+            beneficiary_details: BeneficiaryDetails,
+          }
         end
 
         def self.field_remappings
@@ -3634,6 +3744,21 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class TransactionVerificationOptions < ::Stripe::StripeObject
+          # The network on which the transaction was submitted.
+          attr_reader :network
+          # The hash of the onchain transaction to verify.
+          attr_reader :transaction_hash
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field deposit_options
         attr_reader :deposit_options
         # The mode of the crypto payment.
@@ -3646,9 +3771,14 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # Attribute for field transaction_verification_options
+        attr_reader :transaction_verification_options
 
         def self.inner_class_types
-          @inner_class_types = { deposit_options: DepositOptions }
+          @inner_class_types = {
+            deposit_options: DepositOptions,
+            transaction_verification_options: TransactionVerificationOptions,
+          }
         end
 
         def self.field_remappings
@@ -4718,6 +4848,8 @@ module Stripe
       class WechatPay < ::Stripe::StripeObject
         # The app ID registered with WeChat Pay. Only required when client is ios or android.
         attr_reader :app_id
+        # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+        attr_reader :buyer_id
         # The client type that the end customer will pay from
         attr_reader :client
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.

@@ -14,6 +14,9 @@ module Stripe
     # The expiration year of the gift card.
     sig { returns(T.nilable(Integer)) }
     def exp_year; end
+    # Uniquely identifies this particular gift card number. You can use this attribute to check whether two gift cards are the same.
+    sig { returns(String) }
+    def fingerprint; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end

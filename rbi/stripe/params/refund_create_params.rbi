@@ -46,6 +46,11 @@ module Stripe
     def origin; end
     sig { params(_origin: T.nilable(String)).returns(T.nilable(String)) }
     def origin=(_origin); end
+    # The identifier of the PaymentAttemptRecord to refund.
+    sig { returns(T.nilable(String)) }
+    def payment_attempt_record; end
+    sig { params(_payment_attempt_record: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_attempt_record=(_payment_attempt_record); end
     # The identifier of the PaymentIntent to refund.
     sig { returns(T.nilable(String)) }
     def payment_intent; end
@@ -67,7 +72,7 @@ module Stripe
     sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def reverse_transfer=(_reverse_transfer); end
     sig {
-      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_intent: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
+      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount: nil,
@@ -78,6 +83,7 @@ module Stripe
       instructions_email: nil,
       metadata: nil,
       origin: nil,
+      payment_attempt_record: nil,
       payment_intent: nil,
       reason: nil,
       refund_application_fee: nil,

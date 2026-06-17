@@ -541,6 +541,15 @@ module Stripe
         end
       end
 
+      class Item < ::Stripe::RequestParams
+        # The type of item.
+        attr_accessor :type
+
+        def initialize(type: nil)
+          @type = type
+        end
+      end
+
       class LineItem < ::Stripe::RequestParams
         class AdjustableQuantity < ::Stripe::RequestParams
           # Set to true if the quantity can be adjusted to any non-negative integer.
@@ -2709,6 +2718,8 @@ module Stripe
       attr_accessor :integration_identifier
       # Generate a post-purchase Invoice for one-time payments.
       attr_accessor :invoice_creation
+      # A list of items the customer will purchase.
+      attr_accessor :items
       # A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
       #
       # For `payment` mode, there is a maximum of 100 line items, however it is recommended to consolidate line items if there are more than a few dozen.
@@ -2843,6 +2854,7 @@ module Stripe
         expires_at: nil,
         integration_identifier: nil,
         invoice_creation: nil,
+        items: nil,
         line_items: nil,
         locale: nil,
         managed_payments: nil,
@@ -2899,6 +2911,7 @@ module Stripe
         @expires_at = expires_at
         @integration_identifier = integration_identifier
         @invoice_creation = invoice_creation
+        @items = items
         @line_items = line_items
         @locale = locale
         @managed_payments = managed_payments

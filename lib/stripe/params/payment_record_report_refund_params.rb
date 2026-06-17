@@ -15,6 +15,18 @@ module Stripe
       end
     end
 
+    class Failed < ::Stripe::RequestParams
+      # When the reported refund failed. Measured in seconds since the Unix epoch.
+      attr_accessor :failed_at
+      # Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
+      attr_accessor :failure_reason
+
+      def initialize(failed_at: nil, failure_reason: nil)
+        @failed_at = failed_at
+        @failure_reason = failure_reason
+      end
+    end
+
     class ProcessorDetails < ::Stripe::RequestParams
       class Custom < ::Stripe::RequestParams
         # A reference to the external refund. This field must be unique across all refunds.
@@ -47,6 +59,8 @@ module Stripe
     attr_accessor :amount
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Information about the refund failure.
+    attr_accessor :failed
     # When the reported refund was initiated. Measured in seconds since the Unix epoch.
     attr_accessor :initiated_at
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -55,24 +69,30 @@ module Stripe
     attr_accessor :outcome
     # Processor information for this refund.
     attr_accessor :processor_details
+    # A key to group refunds together.
+    attr_accessor :refund_group
     # Information about the payment attempt refund.
     attr_accessor :refunded
 
     def initialize(
       amount: nil,
       expand: nil,
+      failed: nil,
       initiated_at: nil,
       metadata: nil,
       outcome: nil,
       processor_details: nil,
+      refund_group: nil,
       refunded: nil
     )
       @amount = amount
       @expand = expand
+      @failed = failed
       @initiated_at = initiated_at
       @metadata = metadata
       @outcome = outcome
       @processor_details = processor_details
+      @refund_group = refund_group
       @refunded = refunded
     end
   end

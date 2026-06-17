@@ -501,6 +501,9 @@ module Stripe
             # The app ID registered with WeChat Pay. Only required when client is ios or android.
             sig { returns(T.nilable(String)) }
             def app_id; end
+            # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+            sig { returns(T.nilable(String)) }
+            def buyer_id; end
             # The client type that the end customer will pay from
             sig { returns(T.nilable(String)) }
             def client; end

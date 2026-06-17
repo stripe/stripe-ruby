@@ -19,6 +19,8 @@ module Stripe
     attr_accessor :metadata
     # Origin of the refund
     attr_accessor :origin
+    # The identifier of the PaymentAttemptRecord to refund.
+    attr_accessor :payment_attempt_record
     # The identifier of the PaymentIntent to refund.
     attr_accessor :payment_intent
     # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://docs.stripe.com/radar/lists), and will also help us improve our fraud detection algorithms.
@@ -37,6 +39,7 @@ module Stripe
       instructions_email: nil,
       metadata: nil,
       origin: nil,
+      payment_attempt_record: nil,
       payment_intent: nil,
       reason: nil,
       refund_application_fee: nil,
@@ -50,6 +53,7 @@ module Stripe
       @instructions_email = instructions_email
       @metadata = metadata
       @origin = origin
+      @payment_attempt_record = payment_attempt_record
       @payment_intent = payment_intent
       @reason = reason
       @refund_application_fee = refund_application_fee

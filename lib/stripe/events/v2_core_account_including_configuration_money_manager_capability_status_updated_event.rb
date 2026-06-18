@@ -3,13 +3,13 @@
 
 module Stripe
   module Events
-    # Occurs when the status of an Account's storer configuration capability is updated.
-    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent < Stripe::V2::Core::Event
+    # Occurs when the status of an Account's money manager configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v2.core.account[configuration.storer].capability_status_updated"
+        "v2.core.account[configuration.money_manager].capability_status_updated"
       end
 
-      class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData < ::Stripe::StripeObject
+      class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData < ::Stripe::StripeObject
         # Open Enum. The capability which had its status updated.
         attr_reader :updated_capability
 
@@ -24,7 +24,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
-          data: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData,
+          data: V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData,
         }
       end
       attr_reader :data, :related_object
@@ -40,10 +40,10 @@ module Stripe
       end
     end
 
-    # Occurs when the status of an Account's storer configuration capability is updated.
-    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when the status of an Account's money manager configuration capability is updated.
+    class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v2.core.account[configuration.storer].capability_status_updated"
+        "v2.core.account[configuration.money_manager].capability_status_updated"
       end
 
       attr_reader :related_object

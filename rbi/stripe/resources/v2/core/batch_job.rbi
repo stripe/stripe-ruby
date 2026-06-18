@@ -398,9 +398,6 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
-        # The maximum requests per second defined for the `batch_job`.
-        sig { returns(Integer) }
-        def maximum_rps; end
         # The metadata of the `batch_job`.
         sig { returns(T::Hash[String, String]) }
         def metadata; end

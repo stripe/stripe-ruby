@@ -363,14 +363,14 @@ module Stripe
         Events::V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent,
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
         Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
-        Events::V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.lookup_type =>
-        Events::V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
-        Events::V2CoreAccountIncludingConfigurationStorerUpdatedEvent.lookup_type =>
-        Events::V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
         Events::V2CoreAccountIncludingDefaultsUpdatedEvent.lookup_type =>
         Events::V2CoreAccountIncludingDefaultsUpdatedEvent,
         Events::V2CoreAccountIncludingFutureRequirementsUpdatedEvent.lookup_type =>
@@ -501,6 +501,12 @@ module Stripe
         Events::V2IamStripeAccessGrantUpdatedEvent,
         Events::V2MoneyManagementAdjustmentCreatedEvent.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEvent,
+        Events::V2MoneyManagementDebitDisputeFailedEvent.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeFailedEvent,
+        Events::V2MoneyManagementDebitDisputeSubmittedEvent.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeSubmittedEvent,
+        Events::V2MoneyManagementDebitDisputeSucceededEvent.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeSucceededEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEvent,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEvent.lookup_type =>
@@ -535,6 +541,8 @@ module Stripe
         Events::V2MoneyManagementOutboundPaymentPostedEvent,
         Events::V2MoneyManagementOutboundPaymentReturnedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentReturnedEvent,
+        Events::V2MoneyManagementOutboundPaymentUnderReviewEvent.lookup_type =>
+        Events::V2MoneyManagementOutboundPaymentUnderReviewEvent,
         Events::V2MoneyManagementOutboundPaymentUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentUpdatedEvent,
         Events::V2MoneyManagementOutboundTransferCanceledEvent.lookup_type =>
@@ -547,6 +555,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferPostedEvent,
         Events::V2MoneyManagementOutboundTransferReturnedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundTransferReturnedEvent,
+        Events::V2MoneyManagementOutboundTransferUnderReviewEvent.lookup_type =>
+        Events::V2MoneyManagementOutboundTransferUnderReviewEvent,
         Events::V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEvent,
         Events::V2MoneyManagementPayoutMethodCreatedEvent.lookup_type =>
@@ -1097,14 +1107,14 @@ module Stripe
         Events::V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification,
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification.lookup_type =>
+        Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
         Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-        Events::V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification.lookup_type =>
-        Events::V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-        Events::V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification.lookup_type =>
-        Events::V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
         Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification,
         Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification.lookup_type =>
@@ -1265,6 +1275,12 @@ module Stripe
         Events::V2IamStripeAccessGrantUpdatedEventNotification,
         Events::V2MoneyManagementAdjustmentCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementAdjustmentCreatedEventNotification,
+        Events::V2MoneyManagementDebitDisputeFailedEventNotification.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeFailedEventNotification,
+        Events::V2MoneyManagementDebitDisputeSubmittedEventNotification.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeSubmittedEventNotification,
+        Events::V2MoneyManagementDebitDisputeSucceededEventNotification.lookup_type =>
+        Events::V2MoneyManagementDebitDisputeSucceededEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification.lookup_type =>
@@ -1299,6 +1315,8 @@ module Stripe
         Events::V2MoneyManagementOutboundPaymentPostedEventNotification,
         Events::V2MoneyManagementOutboundPaymentReturnedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentReturnedEventNotification,
+        Events::V2MoneyManagementOutboundPaymentUnderReviewEventNotification.lookup_type =>
+        Events::V2MoneyManagementOutboundPaymentUnderReviewEventNotification,
         Events::V2MoneyManagementOutboundPaymentUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundPaymentUpdatedEventNotification,
         Events::V2MoneyManagementOutboundTransferCanceledEventNotification.lookup_type =>
@@ -1311,6 +1329,8 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferPostedEventNotification,
         Events::V2MoneyManagementOutboundTransferReturnedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundTransferReturnedEventNotification,
+        Events::V2MoneyManagementOutboundTransferUnderReviewEventNotification.lookup_type =>
+        Events::V2MoneyManagementOutboundTransferUnderReviewEventNotification,
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification,
         Events::V2MoneyManagementPayoutMethodCreatedEventNotification.lookup_type =>

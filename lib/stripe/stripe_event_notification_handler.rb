@@ -1592,6 +1592,18 @@ module Stripe
       register("v2.core.account[configuration.merchant].updated", &handler)
     end
 
+    def on_v2_core_account_including_configuration_money_manager_capability_status_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.account[configuration.money_manager].capability_status_updated", &handler)
+    end
+
+    def on_v2_core_account_including_configuration_money_manager_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.core.account[configuration.money_manager].updated", &handler)
+    end
+
     def on_v2_core_account_including_configuration_recipient_capability_status_updated(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -1602,18 +1614,6 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.core.account[configuration.recipient].updated", &handler)
-    end
-
-    def on_v2_core_account_including_configuration_storer_capability_status_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.storer].capability_status_updated", &handler)
-    end
-
-    def on_v2_core_account_including_configuration_storer_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.storer].updated", &handler)
     end
 
     def on_v2_core_account_including_defaults_updated(&handler)
@@ -2090,6 +2090,24 @@ module Stripe
       register("v2.money_management.adjustment.created", &handler)
     end
 
+    def on_v2_money_management_debit_dispute_failed(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.debit_dispute.failed", &handler)
+    end
+
+    def on_v2_money_management_debit_dispute_submitted(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.debit_dispute.submitted", &handler)
+    end
+
+    def on_v2_money_management_debit_dispute_succeeded(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.debit_dispute.succeeded", &handler)
+    end
+
     def on_v2_money_management_financial_account_created(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -2192,6 +2210,12 @@ module Stripe
       register("v2.money_management.outbound_payment.returned", &handler)
     end
 
+    def on_v2_money_management_outbound_payment_under_review(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.outbound_payment.under_review", &handler)
+    end
+
     def on_v2_money_management_outbound_payment_updated(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -2226,6 +2250,12 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.money_management.outbound_transfer.returned", &handler)
+    end
+
+    def on_v2_money_management_outbound_transfer_under_review(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.outbound_transfer.under_review", &handler)
     end
 
     def on_v2_money_management_outbound_transfer_updated(&handler)

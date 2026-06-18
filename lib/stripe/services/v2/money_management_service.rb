@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :currency_conversions, :debit_disputes, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :recipient_verifications, :transactions, :transaction_entries
+      attr_reader :adjustments, :currency_conversions, :debit_disputes, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -21,6 +21,7 @@ module Stripe
         @outbound_setup_intents = Stripe::V2::MoneyManagement::OutboundSetupIntentService
                                   .new(@requestor)
         @outbound_transfers = Stripe::V2::MoneyManagement::OutboundTransferService.new(@requestor)
+        @payout_intents = Stripe::V2::MoneyManagement::PayoutIntentService.new(@requestor)
         @payout_methods = Stripe::V2::MoneyManagement::PayoutMethodService.new(@requestor)
         @payout_methods_bank_account_spec = Stripe::V2::MoneyManagement::PayoutMethodsBankAccountSpecService
                                             .new(@requestor)
@@ -28,6 +29,7 @@ module Stripe
         @received_debits = Stripe::V2::MoneyManagement::ReceivedDebitService.new(@requestor)
         @recipient_verifications = Stripe::V2::MoneyManagement::RecipientVerificationService
                                    .new(@requestor)
+        @test_helpers = Stripe::V2::MoneyManagement::TestHelpersService.new(@requestor)
         @transactions = Stripe::V2::MoneyManagement::TransactionService.new(@requestor)
         @transaction_entries = Stripe::V2::MoneyManagement::TransactionEntryService.new(@requestor)
       end

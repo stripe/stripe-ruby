@@ -148,6 +148,9 @@ module Stripe
             end
           end
           class UsBankAccount < ::Stripe::StripeObject
+            # The name of the account holder that sent the payment.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
             # The bank name the transfer was received from.
             sig { returns(T.nilable(String)) }
             def bank_name; end

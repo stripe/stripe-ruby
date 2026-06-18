@@ -1072,6 +1072,15 @@ module Stripe
         autoload :PersonUpdateParams, "stripe/params/v2/core/accounts/person_update_params"
       end
 
+      module Health
+        autoload :AlertListParams, "stripe/params/v2/core/health/alert_list_params"
+        autoload :AlertRetrieveParams, "stripe/params/v2/core/health/alert_retrieve_params"
+
+        module Alerts
+          autoload :HistoryListParams, "stripe/params/v2/core/health/alerts/history_list_params"
+        end
+      end
+
       module Vault
         autoload :GbBankAccountAcknowledgeConfirmationOfPayeeParams,
                  "stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params"
@@ -1162,6 +1171,11 @@ module Stripe
       autoload :OutboundTransferCreateParams, "stripe/params/v2/money_management/outbound_transfer_create_params"
       autoload :OutboundTransferListParams, "stripe/params/v2/money_management/outbound_transfer_list_params"
       autoload :OutboundTransferRetrieveParams, "stripe/params/v2/money_management/outbound_transfer_retrieve_params"
+      autoload :PayoutIntentCancelParams, "stripe/params/v2/money_management/payout_intent_cancel_params"
+      autoload :PayoutIntentCreateParams, "stripe/params/v2/money_management/payout_intent_create_params"
+      autoload :PayoutIntentListParams, "stripe/params/v2/money_management/payout_intent_list_params"
+      autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
+      autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
       autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
       autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
       autoload :PayoutMethodRetrieveParams, "stripe/params/v2/money_management/payout_method_retrieve_params"
@@ -1187,6 +1201,11 @@ module Stripe
         autoload :StatementListParams, "stripe/params/v2/money_management/financial_accounts/statement_list_params"
         autoload :StatementRetrieveParams,
                  "stripe/params/v2/money_management/financial_accounts/statement_retrieve_params"
+      end
+
+      module TestHelpers
+        autoload :FinancialAddressDebitParams,
+                 "stripe/params/v2/money_management/test_helpers/financial_address_debit_params"
       end
     end
 
@@ -2151,6 +2170,9 @@ module Stripe
     stripe/params/v2/core/fee_batch_retrieve_params
     stripe/params/v2/core/fee_entry_list_params
     stripe/params/v2/core/fee_entry_retrieve_params
+    stripe/params/v2/core/health/alert_list_params
+    stripe/params/v2/core/health/alert_retrieve_params
+    stripe/params/v2/core/health/alerts/history_list_params
     stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_archive_params
     stripe/params/v2/core/vault/gb_bank_account_create_params
@@ -2216,6 +2238,11 @@ module Stripe
     stripe/params/v2/money_management/outbound_transfer_create_params
     stripe/params/v2/money_management/outbound_transfer_list_params
     stripe/params/v2/money_management/outbound_transfer_retrieve_params
+    stripe/params/v2/money_management/payout_intent_cancel_params
+    stripe/params/v2/money_management/payout_intent_create_params
+    stripe/params/v2/money_management/payout_intent_list_params
+    stripe/params/v2/money_management/payout_intent_retrieve_params
+    stripe/params/v2/money_management/payout_intent_update_params
     stripe/params/v2/money_management/payout_method_archive_params
     stripe/params/v2/money_management/payout_method_list_params
     stripe/params/v2/money_management/payout_method_retrieve_params
@@ -2228,6 +2255,7 @@ module Stripe
     stripe/params/v2/money_management/recipient_verification_acknowledge_params
     stripe/params/v2/money_management/recipient_verification_create_params
     stripe/params/v2/money_management/recipient_verification_retrieve_params
+    stripe/params/v2/money_management/test_helpers/financial_address_debit_params
     stripe/params/v2/money_management/transaction_entry_list_params
     stripe/params/v2/money_management/transaction_entry_retrieve_params
     stripe/params/v2/money_management/transaction_list_params

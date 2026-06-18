@@ -227,6 +227,9 @@ module Stripe
         # Additional information about the object in a structured format.
         sig { returns(T::Hash[String, String]) }
         def metadata; end
+        # The import strategy for handling existing catalog data.
+        sig { returns(String) }
+        def mode; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

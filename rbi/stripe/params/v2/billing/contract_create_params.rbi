@@ -992,11 +992,11 @@ module Stripe
             end
             # Criteria determining which rates the multiplier applies to.
             sig {
-              returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion])
+              returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion]))
              }
             def criteria; end
             sig {
-              params(_criteria: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion]).returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion])
+              params(_criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion]))
              }
             def criteria=(_criteria); end
             # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
@@ -1005,7 +1005,7 @@ module Stripe
             sig { params(_factor: String).returns(String) }
             def factor=(_factor); end
             sig {
-              params(criteria: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion], factor: String).void
+              params(criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::Multiplier::Criterion]), factor: String).void
              }
             def initialize(criteria: nil, factor: nil); end
           end

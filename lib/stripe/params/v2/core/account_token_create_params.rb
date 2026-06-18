@@ -284,7 +284,7 @@ module Stripe
                 end
               end
 
-              class CryptoStorer < ::Stripe::RequestParams
+              class CryptoMoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 attr_accessor :shown_and_accepted
 
@@ -293,7 +293,7 @@ module Stripe
                 end
               end
 
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 attr_accessor :shown_and_accepted
 
@@ -305,16 +305,21 @@ module Stripe
               attr_accessor :account
               # Details on the Account's acceptance of Issuing-specific terms of service.
               attr_accessor :card_creator
-              # Details on the Account's acceptance of Crypto-storer-specific terms of service; IP, date, and User Agent are expanded by Stripe.
-              attr_accessor :crypto_storer
+              # Details on the Account's acceptance of Crypto-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              attr_accessor :crypto_money_manager
               # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
-              attr_accessor :storer
+              attr_accessor :money_manager
 
-              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil)
+              def initialize(
+                account: nil,
+                card_creator: nil,
+                crypto_money_manager: nil,
+                money_manager: nil
+              )
                 @account = account
                 @card_creator = card_creator
-                @crypto_storer = crypto_storer
-                @storer = storer
+                @crypto_money_manager = crypto_money_manager
+                @money_manager = money_manager
               end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.

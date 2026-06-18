@@ -3,10 +3,10 @@
 
 module Stripe
   module Events
-    # Occurs when a Storer's configuration is updated.
-    class V2CoreAccountIncludingConfigurationStorerUpdatedEvent < Stripe::V2::Core::Event
+    # Occurs when a DebitDispute is submitted.
+    class V2MoneyManagementDebitDisputeSubmittedEvent < Stripe::V2::Core::Event
       def self.lookup_type
-        "v2.core.account[configuration.storer].updated"
+        "v2.money_management.debit_dispute.submitted"
       end
 
       # Retrieves the related object from the API. Makes an API request on every call.
@@ -21,15 +21,15 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when a Storer's configuration is updated.
-    class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification < Stripe::V2::Core::EventNotification
+    # Occurs when a DebitDispute is submitted.
+    class V2MoneyManagementDebitDisputeSubmittedEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
-        "v2.core.account[configuration.storer].updated"
+        "v2.money_management.debit_dispute.submitted"
       end
 
       attr_reader :related_object
 
-      # Retrieves the Account related to this EventNotification from the Stripe API. Makes an API request on every call.
+      # Retrieves the DebitDispute related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(
           :get,

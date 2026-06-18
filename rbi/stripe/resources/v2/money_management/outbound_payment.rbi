@@ -9,6 +9,9 @@ module Stripe
       class OutboundPayment < APIResource
         class DeliveryOptions < ::Stripe::StripeObject
           class PaperCheck < ::Stripe::StripeObject
+            # The ID of a file to include as an attachment with the paper check.
+            sig { returns(T.nilable(String)) }
+            def attachment; end
             # Memo printed on the memo field of the check.
             sig { returns(String) }
             def memo; end
@@ -79,6 +82,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Processing < ::Stripe::StripeObject
+            # Open Enum. The `processing` status reason.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
@@ -93,11 +107,14 @@ module Stripe
           # The `failed` status reason.
           sig { returns(T.nilable(Failed)) }
           def failed; end
+          # The `processing` status details.
+          sig { returns(T.nilable(Processing)) }
+          def processing; end
           # The `returned` status reason.
           sig { returns(T.nilable(Returned)) }
           def returned; end
           def self.inner_class_types
-            @inner_class_types = {failed: Failed, returned: Returned}
+            @inner_class_types = {failed: Failed, processing: Processing, returned: Returned}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -128,17 +145,70 @@ module Stripe
           end
         end
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  sig { returns(T.nilable(String)) }
+                  def submission; end
+                  # The transaction purpose for this ACH payment.
+                  sig { returns(T.nilable(String)) }
+                  def transaction_purpose; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                sig { returns(T.nilable(Ach)) }
+                def ach; end
+                def self.inner_class_types
+                  @inner_class_types = {ach: Ach}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              sig { returns(T.nilable(PreferredNetworkOptions)) }
+              def preferred_network_options; end
+              # The preferred networks to use for this OutboundPayment.
+              sig { returns(T::Array[String]) }
+              def preferred_networks; end
+              def self.inner_class_types
+                @inner_class_types = {preferred_network_options: PreferredNetworkOptions}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            sig { returns(T.nilable(BankAccount)) }
+            def bank_account; end
+            def self.inner_class_types
+              @inner_class_types = {bank_account: BankAccount}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
           def payout_method; end
+          # Payout method options for the OutboundPayment.
+          sig { returns(T.nilable(PayoutMethodOptions)) }
+          def payout_method_options; end
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
           def recipient; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {payout_method_options: PayoutMethodOptions}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -286,7 +356,7 @@ module Stripe
         # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
         sig { returns(String) }
         def status; end
-        # Status details for an OutboundPayment in a `failed` or `returned` state.
+        # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
         # Hash containing timestamps of when the object transitioned to a particular status.

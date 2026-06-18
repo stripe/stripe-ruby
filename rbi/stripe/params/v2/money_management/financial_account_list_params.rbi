@@ -16,20 +16,20 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
-        # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
-        sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
+        # Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
+        sig { returns(T.nilable(T::Array[String])) }
+        def statuses; end
+        sig { params(_statuses: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def statuses=(_statuses); end
         # Filter for FinancialAccount `type`. By default, FinancialAccounts of any `type` are returned.
         sig { returns(T.nilable(T::Array[String])) }
         def types; end
         sig { params(_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def types=(_types); end
         sig {
-          params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), status: T.nilable(String), types: T.nilable(T::Array[String])).void
+          params(include: T.nilable(T::Array[String]), limit: T.nilable(Integer), statuses: T.nilable(T::Array[String]), types: T.nilable(T::Array[String])).void
          }
-        def initialize(include: nil, limit: nil, status: nil, types: nil); end
+        def initialize(include: nil, limit: nil, statuses: nil, types: nil); end
       end
     end
   end

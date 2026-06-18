@@ -137,12 +137,28 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class Returned < ::Stripe::StripeObject
+            # Open Enum. The reason the ReceivedDebit was returned.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Information that elaborates on the `failed` status of a ReceivedDebit.
           # It is only present when the ReceivedDebit status is `failed`.
           attr_reader :failed
+          # Information that elaborates on the `returned` status of a ReceivedDebit.
+          # It is only present when the ReceivedDebit status is `returned`.
+          attr_reader :returned
 
           def self.inner_class_types
-            @inner_class_types = { failed: Failed }
+            @inner_class_types = { failed: Failed, returned: Returned }
           end
 
           def self.field_remappings
@@ -157,6 +173,9 @@ module Stripe
           # The time when the ReceivedDebit was marked as `failed`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           attr_reader :failed_at
+          # The time when the ReceivedDebit was marked as `returned`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          attr_reader :returned_at
           # The time when the ReceivedDebit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           attr_reader :succeeded_at

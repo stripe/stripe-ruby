@@ -30,6 +30,30 @@ module Stripe
           def initialize(currency: nil, financial_account: nil); end
         end
         class To < ::Stripe::RequestParams
+          class PayoutMethodOptions < ::Stripe::RequestParams
+            class BankAccount < ::Stripe::RequestParams
+              # The preferred networks to use for this OutboundTransfer.
+              sig { returns(T::Array[String]) }
+              def preferred_networks; end
+              sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
+              def preferred_networks=(_preferred_networks); end
+              sig { params(preferred_networks: T::Array[String]).void }
+              def initialize(preferred_networks: nil); end
+            end
+            # Options for bank account payout methods.
+            sig {
+              returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount))
+             }
+            def bank_account; end
+            sig {
+              params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount))
+             }
+            def bank_account=(_bank_account); end
+            sig {
+              params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount)).void
+             }
+            def initialize(bank_account: nil); end
+          end
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:
@@ -46,8 +70,19 @@ module Stripe
           def payout_method; end
           sig { params(_payout_method: String).returns(String) }
           def payout_method=(_payout_method); end
-          sig { params(currency: T.nilable(String), payout_method: String).void }
-          def initialize(currency: nil, payout_method: nil); end
+          # Payout method options for the OutboundTransfer.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions))
+           }
+          def payout_method_options; end
+          sig {
+            params(_payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions))
+           }
+          def payout_method_options=(_payout_method_options); end
+          sig {
+            params(currency: T.nilable(String), payout_method: String, payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions)).void
+           }
+          def initialize(currency: nil, payout_method: nil, payout_method_options: nil); end
         end
         # The "presentment amount" for the OutboundPayment.
         sig { returns(::Stripe::V2::Amount) }

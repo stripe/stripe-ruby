@@ -29,9 +29,6 @@ module Stripe
         end
         # The endpoint configuration for the batch job.
         attr_accessor :endpoint
-        # Optional field that allows the user to control how fast they want this batch job to run.
-        # Gives them a control over the number of webhooks they receive.
-        attr_accessor :maximum_rps
         # The metadata of the `batch_job`.
         attr_accessor :metadata
         # Notification suppression settings for the batch job.
@@ -41,13 +38,11 @@ module Stripe
 
         def initialize(
           endpoint: nil,
-          maximum_rps: nil,
           metadata: nil,
           notification_suppression: nil,
           skip_validation: nil
         )
           @endpoint = endpoint
-          @maximum_rps = maximum_rps
           @metadata = metadata
           @notification_suppression = notification_suppression
           @skip_validation = skip_validation

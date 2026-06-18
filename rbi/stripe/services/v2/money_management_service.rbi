@@ -15,11 +15,13 @@ module Stripe
       attr_reader :outbound_payment_quotes
       attr_reader :outbound_setup_intents
       attr_reader :outbound_transfers
+      attr_reader :payout_intents
       attr_reader :payout_methods
       attr_reader :payout_methods_bank_account_spec
       attr_reader :received_credits
       attr_reader :received_debits
       attr_reader :recipient_verifications
+      attr_reader :test_helpers
       attr_reader :transactions
       attr_reader :transaction_entries
     end

@@ -12,6 +12,12 @@ module Stripe
          }
         def close(dispute, params = {}, opts = {}); end
 
+        # Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+        sig {
+          params(dispute: String, params: T.any(::Stripe::TestHelpers::Issuing::DisputeProvisionalCreditParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+         }
+        def provisional_credit(dispute, params = {}, opts = {}); end
+
         # Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
         sig {
           params(dispute: String, params: T.any(::Stripe::TestHelpers::Issuing::DisputeSimulateNetworkLifecycleDisputeResponseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)

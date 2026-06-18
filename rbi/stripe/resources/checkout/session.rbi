@@ -971,6 +971,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Item < ::Stripe::StripeObject
+        # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
+        sig { returns(String) }
+        def key; end
+        # The type of the item.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class ManagedPayments < ::Stripe::StripeObject
         # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         sig { returns(T::Boolean) }
@@ -2863,6 +2877,9 @@ module Stripe
       # Details on the state of invoice creation for the Checkout Session.
       sig { returns(T.nilable(InvoiceCreation)) }
       def invoice_creation; end
+      # The items to be purchased by the customer.
+      sig { returns(T.nilable(T::Array[Item])) }
+      def items; end
       # The line items purchased by the customer.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end

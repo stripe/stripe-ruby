@@ -1299,6 +1299,10 @@ module Stripe
         attr_reader :first6
         # The last four digits of the gift card number.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The transaction ID from the gift card processor.
         attr_reader :transaction_id
 

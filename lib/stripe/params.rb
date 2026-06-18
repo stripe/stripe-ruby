@@ -187,6 +187,8 @@ module Stripe
            "stripe/params/payment_attempt_record_report_authenticated_params"
   autoload :PaymentAttemptRecordReportAuthorizedParams, "stripe/params/payment_attempt_record_report_authorized_params"
   autoload :PaymentAttemptRecordReportCanceledParams, "stripe/params/payment_attempt_record_report_canceled_params"
+  autoload :PaymentAttemptRecordReportEarlyFraudWarningParams,
+           "stripe/params/payment_attempt_record_report_early_fraud_warning_params"
   autoload :PaymentAttemptRecordReportFailedParams, "stripe/params/payment_attempt_record_report_failed_params"
   autoload :PaymentAttemptRecordReportGuaranteedParams, "stripe/params/payment_attempt_record_report_guaranteed_params"
   autoload :PaymentAttemptRecordReportInformationalParams,
@@ -254,6 +256,7 @@ module Stripe
   autoload :PaymentRecordReportPaymentParams, "stripe/params/payment_record_report_payment_params"
   autoload :PaymentRecordReportRefundParams, "stripe/params/payment_record_report_refund_params"
   autoload :PaymentRecordRetrieveParams, "stripe/params/payment_record_retrieve_params"
+  autoload :PaymentRecordSearchParams, "stripe/params/payment_record_search_params"
   autoload :PayoutCancelParams, "stripe/params/payout_cancel_params"
   autoload :PayoutCreateParams, "stripe/params/payout_create_params"
   autoload :PayoutListParams, "stripe/params/payout_list_params"
@@ -567,6 +570,7 @@ module Stripe
     autoload :DisputeCloseParams, "stripe/params/issuing/dispute_close_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
     autoload :DisputeListParams, "stripe/params/issuing/dispute_list_params"
+    autoload :DisputeProvisionalCreditParams, "stripe/params/issuing/dispute_provisional_credit_params"
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
     autoload :DisputeSettlementDetailListParams, "stripe/params/issuing/dispute_settlement_detail_list_params"
     autoload :DisputeSettlementDetailRetrieveParams, "stripe/params/issuing/dispute_settlement_detail_retrieve_params"
@@ -765,6 +769,7 @@ module Stripe
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
       autoload :DisputeCloseParams, "stripe/params/test_helpers/issuing/dispute_close_params"
+      autoload :DisputeProvisionalCreditParams, "stripe/params/test_helpers/issuing/dispute_provisional_credit_params"
       autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
@@ -1590,6 +1595,7 @@ module Stripe
     stripe/params/issuing/dispute_close_params
     stripe/params/issuing/dispute_create_params
     stripe/params/issuing/dispute_list_params
+    stripe/params/issuing/dispute_provisional_credit_params
     stripe/params/issuing/dispute_retrieve_params
     stripe/params/issuing/dispute_settlement_detail_list_params
     stripe/params/issuing/dispute_settlement_detail_retrieve_params
@@ -1638,6 +1644,7 @@ module Stripe
     stripe/params/payment_attempt_record_report_authenticated_params
     stripe/params/payment_attempt_record_report_authorized_params
     stripe/params/payment_attempt_record_report_canceled_params
+    stripe/params/payment_attempt_record_report_early_fraud_warning_params
     stripe/params/payment_attempt_record_report_failed_params
     stripe/params/payment_attempt_record_report_guaranteed_params
     stripe/params/payment_attempt_record_report_informational_params
@@ -1698,6 +1705,7 @@ module Stripe
     stripe/params/payment_record_report_payment_params
     stripe/params/payment_record_report_refund_params
     stripe/params/payment_record_retrieve_params
+    stripe/params/payment_record_search_params
     stripe/params/payout_cancel_params
     stripe/params/payout_create_params
     stripe/params/payout_list_params
@@ -1924,6 +1932,7 @@ module Stripe
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
     stripe/params/test_helpers/issuing/dispute_close_params
+    stripe/params/test_helpers/issuing/dispute_provisional_credit_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params

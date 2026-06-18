@@ -1023,6 +1023,12 @@ module Stripe
         # The last four digits of the gift card number.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # The transaction ID from the gift card processor.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -2603,5 +2609,15 @@ module Stripe
       params(id: String, params: T.any(::Stripe::PaymentRecordReportRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentRecord)
      }
     def self.report_refund(id, params = {}, opts = {}); end
+
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
+     }
+    def self.search(params = {}, opts = {}); end
+
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, blk: T.untyped).returns(::Stripe::SearchResultObject)
+     }
+    def self.search_auto_paging_each(params = {}, opts = {}, &blk); end
   end
 end

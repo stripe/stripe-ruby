@@ -102,9 +102,9 @@ module Stripe
      }
     def metadata=(_metadata); end
     # The outcome of the reported refund.
-    sig { returns(String) }
+    sig { returns(T.nilable(String)) }
     def outcome; end
-    sig { params(_outcome: String).returns(String) }
+    sig { params(_outcome: T.nilable(String)).returns(T.nilable(String)) }
     def outcome=(_outcome); end
     # Processor information for this refund.
     sig { returns(::Stripe::PaymentRecordReportRefundParams::ProcessorDetails) }
@@ -126,7 +126,7 @@ module Stripe
      }
     def refunded=(_refunded); end
     sig {
-      params(amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordReportRefundParams::Failed), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: String, processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails, refund_group: T.nilable(String), refunded: T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded)).void
+      params(amount: T.nilable(::Stripe::PaymentRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordReportRefundParams::Failed), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), processor_details: ::Stripe::PaymentRecordReportRefundParams::ProcessorDetails, refund_group: T.nilable(String), refunded: T.nilable(::Stripe::PaymentRecordReportRefundParams::Refunded)).void
      }
     def initialize(
       amount: nil,

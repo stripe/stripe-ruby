@@ -7,6 +7,8 @@ module Stripe
   # in order to mark an Invoice as paid and a Subscription as active. Payment Records consist of one or
   # more Payment Attempt Records, which represent individual attempts made on a payment network.
   class PaymentRecord < APIResource
+    extend Stripe::APIOperations::Search
+
     OBJECT_NAME = "payment_record"
     def self.object_name
       "payment_record"
@@ -967,6 +969,10 @@ module Stripe
         attr_reader :first6
         # The last four digits of the gift card number.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The transaction ID from the gift card processor.
         attr_reader :transaction_id
 
@@ -2487,6 +2493,19 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    def self.search(params = {}, opts = {})
+      request_stripe_object(
+        method: :get,
+        path: "/v1/payment_records/search",
+        params: params,
+        opts: opts
+      )
+    end
+
+    def self.search_auto_paging_each(params = {}, opts = {}, &blk)
+      search(params, opts).auto_paging_each(&blk)
     end
 
     def self.inner_class_types

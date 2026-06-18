@@ -28,12 +28,15 @@ module Stripe
         # The cardholder account type affected by this authorization.
         sig { returns(String) }
         def account_type; end
-        # The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        # The available balance or credit limit in the cardholder's account after the authorization, in the smallest currency unit.
         sig { returns(Integer) }
-        def amount; end
-        # The currency of the remaining balance in the cardholder's account after the authorization.
+        def available_balance; end
+        # The currency of the remaining balances in the cardholder's account after the authorization.
         sig { returns(String) }
         def currency; end
+        # The current ledger balance or remaining credit amount in the cardholder's account after the authorization, in the smallest currency unit.
+        sig { returns(Integer) }
+        def current_balance; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -169,6 +172,168 @@ module Stripe
             crypto_transaction_confirmed: CryptoTransactionConfirmed,
             crypto_transaction_failed: CryptoTransactionFailed,
           }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class EnrichedMerchantData < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          class Industry < ::Stripe::StripeObject
+            # Most specific value of the seller's category.
+            sig { returns(String) }
+            def id; end
+            # Increasingly specific textual representations of the seller's category.
+            sig { returns(T::Array[String]) }
+            def names; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Location < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(String) }
+              def country; end
+              # Address line 1, such as the street, PO Box, or company name.
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2, such as the apartment, suite, unit, or building.
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Coordinates < ::Stripe::StripeObject
+              # Latitude of the seller's location.
+              sig { returns(T.nilable(Float)) }
+              def latitude; end
+              # Longitude of the seller's location.
+              sig { returns(T.nilable(Float)) }
+              def longitude; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address details of the seller.
+            sig { returns(T.nilable(Address)) }
+            def address; end
+            # Coordinates of the seller.
+            sig { returns(T.nilable(Coordinates)) }
+            def coordinates; end
+            def self.inner_class_types
+              @inner_class_types = {address: Address, coordinates: Coordinates}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Spade < ::Stripe::StripeObject
+            # Unified identifier for the seller.
+            sig { returns(T.nilable(String)) }
+            def counterparty_id; end
+            # Unified identifier for the seller's location.
+            sig { returns(T.nilable(String)) }
+            def location_id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field data_sources
+          sig { returns(T::Array[String]) }
+          def data_sources; end
+          # Attribute for field industry
+          sig { returns(Industry) }
+          def industry; end
+          # Location data of the seller.
+          sig { returns(T.nilable(Location)) }
+          def location; end
+          # Image link to the seller's logo.
+          sig { returns(T.nilable(String)) }
+          def logo; end
+          # The name of the seller.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # Phone number of the seller.
+          sig { returns(T.nilable(String)) }
+          def phone; end
+          # If `spade` is a data source, this hash contains details provided by Spade.
+          sig { returns(T.nilable(Spade)) }
+          def spade; end
+          # URL of the seller's website.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {industry: Industry, location: Location, spade: Spade}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ThirdParty < ::Stripe::StripeObject
+          class Spade < ::Stripe::StripeObject
+            # Unified identifier for the third party.
+            sig { returns(T.nilable(String)) }
+            def third_party_id; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field data_sources
+          sig { returns(T::Array[String]) }
+          def data_sources; end
+          # Image link to the third party's logo.
+          sig { returns(T.nilable(String)) }
+          def logo; end
+          # Name of the third party.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          # If `spade` is a data source, this hash contains details provided by Spade.
+          sig { returns(T.nilable(Spade)) }
+          def spade; end
+          # Category of the third party.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {spade: Spade}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional details about the seller (grocery store, e-commerce website, and so on) where the card authorization happened.
+        sig { returns(T.nilable(Merchant)) }
+        def merchant; end
+        # An array of third parties involved in the card authorization, when applicable.
+        sig { returns(T.nilable(T::Array[ThirdParty])) }
+        def third_parties; end
+        def self.inner_class_types
+          @inner_class_types = {merchant: Merchant, third_parties: ThirdParty}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -771,6 +936,9 @@ module Stripe
       # The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
+      # Enriched merchant data for this authorization.
+      sig { returns(T.nilable(EnrichedMerchantData)) }
+      def enriched_merchant_data; end
       # Fleet-specific information for authorizations using Fleet cards.
       sig { returns(T.nilable(Fleet)) }
       def fleet; end

@@ -556,6 +556,38 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class FinancialAccounts < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts::Features)).void
+         }
+        def initialize(features: nil); end
+      end
+      class FinancialAccountsTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(features: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions::Features)).void
+         }
+        def initialize(features: nil); end
+      end
       class InstantPayoutsPromotion < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -1126,6 +1158,22 @@ module Stripe
          }
         def initialize(enabled: nil, features: nil); end
       end
+      class RecipientsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        sig {
+          returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList::Features))
+         }
+        def features; end
+        sig {
+          params(_features: T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList::Features)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList::Features))
+         }
+        def features=(_features); end
+        sig {
+          params(features: T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList::Features)).void
+         }
+        def initialize(features: nil); end
+      end
       class ReportingChart < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -1385,6 +1433,24 @@ module Stripe
         params(_financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions))
        }
       def financial_account_transactions=(_financial_account_transactions); end
+      # Configuration for the [financial accounts](/connect/supported-embedded-components/financial-accounts/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts))
+       }
+      def financial_accounts; end
+      sig {
+        params(_financial_accounts: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts))
+       }
+      def financial_accounts=(_financial_accounts); end
+      # Configuration for the [financial accounts transactions](/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
+      sig {
+        returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions))
+       }
+      def financial_accounts_transactions; end
+      sig {
+        params(_financial_accounts_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions))
+       }
+      def financial_accounts_transactions=(_financial_accounts_transactions); end
       # Configuration for the [instant payouts promotion](/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
       sig {
         returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion))
@@ -1493,6 +1559,13 @@ module Stripe
         params(_recipients: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients))
        }
       def recipients=(_recipients); end
+      # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
+      sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList)) }
+      def recipients_list; end
+      sig {
+        params(_recipients_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList)).returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList))
+       }
+      def recipients_list=(_recipients_list); end
       # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
       sig { returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart)) }
       def reporting_chart; end
@@ -1542,7 +1615,7 @@ module Stripe
        }
       def terminal_hardware_shop=(_terminal_hardware_shop); end
       sig {
-        params(account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding), agentic_commerce_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings), app_install: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport), balance_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::BalanceReport), balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview), check_scanning: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning), disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents), export_tax_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails), payout_reconciliation_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutReconciliationReport), payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients), reporting_chart: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring), terminal_hardware_orders: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders), terminal_hardware_shop: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop)).void
+        params(account_management: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountManagement), account_onboarding: T.nilable(::Stripe::AccountSessionCreateParams::Components::AccountOnboarding), agentic_commerce_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::AgenticCommerceSettings), app_install: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppInstall), app_viewport: T.nilable(::Stripe::AccountSessionCreateParams::Components::AppViewport), balance_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::BalanceReport), balances: T.nilable(::Stripe::AccountSessionCreateParams::Components::Balances), capital_financing: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancing), capital_financing_application: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingApplication), capital_financing_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalFinancingPromotion), capital_overview: T.nilable(::Stripe::AccountSessionCreateParams::Components::CapitalOverview), check_scanning: T.nilable(::Stripe::AccountSessionCreateParams::Components::CheckScanning), disputes_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::DisputesList), documents: T.nilable(::Stripe::AccountSessionCreateParams::Components::Documents), export_tax_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::ExportTaxTransactions), financial_account: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccount), financial_account_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountTransactions), financial_accounts: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccounts), financial_accounts_transactions: T.nilable(::Stripe::AccountSessionCreateParams::Components::FinancialAccountsTransactions), instant_payouts_promotion: T.nilable(::Stripe::AccountSessionCreateParams::Components::InstantPayoutsPromotion), issuing_card: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCard), issuing_cards_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::IssuingCardsList), notification_banner: T.nilable(::Stripe::AccountSessionCreateParams::Components::NotificationBanner), payment_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDetails), payment_disputes: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentDisputes), payment_method_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings), payments: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payments), payout_details: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutDetails), payout_reconciliation_report: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutReconciliationReport), payouts: T.nilable(::Stripe::AccountSessionCreateParams::Components::Payouts), payouts_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::PayoutsList), product_tax_code_selector: T.nilable(::Stripe::AccountSessionCreateParams::Components::ProductTaxCodeSelector), recipients: T.nilable(::Stripe::AccountSessionCreateParams::Components::Recipients), recipients_list: T.nilable(::Stripe::AccountSessionCreateParams::Components::RecipientsList), reporting_chart: T.nilable(::Stripe::AccountSessionCreateParams::Components::ReportingChart), tax_registrations: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxRegistrations), tax_settings: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxSettings), tax_threshold_monitoring: T.nilable(::Stripe::AccountSessionCreateParams::Components::TaxThresholdMonitoring), terminal_hardware_orders: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareOrders), terminal_hardware_shop: T.nilable(::Stripe::AccountSessionCreateParams::Components::TerminalHardwareShop)).void
        }
       def initialize(
         account_management: nil,
@@ -1562,6 +1635,8 @@ module Stripe
         export_tax_transactions: nil,
         financial_account: nil,
         financial_account_transactions: nil,
+        financial_accounts: nil,
+        financial_accounts_transactions: nil,
         instant_payouts_promotion: nil,
         issuing_card: nil,
         issuing_cards_list: nil,
@@ -1576,6 +1651,7 @@ module Stripe
         payouts_list: nil,
         product_tax_code_selector: nil,
         recipients: nil,
+        recipients_list: nil,
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,

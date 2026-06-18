@@ -340,6 +340,26 @@ module Stripe
         end
       end
 
+      class FinancialAccounts < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        attr_accessor :features
+
+        def initialize(features: nil)
+          @features = features
+        end
+      end
+
+      class FinancialAccountsTransactions < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        attr_accessor :features
+
+        def initialize(features: nil)
+          @features = features
+        end
+      end
+
       class InstantPayoutsPromotion < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -686,6 +706,16 @@ module Stripe
         end
       end
 
+      class RecipientsList < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Attribute for param field features
+        attr_accessor :features
+
+        def initialize(features: nil)
+          @features = features
+        end
+      end
+
       class ReportingChart < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -797,6 +827,10 @@ module Stripe
       attr_accessor :financial_account
       # Configuration for the [financial account transactions](/connect/supported-embedded-components/financial-account-transactions/) embedded component.
       attr_accessor :financial_account_transactions
+      # Configuration for the [financial accounts](/connect/supported-embedded-components/financial-accounts/) embedded component.
+      attr_accessor :financial_accounts
+      # Configuration for the [financial accounts transactions](/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
+      attr_accessor :financial_accounts_transactions
       # Configuration for the [instant payouts promotion](/connect/supported-embedded-components/instant-payouts-promotion/) embedded component.
       attr_accessor :instant_payouts_promotion
       # Configuration for the [issuing card](/connect/supported-embedded-components/issuing-card/) embedded component.
@@ -825,6 +859,8 @@ module Stripe
       attr_accessor :product_tax_code_selector
       # Configuration for the [recipients](/connect/supported-embedded-components/recipients/) embedded component.
       attr_accessor :recipients
+      # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
+      attr_accessor :recipients_list
       # Configuration for the [reporting chart](/connect/supported-embedded-components/reporting-chart/) embedded component.
       attr_accessor :reporting_chart
       # Configuration for the [tax registrations](/connect/supported-embedded-components/tax-registrations/) embedded component.
@@ -856,6 +892,8 @@ module Stripe
         export_tax_transactions: nil,
         financial_account: nil,
         financial_account_transactions: nil,
+        financial_accounts: nil,
+        financial_accounts_transactions: nil,
         instant_payouts_promotion: nil,
         issuing_card: nil,
         issuing_cards_list: nil,
@@ -870,6 +908,7 @@ module Stripe
         payouts_list: nil,
         product_tax_code_selector: nil,
         recipients: nil,
+        recipients_list: nil,
         reporting_chart: nil,
         tax_registrations: nil,
         tax_settings: nil,
@@ -894,6 +933,8 @@ module Stripe
         @export_tax_transactions = export_tax_transactions
         @financial_account = financial_account
         @financial_account_transactions = financial_account_transactions
+        @financial_accounts = financial_accounts
+        @financial_accounts_transactions = financial_accounts_transactions
         @instant_payouts_promotion = instant_payouts_promotion
         @issuing_card = issuing_card
         @issuing_cards_list = issuing_cards_list
@@ -908,6 +949,7 @@ module Stripe
         @payouts_list = payouts_list
         @product_tax_code_selector = product_tax_code_selector
         @recipients = recipients
+        @recipients_list = recipients_list
         @reporting_chart = reporting_chart
         @tax_registrations = tax_registrations
         @tax_settings = tax_settings

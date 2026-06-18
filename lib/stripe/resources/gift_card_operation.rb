@@ -256,10 +256,14 @@ module Stripe
     attr_reader :id
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # ID of the location that this transaction's reader is assigned to.
+    attr_reader :location
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The connected account whose credentials were used to perform this operation.
     attr_reader :on_behalf_of
+    # ID of the reader this transaction was made on.
+    attr_reader :reader
     # Details about a gift card reload operation.
     attr_reader :reload
     # Details about a gift card reload void operation.

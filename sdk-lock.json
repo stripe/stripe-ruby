@@ -1,0 +1,26 @@
+{
+  "runtime": {
+    "minVersion": "2.7.0",
+    "commands": [
+      {
+        "name": "ruby",
+        "versionFlag": "--version",
+        "versionPattern": "ruby (\\d+\\.\\d+\\.\\d+)"
+      },
+      {
+        "name": "jruby",
+        "versionFlag": "--version",
+        "versionPattern": "jruby (\\d+\\.\\d+\\.\\d+)"
+      }
+    ]
+  },
+  "recipes": {
+    "format": {
+      "commands": [
+        "bundle install --quiet",
+        "bundle exec rubocop -o /dev/null --autocorrect"
+      ],
+      "sourceHash": "sha256:6c5312af4d27d23c7a2472cdd7ee237d8577903e0c5bd3fce423eeeaa95176a6"
+    }
+  }
+}

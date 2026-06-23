@@ -1,0 +1,239 @@
+# frozen_string_literal: true
+
+# Stripe Ruby bindings
+# API spec at https://stripe.com/docs/api
+require "cgi/escape"
+require "json"
+require "logger"
+require "net/http"
+require "openssl"
+require "rbconfig"
+require "securerandom"
+require "set"
+require "socket"
+require "uri"
+require "forwardable"
+
+# Version
+require "stripe/api_version"
+require "stripe/version"
+
+# API operations
+require "stripe/api_operations/create"
+require "stripe/api_operations/delete"
+require "stripe/api_operations/list"
+require "stripe/api_operations/nested_resource"
+require "stripe/api_operations/request"
+require "stripe/api_operations/save"
+require "stripe/api_operations/singleton_save"
+require "stripe/api_operations/search"
+
+# API resource support classes
+require "stripe/errors"
+require "stripe/object_types"
+require "stripe/event_types"
+require "stripe/request_options"
+require "stripe/request_params"
+require "stripe/stripe_context"
+require "stripe/util"
+require "stripe/connection_manager"
+require "stripe/multipart_encoder"
+require "stripe/api_requestor"
+require "stripe/stripe_service"
+require "stripe/stripe_client"
+require "stripe/stripe_object"
+require "stripe/stripe_response"
+require "stripe/list_object"
+require "stripe/v2_list_object"
+require "stripe/search_result_object"
+require "stripe/error_object"
+require "stripe/api_resource"
+require "stripe/api_resource_test_helpers"
+require "stripe/singleton_api_resource"
+require "stripe/webhook"
+require "stripe/stripe_event_notification_handler"
+require "stripe/stripe_configuration"
+
+# Named API resources — autoloaded on first use to reduce boot time.
+# Call Stripe.eager_load! to load everything upfront (recommended
+# before forking in production). In Rails, this happens automatically
+# when config.eager_load is true.
+require "stripe/resources"
+require "stripe/services"
+require "stripe/params"
+
+# OAuth
+require "stripe/oauth"
+require "stripe/services/oauth_service"
+
+# Rails integration — registers Stripe in config.eager_load_namespaces
+# so Stripe.eager_load! is called automatically when config.eager_load is true.
+require "stripe/railtie" if defined?(Rails::Railtie)
+
+module Stripe
+  DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
+
+  # map to the same values as the standard library's logger
+  LEVEL_DEBUG = Logger::DEBUG
+  LEVEL_ERROR = Logger::ERROR
+  LEVEL_INFO = Logger::INFO
+
+  # API base constants
+  DEFAULT_API_BASE = "https://api.stripe.com"
+  DEFAULT_CONNECT_BASE = "https://connect.stripe.com"
+  DEFAULT_UPLOAD_BASE = "https://files.stripe.com"
+  DEFAULT_METER_EVENTS_BASE = "https://meter-events.stripe.com"
+
+  # Options that can be configured globally by users
+  USER_CONFIGURABLE_GLOBAL_OPTIONS = Set.new(%i[
+    api_key
+    api_version
+    stripe_account
+    api_base
+    uploads_base
+    connect_base
+    meter_events_base
+    open_timeout
+    read_timeout
+    write_timeout
+    proxy
+    verify_ssl_certs
+    ca_bundle_path
+    log_level
+    logger
+    max_network_retries
+    enable_telemetry
+    client_id
+  ])
+
+  @app_info = nil
+
+  @config = Stripe::StripeConfiguration.setup
+
+  class << self
+    extend Forwardable
+
+    attr_reader :config
+
+    # User configurable options
+    def_delegators :@config, :api_key, :api_key=
+    def_delegators :@config, :authenticator, :authenticator=
+    def_delegators :@config, :api_version, :api_version=
+    def_delegators :@config, :stripe_account, :stripe_account=
+    def_delegators :@config, :api_base, :api_base=
+    def_delegators :@config, :uploads_base, :uploads_base=
+    def_delegators :@config, :connect_base, :connect_base=
+    def_delegators :@config, :meter_events_base, :meter_events_base=
+    def_delegators :@config, :open_timeout, :open_timeout=
+    def_delegators :@config, :read_timeout, :read_timeout=
+    def_delegators :@config, :write_timeout, :write_timeout=
+    def_delegators :@config, :proxy, :proxy=
+    def_delegators :@config, :verify_ssl_certs, :verify_ssl_certs=
+    def_delegators :@config, :ca_bundle_path, :ca_bundle_path=
+    def_delegators :@config, :log_level, :log_level=
+    def_delegators :@config, :logger, :logger=
+    def_delegators :@config, :max_network_retries, :max_network_retries=
+    def_delegators :@config, :enable_telemetry=, :enable_telemetry?
+    def_delegators :@config, :client_id=, :client_id
+
+    # Internal configurations
+    def_delegators :@config, :max_network_retry_delay
+    def_delegators :@config, :initial_network_retry_delay
+    def_delegators :@config, :ca_store
+  end
+
+  # Eagerly loads all autoloaded Stripe constants (resources, services,
+  # params) using the same file list and load order as previous versions
+  # of this gem that used eager require.
+  #
+  # Call this before forking in production (Puma, Unicorn, etc.) to
+  # avoid autoload in multi-threaded request handling. In Rails apps
+  # this is called automatically when config.eager_load is true.
+  #
+  #   # Non-Rails production / pre-fork hook:
+  #   Stripe.eager_load!
+  #
+  def self.eager_load!
+    (RESOURCE_FILES + SERVICE_FILES + PARAM_FILES).each do |path|
+      require path
+    end
+  end
+
+  # Gets the application for a plugin that's identified some. See
+  # #set_app_info.
+  def self.app_info
+    @app_info
+  end
+
+  def self.app_info=(info)
+    @app_info = info
+  end
+
+  # Sets some basic information about the running application that's sent along
+  # with API requests. Useful for plugin authors to identify their plugin when
+  # communicating with Stripe.
+  #
+  # Takes a name and optional partner program ID, plugin URL, and version.
+  def self.set_app_info(name, partner_id: nil, url: nil, version: nil)
+    @app_info = {
+      name: name,
+      partner_id: partner_id,
+      url: url,
+      version: version,
+    }
+  end
+
+  def self.add_beta_version(beta_name, version)
+    unless version.start_with?("v") && version[1..].to_i.to_s == version[1..]
+      raise ArgumentError, "Version must be in the format 'v' followed by a number (e.g., 'v3')"
+    end
+
+    if (index = api_version.index("; #{beta_name}="))
+      start_index = index + "; #{beta_name}=".length
+      end_index = api_version.index(";", start_index) || api_version.length
+      current_version = api_version[start_index...end_index][1..].to_i
+      new_version = version[1..].to_i
+      return if new_version <= current_version # Keep the higher version, no update needed
+
+      self.api_version = api_version[0...index] + "; #{beta_name}=#{version}" + api_version[end_index..]
+    else
+      self.api_version = "#{api_version}; #{beta_name}=#{version}"
+    end
+  end
+
+  class RawRequest
+    def initialize
+      @opts = {}
+    end
+
+    def execute(method, url, base_address: :api, params: {}, opts: {}, usage: [])
+      opts = Util.normalize_opts(opts)
+      req_opts = RequestOptions.extract_opts_from_hash(opts)
+
+      requestor = APIRequestor.active_requestor
+      resp, = requestor.send(:execute_request_internal, method, url, base_address, params, req_opts,
+                             usage)
+
+      requestor.interpret_response(resp)
+    end
+  end
+
+  # Sends a request to Stripe REST API
+  def self.raw_request(method, url, params = {}, opts = {}, base_address: :api)
+    req = RawRequest.new
+    req.execute(method, url, base_address: base_address, params: params, opts: opts,
+                             usage: ["raw_request"])
+  end
+
+  def self.deserialize(data, api_mode: :v1)
+    data = JSON.parse(data) if data.is_a?(String)
+    Util.convert_to_stripe_object(data, {}, api_mode: api_mode)
+  end
+  class << self
+    extend Gem::Deprecate
+    deprecate :raw_request, "StripeClient#raw_request", 2024, 9
+    deprecate :deserialize, "StripeClient#deserialize", 2024, 9
+  end
+end
+
+Stripe.log_level = ENV["STRIPE_LOG"] unless ENV["STRIPE_LOG"].nil?

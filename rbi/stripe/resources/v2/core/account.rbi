@@ -1416,6 +1416,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class SunbitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class SwishPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1651,6 +1679,9 @@ module Stripe
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
+              # Allow the merchant to process Sunbit payments.
+              sig { returns(T.nilable(SunbitPayments)) }
+              def sunbit_payments; end
               # Allow the merchant to process Swish payments.
               sig { returns(T.nilable(SwishPayments)) }
               def swish_payments; end
@@ -1706,6 +1737,7 @@ module Stripe
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
                   stripe_balance: StripeBalance,
+                  sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
@@ -2082,7 +2114,7 @@ module Stripe
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             sig { returns(T.nilable(String)) }
             def fees_collector; end
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             sig { returns(T.nilable(String)) }
             def losses_collector; end
             # A value indicating responsibility for collecting requirements on this account.

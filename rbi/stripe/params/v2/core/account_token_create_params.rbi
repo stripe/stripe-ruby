@@ -80,7 +80,7 @@ module Stripe
                 sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
                 def initialize(shown_and_accepted: nil); end
               end
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 sig { returns(T.nilable(T::Boolean)) }
                 def shown_and_accepted; end
@@ -102,17 +102,17 @@ module Stripe
               def account=(_account); end
               # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
               sig {
-                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager))
                }
-              def storer; end
+              def money_manager; end
               sig {
-                params(_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+                params(_money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager))
                }
-              def storer=(_storer); end
+              def money_manager=(_money_manager); end
               sig {
-                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account), storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).void
+                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account), money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
                }
-              def initialize(account: nil, storer: nil); end
+              def initialize(account: nil, money_manager: nil); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.
             sig {

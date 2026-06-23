@@ -7886,7 +7886,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
       ).to_return(
-        body: '{"data":[{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7899,7 +7899,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
       ).to_return(
-        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7916,7 +7916,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports/id_123"
       ).to_return(
-        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7926,7 +7926,7 @@ module Stripe
     end
     should "Test v2 core account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
-        body: '{"data":[{"object":"v2.core.account","applied_configurations":["storer"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.account","applied_configurations":["money_manager"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7936,7 +7936,7 @@ module Stripe
     end
     should "Test v2 core account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts").to_return(
-        body: '{"object":"v2.core.account","applied_configurations":["storer"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["money_manager"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7946,7 +7946,7 @@ module Stripe
     end
     should "Test v2 core account get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"object":"v2.core.account","applied_configurations":["storer"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["money_manager"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7956,7 +7956,7 @@ module Stripe
     end
     should "Test v2 core account post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123").to_return(
-        body: '{"object":"v2.core.account","applied_configurations":["storer"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["money_manager"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7966,7 +7966,7 @@ module Stripe
     end
     should "Test v2 core account post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/accounts/id_123/close").to_return(
-        body: '{"object":"v2.core.account","applied_configurations":["storer"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
+        body: '{"object":"v2.core.account","applied_configurations":["money_manager"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8080,7 +8080,7 @@ module Stripe
               fields: "eventually_due",
               future_requirements: "include",
             },
-            configurations: ["storer"],
+            configurations: ["merchant"],
             refresh_url: "refresh_url",
             return_url: "return_url",
           },
@@ -8089,7 +8089,7 @@ module Stripe
               fields: "eventually_due",
               future_requirements: "include",
             },
-            configurations: ["storer"],
+            configurations: ["merchant"],
             refresh_url: "refresh_url",
             return_url: "return_url",
           },
@@ -8120,7 +8120,7 @@ module Stripe
     end
     should "Test v2 core batch job post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs").to_return(
-        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"maximum_rps":1686015830,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
+        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8130,14 +8130,13 @@ module Stripe
           http_method: "delete",
           path: "/v1/subscriptions/:subscription_exposed_id",
         },
-        metadata: { key: "metadata" },
         skip_validation: true,
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs"
     end
     should "Test v2 core batch job get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs/id_123").to_return(
-        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"maximum_rps":1686015830,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
+        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8147,7 +8146,7 @@ module Stripe
     end
     should "Test v2 core batch job post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs/id_123/cancel").to_return(
-        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"maximum_rps":1686015830,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
+        body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9295,7 +9294,7 @@ module Stripe
     should "Test cannot proceed error (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/extend/workflows/id_123/invoke"
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
       ).to_return(
         body: '{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
         status: 400
@@ -9303,24 +9302,9 @@ module Stripe
       client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::CannotProceedError do
-        workflow_run = client.v2.extend.workflows.invoke(
-          "id_123",
-          {
-            input_parameters: {
-              int_key: 123,
-              string_key: "value",
-              boolean_key: true,
-              object_key: {
-                object_int_key: 123,
-                object_string_key: "value",
-                object_boolean_key: true,
-              },
-              array_key: [1, 2, 3],
-            },
-          }
-        )
+        us_bank_account = client.v2.core.vault.us_bank_accounts.archive("id_123")
       end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/extend/workflows/id_123/invoke"
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
     end
     should "Test controlled by alternate resource error (service)" do
       stub_request(

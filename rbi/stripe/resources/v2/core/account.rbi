@@ -1416,6 +1416,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class SunbitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class SwishPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1651,6 +1679,9 @@ module Stripe
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
+              # Allow the merchant to process Sunbit payments.
+              sig { returns(T.nilable(SunbitPayments)) }
+              def sunbit_payments; end
               # Allow the merchant to process Swish payments.
               sig { returns(T.nilable(SwishPayments)) }
               def swish_payments; end
@@ -1706,6 +1737,7 @@ module Stripe
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
                   stripe_balance: StripeBalance,
+                  sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
@@ -1978,6 +2010,688 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class MoneyManager < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class BusinessStorage < ::Stripe::StripeObject
+                class Inbound < ::Stripe::StripeObject
+                  class Aud < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Eur < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Gbp < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Usd < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can receive business storage-type funds on Stripe in AUD.
+                  sig { returns(T.nilable(Aud)) }
+                  def aud; end
+                  # Can receive business storage-type funds on Stripe in CAD.
+                  sig { returns(T.nilable(Cad)) }
+                  def cad; end
+                  # Can receive business storage-type funds on Stripe in EUR.
+                  sig { returns(T.nilable(Eur)) }
+                  def eur; end
+                  # Can receive business storage-type funds on Stripe in GBP.
+                  sig { returns(T.nilable(Gbp)) }
+                  def gbp; end
+                  # Can receive business storage-type funds on Stripe in USD.
+                  sig { returns(T.nilable(Usd)) }
+                  def usd; end
+                  def self.inner_class_types
+                    @inner_class_types = {aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Outbound < ::Stripe::StripeObject
+                  class Aud < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Eur < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Gbp < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  class Usd < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      sig { returns(String) }
+                      def code; end
+                      # Machine-readable code explaining how to make the Capability active.
+                      sig { returns(String) }
+                      def resolution; end
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    sig { returns(String) }
+                    def status; end
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    sig { returns(T::Array[StatusDetail]) }
+                    def status_details; end
+                    def self.inner_class_types
+                      @inner_class_types = {status_details: StatusDetail}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can send business storage-type funds on Stripe in AUD.
+                  sig { returns(T.nilable(Aud)) }
+                  def aud; end
+                  # Can send business storage-type funds on Stripe in CAD.
+                  sig { returns(T.nilable(Cad)) }
+                  def cad; end
+                  # Can send business storage-type funds on Stripe in EUR.
+                  sig { returns(T.nilable(Eur)) }
+                  def eur; end
+                  # Can send business storage-type funds on Stripe in GBP.
+                  sig { returns(T.nilable(Gbp)) }
+                  def gbp; end
+                  # Can send business storage-type funds on Stripe in USD.
+                  sig { returns(T.nilable(Usd)) }
+                  def usd; end
+                  def self.inner_class_types
+                    @inner_class_types = {aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can receive business storage-type funds on Stripe.
+                sig { returns(T.nilable(Inbound)) }
+                def inbound; end
+                # Can send business storage-type funds on Stripe.
+                sig { returns(T.nilable(Outbound)) }
+                def outbound; end
+                def self.inner_class_types
+                  @inner_class_types = {inbound: Inbound, outbound: Outbound}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class InboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can pull funds into a FinancialAccount from an external bank account owned by the user.
+                sig { returns(T.nilable(BankAccounts)) }
+                def bank_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {bank_accounts: BankAccounts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class OutboundPayments < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class Cards < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can send funds from a FinancialAccount to a bank account owned by a different entity.
+                sig { returns(T.nilable(BankAccounts)) }
+                def bank_accounts; end
+                # Can send funds from a FinancialAccount to a debit card owned by a different entity.
+                sig { returns(T.nilable(Cards)) }
+                def cards; end
+                # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
+                sig { returns(T.nilable(FinancialAccounts)) }
+                def financial_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    cards: Cards,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class OutboundTransfers < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                class FinancialAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can send funds from a FinancialAccount to a bank account belonging to the same user.
+                sig { returns(T.nilable(BankAccounts)) }
+                def bank_accounts; end
+                # Can send funds from a FinancialAccount to another FinancialAccount belonging to the same user.
+                sig { returns(T.nilable(FinancialAccounts)) }
+                def financial_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    financial_accounts: FinancialAccounts,
+                  }
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class ReceivedCredits < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can receive credits to a bank-account like financial address to credit a FinancialAccount.
+                sig { returns(T.nilable(BankAccounts)) }
+                def bank_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {bank_accounts: BankAccounts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class ReceivedDebits < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    sig { returns(String) }
+                    def code; end
+                    # Machine-readable code explaining how to make the Capability active.
+                    sig { returns(String) }
+                    def resolution; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  sig { returns(String) }
+                  def status; end
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  sig { returns(T::Array[StatusDetail]) }
+                  def status_details; end
+                  def self.inner_class_types
+                    @inner_class_types = {status_details: StatusDetail}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can receive debits to a FinancialAccount from a bank account.
+                sig { returns(T.nilable(BankAccounts)) }
+                def bank_accounts; end
+                def self.inner_class_types
+                  @inner_class_types = {bank_accounts: BankAccounts}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Can send or receive business storage-type funds on Stripe.
+              sig { returns(T.nilable(BusinessStorage)) }
+              def business_storage; end
+              # Hash containing capabilities related to InboundTransfers.
+              sig { returns(T.nilable(InboundTransfers)) }
+              def inbound_transfers; end
+              # Hash containing capabilities related to [OutboundPayments](/api/treasury/outbound_payments?api-version=preview).
+              sig { returns(T.nilable(OutboundPayments)) }
+              def outbound_payments; end
+              # Hash containing capabilities related to [OutboundTransfers](/api/treasury/outbound_transfers?api-version=preview).
+              sig { returns(T.nilable(OutboundTransfers)) }
+              def outbound_transfers; end
+              # Hash containing capabilities related to ReceivedCredits.
+              sig { returns(T.nilable(ReceivedCredits)) }
+              def received_credits; end
+              # Hash containing capabilities related to ReceivedDebits.
+              sig { returns(T.nilable(ReceivedDebits)) }
+              def received_debits; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  business_storage: BusinessStorage,
+                  inbound_transfers: InboundTransfers,
+                  outbound_payments: OutboundPayments,
+                  outbound_transfers: OutboundTransfers,
+                  received_credits: ReceivedCredits,
+                  received_debits: ReceivedDebits,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the money manager configuration is active. You cannot deactivate (or reactivate) the money manager configuration by updating this property.
+            sig { returns(T::Boolean) }
+            def applied; end
+            # Capabilities that have been requested on the Money Manager Configuration.
+            sig { returns(T.nilable(Capabilities)) }
+            def capabilities; end
+            def self.inner_class_types
+              @inner_class_types = {capabilities: Capabilities}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Recipient < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
               class BankAccounts < ::Stripe::StripeObject
@@ -2201,424 +2915,24 @@ module Stripe
               @field_remappings = {}
             end
           end
-          class Storer < ::Stripe::StripeObject
-            class Capabilities < ::Stripe::StripeObject
-              class FinancialAddresses < ::Stripe::StripeObject
-                class BankAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
-                sig { returns(T.nilable(BankAccounts)) }
-                def bank_accounts; end
-                def self.inner_class_types
-                  @inner_class_types = {bank_accounts: BankAccounts}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              class HoldsCurrencies < ::Stripe::StripeObject
-                class Eur < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                class Gbp < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                class Usd < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can hold storage-type funds on Stripe in EUR.
-                sig { returns(T.nilable(Eur)) }
-                def eur; end
-                # Can hold storage-type funds on Stripe in GBP.
-                sig { returns(T.nilable(Gbp)) }
-                def gbp; end
-                # Can hold storage-type funds on Stripe in USD.
-                sig { returns(T.nilable(Usd)) }
-                def usd; end
-                def self.inner_class_types
-                  @inner_class_types = {eur: Eur, gbp: Gbp, usd: Usd}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              class InboundTransfers < ::Stripe::StripeObject
-                class BankAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can pull funds into a FinancialAccount from an external bank account owned by the user.
-                sig { returns(T.nilable(BankAccounts)) }
-                def bank_accounts; end
-                def self.inner_class_types
-                  @inner_class_types = {bank_accounts: BankAccounts}
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              class OutboundPayments < ::Stripe::StripeObject
-                class BankAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                class Cards < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                class FinancialAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can send funds from a FinancialAccount to a bank account owned by a different entity.
-                sig { returns(T.nilable(BankAccounts)) }
-                def bank_accounts; end
-                # Can send funds from a FinancialAccount to a debit card owned by a different entity.
-                sig { returns(T.nilable(Cards)) }
-                def cards; end
-                # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
-                sig { returns(T.nilable(FinancialAccounts)) }
-                def financial_accounts; end
-                def self.inner_class_types
-                  @inner_class_types = {
-                    bank_accounts: BankAccounts,
-                    cards: Cards,
-                    financial_accounts: FinancialAccounts,
-                  }
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              class OutboundTransfers < ::Stripe::StripeObject
-                class BankAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                class FinancialAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    sig { returns(String) }
-                    def code; end
-                    # Machine-readable code explaining how to make the Capability active.
-                    sig { returns(String) }
-                    def resolution; end
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  sig { returns(String) }
-                  def status; end
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  sig { returns(T::Array[StatusDetail]) }
-                  def status_details; end
-                  def self.inner_class_types
-                    @inner_class_types = {status_details: StatusDetail}
-                  end
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can send funds from a FinancialAccount to a bank account belonging to the same user.
-                sig { returns(T.nilable(BankAccounts)) }
-                def bank_accounts; end
-                # Can send funds from a FinancialAccount to another FinancialAccount belonging to the same user.
-                sig { returns(T.nilable(FinancialAccounts)) }
-                def financial_accounts; end
-                def self.inner_class_types
-                  @inner_class_types = {
-                    bank_accounts: BankAccounts,
-                    financial_accounts: FinancialAccounts,
-                  }
-                end
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              # Can provision a financial address to credit/debit a FinancialAccount.
-              sig { returns(T.nilable(FinancialAddresses)) }
-              def financial_addresses; end
-              # Can hold storage-type funds on Stripe.
-              sig { returns(T.nilable(HoldsCurrencies)) }
-              def holds_currencies; end
-              # Hash containing capabilities related to InboundTransfers.
-              sig { returns(T.nilable(InboundTransfers)) }
-              def inbound_transfers; end
-              # Hash containing capabilities related to [OutboundPayments](/api/treasury/outbound_payments?api-version=preview).
-              sig { returns(T.nilable(OutboundPayments)) }
-              def outbound_payments; end
-              # Hash containing capabilities related to [OutboundTransfers](/api/treasury/outbound_transfers?api-version=preview).
-              sig { returns(T.nilable(OutboundTransfers)) }
-              def outbound_transfers; end
-              def self.inner_class_types
-                @inner_class_types = {
-                  financial_addresses: FinancialAddresses,
-                  holds_currencies: HoldsCurrencies,
-                  inbound_transfers: InboundTransfers,
-                  outbound_payments: OutboundPayments,
-                  outbound_transfers: OutboundTransfers,
-                }
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Indicates whether the storer configuration is active. You cannot deactivate (or reactivate) the storer configuration by updating this property.
-            sig { returns(T::Boolean) }
-            def applied; end
-            # Capabilities that have been requested on the Storer Configuration.
-            sig { returns(T.nilable(Capabilities)) }
-            def capabilities; end
-            def self.inner_class_types
-              @inner_class_types = {capabilities: Capabilities}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           sig { returns(T.nilable(Customer)) }
           def customer; end
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig { returns(T.nilable(Merchant)) }
           def merchant; end
+          # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
+          sig { returns(T.nilable(MoneyManager)) }
+          def money_manager; end
           # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           sig { returns(T.nilable(Recipient)) }
           def recipient; end
-          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
-          sig { returns(T.nilable(Storer)) }
-          def storer; end
           def self.inner_class_types
             @inner_class_types = {
               customer: Customer,
               merchant: Merchant,
+              money_manager: MoneyManager,
               recipient: Recipient,
-              storer: Storer,
             }
           end
           def self.field_remappings
@@ -2647,7 +2961,7 @@ module Stripe
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             sig { returns(T.nilable(String)) }
             def fees_collector; end
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             sig { returns(T.nilable(String)) }
             def losses_collector; end
             # A value indicating responsibility for collecting requirements on this account.
@@ -2943,7 +3257,7 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              class Storer < ::Stripe::StripeObject
+              class MoneyManager < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 sig { returns(T.nilable(String)) }
                 def date; end
@@ -2964,10 +3278,10 @@ module Stripe
               sig { returns(T.nilable(Account)) }
               def account; end
               # Details on the Account's acceptance of Treasury-specific terms of service.
-              sig { returns(T.nilable(Storer)) }
-              def storer; end
+              sig { returns(T.nilable(MoneyManager)) }
+              def money_manager; end
               def self.inner_class_types
-                @inner_class_types = {account: Account, storer: Storer}
+                @inner_class_types = {account: Account, money_manager: MoneyManager}
               end
               def self.field_remappings
                 @field_remappings = {}

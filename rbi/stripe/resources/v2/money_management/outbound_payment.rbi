@@ -56,6 +56,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Processing < ::Stripe::StripeObject
+            # Open Enum. The `processing` status reason.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             sig { returns(String) }
@@ -70,11 +81,14 @@ module Stripe
           # The `failed` status reason.
           sig { returns(T.nilable(Failed)) }
           def failed; end
+          # The `processing` status details.
+          sig { returns(T.nilable(Processing)) }
+          def processing; end
           # The `returned` status reason.
           sig { returns(T.nilable(Returned)) }
           def returned; end
           def self.inner_class_types
-            @inner_class_types = {failed: Failed, returned: Returned}
+            @inner_class_types = {failed: Failed, processing: Processing, returned: Returned}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -194,7 +208,7 @@ module Stripe
         # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
         sig { returns(String) }
         def status; end
-        # Status details for an OutboundPayment in a `failed` or `returned` state.
+        # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
         sig { returns(T.nilable(StatusDetails)) }
         def status_details; end
         # Hash containing timestamps of when the object transitioned to a particular status.

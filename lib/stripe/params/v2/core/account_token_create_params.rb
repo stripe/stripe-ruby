@@ -67,7 +67,7 @@ module Stripe
                 end
               end
 
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 attr_accessor :shown_and_accepted
 
@@ -78,11 +78,11 @@ module Stripe
               # Details on the Account's acceptance of the [Stripe Services Agreement]; IP, date, and User Agent are expanded by Stripe.
               attr_accessor :account
               # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
-              attr_accessor :storer
+              attr_accessor :money_manager
 
-              def initialize(account: nil, storer: nil)
+              def initialize(account: nil, money_manager: nil)
                 @account = account
-                @storer = storer
+                @money_manager = money_manager
               end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.

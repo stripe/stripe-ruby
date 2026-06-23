@@ -67,6 +67,19 @@ module Stripe
             end
           end
 
+          class Processing < ::Stripe::StripeObject
+            # Open Enum. The `processing` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             attr_reader :reason
@@ -81,11 +94,13 @@ module Stripe
           end
           # The `failed` status reason.
           attr_reader :failed
+          # The `processing` status details.
+          attr_reader :processing
           # The `returned` status reason.
           attr_reader :returned
 
           def self.inner_class_types
-            @inner_class_types = { failed: Failed, returned: Returned }
+            @inner_class_types = { failed: Failed, processing: Processing, returned: Returned }
           end
 
           def self.field_remappings
@@ -189,7 +204,7 @@ module Stripe
         # The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`.
         # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
         attr_reader :status
-        # Status details for an OutboundPayment in a `failed` or `returned` state.
+        # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
         attr_reader :status_details
         # Hash containing timestamps of when the object transitioned to a particular status.
         attr_reader :status_transitions

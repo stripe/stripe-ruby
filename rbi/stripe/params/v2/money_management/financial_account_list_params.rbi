@@ -11,13 +11,13 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
-        # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
-        sig { returns(T.nilable(String)) }
-        def status; end
-        sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
-        def status=(_status); end
-        sig { params(limit: T.nilable(Integer), status: T.nilable(String)).void }
-        def initialize(limit: nil, status: nil); end
+        # Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
+        sig { returns(T.nilable(T::Array[String])) }
+        def statuses; end
+        sig { params(_statuses: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def statuses=(_statuses); end
+        sig { params(limit: T.nilable(Integer), statuses: T.nilable(T::Array[String])).void }
+        def initialize(limit: nil, statuses: nil); end
       end
     end
   end

@@ -11,6 +11,7 @@ module Stripe
           # Archived USBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
           #
+          # ** raises CannotProceedError
           # ** raises ControlledByDashboardError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)

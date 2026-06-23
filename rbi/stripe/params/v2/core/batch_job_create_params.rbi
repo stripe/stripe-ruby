@@ -38,16 +38,12 @@ module Stripe
           params(_endpoint: ::Stripe::V2::Core::BatchJobCreateParams::Endpoint).returns(::Stripe::V2::Core::BatchJobCreateParams::Endpoint)
          }
         def endpoint=(_endpoint); end
-        # Optional field that allows the user to control how fast they want this batch job to run.
-        # Gives them a control over the number of webhooks they receive.
-        sig { returns(T.nilable(Integer)) }
-        def maximum_rps; end
-        sig { params(_maximum_rps: T.nilable(Integer)).returns(T.nilable(Integer)) }
-        def maximum_rps=(_maximum_rps); end
         # The metadata of the `batch_job`.
-        sig { returns(T::Hash[String, String]) }
+        sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
-        sig { params(_metadata: T::Hash[String, String]).returns(T::Hash[String, String]) }
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
         def metadata=(_metadata); end
         # Notification suppression settings for the batch job.
         sig {
@@ -64,11 +60,10 @@ module Stripe
         sig { params(_skip_validation: T::Boolean).returns(T::Boolean) }
         def skip_validation=(_skip_validation); end
         sig {
-          params(endpoint: ::Stripe::V2::Core::BatchJobCreateParams::Endpoint, maximum_rps: T.nilable(Integer), metadata: T::Hash[String, String], notification_suppression: T.nilable(::Stripe::V2::Core::BatchJobCreateParams::NotificationSuppression), skip_validation: T::Boolean).void
+          params(endpoint: ::Stripe::V2::Core::BatchJobCreateParams::Endpoint, metadata: T.nilable(T::Hash[String, String]), notification_suppression: T.nilable(::Stripe::V2::Core::BatchJobCreateParams::NotificationSuppression), skip_validation: T::Boolean).void
          }
         def initialize(
           endpoint: nil,
-          maximum_rps: nil,
           metadata: nil,
           notification_suppression: nil,
           skip_validation: nil

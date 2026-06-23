@@ -556,6 +556,15 @@ module Stripe
                 end
               end
 
+              class SunbitPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class SwishPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -671,6 +680,8 @@ module Stripe
               attr_accessor :sepa_bank_transfer_payments
               # Allow the merchant to process SEPA Direct Debit payments.
               attr_accessor :sepa_debit_payments
+              # Allow the merchant to process Sunbit payments.
+              attr_accessor :sunbit_payments
               # Allow the merchant to process Swish payments.
               attr_accessor :swish_payments
               # Allow the merchant to process TWINT payments.
@@ -721,6 +732,7 @@ module Stripe
                 samsung_pay_payments: nil,
                 sepa_bank_transfer_payments: nil,
                 sepa_debit_payments: nil,
+                sunbit_payments: nil,
                 swish_payments: nil,
                 twint_payments: nil,
                 us_bank_transfer_payments: nil,
@@ -766,6 +778,7 @@ module Stripe
                 @samsung_pay_payments = samsung_pay_payments
                 @sepa_bank_transfer_payments = sepa_bank_transfer_payments
                 @sepa_debit_payments = sepa_debit_payments
+                @sunbit_payments = sunbit_payments
                 @swish_payments = swish_payments
                 @twint_payments = twint_payments
                 @us_bank_transfer_payments = us_bank_transfer_payments
@@ -988,140 +1001,146 @@ module Stripe
             end
           end
 
-          class Recipient < ::Stripe::RequestParams
+          class MoneyManager < ::Stripe::RequestParams
             class Capabilities < ::Stripe::RequestParams
-              class BankAccounts < ::Stripe::RequestParams
-                class Local < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
+              class BusinessStorage < ::Stripe::RequestParams
+                class Inbound < ::Stripe::RequestParams
+                  class Aud < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
 
-                  def initialize(requested: nil)
-                    @requested = requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Cad < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Eur < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Gbp < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Usd < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can receive business storage-type funds on Stripe in AUD.
+                  attr_accessor :aud
+                  # Can receive business storage-type funds on Stripe in CAD.
+                  attr_accessor :cad
+                  # Can receive business storage-type funds on Stripe in EUR.
+                  attr_accessor :eur
+                  # Can receive business storage-type funds on Stripe in GBP.
+                  attr_accessor :gbp
+                  # Can receive business storage-type funds on Stripe in USD.
+                  attr_accessor :usd
+
+                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil)
+                    @aud = aud
+                    @cad = cad
+                    @eur = eur
+                    @gbp = gbp
+                    @usd = usd
                   end
                 end
 
-                class Wire < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
+                class Outbound < ::Stripe::RequestParams
+                  class Aud < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
 
-                  def initialize(requested: nil)
-                    @requested = requested
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Cad < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Eur < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Gbp < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+
+                  class Usd < ::Stripe::RequestParams
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Can send business storage-type funds on Stripe in AUD.
+                  attr_accessor :aud
+                  # Can send business storage-type funds on Stripe in CAD.
+                  attr_accessor :cad
+                  # Can send business storage-type funds on Stripe in EUR.
+                  attr_accessor :eur
+                  # Can send business storage-type funds on Stripe in GBP.
+                  attr_accessor :gbp
+                  # Can send business storage-type funds on Stripe in USD.
+                  attr_accessor :usd
+
+                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil)
+                    @aud = aud
+                    @cad = cad
+                    @eur = eur
+                    @gbp = gbp
+                    @usd = usd
                   end
                 end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
-                attr_accessor :local
-                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
-                attr_accessor :wire
+                # Can receive business storage-type funds on Stripe.
+                attr_accessor :inbound
+                # Can send business storage-type funds on Stripe.
+                attr_accessor :outbound
 
-                def initialize(local: nil, wire: nil)
-                  @local = local
-                  @wire = wire
-                end
-              end
-
-              class Cards < ::Stripe::RequestParams
-                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                attr_accessor :requested
-
-                def initialize(requested: nil)
-                  @requested = requested
-                end
-              end
-
-              class StripeBalance < ::Stripe::RequestParams
-                class StripeTransfers < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
-
-                  def initialize(requested: nil)
-                    @requested = requested
-                  end
-                end
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
-                attr_accessor :stripe_transfers
-
-                def initialize(stripe_transfers: nil)
-                  @stripe_transfers = stripe_transfers
-                end
-              end
-              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
-              attr_accessor :bank_accounts
-              # Capabilities that enable OutboundPayments to a card linked to this Account.
-              attr_accessor :cards
-              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
-              attr_accessor :stripe_balance
-
-              def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
-                @bank_accounts = bank_accounts
-                @cards = cards
-                @stripe_balance = stripe_balance
-              end
-            end
-            # Capabilities to be requested on the Recipient Configuration.
-            attr_accessor :capabilities
-
-            def initialize(capabilities: nil)
-              @capabilities = capabilities
-            end
-          end
-
-          class Storer < ::Stripe::RequestParams
-            class Capabilities < ::Stripe::RequestParams
-              class FinancialAddresses < ::Stripe::RequestParams
-                class BankAccounts < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
-
-                  def initialize(requested: nil)
-                    @requested = requested
-                  end
-                end
-                # Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
-                attr_accessor :bank_accounts
-
-                def initialize(bank_accounts: nil)
-                  @bank_accounts = bank_accounts
-                end
-              end
-
-              class HoldsCurrencies < ::Stripe::RequestParams
-                class Eur < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
-
-                  def initialize(requested: nil)
-                    @requested = requested
-                  end
-                end
-
-                class Gbp < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
-
-                  def initialize(requested: nil)
-                    @requested = requested
-                  end
-                end
-
-                class Usd < ::Stripe::RequestParams
-                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-                  attr_accessor :requested
-
-                  def initialize(requested: nil)
-                    @requested = requested
-                  end
-                end
-                # Can hold storage-type funds on Stripe in EUR.
-                attr_accessor :eur
-                # Can hold storage-type funds on Stripe in GBP.
-                attr_accessor :gbp
-                # Can hold storage-type funds on Stripe in USD.
-                attr_accessor :usd
-
-                def initialize(eur: nil, gbp: nil, usd: nil)
-                  @eur = eur
-                  @gbp = gbp
-                  @usd = usd
+                def initialize(inbound: nil, outbound: nil)
+                  @inbound = inbound
+                  @outbound = outbound
                 end
               end
 
@@ -1211,32 +1230,147 @@ module Stripe
                   @financial_accounts = financial_accounts
                 end
               end
-              # Can provision a financial address to credit/debit a FinancialAccount.
-              attr_accessor :financial_addresses
-              # Can hold storage-type funds on Stripe.
-              attr_accessor :holds_currencies
+
+              class ReceivedCredits < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+                # Can receive funds on a bank-account-like financial address (VBAN) to credit a FinancialAccount.
+                attr_accessor :bank_accounts
+
+                def initialize(bank_accounts: nil)
+                  @bank_accounts = bank_accounts
+                end
+              end
+
+              class ReceivedDebits < ::Stripe::RequestParams
+                class BankAccounts < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+                # Can receive debits to a FinancialAccount from a bank account.
+                attr_accessor :bank_accounts
+
+                def initialize(bank_accounts: nil)
+                  @bank_accounts = bank_accounts
+                end
+              end
+              # Can send or receive business storage-type funds on Stripe.
+              attr_accessor :business_storage
               # Can pull funds from an external source, owned by yourself, to a FinancialAccount.
               attr_accessor :inbound_transfers
               # Can send funds from a FinancialAccount to a destination owned by someone else.
               attr_accessor :outbound_payments
               # Can send funds from a FinancialAccount to a destination owned by yourself.
               attr_accessor :outbound_transfers
+              # Can receive funds into a FinancialAccount.
+              attr_accessor :received_credits
+              # Can receive debits to a FinancialAccount.
+              attr_accessor :received_debits
 
               def initialize(
-                financial_addresses: nil,
-                holds_currencies: nil,
+                business_storage: nil,
                 inbound_transfers: nil,
                 outbound_payments: nil,
-                outbound_transfers: nil
+                outbound_transfers: nil,
+                received_credits: nil,
+                received_debits: nil
               )
-                @financial_addresses = financial_addresses
-                @holds_currencies = holds_currencies
+                @business_storage = business_storage
                 @inbound_transfers = inbound_transfers
                 @outbound_payments = outbound_payments
                 @outbound_transfers = outbound_transfers
+                @received_credits = received_credits
+                @received_debits = received_debits
               end
             end
-            # Capabilities to request on the Storer Configuration.
+            # Capabilities to request on the Money Manager Configuration.
+            attr_accessor :capabilities
+
+            def initialize(capabilities: nil)
+              @capabilities = capabilities
+            end
+          end
+
+          class Recipient < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class BankAccounts < ::Stripe::RequestParams
+                class Local < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+
+                class Wire < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                attr_accessor :local
+                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+                attr_accessor :wire
+
+                def initialize(local: nil, wire: nil)
+                  @local = local
+                  @wire = wire
+                end
+              end
+
+              class Cards < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
+              class StripeBalance < ::Stripe::RequestParams
+                class StripeTransfers < ::Stripe::RequestParams
+                  # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                  attr_accessor :requested
+
+                  def initialize(requested: nil)
+                    @requested = requested
+                  end
+                end
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                attr_accessor :stripe_transfers
+
+                def initialize(stripe_transfers: nil)
+                  @stripe_transfers = stripe_transfers
+                end
+              end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              attr_accessor :bank_accounts
+              # Capabilities that enable OutboundPayments to a card linked to this Account.
+              attr_accessor :cards
+              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+              attr_accessor :stripe_balance
+
+              def initialize(bank_accounts: nil, cards: nil, stripe_balance: nil)
+                @bank_accounts = bank_accounts
+                @cards = cards
+                @stripe_balance = stripe_balance
+              end
+            end
+            # Capabilities to be requested on the Recipient Configuration.
             attr_accessor :capabilities
 
             def initialize(capabilities: nil)
@@ -1247,16 +1381,16 @@ module Stripe
           attr_accessor :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
+          # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
+          attr_accessor :money_manager
           # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           attr_accessor :recipient
-          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
-          attr_accessor :storer
 
-          def initialize(customer: nil, merchant: nil, recipient: nil, storer: nil)
+          def initialize(customer: nil, merchant: nil, money_manager: nil, recipient: nil)
             @customer = customer
             @merchant = merchant
+            @money_manager = money_manager
             @recipient = recipient
-            @storer = storer
           end
         end
 
@@ -1399,7 +1533,7 @@ module Stripe
                 end
               end
 
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -1416,11 +1550,11 @@ module Stripe
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_accessor :account
               # Details on the Account's acceptance of Treasury-specific terms of service.
-              attr_accessor :storer
+              attr_accessor :money_manager
 
-              def initialize(account: nil, storer: nil)
+              def initialize(account: nil, money_manager: nil)
                 @account = account
-                @storer = storer
+                @money_manager = money_manager
               end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.

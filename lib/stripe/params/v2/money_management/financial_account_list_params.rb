@@ -7,12 +7,12 @@ module Stripe
       class FinancialAccountListParams < ::Stripe::RequestParams
         # The page limit.
         attr_accessor :limit
-        # The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
-        attr_accessor :status
+        # Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
+        attr_accessor :statuses
 
-        def initialize(limit: nil, status: nil)
+        def initialize(limit: nil, statuses: nil)
           @limit = limit
-          @status = status
+          @statuses = statuses
         end
       end
     end

@@ -164,6 +164,9 @@ module Stripe
       # For underwriting initiated by an application, a decision must be taken 30 days after the submission.
       sig { returns(T.nilable(Integer)) }
       def decision_deadline; end
+      # Time at which the decision deadline was last updated.
+      sig { returns(T.nilable(Integer)) }
+      def decision_deadline_updated_at; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
@@ -223,6 +226,18 @@ module Stripe
         params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
       def self.report_decision(credit_underwriting_record, params = {}, opts = {}); end
+
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      sig {
+        params(params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportOfferAcceptanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+       }
+      def report_offer_acceptance(params = {}, opts = {}); end
+
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      sig {
+        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportOfferAcceptanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+       }
+      def self.report_offer_acceptance(credit_underwriting_record, params = {}, opts = {}); end
     end
   end
 end

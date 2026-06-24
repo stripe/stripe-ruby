@@ -814,13 +814,421 @@ module Stripe
         def initialize(enabled: nil, invoice_data: nil); end
       end
       class Item < ::Stripe::RequestParams
+        class Subscription < ::Stripe::RequestParams
+          class BillingCycleAnchorConfig < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            sig { returns(Integer) }
+            def day_of_month; end
+            sig { params(_day_of_month: Integer).returns(Integer) }
+            def day_of_month=(_day_of_month); end
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            sig { returns(T.nilable(Integer)) }
+            def hour; end
+            sig { params(_hour: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def hour=(_hour); end
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            sig { returns(T.nilable(Integer)) }
+            def minute; end
+            sig { params(_minute: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def minute=(_minute); end
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            sig { returns(T.nilable(Integer)) }
+            def month; end
+            sig { params(_month: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def month=(_month); end
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            sig { returns(T.nilable(Integer)) }
+            def second; end
+            sig { params(_second: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def second=(_second); end
+            sig {
+              params(day_of_month: Integer, hour: T.nilable(Integer), minute: T.nilable(Integer), month: T.nilable(Integer), second: T.nilable(Integer)).void
+             }
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil); end
+          end
+          class BillingMode < ::Stripe::RequestParams
+            class Flexible < ::Stripe::RequestParams
+              # Controls how invoices and invoice items display proration amounts and discount amounts.
+              sig { returns(T.nilable(String)) }
+              def proration_discounts; end
+              sig { params(_proration_discounts: T.nilable(String)).returns(T.nilable(String)) }
+              def proration_discounts=(_proration_discounts); end
+              sig { params(proration_discounts: T.nilable(String)).void }
+              def initialize(proration_discounts: nil); end
+            end
+            # Configure behavior for flexible billing mode.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode::Flexible))
+             }
+            def flexible; end
+            sig {
+              params(_flexible: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode::Flexible)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode::Flexible))
+             }
+            def flexible=(_flexible); end
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(flexible: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode::Flexible), type: String).void
+             }
+            def initialize(flexible: nil, type: nil); end
+          end
+          class Item < ::Stripe::RequestParams
+            class PriceData < ::Stripe::RequestParams
+              class ProductData < ::Stripe::RequestParams
+                class TaxDetails < ::Stripe::RequestParams
+                  # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+                  sig { returns(T.nilable(String)) }
+                  def performance_location; end
+                  sig {
+                    params(_performance_location: T.nilable(String)).returns(T.nilable(String))
+                   }
+                  def performance_location=(_performance_location); end
+                  # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                  sig { returns(T.nilable(String)) }
+                  def tax_code; end
+                  sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+                  def tax_code=(_tax_code); end
+                  sig {
+                    params(performance_location: T.nilable(String), tax_code: T.nilable(String)).void
+                   }
+                  def initialize(performance_location: nil, tax_code: nil); end
+                end
+                # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+                sig { returns(T.nilable(String)) }
+                def description; end
+                sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+                def description=(_description); end
+                # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+                sig { returns(T.nilable(T::Array[String])) }
+                def images; end
+                sig {
+                  params(_images: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+                 }
+                def images=(_images); end
+                # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+                sig { returns(T.nilable(T::Hash[String, String])) }
+                def metadata; end
+                sig {
+                  params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+                 }
+                def metadata=(_metadata); end
+                # The product's name, meant to be displayable to the customer.
+                sig { returns(String) }
+                def name; end
+                sig { params(_name: String).returns(String) }
+                def name=(_name); end
+                # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                sig { returns(T.nilable(String)) }
+                def tax_code; end
+                sig { params(_tax_code: T.nilable(String)).returns(T.nilable(String)) }
+                def tax_code=(_tax_code); end
+                # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+                sig {
+                  returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData::TaxDetails))
+                 }
+                def tax_details; end
+                sig {
+                  params(_tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData::TaxDetails)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData::TaxDetails))
+                 }
+                def tax_details=(_tax_details); end
+                # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+                sig { returns(T.nilable(String)) }
+                def unit_label; end
+                sig { params(_unit_label: T.nilable(String)).returns(T.nilable(String)) }
+                def unit_label=(_unit_label); end
+                sig {
+                  params(description: T.nilable(String), images: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), name: String, tax_code: T.nilable(String), tax_details: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData::TaxDetails), unit_label: T.nilable(String)).void
+                 }
+                def initialize(
+                  description: nil,
+                  images: nil,
+                  metadata: nil,
+                  name: nil,
+                  tax_code: nil,
+                  tax_details: nil,
+                  unit_label: nil
+                ); end
+              end
+              class Recurring < ::Stripe::RequestParams
+                # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+                sig { returns(String) }
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
+                # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+                sig { returns(T.nilable(Integer)) }
+                def interval_count; end
+                sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+                def interval_count=(_interval_count); end
+                sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+                def initialize(interval: nil, interval_count: nil); end
+              end
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              sig { returns(String) }
+              def currency; end
+              sig { params(_currency: String).returns(String) }
+              def currency=(_currency); end
+              # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+              sig { returns(T.nilable(String)) }
+              def product; end
+              sig { params(_product: T.nilable(String)).returns(T.nilable(String)) }
+              def product=(_product); end
+              # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData))
+               }
+              def product_data; end
+              sig {
+                params(_product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData))
+               }
+              def product_data=(_product_data); end
+              # The recurring components of a price such as `interval` and `interval_count`.
+              sig {
+                returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::Recurring))
+               }
+              def recurring; end
+              sig {
+                params(_recurring: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::Recurring)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::Recurring))
+               }
+              def recurring=(_recurring); end
+              # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+              sig { returns(T.nilable(String)) }
+              def tax_behavior; end
+              sig { params(_tax_behavior: T.nilable(String)).returns(T.nilable(String)) }
+              def tax_behavior=(_tax_behavior); end
+              # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+              sig { returns(T.nilable(Integer)) }
+              def unit_amount; end
+              sig { params(_unit_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def unit_amount=(_unit_amount); end
+              # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+              sig { returns(T.nilable(BigDecimal)) }
+              def unit_amount_decimal; end
+              sig {
+                params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+               }
+              def unit_amount_decimal=(_unit_amount_decimal); end
+              sig {
+                params(currency: String, product: T.nilable(String), product_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::ProductData), recurring: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData::Recurring), tax_behavior: T.nilable(String), unit_amount: T.nilable(Integer), unit_amount_decimal: T.nilable(BigDecimal)).void
+               }
+              def initialize(
+                currency: nil,
+                product: nil,
+                product_data: nil,
+                recurring: nil,
+                tax_behavior: nil,
+                unit_amount: nil,
+                unit_amount_decimal: nil
+              ); end
+              def self.field_encodings
+                @field_encodings = {unit_amount_decimal: :decimal_string}
+              end
+            end
+            # The ID of the price for this subscription item.
+            sig { returns(T.nilable(String)) }
+            def price; end
+            sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
+            def price=(_price); end
+            # Data used to generate a new Price object inline.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData))
+             }
+            def price_data; end
+            sig {
+              params(_price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData))
+             }
+            def price_data=(_price_data); end
+            # Quantity for this item.
+            sig { returns(T.nilable(Integer)) }
+            def quantity; end
+            sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def quantity=(_quantity); end
+            sig {
+              params(price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
+             }
+            def initialize(price: nil, price_data: nil, quantity: nil); end
+            def self.field_encodings
+              @field_encodings = {
+                price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+              }
+            end
+          end
+          class PendingInvoiceItemInterval < ::Stripe::RequestParams
+            # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          class TrialSettings < ::Stripe::RequestParams
+            class EndBehavior < ::Stripe::RequestParams
+              # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+              sig { returns(String) }
+              def missing_payment_method; end
+              sig { params(_missing_payment_method: String).returns(String) }
+              def missing_payment_method=(_missing_payment_method); end
+              sig { params(missing_payment_method: String).void }
+              def initialize(missing_payment_method: nil); end
+            end
+            # Defines how the subscription should behave when the user's free trial ends.
+            sig {
+              returns(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings::EndBehavior)
+             }
+            def end_behavior; end
+            sig {
+              params(_end_behavior: ::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings::EndBehavior).returns(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings::EndBehavior)
+             }
+            def end_behavior=(_end_behavior); end
+            sig {
+              params(end_behavior: ::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings::EndBehavior).void
+             }
+            def initialize(end_behavior: nil); end
+          end
+          # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingCycleAnchorConfig))
+           }
+          def billing_cycle_anchor_config; end
+          sig {
+            params(_billing_cycle_anchor_config: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingCycleAnchorConfig)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingCycleAnchorConfig))
+           }
+          def billing_cycle_anchor_config=(_billing_cycle_anchor_config); end
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode))
+           }
+          def billing_mode; end
+          sig {
+            params(_billing_mode: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode))
+           }
+          def billing_mode=(_billing_mode); end
+          # The subscription's description, meant to be displayable to the customer.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+          def description=(_description); end
+          # The list of items for the subscription.
+          sig {
+            returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item])
+           }
+          def items; end
+          sig {
+            params(_items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item]).returns(T::Array[::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item])
+           }
+          def items=(_items); end
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
+          # Specifies an interval for how often to bill for any pending invoice items.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::PendingInvoiceItemInterval))
+           }
+          def pending_invoice_item_interval; end
+          sig {
+            params(_pending_invoice_item_interval: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::PendingInvoiceItemInterval)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::PendingInvoiceItemInterval))
+           }
+          def pending_invoice_item_interval=(_pending_invoice_item_interval); end
+          # Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
+          sig { returns(T.nilable(String)) }
+          def proration_behavior; end
+          sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_behavior=(_proration_behavior); end
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+          sig { returns(T.nilable(Integer)) }
+          def trial_end; end
+          sig { params(_trial_end: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def trial_end=(_trial_end); end
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+          sig { returns(T.nilable(Integer)) }
+          def trial_period_days; end
+          sig { params(_trial_period_days: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def trial_period_days=(_trial_period_days); end
+          # Settings related to subscription trials.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings))
+           }
+          def trial_settings; end
+          sig {
+            params(_trial_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings))
+           }
+          def trial_settings=(_trial_settings); end
+          sig {
+            params(billing_cycle_anchor_config: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingCycleAnchorConfig), billing_mode: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::BillingMode), description: T.nilable(String), items: T::Array[::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item], metadata: T.nilable(T::Hash[String, String]), pending_invoice_item_interval: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::PendingInvoiceItemInterval), proration_behavior: T.nilable(String), trial_end: T.nilable(Integer), trial_period_days: T.nilable(Integer), trial_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::TrialSettings)).void
+           }
+          def initialize(
+            billing_cycle_anchor_config: nil,
+            billing_mode: nil,
+            description: nil,
+            items: nil,
+            metadata: nil,
+            pending_invoice_item_interval: nil,
+            proration_behavior: nil,
+            trial_end: nil,
+            trial_period_days: nil,
+            trial_settings: nil
+          ); end
+          def self.field_encodings
+            @field_encodings = {
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                  },
+                },
+              },
+            }
+          end
+        end
+        # Configuration for the subscription item.
+        sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription)) }
+        def subscription; end
+        sig {
+          params(_subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription))
+         }
+        def subscription=(_subscription); end
         # The type of item.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        sig { params(type: String).void }
-        def initialize(type: nil); end
+        sig {
+          params(subscription: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription), type: String).void
+         }
+        def initialize(subscription: nil, type: nil); end
+        def self.field_encodings
+          @field_encodings = {
+            subscription: {
+              kind: :object,
+              fields: {
+                items: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
       end
       class LineItem < ::Stripe::RequestParams
         class AdjustableQuantity < ::Stripe::RequestParams
@@ -4412,6 +4820,31 @@ module Stripe
       ); end
       def self.field_encodings
         @field_encodings = {
+          items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {
+                subscription: {
+                  kind: :object,
+                  fields: {
+                    items: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          price_data: {
+                            kind: :object,
+                            fields: {unit_amount_decimal: :decimal_string},
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
           line_items: {
             kind: :array,
             element: {

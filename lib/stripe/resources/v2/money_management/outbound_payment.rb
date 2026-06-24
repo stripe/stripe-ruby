@@ -13,6 +13,8 @@ module Stripe
 
         class DeliveryOptions < ::Stripe::StripeObject
           class PaperCheck < ::Stripe::StripeObject
+            # The ID of a file to include as an attachment with the paper check.
+            attr_reader :attachment
             # Memo printed on the memo field of the check.
             attr_reader :memo
             # Open Enum. Shipping speed of the paper check.
@@ -87,6 +89,19 @@ module Stripe
             end
           end
 
+          class Processing < ::Stripe::StripeObject
+            # Open Enum. The `processing` status reason.
+            attr_reader :reason
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Returned < ::Stripe::StripeObject
             # Open Enum. The `returned` status reason.
             attr_reader :reason
@@ -101,11 +116,13 @@ module Stripe
           end
           # The `failed` status reason.
           attr_reader :failed
+          # The `processing` status details.
+          attr_reader :processing
           # The `returned` status reason.
           attr_reader :returned
 
           def self.inner_class_types
-            @inner_class_types = { failed: Failed, returned: Returned }
+            @inner_class_types = { failed: Failed, processing: Processing, returned: Returned }
           end
 
           def self.field_remappings
@@ -137,15 +154,69 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  attr_reader :submission
+                  # The transaction purpose for this ACH payment.
+                  attr_reader :transaction_purpose
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                attr_reader :ach
+
+                def self.inner_class_types
+                  @inner_class_types = { ach: Ach }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              attr_reader :preferred_network_options
+              # The preferred networks to use for this OutboundPayment.
+              attr_reader :preferred_networks
+
+              def self.inner_class_types
+                @inner_class_types = { preferred_network_options: PreferredNetworkOptions }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            attr_reader :bank_account
+
+            def self.inner_class_types
+              @inner_class_types = { bank_account: BankAccount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundPayment uses to send payout.
           attr_reader :payout_method
+          # Payout method options for the OutboundPayment.
+          attr_reader :payout_method_options
           # To which account the OutboundPayment is sent.
           attr_reader :recipient
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { payout_method_options: PayoutMethodOptions }
           end
 
           def self.field_remappings
@@ -270,7 +341,7 @@ module Stripe
         # The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`.
         # If an OutboundPayment fails to arrive at its payout method, its status will change to `returned`.
         attr_reader :status
-        # Status details for an OutboundPayment in a `failed` or `returned` state.
+        # Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
         attr_reader :status_details
         # Hash containing timestamps of when the object transitioned to a particular status.
         attr_reader :status_transitions

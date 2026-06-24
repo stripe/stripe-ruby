@@ -969,6 +969,10 @@ module Stripe
         attr_reader :first6
         # The last four digits of the gift card number.
         attr_reader :last4
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The transaction ID from the gift card processor.
         attr_reader :transaction_id
 
@@ -2414,6 +2418,26 @@ module Stripe
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_canceled", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    def report_early_fraud_warning(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_early_fraud_warning", { payment_attempt_record: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    def self.report_early_fraud_warning(payment_attempt_record, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_early_fraud_warning", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
         params: params,
         opts: opts
       )

@@ -187,6 +187,8 @@ module Stripe
            "stripe/params/payment_attempt_record_report_authenticated_params"
   autoload :PaymentAttemptRecordReportAuthorizedParams, "stripe/params/payment_attempt_record_report_authorized_params"
   autoload :PaymentAttemptRecordReportCanceledParams, "stripe/params/payment_attempt_record_report_canceled_params"
+  autoload :PaymentAttemptRecordReportEarlyFraudWarningParams,
+           "stripe/params/payment_attempt_record_report_early_fraud_warning_params"
   autoload :PaymentAttemptRecordReportFailedParams, "stripe/params/payment_attempt_record_report_failed_params"
   autoload :PaymentAttemptRecordReportGuaranteedParams, "stripe/params/payment_attempt_record_report_guaranteed_params"
   autoload :PaymentAttemptRecordReportInformationalParams,
@@ -254,6 +256,7 @@ module Stripe
   autoload :PaymentRecordReportPaymentParams, "stripe/params/payment_record_report_payment_params"
   autoload :PaymentRecordReportRefundParams, "stripe/params/payment_record_report_refund_params"
   autoload :PaymentRecordRetrieveParams, "stripe/params/payment_record_retrieve_params"
+  autoload :PaymentRecordSearchParams, "stripe/params/payment_record_search_params"
   autoload :PayoutCancelParams, "stripe/params/payout_cancel_params"
   autoload :PayoutCreateParams, "stripe/params/payout_create_params"
   autoload :PayoutListParams, "stripe/params/payout_list_params"
@@ -563,10 +566,13 @@ module Stripe
     autoload :CreditUnderwritingRecordListParams, "stripe/params/issuing/credit_underwriting_record_list_params"
     autoload :CreditUnderwritingRecordReportDecisionParams,
              "stripe/params/issuing/credit_underwriting_record_report_decision_params"
+    autoload :CreditUnderwritingRecordReportOfferAcceptanceParams,
+             "stripe/params/issuing/credit_underwriting_record_report_offer_acceptance_params"
     autoload :CreditUnderwritingRecordRetrieveParams, "stripe/params/issuing/credit_underwriting_record_retrieve_params"
     autoload :DisputeCloseParams, "stripe/params/issuing/dispute_close_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
     autoload :DisputeListParams, "stripe/params/issuing/dispute_list_params"
+    autoload :DisputeProvisionalCreditParams, "stripe/params/issuing/dispute_provisional_credit_params"
     autoload :DisputeRetrieveParams, "stripe/params/issuing/dispute_retrieve_params"
     autoload :DisputeSettlementDetailListParams, "stripe/params/issuing/dispute_settlement_detail_list_params"
     autoload :DisputeSettlementDetailRetrieveParams, "stripe/params/issuing/dispute_settlement_detail_retrieve_params"
@@ -765,12 +771,14 @@ module Stripe
       autoload :CardShipCardParams, "stripe/params/test_helpers/issuing/card_ship_card_params"
       autoload :CardSubmitCardParams, "stripe/params/test_helpers/issuing/card_submit_card_params"
       autoload :DisputeCloseParams, "stripe/params/test_helpers/issuing/dispute_close_params"
+      autoload :DisputeProvisionalCreditParams, "stripe/params/test_helpers/issuing/dispute_provisional_credit_params"
       autoload :DisputeSimulateNetworkLifecycleDisputeResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
-      autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
-               "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
+      # rubocop:disable Layout/LineLength
+      autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams, "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
+      # rubocop:enable Layout/LineLength
       autoload :PersonalizationDesignActivateParams,
                "stripe/params/test_helpers/issuing/personalization_design_activate_params"
       autoload :PersonalizationDesignDeactivateParams,
@@ -892,6 +900,7 @@ module Stripe
       autoload :ContractActivateParams, "stripe/params/v2/billing/contract_activate_params"
       autoload :ContractCancelParams, "stripe/params/v2/billing/contract_cancel_params"
       autoload :ContractCreateParams, "stripe/params/v2/billing/contract_create_params"
+      autoload :ContractDeleteParams, "stripe/params/v2/billing/contract_delete_params"
       autoload :ContractListParams, "stripe/params/v2/billing/contract_list_params"
       autoload :ContractRetrieveParams, "stripe/params/v2/billing/contract_retrieve_params"
       autoload :ContractUpdateParams, "stripe/params/v2/billing/contract_update_params"
@@ -971,9 +980,10 @@ module Stripe
       end
 
       module Contracts
-        module LicensePricing
-          autoload :QuantityChangeListQuantityChangesParams,
-                   "stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params"
+        module PricingLines
+          # rubocop:disable Layout/LineLength
+          autoload :QuantityChangeListContractPricingLineQuantityChangesParams, "stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params"
+          # rubocop:enable Layout/LineLength
         end
       end
 
@@ -1072,6 +1082,15 @@ module Stripe
         autoload :PersonUpdateParams, "stripe/params/v2/core/accounts/person_update_params"
       end
 
+      module Health
+        autoload :AlertListParams, "stripe/params/v2/core/health/alert_list_params"
+        autoload :AlertRetrieveParams, "stripe/params/v2/core/health/alert_retrieve_params"
+
+        module Alerts
+          autoload :HistoryListParams, "stripe/params/v2/core/health/alerts/history_list_params"
+        end
+      end
+
       module Vault
         autoload :GbBankAccountAcknowledgeConfirmationOfPayeeParams,
                  "stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params"
@@ -1162,6 +1181,11 @@ module Stripe
       autoload :OutboundTransferCreateParams, "stripe/params/v2/money_management/outbound_transfer_create_params"
       autoload :OutboundTransferListParams, "stripe/params/v2/money_management/outbound_transfer_list_params"
       autoload :OutboundTransferRetrieveParams, "stripe/params/v2/money_management/outbound_transfer_retrieve_params"
+      autoload :PayoutIntentCancelParams, "stripe/params/v2/money_management/payout_intent_cancel_params"
+      autoload :PayoutIntentCreateParams, "stripe/params/v2/money_management/payout_intent_create_params"
+      autoload :PayoutIntentListParams, "stripe/params/v2/money_management/payout_intent_list_params"
+      autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
+      autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
       autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
       autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
       autoload :PayoutMethodRetrieveParams, "stripe/params/v2/money_management/payout_method_retrieve_params"
@@ -1187,6 +1211,11 @@ module Stripe
         autoload :StatementListParams, "stripe/params/v2/money_management/financial_accounts/statement_list_params"
         autoload :StatementRetrieveParams,
                  "stripe/params/v2/money_management/financial_accounts/statement_retrieve_params"
+      end
+
+      module TestHelpers
+        autoload :FinancialAddressDebitParams,
+                 "stripe/params/v2/money_management/test_helpers/financial_address_debit_params"
       end
     end
 
@@ -1567,10 +1596,12 @@ module Stripe
     stripe/params/issuing/credit_underwriting_record_create_from_proactive_review_params
     stripe/params/issuing/credit_underwriting_record_list_params
     stripe/params/issuing/credit_underwriting_record_report_decision_params
+    stripe/params/issuing/credit_underwriting_record_report_offer_acceptance_params
     stripe/params/issuing/credit_underwriting_record_retrieve_params
     stripe/params/issuing/dispute_close_params
     stripe/params/issuing/dispute_create_params
     stripe/params/issuing/dispute_list_params
+    stripe/params/issuing/dispute_provisional_credit_params
     stripe/params/issuing/dispute_retrieve_params
     stripe/params/issuing/dispute_settlement_detail_list_params
     stripe/params/issuing/dispute_settlement_detail_retrieve_params
@@ -1619,6 +1650,7 @@ module Stripe
     stripe/params/payment_attempt_record_report_authenticated_params
     stripe/params/payment_attempt_record_report_authorized_params
     stripe/params/payment_attempt_record_report_canceled_params
+    stripe/params/payment_attempt_record_report_early_fraud_warning_params
     stripe/params/payment_attempt_record_report_failed_params
     stripe/params/payment_attempt_record_report_guaranteed_params
     stripe/params/payment_attempt_record_report_informational_params
@@ -1679,6 +1711,7 @@ module Stripe
     stripe/params/payment_record_report_payment_params
     stripe/params/payment_record_report_refund_params
     stripe/params/payment_record_retrieve_params
+    stripe/params/payment_record_search_params
     stripe/params/payout_cancel_params
     stripe/params/payout_create_params
     stripe/params/payout_list_params
@@ -1905,6 +1938,7 @@ module Stripe
     stripe/params/test_helpers/issuing/card_ship_card_params
     stripe/params/test_helpers/issuing/card_submit_card_params
     stripe/params/test_helpers/issuing/dispute_close_params
+    stripe/params/test_helpers/issuing/dispute_provisional_credit_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params
     stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params
@@ -2024,10 +2058,11 @@ module Stripe
     stripe/params/v2/billing/contract_activate_params
     stripe/params/v2/billing/contract_cancel_params
     stripe/params/v2/billing/contract_create_params
+    stripe/params/v2/billing/contract_delete_params
     stripe/params/v2/billing/contract_list_params
     stripe/params/v2/billing/contract_retrieve_params
     stripe/params/v2/billing/contract_update_params
-    stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params
+    stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params
     stripe/params/v2/billing/custom_pricing_unit_create_params
     stripe/params/v2/billing/custom_pricing_unit_list_params
     stripe/params/v2/billing/custom_pricing_unit_retrieve_params
@@ -2151,6 +2186,9 @@ module Stripe
     stripe/params/v2/core/fee_batch_retrieve_params
     stripe/params/v2/core/fee_entry_list_params
     stripe/params/v2/core/fee_entry_retrieve_params
+    stripe/params/v2/core/health/alert_list_params
+    stripe/params/v2/core/health/alert_retrieve_params
+    stripe/params/v2/core/health/alerts/history_list_params
     stripe/params/v2/core/vault/gb_bank_account_acknowledge_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_archive_params
     stripe/params/v2/core/vault/gb_bank_account_create_params
@@ -2216,6 +2254,11 @@ module Stripe
     stripe/params/v2/money_management/outbound_transfer_create_params
     stripe/params/v2/money_management/outbound_transfer_list_params
     stripe/params/v2/money_management/outbound_transfer_retrieve_params
+    stripe/params/v2/money_management/payout_intent_cancel_params
+    stripe/params/v2/money_management/payout_intent_create_params
+    stripe/params/v2/money_management/payout_intent_list_params
+    stripe/params/v2/money_management/payout_intent_retrieve_params
+    stripe/params/v2/money_management/payout_intent_update_params
     stripe/params/v2/money_management/payout_method_archive_params
     stripe/params/v2/money_management/payout_method_list_params
     stripe/params/v2/money_management/payout_method_retrieve_params
@@ -2228,6 +2271,7 @@ module Stripe
     stripe/params/v2/money_management/recipient_verification_acknowledge_params
     stripe/params/v2/money_management/recipient_verification_create_params
     stripe/params/v2/money_management/recipient_verification_retrieve_params
+    stripe/params/v2/money_management/test_helpers/financial_address_debit_params
     stripe/params/v2/money_management/transaction_entry_list_params
     stripe/params/v2/money_management/transaction_entry_retrieve_params
     stripe/params/v2/money_management/transaction_list_params

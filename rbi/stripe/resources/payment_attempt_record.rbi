@@ -1023,6 +1023,12 @@ module Stripe
         # The last four digits of the gift card number.
         sig { returns(T.nilable(String)) }
         def last4; end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # The transaction ID from the gift card processor.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -2555,6 +2561,18 @@ module Stripe
       params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportCanceledParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
      }
     def self.report_canceled(payment_attempt_record, params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    sig {
+      params(params: T.any(::Stripe::PaymentAttemptRecordReportEarlyFraudWarningParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_early_fraud_warning(params = {}, opts = {}); end
+
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportEarlyFraudWarningParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def self.report_early_fraud_warning(payment_attempt_record, params = {}, opts = {}); end
 
     # Report that the specified Payment Attempt Record failed.
     sig {

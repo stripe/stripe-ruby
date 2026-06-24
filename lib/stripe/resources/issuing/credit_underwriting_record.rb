@@ -163,6 +163,8 @@ module Stripe
       attr_reader :decision
       # For underwriting initiated by an application, a decision must be taken 30 days after the submission.
       attr_reader :decision_deadline
+      # Time at which the decision deadline was last updated.
+      attr_reader :decision_deadline_updated_at
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -241,6 +243,26 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      def report_offer_acceptance(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_offer_acceptance", { credit_underwriting_record: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      def self.report_offer_acceptance(credit_underwriting_record, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_offer_acceptance", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
           params: params,
           opts: opts
         )

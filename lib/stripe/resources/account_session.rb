@@ -427,6 +427,78 @@ module Stripe
         end
       end
 
+      class FinancialAccounts < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether to allow bill management features.
+          attr_reader :bill_management
+          # Whether to allow card management features.
+          attr_reader :card_management
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+          attr_reader :edit_payout_schedule
+          # Whether to enable the send money feature that grants access to the v2 CreateOutboundPayment API.
+          attr_reader :send_money
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class FinancialAccountsTransactions < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether to allow capturing and cancelling payment intents. This is `true` by default.
+          attr_reader :capture_payments
+          # Whether to allow card management features.
+          attr_reader :card_management
+          # Whether to allow card spend dispute management features.
+          attr_reader :card_spend_dispute_management
+          # Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
+          attr_reader :destination_on_behalf_of_charge_management
+          # Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
+          attr_reader :dispute_management
+          # Whether sending refunds is enabled. This is `true` by default.
+          attr_reader :refund_management
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class InstantPayoutsPromotion < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. The default value is the opposite of the `external_account_collection` value. For example, if you don't set `external_account_collection`, it defaults to `true` and `disable_stripe_user_authentication` defaults to `false`.
@@ -807,6 +879,35 @@ module Stripe
         end
       end
 
+      class RecipientsList < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_reader :disable_stripe_user_authentication
+          # Whether to allow sending money.
+          attr_reader :send_money
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TaxRegistrations < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -932,6 +1033,10 @@ module Stripe
       attr_reader :financial_account_rewards
       # Attribute for field financial_account_transactions
       attr_reader :financial_account_transactions
+      # Configuration for the [financial accounts](/connect/supported-embedded-components/financial-accounts/) embedded component.
+      attr_reader :financial_accounts
+      # Configuration for the [financial accounts transactions](/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
+      attr_reader :financial_accounts_transactions
       # Attribute for field instant_payouts_promotion
       attr_reader :instant_payouts_promotion
       # Attribute for field issuing_card
@@ -958,6 +1063,8 @@ module Stripe
       attr_reader :payouts
       # Attribute for field payouts_list
       attr_reader :payouts_list
+      # Configuration for the [recipients list](/connect/supported-embedded-components/recipients-list/) embedded component.
+      attr_reader :recipients_list
       # Attribute for field tax_registrations
       attr_reader :tax_registrations
       # Attribute for field tax_settings
@@ -984,6 +1091,8 @@ module Stripe
           financial_account: FinancialAccount,
           financial_account_rewards: FinancialAccountRewards,
           financial_account_transactions: FinancialAccountTransactions,
+          financial_accounts: FinancialAccounts,
+          financial_accounts_transactions: FinancialAccountsTransactions,
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
@@ -997,6 +1106,7 @@ module Stripe
           payout_reconciliation_report: PayoutReconciliationReport,
           payouts: Payouts,
           payouts_list: PayoutsList,
+          recipients_list: RecipientsList,
           tax_registrations: TaxRegistrations,
           tax_settings: TaxSettings,
           terminal_hardware_orders: TerminalHardwareOrders,

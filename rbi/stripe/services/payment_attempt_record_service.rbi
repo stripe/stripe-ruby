@@ -28,6 +28,12 @@ module Stripe
      }
     def report_canceled(payment_attempt_record, params = {}, opts = {}); end
 
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    sig {
+      params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportEarlyFraudWarningParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)
+     }
+    def report_early_fraud_warning(payment_attempt_record, params = {}, opts = {}); end
+
     # Report that the specified Payment Attempt Record failed.
     sig {
       params(payment_attempt_record: String, params: T.any(::Stripe::PaymentAttemptRecordReportFailedParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentAttemptRecord)

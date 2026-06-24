@@ -420,6 +420,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            sig { returns(String) }
+            def brand; end
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
             def country; end
@@ -966,6 +969,20 @@ module Stripe
         def invoice_data; end
         def self.inner_class_types
           @inner_class_types = {invoice_data: InvoiceData}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Item < ::Stripe::StripeObject
+        # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
+        sig { returns(String) }
+        def key; end
+        # The type of the item.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2863,6 +2880,9 @@ module Stripe
       # Details on the state of invoice creation for the Checkout Session.
       sig { returns(T.nilable(InvoiceCreation)) }
       def invoice_creation; end
+      # The items to be purchased by the customer.
+      sig { returns(T.nilable(T::Array[Item])) }
+      def items; end
       # The line items purchased by the customer.
       sig { returns(T.nilable(::Stripe::ListObject)) }
       def line_items; end

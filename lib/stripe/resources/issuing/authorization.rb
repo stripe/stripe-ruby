@@ -36,10 +36,12 @@ module Stripe
       class BalanceResponse < ::Stripe::StripeObject
         # The cardholder account type affected by this authorization.
         attr_reader :account_type
-        # The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
-        attr_reader :amount
-        # The currency of the remaining balance in the cardholder's account after the authorization.
+        # The available balance or credit limit in the cardholder's account after the authorization, in the smallest currency unit.
+        attr_reader :available_balance
+        # The currency of the remaining balances in the cardholder's account after the authorization.
         attr_reader :currency
+        # The current ledger balance or remaining credit amount in the cardholder's account after the authorization, in the smallest currency unit.
+        attr_reader :current_balance
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -158,6 +160,161 @@ module Stripe
             crypto_transaction_confirmed: CryptoTransactionConfirmed,
             crypto_transaction_failed: CryptoTransactionFailed,
           }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class EnrichedMerchantData < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          class Industry < ::Stripe::StripeObject
+            # Most specific value of the seller's category.
+            attr_reader :id
+            # Increasingly specific textual representations of the seller's category.
+            attr_reader :names
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Location < ::Stripe::StripeObject
+            class Address < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1, such as the street, PO Box, or company name.
+              attr_reader :line1
+              # Address line 2, such as the apartment, suite, unit, or building.
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Coordinates < ::Stripe::StripeObject
+              # Latitude of the seller's location.
+              attr_reader :latitude
+              # Longitude of the seller's location.
+              attr_reader :longitude
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Address details of the seller.
+            attr_reader :address
+            # Coordinates of the seller.
+            attr_reader :coordinates
+
+            def self.inner_class_types
+              @inner_class_types = { address: Address, coordinates: Coordinates }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Spade < ::Stripe::StripeObject
+            # Unified identifier for the seller.
+            attr_reader :counterparty_id
+            # Unified identifier for the seller's location.
+            attr_reader :location_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field data_sources
+          attr_reader :data_sources
+          # Attribute for field industry
+          attr_reader :industry
+          # Location data of the seller.
+          attr_reader :location
+          # Image link to the seller's logo.
+          attr_reader :logo
+          # The name of the seller.
+          attr_reader :name
+          # Phone number of the seller.
+          attr_reader :phone
+          # If `spade` is a data source, this hash contains details provided by Spade.
+          attr_reader :spade
+          # URL of the seller's website.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = { industry: Industry, location: Location, spade: Spade }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ThirdParty < ::Stripe::StripeObject
+          class Spade < ::Stripe::StripeObject
+            # Unified identifier for the third party.
+            attr_reader :third_party_id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field data_sources
+          attr_reader :data_sources
+          # Image link to the third party's logo.
+          attr_reader :logo
+          # Name of the third party.
+          attr_reader :name
+          # If `spade` is a data source, this hash contains details provided by Spade.
+          attr_reader :spade
+          # Category of the third party.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { spade: Spade }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional details about the seller (grocery store, e-commerce website, and so on) where the card authorization happened.
+        attr_reader :merchant
+        # An array of third parties involved in the card authorization, when applicable.
+        attr_reader :third_parties
+
+        def self.inner_class_types
+          @inner_class_types = { merchant: Merchant, third_parties: ThirdParty }
         end
 
         def self.field_remappings
@@ -716,6 +873,8 @@ module Stripe
       attr_reader :crypto_transactions
       # The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
+      # Enriched merchant data for this authorization.
+      attr_reader :enriched_merchant_data
       # Fleet-specific information for authorizations using Fleet cards.
       attr_reader :fleet
       # Fraud challenges sent to the cardholder, if this authorization was declined for fraud risk reasons.
@@ -981,6 +1140,7 @@ module Stripe
           amount_details: AmountDetails,
           balance_response: BalanceResponse,
           crypto_transactions: CryptoTransaction,
+          enriched_merchant_data: EnrichedMerchantData,
           fleet: Fleet,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,

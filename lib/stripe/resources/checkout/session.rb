@@ -422,6 +422,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            attr_reader :brand
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             attr_reader :country
             # Two-digit number representing the card's expiration month.
@@ -945,6 +947,21 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { invoice_data: InvoiceData }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Item < ::Stripe::StripeObject
+        # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
+        attr_reader :key
+        # The type of the item.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -2797,6 +2814,8 @@ module Stripe
       attr_reader :invoice
       # Details on the state of invoice creation for the Checkout Session.
       attr_reader :invoice_creation
+      # The items to be purchased by the customer.
+      attr_reader :items
       # The line items purchased by the customer.
       attr_reader :line_items
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -2997,6 +3016,7 @@ module Stripe
           customer_details: CustomerDetails,
           discounts: Discount,
           invoice_creation: InvoiceCreation,
+          items: Item,
           managed_payments: ManagedPayments,
           name_collection: NameCollection,
           optional_items: OptionalItem,

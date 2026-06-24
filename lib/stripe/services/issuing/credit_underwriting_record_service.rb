@@ -59,6 +59,17 @@ module Stripe
         )
       end
 
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      def report_offer_acceptance(credit_underwriting_record, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_offer_acceptance", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Retrieves a CreditUnderwritingRecord object.
       def retrieve(credit_underwriting_record, params = {}, opts = {})
         request(

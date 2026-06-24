@@ -12,13 +12,13 @@ module Stripe
         sig { params(_event_name: String).returns(String) }
         def event_name=(_event_name); end
         # A unique identifier for the event. If not provided, one will be generated.
-        # We recommend using a globally unique identifier for this. We’ll enforce
+        # We recommend using a globally unique identifier for this. We'll enforce
         # uniqueness within a rolling 24 hour period.
         sig { returns(T.nilable(String)) }
         def identifier; end
         sig { params(_identifier: T.nilable(String)).returns(T.nilable(String)) }
         def identifier=(_identifier); end
-        # The payload of the event. This must contain the fields corresponding to a meter’s
+        # The payload of the event. This must contain the fields corresponding to a meter's
         # `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
         # `value_settings.event_payload_key` (default is `value`). Read more about
         # the

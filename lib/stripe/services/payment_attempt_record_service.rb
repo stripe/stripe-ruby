@@ -47,6 +47,17 @@ module Stripe
       )
     end
 
+    # Report that the specified Payment Attempt Record received an early fraud warning.
+    def report_early_fraud_warning(payment_attempt_record, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_early_fraud_warning", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Report that the specified Payment Attempt Record failed.
     def report_failed(payment_attempt_record, params = {}, opts = {})
       request(

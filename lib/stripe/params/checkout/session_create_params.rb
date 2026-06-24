@@ -542,11 +542,278 @@ module Stripe
       end
 
       class Item < ::Stripe::RequestParams
+        class Subscription < ::Stripe::RequestParams
+          class BillingCycleAnchorConfig < ::Stripe::RequestParams
+            # The day of the month the anchor should be. Ranges from 1 to 31.
+            attr_accessor :day_of_month
+            # The hour of the day the anchor should be. Ranges from 0 to 23.
+            attr_accessor :hour
+            # The minute of the hour the anchor should be. Ranges from 0 to 59.
+            attr_accessor :minute
+            # The month to start full cycle periods. Ranges from 1 to 12.
+            attr_accessor :month
+            # The second of the minute the anchor should be. Ranges from 0 to 59.
+            attr_accessor :second
+
+            def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+              @day_of_month = day_of_month
+              @hour = hour
+              @minute = minute
+              @month = month
+              @second = second
+            end
+          end
+
+          class BillingMode < ::Stripe::RequestParams
+            class Flexible < ::Stripe::RequestParams
+              # Controls how invoices and invoice items display proration amounts and discount amounts.
+              attr_accessor :proration_discounts
+
+              def initialize(proration_discounts: nil)
+                @proration_discounts = proration_discounts
+              end
+            end
+            # Configure behavior for flexible billing mode.
+            attr_accessor :flexible
+            # Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+            attr_accessor :type
+
+            def initialize(flexible: nil, type: nil)
+              @flexible = flexible
+              @type = type
+            end
+          end
+
+          class Item < ::Stripe::RequestParams
+            class PriceData < ::Stripe::RequestParams
+              class ProductData < ::Stripe::RequestParams
+                class TaxDetails < ::Stripe::RequestParams
+                  # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+                  attr_accessor :performance_location
+                  # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                  attr_accessor :tax_code
+
+                  def initialize(performance_location: nil, tax_code: nil)
+                    @performance_location = performance_location
+                    @tax_code = tax_code
+                  end
+                end
+                # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+                attr_accessor :description
+                # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+                attr_accessor :images
+                # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+                attr_accessor :metadata
+                # The product's name, meant to be displayable to the customer.
+                attr_accessor :name
+                # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+                attr_accessor :tax_code
+                # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+                attr_accessor :tax_details
+                # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+                attr_accessor :unit_label
+
+                def initialize(
+                  description: nil,
+                  images: nil,
+                  metadata: nil,
+                  name: nil,
+                  tax_code: nil,
+                  tax_details: nil,
+                  unit_label: nil
+                )
+                  @description = description
+                  @images = images
+                  @metadata = metadata
+                  @name = name
+                  @tax_code = tax_code
+                  @tax_details = tax_details
+                  @unit_label = unit_label
+                end
+              end
+
+              class Recurring < ::Stripe::RequestParams
+                # Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+                attr_accessor :interval
+                # The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+              attr_accessor :currency
+              # The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+              attr_accessor :product
+              # Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+              attr_accessor :product_data
+              # The recurring components of a price such as `interval` and `interval_count`.
+              attr_accessor :recurring
+              # Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+              attr_accessor :tax_behavior
+              # A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+              attr_accessor :unit_amount
+              # Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+              attr_accessor :unit_amount_decimal
+
+              def initialize(
+                currency: nil,
+                product: nil,
+                product_data: nil,
+                recurring: nil,
+                tax_behavior: nil,
+                unit_amount: nil,
+                unit_amount_decimal: nil
+              )
+                @currency = currency
+                @product = product
+                @product_data = product_data
+                @recurring = recurring
+                @tax_behavior = tax_behavior
+                @unit_amount = unit_amount
+                @unit_amount_decimal = unit_amount_decimal
+              end
+
+              def self.field_encodings
+                @field_encodings = { unit_amount_decimal: :decimal_string }
+              end
+            end
+            # The ID of the price for this subscription item.
+            attr_accessor :price
+            # Data used to generate a new Price object inline.
+            attr_accessor :price_data
+            # Quantity for this item.
+            attr_accessor :quantity
+
+            def initialize(price: nil, price_data: nil, quantity: nil)
+              @price = price
+              @price_data = price_data
+              @quantity = quantity
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+              }
+            end
+          end
+
+          class PendingInvoiceItemInterval < ::Stripe::RequestParams
+            # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+            attr_accessor :interval
+            # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+
+          class TrialSettings < ::Stripe::RequestParams
+            class EndBehavior < ::Stripe::RequestParams
+              # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+              attr_accessor :missing_payment_method
+
+              def initialize(missing_payment_method: nil)
+                @missing_payment_method = missing_payment_method
+              end
+            end
+            # Defines how the subscription should behave when the user's free trial ends.
+            attr_accessor :end_behavior
+
+            def initialize(end_behavior: nil)
+              @end_behavior = end_behavior
+            end
+          end
+          # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
+          attr_accessor :billing_cycle_anchor_config
+          # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+          attr_accessor :billing_mode
+          # The subscription's description, meant to be displayable to the customer.
+          attr_accessor :description
+          # The list of items for the subscription.
+          attr_accessor :items
+          # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+          attr_accessor :metadata
+          # Specifies an interval for how often to bill for any pending invoice items.
+          attr_accessor :pending_invoice_item_interval
+          # Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
+          attr_accessor :proration_behavior
+          # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+          attr_accessor :trial_end
+          # Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+          attr_accessor :trial_period_days
+          # Settings related to subscription trials.
+          attr_accessor :trial_settings
+
+          def initialize(
+            billing_cycle_anchor_config: nil,
+            billing_mode: nil,
+            description: nil,
+            items: nil,
+            metadata: nil,
+            pending_invoice_item_interval: nil,
+            proration_behavior: nil,
+            trial_end: nil,
+            trial_period_days: nil,
+            trial_settings: nil
+          )
+            @billing_cycle_anchor_config = billing_cycle_anchor_config
+            @billing_mode = billing_mode
+            @description = description
+            @items = items
+            @metadata = metadata
+            @pending_invoice_item_interval = pending_invoice_item_interval
+            @proration_behavior = proration_behavior
+            @trial_end = trial_end
+            @trial_period_days = trial_period_days
+            @trial_settings = trial_settings
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              items: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                  },
+                },
+              },
+            }
+          end
+        end
+        # Configuration for the subscription item.
+        attr_accessor :subscription
         # The type of item.
         attr_accessor :type
 
-        def initialize(type: nil)
+        def initialize(subscription: nil, type: nil)
+          @subscription = subscription
           @type = type
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            subscription: {
+              kind: :object,
+              fields: {
+                items: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+                    },
+                  },
+                },
+              },
+            },
+          }
         end
       end
 
@@ -2945,6 +3212,31 @@ module Stripe
 
       def self.field_encodings
         @field_encodings = {
+          items: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {
+                subscription: {
+                  kind: :object,
+                  fields: {
+                    items: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          price_data: {
+                            kind: :object,
+                            fields: { unit_amount_decimal: :decimal_string },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
           line_items: {
             kind: :array,
             element: {

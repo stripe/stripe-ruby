@@ -78,6 +78,15 @@ module Stripe
           url: nil
         ); end
       end
+      class NetworkData < ::Stripe::RequestParams
+        # Optional. A test value to populate network_data.acquirer_reference_number on the resulting Issuing Transaction. Must contain only digits and be at most 23 characters long. This value is intended only for integration validation in testmode and does not need to correspond to a real network-assigned acquirer reference number.
+        sig { returns(T.nilable(String)) }
+        def acquirer_reference_number; end
+        sig { params(_acquirer_reference_number: T.nilable(String)).returns(T.nilable(String)) }
+        def acquirer_reference_number=(_acquirer_reference_number); end
+        sig { params(acquirer_reference_number: T.nilable(String)).void }
+        def initialize(acquirer_reference_number: nil); end
+      end
       class PurchaseDetails < ::Stripe::RequestParams
         class Fleet < ::Stripe::RequestParams
           class CardholderPromptData < ::Stripe::RequestParams
@@ -562,6 +571,15 @@ module Stripe
         params(_merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData))
        }
       def merchant_data=(_merchant_data); end
+      # Details about the transaction, such as processing dates, set by the card network.
+      sig {
+        returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData))
+       }
+      def network_data; end
+      sig {
+        params(_network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData))
+       }
+      def network_data=(_network_data); end
       # Additional purchase information that is optionally provided by the merchant.
       sig {
         returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails))
@@ -572,7 +590,7 @@ module Stripe
        }
       def purchase_details=(_purchase_details); end
       sig {
-        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
+        params(amount: Integer, card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), merchant_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::NetworkData), purchase_details: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails)).void
        }
       def initialize(
         amount: nil,
@@ -580,6 +598,7 @@ module Stripe
         currency: nil,
         expand: nil,
         merchant_data: nil,
+        network_data: nil,
         purchase_details: nil
       ); end
       def self.field_encodings

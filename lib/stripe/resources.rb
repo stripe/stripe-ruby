@@ -791,6 +791,14 @@ module Stripe
              "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
     autoload :V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
              "stripe/events/v2_core_account_including_configuration_merchant_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_money_manager_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_money_manager_capability_status_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent,
+             "stripe/events/v2_core_account_including_configuration_money_manager_updated_event"
+    autoload :V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification,
+             "stripe/events/v2_core_account_including_configuration_money_manager_updated_event"
     autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
              "stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event"
     autoload :V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
@@ -799,14 +807,6 @@ module Stripe
              "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
     autoload :V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
              "stripe/events/v2_core_account_including_configuration_recipient_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
-             "stripe/events/v2_core_account_including_configuration_storer_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-             "stripe/events/v2_core_account_including_configuration_storer_capability_status_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
-             "stripe/events/v2_core_account_including_configuration_storer_updated_event"
-    autoload :V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
-             "stripe/events/v2_core_account_including_configuration_storer_updated_event"
     autoload :V2CoreAccountIncludingDefaultsUpdatedEvent,
              "stripe/events/v2_core_account_including_defaults_updated_event"
     autoload :V2CoreAccountIncludingDefaultsUpdatedEventNotification,
@@ -1017,6 +1017,17 @@ module Stripe
     autoload :V2MoneyManagementAdjustmentCreatedEvent, "stripe/events/v2_money_management_adjustment_created_event"
     autoload :V2MoneyManagementAdjustmentCreatedEventNotification,
              "stripe/events/v2_money_management_adjustment_created_event"
+    autoload :V2MoneyManagementDebitDisputeFailedEvent, "stripe/events/v2_money_management_debit_dispute_failed_event"
+    autoload :V2MoneyManagementDebitDisputeFailedEventNotification,
+             "stripe/events/v2_money_management_debit_dispute_failed_event"
+    autoload :V2MoneyManagementDebitDisputeSubmittedEvent,
+             "stripe/events/v2_money_management_debit_dispute_submitted_event"
+    autoload :V2MoneyManagementDebitDisputeSubmittedEventNotification,
+             "stripe/events/v2_money_management_debit_dispute_submitted_event"
+    autoload :V2MoneyManagementDebitDisputeSucceededEvent,
+             "stripe/events/v2_money_management_debit_dispute_succeeded_event"
+    autoload :V2MoneyManagementDebitDisputeSucceededEventNotification,
+             "stripe/events/v2_money_management_debit_dispute_succeeded_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEvent,
              "stripe/events/v2_money_management_financial_account_created_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -1085,6 +1096,10 @@ module Stripe
              "stripe/events/v2_money_management_outbound_payment_returned_event"
     autoload :V2MoneyManagementOutboundPaymentReturnedEventNotification,
              "stripe/events/v2_money_management_outbound_payment_returned_event"
+    autoload :V2MoneyManagementOutboundPaymentUnderReviewEvent,
+             "stripe/events/v2_money_management_outbound_payment_under_review_event"
+    autoload :V2MoneyManagementOutboundPaymentUnderReviewEventNotification,
+             "stripe/events/v2_money_management_outbound_payment_under_review_event"
     autoload :V2MoneyManagementOutboundPaymentUpdatedEvent,
              "stripe/events/v2_money_management_outbound_payment_updated_event"
     autoload :V2MoneyManagementOutboundPaymentUpdatedEventNotification,
@@ -1109,6 +1124,10 @@ module Stripe
              "stripe/events/v2_money_management_outbound_transfer_returned_event"
     autoload :V2MoneyManagementOutboundTransferReturnedEventNotification,
              "stripe/events/v2_money_management_outbound_transfer_returned_event"
+    autoload :V2MoneyManagementOutboundTransferUnderReviewEvent,
+             "stripe/events/v2_money_management_outbound_transfer_under_review_event"
+    autoload :V2MoneyManagementOutboundTransferUnderReviewEventNotification,
+             "stripe/events/v2_money_management_outbound_transfer_under_review_event"
     autoload :V2MoneyManagementOutboundTransferUpdatedEvent,
              "stripe/events/v2_money_management_outbound_transfer_updated_event"
     autoload :V2MoneyManagementOutboundTransferUpdatedEventNotification,
@@ -1416,8 +1435,7 @@ module Stripe
       autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
       autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
       autoload :Contract, "stripe/resources/v2/billing/contract"
-      autoload :ContractLicensePricingQuantityChange,
-               "stripe/resources/v2/billing/contract_license_pricing_quantity_change"
+      autoload :ContractPricingLineQuantityChange, "stripe/resources/v2/billing/contract_pricing_line_quantity_change"
       autoload :CustomPricingUnit, "stripe/resources/v2/billing/custom_pricing_unit"
       autoload :Intent, "stripe/resources/v2/billing/intent"
       autoload :IntentAction, "stripe/resources/v2/billing/intent_action"
@@ -1467,6 +1485,11 @@ module Stripe
       autoload :FeeEntry, "stripe/resources/v2/core/fee_entry"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
 
+      module Health
+        autoload :Alert, "stripe/resources/v2/core/health/alert"
+        autoload :AlertHistoryEntry, "stripe/resources/v2/core/health/alert_history_entry"
+      end
+
       module Vault
         autoload :GbBankAccount, "stripe/resources/v2/core/vault/gb_bank_account"
         autoload :UsBankAccount, "stripe/resources/v2/core/vault/us_bank_account"
@@ -1500,11 +1523,14 @@ module Stripe
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
       autoload :FinancialAccountStatement, "stripe/resources/v2/money_management/financial_account_statement"
       autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
+      autoload :FinancialAddressDebitSimulation,
+               "stripe/resources/v2/money_management/financial_address_debit_simulation"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
       autoload :OutboundPaymentQuote, "stripe/resources/v2/money_management/outbound_payment_quote"
       autoload :OutboundSetupIntent, "stripe/resources/v2/money_management/outbound_setup_intent"
       autoload :OutboundTransfer, "stripe/resources/v2/money_management/outbound_transfer"
+      autoload :PayoutIntent, "stripe/resources/v2/money_management/payout_intent"
       autoload :PayoutMethod, "stripe/resources/v2/money_management/payout_method"
       autoload :PayoutMethodsBankAccountSpec, "stripe/resources/v2/money_management/payout_methods_bank_account_spec"
       autoload :ReceivedCredit, "stripe/resources/v2/money_management/received_credit"
@@ -1749,7 +1775,7 @@ module Stripe
     stripe/resources/v2/billing/collection_setting
     stripe/resources/v2/billing/collection_setting_version
     stripe/resources/v2/billing/contract
-    stripe/resources/v2/billing/contract_license_pricing_quantity_change
+    stripe/resources/v2/billing/contract_pricing_line_quantity_change
     stripe/resources/v2/billing/custom_pricing_unit
     stripe/resources/v2/billing/intent
     stripe/resources/v2/billing/intent_action
@@ -1787,6 +1813,8 @@ module Stripe
     stripe/resources/v2/core/event_destination
     stripe/resources/v2/core/fee_batch
     stripe/resources/v2/core/fee_entry
+    stripe/resources/v2/core/health/alert
+    stripe/resources/v2/core/health/alert_history_entry
     stripe/resources/v2/core/vault/gb_bank_account
     stripe/resources/v2/core/vault/us_bank_account
     stripe/resources/v2/data/analytics/metric_query_result
@@ -1804,11 +1832,13 @@ module Stripe
     stripe/resources/v2/money_management/financial_account
     stripe/resources/v2/money_management/financial_account_statement
     stripe/resources/v2/money_management/financial_address
+    stripe/resources/v2/money_management/financial_address_debit_simulation
     stripe/resources/v2/money_management/inbound_transfer
     stripe/resources/v2/money_management/outbound_payment
     stripe/resources/v2/money_management/outbound_payment_quote
     stripe/resources/v2/money_management/outbound_setup_intent
     stripe/resources/v2/money_management/outbound_transfer
+    stripe/resources/v2/money_management/payout_intent
     stripe/resources/v2/money_management/payout_method
     stripe/resources/v2/money_management/payout_methods_bank_account_spec
     stripe/resources/v2/money_management/received_credit
@@ -2078,10 +2108,10 @@ module Stripe
     stripe/events/v2_core_account_including_configuration_customer_updated_event
     stripe/events/v2_core_account_including_configuration_merchant_capability_status_updated_event
     stripe/events/v2_core_account_including_configuration_merchant_updated_event
+    stripe/events/v2_core_account_including_configuration_money_manager_capability_status_updated_event
+    stripe/events/v2_core_account_including_configuration_money_manager_updated_event
     stripe/events/v2_core_account_including_configuration_recipient_capability_status_updated_event
     stripe/events/v2_core_account_including_configuration_recipient_updated_event
-    stripe/events/v2_core_account_including_configuration_storer_capability_status_updated_event
-    stripe/events/v2_core_account_including_configuration_storer_updated_event
     stripe/events/v2_core_account_including_defaults_updated_event
     stripe/events/v2_core_account_including_future_requirements_updated_event
     stripe/events/v2_core_account_including_identity_updated_event
@@ -2162,6 +2192,9 @@ module Stripe
     stripe/events/v2_iam_stripe_access_grant_requested_event
     stripe/events/v2_iam_stripe_access_grant_updated_event
     stripe/events/v2_money_management_adjustment_created_event
+    stripe/events/v2_money_management_debit_dispute_failed_event
+    stripe/events/v2_money_management_debit_dispute_submitted_event
+    stripe/events/v2_money_management_debit_dispute_succeeded_event
     stripe/events/v2_money_management_financial_account_created_event
     stripe/events/v2_money_management_financial_account_statement_created_event
     stripe/events/v2_money_management_financial_account_statement_restated_event
@@ -2179,12 +2212,14 @@ module Stripe
     stripe/events/v2_money_management_outbound_payment_failed_event
     stripe/events/v2_money_management_outbound_payment_posted_event
     stripe/events/v2_money_management_outbound_payment_returned_event
+    stripe/events/v2_money_management_outbound_payment_under_review_event
     stripe/events/v2_money_management_outbound_payment_updated_event
     stripe/events/v2_money_management_outbound_transfer_canceled_event
     stripe/events/v2_money_management_outbound_transfer_created_event
     stripe/events/v2_money_management_outbound_transfer_failed_event
     stripe/events/v2_money_management_outbound_transfer_posted_event
     stripe/events/v2_money_management_outbound_transfer_returned_event
+    stripe/events/v2_money_management_outbound_transfer_under_review_event
     stripe/events/v2_money_management_outbound_transfer_updated_event
     stripe/events/v2_money_management_payout_method_created_event
     stripe/events/v2_money_management_payout_method_updated_event

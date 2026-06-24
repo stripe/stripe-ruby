@@ -156,6 +156,9 @@ module Stripe
             # The name of the Bank.
             sig { returns(T.nilable(String)) }
             def bank_name; end
+            # The BIC of the bank or financial institution.
+            sig { returns(T.nilable(String)) }
+            def bic; end
             # The last four digits of the US Bank Account number. This will always be returned.
             # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
             sig { returns(String) }
@@ -163,9 +166,6 @@ module Stripe
             # The routing number of the US Bank Account.
             sig { returns(String) }
             def routing_number; end
-            # The swift code of the bank or financial institution.
-            sig { returns(T.nilable(String)) }
-            def swift_code; end
             def self.inner_class_types
               @inner_class_types = {account_holder_address: AccountHolderAddress}
             end

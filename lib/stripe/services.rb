@@ -380,11 +380,10 @@ module Stripe
       end
 
       module Contracts
-        autoload :LicensePricingService, "stripe/services/v2/billing/contracts/license_pricing_service"
+        autoload :PricingLinesService, "stripe/services/v2/billing/contracts/pricing_lines_service"
 
-        module LicensePricing
-          autoload :QuantityChangeService,
-                   "stripe/services/v2/billing/contracts/license_pricing/quantity_change_service"
+        module PricingLines
+          autoload :QuantityChangeService, "stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service"
         end
       end
 
@@ -430,11 +429,20 @@ module Stripe
       autoload :EventService, "stripe/services/v2/core/event_service"
       autoload :FeeBatchService, "stripe/services/v2/core/fee_batch_service"
       autoload :FeeEntryService, "stripe/services/v2/core/fee_entry_service"
+      autoload :HealthService, "stripe/services/v2/core/health_service"
       autoload :VaultService, "stripe/services/v2/core/vault_service"
 
       module Accounts
         autoload :PersonService, "stripe/services/v2/core/accounts/person_service"
         autoload :PersonTokenService, "stripe/services/v2/core/accounts/person_token_service"
+      end
+
+      module Health
+        autoload :AlertService, "stripe/services/v2/core/health/alert_service"
+
+        module Alerts
+          autoload :HistoryService, "stripe/services/v2/core/health/alerts/history_service"
+        end
       end
 
       module Vault
@@ -477,17 +485,23 @@ module Stripe
       autoload :OutboundPaymentService, "stripe/services/v2/money_management/outbound_payment_service"
       autoload :OutboundSetupIntentService, "stripe/services/v2/money_management/outbound_setup_intent_service"
       autoload :OutboundTransferService, "stripe/services/v2/money_management/outbound_transfer_service"
+      autoload :PayoutIntentService, "stripe/services/v2/money_management/payout_intent_service"
       autoload :PayoutMethodsBankAccountSpecService,
                "stripe/services/v2/money_management/payout_methods_bank_account_spec_service"
       autoload :PayoutMethodService, "stripe/services/v2/money_management/payout_method_service"
       autoload :ReceivedCreditService, "stripe/services/v2/money_management/received_credit_service"
       autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
+      autoload :TestHelpersService, "stripe/services/v2/money_management/test_helpers_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
 
       module FinancialAccounts
         autoload :StatementService, "stripe/services/v2/money_management/financial_accounts/statement_service"
+      end
+
+      module TestHelpers
+        autoload :FinancialAddressService, "stripe/services/v2/money_management/test_helpers/financial_address_service"
       end
     end
 
@@ -772,8 +786,8 @@ module Stripe
     stripe/services/v2/billing/collection_setting_service
     stripe/services/v2/billing/collection_settings/version_service
     stripe/services/v2/billing/contract_service
-    stripe/services/v2/billing/contracts/license_pricing/quantity_change_service
-    stripe/services/v2/billing/contracts/license_pricing_service
+    stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service
+    stripe/services/v2/billing/contracts/pricing_lines_service
     stripe/services/v2/billing/custom_pricing_unit_service
     stripe/services/v2/billing/intent_service
     stripe/services/v2/billing/intents/action_service
@@ -815,6 +829,9 @@ module Stripe
     stripe/services/v2/core/event_service
     stripe/services/v2/core/fee_batch_service
     stripe/services/v2/core/fee_entry_service
+    stripe/services/v2/core/health/alert_service
+    stripe/services/v2/core/health/alerts/history_service
+    stripe/services/v2/core/health_service
     stripe/services/v2/core/vault/gb_bank_account_service
     stripe/services/v2/core/vault/us_bank_account_service
     stripe/services/v2/core/vault_service
@@ -841,11 +858,14 @@ module Stripe
     stripe/services/v2/money_management/outbound_payment_service
     stripe/services/v2/money_management/outbound_setup_intent_service
     stripe/services/v2/money_management/outbound_transfer_service
+    stripe/services/v2/money_management/payout_intent_service
     stripe/services/v2/money_management/payout_method_service
     stripe/services/v2/money_management/payout_methods_bank_account_spec_service
     stripe/services/v2/money_management/received_credit_service
     stripe/services/v2/money_management/received_debit_service
     stripe/services/v2/money_management/recipient_verification_service
+    stripe/services/v2/money_management/test_helpers/financial_address_service
+    stripe/services/v2/money_management/test_helpers_service
     stripe/services/v2/money_management/transaction_entry_service
     stripe/services/v2/money_management/transaction_service
     stripe/services/v2/money_management_service

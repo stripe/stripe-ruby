@@ -185,6 +185,15 @@ module Stripe
           @total_tax_amount = total_tax_amount
         end
       end
+
+      class Tip < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a tip.
+        attr_accessor :amount
+
+        def initialize(amount: nil)
+          @amount = amount
+        end
+      end
       # The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
@@ -203,6 +212,8 @@ module Stripe
       attr_accessor :surcharge
       # Contains information about the tax portion of the amount.
       attr_accessor :tax
+      # Contains information about the tip portion of the amount.
+      attr_accessor :tip
 
       def initialize(
         discount_amount: nil,
@@ -210,7 +221,8 @@ module Stripe
         line_items: nil,
         shipping: nil,
         surcharge: nil,
-        tax: nil
+        tax: nil,
+        tip: nil
       )
         @discount_amount = discount_amount
         @enforce_arithmetic_validation = enforce_arithmetic_validation
@@ -218,6 +230,7 @@ module Stripe
         @shipping = shipping
         @surcharge = surcharge
         @tax = tax
+        @tip = tip
       end
     end
 

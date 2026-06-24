@@ -27,6 +27,22 @@ module Stripe
         end
 
         class To < ::Stripe::RequestParams
+          class PayoutMethodOptions < ::Stripe::RequestParams
+            class BankAccount < ::Stripe::RequestParams
+              # The preferred networks to use for this OutboundTransfer.
+              attr_accessor :preferred_networks
+
+              def initialize(preferred_networks: nil)
+                @preferred_networks = preferred_networks
+              end
+            end
+            # Options for bank account payout methods.
+            attr_accessor :bank_account
+
+            def initialize(bank_account: nil)
+              @bank_account = bank_account
+            end
+          end
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:
@@ -37,10 +53,13 @@ module Stripe
           attr_accessor :currency
           # The payout method which the OutboundTransfer uses to send payout.
           attr_accessor :payout_method
+          # Payout method options for the OutboundTransfer.
+          attr_accessor :payout_method_options
 
-          def initialize(currency: nil, payout_method: nil)
+          def initialize(currency: nil, payout_method: nil, payout_method_options: nil)
             @currency = currency
             @payout_method = payout_method
+            @payout_method_options = payout_method_options
           end
         end
         # The "presentment amount" for the OutboundPayment.

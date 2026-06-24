@@ -1556,6 +1556,18 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_money_manager_capability_status_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_money_manager_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_recipient_capability_status_updated(&blk);
@@ -1565,18 +1577,6 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_recipient_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_core_account_including_configuration_storer_capability_status_updated(&blk);
-    end
-    
-    sig do
-      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
-    end
-    def on_v2_core_account_including_configuration_storer_updated(&blk);
     end
     
     sig do
@@ -2054,6 +2054,24 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDebitDisputeFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_debit_dispute_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDebitDisputeSubmittedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_debit_dispute_submitted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDebitDisputeSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_debit_dispute_succeeded(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_account_created(&blk);
@@ -2156,6 +2174,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentUnderReviewEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_outbound_payment_under_review(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_updated(&blk);
@@ -2189,6 +2213,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_returned(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferUnderReviewEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_outbound_transfer_under_review(&blk);
     end
     
     sig do

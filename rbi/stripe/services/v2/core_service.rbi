@@ -17,6 +17,7 @@ module Stripe
       attr_reader :event_destinations
       attr_reader :fee_batches
       attr_reader :fee_entries
+      attr_reader :health
       attr_reader :vault
     end
   end

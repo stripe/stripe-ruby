@@ -145,13 +145,13 @@ module Stripe
             attr_reader :account_number
             # The name of the Bank.
             attr_reader :bank_name
+            # The BIC of the bank or financial institution.
+            attr_reader :bic
             # The last four digits of the US Bank Account number. This will always be returned.
             # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
             attr_reader :last4
             # The routing number of the US Bank Account.
             attr_reader :routing_number
-            # The swift code of the bank or financial institution.
-            attr_reader :swift_code
 
             def self.inner_class_types
               @inner_class_types = { account_holder_address: AccountHolderAddress }

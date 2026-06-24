@@ -225,8 +225,8 @@ module Stripe
         V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
         V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::Contract.object_name => V2::Billing::Contract,
-        V2::Billing::ContractLicensePricingQuantityChange.object_name =>
-        V2::Billing::ContractLicensePricingQuantityChange,
+        V2::Billing::ContractPricingLineQuantityChange.object_name =>
+        V2::Billing::ContractPricingLineQuantityChange,
         V2::Billing::CustomPricingUnit.object_name => V2::Billing::CustomPricingUnit,
         V2::Billing::Intent.object_name => V2::Billing::Intent,
         V2::Billing::IntentAction.object_name => V2::Billing::IntentAction,
@@ -265,6 +265,8 @@ module Stripe
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
         V2::Core::FeeBatch.object_name => V2::Core::FeeBatch,
         V2::Core::FeeEntry.object_name => V2::Core::FeeEntry,
+        V2::Core::Health::Alert.object_name => V2::Core::Health::Alert,
+        V2::Core::Health::AlertHistoryEntry.object_name => V2::Core::Health::AlertHistoryEntry,
         V2::Core::Vault::GbBankAccount.object_name => V2::Core::Vault::GbBankAccount,
         V2::Core::Vault::UsBankAccount.object_name => V2::Core::Vault::UsBankAccount,
         V2::Data::Analytics::MetricQueryResult.object_name => V2::Data::Analytics::MetricQueryResult,
@@ -283,11 +285,14 @@ module Stripe
         V2::MoneyManagement::FinancialAccountStatement.object_name =>
         V2::MoneyManagement::FinancialAccountStatement,
         V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
+        V2::MoneyManagement::FinancialAddressDebitSimulation.object_name =>
+        V2::MoneyManagement::FinancialAddressDebitSimulation,
         V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
         V2::MoneyManagement::OutboundPayment.object_name => V2::MoneyManagement::OutboundPayment,
         V2::MoneyManagement::OutboundPaymentQuote.object_name => V2::MoneyManagement::OutboundPaymentQuote,
         V2::MoneyManagement::OutboundSetupIntent.object_name => V2::MoneyManagement::OutboundSetupIntent,
         V2::MoneyManagement::OutboundTransfer.object_name => V2::MoneyManagement::OutboundTransfer,
+        V2::MoneyManagement::PayoutIntent.object_name => V2::MoneyManagement::PayoutIntent,
         V2::MoneyManagement::PayoutMethod.object_name => V2::MoneyManagement::PayoutMethod,
         V2::MoneyManagement::PayoutMethodsBankAccountSpec.object_name =>
         V2::MoneyManagement::PayoutMethodsBankAccountSpec,

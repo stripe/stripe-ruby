@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class CoreService < StripeService
-      attr_reader :accounts, :account_evaluations, :account_links, :account_tokens, :approval_requests, :batch_jobs, :claimable_sandboxes, :connection_sessions, :events, :event_destinations, :fee_batches, :fee_entries, :vault
+      attr_reader :accounts, :account_evaluations, :account_links, :account_tokens, :approval_requests, :batch_jobs, :claimable_sandboxes, :connection_sessions, :events, :event_destinations, :fee_batches, :fee_entries, :health, :vault
 
       def initialize(requestor)
         super
@@ -20,6 +20,7 @@ module Stripe
         @event_destinations = Stripe::V2::Core::EventDestinationService.new(@requestor)
         @fee_batches = Stripe::V2::Core::FeeBatchService.new(@requestor)
         @fee_entries = Stripe::V2::Core::FeeEntryService.new(@requestor)
+        @health = Stripe::V2::Core::HealthService.new(@requestor)
         @vault = Stripe::V2::Core::VaultService.new(@requestor)
       end
     end

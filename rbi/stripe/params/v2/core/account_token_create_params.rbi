@@ -459,7 +459,7 @@ module Stripe
                  }
                 def initialize(commercial: nil); end
               end
-              class CryptoStorer < ::Stripe::RequestParams
+              class CryptoMoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 sig { returns(T.nilable(T::Boolean)) }
                 def shown_and_accepted; end
@@ -470,7 +470,7 @@ module Stripe
                 sig { params(shown_and_accepted: T.nilable(T::Boolean)).void }
                 def initialize(shown_and_accepted: nil); end
               end
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The boolean value indicating if the terms of service have been accepted.
                 sig { returns(T.nilable(T::Boolean)) }
                 def shown_and_accepted; end
@@ -499,28 +499,33 @@ module Stripe
                 params(_card_creator: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator))
                }
               def card_creator=(_card_creator); end
-              # Details on the Account's acceptance of Crypto-storer-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+              # Details on the Account's acceptance of Crypto-specific terms of service; IP, date, and User Agent are expanded by Stripe.
               sig {
-                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager))
                }
-              def crypto_storer; end
+              def crypto_money_manager; end
               sig {
-                params(_crypto_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer))
+                params(_crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager))
                }
-              def crypto_storer=(_crypto_storer); end
+              def crypto_money_manager=(_crypto_money_manager); end
               # Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
               sig {
-                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+                returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager))
                }
-              def storer; end
+              def money_manager; end
               sig {
-                params(_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer))
+                params(_money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager)).returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager))
                }
-              def storer=(_storer); end
+              def money_manager=(_money_manager); end
               sig {
-                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account), card_creator: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator), crypto_storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoStorer), storer: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Storer)).void
+                params(account: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::Account), card_creator: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CardCreator), crypto_money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::CryptoMoneyManager), money_manager: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::Attestations::TermsOfService::MoneyManager)).void
                }
-              def initialize(account: nil, card_creator: nil, crypto_storer: nil, storer: nil); end
+              def initialize(
+                account: nil,
+                card_creator: nil,
+                crypto_money_manager: nil,
+                money_manager: nil
+              ); end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct; IP, date, and User Agent are expanded by Stripe.
             sig {

@@ -251,12 +251,18 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # ID of the location that this transaction's reader is assigned to.
+    sig { returns(T.nilable(String)) }
+    def location; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # The connected account whose credentials were used to perform this operation.
     sig { returns(T.nilable(String)) }
     def on_behalf_of; end
+    # ID of the reader this transaction was made on.
+    sig { returns(T.nilable(String)) }
+    def reader; end
     # Details about a gift card reload operation.
     sig { returns(T.nilable(Reload)) }
     def reload; end

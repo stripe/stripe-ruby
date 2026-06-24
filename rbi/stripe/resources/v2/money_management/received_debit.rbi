@@ -132,12 +132,27 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Returned < ::Stripe::StripeObject
+            # Open Enum. The reason the ReceivedDebit was returned.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Information that elaborates on the `failed` status of a ReceivedDebit.
           # It is only present when the ReceivedDebit status is `failed`.
           sig { returns(Failed) }
           def failed; end
+          # Information that elaborates on the `returned` status of a ReceivedDebit.
+          # It is only present when the ReceivedDebit status is `returned`.
+          sig { returns(Returned) }
+          def returned; end
           def self.inner_class_types
-            @inner_class_types = {failed: Failed}
+            @inner_class_types = {failed: Failed, returned: Returned}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -152,6 +167,10 @@ module Stripe
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }
           def failed_at; end
+          # The time when the ReceivedDebit was marked as `returned`.
+          # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+          sig { returns(T.nilable(String)) }
+          def returned_at; end
           # The time when the ReceivedDebit was marked as `succeeded`.
           # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
           sig { returns(T.nilable(String)) }

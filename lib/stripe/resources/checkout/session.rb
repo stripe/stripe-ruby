@@ -1702,6 +1702,27 @@ module Stripe
           end
         end
 
+        class Sunbit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Swish < ::Stripe::StripeObject
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           attr_reader :reference
@@ -1827,6 +1848,29 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is iOS or Android.
+          attr_reader :app_id
+          # The client type that the end customer will pay from
+          attr_reader :client
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field acss_debit
         attr_reader :acss_debit
         # Attribute for field affirm
@@ -1907,6 +1951,8 @@ module Stripe
         attr_reader :sepa_debit
         # Attribute for field sofort
         attr_reader :sofort
+        # Attribute for field sunbit
+        attr_reader :sunbit
         # Attribute for field swish
         attr_reader :swish
         # Attribute for field twint
@@ -1915,6 +1961,8 @@ module Stripe
         attr_reader :upi
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+        # Attribute for field wechat_pay
+        attr_reader :wechat_pay
 
         def self.inner_class_types
           @inner_class_types = {
@@ -1958,10 +2006,12 @@ module Stripe
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
+            sunbit: Sunbit,
             swish: Swish,
             twint: Twint,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
 

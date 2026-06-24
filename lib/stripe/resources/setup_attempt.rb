@@ -363,6 +363,9 @@ module Stripe
       end
 
       class Pix < ::Stripe::StripeObject
+        # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+        attr_reader :fingerprint
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -373,6 +376,16 @@ module Stripe
       end
 
       class RevolutPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Satispay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -490,6 +503,8 @@ module Stripe
       attr_reader :pix
       # Attribute for field revolut_pay
       attr_reader :revolut_pay
+      # Attribute for field satispay
+      attr_reader :satispay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
       # Attribute for field sofort
@@ -525,6 +540,7 @@ module Stripe
           payto: Payto,
           pix: Pix,
           revolut_pay: RevolutPay,
+          satispay: Satispay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
           twint: Twint,

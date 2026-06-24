@@ -985,7 +985,7 @@ module Stripe
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
         attr_accessor :discounts
-        # Subscription item to update.
+        # Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
         attr_accessor :id
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata

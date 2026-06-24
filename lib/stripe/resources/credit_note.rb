@@ -239,6 +239,8 @@ module Stripe
     #
     # You may issue multiple credit notes for an invoice. Each credit note may increment the invoice's pre_payment_credit_notes_amount,
     # post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
+    #
+    # For invoices that also have refunds created through the [Refund API](https://docs.stripe.com/docs/api/refunds), the credit note API subtracts those refund amounts from the maximum creditable amount. This prevents the combined credit notes and refunds from exceeding the invoice amount. If you use both, ensure the combined total does not exceed the invoice's paid amount.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/credit_notes", params: params, opts: opts)
     end

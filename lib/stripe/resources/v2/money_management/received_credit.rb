@@ -80,6 +80,8 @@ module Stripe
           end
 
           class UsBankAccount < ::Stripe::StripeObject
+            # The name of the account holder that sent the payment.
+            attr_reader :account_holder_name
             # The bank name the transfer was received from.
             attr_reader :bank_name
             # The last 4 digits of the account number that originated the transfer.

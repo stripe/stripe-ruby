@@ -395,6 +395,17 @@ module Stripe
           }
         end
       end
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://docs.stripe.com/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         sig { returns(T.nilable(String)) }
@@ -463,6 +474,9 @@ module Stripe
       # Additional purchase information that is optionally provided by the merchant.
       sig { returns(T.nilable(PurchaseDetails)) }
       def purchase_details; end
+      # Redaction status of this transaction. If the transaction is not redacted, this field will be null.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Settlement))) }
       def settlement; end

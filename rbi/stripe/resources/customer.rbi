@@ -80,6 +80,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Shipping < ::Stripe::StripeObject
       class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -249,6 +260,9 @@ module Stripe
     # The customer's preferred locales (languages), ordered by preference.
     sig { returns(T.nilable(T::Array[String])) }
     def preferred_locales; end
+    # Redaction status of this customer. If not null, this customer is associated to a redaction job.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Mailing and shipping address for the customer. Appears on invoices emailed to this customer.
     sig { returns(T.nilable(Shipping)) }
     def shipping; end

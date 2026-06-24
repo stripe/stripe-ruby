@@ -1454,6 +1454,35 @@ module Stripe
                 end
               end
 
+              class SunbitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class SwishPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1651,6 +1680,8 @@ module Stripe
               attr_reader :sepa_debit_payments
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
+              # Allow the merchant to process Sunbit payments.
+              attr_reader :sunbit_payments
               # Allow the merchant to process Swish payments.
               attr_reader :swish_payments
               # Allow the merchant to process TWINT payments.
@@ -1703,6 +1734,7 @@ module Stripe
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
                   stripe_balance: StripeBalance,
+                  sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
@@ -1971,31 +2003,167 @@ module Stripe
             end
           end
 
-          class Recipient < ::Stripe::StripeObject
+          class MoneyManager < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
-              class BankAccounts < ::Stripe::StripeObject
-                class Local < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
+              class BusinessStorage < ::Stripe::StripeObject
+                class Inbound < ::Stripe::StripeObject
+                  class Aud < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
 
                     def self.inner_class_types
-                      @inner_class_types = {}
+                      @inner_class_types = { status_details: StatusDetail }
                     end
 
                     def self.field_remappings
                       @field_remappings = {}
                     end
                   end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
+
+                  class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Eur < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Gbp < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Usd < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can receive business storage-type funds on Stripe in AUD.
+                  attr_reader :aud
+                  # Can receive business storage-type funds on Stripe in CAD.
+                  attr_reader :cad
+                  # Can receive business storage-type funds on Stripe in EUR.
+                  attr_reader :eur
+                  # Can receive business storage-type funds on Stripe in GBP.
+                  attr_reader :gbp
+                  # Can receive business storage-type funds on Stripe in USD.
+                  attr_reader :usd
 
                   def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
+                    @inner_class_types = { aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd }
                   end
 
                   def self.field_remappings
@@ -2003,340 +2171,177 @@ module Stripe
                   end
                 end
 
-                class Wire < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
+                class Outbound < ::Stripe::StripeObject
+                  class Aud < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
 
                     def self.inner_class_types
-                      @inner_class_types = {}
+                      @inner_class_types = { status_details: StatusDetail }
                     end
 
                     def self.field_remappings
                       @field_remappings = {}
                     end
                   end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
+
+                  class Cad < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Eur < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Gbp < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+
+                  class Usd < ::Stripe::StripeObject
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # Can send business storage-type funds on Stripe in AUD.
+                  attr_reader :aud
+                  # Can send business storage-type funds on Stripe in CAD.
+                  attr_reader :cad
+                  # Can send business storage-type funds on Stripe in EUR.
+                  attr_reader :eur
+                  # Can send business storage-type funds on Stripe in GBP.
+                  attr_reader :gbp
+                  # Can send business storage-type funds on Stripe in USD.
+                  attr_reader :usd
 
                   def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
+                    @inner_class_types = { aud: Aud, cad: Cad, eur: Eur, gbp: Gbp, usd: Usd }
                   end
 
                   def self.field_remappings
                     @field_remappings = {}
                   end
                 end
-                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
-                attr_reader :local
-                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
-                attr_reader :wire
+                # Can receive business storage-type funds on Stripe.
+                attr_reader :inbound
+                # Can send business storage-type funds on Stripe.
+                attr_reader :outbound
 
                 def self.inner_class_types
-                  @inner_class_types = { local: Local, wire: Wire }
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-
-              class Cards < ::Stripe::StripeObject
-                class StatusDetail < ::Stripe::StripeObject
-                  # Machine-readable code explaining the reason for the Capability to be in its current status.
-                  attr_reader :code
-                  # Machine-readable code explaining how to make the Capability active.
-                  attr_reader :resolution
-
-                  def self.inner_class_types
-                    @inner_class_types = {}
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # The status of the Capability.
-                attr_reader :status
-                # Additional details about the capability's status. This value is empty when `status` is `active`.
-                attr_reader :status_details
-
-                def self.inner_class_types
-                  @inner_class_types = { status_details: StatusDetail }
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-
-              class StripeBalance < ::Stripe::StripeObject
-                class Payouts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-
-                class StripeTransfers < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
-                attr_reader :payouts
-                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
-                attr_reader :stripe_transfers
-
-                def self.inner_class_types
-                  @inner_class_types = { payouts: Payouts, stripe_transfers: StripeTransfers }
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
-              attr_reader :bank_accounts
-              # Enables this Account to receive OutboundPayments to a linked debit card.
-              attr_reader :cards
-              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
-              attr_reader :stripe_balance
-
-              def self.inner_class_types
-                @inner_class_types = {
-                  bank_accounts: BankAccounts,
-                  cards: Cards,
-                  stripe_balance: StripeBalance,
-                }
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-
-            class DefaultOutboundDestination < ::Stripe::StripeObject
-              # The payout method ID of the default outbound destination.
-              attr_reader :id
-              # Closed Enum. The payout method type of the default outbound destination.
-              attr_reader :type
-
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Indicates whether the recipient configuration is active. You can deactivate or reactivate the recipient configuration by updating this property. Deactivating the configuration by setting this value to false  unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
-            attr_reader :applied
-            # Capabilities that have been requested on the Recipient Configuration.
-            attr_reader :capabilities
-            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
-            attr_reader :default_outbound_destination
-
-            def self.inner_class_types
-              @inner_class_types = {
-                capabilities: Capabilities,
-                default_outbound_destination: DefaultOutboundDestination,
-              }
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class Storer < ::Stripe::StripeObject
-            class Capabilities < ::Stripe::StripeObject
-              class FinancialAddresses < ::Stripe::StripeObject
-                class BankAccounts < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
-                attr_reader :bank_accounts
-
-                def self.inner_class_types
-                  @inner_class_types = { bank_accounts: BankAccounts }
-                end
-
-                def self.field_remappings
-                  @field_remappings = {}
-                end
-              end
-
-              class HoldsCurrencies < ::Stripe::StripeObject
-                class Eur < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-
-                class Gbp < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-
-                class Usd < ::Stripe::StripeObject
-                  class StatusDetail < ::Stripe::StripeObject
-                    # Machine-readable code explaining the reason for the Capability to be in its current status.
-                    attr_reader :code
-                    # Machine-readable code explaining how to make the Capability active.
-                    attr_reader :resolution
-
-                    def self.inner_class_types
-                      @inner_class_types = {}
-                    end
-
-                    def self.field_remappings
-                      @field_remappings = {}
-                    end
-                  end
-                  # The status of the Capability.
-                  attr_reader :status
-                  # Additional details about the capability's status. This value is empty when `status` is `active`.
-                  attr_reader :status_details
-
-                  def self.inner_class_types
-                    @inner_class_types = { status_details: StatusDetail }
-                  end
-
-                  def self.field_remappings
-                    @field_remappings = {}
-                  end
-                end
-                # Can hold storage-type funds on Stripe in EUR.
-                attr_reader :eur
-                # Can hold storage-type funds on Stripe in GBP.
-                attr_reader :gbp
-                # Can hold storage-type funds on Stripe in USD.
-                attr_reader :usd
-
-                def self.inner_class_types
-                  @inner_class_types = { eur: Eur, gbp: Gbp, usd: Usd }
+                  @inner_class_types = { inbound: Inbound, outbound: Outbound }
                 end
 
                 def self.field_remappings
@@ -2566,24 +2571,109 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Can provision a financial address to credit/debit a FinancialAccount.
-              attr_reader :financial_addresses
-              # Can hold storage-type funds on Stripe.
-              attr_reader :holds_currencies
+
+              class ReceivedCredits < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can receive credits to a bank-account like financial address to credit a FinancialAccount.
+                attr_reader :bank_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = { bank_accounts: BankAccounts }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class ReceivedDebits < ::Stripe::StripeObject
+                class BankAccounts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Can receive debits to a FinancialAccount from a bank account.
+                attr_reader :bank_accounts
+
+                def self.inner_class_types
+                  @inner_class_types = { bank_accounts: BankAccounts }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Can send or receive business storage-type funds on Stripe.
+              attr_reader :business_storage
               # Hash containing capabilities related to InboundTransfers.
               attr_reader :inbound_transfers
               # Hash containing capabilities related to [OutboundPayments](/api/treasury/outbound_payments?api-version=preview).
               attr_reader :outbound_payments
               # Hash containing capabilities related to [OutboundTransfers](/api/treasury/outbound_transfers?api-version=preview).
               attr_reader :outbound_transfers
+              # Hash containing capabilities related to ReceivedCredits.
+              attr_reader :received_credits
+              # Hash containing capabilities related to ReceivedDebits.
+              attr_reader :received_debits
 
               def self.inner_class_types
                 @inner_class_types = {
-                  financial_addresses: FinancialAddresses,
-                  holds_currencies: HoldsCurrencies,
+                  business_storage: BusinessStorage,
                   inbound_transfers: InboundTransfers,
                   outbound_payments: OutboundPayments,
                   outbound_transfers: OutboundTransfers,
+                  received_credits: ReceivedCredits,
+                  received_debits: ReceivedDebits,
                 }
               end
 
@@ -2591,9 +2681,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Indicates whether the storer configuration is active. You cannot deactivate (or reactivate) the storer configuration by updating this property.
+            # Indicates whether the money manager configuration is active. You cannot deactivate (or reactivate) the money manager configuration by updating this property.
             attr_reader :applied
-            # Capabilities that have been requested on the Storer Configuration.
+            # Capabilities that have been requested on the Money Manager Configuration.
             attr_reader :capabilities
 
             def self.inner_class_types
@@ -2604,21 +2694,248 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class Recipient < ::Stripe::StripeObject
+            class Capabilities < ::Stripe::StripeObject
+              class BankAccounts < ::Stripe::StripeObject
+                class Local < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class Wire < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
+                attr_reader :local
+                # Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+                attr_reader :wire
+
+                def self.inner_class_types
+                  @inner_class_types = { local: Local, wire: Wire }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class Cards < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class StripeBalance < ::Stripe::StripeObject
+                class Payouts < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+
+                class StripeTransfers < ::Stripe::StripeObject
+                  class StatusDetail < ::Stripe::StripeObject
+                    # Machine-readable code explaining the reason for the Capability to be in its current status.
+                    attr_reader :code
+                    # Machine-readable code explaining how to make the Capability active.
+                    attr_reader :resolution
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                  end
+                  # The status of the Capability.
+                  attr_reader :status
+                  # Additional details about the capability's status. This value is empty when `status` is `active`.
+                  attr_reader :status_details
+
+                  def self.inner_class_types
+                    @inner_class_types = { status_details: StatusDetail }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
+                attr_reader :payouts
+                # Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                attr_reader :stripe_transfers
+
+                def self.inner_class_types
+                  @inner_class_types = { payouts: Payouts, stripe_transfers: StripeTransfers }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Capabilities that enable OutboundPayments to a bank account linked to this Account.
+              attr_reader :bank_accounts
+              # Enables this Account to receive OutboundPayments to a linked debit card.
+              attr_reader :cards
+              # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
+              attr_reader :stripe_balance
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  bank_accounts: BankAccounts,
+                  cards: Cards,
+                  stripe_balance: StripeBalance,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class DefaultOutboundDestination < ::Stripe::StripeObject
+              # The payout method ID of the default outbound destination.
+              attr_reader :id
+              # Closed Enum. The payout method type of the default outbound destination.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Indicates whether the recipient configuration is active. You can deactivate or reactivate the recipient configuration by updating this property. Deactivating the configuration by setting this value to false  unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
+            attr_reader :applied
+            # Capabilities that have been requested on the Recipient Configuration.
+            attr_reader :capabilities
+            # The payout method to be used as a default outbound destination. This will allow the PayoutMethod to be omitted on OutboundPayments made through the dashboard or APIs.
+            attr_reader :default_outbound_destination
+
+            def self.inner_class_types
+              @inner_class_types = {
+                capabilities: Capabilities,
+                default_outbound_destination: DefaultOutboundDestination,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
           attr_reader :customer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_reader :merchant
+          # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
+          attr_reader :money_manager
           # The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
           attr_reader :recipient
-          # The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
-          attr_reader :storer
 
           def self.inner_class_types
             @inner_class_types = {
               customer: Customer,
               merchant: Merchant,
+              money_manager: MoneyManager,
               recipient: Recipient,
-              storer: Storer,
             }
           end
 
@@ -2648,7 +2965,7 @@ module Stripe
           class Responsibilities < ::Stripe::StripeObject
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             attr_reader :fees_collector
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             attr_reader :losses_collector
             # A value indicating responsibility for collecting requirements on this account.
             attr_reader :requirements_collector
@@ -2944,7 +3261,7 @@ module Stripe
                 end
               end
 
-              class Storer < ::Stripe::StripeObject
+              class MoneyManager < ::Stripe::StripeObject
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_reader :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -2963,10 +3280,10 @@ module Stripe
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_reader :account
               # Details on the Account's acceptance of Treasury-specific terms of service.
-              attr_reader :storer
+              attr_reader :money_manager
 
               def self.inner_class_types
-                @inner_class_types = { account: Account, storer: Storer }
+                @inner_class_types = { account: Account, money_manager: MoneyManager }
               end
 
               def self.field_remappings

@@ -21,7 +21,7 @@ module Stripe
           def price_type; end
           sig { params(_price_type: T.nilable(String)).returns(T.nilable(String)) }
           def price_type=(_price_type); end
-          # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+          # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
           sig {
             returns(T.nilable(T::Array[::Stripe::Billing::CreditBalanceSummaryRetrieveParams::Filter::ApplicabilityScope::Price]))
            }

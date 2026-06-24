@@ -188,6 +188,9 @@ module Stripe
     end
 
     class Bizum < ::Stripe::StripeObject
+      # A unique identifier for the buyer as determined by the local payment processor.
+      attr_reader :buyer_id
+
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -198,6 +201,9 @@ module Stripe
     end
 
     class Blik < ::Stripe::StripeObject
+      # A unique and immutable identifier assigned by BLIK to every buyer.
+      attr_reader :buyer_id
+
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -1243,6 +1249,9 @@ module Stripe
     end
 
     class Pix < ::Stripe::StripeObject
+      # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+      attr_reader :fingerprint
+
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -1307,6 +1316,19 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = { dob: Dob }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
       def self.field_remappings
@@ -1681,6 +1703,8 @@ module Stripe
     attr_reader :radar_options
     # Attribute for field rechnung
     attr_reader :rechnung
+    # Redaction status of this PaymentMethod. If the PaymentMethod is not redacted, this field will be null.
+    attr_reader :redaction
     # Attribute for field revolut_pay
     attr_reader :revolut_pay
     # Attribute for field samsung_pay
@@ -1855,6 +1879,7 @@ module Stripe
         qris: Qris,
         radar_options: RadarOptions,
         rechnung: Rechnung,
+        redaction: Redaction,
         revolut_pay: RevolutPay,
         samsung_pay: SamsungPay,
         satispay: Satispay,

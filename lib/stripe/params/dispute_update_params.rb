@@ -5,6 +5,15 @@ module Stripe
   class DisputeUpdateParams < ::Stripe::RequestParams
     class Evidence < ::Stripe::RequestParams
       class EnhancedEvidence < ::Stripe::RequestParams
+        class MastercardCompliance < ::Stripe::RequestParams
+          # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+          attr_accessor :fee_acknowledged
+
+          def initialize(fee_acknowledged: nil)
+            @fee_acknowledged = fee_acknowledged
+          end
+        end
+
         class VisaCompellingEvidence3 < ::Stripe::RequestParams
           class DisputedTransaction < ::Stripe::RequestParams
             class ShippingAddress < ::Stripe::RequestParams
@@ -162,12 +171,19 @@ module Stripe
             @fee_acknowledged = fee_acknowledged
           end
         end
+        # Evidence provided for Mastercard compliance evidence submission.
+        attr_accessor :mastercard_compliance
         # Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         attr_accessor :visa_compelling_evidence_3
         # Evidence provided for Visa compliance evidence submission.
         attr_accessor :visa_compliance
 
-        def initialize(visa_compelling_evidence_3: nil, visa_compliance: nil)
+        def initialize(
+          mastercard_compliance: nil,
+          visa_compelling_evidence_3: nil,
+          visa_compliance: nil
+        )
+          @mastercard_compliance = mastercard_compliance
           @visa_compelling_evidence_3 = visa_compelling_evidence_3
           @visa_compliance = visa_compliance
         end

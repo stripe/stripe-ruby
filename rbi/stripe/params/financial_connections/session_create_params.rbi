@@ -64,12 +64,12 @@ module Stripe
         def initialize(delivery_method: nil); end
       end
       class Limits < ::Stripe::RequestParams
-        # The number of accounts that can be linked in this Session.
-        sig { returns(Integer) }
+        # The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
+        sig { returns(T.any(String, Integer)) }
         def accounts; end
-        sig { params(_accounts: Integer).returns(Integer) }
+        sig { params(_accounts: T.any(String, Integer)).returns(T.any(String, Integer)) }
         def accounts=(_accounts); end
-        sig { params(accounts: Integer).void }
+        sig { params(accounts: T.any(String, Integer)).void }
         def initialize(accounts: nil); end
       end
       class ManualEntry < ::Stripe::RequestParams

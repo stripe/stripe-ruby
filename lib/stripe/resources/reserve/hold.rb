@@ -12,6 +12,21 @@ module Stripe
         "reserve.hold"
       end
 
+      class ReleaseDetail < ::Stripe::StripeObject
+        # The amount released by the ReserveRelease from this ReserveHold. A positive integer representing how much is released in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        attr_reader :amount
+        # The ReserveRelease which released funds from this ReserveHold (e.g., resrel_123).
+        attr_reader :reserve_release
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class ReleaseSchedule < ::Stripe::StripeObject
         # The time after which the ReserveHold is requested to be released.
         attr_reader :release_after
@@ -48,6 +63,8 @@ module Stripe
       attr_reader :object
       # The reason for the ReserveHold.
       attr_reader :reason
+      # List of ReserveReleases and the amounts released from this ReserveHold.
+      attr_reader :release_details
       # Attribute for field release_schedule
       attr_reader :release_schedule
       # The ReservePlan which produced this ReserveHold (i.e., resplan_123)
@@ -63,7 +80,7 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { release_schedule: ReleaseSchedule }
+        @inner_class_types = { release_details: ReleaseDetail, release_schedule: ReleaseSchedule }
       end
 
       def self.field_remappings

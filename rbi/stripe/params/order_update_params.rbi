@@ -2554,7 +2554,7 @@ module Stripe
             def initialize(preferred_language: nil, setup_future_usage: nil); end
           end
           class WechatPay < ::Stripe::RequestParams
-            # The app ID registered with WeChat Pay. Only required when client is ios or android.
+            # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             sig { returns(T.nilable(String)) }
             def app_id; end
             sig { params(_app_id: T.nilable(String)).returns(T.nilable(String)) }

@@ -38,6 +38,8 @@ module Stripe
         attr_reader :currency
         # The chronologically current repayment interval for the financing offer.
         attr_reader :current_repayment_interval
+        # The type of disclaimer to use for a financing offer in user-facing surfaces. The corresponding disclaimer text to use for each disclaimer_variant value can be found in the [regulatory compliance docs](https://docs.stripe.com/capital/regulatory-compliance).
+        attr_reader :disclaimer_variant
         # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         attr_reader :fee_amount
         # The amount the Connected account has paid toward the financing debt so far, in minor units. For example, 1,000 USD is represented as 100000.

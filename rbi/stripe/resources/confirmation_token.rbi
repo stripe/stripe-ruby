@@ -271,6 +271,9 @@ module Stripe
         end
       end
       class Bizum < ::Stripe::StripeObject
+        # A unique identifier for the buyer as determined by the local payment processor.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -279,6 +282,9 @@ module Stripe
         end
       end
       class Blik < ::Stripe::StripeObject
+        # A unique and immutable identifier assigned by BLIK to every buyer.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1330,6 +1336,9 @@ module Stripe
         end
       end
       class Pix < ::Stripe::StripeObject
+        # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
         def self.inner_class_types
           @inner_class_types = {}
         end

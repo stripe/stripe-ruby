@@ -71,6 +71,8 @@ module Stripe
       attr_reader :charged_off_at
       # Time at which the offer was created. Given in seconds since unix epoch.
       attr_reader :created
+      # The type of disclaimer to use for a financing offer in user-facing surfaces. The corresponding disclaimer text to use for each disclaimer_variant value can be found in the [marketing docs](https://docs.stripe.com/capital/marketing).
+      attr_reader :disclaimer_variant
       # Time at which the offer expires. Given in seconds since unix epoch.
       attr_reader :expires_after
       # The type of financing being offered.

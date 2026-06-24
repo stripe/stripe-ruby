@@ -6,6 +6,20 @@ module Stripe
   module Reserve
     # ReserveHolds are used to place a temporary ReserveHold on a merchant's funds.
     class Hold < APIResource
+      class ReleaseDetail < ::Stripe::StripeObject
+        # The amount released by the ReserveRelease from this ReserveHold. A positive integer representing how much is released in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        sig { returns(Integer) }
+        def amount; end
+        # The ReserveRelease which released funds from this ReserveHold (e.g., resrel_123).
+        sig { returns(String) }
+        def reserve_release; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class ReleaseSchedule < ::Stripe::StripeObject
         # The time after which the ReserveHold is requested to be released.
         sig { returns(T.nilable(Integer)) }
@@ -53,6 +67,9 @@ module Stripe
       # The reason for the ReserveHold.
       sig { returns(String) }
       def reason; end
+      # List of ReserveReleases and the amounts released from this ReserveHold.
+      sig { returns(T.nilable(T::Array[ReleaseDetail])) }
+      def release_details; end
       # Attribute for field release_schedule
       sig { returns(ReleaseSchedule) }
       def release_schedule; end

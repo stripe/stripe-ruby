@@ -1312,6 +1312,29 @@ module Stripe
     end
 
     context "#execute_request" do
+      context "Stripe-Notice header" do
+        should "emit a warning when the header is present" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(
+              body: JSON.generate(object: "charge"),
+              headers: { "Stripe-Notice" => "This is a notice" }
+            )
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).with("WARNING: This is a notice")
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+
+        should "not emit a warning when the header is absent" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(body: JSON.generate(object: "charge"))
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).never
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+      end
+
       should "handle success response with empty body" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
           .to_return(body: "", status: 200)
@@ -1774,6 +1797,32 @@ module Stripe
         ua = APIRequestor::SystemProfiler.user_agent
         assert_equal RUBY_PLATFORM, ua[:platform]
       ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "omit source when UNAME_HASH is empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:source)
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
+      end
+
+      should "include source when UNAME_HASH is non-empty" do
+        original = APIRequestor::SystemProfiler::UNAME_HASH
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "abc123")
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal "abc123", ua[:source]
+      ensure
+        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
+        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
         Stripe.enable_telemetry = false
       end
     end

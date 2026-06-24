@@ -161,7 +161,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe’s money transmission licenses.
+        # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
         sig { returns(T.nilable(String)) }
         def receipt_url; end
         # A nested object containing information about the destination of the InboundTransfer.

@@ -35,7 +35,7 @@ module Stripe
     attr_accessor :bill_for
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
-    # Determines how to handle debits and credits when pausing. The default is `pending_invoice_item`.
+    # Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     attr_accessor :invoicing_behavior
     # The type of pause to apply. Defaults to `subscription`.
     attr_accessor :type

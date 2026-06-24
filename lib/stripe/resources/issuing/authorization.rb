@@ -313,6 +313,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RequestHistory < ::Stripe::StripeObject
         class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
@@ -477,6 +490,8 @@ module Stripe
       attr_reader :object
       # The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
       attr_reader :pending_request
+      # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
+      attr_reader :redaction
       # History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
       attr_reader :request_history
       # The current status of the authorization in its lifecycle.
@@ -720,6 +735,7 @@ module Stripe
           merchant_data: MerchantData,
           network_data: NetworkData,
           pending_request: PendingRequest,
+          redaction: Redaction,
           request_history: RequestHistory,
           treasury: Treasury,
           verification_data: VerificationData,

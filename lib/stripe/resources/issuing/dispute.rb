@@ -221,6 +221,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         attr_reader :debit_reversal
@@ -255,6 +268,8 @@ module Stripe
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Redaction status of this dispute. If the dispute is not redacted, this field will be null.
+      attr_reader :redaction
       # Current status of the dispute.
       attr_reader :status
       # The transaction being disputed.
@@ -313,7 +328,7 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { evidence: Evidence, treasury: Treasury }
+        @inner_class_types = { evidence: Evidence, redaction: Redaction, treasury: Treasury }
       end
 
       def self.field_remappings

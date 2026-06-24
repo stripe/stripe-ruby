@@ -4031,6 +4031,15 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -4121,6 +4130,26 @@ module Stripe
         end
       end
       class StripeBalance < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sunbit < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -4286,7 +4315,7 @@ module Stripe
         end
       end
       class WechatPay < ::Stripe::StripeObject
-        # The app ID registered with WeChat Pay. Only required when client is ios or android.
+        # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
         sig { returns(T.nilable(String)) }
         def app_id; end
         # The client type that the end customer will pay from
@@ -4493,6 +4522,9 @@ module Stripe
       # Attribute for field stripe_balance
       sig { returns(T.nilable(StripeBalance)) }
       def stripe_balance; end
+      # Attribute for field sunbit
+      sig { returns(T.nilable(Sunbit)) }
+      def sunbit; end
       # Attribute for field swish
       sig { returns(T.nilable(Swish)) }
       def swish; end
@@ -4569,6 +4601,7 @@ module Stripe
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,
+          sunbit: Sunbit,
           swish: Swish,
           twint: Twint,
           upi: Upi,
@@ -4629,6 +4662,17 @@ module Stripe
       def type; end
       def self.inner_class_types
         @inner_class_types = {card: Card}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -4849,6 +4893,9 @@ module Stripe
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     sig { returns(T.nilable(String)) }
     def receipt_email; end
+    # Redaction status of this PaymentIntent. If the PaymentIntent isn't redacted, this field is null.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # ID of the review associated with this PaymentIntent, if any.
     sig { returns(T.nilable(T.any(String, ::Stripe::Review))) }
     def review; end

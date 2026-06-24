@@ -54,6 +54,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shipping < ::Stripe::StripeObject
         class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
@@ -295,6 +308,8 @@ module Stripe
       attr_reader :object
       # The personalization design object belonging to this card.
       attr_reader :personalization_design
+      # Redaction status of this card. If not null, this card is associated to a redaction job.
+      attr_reader :redaction
       # The latest card that replaces this card, if any.
       attr_reader :replaced_by
       # The card this card replaces, if any.
@@ -449,6 +464,7 @@ module Stripe
         @inner_class_types = {
           latest_fraud_warning: LatestFraudWarning,
           lifecycle_controls: LifecycleControls,
+          redaction: Redaction,
           shipping: Shipping,
           spending_controls: SpendingControls,
           wallets: Wallets,

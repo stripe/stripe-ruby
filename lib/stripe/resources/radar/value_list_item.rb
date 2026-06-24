@@ -16,6 +16,18 @@ module Stripe
         "radar.value_list_item"
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # The name or email address of the user who added this item to the value list.
@@ -28,6 +40,8 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Redaction status of this item. If not null, this item is associated to a redaction job.
+      attr_reader :redaction
       # The value of the item.
       attr_reader :value
       # The identifier of the value list this item belongs to.
@@ -74,7 +88,7 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { redaction: Redaction }
       end
 
       def self.field_remappings

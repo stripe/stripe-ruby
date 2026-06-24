@@ -380,11 +380,10 @@ module Stripe
       end
 
       module Contracts
-        autoload :LicensePricingService, "stripe/services/v2/billing/contracts/license_pricing_service"
+        autoload :PricingLinesService, "stripe/services/v2/billing/contracts/pricing_lines_service"
 
-        module LicensePricing
-          autoload :QuantityChangeService,
-                   "stripe/services/v2/billing/contracts/license_pricing/quantity_change_service"
+        module PricingLines
+          autoload :QuantityChangeService, "stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service"
         end
       end
 
@@ -787,8 +786,8 @@ module Stripe
     stripe/services/v2/billing/collection_setting_service
     stripe/services/v2/billing/collection_settings/version_service
     stripe/services/v2/billing/contract_service
-    stripe/services/v2/billing/contracts/license_pricing/quantity_change_service
-    stripe/services/v2/billing/contracts/license_pricing_service
+    stripe/services/v2/billing/contracts/pricing_lines/quantity_change_service
+    stripe/services/v2/billing/contracts/pricing_lines_service
     stripe/services/v2/billing/custom_pricing_unit_service
     stripe/services/v2/billing/intent_service
     stripe/services/v2/billing/intents/action_service

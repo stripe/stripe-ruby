@@ -422,6 +422,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            attr_reader :brand
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             attr_reader :country
             # Two-digit number representing the card's expiration month.

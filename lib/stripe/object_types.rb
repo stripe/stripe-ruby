@@ -225,8 +225,8 @@ module Stripe
         V2::Billing::CollectionSetting.object_name => V2::Billing::CollectionSetting,
         V2::Billing::CollectionSettingVersion.object_name => V2::Billing::CollectionSettingVersion,
         V2::Billing::Contract.object_name => V2::Billing::Contract,
-        V2::Billing::ContractLicensePricingQuantityChange.object_name =>
-        V2::Billing::ContractLicensePricingQuantityChange,
+        V2::Billing::ContractPricingLineQuantityChange.object_name =>
+        V2::Billing::ContractPricingLineQuantityChange,
         V2::Billing::CustomPricingUnit.object_name => V2::Billing::CustomPricingUnit,
         V2::Billing::Intent.object_name => V2::Billing::Intent,
         V2::Billing::IntentAction.object_name => V2::Billing::IntentAction,

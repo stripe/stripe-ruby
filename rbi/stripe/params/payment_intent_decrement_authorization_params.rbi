@@ -280,6 +280,17 @@ module Stripe
         sig { params(total_tax_amount: Integer).void }
         def initialize(total_tax_amount: nil); end
       end
+      class Tip < ::Stripe::RequestParams
+        # Portion of the amount that corresponds to a tip.
+        sig { returns(T.nilable(T.any(String, Integer))) }
+        def amount; end
+        sig {
+          params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+         }
+        def amount=(_amount); end
+        sig { params(amount: T.nilable(T.any(String, Integer))).void }
+        def initialize(amount: nil); end
+      end
       # The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
       #
       # This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
@@ -336,8 +347,17 @@ module Stripe
         params(_tax: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tax))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tax)))
        }
       def tax=(_tax); end
+      # Contains information about the tip portion of the amount.
       sig {
-        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Shipping)), surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Surcharge)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tax))).void
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tip)))
+       }
+      def tip; end
+      sig {
+        params(_tip: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tip))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tip)))
+       }
+      def tip=(_tip); end
+      sig {
+        params(discount_amount: T.nilable(T.any(String, Integer)), enforce_arithmetic_validation: T.nilable(T::Boolean), line_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem])), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Shipping)), surcharge: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Surcharge)), tax: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tax)), tip: T.nilable(T.any(String, ::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::Tip))).void
        }
       def initialize(
         discount_amount: nil,
@@ -345,7 +365,8 @@ module Stripe
         line_items: nil,
         shipping: nil,
         surcharge: nil,
-        tax: nil
+        tax: nil,
+        tip: nil
       ); end
     end
     class Hooks < ::Stripe::RequestParams

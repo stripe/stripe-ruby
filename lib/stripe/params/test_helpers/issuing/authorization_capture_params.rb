@@ -5,6 +5,15 @@ module Stripe
   module TestHelpers
     module Issuing
       class AuthorizationCaptureParams < ::Stripe::RequestParams
+        class NetworkData < ::Stripe::RequestParams
+          # Optional. A test value to populate network_data.acquirer_reference_number on the resulting Issuing Transaction. Must contain only digits and be at most 23 characters long. This value is intended only for integration validation in testmode and does not need to correspond to a real network-assigned acquirer reference number.
+          attr_accessor :acquirer_reference_number
+
+          def initialize(acquirer_reference_number: nil)
+            @acquirer_reference_number = acquirer_reference_number
+          end
+        end
+
         class PurchaseDetails < ::Stripe::RequestParams
           class Fleet < ::Stripe::RequestParams
             class CardholderPromptData < ::Stripe::RequestParams
@@ -338,6 +347,8 @@ module Stripe
         attr_accessor :close_authorization
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+        # Details about the transaction, such as processing dates, set by the card network.
+        attr_accessor :network_data
         # Additional purchase information that is optionally provided by the merchant.
         attr_accessor :purchase_details
 
@@ -345,11 +356,13 @@ module Stripe
           capture_amount: nil,
           close_authorization: nil,
           expand: nil,
+          network_data: nil,
           purchase_details: nil
         )
           @capture_amount = capture_amount
           @close_authorization = close_authorization
           @expand = expand
+          @network_data = network_data
           @purchase_details = purchase_details
         end
 

@@ -7,11 +7,14 @@ module Stripe
       class ContractListParams < ::Stripe::RequestParams
         # Filter by customer ID.
         attr_accessor :customer
+        # Additional fields to include in the response.
+        attr_accessor :include
         # The limit for the number of results per page.
         attr_accessor :limit
 
-        def initialize(customer: nil, limit: nil)
+        def initialize(customer: nil, include: nil, limit: nil)
           @customer = customer
+          @include = include
           @limit = limit
         end
       end

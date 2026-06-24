@@ -3166,7 +3166,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the sender in this account funding transaction.
+          # Attribute for field sender_account
           sig { returns(T.nilable(String)) }
           def sender_account; end
           # Attribute for field sender_details
@@ -3251,7 +3251,7 @@ module Stripe
         # Attribute for field account_funding
         sig { returns(T.nilable(AccountFunding)) }
         def account_funding; end
-        # ID of the Account representing the beneficiary in this account funding transaction.
+        # Attribute for field beneficiary_account
         sig { returns(T.nilable(String)) }
         def beneficiary_account; end
         # Attribute for field beneficiary_details

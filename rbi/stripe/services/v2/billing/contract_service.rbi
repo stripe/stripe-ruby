@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class ContractService < StripeService
-        attr_reader :license_pricing
+        attr_reader :pricing_lines
         # Activate a Draft Contract object by ID.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ContractActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
@@ -24,6 +24,12 @@ module Stripe
           params(params: T.any(::Stripe::V2::Billing::ContractCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
          }
         def create(params = {}, opts = {}); end
+
+        # Delete a draft Contract object by ID.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Billing::ContractDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::DeletedObject)
+         }
+        def delete(id, params = {}, opts = {}); end
 
         # List Contract objects with pagination.
         sig {

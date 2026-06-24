@@ -566,6 +566,8 @@ module Stripe
     autoload :CreditUnderwritingRecordListParams, "stripe/params/issuing/credit_underwriting_record_list_params"
     autoload :CreditUnderwritingRecordReportDecisionParams,
              "stripe/params/issuing/credit_underwriting_record_report_decision_params"
+    autoload :CreditUnderwritingRecordReportOfferAcceptanceParams,
+             "stripe/params/issuing/credit_underwriting_record_report_offer_acceptance_params"
     autoload :CreditUnderwritingRecordRetrieveParams, "stripe/params/issuing/credit_underwriting_record_retrieve_params"
     autoload :DisputeCloseParams, "stripe/params/issuing/dispute_close_params"
     autoload :DisputeCreateParams, "stripe/params/issuing/dispute_create_params"
@@ -774,8 +776,9 @@ module Stripe
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_dispute_response_params"
       autoload :DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
                "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_response_params"
-      autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
-               "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
+      # rubocop:disable Layout/LineLength
+      autoload :DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams, "stripe/params/test_helpers/issuing/dispute_simulate_network_lifecycle_pre_arbitration_submission_params"
+      # rubocop:enable Layout/LineLength
       autoload :PersonalizationDesignActivateParams,
                "stripe/params/test_helpers/issuing/personalization_design_activate_params"
       autoload :PersonalizationDesignDeactivateParams,
@@ -897,6 +900,7 @@ module Stripe
       autoload :ContractActivateParams, "stripe/params/v2/billing/contract_activate_params"
       autoload :ContractCancelParams, "stripe/params/v2/billing/contract_cancel_params"
       autoload :ContractCreateParams, "stripe/params/v2/billing/contract_create_params"
+      autoload :ContractDeleteParams, "stripe/params/v2/billing/contract_delete_params"
       autoload :ContractListParams, "stripe/params/v2/billing/contract_list_params"
       autoload :ContractRetrieveParams, "stripe/params/v2/billing/contract_retrieve_params"
       autoload :ContractUpdateParams, "stripe/params/v2/billing/contract_update_params"
@@ -976,9 +980,10 @@ module Stripe
       end
 
       module Contracts
-        module LicensePricing
-          autoload :QuantityChangeListQuantityChangesParams,
-                   "stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params"
+        module PricingLines
+          # rubocop:disable Layout/LineLength
+          autoload :QuantityChangeListContractPricingLineQuantityChangesParams, "stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params"
+          # rubocop:enable Layout/LineLength
         end
       end
 
@@ -1591,6 +1596,7 @@ module Stripe
     stripe/params/issuing/credit_underwriting_record_create_from_proactive_review_params
     stripe/params/issuing/credit_underwriting_record_list_params
     stripe/params/issuing/credit_underwriting_record_report_decision_params
+    stripe/params/issuing/credit_underwriting_record_report_offer_acceptance_params
     stripe/params/issuing/credit_underwriting_record_retrieve_params
     stripe/params/issuing/dispute_close_params
     stripe/params/issuing/dispute_create_params
@@ -2052,10 +2058,11 @@ module Stripe
     stripe/params/v2/billing/contract_activate_params
     stripe/params/v2/billing/contract_cancel_params
     stripe/params/v2/billing/contract_create_params
+    stripe/params/v2/billing/contract_delete_params
     stripe/params/v2/billing/contract_list_params
     stripe/params/v2/billing/contract_retrieve_params
     stripe/params/v2/billing/contract_update_params
-    stripe/params/v2/billing/contracts/license_pricing/quantity_change_list_quantity_changes_params
+    stripe/params/v2/billing/contracts/pricing_lines/quantity_change_list_contract_pricing_line_quantity_changes_params
     stripe/params/v2/billing/custom_pricing_unit_create_params
     stripe/params/v2/billing/custom_pricing_unit_list_params
     stripe/params/v2/billing/custom_pricing_unit_retrieve_params

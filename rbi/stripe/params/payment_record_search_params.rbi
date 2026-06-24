@@ -19,7 +19,7 @@ module Stripe
     def page; end
     sig { params(_page: T.nilable(String)).returns(T.nilable(String)) }
     def page=(_page); end
-    # The search query string. See [search query language](https://docs.stripe.com/search#search-query-language) and the list of supported [query fields for payment records](https://docs.stripe.com/search#query-fields-for-payment-records).
+    # The search query string. See [search query language](https://docs.stripe.com/search#search-query-language) and the list of supported [query fields for payment records](https://docs.stripe.com/search#query-fields-for-paymentrecords).
     sig { returns(String) }
     def query; end
     sig { params(_query: String).returns(String) }

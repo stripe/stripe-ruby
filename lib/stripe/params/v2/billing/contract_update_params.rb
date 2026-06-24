@@ -5,65 +5,6 @@ module Stripe
   module V2
     module Billing
       class ContractUpdateParams < ::Stripe::RequestParams
-        class LicenseQuantityAction < ::Stripe::RequestParams
-          class EffectiveAt < ::Stripe::RequestParams
-            # The timestamp for the effective at.
-            attr_accessor :timestamp
-            # The type of the effective at.
-            attr_accessor :type
-
-            def initialize(timestamp: nil, type: nil)
-              @timestamp = timestamp
-              @type = type
-            end
-          end
-
-          class Set < ::Stripe::RequestParams
-            # The quantity to set.
-            attr_accessor :quantity
-
-            def initialize(quantity: nil)
-              @quantity = quantity
-            end
-          end
-          # The effective at for the license quantity action.
-          attr_accessor :effective_at
-          # The ID of the license pricing.
-          attr_accessor :license_pricing_id
-          # The lookup key for the license pricing.
-          attr_accessor :license_pricing_lookup_key
-          # The type of the license pricing.
-          attr_accessor :license_pricing_type
-          # The pricing line ID for the license quantity action.
-          attr_accessor :pricing_line
-          # The pricing line lookup key for the license quantity action.
-          attr_accessor :pricing_line_lookup_key
-          # The set quantity for the license quantity action.
-          attr_accessor :set
-          # The type of the license quantity action.
-          attr_accessor :type
-
-          def initialize(
-            effective_at: nil,
-            license_pricing_id: nil,
-            license_pricing_lookup_key: nil,
-            license_pricing_type: nil,
-            pricing_line: nil,
-            pricing_line_lookup_key: nil,
-            set: nil,
-            type: nil
-          )
-            @effective_at = effective_at
-            @license_pricing_id = license_pricing_id
-            @license_pricing_lookup_key = license_pricing_lookup_key
-            @license_pricing_type = license_pricing_type
-            @pricing_line = pricing_line
-            @pricing_line_lookup_key = pricing_line_lookup_key
-            @set = set
-            @type = type
-          end
-        end
-
         class PricingLineAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
@@ -80,14 +21,192 @@ module Stripe
 
             class Pricing < ::Stripe::RequestParams
               class PriceDetails < ::Stripe::RequestParams
+                class PricingOverride < ::Stripe::RequestParams
+                  class EndsAt < ::Stripe::RequestParams
+                    # The timestamp when the item ends. Required if `type` is `timestamp`.
+                    attr_accessor :timestamp
+                    # The type of the ends_at.
+                    attr_accessor :type
+
+                    def initialize(timestamp: nil, type: nil)
+                      @timestamp = timestamp
+                      @type = type
+                    end
+                  end
+
+                  class OverwritePrice < ::Stripe::RequestParams
+                    class Tier < ::Stripe::RequestParams
+                      # Price for the entire tier, represented as a decimal string in minor currency units.
+                      attr_accessor :flat_amount
+                      # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
+                      attr_accessor :unit_amount
+                      # Up to and including this quantity will be contained in the tier.
+                      attr_accessor :up_to_decimal
+                      # No upper bound to this tier.
+                      attr_accessor :up_to_inf
+
+                      def initialize(
+                        flat_amount: nil,
+                        unit_amount: nil,
+                        up_to_decimal: nil,
+                        up_to_inf: nil
+                      )
+                        @flat_amount = flat_amount
+                        @unit_amount = unit_amount
+                        @up_to_decimal = up_to_decimal
+                        @up_to_inf = up_to_inf
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = { up_to_decimal: :decimal_string }
+                      end
+                    end
+                    # Defines whether the tiered price should be graduated or volume-based.
+                    attr_accessor :tiering_mode
+                    # Each element represents a pricing tier.
+                    attr_accessor :tiers
+                    # The per-unit amount to be charged, represented as a decimal string in minor currency units.
+                    attr_accessor :unit_amount
+
+                    def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
+                      @tiering_mode = tiering_mode
+                      @tiers = tiers
+                      @unit_amount = unit_amount
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        tiers: {
+                          kind: :array,
+                          element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                        },
+                      }
+                    end
+                  end
+
+                  class StartsAt < ::Stripe::RequestParams
+                    # The timestamp when the item starts. Required if `type` is `timestamp`.
+                    attr_accessor :timestamp
+                    # The type of the starts_at.
+                    attr_accessor :type
+
+                    def initialize(timestamp: nil, type: nil)
+                      @timestamp = timestamp
+                      @type = type
+                    end
+                  end
+                  # When the override ends. Defaults to the pricing line's end if not specified.
+                  attr_accessor :ends_at
+                  # A user-provided lookup key to reference this override.
+                  attr_accessor :lookup_key
+                  # Set of key-value pairs that you can attach to an object.
+                  attr_accessor :metadata
+                  # Parameters for the overwrite_price override. Required if `type` is `overwrite_price`.
+                  attr_accessor :overwrite_price
+                  # The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
+                  attr_accessor :priority
+                  # When the override starts. Defaults to the pricing line's start if not specified.
+                  attr_accessor :starts_at
+                  # The type of override. Currently only `overwrite_price` is supported.
+                  attr_accessor :type
+
+                  def initialize(
+                    ends_at: nil,
+                    lookup_key: nil,
+                    metadata: nil,
+                    overwrite_price: nil,
+                    priority: nil,
+                    starts_at: nil,
+                    type: nil
+                  )
+                    @ends_at = ends_at
+                    @lookup_key = lookup_key
+                    @metadata = metadata
+                    @overwrite_price = overwrite_price
+                    @priority = priority
+                    @starts_at = starts_at
+                    @type = type
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      overwrite_price: {
+                        kind: :object,
+                        fields: {
+                          tiers: {
+                            kind: :array,
+                            element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class QuantityChange < ::Stripe::RequestParams
+                  class EffectiveAt < ::Stripe::RequestParams
+                    # The timestamp for the effective at.
+                    attr_accessor :timestamp
+                    # The type of the effective at.
+                    attr_accessor :type
+
+                    def initialize(timestamp: nil, type: nil)
+                      @timestamp = timestamp
+                      @type = type
+                    end
+                  end
+                  # When this quantity change takes effect.
+                  attr_accessor :effective_at
+                  # The quantity to set.
+                  attr_accessor :set
+
+                  def initialize(effective_at: nil, set: nil)
+                    @effective_at = effective_at
+                    @set = set
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = { set: :decimal_string }
+                  end
+                end
                 # The ID of the V1 price.
                 attr_accessor :price
-                # The quantity for the price. Only applicable for licensed prices.
-                attr_accessor :quantity
+                # Pricing overrides embedded directly on this pricing line.
+                attr_accessor :pricing_overrides
+                # Quantity changes for the pricing line. For now, at most one entry is allowed.
+                # A quantity change clears all future quantity changes on this pricing line.
+                attr_accessor :quantity_changes
 
-                def initialize(price: nil, quantity: nil)
+                def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil)
                   @price = price
-                  @quantity = quantity
+                  @pricing_overrides = pricing_overrides
+                  @quantity_changes = quantity_changes
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    pricing_overrides: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: {
+                            kind: :object,
+                            fields: {
+                              tiers: {
+                                kind: :array,
+                                element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    quantity_changes: {
+                      kind: :array,
+                      element: { kind: :object, fields: { set: :decimal_string } },
+                    },
+                  }
                 end
               end
               # V1 price details. Required if `type` is `price`.
@@ -98,6 +217,40 @@ module Stripe
               def initialize(price_details: nil, type: nil)
                 @price_details = price_details
                 @type = type
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  price_details: {
+                    kind: :object,
+                    fields: {
+                      pricing_overrides: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            overwrite_price: {
+                              kind: :object,
+                              fields: {
+                                tiers: {
+                                  kind: :array,
+                                  element: {
+                                    kind: :object,
+                                    fields: { up_to_decimal: :decimal_string },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      quantity_changes: {
+                        kind: :array,
+                        element: { kind: :object, fields: { set: :decimal_string } },
+                      },
+                    },
+                  },
+                }
               end
             end
 
@@ -136,6 +289,45 @@ module Stripe
               @pricing = pricing
               @starts_at = starts_at
             end
+
+            def self.field_encodings
+              @field_encodings = {
+                pricing: {
+                  kind: :object,
+                  fields: {
+                    price_details: {
+                      kind: :object,
+                      fields: {
+                        pricing_overrides: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: {
+                                  tiers: {
+                                    kind: :array,
+                                    element: {
+                                      kind: :object,
+                                      fields: { up_to_decimal: :decimal_string },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        quantity_changes: {
+                          kind: :array,
+                          element: { kind: :object, fields: { set: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                },
+              }
+            end
           end
 
           class Remove < ::Stripe::RequestParams
@@ -160,6 +352,345 @@ module Stripe
               end
             end
 
+            class Pricing < ::Stripe::RequestParams
+              class PriceDetails < ::Stripe::RequestParams
+                class PricingOverrideAction < ::Stripe::RequestParams
+                  class Add < ::Stripe::RequestParams
+                    class EndsAt < ::Stripe::RequestParams
+                      # The timestamp when the item ends.
+                      attr_accessor :timestamp
+                      # The type of end time to apply.
+                      attr_accessor :type
+
+                      def initialize(timestamp: nil, type: nil)
+                        @timestamp = timestamp
+                        @type = type
+                      end
+                    end
+
+                    class OverwritePrice < ::Stripe::RequestParams
+                      class Tier < ::Stripe::RequestParams
+                        # Price for the entire tier, represented as a decimal string in minor currency units.
+                        attr_accessor :flat_amount
+                        # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
+                        attr_accessor :unit_amount
+                        # Up to and including this quantity will be contained in the tier.
+                        attr_accessor :up_to_decimal
+                        # No upper bound to this tier.
+                        attr_accessor :up_to_inf
+
+                        def initialize(
+                          flat_amount: nil,
+                          unit_amount: nil,
+                          up_to_decimal: nil,
+                          up_to_inf: nil
+                        )
+                          @flat_amount = flat_amount
+                          @unit_amount = unit_amount
+                          @up_to_decimal = up_to_decimal
+                          @up_to_inf = up_to_inf
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = { up_to_decimal: :decimal_string }
+                        end
+                      end
+                      # Defines whether the tiered price should be graduated or volume-based.
+                      attr_accessor :tiering_mode
+                      # Each element represents a pricing tier.
+                      attr_accessor :tiers
+                      # The per-unit amount to be charged, represented as a decimal string in minor currency units.
+                      attr_accessor :unit_amount
+
+                      def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
+                        @tiering_mode = tiering_mode
+                        @tiers = tiers
+                        @unit_amount = unit_amount
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          tiers: {
+                            kind: :array,
+                            element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                          },
+                        }
+                      end
+                    end
+
+                    class StartsAt < ::Stripe::RequestParams
+                      # The timestamp when the item starts.
+                      attr_accessor :timestamp
+                      # The type of start time to apply.
+                      attr_accessor :type
+
+                      def initialize(timestamp: nil, type: nil)
+                        @timestamp = timestamp
+                        @type = type
+                      end
+                    end
+                    # The end time for the override.
+                    attr_accessor :ends_at
+                    # A lookup key for the override.
+                    attr_accessor :lookup_key
+                    # Set of key-value pairs that you can attach to an object.
+                    attr_accessor :metadata
+                    # Parameters for an overwrite_price override. Required if `type` is `overwrite_price`.
+                    attr_accessor :overwrite_price
+                    # The priority of this override relative to others. 0 is highest, 100 is lowest. Defaults to 50.
+                    attr_accessor :priority
+                    # The start time for the override.
+                    attr_accessor :starts_at
+                    # The type of override to add.
+                    attr_accessor :type
+
+                    def initialize(
+                      ends_at: nil,
+                      lookup_key: nil,
+                      metadata: nil,
+                      overwrite_price: nil,
+                      priority: nil,
+                      starts_at: nil,
+                      type: nil
+                    )
+                      @ends_at = ends_at
+                      @lookup_key = lookup_key
+                      @metadata = metadata
+                      @overwrite_price = overwrite_price
+                      @priority = priority
+                      @starts_at = starts_at
+                      @type = type
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        overwrite_price: {
+                          kind: :object,
+                          fields: {
+                            tiers: {
+                              kind: :array,
+                              element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+
+                  class Remove < ::Stripe::RequestParams
+                    # The ID of the pricing line override to remove.
+                    attr_accessor :id
+                    # A lookup key for the override to remove.
+                    attr_accessor :lookup_key
+
+                    def initialize(id: nil, lookup_key: nil)
+                      @id = id
+                      @lookup_key = lookup_key
+                    end
+                  end
+
+                  class Update < ::Stripe::RequestParams
+                    class EndsAt < ::Stripe::RequestParams
+                      # The timestamp when the item ends.
+                      attr_accessor :timestamp
+                      # The type of end time to apply.
+                      attr_accessor :type
+
+                      def initialize(timestamp: nil, type: nil)
+                        @timestamp = timestamp
+                        @type = type
+                      end
+                    end
+
+                    class StartsAt < ::Stripe::RequestParams
+                      # The timestamp when the item starts.
+                      attr_accessor :timestamp
+                      # The type of start time to apply.
+                      attr_accessor :type
+
+                      def initialize(timestamp: nil, type: nil)
+                        @timestamp = timestamp
+                        @type = type
+                      end
+                    end
+                    # The updated end time for the override.
+                    attr_accessor :ends_at
+                    # The ID of the pricing line override to update.
+                    attr_accessor :id
+                    # A lookup key for the override to update.
+                    attr_accessor :lookup_key
+                    # Set of key-value pairs that you can attach to an object.
+                    attr_accessor :metadata
+                    # The updated start time for the override.
+                    attr_accessor :starts_at
+
+                    def initialize(
+                      ends_at: nil,
+                      id: nil,
+                      lookup_key: nil,
+                      metadata: nil,
+                      starts_at: nil
+                    )
+                      @ends_at = ends_at
+                      @id = id
+                      @lookup_key = lookup_key
+                      @metadata = metadata
+                      @starts_at = starts_at
+                    end
+                  end
+                  # Parameters for adding a pricing line override.
+                  attr_accessor :add
+                  # Parameters for removing a pricing line override.
+                  attr_accessor :remove
+                  # The type of pricing line override action.
+                  attr_accessor :type
+                  # Parameters for updating a pricing line override.
+                  attr_accessor :update
+
+                  def initialize(add: nil, remove: nil, type: nil, update: nil)
+                    @add = add
+                    @remove = remove
+                    @type = type
+                    @update = update
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      add: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: {
+                            kind: :object,
+                            fields: {
+                              tiers: {
+                                kind: :array,
+                                element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class QuantityChange < ::Stripe::RequestParams
+                  class EffectiveAt < ::Stripe::RequestParams
+                    # The timestamp for the effective at.
+                    attr_accessor :timestamp
+                    # The type of the effective at.
+                    attr_accessor :type
+
+                    def initialize(timestamp: nil, type: nil)
+                      @timestamp = timestamp
+                      @type = type
+                    end
+                  end
+                  # When this quantity change takes effect.
+                  attr_accessor :effective_at
+                  # The quantity to set.
+                  attr_accessor :set
+
+                  def initialize(effective_at: nil, set: nil)
+                    @effective_at = effective_at
+                    @set = set
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = { set: :decimal_string }
+                  end
+                end
+                # Pricing override actions to apply to the overrides embedded on this pricing line.
+                attr_accessor :pricing_override_actions
+                # Quantity changes for the pricing line. Setting this clears all future quantity changes.
+                attr_accessor :quantity_changes
+
+                def initialize(pricing_override_actions: nil, quantity_changes: nil)
+                  @pricing_override_actions = pricing_override_actions
+                  @quantity_changes = quantity_changes
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    pricing_override_actions: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          add: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: {
+                                  tiers: {
+                                    kind: :array,
+                                    element: {
+                                      kind: :object,
+                                      fields: { up_to_decimal: :decimal_string },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    quantity_changes: {
+                      kind: :array,
+                      element: { kind: :object, fields: { set: :decimal_string } },
+                    },
+                  }
+                end
+              end
+              # V1 price details. Present when the pricing line type is `price`.
+              attr_accessor :price_details
+
+              def initialize(price_details: nil)
+                @price_details = price_details
+              end
+
+              def self.field_encodings
+                @field_encodings = {
+                  price_details: {
+                    kind: :object,
+                    fields: {
+                      pricing_override_actions: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            add: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: {
+                                    tiers: {
+                                      kind: :array,
+                                      element: {
+                                        kind: :object,
+                                        fields: { up_to_decimal: :decimal_string },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      quantity_changes: {
+                        kind: :array,
+                        element: { kind: :object, fields: { set: :decimal_string } },
+                      },
+                    },
+                  },
+                }
+              end
+            end
+
             class StartsAt < ::Stripe::RequestParams
               # The timestamp when the item starts.
               attr_accessor :timestamp
@@ -175,13 +706,60 @@ module Stripe
             attr_accessor :ends_at
             # The ID of the pricing line.
             attr_accessor :id
+            # Pricing updates for the pricing line (quantity changes and pricing override actions).
+            attr_accessor :pricing
             # The updated start time for the pricing line.
             attr_accessor :starts_at
 
-            def initialize(ends_at: nil, id: nil, starts_at: nil)
+            def initialize(ends_at: nil, id: nil, pricing: nil, starts_at: nil)
               @ends_at = ends_at
               @id = id
+              @pricing = pricing
               @starts_at = starts_at
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                pricing: {
+                  kind: :object,
+                  fields: {
+                    price_details: {
+                      kind: :object,
+                      fields: {
+                        pricing_override_actions: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              add: {
+                                kind: :object,
+                                fields: {
+                                  overwrite_price: {
+                                    kind: :object,
+                                    fields: {
+                                      tiers: {
+                                        kind: :array,
+                                        element: {
+                                          kind: :object,
+                                          fields: { up_to_decimal: :decimal_string },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        quantity_changes: {
+                          kind: :array,
+                          element: { kind: :object, fields: { set: :decimal_string } },
+                        },
+                      },
+                    },
+                  },
+                },
+              }
             end
           end
           # Parameters for adding a pricing line.
@@ -198,6 +776,94 @@ module Stripe
             @remove = remove
             @type = type
             @update = update
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              add: {
+                kind: :object,
+                fields: {
+                  pricing: {
+                    kind: :object,
+                    fields: {
+                      price_details: {
+                        kind: :object,
+                        fields: {
+                          pricing_overrides: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: {
+                                    tiers: {
+                                      kind: :array,
+                                      element: {
+                                        kind: :object,
+                                        fields: { up_to_decimal: :decimal_string },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          quantity_changes: {
+                            kind: :array,
+                            element: { kind: :object, fields: { set: :decimal_string } },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+              update: {
+                kind: :object,
+                fields: {
+                  pricing: {
+                    kind: :object,
+                    fields: {
+                      price_details: {
+                        kind: :object,
+                        fields: {
+                          pricing_override_actions: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                add: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: {
+                                        tiers: {
+                                          kind: :array,
+                                          element: {
+                                            kind: :object,
+                                            fields: { up_to_decimal: :decimal_string },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          quantity_changes: {
+                            kind: :array,
+                            element: { kind: :object, fields: { set: :decimal_string } },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            }
           end
         end
 
@@ -217,51 +883,16 @@ module Stripe
 
             class Multiplier < ::Stripe::RequestParams
               class Criterion < ::Stripe::RequestParams
-                class MetadataCondition < ::Stripe::RequestParams
-                  class AllOf < ::Stripe::RequestParams
-                    # The metadata key.
-                    attr_accessor :key
-                    # The metadata value.
-                    attr_accessor :value
-
-                    def initialize(key: nil, value: nil)
-                      @key = key
-                      @value = value
-                    end
-                  end
-                  # All of these key-value conditions must match.
-                  attr_accessor :all_of
-
-                  def initialize(all_of: nil)
-                    @all_of = all_of
-                  end
-                end
-                # Filter by billable item IDs.
-                attr_accessor :billable_item_ids
-                # Filter by billable item lookup keys.
-                attr_accessor :billable_item_lookup_keys
-                # Filter by billable item type.
-                attr_accessor :billable_item_types
-                # Filter by metadata conditions.
-                attr_accessor :metadata_conditions
-                # Filter by rate card IDs. Only applicable for `multiplier` overrides.
-                attr_accessor :rate_card_ids
+                # Filter by pricing line IDs.
+                attr_accessor :pricing_line_ids
+                # Filter by pricing line lookup keys.
+                attr_accessor :pricing_line_lookup_keys
                 # Whether to include or exclude items matching these criteria.
                 attr_accessor :type
 
-                def initialize(
-                  billable_item_ids: nil,
-                  billable_item_lookup_keys: nil,
-                  billable_item_types: nil,
-                  metadata_conditions: nil,
-                  rate_card_ids: nil,
-                  type: nil
-                )
-                  @billable_item_ids = billable_item_ids
-                  @billable_item_lookup_keys = billable_item_lookup_keys
-                  @billable_item_types = billable_item_types
-                  @metadata_conditions = metadata_conditions
-                  @rate_card_ids = rate_card_ids
+                def initialize(pricing_line_ids: nil, pricing_line_lookup_keys: nil, type: nil)
+                  @pricing_line_ids = pricing_line_ids
+                  @pricing_line_lookup_keys = pricing_line_lookup_keys
                   @type = type
                 end
               end
@@ -303,8 +934,6 @@ module Stripe
                   @field_encodings = { up_to_decimal: :decimal_string }
                 end
               end
-              # The ID of the V1 price to overwrite.
-              attr_accessor :price
               # Defines whether the tiered price should be graduated or volume-based.
               attr_accessor :tiering_mode
               # Each element represents a pricing tier.
@@ -312,8 +941,7 @@ module Stripe
               # The per-unit amount to be charged, represented as a decimal string in minor currency units.
               attr_accessor :unit_amount
 
-              def initialize(price: nil, tiering_mode: nil, tiers: nil, unit_amount: nil)
-                @price = price
+              def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
                 @tiering_mode = tiering_mode
                 @tiers = tiers
                 @unit_amount = unit_amount
@@ -471,27 +1099,110 @@ module Stripe
         end
         # Additional fields to include in the response.
         attr_accessor :include
-        # Schema-only: License quantity actions (implementation to follow).
-        attr_accessor :license_quantity_actions
         # Pricing line actions to apply.
         attr_accessor :pricing_line_actions
         # Pricing override actions to apply.
         attr_accessor :pricing_override_actions
 
-        def initialize(
-          include: nil,
-          license_quantity_actions: nil,
-          pricing_line_actions: nil,
-          pricing_override_actions: nil
-        )
+        def initialize(include: nil, pricing_line_actions: nil, pricing_override_actions: nil)
           @include = include
-          @license_quantity_actions = license_quantity_actions
           @pricing_line_actions = pricing_line_actions
           @pricing_override_actions = pricing_override_actions
         end
 
         def self.field_encodings
           @field_encodings = {
+            pricing_line_actions: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  add: {
+                    kind: :object,
+                    fields: {
+                      pricing: {
+                        kind: :object,
+                        fields: {
+                          price_details: {
+                            kind: :object,
+                            fields: {
+                              pricing_overrides: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: {
+                                        tiers: {
+                                          kind: :array,
+                                          element: {
+                                            kind: :object,
+                                            fields: { up_to_decimal: :decimal_string },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              quantity_changes: {
+                                kind: :array,
+                                element: { kind: :object, fields: { set: :decimal_string } },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  update: {
+                    kind: :object,
+                    fields: {
+                      pricing: {
+                        kind: :object,
+                        fields: {
+                          price_details: {
+                            kind: :object,
+                            fields: {
+                              pricing_override_actions: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    add: {
+                                      kind: :object,
+                                      fields: {
+                                        overwrite_price: {
+                                          kind: :object,
+                                          fields: {
+                                            tiers: {
+                                              kind: :array,
+                                              element: {
+                                                kind: :object,
+                                                fields: { up_to_decimal: :decimal_string },
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              quantity_changes: {
+                                kind: :array,
+                                element: { kind: :object, fields: { set: :decimal_string } },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
             pricing_override_actions: {
               kind: :array,
               element: {

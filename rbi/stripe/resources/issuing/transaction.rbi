@@ -205,6 +205,9 @@ module Stripe
         end
       end
       class NetworkData < ::Stripe::StripeObject
+        # The network-provided acquirer reference number for this transaction, if available. Use this value for downstream operational workflows such as filing disputes with the card network.
+        sig { returns(T.nilable(String)) }
+        def acquirer_reference_number; end
         # A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
         sig { returns(T.nilable(String)) }
         def authorization_code; end

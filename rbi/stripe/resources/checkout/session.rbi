@@ -420,6 +420,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # The brand of the card, accounting for customer's brand choice on dual-branded cards.
+            sig { returns(String) }
+            def brand; end
             # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             sig { returns(T.nilable(String)) }
             def country; end

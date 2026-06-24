@@ -5,11 +5,11 @@ module Stripe
   module V2
     module Billing
       class ContractService < StripeService
-        attr_reader :license_pricing
+        attr_reader :pricing_lines
 
         def initialize(requestor)
           super
-          @license_pricing = Stripe::V2::Billing::Contracts::LicensePricingService.new(@requestor)
+          @pricing_lines = Stripe::V2::Billing::Contracts::PricingLinesService.new(@requestor)
         end
 
         # Activate a Draft Contract object by ID.
@@ -43,6 +43,17 @@ module Stripe
           request(
             method: :post,
             path: "/v2/billing/contracts",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Delete a draft Contract object by ID.
+        def delete(id, params = {}, opts = {})
+          request(
+            method: :delete,
+            path: format("/v2/billing/contracts/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

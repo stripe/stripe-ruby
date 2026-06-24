@@ -2956,7 +2956,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # ID of the Account representing the sender in this account funding transaction.
+          # Attribute for field sender_account
           attr_reader :sender_account
           # Attribute for field sender_details
           attr_reader :sender_details
@@ -3033,7 +3033,7 @@ module Stripe
         end
         # Attribute for field account_funding
         attr_reader :account_funding
-        # ID of the Account representing the beneficiary in this account funding transaction.
+        # Attribute for field beneficiary_account
         attr_reader :beneficiary_account
         # Attribute for field beneficiary_details
         attr_reader :beneficiary_details

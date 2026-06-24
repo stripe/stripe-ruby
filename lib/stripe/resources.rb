@@ -1435,8 +1435,7 @@ module Stripe
       autoload :CollectionSetting, "stripe/resources/v2/billing/collection_setting"
       autoload :CollectionSettingVersion, "stripe/resources/v2/billing/collection_setting_version"
       autoload :Contract, "stripe/resources/v2/billing/contract"
-      autoload :ContractLicensePricingQuantityChange,
-               "stripe/resources/v2/billing/contract_license_pricing_quantity_change"
+      autoload :ContractPricingLineQuantityChange, "stripe/resources/v2/billing/contract_pricing_line_quantity_change"
       autoload :CustomPricingUnit, "stripe/resources/v2/billing/custom_pricing_unit"
       autoload :Intent, "stripe/resources/v2/billing/intent"
       autoload :IntentAction, "stripe/resources/v2/billing/intent_action"
@@ -1776,7 +1775,7 @@ module Stripe
     stripe/resources/v2/billing/collection_setting
     stripe/resources/v2/billing/collection_setting_version
     stripe/resources/v2/billing/contract
-    stripe/resources/v2/billing/contract_license_pricing_quantity_change
+    stripe/resources/v2/billing/contract_pricing_line_quantity_change
     stripe/resources/v2/billing/custom_pricing_unit
     stripe/resources/v2/billing/intent
     stripe/resources/v2/billing/intent_action

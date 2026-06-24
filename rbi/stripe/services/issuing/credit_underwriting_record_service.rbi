@@ -35,6 +35,12 @@ module Stripe
        }
       def report_decision(credit_underwriting_record, params = {}, opts = {}); end
 
+      # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+      sig {
+        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportOfferAcceptanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+       }
+      def report_offer_acceptance(credit_underwriting_record, params = {}, opts = {}); end
+
       # Retrieves a CreditUnderwritingRecord object.
       sig {
         params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)

@@ -1454,6 +1454,35 @@ module Stripe
                 end
               end
 
+              class SunbitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class SwishPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1651,6 +1680,8 @@ module Stripe
               attr_reader :sepa_debit_payments
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
+              # Allow the merchant to process Sunbit payments.
+              attr_reader :sunbit_payments
               # Allow the merchant to process Swish payments.
               attr_reader :swish_payments
               # Allow the merchant to process TWINT payments.
@@ -1703,6 +1734,7 @@ module Stripe
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
                   stripe_balance: StripeBalance,
+                  sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
@@ -2075,7 +2107,7 @@ module Stripe
           class Responsibilities < ::Stripe::StripeObject
             # Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             attr_reader :fees_collector
-            # A value indicating responsibility for collecting requirements on this account.
+            # A value indicating the responsibility for losses on this account.
             attr_reader :losses_collector
             # A value indicating responsibility for collecting requirements on this account.
             attr_reader :requirements_collector

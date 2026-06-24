@@ -1492,7 +1492,7 @@ module Stripe
           params(_discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount]))).returns(T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])))
          }
         def discounts=(_discounts); end
-        # Subscription item to update.
+        # Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
         sig { returns(T.nilable(String)) }
         def id; end
         sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }

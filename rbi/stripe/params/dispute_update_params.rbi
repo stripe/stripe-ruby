@@ -6,6 +6,15 @@ module Stripe
   class DisputeUpdateParams < ::Stripe::RequestParams
     class Evidence < ::Stripe::RequestParams
       class EnhancedEvidence < ::Stripe::RequestParams
+        class MastercardCompliance < ::Stripe::RequestParams
+          # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+          sig { returns(T.nilable(T::Boolean)) }
+          def fee_acknowledged; end
+          sig { params(_fee_acknowledged: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+          def fee_acknowledged=(_fee_acknowledged); end
+          sig { params(fee_acknowledged: T.nilable(T::Boolean)).void }
+          def initialize(fee_acknowledged: nil); end
+        end
         class VisaCompellingEvidence3 < ::Stripe::RequestParams
           class DisputedTransaction < ::Stripe::RequestParams
             class ShippingAddress < ::Stripe::RequestParams
@@ -247,6 +256,15 @@ module Stripe
           sig { params(fee_acknowledged: T.nilable(T::Boolean)).void }
           def initialize(fee_acknowledged: nil); end
         end
+        # Evidence provided for Mastercard compliance evidence submission.
+        sig {
+          returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::MastercardCompliance))
+         }
+        def mastercard_compliance; end
+        sig {
+          params(_mastercard_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::MastercardCompliance)).returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::MastercardCompliance))
+         }
+        def mastercard_compliance=(_mastercard_compliance); end
         # Evidence provided for Visa Compelling Evidence 3.0 evidence submission.
         sig {
           returns(T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3))
@@ -266,9 +284,13 @@ module Stripe
          }
         def visa_compliance=(_visa_compliance); end
         sig {
-          params(visa_compelling_evidence_3: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3), visa_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).void
+          params(mastercard_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::MastercardCompliance), visa_compelling_evidence_3: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompellingEvidence3), visa_compliance: T.nilable(::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence::VisaCompliance)).void
          }
-        def initialize(visa_compelling_evidence_3: nil, visa_compliance: nil); end
+        def initialize(
+          mastercard_compliance: nil,
+          visa_compelling_evidence_3: nil,
+          visa_compliance: nil
+        ); end
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity. Has a maximum character count of 20,000.
       sig { returns(T.nilable(String)) }

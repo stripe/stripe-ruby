@@ -11,6 +11,17 @@ module Stripe
   class Dispute < APIResource
     class Evidence < ::Stripe::StripeObject
       class EnhancedEvidence < ::Stripe::StripeObject
+        class MastercardCompliance < ::Stripe::StripeObject
+          # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+          sig { returns(T::Boolean) }
+          def fee_acknowledged; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class VisaCompellingEvidence3 < ::Stripe::StripeObject
           class DisputedTransaction < ::Stripe::StripeObject
             class ShippingAddress < ::Stripe::StripeObject
@@ -155,6 +166,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field mastercard_compliance
+        sig { returns(T.nilable(MastercardCompliance)) }
+        def mastercard_compliance; end
         # Attribute for field visa_compelling_evidence_3
         sig { returns(T.nilable(VisaCompellingEvidence3)) }
         def visa_compelling_evidence_3; end
@@ -163,6 +177,7 @@ module Stripe
         def visa_compliance; end
         def self.inner_class_types
           @inner_class_types = {
+            mastercard_compliance: MastercardCompliance,
             visa_compelling_evidence_3: VisaCompellingEvidence3,
             visa_compliance: VisaCompliance,
           }
@@ -264,6 +279,17 @@ module Stripe
     end
     class EvidenceDetails < ::Stripe::StripeObject
       class EnhancedEligibility < ::Stripe::StripeObject
+        class MastercardCompliance < ::Stripe::StripeObject
+          # Mastercard compliance eligibility status.
+          sig { returns(String) }
+          def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class VisaCompellingEvidence3 < ::Stripe::StripeObject
           # List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
           sig { returns(T::Array[String]) }
@@ -289,6 +315,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field mastercard_compliance
+        sig { returns(T.nilable(MastercardCompliance)) }
+        def mastercard_compliance; end
         # Attribute for field visa_compelling_evidence_3
         sig { returns(T.nilable(VisaCompellingEvidence3)) }
         def visa_compelling_evidence_3; end
@@ -297,6 +326,7 @@ module Stripe
         def visa_compliance; end
         def self.inner_class_types
           @inner_class_types = {
+            mastercard_compliance: MastercardCompliance,
             visa_compelling_evidence_3: VisaCompellingEvidence3,
             visa_compliance: VisaCompliance,
           }

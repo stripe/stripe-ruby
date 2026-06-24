@@ -465,6 +465,9 @@ module Stripe
         end
       end
       class Bizum < ::Stripe::StripeObject
+        # A unique identifier for the buyer as determined by the local payment processor.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         # The Bizum transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -687,9 +690,6 @@ module Stripe
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
         def network_transaction_id; end
-        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
-        sig { returns(T.nilable(String)) }
-        def stored_credential_usage; end
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end

@@ -452,7 +452,7 @@ module Stripe
       attr_accessor :sepa_debit
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
-      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      # If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
       attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish

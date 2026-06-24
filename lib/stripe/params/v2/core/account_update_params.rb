@@ -563,6 +563,15 @@ module Stripe
                 end
               end
 
+              class SunbitPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class SwishPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -678,6 +687,8 @@ module Stripe
               attr_accessor :sepa_bank_transfer_payments
               # Allow the merchant to process SEPA Direct Debit payments.
               attr_accessor :sepa_debit_payments
+              # Allow the merchant to process Sunbit payments.
+              attr_accessor :sunbit_payments
               # Allow the merchant to process Swish payments.
               attr_accessor :swish_payments
               # Allow the merchant to process TWINT payments.
@@ -728,6 +739,7 @@ module Stripe
                 samsung_pay_payments: nil,
                 sepa_bank_transfer_payments: nil,
                 sepa_debit_payments: nil,
+                sunbit_payments: nil,
                 swish_payments: nil,
                 twint_payments: nil,
                 us_bank_transfer_payments: nil,
@@ -773,6 +785,7 @@ module Stripe
                 @samsung_pay_payments = samsung_pay_payments
                 @sepa_bank_transfer_payments = sepa_bank_transfer_payments
                 @sepa_debit_payments = sepa_debit_payments
+                @sunbit_payments = sunbit_payments
                 @swish_payments = swish_payments
                 @twint_payments = twint_payments
                 @us_bank_transfer_payments = us_bank_transfer_payments
@@ -1157,7 +1170,7 @@ module Stripe
                 end
               end
 
-              class CryptoStorer < ::Stripe::RequestParams
+              class CryptoMoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -1172,7 +1185,7 @@ module Stripe
                 end
               end
 
-              class Storer < ::Stripe::RequestParams
+              class MoneyManager < ::Stripe::RequestParams
                 # The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
                 attr_accessor :date
                 # The IP address from which the Account's representative accepted the terms of service.
@@ -1188,15 +1201,15 @@ module Stripe
               end
               # Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
               attr_accessor :account
-              # Details on the Account's acceptance of Crypto-storer-specific terms of service.
-              attr_accessor :crypto_storer
+              # Details on the Account's acceptance of Crypto-specific terms of service.
+              attr_accessor :crypto_money_manager
               # Details on the Account's acceptance of Treasury-specific terms of service.
-              attr_accessor :storer
+              attr_accessor :money_manager
 
-              def initialize(account: nil, crypto_storer: nil, storer: nil)
+              def initialize(account: nil, crypto_money_manager: nil, money_manager: nil)
                 @account = account
-                @crypto_storer = crypto_storer
-                @storer = storer
+                @crypto_money_manager = crypto_money_manager
+                @money_manager = money_manager
               end
             end
             # This hash is used to attest that the directors information provided to Stripe is both current and correct.

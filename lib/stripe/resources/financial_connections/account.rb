@@ -142,6 +142,35 @@ module Stripe
         end
       end
 
+      class StatusDetails < ::Stripe::StripeObject
+        class Active < ::Stripe::StripeObject
+          # The action (if any) to proactively relink the Account.
+          attr_reader :action
+          # The underlying cause of the Account becoming inactive.
+          attr_reader :cause
+          # When the Account is expected to become inactive, if applicable.
+          attr_reader :expected_deactivation_date
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field active
+        attr_reader :active
+
+        def self.inner_class_types
+          @inner_class_types = { active: Active }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class TransactionRefresh < ::Stripe::StripeObject
         # Unique identifier for the object.
         attr_reader :id
@@ -192,6 +221,8 @@ module Stripe
       attr_reader :permissions
       # The status of the link to the account.
       attr_reader :status
+      # Attribute for field status_details
+      attr_reader :status_details
       # If `category` is `cash`, one of:
       #
       #  - `checking`
@@ -331,6 +362,7 @@ module Stripe
           balance: Balance,
           balance_refresh: BalanceRefresh,
           ownership_refresh: OwnershipRefresh,
+          status_details: StatusDetails,
           transaction_refresh: TransactionRefresh,
         }
       end

@@ -502,7 +502,7 @@ module Stripe
           end
 
           class WechatPay < ::Stripe::StripeObject
-            # The app ID registered with WeChat Pay. Only required when client is ios or android.
+            # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             attr_reader :app_id
             # The client type that the end customer will pay from
             attr_reader :client

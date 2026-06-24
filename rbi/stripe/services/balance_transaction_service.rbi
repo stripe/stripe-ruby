@@ -4,9 +4,9 @@
 # typed: true
 module Stripe
   class BalanceTransactionService < StripeService
-    # Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
+    # Returns a list of transactions that have contributed to the Stripe account balance (for example, charges, transfers, and so on). The transactions return in sorted order, with the most recent transactions appearing first.
     #
-    # Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
+    # The previous name of this endpoint was “Balance history,” and it used the path /v1/balance/history.
     sig {
       params(params: T.any(::Stripe::BalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }

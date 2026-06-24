@@ -788,7 +788,7 @@ module Stripe
     #
     # If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     attr_accessor :payment_method_collection
-    # Attribute for param field payment_method_options
+    # Payment-method-specific configuration.
     attr_accessor :payment_method_options
     # The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://docs.stripe.com/payments/payment-methods/integration-options#payment-method-product-support)).
     attr_accessor :payment_method_types

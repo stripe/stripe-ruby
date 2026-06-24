@@ -20,6 +20,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Attribute for field account
     sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
     def account; end
@@ -121,6 +132,9 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # Redaction status of this card. If not null, this card is associated to a redaction job.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Status of a card based on the card issuer.
     sig { returns(T.nilable(String)) }
     def regulated_status; end

@@ -236,6 +236,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         sig { returns(T.nilable(String)) }
@@ -280,6 +291,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Redaction status of this dispute. If the dispute is not redacted, this field will be null.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # Current status of the dispute.
       sig { returns(String) }
       def status; end

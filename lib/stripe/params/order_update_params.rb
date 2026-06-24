@@ -1699,7 +1699,7 @@ module Stripe
           end
 
           class WechatPay < ::Stripe::RequestParams
-            # The app ID registered with WeChat Pay. Only required when client is ios or android.
+            # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             attr_accessor :app_id
             # The client type that the end customer will pay from
             attr_accessor :client

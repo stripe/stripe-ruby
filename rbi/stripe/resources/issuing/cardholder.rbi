@@ -149,6 +149,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Requirements < ::Stripe::StripeObject
         # If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
         sig { returns(T.nilable(String)) }
@@ -249,6 +260,9 @@ module Stripe
       #  This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
       sig { returns(T.nilable(T::Array[String])) }
       def preferred_locales; end
+      # Redaction status of this cardholder. If the cardholder is not redacted, this field will be null.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # Attribute for field requirements
       sig { returns(Requirements) }
       def requirements; end

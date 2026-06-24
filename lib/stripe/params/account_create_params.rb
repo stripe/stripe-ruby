@@ -1736,7 +1736,7 @@ module Stripe
       attr_accessor :bank_account_ownership_verification
       # One or more documents that demonstrate proof of a company's license to operate.
       attr_accessor :company_license
-      # One or more documents showing the company's Memorandum of Association.
+      # One or more documents showing the company's governing document (for example, a memorandum of association, constitution, or articles of association).
       attr_accessor :company_memorandum_of_association
       # (Certain countries only) One or more documents showing the ministerial decree legalizing the company's establishment.
       attr_accessor :company_ministerial_decree

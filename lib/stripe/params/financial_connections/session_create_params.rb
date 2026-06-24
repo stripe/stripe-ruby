@@ -47,7 +47,7 @@ module Stripe
       end
 
       class Limits < ::Stripe::RequestParams
-        # The number of accounts that can be linked in this Session.
+        # The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
         attr_accessor :accounts
 
         def initialize(accounts: nil)

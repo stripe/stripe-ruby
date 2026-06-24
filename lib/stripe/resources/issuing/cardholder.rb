@@ -157,6 +157,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Requirements < ::Stripe::StripeObject
         # If `disabled_reason` is present, all cards will decline authorizations with `cardholder_verification_required` reason.
         attr_reader :disabled_reason
@@ -239,6 +252,8 @@ module Stripe
       # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
       #  This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
       attr_reader :preferred_locales
+      # Redaction status of this cardholder. If the cardholder is not redacted, this field will be null.
+      attr_reader :redaction
       # Attribute for field requirements
       attr_reader :requirements
       # Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
@@ -283,6 +298,7 @@ module Stripe
           billing: Billing,
           company: Company,
           individual: Individual,
+          redaction: Redaction,
           requirements: Requirements,
           spending_controls: SpendingControls,
         }

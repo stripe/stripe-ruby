@@ -16,7 +16,7 @@ module Stripe
           end
           # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
           attr_accessor :price_type
-          # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+          # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
           attr_accessor :prices
 
           def initialize(price_type: nil, prices: nil)

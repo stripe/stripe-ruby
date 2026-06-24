@@ -56,7 +56,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # Determines how to handle debits and credits when pausing. The default is `pending_invoice_item`.
+    # Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
     sig { returns(T.nilable(String)) }
     def invoicing_behavior; end
     sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }

@@ -29,6 +29,19 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Attribute for field account
     attr_reader :account
     # City/District/Suburb/Town/Village.
@@ -97,6 +110,8 @@ module Stripe
     attr_reader :networks
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Redaction status of this card. If not null, this card is associated to a redaction job.
+    attr_reader :redaction
     # Status of a card based on the card issuer.
     attr_reader :regulated_status
     # For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.
@@ -154,7 +169,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { networks: Networks }
+      @inner_class_types = { networks: Networks, redaction: Redaction }
     end
 
     def self.field_remappings

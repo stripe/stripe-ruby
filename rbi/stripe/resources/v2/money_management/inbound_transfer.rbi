@@ -167,7 +167,7 @@ module Stripe
         # A nested object containing information about the destination of the InboundTransfer.
         sig { returns(To) }
         def to; end
-        # A list of history objects, representing changes in the state of the InboundTransfer.
+        # A list of history objects, representing changes in the state of the InboundTransfer. The most recent entry's type indicates the current status of the InboundTransfer.
         sig { returns(T::Array[TransferHistory]) }
         def transfer_history; end
       end

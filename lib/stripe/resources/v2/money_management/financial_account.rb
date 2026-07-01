@@ -43,6 +43,47 @@ module Stripe
           end
         end
 
+        class Credit < ::Stripe::StripeObject
+          class FundedBy < ::Stripe::StripeObject
+            class Platform < ::Stripe::StripeObject
+              # The platform FinancialAccount used to fund this credit FinancialAccount.
+              attr_reader :financial_account
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details for platform-funded credit FinancialAccounts.
+            attr_reader :platform
+            # The type of funding source for this credit FinancialAccount.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { platform: Platform }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about how this credit FinancialAccount is funded.
+          attr_reader :funded_by
+          # The currencies supported by this credit FinancialAccount.
+          attr_reader :supported_currencies
+
+          def self.inner_class_types
+            @inner_class_types = { funded_by: FundedBy }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class ManagedBy < ::Stripe::StripeObject
           # Enum describing the Stripe product that is managing this FinancialAccount.
           attr_reader :type
@@ -233,6 +274,8 @@ module Stripe
         attr_reader :country
         # Time at which the object was created.
         attr_reader :created
+        # If this is a `credit` FinancialAccount, this hash includes details specific to `credit` FinancialAccounts.
+        attr_reader :credit
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         attr_reader :display_name
         # Unique identifier for the object.
@@ -266,6 +309,7 @@ module Stripe
           @inner_class_types = {
             accrued_fees: AccruedFees,
             balance: Balance,
+            credit: Credit,
             managed_by: ManagedBy,
             multiprocessor_settlement: MultiprocessorSettlement,
             other: Other,

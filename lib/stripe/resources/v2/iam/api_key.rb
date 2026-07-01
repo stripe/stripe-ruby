@@ -83,6 +83,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # List of connect permissions for this API key.
+        attr_reader :connect_permissions
         # Timestamp when the API key was created.
         attr_reader :created
         # Timestamp when the API key expires.
@@ -103,6 +105,8 @@ module Stripe
         attr_reader :note
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # List of permissions for this API key.
+        attr_reader :permissions
         # Token set for a publishable key.
         attr_reader :publishable_key
         # Token set for a secret key.

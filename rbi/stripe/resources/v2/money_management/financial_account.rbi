@@ -38,6 +38,45 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Credit < ::Stripe::StripeObject
+          class FundedBy < ::Stripe::StripeObject
+            class Platform < ::Stripe::StripeObject
+              # The platform FinancialAccount used to fund this credit FinancialAccount.
+              sig { returns(String) }
+              def financial_account; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details for platform-funded credit FinancialAccounts.
+            sig { returns(Platform) }
+            def platform; end
+            # The type of funding source for this credit FinancialAccount.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {platform: Platform}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about how this credit FinancialAccount is funded.
+          sig { returns(T.nilable(FundedBy)) }
+          def funded_by; end
+          # The currencies supported by this credit FinancialAccount.
+          sig { returns(T::Array[String]) }
+          def supported_currencies; end
+          def self.inner_class_types
+            @inner_class_types = {funded_by: FundedBy}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class ManagedBy < ::Stripe::StripeObject
           # Enum describing the Stripe product that is managing this FinancialAccount.
           sig { returns(String) }
@@ -225,6 +264,9 @@ module Stripe
         # Time at which the object was created.
         sig { returns(String) }
         def created; end
+        # If this is a `credit` FinancialAccount, this hash includes details specific to `credit` FinancialAccounts.
+        sig { returns(T.nilable(Credit)) }
+        def credit; end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }
         def display_name; end

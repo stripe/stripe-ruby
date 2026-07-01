@@ -36,6 +36,9 @@ module Stripe
           end
         end
         class Flow < ::Stripe::StripeObject
+          # If applicable, the connected account associated with this Transaction's flow.
+          sig { returns(T.nilable(String)) }
+          def account; end
           # If applicable, the ID of the Adjustment that created this Transaction.
           sig { returns(T.nilable(String)) }
           def adjustment; end
@@ -63,6 +66,15 @@ module Stripe
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           sig { returns(T.nilable(String)) }
           def inbound_transfer; end
+          # If applicable, the ID of the Issuing authorization that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def issuing_authorization; end
+          # If applicable, the ID of the Issuing dispute that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def issuing_dispute; end
+          # If applicable, the ID of the Issuing transaction that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def issuing_transaction; end
           # If applicable, the ID of the OutboundPayment that created this Transaction.
           sig { returns(T.nilable(String)) }
           def outbound_payment; end

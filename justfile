@@ -23,10 +23,10 @@ alias lint-check := format-check
 # ⭐ check style & formatting for all files, fixing what we can
 lint: (format-check "--autocorrect")
 
-# NOTE: "-o /dev/null" is vital - rubocop has super noisy output and codegen will crash when formatting ruby if everything gets printed
-# so, we send all its output to the void
-# copy of `lint` with less output
-format: (format-check "-o /dev/null --autocorrect")
+# Quiet version of `lint` for use by codegen and CI.
+# --display-only-fail-level-offenses suppresses the ~1.5MB report of corrected
+# offenses and only shows uncorrectable ones.
+format: (format-check "--autocorrect --display-only-fail-level-offenses")
 
 update-certs: install
     bundle exec rake update_certs

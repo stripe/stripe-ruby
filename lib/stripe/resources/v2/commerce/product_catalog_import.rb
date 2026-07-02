@@ -230,6 +230,8 @@ module Stripe
         attr_reader :livemode
         # Additional information about the object in a structured format.
         attr_reader :metadata
+        # The import strategy for handling existing catalog data.
+        attr_reader :mode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # The current status of this ProductCatalogImport.

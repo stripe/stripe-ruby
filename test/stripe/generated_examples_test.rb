@@ -7577,7 +7577,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
       ).to_return(
-        body: '{"data":[{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7590,7 +7590,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports"
       ).to_return(
-        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7607,7 +7607,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/commerce/product_catalog/imports/id_123"
       ).to_return(
-        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"status":"awaiting_upload"}',
+        body: '{"object":"v2.commerce.product_catalog_import","created":"1970-01-12T21:42:34.472Z","feed_type":"pricing","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"mode":"upsert","status":"awaiting_upload"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

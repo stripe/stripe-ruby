@@ -395,6 +395,20 @@ module Stripe
       def initialize(coupon: nil, discount: nil, promotion_code: nil); end
     end
     class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
+        # The name of the custom field. This may be up to 40 characters.
+        sig { returns(String) }
+        def name; end
+        sig { params(_name: String).returns(String) }
+        def name=(_name); end
+        # The value of the custom field. This may be up to 140 characters.
+        sig { returns(String) }
+        def value; end
+        sig { params(_value: String).returns(String) }
+        def value=(_value); end
+        sig { params(name: String, value: String).void }
+        def initialize(name: nil, value: nil); end
+      end
       class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
@@ -416,6 +430,25 @@ module Stripe
         params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
        }
       def account_tax_ids=(_account_tax_ids); end
+      # A list of up to 4 custom fields to be displayed on the invoice.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields; end
+      sig {
+        params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields=(_custom_fields); end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
+      # Footer to be displayed on the invoice.
+      sig { returns(T.nilable(String)) }
+      def footer; end
+      sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+      def footer=(_footer); end
       # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
       sig { returns(T.nilable(::Stripe::SubscriptionCreateParams::InvoiceSettings::Issuer)) }
       def issuer; end
@@ -424,9 +457,15 @@ module Stripe
        }
       def issuer=(_issuer); end
       sig {
-        params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), issuer: T.nilable(::Stripe::SubscriptionCreateParams::InvoiceSettings::Issuer)).void
+        params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::InvoiceSettings::CustomField])), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::SubscriptionCreateParams::InvoiceSettings::Issuer)).void
        }
-      def initialize(account_tax_ids: nil, issuer: nil); end
+      def initialize(
+        account_tax_ids: nil,
+        custom_fields: nil,
+        description: nil,
+        footer: nil,
+        issuer: nil
+      ); end
     end
     class Item < ::Stripe::RequestParams
       class BillingThresholds < ::Stripe::RequestParams

@@ -349,6 +349,9 @@ module Stripe
         end
       end
       class Pix < ::Stripe::StripeObject
+        # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -357,6 +360,14 @@ module Stripe
         end
       end
       class RevolutPay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Satispay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -490,6 +501,9 @@ module Stripe
       # Attribute for field revolut_pay
       sig { returns(T.nilable(RevolutPay)) }
       def revolut_pay; end
+      # Attribute for field satispay
+      sig { returns(T.nilable(Satispay)) }
+      def satispay; end
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
@@ -530,6 +544,7 @@ module Stripe
           payto: Payto,
           pix: Pix,
           revolut_pay: RevolutPay,
+          satispay: Satispay,
           sepa_debit: SepaDebit,
           sofort: Sofort,
           twint: Twint,

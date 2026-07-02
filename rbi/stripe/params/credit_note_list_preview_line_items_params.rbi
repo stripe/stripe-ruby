@@ -51,7 +51,7 @@ module Stripe
       def quantity; end
       sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def quantity=(_quantity); end
-      # A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
+      # A list of up to 20 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::CreditNoteListPreviewLineItemsParams::Line::TaxAmount])))
        }

@@ -13,17 +13,17 @@ module Stripe
     end
 
     class Context < ::Stripe::StripeObject
-      # Attribute for field checkout_session
+      # The Checkout Session associated with this sweep, if any.
       attr_reader :checkout_session
-      # Attribute for field credit_note
+      # The Credit Note associated with this sweep, if any.
       attr_reader :credit_note
-      # Attribute for field invoice
+      # The Invoice associated with this sweep, if any.
       attr_reader :invoice
-      # Attribute for field payment_intent
+      # The PaymentIntent associated with this sweep, if any.
       attr_reader :payment_intent
-      # Attribute for field refund
+      # The Refund associated with this sweep, if any.
       attr_reader :refund
-      # Attribute for field tax_transaction
+      # The Tax Transaction associated with this sweep, if any.
       attr_reader :tax_transaction
 
       def self.inner_class_types
@@ -37,7 +37,7 @@ module Stripe
 
     class Destination < ::Stripe::StripeObject
       class PaymentsBalance < ::Stripe::StripeObject
-        # Attribute for field balance_transaction
+        # The balance transaction on the payments balance side of the sweep.
         attr_reader :balance_transaction
 
         def self.inner_class_types
@@ -50,9 +50,9 @@ module Stripe
       end
 
       class TaxFundAccount < ::Stripe::StripeObject
-        # Attribute for field financial_account
+        # The tax fund financial account involved in the sweep.
         attr_reader :financial_account
-        # Attribute for field transaction
+        # The financial account transaction on the tax fund account side of the sweep.
         attr_reader :transaction
 
         def self.inner_class_types
@@ -67,7 +67,7 @@ module Stripe
       attr_reader :payments_balance
       # Details about the tax fund financial account side of the sweep.
       attr_reader :tax_fund_account
-      # Attribute for field type
+      # The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
       attr_reader :type
 
       def self.inner_class_types
@@ -81,7 +81,7 @@ module Stripe
 
     class Source < ::Stripe::StripeObject
       class PaymentsBalance < ::Stripe::StripeObject
-        # Attribute for field balance_transaction
+        # The balance transaction on the payments balance side of the sweep.
         attr_reader :balance_transaction
 
         def self.inner_class_types
@@ -94,9 +94,9 @@ module Stripe
       end
 
       class TaxFundAccount < ::Stripe::StripeObject
-        # Attribute for field financial_account
+        # The tax fund financial account involved in the sweep.
         attr_reader :financial_account
-        # Attribute for field transaction
+        # The financial account transaction on the tax fund account side of the sweep.
         attr_reader :transaction
 
         def self.inner_class_types
@@ -111,7 +111,7 @@ module Stripe
       attr_reader :payments_balance
       # Details about the tax fund financial account side of the sweep.
       attr_reader :tax_fund_account
-      # Attribute for field type
+      # The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
       attr_reader :type
 
       def self.inner_class_types
@@ -124,9 +124,9 @@ module Stripe
     end
 
     class Trigger < ::Stripe::StripeObject
-      # Attribute for field balance_transaction
+      # The balance transaction on the payments balance that triggered the sweep.
       attr_reader :balance_transaction
-      # Attribute for field type
+      # The type of event that triggered the sweep. Always `balance_transaction`.
       attr_reader :type
 
       def self.inner_class_types

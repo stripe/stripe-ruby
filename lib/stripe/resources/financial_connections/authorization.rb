@@ -30,6 +30,21 @@ module Stripe
       end
 
       class StatusDetails < ::Stripe::StripeObject
+        class Active < ::Stripe::StripeObject
+          # The action (if any) to proactively relink the Authorization.
+          attr_reader :action
+          # When the Authorization is expected to become inactive, if applicable.
+          attr_reader :expected_deactivation_date
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Inactive < ::Stripe::StripeObject
           # The action (if any) to relink the inactive Authorization.
           attr_reader :action
@@ -42,11 +57,13 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field active
+        attr_reader :active
         # Attribute for field inactive
         attr_reader :inactive
 
         def self.inner_class_types
-          @inner_class_types = { inactive: Inactive }
+          @inner_class_types = { active: Active, inactive: Inactive }
         end
 
         def self.field_remappings

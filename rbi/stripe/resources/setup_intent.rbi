@@ -828,6 +828,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class SetupDetails < ::Stripe::StripeObject
       class Benefit < ::Stripe::StripeObject
         class FrMealVoucher < ::Stripe::StripeObject
@@ -952,6 +963,9 @@ module Stripe
     # The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     sig { returns(T::Array[String]) }
     def payment_method_types; end
+    # Redaction status of this SetupIntent. If the SetupIntent isn't redacted, this field is null.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Attribute for field setup_details
     sig { returns(T.nilable(SetupDetails)) }
     def setup_details; end

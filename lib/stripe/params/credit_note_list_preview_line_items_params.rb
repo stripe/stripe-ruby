@@ -28,7 +28,7 @@ module Stripe
       attr_accessor :metadata
       # The line item quantity to credit.
       attr_accessor :quantity
-      # A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
+      # A list of up to 20 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
       attr_accessor :tax_amounts
       # The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and `tax_amounts` is not used.
       attr_accessor :tax_rates

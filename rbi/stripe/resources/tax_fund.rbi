@@ -7,22 +7,22 @@ module Stripe
   # a merchant's payments balance and their tax fund financial account for Stripe Tax obligations.
   class TaxFund < APIResource
     class Context < ::Stripe::StripeObject
-      # Attribute for field checkout_session
+      # The Checkout Session associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def checkout_session; end
-      # Attribute for field credit_note
+      # The Credit Note associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def credit_note; end
-      # Attribute for field invoice
+      # The Invoice associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def invoice; end
-      # Attribute for field payment_intent
+      # The PaymentIntent associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def payment_intent; end
-      # Attribute for field refund
+      # The Refund associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def refund; end
-      # Attribute for field tax_transaction
+      # The Tax Transaction associated with this sweep, if any.
       sig { returns(T.nilable(String)) }
       def tax_transaction; end
       def self.inner_class_types
@@ -34,7 +34,7 @@ module Stripe
     end
     class Destination < ::Stripe::StripeObject
       class PaymentsBalance < ::Stripe::StripeObject
-        # Attribute for field balance_transaction
+        # The balance transaction on the payments balance side of the sweep.
         sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
         def balance_transaction; end
         def self.inner_class_types
@@ -45,10 +45,10 @@ module Stripe
         end
       end
       class TaxFundAccount < ::Stripe::StripeObject
-        # Attribute for field financial_account
+        # The tax fund financial account involved in the sweep.
         sig { returns(T.nilable(String)) }
         def financial_account; end
-        # Attribute for field transaction
+        # The financial account transaction on the tax fund account side of the sweep.
         sig { returns(T.nilable(String)) }
         def transaction; end
         def self.inner_class_types
@@ -64,7 +64,7 @@ module Stripe
       # Details about the tax fund financial account side of the sweep.
       sig { returns(T.nilable(TaxFundAccount)) }
       def tax_fund_account; end
-      # Attribute for field type
+      # The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
@@ -76,7 +76,7 @@ module Stripe
     end
     class Source < ::Stripe::StripeObject
       class PaymentsBalance < ::Stripe::StripeObject
-        # Attribute for field balance_transaction
+        # The balance transaction on the payments balance side of the sweep.
         sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
         def balance_transaction; end
         def self.inner_class_types
@@ -87,10 +87,10 @@ module Stripe
         end
       end
       class TaxFundAccount < ::Stripe::StripeObject
-        # Attribute for field financial_account
+        # The tax fund financial account involved in the sweep.
         sig { returns(T.nilable(String)) }
         def financial_account; end
-        # Attribute for field transaction
+        # The financial account transaction on the tax fund account side of the sweep.
         sig { returns(T.nilable(String)) }
         def transaction; end
         def self.inner_class_types
@@ -106,7 +106,7 @@ module Stripe
       # Details about the tax fund financial account side of the sweep.
       sig { returns(T.nilable(TaxFundAccount)) }
       def tax_fund_account; end
-      # Attribute for field type
+      # The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
       sig { returns(String) }
       def type; end
       def self.inner_class_types
@@ -117,10 +117,10 @@ module Stripe
       end
     end
     class Trigger < ::Stripe::StripeObject
-      # Attribute for field balance_transaction
+      # The balance transaction on the payments balance that triggered the sweep.
       sig { returns(T.any(String, ::Stripe::BalanceTransaction)) }
       def balance_transaction; end
-      # Attribute for field type
+      # The type of event that triggered the sweep. Always `balance_transaction`.
       sig { returns(String) }
       def type; end
       def self.inner_class_types

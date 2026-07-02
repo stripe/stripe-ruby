@@ -975,14 +975,106 @@ module Stripe
         end
       end
       class Item < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
+            # The price for this subscription item.
+            sig { returns(T.any(String, ::Stripe::Price)) }
+            def price; end
+            # The quantity for this subscription item.
+            sig { returns(T.nilable(Integer)) }
+            def quantity; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class PendingInvoiceItemInterval < ::Stripe::StripeObject
+            # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+            sig { returns(String) }
+            def interval; end
+            # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+            sig { returns(Integer) }
+            def interval_count; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class TrialSettings < ::Stripe::StripeObject
+            class EndBehavior < ::Stripe::StripeObject
+              # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+              sig { returns(String) }
+              def missing_payment_method; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Defines how a subscription behaves when a free trial ends.
+            sig { returns(EndBehavior) }
+            def end_behavior; end
+            def self.inner_class_types
+              @inner_class_types = {end_behavior: EndBehavior}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The description for the subscription.
+          sig { returns(T.nilable(String)) }
+          def description; end
+          # The items in the subscription.
+          sig { returns(T::Array[Item]) }
+          def items; end
+          # Set of key-value pairs attached to the subscription.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          # Specifies an interval for how often to bill for any pending invoice items.
+          sig { returns(T.nilable(PendingInvoiceItemInterval)) }
+          def pending_invoice_item_interval; end
+          # Determines how to handle prorations when the subscription is updated.
+          sig { returns(T.nilable(String)) }
+          def proration_behavior; end
+          # The ID of the [Subscription](https://docs.stripe.com/api/subscriptions).
+          sig { returns(T.nilable(T.any(String, ::Stripe::Subscription))) }
+          def subscription; end
+          # The Unix timestamp marking when the trial period ends.
+          sig { returns(T.nilable(Integer)) }
+          def trial_end; end
+          # The number of trial period days before the customer is charged for the first time.
+          sig { returns(T.nilable(Integer)) }
+          def trial_period_days; end
+          # Settings related to subscription trials.
+          sig { returns(T.nilable(TrialSettings)) }
+          def trial_settings; end
+          def self.inner_class_types
+            @inner_class_types = {
+              items: Item,
+              pending_invoice_item_interval: PendingInvoiceItemInterval,
+              trial_settings: TrialSettings,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         sig { returns(String) }
         def key; end
+        # Details on the subscription for this item.
+        sig { returns(T.nilable(Subscription)) }
+        def subscription; end
         # The type of the item.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {subscription: Subscription}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2043,6 +2135,26 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Sunbit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Swish < ::Stripe::StripeObject
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           sig { returns(T.nilable(String)) }
@@ -2185,6 +2297,29 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is iOS or Android.
+          sig { returns(T.nilable(String)) }
+          def app_id; end
+          # The client type that the end customer will pay from
+          sig { returns(T.nilable(String)) }
+          def client; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field acss_debit
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
@@ -2308,6 +2443,9 @@ module Stripe
         # Attribute for field sofort
         sig { returns(T.nilable(Sofort)) }
         def sofort; end
+        # Attribute for field sunbit
+        sig { returns(T.nilable(Sunbit)) }
+        def sunbit; end
         # Attribute for field swish
         sig { returns(T.nilable(Swish)) }
         def swish; end
@@ -2320,6 +2458,9 @@ module Stripe
         # Attribute for field us_bank_account
         sig { returns(T.nilable(UsBankAccount)) }
         def us_bank_account; end
+        # Attribute for field wechat_pay
+        sig { returns(T.nilable(WechatPay)) }
+        def wechat_pay; end
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
@@ -2363,10 +2504,12 @@ module Stripe
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
+            sunbit: Sunbit,
             swish: Swish,
             twint: Twint,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
         def self.field_remappings
@@ -2438,6 +2581,17 @@ module Stripe
         # Currency presented to the customer during payment.
         sig { returns(String) }
         def presentment_currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -2953,6 +3107,9 @@ module Stripe
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       sig { returns(T.nilable(String)) }
       def recovered_from; end
+      # The redaction status of the Checkout Session. If the Session is not redacted, this field is null.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def redirect_on_completion; end

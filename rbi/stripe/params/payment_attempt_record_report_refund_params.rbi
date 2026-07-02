@@ -113,6 +113,11 @@ module Stripe
       params(_processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails).returns(::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails)
      }
     def processor_details=(_processor_details); end
+    # The reason for the refund. One of `duplicate`, `fraudulent`, or `requested_by_customer`.
+    sig { returns(T.nilable(String)) }
+    def reason; end
+    sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
+    def reason=(_reason); end
     # A key to group refunds together.
     sig { returns(T.nilable(String)) }
     def refund_group; end
@@ -126,7 +131,7 @@ module Stripe
      }
     def refunded=(_refunded); end
     sig {
-      params(amount: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails, refund_group: T.nilable(String), refunded: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Refunded)).void
+      params(amount: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Amount), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Failed), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), processor_details: ::Stripe::PaymentAttemptRecordReportRefundParams::ProcessorDetails, reason: T.nilable(String), refund_group: T.nilable(String), refunded: T.nilable(::Stripe::PaymentAttemptRecordReportRefundParams::Refunded)).void
      }
     def initialize(
       amount: nil,
@@ -136,6 +141,7 @@ module Stripe
       metadata: nil,
       outcome: nil,
       processor_details: nil,
+      reason: nil,
       refund_group: nil,
       refunded: nil
     ); end

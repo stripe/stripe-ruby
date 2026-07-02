@@ -175,6 +175,9 @@ module Stripe
       end
     end
     class Bizum < ::Stripe::StripeObject
+      # A unique identifier for the buyer as determined by the local payment processor.
+      sig { returns(T.nilable(String)) }
+      def buyer_id; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -183,6 +186,9 @@ module Stripe
       end
     end
     class Blik < ::Stripe::StripeObject
+      # A unique and immutable identifier assigned by BLIK to every buyer.
+      sig { returns(T.nilable(String)) }
+      def buyer_id; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -1349,6 +1355,9 @@ module Stripe
       end
     end
     class Pix < ::Stripe::StripeObject
+      # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+      sig { returns(T.nilable(String)) }
+      def fingerprint; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -1406,6 +1415,17 @@ module Stripe
       def dob; end
       def self.inner_class_types
         @inner_class_types = {dob: Dob}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -1835,6 +1855,9 @@ module Stripe
     # Attribute for field rechnung
     sig { returns(T.nilable(Rechnung)) }
     def rechnung; end
+    # Redaction status of this PaymentMethod. If the PaymentMethod is not redacted, this field will be null.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Attribute for field revolut_pay
     sig { returns(T.nilable(RevolutPay)) }
     def revolut_pay; end

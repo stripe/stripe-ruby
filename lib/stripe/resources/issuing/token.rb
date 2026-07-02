@@ -17,6 +17,8 @@ module Stripe
         class Device < ::Stripe::StripeObject
           # An obfuscated ID derived from the device ID.
           attr_reader :device_fingerprint
+          # An identifier for the device used during wallet provisioning.
+          attr_reader :device_id
           # The IP address of the device at provisioning time.
           attr_reader :ip_address
           # The ISO 639-1 language code of the device associated with the tokenization request.

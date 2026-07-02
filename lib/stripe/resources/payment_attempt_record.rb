@@ -459,6 +459,8 @@ module Stripe
       end
 
       class Bizum < ::Stripe::StripeObject
+        # A unique identifier for the buyer as determined by the local payment processor.
+        attr_reader :buyer_id
         # The Bizum transaction ID associated with this payment.
         attr_reader :transaction_id
 
@@ -666,8 +668,6 @@ module Stripe
         attr_reader :network_token
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         attr_reader :network_transaction_id
-        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
-        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
@@ -867,6 +867,10 @@ module Stripe
       end
 
       class Crypto < ::Stripe::StripeObject
+        # The amount received for the crypto payment.
+        attr_reader :amount_received
+        # The amount requested for the crypto payment.
+        attr_reader :amount_requested
         # The wallet address of the customer.
         attr_reader :buyer_address
         # The blockchain network that the transaction was sent on.
@@ -965,6 +969,8 @@ module Stripe
         attr_reader :exp_month
         # The expiration year of the gift card.
         attr_reader :exp_year
+        # Uniquely identifies this particular gift card number. You can use this attribute to check whether two transactions were made using the same gift card.
+        attr_reader :fingerprint
         # The first six digits of the gift card number.
         attr_reader :first6
         # The last four digits of the gift card number.

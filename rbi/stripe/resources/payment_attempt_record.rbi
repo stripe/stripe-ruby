@@ -468,6 +468,9 @@ module Stripe
         end
       end
       class Bizum < ::Stripe::StripeObject
+        # A unique identifier for the buyer as determined by the local payment processor.
+        sig { returns(T.nilable(String)) }
+        def buyer_id; end
         # The Bizum transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
@@ -690,9 +693,6 @@ module Stripe
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         sig { returns(T.nilable(String)) }
         def network_transaction_id; end
-        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
-        sig { returns(T.nilable(String)) }
-        def stored_credential_usage; end
         # Populated if this transaction used 3D Secure authentication.
         sig { returns(T.nilable(ThreeDSecure)) }
         def three_d_secure; end
@@ -918,6 +918,12 @@ module Stripe
         end
       end
       class Crypto < ::Stripe::StripeObject
+        # The amount received for the crypto payment.
+        sig { returns(T.nilable(Integer)) }
+        def amount_received; end
+        # The amount requested for the crypto payment.
+        sig { returns(T.nilable(Integer)) }
+        def amount_requested; end
         # The wallet address of the customer.
         sig { returns(T.nilable(String)) }
         def buyer_address; end
@@ -1017,6 +1023,9 @@ module Stripe
         # The expiration year of the gift card.
         sig { returns(T.nilable(Integer)) }
         def exp_year; end
+        # Uniquely identifies this particular gift card number. You can use this attribute to check whether two transactions were made using the same gift card.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
         # The first six digits of the gift card number.
         sig { returns(T.nilable(String)) }
         def first6; end

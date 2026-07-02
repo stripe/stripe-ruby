@@ -75,6 +75,9 @@ module Stripe
       # Time at which the offer was created. Given in seconds since unix epoch.
       sig { returns(Integer) }
       def created; end
+      # The type of disclaimer to use for a financing offer in user-facing surfaces. The corresponding disclaimer text to use for each disclaimer_variant value can be found in the [marketing docs](https://docs.stripe.com/capital/marketing).
+      sig { returns(T.nilable(String)) }
+      def disclaimer_variant; end
       # Time at which the offer expires. Given in seconds since unix epoch.
       sig { returns(Float) }
       def expires_after; end

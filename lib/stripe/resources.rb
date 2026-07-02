@@ -143,6 +143,14 @@ module Stripe
     autoload :Supplier, "stripe/resources/climate/supplier"
   end
 
+  module Crypto
+    autoload :Customer, "stripe/resources/crypto/customer"
+    autoload :CustomerConsumerWallet, "stripe/resources/crypto/customer_consumer_wallet"
+    autoload :CustomerPaymentToken, "stripe/resources/crypto/customer_payment_token"
+    autoload :OnrampSession, "stripe/resources/crypto/onramp_session"
+    autoload :OnrampTransactionLimits, "stripe/resources/crypto/onramp_transaction_limits"
+  end
+
   module DelegatedCheckout
     autoload :Order, "stripe/resources/delegated_checkout/order"
     autoload :OrderEvent, "stripe/resources/delegated_checkout/order_event"
@@ -1619,6 +1627,11 @@ module Stripe
     stripe/resources/coupon
     stripe/resources/credit_note
     stripe/resources/credit_note_line_item
+    stripe/resources/crypto/customer
+    stripe/resources/crypto/customer_consumer_wallet
+    stripe/resources/crypto/customer_payment_token
+    stripe/resources/crypto/onramp_session
+    stripe/resources/crypto/onramp_transaction_limits
     stripe/resources/customer
     stripe/resources/customer_balance_transaction
     stripe/resources/customer_cash_balance_transaction

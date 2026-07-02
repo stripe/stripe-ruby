@@ -30,6 +30,18 @@ module Stripe
       "token"
     end
 
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # These bank accounts are payment methods on `Customer` objects.
     #
     # On the other hand [External Accounts](/api#external_accounts) are transfer
@@ -54,6 +66,8 @@ module Stripe
     attr_reader :livemode
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # Redaction status of this token. If not null, this token is associated to a redaction job.
+    attr_reader :redaction
     # Type of the token: `account`, `bank_account`, `card`, or `pii`.
     attr_reader :type
     # Determines if you have already used this token (you can only use tokens once).
@@ -66,7 +80,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = {}
+      @inner_class_types = { redaction: Redaction }
     end
 
     def self.field_remappings

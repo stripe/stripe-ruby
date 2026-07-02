@@ -8,6 +8,17 @@ module Stripe
     #
     # Related guide: [Managing list items](https://docs.stripe.com/radar/lists#managing-list-items)
     class ValueListItem < APIResource
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
@@ -26,6 +37,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Redaction status of this item. If not null, this item is associated to a redaction job.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # The value of the item.
       sig { returns(String) }
       def value; end

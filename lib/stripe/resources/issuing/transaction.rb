@@ -511,6 +511,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://docs.stripe.com/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         attr_reader :received_credit
@@ -551,6 +564,8 @@ module Stripe
       attr_reader :livemode
       # The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency.
       attr_reader :merchant_amount
+      # The exchange rate used by the network to convert the `merchant_amount` to `amount`. The `merchant_amount` multiplied with this rate will equal to the `amount`.
+      attr_reader :merchant_amount_exchange_rate
       # The currency with which the merchant is taking payment.
       attr_reader :merchant_currency
       # Attribute for field merchant_data
@@ -563,6 +578,8 @@ module Stripe
       attr_reader :object
       # Additional purchase information that is optionally provided by the merchant.
       attr_reader :purchase_details
+      # Redaction status of this transaction. If the transaction is not redacted, this field will be null.
+      attr_reader :redaction
       # The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
       attr_reader :settlement
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
@@ -652,6 +669,7 @@ module Stripe
           merchant_data: MerchantData,
           network_data: NetworkData,
           purchase_details: PurchaseDetails,
+          redaction: Redaction,
           treasury: Treasury,
         }
       end

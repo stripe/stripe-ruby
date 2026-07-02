@@ -155,6 +155,23 @@ module Stripe
         end
       end
       class StatusDetails < ::Stripe::StripeObject
+        class Active < ::Stripe::StripeObject
+          # The action (if any) to proactively relink the Account.
+          sig { returns(String) }
+          def action; end
+          # The underlying cause of the Account becoming inactive.
+          sig { returns(String) }
+          def cause; end
+          # When the Account is expected to become inactive, if applicable.
+          sig { returns(Integer) }
+          def expected_deactivation_date; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Inactive < ::Stripe::StripeObject
           # The action (if any) to relink the inactive Account.
           sig { returns(String) }
@@ -169,11 +186,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field active
+        sig { returns(T.nilable(Active)) }
+        def active; end
         # Attribute for field inactive
         sig { returns(T.nilable(Inactive)) }
         def inactive; end
         def self.inner_class_types
-          @inner_class_types = {inactive: Inactive}
+          @inner_class_types = {active: Active, inactive: Inactive}
         end
         def self.field_remappings
           @field_remappings = {}

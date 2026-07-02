@@ -634,6 +634,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        sig { returns(String) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RequestHistory < ::Stripe::StripeObject
         class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
@@ -695,6 +706,9 @@ module Stripe
       class TokenDetails < ::Stripe::StripeObject
         class NetworkData < ::Stripe::StripeObject
           class Device < ::Stripe::StripeObject
+            # An identifier for the device used during wallet provisioning.
+            sig { returns(T.nilable(String)) }
+            def device_id; end
             # The IP address of the device at provisioning time.
             sig { returns(T.nilable(String)) }
             def ip_address; end
@@ -957,6 +971,9 @@ module Stripe
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
       sig { returns(Integer) }
       def merchant_amount; end
+      # The exchange rate used by the network to convert the `merchant_amount` to `amount`. The `merchant_amount` multiplied with this rate will equal to the `amount`.
+      sig { returns(T.nilable(Float)) }
+      def merchant_amount_exchange_rate; end
       # The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def merchant_currency; end
@@ -975,6 +992,9 @@ module Stripe
       # The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
       sig { returns(T.nilable(PendingRequest)) }
       def pending_request; end
+      # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
+      sig { returns(T.nilable(Redaction)) }
+      def redaction; end
       # History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
       sig { returns(T::Array[RequestHistory]) }
       def request_history; end

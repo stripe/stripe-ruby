@@ -990,7 +990,7 @@ module Stripe
       params(_stripe_balance: T.nilable(::Stripe::PaymentMethodCreateParams::StripeBalance)).returns(T.nilable(::Stripe::PaymentMethodCreateParams::StripeBalance))
      }
     def stripe_balance=(_stripe_balance); end
-    # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    # If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
     sig { returns(T.nilable(::Stripe::PaymentMethodCreateParams::Sunbit)) }
     def sunbit; end
     sig {

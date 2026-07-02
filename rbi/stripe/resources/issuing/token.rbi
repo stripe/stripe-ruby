@@ -11,6 +11,9 @@ module Stripe
           # An obfuscated ID derived from the device ID.
           sig { returns(T.nilable(String)) }
           def device_fingerprint; end
+          # An identifier for the device used during wallet provisioning.
+          sig { returns(T.nilable(String)) }
+          def device_id; end
           # The IP address of the device at provisioning time.
           sig { returns(T.nilable(String)) }
           def ip_address; end

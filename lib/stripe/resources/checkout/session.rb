@@ -955,13 +955,101 @@ module Stripe
       end
 
       class Item < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          class Item < ::Stripe::StripeObject
+            # The price for this subscription item.
+            attr_reader :price
+            # The quantity for this subscription item.
+            attr_reader :quantity
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class PendingInvoiceItemInterval < ::Stripe::StripeObject
+            # Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+            attr_reader :interval
+            # The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+            attr_reader :interval_count
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class TrialSettings < ::Stripe::StripeObject
+            class EndBehavior < ::Stripe::StripeObject
+              # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+              attr_reader :missing_payment_method
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Defines how a subscription behaves when a free trial ends.
+            attr_reader :end_behavior
+
+            def self.inner_class_types
+              @inner_class_types = { end_behavior: EndBehavior }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The description for the subscription.
+          attr_reader :description
+          # The items in the subscription.
+          attr_reader :items
+          # Set of key-value pairs attached to the subscription.
+          attr_reader :metadata
+          # Specifies an interval for how often to bill for any pending invoice items.
+          attr_reader :pending_invoice_item_interval
+          # Determines how to handle prorations when the subscription is updated.
+          attr_reader :proration_behavior
+          # The ID of the [Subscription](https://docs.stripe.com/api/subscriptions).
+          attr_reader :subscription
+          # The Unix timestamp marking when the trial period ends.
+          attr_reader :trial_end
+          # The number of trial period days before the customer is charged for the first time.
+          attr_reader :trial_period_days
+          # Settings related to subscription trials.
+          attr_reader :trial_settings
+
+          def self.inner_class_types
+            @inner_class_types = {
+              items: Item,
+              pending_invoice_item_interval: PendingInvoiceItemInterval,
+              trial_settings: TrialSettings,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         attr_reader :key
+        # Details on the subscription for this item.
+        attr_reader :subscription
         # The type of the item.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { subscription: Subscription }
         end
 
         def self.field_remappings
@@ -2058,6 +2146,27 @@ module Stripe
           end
         end
 
+        class Sunbit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Swish < ::Stripe::StripeObject
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           attr_reader :reference
@@ -2200,6 +2309,29 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class WechatPay < ::Stripe::StripeObject
+          # The app ID registered with WeChat Pay. Only required when client is iOS or Android.
+          attr_reader :app_id
+          # The client type that the end customer will pay from
+          attr_reader :client
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Attribute for field acss_debit
         attr_reader :acss_debit
         # Attribute for field affirm
@@ -2282,6 +2414,8 @@ module Stripe
         attr_reader :sepa_debit
         # Attribute for field sofort
         attr_reader :sofort
+        # Attribute for field sunbit
+        attr_reader :sunbit
         # Attribute for field swish
         attr_reader :swish
         # Attribute for field twint
@@ -2290,6 +2424,8 @@ module Stripe
         attr_reader :upi
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+        # Attribute for field wechat_pay
+        attr_reader :wechat_pay
 
         def self.inner_class_types
           @inner_class_types = {
@@ -2334,10 +2470,12 @@ module Stripe
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
             sofort: Sofort,
+            sunbit: Sunbit,
             swish: Swish,
             twint: Twint,
             upi: Upi,
             us_bank_account: UsBankAccount,
+            wechat_pay: WechatPay,
           }
         end
 
@@ -2411,6 +2549,19 @@ module Stripe
         attr_reader :presentment_amount
         # Currency presented to the customer during payment.
         attr_reader :presentment_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -2864,6 +3015,8 @@ module Stripe
       attr_reader :presentment_details
       # The ID of the original expired Checkout Session that triggered the recovery flow.
       attr_reader :recovered_from
+      # The redaction status of the Checkout Session. If the Session is not redacted, this field is null.
+      attr_reader :redaction
       # This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
       attr_reader :redirect_on_completion
       # Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
@@ -3025,6 +3178,7 @@ module Stripe
           permissions: Permissions,
           phone_number_collection: PhoneNumberCollection,
           presentment_details: PresentmentDetails,
+          redaction: Redaction,
           saved_payment_method_options: SavedPaymentMethodOptions,
           shipping_address_collection: ShippingAddressCollection,
           shipping_cost: ShippingCost,

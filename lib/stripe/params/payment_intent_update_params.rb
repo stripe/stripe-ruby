@@ -2771,7 +2771,7 @@ module Stripe
       attr_accessor :sofort
       # This hash contains details about the Stripe balance payment method.
       attr_accessor :stripe_balance
-      # If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+      # If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
       attr_accessor :sunbit
       # If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
       attr_accessor :swish
@@ -3689,6 +3689,15 @@ module Stripe
       end
 
       class Crypto < ::Stripe::RequestParams
+        class AmountReconciliation < ::Stripe::RequestParams
+          # Controls how crypto funding amounts are reconciled for the PaymentIntent.
+          attr_accessor :type
+
+          def initialize(type: nil)
+            @type = type
+          end
+        end
+
         class DepositOptions < ::Stripe::RequestParams
           # The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
           attr_accessor :networks
@@ -3712,6 +3721,8 @@ module Stripe
             @transaction_hash = transaction_hash
           end
         end
+        # Controls how crypto funding amounts are reconciled for this PaymentIntent.
+        attr_accessor :amount_reconciliation
         # Specific configuration for this PaymentIntent when the mode is `deposit`.
         attr_accessor :deposit_options
         # The mode of the crypto payment.
@@ -3730,11 +3741,13 @@ module Stripe
         attr_accessor :transaction_verification_options
 
         def initialize(
+          amount_reconciliation: nil,
           deposit_options: nil,
           mode: nil,
           setup_future_usage: nil,
           transaction_verification_options: nil
         )
+          @amount_reconciliation = amount_reconciliation
           @deposit_options = deposit_options
           @mode = mode
           @setup_future_usage = setup_future_usage
@@ -5561,9 +5574,18 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, setup_future_usage: nil)
           @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -5672,6 +5694,28 @@ module Stripe
 
         def initialize(mandate_options: nil, setup_future_usage: nil)
           @mandate_options = mandate_options
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
+      class Sunbit < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
+
+        def initialize(capture_method: nil, setup_future_usage: nil)
+          @capture_method = capture_method
           @setup_future_usage = setup_future_usage
         end
       end
@@ -5850,7 +5894,7 @@ module Stripe
       end
 
       class WechatPay < ::Stripe::RequestParams
-        # The app ID registered with WeChat Pay. Only required when client is ios or android.
+        # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
         attr_accessor :app_id
         # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
         attr_accessor :buyer_id
@@ -6005,6 +6049,8 @@ module Stripe
       attr_accessor :sofort
       # If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
       attr_accessor :stripe_balance
+      # If this is a `sunbit` PaymentMethod, this sub-hash contains details about the Sunbit payment method options.
+      attr_accessor :sunbit
       # If this is a `Swish` PaymentMethod, this sub-hash contains details about the Swish payment method options.
       attr_accessor :swish
       # If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
@@ -6076,6 +6122,7 @@ module Stripe
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
+        sunbit: nil,
         swish: nil,
         twint: nil,
         upi: nil,
@@ -6140,6 +6187,7 @@ module Stripe
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance
+        @sunbit = sunbit
         @swish = swish
         @twint = twint
         @upi = upi

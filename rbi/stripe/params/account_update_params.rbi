@@ -2312,7 +2312,7 @@ module Stripe
         params(_company_license: T.nilable(::Stripe::AccountUpdateParams::Documents::CompanyLicense)).returns(T.nilable(::Stripe::AccountUpdateParams::Documents::CompanyLicense))
        }
       def company_license=(_company_license); end
-      # One or more documents showing the company's Memorandum of Association.
+      # One or more documents showing the company's governing document (for example, a memorandum of association, constitution, or articles of association).
       sig {
         returns(T.nilable(::Stripe::AccountUpdateParams::Documents::CompanyMemorandumOfAssociation))
        }

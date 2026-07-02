@@ -27,10 +27,16 @@ module Stripe
             @pem_key = pem_key
           end
         end
+        # List of connect permissions for this API key.
+        attr_accessor :connect_permissions
+        # Timestamp at which the key expires. If not provided, the key never expires.
+        attr_accessor :expires_at
         # Name for the API key.
         attr_accessor :name
         # Note or description for the API key.
         attr_accessor :note
+        # List of permissions for this API key.
+        attr_accessor :permissions
         # Public key for encrypting the API key secret.
         # This must a PEM-formatted RSA key suitable for encryption, >= 2048 bits.
         # A public key is required when creating secret keys.
@@ -39,9 +45,20 @@ module Stripe
         # Type of the API key to create (secret or publishable).
         attr_accessor :type
 
-        def initialize(name: nil, note: nil, public_key: nil, type: nil)
+        def initialize(
+          connect_permissions: nil,
+          expires_at: nil,
+          name: nil,
+          note: nil,
+          permissions: nil,
+          public_key: nil,
+          type: nil
+        )
+          @connect_permissions = connect_permissions
+          @expires_at = expires_at
           @name = name
           @note = note
+          @permissions = permissions
           @public_key = public_key
           @type = type
         end

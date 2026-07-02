@@ -606,6 +606,19 @@ module Stripe
         end
       end
 
+      class Redaction < ::Stripe::StripeObject
+        # Indicates whether this object and its related objects have been redacted or not.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RequestHistory < ::Stripe::StripeObject
         class AmountDetails < ::Stripe::StripeObject
           # The fee charged by the ATM for the cash withdrawal.
@@ -658,6 +671,8 @@ module Stripe
       class TokenDetails < ::Stripe::StripeObject
         class NetworkData < ::Stripe::StripeObject
           class Device < ::Stripe::StripeObject
+            # An identifier for the device used during wallet provisioning.
+            attr_reader :device_id
             # The IP address of the device at provisioning time.
             attr_reader :ip_address
             # The ISO 639-1 language code of the device associated with the tokenization request.
@@ -887,6 +902,8 @@ module Stripe
       attr_reader :livemode
       # The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
       attr_reader :merchant_amount
+      # The exchange rate used by the network to convert the `merchant_amount` to `amount`. The `merchant_amount` multiplied with this rate will equal to the `amount`.
+      attr_reader :merchant_amount_exchange_rate
       # The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :merchant_currency
       # Attribute for field merchant_data
@@ -899,6 +916,8 @@ module Stripe
       attr_reader :object
       # The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
       attr_reader :pending_request
+      # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
+      attr_reader :redaction
       # History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
       attr_reader :request_history
       # The current status of the authorization in its lifecycle.
@@ -1147,6 +1166,7 @@ module Stripe
           merchant_data: MerchantData,
           network_data: NetworkData,
           pending_request: PendingRequest,
+          redaction: Redaction,
           request_history: RequestHistory,
           token_details: TokenDetails,
           treasury: Treasury,

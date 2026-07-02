@@ -69,6 +69,8 @@ module Stripe
     attr_accessor :outcome
     # Processor information for this refund.
     attr_accessor :processor_details
+    # The reason for the refund. One of `duplicate`, `fraudulent`, or `requested_by_customer`.
+    attr_accessor :reason
     # A key to group refunds together.
     attr_accessor :refund_group
     # Information about the payment attempt refund.
@@ -82,6 +84,7 @@ module Stripe
       metadata: nil,
       outcome: nil,
       processor_details: nil,
+      reason: nil,
       refund_group: nil,
       refunded: nil
     )
@@ -92,6 +95,7 @@ module Stripe
       @metadata = metadata
       @outcome = outcome
       @processor_details = processor_details
+      @reason = reason
       @refund_group = refund_group
       @refunded = refunded
     end

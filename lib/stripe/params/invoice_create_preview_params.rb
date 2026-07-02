@@ -2271,7 +2271,7 @@ module Stripe
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
         attr_accessor :discounts
-        # Subscription item to update.
+        # Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
         attr_accessor :id
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
@@ -2321,6 +2321,49 @@ module Stripe
         end
       end
 
+      class Pause < ::Stripe::RequestParams
+        class BillFor < ::Stripe::RequestParams
+          class OutstandingUsageThrough < ::Stripe::RequestParams
+            # When to bill metered usage in the current period.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class UnusedTimeFrom < ::Stripe::RequestParams
+            # When to credit for unused time.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+          # Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+          attr_accessor :outstanding_usage_through
+          # Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+          attr_accessor :unused_time_from
+
+          def initialize(outstanding_usage_through: nil, unused_time_from: nil)
+            @outstanding_usage_through = outstanding_usage_through
+            @unused_time_from = unused_time_from
+          end
+        end
+        # Controls what to bill for when pausing the subscription.
+        attr_accessor :bill_for
+        # Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
+        attr_accessor :invoicing_behavior
+        # The type of pause to apply. Defaults to `subscription`.
+        attr_accessor :type
+
+        def initialize(bill_for: nil, invoicing_behavior: nil, type: nil)
+          @bill_for = bill_for
+          @invoicing_behavior = invoicing_behavior
+          @type = type
+        end
+      end
+
       class Prebilling < ::Stripe::RequestParams
         # This is used to determine the number of billing cycles to prebill.
         attr_accessor :iterations
@@ -2345,6 +2388,12 @@ module Stripe
       attr_accessor :default_tax_rates
       # A list of up to 20 subscription items, each with an attached price.
       attr_accessor :items
+      # Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
+      #
+      # To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
+      #
+      # `pending_invoice_item` never has a preview available because pausing wouldn't generate an invoice, and paused subscriptions don't generate invoices either.
+      attr_accessor :pause
       # The pre-billing to apply to the subscription as a preview.
       attr_accessor :prebilling
       # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -2367,6 +2416,7 @@ module Stripe
         cancel_now: nil,
         default_tax_rates: nil,
         items: nil,
+        pause: nil,
         prebilling: nil,
         proration_behavior: nil,
         proration_date: nil,
@@ -2382,6 +2432,7 @@ module Stripe
         @cancel_now = cancel_now
         @default_tax_rates = default_tax_rates
         @items = items
+        @pause = pause
         @prebilling = prebilling
         @proration_behavior = proration_behavior
         @proration_date = proration_date

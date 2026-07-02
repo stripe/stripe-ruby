@@ -669,6 +669,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Redirect < ::Stripe::StripeObject
       # The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
       sig { returns(T.nilable(String)) }
@@ -1061,6 +1072,9 @@ module Stripe
     # Attribute for field receiver
     sig { returns(T.nilable(Receiver)) }
     def receiver; end
+    # Redaction status of this source. If not null, this source is associated to a redaction job.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Attribute for field redirect
     sig { returns(T.nilable(Redirect)) }
     def redirect; end

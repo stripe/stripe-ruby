@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   # A GiftCardOperation represents an operation performed on a third-party gift card,
-  # such as activation, deactivation, reload, cashout, balance check, or void.
+  # such as activation, reload, cashout, balance check, or void.
   class GiftCardOperation < APIResource
     class Activation < ::Stripe::StripeObject
       class Balance < ::Stripe::StripeObject
@@ -137,14 +137,6 @@ module Stripe
         @field_remappings = {}
       end
     end
-    class Deactivation < ::Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
     class Reload < ::Stripe::StripeObject
       class Balance < ::Stripe::StripeObject
         # The balance amount.
@@ -236,9 +228,6 @@ module Stripe
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
-    # Details about a gift card deactivation operation.
-    sig { returns(T.nilable(Deactivation)) }
-    def deactivation; end
     # The failure code of the operation. Only present if the status is failed.
     sig { returns(T.nilable(String)) }
     def failure_code; end

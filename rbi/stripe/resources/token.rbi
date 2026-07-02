@@ -24,6 +24,17 @@ module Stripe
   # [Radar](https://docs.stripe.com/radar), our integrated solution for automatic fraud protection,
   # performs best with integrations that use client-side tokenization.
   class Token < APIResource
+    class Redaction < ::Stripe::StripeObject
+      # Indicates whether this object and its related objects have been redacted or not.
+      sig { returns(String) }
+      def status; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # These bank accounts are payment methods on `Customer` objects.
     #
     # On the other hand [External Accounts](/api#external_accounts) are transfer
@@ -55,6 +66,9 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # Redaction status of this token. If not null, this token is associated to a redaction job.
+    sig { returns(T.nilable(Redaction)) }
+    def redaction; end
     # Type of the token: `account`, `bank_account`, `card`, or `pii`.
     sig { returns(String) }
     def type; end

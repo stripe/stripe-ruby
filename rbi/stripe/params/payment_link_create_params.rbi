@@ -1235,7 +1235,7 @@ module Stripe
     def payment_method_collection; end
     sig { params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String)) }
     def payment_method_collection=(_payment_method_collection); end
-    # Attribute for param field payment_method_options
+    # Payment-method-specific configuration.
     sig { returns(T.nilable(::Stripe::PaymentLinkCreateParams::PaymentMethodOptions)) }
     def payment_method_options; end
     sig {

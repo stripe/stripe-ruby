@@ -42,6 +42,8 @@ module Stripe
         end
 
         class Flow < ::Stripe::StripeObject
+          # If applicable, the connected account associated with this Transaction's flow.
+          attr_reader :account
           # If applicable, the ID of the Adjustment that created this Transaction.
           attr_reader :adjustment
           # If applicable, the ID of the Application Fee that created this Transaction.
@@ -60,6 +62,12 @@ module Stripe
           attr_reader :fee_transaction
           # If applicable, the ID of the InboundTransfer that created this Transaction.
           attr_reader :inbound_transfer
+          # If applicable, the ID of the Issuing authorization that created this Transaction.
+          attr_reader :issuing_authorization
+          # If applicable, the ID of the Issuing dispute that created this Transaction.
+          attr_reader :issuing_dispute
+          # If applicable, the ID of the Issuing transaction that created this Transaction.
+          attr_reader :issuing_transaction
           # If applicable, the ID of the OutboundPayment that created this Transaction.
           attr_reader :outbound_payment
           # If applicable, the ID of the OutboundTransfer that created this Transaction.

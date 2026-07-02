@@ -498,7 +498,7 @@ module Stripe
             end
           end
           class WechatPay < ::Stripe::StripeObject
-            # The app ID registered with WeChat Pay. Only required when client is ios or android.
+            # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             sig { returns(T.nilable(String)) }
             def app_id; end
             # The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.

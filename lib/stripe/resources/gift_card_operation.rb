@@ -3,7 +3,7 @@
 
 module Stripe
   # A GiftCardOperation represents an operation performed on a third-party gift card,
-  # such as activation, deactivation, reload, cashout, balance check, or void.
+  # such as activation, reload, cashout, balance check, or void.
   class GiftCardOperation < APIResource
     OBJECT_NAME = "gift_card_operation"
     def self.object_name
@@ -150,16 +150,6 @@ module Stripe
       end
     end
 
-    class Deactivation < ::Stripe::StripeObject
-      def self.inner_class_types
-        @inner_class_types = {}
-      end
-
-      def self.field_remappings
-        @field_remappings = {}
-      end
-    end
-
     class Reload < ::Stripe::StripeObject
       class Balance < ::Stripe::StripeObject
         # The balance amount.
@@ -246,8 +236,6 @@ module Stripe
     attr_reader :completed_at
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     attr_reader :created
-    # Details about a gift card deactivation operation.
-    attr_reader :deactivation
     # The failure code of the operation. Only present if the status is failed.
     attr_reader :failure_code
     # The gift card this operation was performed on.
@@ -280,7 +268,6 @@ module Stripe
         balance_check: BalanceCheck,
         cashout: Cashout,
         cashout_void: CashoutVoid,
-        deactivation: Deactivation,
         reload: Reload,
         reload_void: ReloadVoid,
       }

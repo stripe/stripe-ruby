@@ -31,6 +31,7 @@ module Stripe
   autoload :CreditNoteLineItemService, "stripe/services/credit_note_line_item_service"
   autoload :CreditNotePreviewLinesService, "stripe/services/credit_note_preview_lines_service"
   autoload :CreditNoteService, "stripe/services/credit_note_service"
+  autoload :CryptoService, "stripe/services/crypto_service"
   autoload :CustomerBalanceTransactionService, "stripe/services/customer_balance_transaction_service"
   autoload :CustomerCashBalanceService, "stripe/services/customer_cash_balance_service"
   autoload :CustomerCashBalanceTransactionService, "stripe/services/customer_cash_balance_transaction_service"
@@ -162,6 +163,14 @@ module Stripe
     autoload :OrderService, "stripe/services/climate/order_service"
     autoload :ProductService, "stripe/services/climate/product_service"
     autoload :SupplierService, "stripe/services/climate/supplier_service"
+  end
+
+  module Crypto
+    autoload :CustomerConsumerWalletService, "stripe/services/crypto/customer_consumer_wallet_service"
+    autoload :CustomerPaymentTokenService, "stripe/services/crypto/customer_payment_token_service"
+    autoload :CustomerService, "stripe/services/crypto/customer_service"
+    autoload :OnrampSessionService, "stripe/services/crypto/onramp_session_service"
+    autoload :OnrampTransactionLimitsService, "stripe/services/crypto/onramp_transaction_limits_service"
   end
 
   module DelegatedCheckout
@@ -595,6 +604,12 @@ module Stripe
     stripe/services/credit_note_line_item_service
     stripe/services/credit_note_preview_lines_service
     stripe/services/credit_note_service
+    stripe/services/crypto/customer_consumer_wallet_service
+    stripe/services/crypto/customer_payment_token_service
+    stripe/services/crypto/customer_service
+    stripe/services/crypto/onramp_session_service
+    stripe/services/crypto/onramp_transaction_limits_service
+    stripe/services/crypto_service
     stripe/services/customer_balance_transaction_service
     stripe/services/customer_cash_balance_service
     stripe/services/customer_cash_balance_transaction_service

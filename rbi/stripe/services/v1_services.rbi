@@ -25,6 +25,7 @@ module Stripe
     attr_reader :country_specs
     attr_reader :coupons
     attr_reader :credit_notes
+    attr_reader :crypto
     attr_reader :customers
     attr_reader :customer_sessions
     attr_reader :delegated_checkout

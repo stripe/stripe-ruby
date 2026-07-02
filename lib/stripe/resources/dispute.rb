@@ -18,6 +18,19 @@ module Stripe
 
     class Evidence < ::Stripe::StripeObject
       class EnhancedEvidence < ::Stripe::StripeObject
+        class MastercardCompliance < ::Stripe::StripeObject
+          # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+          attr_reader :fee_acknowledged
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class VisaCompellingEvidence3 < ::Stripe::StripeObject
           class DisputedTransaction < ::Stripe::StripeObject
             class ShippingAddress < ::Stripe::StripeObject
@@ -145,6 +158,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field mastercard_compliance
+        attr_reader :mastercard_compliance
         # Attribute for field visa_compelling_evidence_3
         attr_reader :visa_compelling_evidence_3
         # Attribute for field visa_compliance
@@ -152,6 +167,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            mastercard_compliance: MastercardCompliance,
             visa_compelling_evidence_3: VisaCompellingEvidence3,
             visa_compliance: VisaCompliance,
           }
@@ -229,6 +245,19 @@ module Stripe
 
     class EvidenceDetails < ::Stripe::StripeObject
       class EnhancedEligibility < ::Stripe::StripeObject
+        class MastercardCompliance < ::Stripe::StripeObject
+          # Mastercard compliance eligibility status.
+          attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class VisaCompellingEvidence3 < ::Stripe::StripeObject
           # List of actions required to qualify dispute for Visa Compelling Evidence 3.0 evidence submission.
           attr_reader :required_actions
@@ -256,6 +285,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field mastercard_compliance
+        attr_reader :mastercard_compliance
         # Attribute for field visa_compelling_evidence_3
         attr_reader :visa_compelling_evidence_3
         # Attribute for field visa_compliance
@@ -263,6 +294,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            mastercard_compliance: MastercardCompliance,
             visa_compelling_evidence_3: VisaCompellingEvidence3,
             visa_compliance: VisaCompliance,
           }

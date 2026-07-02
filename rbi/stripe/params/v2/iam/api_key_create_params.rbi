@@ -38,6 +38,18 @@ module Stripe
            }
           def initialize(id: nil, pem_key: nil); end
         end
+        # List of connect permissions for this API key.
+        sig { returns(T.nilable(T::Array[String])) }
+        def connect_permissions; end
+        sig {
+          params(_connect_permissions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def connect_permissions=(_connect_permissions); end
+        # Timestamp at which the key expires. If not provided, the key never expires.
+        sig { returns(T.nilable(String)) }
+        def expires_at; end
+        sig { params(_expires_at: T.nilable(String)).returns(T.nilable(String)) }
+        def expires_at=(_expires_at); end
         # Name for the API key.
         sig { returns(T.nilable(String)) }
         def name; end
@@ -48,6 +60,13 @@ module Stripe
         def note; end
         sig { params(_note: T.nilable(String)).returns(T.nilable(String)) }
         def note=(_note); end
+        # List of permissions for this API key.
+        sig { returns(T.nilable(T::Array[String])) }
+        def permissions; end
+        sig {
+          params(_permissions: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def permissions=(_permissions); end
         # Public key for encrypting the API key secret.
         # This must a PEM-formatted RSA key suitable for encryption, >= 2048 bits.
         # A public key is required when creating secret keys.
@@ -64,9 +83,17 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(name: T.nilable(String), note: T.nilable(String), public_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey), type: String).void
+          params(connect_permissions: T.nilable(T::Array[String]), expires_at: T.nilable(String), name: T.nilable(String), note: T.nilable(String), permissions: T.nilable(T::Array[String]), public_key: T.nilable(::Stripe::V2::Iam::ApiKeyCreateParams::PublicKey), type: String).void
          }
-        def initialize(name: nil, note: nil, public_key: nil, type: nil); end
+        def initialize(
+          connect_permissions: nil,
+          expires_at: nil,
+          name: nil,
+          note: nil,
+          permissions: nil,
+          public_key: nil,
+          type: nil
+        ); end
       end
     end
   end

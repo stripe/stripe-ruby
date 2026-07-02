@@ -62,6 +62,12 @@ module Stripe
             @type = type
           end
         end
+        # Controls how much address information Checkout collects when [automatic_tax](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-automatic_tax-enabled) is enabled.
+        #
+        # Defaults to `full`, which collects the address fields needed for the most accurate tax calculation. Set to `minimal` to collect only the fields required for tax in the buyer's country, accepting potentially less precise tax calculation in exchange for a streamlined form.
+        #
+        # Only honored when `automatic_tax.enabled` is `true`, `billing_address_collection` is `auto`, the resolved tax address source is the session billing address, and `ui_mode` is `form`.
+        attr_accessor :address_collection_precision
         # Set to `true` to [calculate tax automatically](https://docs.stripe.com/tax) using the customer's location.
         #
         # Enabling this parameter causes Checkout to collect any billing address information necessary for tax calculation.
@@ -69,7 +75,8 @@ module Stripe
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_accessor :liability
 
-        def initialize(enabled: nil, liability: nil)
+        def initialize(address_collection_precision: nil, enabled: nil, liability: nil)
+          @address_collection_precision = address_collection_precision
           @enabled = enabled
           @liability = liability
         end
@@ -2194,6 +2201,24 @@ module Stripe
           end
         end
 
+        class Sunbit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
+
+          def initialize(capture_method: nil, setup_future_usage: nil)
+            @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
+          end
+        end
+
         class Swish < ::Stripe::RequestParams
           # The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
           attr_accessor :reference
@@ -2397,6 +2422,8 @@ module Stripe
         attr_accessor :sepa_debit
         # contains details about the Sofort payment method options.
         attr_accessor :sofort
+        # contains details about the Sunbit payment method options.
+        attr_accessor :sunbit
         # contains details about the Swish payment method options.
         attr_accessor :swish
         # contains details about the TWINT payment method options.
@@ -2454,6 +2481,7 @@ module Stripe
           scalapay: nil,
           sepa_debit: nil,
           sofort: nil,
+          sunbit: nil,
           swish: nil,
           twint: nil,
           upi: nil,
@@ -2505,6 +2533,7 @@ module Stripe
           @scalapay = scalapay
           @sepa_debit = sepa_debit
           @sofort = sofort
+          @sunbit = sunbit
           @swish = swish
           @twint = twint
           @upi = upi
@@ -2727,6 +2756,27 @@ module Stripe
       end
 
       class SubscriptionData < ::Stripe::RequestParams
+        class BillingCycleAnchorConfig < ::Stripe::RequestParams
+          # The day of the month the anchor should be. Ranges from 1 to 31.
+          attr_accessor :day_of_month
+          # The hour of the day the anchor should be. Ranges from 0 to 23.
+          attr_accessor :hour
+          # The minute of the hour the anchor should be. Ranges from 0 to 59.
+          attr_accessor :minute
+          # The month to start full cycle periods. Ranges from 1 to 12.
+          attr_accessor :month
+          # The second of the minute the anchor should be. Ranges from 0 to 59.
+          attr_accessor :second
+
+          def initialize(day_of_month: nil, hour: nil, minute: nil, month: nil, second: nil)
+            @day_of_month = day_of_month
+            @hour = hour
+            @minute = minute
+            @month = month
+            @second = second
+          end
+        end
+
         class BillingMode < ::Stripe::RequestParams
           class Flexible < ::Stripe::RequestParams
             # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -2811,6 +2861,8 @@ module Stripe
         attr_accessor :application_fee_percent
         # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
         attr_accessor :billing_cycle_anchor
+        # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
+        attr_accessor :billing_cycle_anchor_config
         # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         attr_accessor :billing_mode
         # The tax rates that will apply to any subscription item that does not have
@@ -2843,6 +2895,7 @@ module Stripe
         def initialize(
           application_fee_percent: nil,
           billing_cycle_anchor: nil,
+          billing_cycle_anchor_config: nil,
           billing_mode: nil,
           default_tax_rates: nil,
           description: nil,
@@ -2858,6 +2911,7 @@ module Stripe
         )
           @application_fee_percent = application_fee_percent
           @billing_cycle_anchor = billing_cycle_anchor
+          @billing_cycle_anchor_config = billing_cycle_anchor_config
           @billing_mode = billing_mode
           @default_tax_rates = default_tax_rates
           @description = description
@@ -3006,8 +3060,6 @@ module Stripe
       # You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
       #
       # If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
-      #
-      # You can't set this parameter if `ui_mode` is `custom`.
       attr_accessor :name_collection
       # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
       #

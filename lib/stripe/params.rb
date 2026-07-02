@@ -470,6 +470,18 @@ module Stripe
     autoload :SupplierRetrieveParams, "stripe/params/climate/supplier_retrieve_params"
   end
 
+  module Crypto
+    autoload :CustomerConsumerWalletListParams, "stripe/params/crypto/customer_consumer_wallet_list_params"
+    autoload :CustomerPaymentTokenListParams, "stripe/params/crypto/customer_payment_token_list_params"
+    autoload :CustomerRetrieveParams, "stripe/params/crypto/customer_retrieve_params"
+    autoload :OnrampSessionCheckoutParams, "stripe/params/crypto/onramp_session_checkout_params"
+    autoload :OnrampSessionCreateParams, "stripe/params/crypto/onramp_session_create_params"
+    autoload :OnrampSessionListParams, "stripe/params/crypto/onramp_session_list_params"
+    autoload :OnrampSessionQuoteParams, "stripe/params/crypto/onramp_session_quote_params"
+    autoload :OnrampSessionRetrieveParams, "stripe/params/crypto/onramp_session_retrieve_params"
+    autoload :OnrampTransactionLimitsRetrieveParams, "stripe/params/crypto/onramp_transaction_limits_retrieve_params"
+  end
+
   module DelegatedCheckout
     autoload :OrderRetrieveParams, "stripe/params/delegated_checkout/order_retrieve_params"
     autoload :RequestedSessionConfirmParams, "stripe/params/delegated_checkout/requested_session_confirm_params"
@@ -1420,6 +1432,15 @@ module Stripe
     stripe/params/credit_note_retrieve_params
     stripe/params/credit_note_update_params
     stripe/params/credit_note_void_credit_note_params
+    stripe/params/crypto/customer_consumer_wallet_list_params
+    stripe/params/crypto/customer_payment_token_list_params
+    stripe/params/crypto/customer_retrieve_params
+    stripe/params/crypto/onramp_session_checkout_params
+    stripe/params/crypto/onramp_session_create_params
+    stripe/params/crypto/onramp_session_list_params
+    stripe/params/crypto/onramp_session_quote_params
+    stripe/params/crypto/onramp_session_retrieve_params
+    stripe/params/crypto/onramp_transaction_limits_retrieve_params
     stripe/params/customer_balance_transaction_create_params
     stripe/params/customer_balance_transaction_list_params
     stripe/params/customer_balance_transaction_retrieve_params

@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Billing
       class ContractListParams < ::Stripe::RequestParams
-        # Filter by customer ID.
+        # Filter by customer id.
         attr_accessor :customer
         # Additional fields to include in the response.
         attr_accessor :include

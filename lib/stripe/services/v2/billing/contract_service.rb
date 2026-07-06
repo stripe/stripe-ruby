@@ -12,7 +12,7 @@ module Stripe
           @pricing_lines = Stripe::V2::Billing::Contracts::PricingLinesService.new(@requestor)
         end
 
-        # Activate a Draft Contract object by ID.
+        # Activate a draft contract.
         def activate(id, params = {}, opts = {})
           request(
             method: :post,
@@ -23,7 +23,7 @@ module Stripe
           )
         end
 
-        # Cancel a Contract object by ID.
+        # Cancel an active contract.
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -34,7 +34,7 @@ module Stripe
           )
         end
 
-        # Create a Contract object.
+        # Create a draft contract.
         def create(params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Billing::ContractCreateParams.coerce_params(params)
@@ -49,7 +49,7 @@ module Stripe
           )
         end
 
-        # Delete a draft Contract object by ID.
+        # Delete a draft contract.
         def delete(id, params = {}, opts = {})
           request(
             method: :delete,
@@ -60,7 +60,7 @@ module Stripe
           )
         end
 
-        # List Contract objects with pagination.
+        # List contracts.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -71,7 +71,7 @@ module Stripe
           )
         end
 
-        # Retrieve a Contract object by ID.
+        # Retrieve a contract.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
@@ -82,7 +82,7 @@ module Stripe
           )
         end
 
-        # Update a Contract object by ID.
+        # Update a draft or active contract.
         def update(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Billing::ContractUpdateParams.coerce_params(params)

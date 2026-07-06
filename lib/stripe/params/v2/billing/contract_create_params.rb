@@ -77,7 +77,7 @@ module Stripe
                   @interval_count = interval_count
                 end
               end
-              # The number of time units before the invoice is past due.
+              # How long the customer has to pay the invoice before it's past due.
               attr_accessor :time_until_due
 
               def initialize(time_until_due: nil)
@@ -108,7 +108,7 @@ module Stripe
           end
 
           class CollectionSettingsDetails < ::Stripe::RequestParams
-            # The collection method.
+            # How payment is collected for the contract.
             attr_accessor :collection_method
             # The payment method configuration.
             attr_accessor :payment_method_configuration
@@ -154,7 +154,7 @@ module Stripe
           attr_accessor :bill_at
           # A user-provided lookup key.
           attr_accessor :lookup_key
-          # The ID of the v1 Product for this fee.
+          # The id of the product for this fee.
           attr_accessor :product
 
           def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
@@ -266,7 +266,7 @@ module Stripe
                 attr_accessor :priority
                 # When the override starts. Defaults to the pricing line's start if not specified.
                 attr_accessor :starts_at
-                # The type of override. Currently only `overwrite_price` is supported.
+                # The type of override.
                 attr_accessor :type
 
                 def initialize(
@@ -328,12 +328,12 @@ module Stripe
                   @field_encodings = { set: :decimal_string }
                 end
               end
-              # The ID of the V1 price.
+              # The id of the price.
               attr_accessor :price
               # Pricing overrides embedded directly on this pricing line.
               attr_accessor :pricing_overrides
               # Quantity changes for the pricing line. For now, at most one entry is allowed.
-              # A quantity change clears all future quantity changes on this pricing line.
+              # A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
               attr_accessor :quantity_changes
 
               def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil)
@@ -493,7 +493,7 @@ module Stripe
             end
           end
 
-          class Multiplier < ::Stripe::RequestParams
+          class MultiplyPricing < ::Stripe::RequestParams
             class Criterion < ::Stripe::RequestParams
               # Filter by pricing line IDs.
               attr_accessor :pricing_line_ids
@@ -508,9 +508,9 @@ module Stripe
                 @type = type
               end
             end
-            # Criteria determining which rates the multiplier applies to.
+            # Criteria determining which rates the multiply_pricing override applies to.
             attr_accessor :criteria
-            # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+            # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
             attr_accessor :factor
 
             def initialize(criteria: nil, factor: nil)
@@ -534,8 +534,8 @@ module Stripe
           attr_accessor :ends_at
           # A user-provided lookup key to reference this pricing override.
           attr_accessor :lookup_key
-          # Parameters for a multiplier override. Required if `type` is `multiplier`.
-          attr_accessor :multiplier
+          # Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
+          attr_accessor :multiply_pricing
           # The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
           attr_accessor :priority
           # When the pricing override starts.
@@ -546,14 +546,14 @@ module Stripe
           def initialize(
             ends_at: nil,
             lookup_key: nil,
-            multiplier: nil,
+            multiply_pricing: nil,
             priority: nil,
             starts_at: nil,
             type: nil
           )
             @ends_at = ends_at
             @lookup_key = lookup_key
-            @multiplier = multiplier
+            @multiply_pricing = multiply_pricing
             @priority = priority
             @starts_at = starts_at
             @type = type

@@ -9,7 +9,7 @@ module Stripe
         class PricingLineAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the item ends.
+              # The timestamp when the pricing ends.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -166,7 +166,7 @@ module Stripe
                     params(_starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add::Pricing::PriceDetails::PricingOverride::StartsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add::Pricing::PriceDetails::PricingOverride::StartsAt))
                    }
                   def starts_at=(_starts_at); end
-                  # The type of override. Currently only `overwrite_price` is supported.
+                  # The type of override.
                   sig { returns(String) }
                   def type; end
                   sig { params(_type: String).returns(String) }
@@ -234,7 +234,7 @@ module Stripe
                     @field_encodings = {set: :decimal_string}
                   end
                 end
-                # The ID of the V1 price.
+                # The id of the price.
                 sig { returns(String) }
                 def price; end
                 sig { params(_price: String).returns(String) }
@@ -249,7 +249,7 @@ module Stripe
                  }
                 def pricing_overrides=(_pricing_overrides); end
                 # Quantity changes for the pricing line. For now, at most one entry is allowed.
-                # A quantity change clears all future quantity changes on this pricing line.
+                # A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
                 sig {
                   returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add::Pricing::PriceDetails::QuantityChange]))
                  }
@@ -341,7 +341,7 @@ module Stripe
               end
             end
             class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the item starts.
+              # The timestamp when the pricing starts.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -443,7 +443,7 @@ module Stripe
             end
           end
           class Remove < ::Stripe::RequestParams
-            # The ID of the pricing line to remove.
+            # The id of the pricing line to remove.
             sig { returns(String) }
             def id; end
             sig { params(_id: String).returns(String) }
@@ -453,7 +453,7 @@ module Stripe
           end
           class Update < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the item ends.
+              # The timestamp when the pricing ends.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -471,7 +471,7 @@ module Stripe
                 class PricingOverrideAction < ::Stripe::RequestParams
                   class Add < ::Stripe::RequestParams
                     class EndsAt < ::Stripe::RequestParams
-                      # The timestamp when the item ends.
+                      # The timestamp when the pricing ends.
                       sig { returns(T.nilable(String)) }
                       def timestamp; end
                       sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -554,7 +554,7 @@ module Stripe
                       end
                     end
                     class StartsAt < ::Stripe::RequestParams
-                      # The timestamp when the item starts.
+                      # The timestamp when the pricing starts.
                       sig { returns(T.nilable(String)) }
                       def timestamp; end
                       sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -581,7 +581,7 @@ module Stripe
                     def lookup_key; end
                     sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
                     def lookup_key=(_lookup_key); end
-                    # Set of key-value pairs that you can attach to an object.
+                    # Metadata for the pricing override.
                     sig { returns(T.nilable(T::Hash[String, String])) }
                     def metadata; end
                     sig {
@@ -643,12 +643,12 @@ module Stripe
                     end
                   end
                   class Remove < ::Stripe::RequestParams
-                    # The ID of the pricing line override to remove.
+                    # The id of the pricing override to remove.
                     sig { returns(T.nilable(String)) }
                     def id; end
                     sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
                     def id=(_id); end
-                    # A lookup key for the override to remove.
+                    # Lookup key of the override to remove.
                     sig { returns(T.nilable(String)) }
                     def lookup_key; end
                     sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
@@ -658,7 +658,7 @@ module Stripe
                   end
                   class Update < ::Stripe::RequestParams
                     class EndsAt < ::Stripe::RequestParams
-                      # The timestamp when the item ends.
+                      # The timestamp when the pricing ends.
                       sig { returns(T.nilable(String)) }
                       def timestamp; end
                       sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -672,7 +672,7 @@ module Stripe
                       def initialize(timestamp: nil, type: nil); end
                     end
                     class StartsAt < ::Stripe::RequestParams
-                      # The timestamp when the item starts.
+                      # The timestamp when the pricing starts.
                       sig { returns(T.nilable(String)) }
                       def timestamp; end
                       sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -685,7 +685,7 @@ module Stripe
                       sig { params(timestamp: T.nilable(String), type: String).void }
                       def initialize(timestamp: nil, type: nil); end
                     end
-                    # The updated end time for the override.
+                    # Updated end time.
                     sig {
                       returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::EndsAt))
                      }
@@ -694,24 +694,24 @@ module Stripe
                       params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::EndsAt))
                      }
                     def ends_at=(_ends_at); end
-                    # The ID of the pricing line override to update.
+                    # The id of the pricing override to update.
                     sig { returns(T.nilable(String)) }
                     def id; end
                     sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }
                     def id=(_id); end
-                    # A lookup key for the override to update.
+                    # Updated lookup key.
                     sig { returns(T.nilable(String)) }
                     def lookup_key; end
                     sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
                     def lookup_key=(_lookup_key); end
-                    # Set of key-value pairs that you can attach to an object.
+                    # Metadata for the pricing override.
                     sig { returns(T.nilable(T::Hash[String, String])) }
                     def metadata; end
                     sig {
                       params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
                      }
                     def metadata=(_metadata); end
-                    # The updated start time for the override.
+                    # Updated start time.
                     sig {
                       returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::StartsAt))
                      }
@@ -731,7 +731,7 @@ module Stripe
                       starts_at: nil
                     ); end
                   end
-                  # Parameters for adding a pricing line override.
+                  # Add a pricing line override.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Add))
                    }
@@ -740,7 +740,7 @@ module Stripe
                     params(_add: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Add)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Add))
                    }
                   def add=(_add); end
-                  # Parameters for removing a pricing line override.
+                  # Remove a pricing line override.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Remove))
                    }
@@ -754,7 +754,7 @@ module Stripe
                   def type; end
                   sig { params(_type: String).returns(String) }
                   def type=(_type); end
-                  # Parameters for updating a pricing line override.
+                  # Update a pricing line override.
                   sig {
                     returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update))
                    }
@@ -932,7 +932,7 @@ module Stripe
               end
             end
             class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the item starts.
+              # The timestamp when the pricing starts.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -945,7 +945,7 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            # The updated end time for the pricing line.
+            # Updated end time.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::EndsAt))
              }
@@ -954,12 +954,12 @@ module Stripe
               params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::EndsAt))
              }
             def ends_at=(_ends_at); end
-            # The ID of the pricing line.
+            # The id of the pricing line.
             sig { returns(String) }
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
-            # Pricing updates for the pricing line (quantity changes and pricing override actions).
+            # Updated pricing configuration.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing))
              }
@@ -968,7 +968,7 @@ module Stripe
               params(_pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing))
              }
             def pricing=(_pricing); end
-            # The updated start time for the pricing line.
+            # Updated start time.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::StartsAt))
              }
@@ -1025,7 +1025,7 @@ module Stripe
               }
             end
           end
-          # Parameters for adding a pricing line.
+          # Add a pricing line.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add))
            }
@@ -1034,7 +1034,7 @@ module Stripe
             params(_add: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Add))
            }
           def add=(_add); end
-          # Parameters for removing a pricing line.
+          # Remove a pricing line.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Remove))
            }
@@ -1048,7 +1048,7 @@ module Stripe
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          # Parameters for updating a pricing line.
+          # Update a pricing line.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update))
            }
@@ -1152,7 +1152,7 @@ module Stripe
         class PricingOverrideAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the item ends.
+              # The timestamp when the pricing ends.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -1165,7 +1165,7 @@ module Stripe
               sig { params(timestamp: T.nilable(String), type: String).void }
               def initialize(timestamp: nil, type: nil); end
             end
-            class Multiplier < ::Stripe::RequestParams
+            class MultiplyPricing < ::Stripe::RequestParams
               class Criterion < ::Stripe::RequestParams
                 # Filter by pricing line IDs.
                 sig { returns(T.nilable(T::Array[String])) }
@@ -1191,22 +1191,22 @@ module Stripe
                  }
                 def initialize(pricing_line_ids: nil, pricing_line_lookup_keys: nil, type: nil); end
               end
-              # Criteria determining which rates the multiplier applies to.
+              # Criteria determining which rates the multiply_pricing override applies to.
               sig {
-                returns(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier::Criterion])
+                returns(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing::Criterion])
                }
               def criteria; end
               sig {
-                params(_criteria: T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier::Criterion]).returns(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier::Criterion])
+                params(_criteria: T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing::Criterion]).returns(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing::Criterion])
                }
               def criteria=(_criteria); end
-              # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+              # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
               sig { returns(String) }
               def factor; end
               sig { params(_factor: String).returns(String) }
               def factor=(_factor); end
               sig {
-                params(criteria: T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier::Criterion], factor: String).void
+                params(criteria: T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing::Criterion], factor: String).void
                }
               def initialize(criteria: nil, factor: nil); end
             end
@@ -1278,7 +1278,7 @@ module Stripe
               end
             end
             class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the item starts.
+              # The timestamp when the pricing starts.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -1305,15 +1305,15 @@ module Stripe
             def lookup_key; end
             sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
             def lookup_key=(_lookup_key); end
-            # A multiplier override to add.
+            # A multiply_pricing override to add.
             sig {
-              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier))
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing))
              }
-            def multiplier; end
+            def multiply_pricing; end
             sig {
-              params(_multiplier: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier))
+              params(_multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing))
              }
-            def multiplier=(_multiplier); end
+            def multiply_pricing=(_multiply_pricing); end
             # An overwrite price override to add.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice))
@@ -1324,9 +1324,9 @@ module Stripe
              }
             def overwrite_price=(_overwrite_price); end
             # The priority for the pricing override. The highest priority is 0 and the lowest is 100.
-            sig { returns(Integer) }
+            sig { returns(T.nilable(Integer)) }
             def priority; end
-            sig { params(_priority: Integer).returns(Integer) }
+            sig { params(_priority: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def priority=(_priority); end
             # The start time for the pricing override.
             sig {
@@ -1343,12 +1343,12 @@ module Stripe
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::EndsAt, lookup_key: T.nilable(String), multiplier: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::Multiplier), overwrite_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice), priority: Integer, starts_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::StartsAt, type: String).void
+              params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::EndsAt, lookup_key: T.nilable(String), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing), overwrite_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::StartsAt, type: String).void
              }
             def initialize(
               ends_at: nil,
               lookup_key: nil,
-              multiplier: nil,
+              multiply_pricing: nil,
               overwrite_price: nil,
               priority: nil,
               starts_at: nil,
@@ -1369,7 +1369,7 @@ module Stripe
             end
           end
           class Remove < ::Stripe::RequestParams
-            # The ID of the pricing override to remove.
+            # The id of the pricing override to remove.
             sig { returns(String) }
             def id; end
             sig { params(_id: String).returns(String) }
@@ -1379,7 +1379,7 @@ module Stripe
           end
           class Update < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
-              # The timestamp when the item ends.
+              # The timestamp when the pricing ends.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -1393,7 +1393,7 @@ module Stripe
               def initialize(timestamp: nil, type: nil); end
             end
             class StartsAt < ::Stripe::RequestParams
-              # The timestamp when the item starts.
+              # The timestamp when the pricing starts.
               sig { returns(T.nilable(String)) }
               def timestamp; end
               sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
@@ -1434,7 +1434,7 @@ module Stripe
              }
             def initialize(ends_at: nil, id: nil, starts_at: nil); end
           end
-          # Parameters for adding a pricing override.
+          # Add a pricing override.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add))
            }
@@ -1443,7 +1443,7 @@ module Stripe
             params(_add: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add))
            }
           def add=(_add); end
-          # Parameters for removing a pricing override.
+          # Remove a pricing override.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Remove))
            }
@@ -1457,7 +1457,7 @@ module Stripe
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
-          # Parameters for updating a pricing override.
+          # Update a pricing override.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update))
            }

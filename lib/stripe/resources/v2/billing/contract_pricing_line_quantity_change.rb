@@ -29,7 +29,7 @@ module Stripe
         attr_reader :created
         # The timestamp when this quantity change takes effect.
         attr_reader :effective_at
-        # The ID of the quantity change object.
+        # The id of the quantity change object.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
@@ -37,7 +37,7 @@ module Stripe
         attr_reader :object
         # The pricing configuration for the associated pricing line.
         attr_reader :pricing
-        # The ID of the pricing line associated with this quantity change.
+        # The id of the pricing line associated with this quantity change.
         attr_reader :pricing_line
         # The quantity at the effective time.
         attr_reader :quantity

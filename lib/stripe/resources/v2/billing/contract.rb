@@ -4,7 +4,7 @@
 module Stripe
   module V2
     module Billing
-      # Main Contract resource representing a comprehensive billing agreement
+      # Contract resource representing a comprehensive sales agreement
       class Contract < APIResource
         OBJECT_NAME = "v2.billing.contract"
         def self.object_name
@@ -158,11 +158,11 @@ module Stripe
             attr_reader :amount
             # When this fee will be billed. Always contains a concrete timestamp.
             attr_reader :bill_at
-            # The ID of the one-time fee.
+            # The id of the one-time fee.
             attr_reader :id
             # The user-provided lookup key.
             attr_reader :lookup_key
-            # The ID of the v1 Product for this fee.
+            # The id of the product for this fee.
             attr_reader :product
 
             def self.inner_class_types
@@ -277,15 +277,17 @@ module Stripe
                         @field_remappings = {}
                       end
                     end
-                    # Resolved timestamp when this override ends.
+                    # Timestamp when this override ends.
                     attr_reader :ends_at
+                    # The ID of the pricing override.
+                    attr_reader :id
                     # The user-provided lookup key for this override.
                     attr_reader :lookup_key
                     # Details for an overwrite_price override.
                     attr_reader :overwrite_price
-                    # The ID of the pricing line override.
-                    attr_reader :pricing_override
-                    # Resolved timestamp when this override starts.
+                    # The priority of this override relative to others. Lower number = higher priority.
+                    attr_reader :priority
+                    # Timestamp when this override starts.
                     attr_reader :starts_at
                     # The type of override.
                     attr_reader :type
@@ -460,17 +462,17 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Resolved timestamp when the pricing line ends.
+            # Timestamp when the pricing line ends.
             attr_reader :ends_at
-            # The ID of the pricing line.
+            # The id of the pricing line.
             attr_reader :id
             # The user-provided lookup key for the pricing line.
             attr_reader :lookup_key
-            # Set of key-value pairs that you can attach to an object.
+            # Set of key-value pairs.
             attr_reader :metadata
             # The pricing configuration for the pricing line.
             attr_reader :pricing
-            # Resolved timestamp when the pricing line starts.
+            # Timestamp when the pricing line starts.
             attr_reader :starts_at
 
             def self.inner_class_types
@@ -598,7 +600,7 @@ module Stripe
               end
             end
 
-            class Multiplier < ::Stripe::StripeObject
+            class MultiplyPricing < ::Stripe::StripeObject
               class Criterion < ::Stripe::StripeObject
                 # Filter by pricing line IDs.
                 attr_reader :pricing_line_ids
@@ -615,9 +617,9 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Criteria determining which rates the multiplier applies to.
+              # Criteria determining which rates the multiply_pricing override applies to.
               attr_reader :criteria
-              # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+              # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
               attr_reader :factor
 
               def self.inner_class_types
@@ -647,8 +649,8 @@ module Stripe
             attr_reader :id
             # The user-provided lookup key for the pricing override.
             attr_reader :lookup_key
-            # Details for a multiplier override.
-            attr_reader :multiplier
+            # Details for a multiply_pricing override.
+            attr_reader :multiply_pricing
             # The priority of this override relative to others. Lower number = higher priority.
             attr_reader :priority
             # Resolved timestamp when the pricing override starts.
@@ -657,7 +659,11 @@ module Stripe
             attr_reader :type
 
             def self.inner_class_types
-              @inner_class_types = { ends_at: EndsAt, multiplier: Multiplier, starts_at: StartsAt }
+              @inner_class_types = {
+                ends_at: EndsAt,
+                multiply_pricing: MultiplyPricing,
+                starts_at: StartsAt,
+              }
             end
 
             def self.field_remappings
@@ -692,31 +698,31 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # The billing cycle anchor for the contract.
+        # The billing cycle anchor.
         attr_reader :billing_cycle_anchor
-        # The billing settings for the contract.
+        # The billing settings.
         attr_reader :billing_settings
         # A unique user-provided contract number e.g. C-2026-0001.
         attr_reader :contract_number
-        # Timestamp of when the object was created.
+        # Timestamp of when the contract was created.
         attr_reader :created
-        # The currency of the contract.
+        # The currency.
         attr_reader :currency
-        # The ID of the customer associated with the contract.
+        # The customer id.
         attr_reader :customer
-        # The ID of the contract object.
+        # The contract id.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-        # Set of key-value pairs that you can attach to an object.
+        # Set of key-value pairs.
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # The one-time fees of the contract. Only populated when `one_time_fees` is passed in the `include` parameter.
+        # The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
         attr_reader :one_time_fees
-        # The pricing lines of the contract. Only populated when `pricing_lines` is passed in the `include` parameter.
+        # The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
         attr_reader :pricing_lines
-        # The pricing overrides of the contract. Only populated when `pricing_overrides` is passed in the `include` parameter.
+        # The pricing overrides. Only populated when `pricing_overrides` is passed in the `include` parameter.
         attr_reader :pricing_overrides
         # The current status of the contract.
         attr_reader :status

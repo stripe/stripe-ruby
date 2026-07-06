@@ -7802,7 +7802,7 @@ module Stripe
           {
             ends_at: {
               timestamp: "1970-01-01T15:18:46.294Z",
-              type: "contract_end",
+              type: "timestamp",
             },
             lookup_key: "lookup_key",
             metadata: { key: "metadata" },
@@ -7813,7 +7813,7 @@ module Stripe
                   {
                     ends_at: {
                       timestamp: "1970-01-01T15:18:46.294Z",
-                      type: "contract_end",
+                      type: "timestamp",
                     },
                     lookup_key: "lookup_key",
                     metadata: { key: "metadata" },
@@ -7832,7 +7832,7 @@ module Stripe
                     priority: 1_165_461_084,
                     starts_at: {
                       timestamp: "1970-01-01T15:18:46.294Z",
-                      type: "contract_start",
+                      type: "timestamp",
                     },
                     type: "overwrite_price",
                   },
@@ -7851,7 +7851,7 @@ module Stripe
             },
             starts_at: {
               timestamp: "1970-01-01T15:18:46.294Z",
-              type: "contract_start",
+              type: "timestamp",
             },
           },
         ],

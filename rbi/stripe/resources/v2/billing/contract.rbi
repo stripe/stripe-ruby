@@ -657,37 +657,18 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusDetails < ::Stripe::StripeObject
-          class Active < ::Stripe::StripeObject
-            # The timestamp when the contract was activated.
-            sig { returns(String) }
-            def activated_at; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Canceled < ::Stripe::StripeObject
-            # The timestamp when the contract was canceled.
-            sig { returns(String) }
-            def canceled_at; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Details of the active contract status.
-          sig { returns(T.nilable(Active)) }
-          def active; end
-          # Details of the canceled contract status.
-          sig { returns(T.nilable(Canceled)) }
-          def canceled; end
+        class StatusTransitions < ::Stripe::StripeObject
+          # The timestamp when the contract was activated.
+          sig { returns(T.nilable(String)) }
+          def activated_at; end
+          # The timestamp when the contract was canceled.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # The timestamp when the contract ended.
+          sig { returns(T.nilable(String)) }
+          def ended_at; end
           def self.inner_class_types
-            @inner_class_types = {active: Active, canceled: Canceled}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -735,9 +716,9 @@ module Stripe
         # The current status of the contract.
         sig { returns(String) }
         def status; end
-        # Information about the contract status transitions.
-        sig { returns(StatusDetails) }
-        def status_details; end
+        # Historical timestamps of when the contract transitioned into each status.
+        sig { returns(T.nilable(StatusTransitions)) }
+        def status_transitions; end
       end
     end
   end

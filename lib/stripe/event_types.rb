@@ -282,6 +282,11 @@ module Stripe
         Events::V2BillingCadenceBilledEvent.lookup_type => Events::V2BillingCadenceBilledEvent,
         Events::V2BillingCadenceCanceledEvent.lookup_type => Events::V2BillingCadenceCanceledEvent,
         Events::V2BillingCadenceCreatedEvent.lookup_type => Events::V2BillingCadenceCreatedEvent,
+        Events::V2BillingContractActivatedEvent.lookup_type => Events::V2BillingContractActivatedEvent,
+        Events::V2BillingContractCanceledEvent.lookup_type => Events::V2BillingContractCanceledEvent,
+        Events::V2BillingContractCreatedEvent.lookup_type => Events::V2BillingContractCreatedEvent,
+        Events::V2BillingContractEndedEvent.lookup_type => Events::V2BillingContractEndedEvent,
+        Events::V2BillingContractUpdatedEvent.lookup_type => Events::V2BillingContractUpdatedEvent,
         Events::V2BillingLicenseFeeCreatedEvent.lookup_type => Events::V2BillingLicenseFeeCreatedEvent,
         Events::V2BillingLicenseFeeUpdatedEvent.lookup_type => Events::V2BillingLicenseFeeUpdatedEvent,
         Events::V2BillingLicenseFeeVersionCreatedEvent.lookup_type =>
@@ -1013,6 +1018,16 @@ module Stripe
         Events::V2BillingCadenceCanceledEventNotification,
         Events::V2BillingCadenceCreatedEventNotification.lookup_type =>
         Events::V2BillingCadenceCreatedEventNotification,
+        Events::V2BillingContractActivatedEventNotification.lookup_type =>
+        Events::V2BillingContractActivatedEventNotification,
+        Events::V2BillingContractCanceledEventNotification.lookup_type =>
+        Events::V2BillingContractCanceledEventNotification,
+        Events::V2BillingContractCreatedEventNotification.lookup_type =>
+        Events::V2BillingContractCreatedEventNotification,
+        Events::V2BillingContractEndedEventNotification.lookup_type =>
+        Events::V2BillingContractEndedEventNotification,
+        Events::V2BillingContractUpdatedEventNotification.lookup_type =>
+        Events::V2BillingContractUpdatedEventNotification,
         Events::V2BillingLicenseFeeCreatedEventNotification.lookup_type =>
         Events::V2BillingLicenseFeeCreatedEventNotification,
         Events::V2BillingLicenseFeeUpdatedEventNotification.lookup_type =>

@@ -676,39 +676,16 @@ module Stripe
           end
         end
 
-        class StatusDetails < ::Stripe::StripeObject
-          class Active < ::Stripe::StripeObject
-            # The timestamp when the contract was activated.
-            attr_reader :activated_at
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class Canceled < ::Stripe::StripeObject
-            # The timestamp when the contract was canceled.
-            attr_reader :canceled_at
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Details of the active contract status.
-          attr_reader :active
-          # Details of the canceled contract status.
-          attr_reader :canceled
+        class StatusTransitions < ::Stripe::StripeObject
+          # The timestamp when the contract was activated.
+          attr_reader :activated_at
+          # The timestamp when the contract was canceled.
+          attr_reader :canceled_at
+          # The timestamp when the contract ended.
+          attr_reader :ended_at
 
           def self.inner_class_types
-            @inner_class_types = { active: Active, canceled: Canceled }
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -743,8 +720,8 @@ module Stripe
         attr_reader :pricing_overrides
         # The current status of the contract.
         attr_reader :status
-        # Information about the contract status transitions.
-        attr_reader :status_details
+        # Historical timestamps of when the contract transitioned into each status.
+        attr_reader :status_transitions
 
         def self.inner_class_types
           @inner_class_types = {
@@ -753,7 +730,7 @@ module Stripe
             one_time_fees: OneTimeFees,
             pricing_lines: PricingLines,
             pricing_overrides: PricingOverrides,
-            status_details: StatusDetails,
+            status_transitions: StatusTransitions,
           }
         end
 

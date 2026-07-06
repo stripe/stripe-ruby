@@ -1268,6 +1268,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractActivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_activated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractEndedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_ended(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingLicenseFeeCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_billing_license_fee_created(&blk);

@@ -642,6 +642,16 @@ module Stripe
     autoload :V2BillingCadenceCanceledEventNotification, "stripe/events/v2_billing_cadence_canceled_event"
     autoload :V2BillingCadenceCreatedEvent, "stripe/events/v2_billing_cadence_created_event"
     autoload :V2BillingCadenceCreatedEventNotification, "stripe/events/v2_billing_cadence_created_event"
+    autoload :V2BillingContractActivatedEvent, "stripe/events/v2_billing_contract_activated_event"
+    autoload :V2BillingContractActivatedEventNotification, "stripe/events/v2_billing_contract_activated_event"
+    autoload :V2BillingContractCanceledEvent, "stripe/events/v2_billing_contract_canceled_event"
+    autoload :V2BillingContractCanceledEventNotification, "stripe/events/v2_billing_contract_canceled_event"
+    autoload :V2BillingContractCreatedEvent, "stripe/events/v2_billing_contract_created_event"
+    autoload :V2BillingContractCreatedEventNotification, "stripe/events/v2_billing_contract_created_event"
+    autoload :V2BillingContractEndedEvent, "stripe/events/v2_billing_contract_ended_event"
+    autoload :V2BillingContractEndedEventNotification, "stripe/events/v2_billing_contract_ended_event"
+    autoload :V2BillingContractUpdatedEvent, "stripe/events/v2_billing_contract_updated_event"
+    autoload :V2BillingContractUpdatedEventNotification, "stripe/events/v2_billing_contract_updated_event"
     autoload :V2BillingLicensedItemCreatedEvent, "stripe/events/v2_billing_licensed_item_created_event"
     autoload :V2BillingLicensedItemCreatedEventNotification, "stripe/events/v2_billing_licensed_item_created_event"
     autoload :V2BillingLicensedItemUpdatedEvent, "stripe/events/v2_billing_licensed_item_updated_event"
@@ -2074,6 +2084,11 @@ module Stripe
     stripe/events/v2_billing_cadence_billed_event
     stripe/events/v2_billing_cadence_canceled_event
     stripe/events/v2_billing_cadence_created_event
+    stripe/events/v2_billing_contract_activated_event
+    stripe/events/v2_billing_contract_canceled_event
+    stripe/events/v2_billing_contract_created_event
+    stripe/events/v2_billing_contract_ended_event
+    stripe/events/v2_billing_contract_updated_event
     stripe/events/v2_billing_license_fee_created_event
     stripe/events/v2_billing_license_fee_updated_event
     stripe/events/v2_billing_license_fee_version_created_event

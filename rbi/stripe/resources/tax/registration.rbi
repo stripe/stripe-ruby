@@ -1649,6 +1649,28 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class MassTransitParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class ResortTax < ::Stripe::StripeObject
             # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types) representing the local jurisdiction.
             sig { returns(String) }
@@ -1723,6 +1745,12 @@ module Stripe
           # Attribute for field luxury_tax
           sig { returns(T.nilable(LuxuryTax)) }
           def luxury_tax; end
+          # Attribute for field mass_transit_parking_tax
+          sig { returns(T.nilable(MassTransitParkingTax)) }
+          def mass_transit_parking_tax; end
+          # Attribute for field parking_tax
+          sig { returns(T.nilable(ParkingTax)) }
+          def parking_tax; end
           # Attribute for field resort_tax
           sig { returns(T.nilable(ResortTax)) }
           def resort_tax; end
@@ -1749,6 +1777,8 @@ module Stripe
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
               luxury_tax: LuxuryTax,
+              mass_transit_parking_tax: MassTransitParkingTax,
+              parking_tax: ParkingTax,
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,

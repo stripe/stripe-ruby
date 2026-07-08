@@ -36,6 +36,9 @@ module Stripe
         # Stripe ID of the institution with which the customer should be directed to log in.
         sig { returns(T.nilable(String)) }
         def institution; end
+        # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
+        sig { returns(T.nilable(String)) }
+        def require_payment_method_support; end
         def self.inner_class_types
           @inner_class_types = {}
         end

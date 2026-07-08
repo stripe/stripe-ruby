@@ -357,6 +357,31 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class StripeNetworkTransfer < ::Stripe::StripeObject
+          class From < ::Stripe::StripeObject
+            # The network ID of the sender.
+            sig { returns(String) }
+            def network_business_profile; end
+            # Open Enum. The type of the sender.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Information about the sender of the network transfer.
+          sig { returns(From) }
+          def from; end
+          def self.inner_class_types
+            @inner_class_types = {from: From}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The amount and currency of the ReceivedCredit.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
@@ -409,6 +434,9 @@ module Stripe
         # This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
         sig { returns(T.nilable(StripeBalancePayment)) }
         def stripe_balance_payment; end
+        # This object stores details about the Stripe network transfer that resulted in the ReceivedCredit. Present if `type` field value is `stripe_network_transfer`.
+        sig { returns(T.nilable(StripeNetworkTransfer)) }
+        def stripe_network_transfer; end
         # Open Enum. The type of flow that caused the ReceivedCredit.
         sig { returns(String) }
         def type; end

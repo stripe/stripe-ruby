@@ -283,6 +283,10 @@ module Stripe
       # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       sig { returns(T.nilable(String)) }
       def doc_url; end
+      # A GiftCardOperation represents an operation performed on a third-party gift card,
+      # such as activation, reload, cashout, balance check, or void.
+      sig { returns(T.nilable(::Stripe::GiftCardOperation)) }
+      def gift_card_operation; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       sig { returns(T.nilable(String)) }
       def message; end

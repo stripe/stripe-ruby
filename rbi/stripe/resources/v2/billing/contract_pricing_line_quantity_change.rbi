@@ -27,7 +27,7 @@ module Stripe
         # The timestamp when this quantity change takes effect.
         sig { returns(String) }
         def effective_at; end
-        # The ID of the quantity change object.
+        # The id of the quantity change object.
         sig { returns(String) }
         def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -39,7 +39,7 @@ module Stripe
         # The pricing configuration for the associated pricing line.
         sig { returns(Pricing) }
         def pricing; end
-        # The ID of the pricing line associated with this quantity change.
+        # The id of the pricing line associated with this quantity change.
         sig { returns(String) }
         def pricing_line; end
         # The quantity at the effective time.

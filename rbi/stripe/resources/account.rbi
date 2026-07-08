@@ -456,6 +456,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AdministrativeAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class DirectorshipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -483,6 +509,32 @@ module Stripe
         # The user-agent string from the browser where the beneficial owner attestation was made.
         sig { returns(T.nilable(String)) }
         def user_agent; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PrincipalPlaceOfBusiness < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -564,6 +616,9 @@ module Stripe
       # The Kanji variation of the company's primary address (Japan only).
       sig { returns(T.nilable(AddressKanji)) }
       def address_kanji; end
+      # Attribute for field administrative_address
+      sig { returns(T.nilable(AdministrativeAddress)) }
+      def administrative_address; end
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
@@ -600,6 +655,9 @@ module Stripe
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       def phone; end
+      # Attribute for field principal_place_of_business
+      sig { returns(T.nilable(PrincipalPlaceOfBusiness)) }
+      def principal_place_of_business; end
       # Attribute for field registration_date
       sig { returns(T.nilable(RegistrationDate)) }
       def registration_date; end
@@ -626,8 +684,10 @@ module Stripe
           address: Address,
           address_kana: AddressKana,
           address_kanji: AddressKanji,
+          administrative_address: AdministrativeAddress,
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
+          principal_place_of_business: PrincipalPlaceOfBusiness,
           registration_date: RegistrationDate,
           representative_declaration: RepresentativeDeclaration,
           verification: Verification,
@@ -780,7 +840,7 @@ module Stripe
       # This is typed as an enum for consistency with `requirements.disabled_reason`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
@@ -854,7 +914,7 @@ module Stripe
       # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
@@ -1438,7 +1498,7 @@ module Stripe
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     sig {

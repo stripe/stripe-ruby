@@ -360,6 +360,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Payto < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -523,6 +531,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(T.nilable(Paypay)) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
@@ -576,6 +587,7 @@ module Stripe
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           revolut_pay: RevolutPay,
@@ -608,6 +620,10 @@ module Stripe
       # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       sig { returns(T.nilable(String)) }
       def doc_url; end
+      # A GiftCardOperation represents an operation performed on a third-party gift card,
+      # such as activation, reload, cashout, balance check, or void.
+      sig { returns(T.nilable(::Stripe::GiftCardOperation)) }
+      def gift_card_operation; end
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       sig { returns(T.nilable(String)) }
       def message; end

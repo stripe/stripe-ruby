@@ -732,7 +732,10 @@ module Stripe
     autoload :LocationRetrieveParams, "stripe/params/terminal/location_retrieve_params"
     autoload :LocationUpdateParams, "stripe/params/terminal/location_update_params"
     autoload :OnboardingLinkCreateParams, "stripe/params/terminal/onboarding_link_create_params"
+    autoload :ReaderActivateGiftCardParams, "stripe/params/terminal/reader_activate_gift_card_params"
     autoload :ReaderCancelActionParams, "stripe/params/terminal/reader_cancel_action_params"
+    autoload :ReaderCashoutGiftCardParams, "stripe/params/terminal/reader_cashout_gift_card_params"
+    autoload :ReaderCheckGiftCardBalanceParams, "stripe/params/terminal/reader_check_gift_card_balance_params"
     autoload :ReaderCollectedDataRetrieveParams, "stripe/params/terminal/reader_collected_data_retrieve_params"
     autoload :ReaderCollectInputsParams, "stripe/params/terminal/reader_collect_inputs_params"
     autoload :ReaderCollectPaymentMethodParams, "stripe/params/terminal/reader_collect_payment_method_params"
@@ -744,6 +747,7 @@ module Stripe
     autoload :ReaderProcessPaymentIntentParams, "stripe/params/terminal/reader_process_payment_intent_params"
     autoload :ReaderProcessSetupIntentParams, "stripe/params/terminal/reader_process_setup_intent_params"
     autoload :ReaderRefundPaymentParams, "stripe/params/terminal/reader_refund_payment_params"
+    autoload :ReaderReloadGiftCardParams, "stripe/params/terminal/reader_reload_gift_card_params"
     autoload :ReaderRetrieveParams, "stripe/params/terminal/reader_retrieve_params"
     autoload :ReaderSetReaderDisplayParams, "stripe/params/terminal/reader_set_reader_display_params"
     autoload :ReaderSucceedInputCollectionParams, "stripe/params/terminal/reader_succeed_input_collection_params"
@@ -1925,7 +1929,10 @@ module Stripe
     stripe/params/terminal/location_retrieve_params
     stripe/params/terminal/location_update_params
     stripe/params/terminal/onboarding_link_create_params
+    stripe/params/terminal/reader_activate_gift_card_params
     stripe/params/terminal/reader_cancel_action_params
+    stripe/params/terminal/reader_cashout_gift_card_params
+    stripe/params/terminal/reader_check_gift_card_balance_params
     stripe/params/terminal/reader_collect_inputs_params
     stripe/params/terminal/reader_collect_payment_method_params
     stripe/params/terminal/reader_collected_data_retrieve_params
@@ -1937,6 +1944,7 @@ module Stripe
     stripe/params/terminal/reader_process_payment_intent_params
     stripe/params/terminal/reader_process_setup_intent_params
     stripe/params/terminal/reader_refund_payment_params
+    stripe/params/terminal/reader_reload_gift_card_params
     stripe/params/terminal/reader_retrieve_params
     stripe/params/terminal/reader_set_reader_display_params
     stripe/params/terminal/reader_succeed_input_collection_params

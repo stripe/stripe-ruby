@@ -115,6 +115,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class NetworkBusinessProfileWallet < ::Stripe::StripeObject
+          # The Network ID of the Stripe profile.
+          sig { returns(String) }
+          def network_business_profile; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           sig { returns(String) }
@@ -156,6 +167,9 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
+        # The PayoutMethodNetworkBusinessProfileWallet object details.
+        sig { returns(T.nilable(NetworkBusinessProfileWallet)) }
+        def network_business_profile_wallet; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

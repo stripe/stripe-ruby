@@ -109,6 +109,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Controls how much address information Checkout collects when automatic tax is enabled.
+        attr_reader :address_collection_precision
         # Indicates whether automatic tax is enabled for the session
         attr_reader :enabled
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
@@ -247,11 +249,11 @@ module Stripe
         attr_reader :phone
         # Shipping information for this Checkout Session.
         attr_reader :shipping_details
-        # Customer’s tax ids for this Checkout Session.
-        attr_reader :tax_ids
+        # Customer’s tax id for this Checkout Session.
+        attr_reader :tax_id
 
         def self.inner_class_types
-          @inner_class_types = { shipping_details: ShippingDetails, tax_ids: TaxId }
+          @inner_class_types = { shipping_details: ShippingDetails, tax_id: TaxId }
         end
 
         def self.field_remappings
@@ -1880,6 +1882,14 @@ module Stripe
         class Payco < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           attr_reader :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -2056,6 +2066,14 @@ module Stripe
         class SamsungPay < ::Stripe::StripeObject
           # Controls when the funds will be captured from the customer's account.
           attr_reader :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_reader :setup_future_usage
 
           def self.inner_class_types
             @inner_class_types = {}

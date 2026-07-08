@@ -18,6 +18,21 @@ module Stripe
       end
 
       class Action < ::Stripe::StripeObject
+        class ActivateGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          attr_reader :gift_card
+          # The GiftCardOperation created for this reader action.
+          attr_reader :gift_card_operation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class ApiError < ::Stripe::StripeObject
           # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
           attr_reader :advice_code
@@ -29,6 +44,9 @@ module Stripe
           attr_reader :decline_code
           # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
           attr_reader :doc_url
+          # A GiftCardOperation represents an operation performed on a third-party gift card,
+          # such as activation, reload, cashout, balance check, or void.
+          attr_reader :gift_card_operation
           # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
           attr_reader :message
           # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
@@ -85,6 +103,36 @@ module Stripe
           attr_reader :source
           # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CashoutGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          attr_reader :gift_card
+          # The GiftCardOperation created for this reader action.
+          attr_reader :gift_card_operation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CheckGiftCardBalance < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          attr_reader :gift_card
+          # The GiftCardOperation created for this reader action.
+          attr_reader :gift_card_operation
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -366,6 +414,21 @@ module Stripe
           end
         end
 
+        class DeactivateGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          attr_reader :gift_card
+          # The GiftCardOperation created for this reader action.
+          attr_reader :gift_card_operation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class PrintContent < ::Stripe::StripeObject
           class Image < ::Stripe::StripeObject
             # Creation time of the object (in seconds since the Unix epoch).
@@ -518,6 +581,21 @@ module Stripe
           end
         end
 
+        class ReloadGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          attr_reader :gift_card
+          # The GiftCardOperation created for this reader action.
+          attr_reader :gift_card_operation
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SetReaderDisplay < ::Stripe::StripeObject
           class Cart < ::Stripe::StripeObject
             class LineItem < ::Stripe::StripeObject
@@ -566,14 +644,22 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Represents a reader action to activate a gift card
+        attr_reader :activate_gift_card
         # The reader action failed due to an [API error](https://docs.stripe.com/api/errors). Only present when `status` is `failed` and the underlying failure was an API error. Avoid parsing the `message` field for programmatic logic; use `type` or `code` instead. The `message` field is for display to humans only and may be updated at anytime. Requires [reader version](https://docs.stripe.com/terminal/readers/stripe-reader-s700-s710#reader-software-version) 2.42 or later. Readers on older versions always return null.
         attr_reader :api_error
+        # Represents a reader action to cash out a gift card
+        attr_reader :cashout_gift_card
+        # Represents a reader action to check a gift card balance
+        attr_reader :check_gift_card_balance
         # Represents a reader action to collect customer inputs
         attr_reader :collect_inputs
         # Represents a reader action to collect a payment method
         attr_reader :collect_payment_method
         # Represents a reader action to confirm a payment
         attr_reader :confirm_payment_intent
+        # Represents a reader action to deactivate a gift card
+        attr_reader :deactivate_gift_card
         # Failure code, only set if status is `failed`.
         attr_reader :failure_code
         # Detailed failure message, only set if status is `failed`.
@@ -586,6 +672,8 @@ module Stripe
         attr_reader :process_setup_intent
         # Represents a reader action to refund a payment
         attr_reader :refund_payment
+        # Represents a reader action to reload a gift card
+        attr_reader :reload_gift_card
         # Represents a reader action to set the reader display
         attr_reader :set_reader_display
         # Status of the action performed by the reader.
@@ -595,14 +683,19 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            activate_gift_card: ActivateGiftCard,
             api_error: ApiError,
+            cashout_gift_card: CashoutGiftCard,
+            check_gift_card_balance: CheckGiftCardBalance,
             collect_inputs: CollectInputs,
             collect_payment_method: CollectPaymentMethod,
             confirm_payment_intent: ConfirmPaymentIntent,
+            deactivate_gift_card: DeactivateGiftCard,
             print_content: PrintContent,
             process_payment_intent: ProcessPaymentIntent,
             process_setup_intent: ProcessSetupIntent,
             refund_payment: RefundPayment,
+            reload_gift_card: ReloadGiftCard,
             set_reader_display: SetReaderDisplay,
           }
         end
@@ -640,6 +733,26 @@ module Stripe
       # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
       attr_reader :status
 
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      def activate_gift_card(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/activate_gift_card", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      def self.activate_gift_card(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/activate_gift_card", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
@@ -655,6 +768,46 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      def cashout_gift_card(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/cashout_gift_card", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      def self.cashout_gift_card(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/cashout_gift_card", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card balance check flow on a Reader.
+      def check_gift_card_balance(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/check_gift_card_balance", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card balance check flow on a Reader.
+      def self.check_gift_card_balance(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/check_gift_card_balance", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )
@@ -815,6 +968,26 @@ module Stripe
         request_stripe_object(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      def reload_gift_card(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/reload_gift_card", { reader: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      def self.reload_gift_card(reader, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/reload_gift_card", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts
         )

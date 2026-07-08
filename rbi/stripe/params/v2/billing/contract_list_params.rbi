@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Billing
       class ContractListParams < ::Stripe::RequestParams
-        # Filter by customer ID.
+        # Filter by customer id.
         sig { returns(T.nilable(String)) }
         def customer; end
         sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

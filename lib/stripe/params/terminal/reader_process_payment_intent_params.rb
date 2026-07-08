@@ -17,6 +17,8 @@ module Stripe
         attr_accessor :allow_redisplay
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
+        # The gift card brand to use in the transaction.
+        attr_accessor :gift_card_brand
         # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         attr_accessor :return_url
         # Override showing a tipping selection screen on this transaction.
@@ -27,12 +29,14 @@ module Stripe
         def initialize(
           allow_redisplay: nil,
           enable_customer_cancellation: nil,
+          gift_card_brand: nil,
           return_url: nil,
           skip_tipping: nil,
           tipping: nil
         )
           @allow_redisplay = allow_redisplay
           @enable_customer_cancellation = enable_customer_cancellation
+          @gift_card_brand = gift_card_brand
           @return_url = return_url
           @skip_tipping = skip_tipping
           @tipping = tipping

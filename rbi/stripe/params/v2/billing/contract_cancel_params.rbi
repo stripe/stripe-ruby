@@ -7,7 +7,7 @@ module Stripe
     module Billing
       class ContractCancelParams < ::Stripe::RequestParams
         class CancelPricingLine < ::Stripe::RequestParams
-          # The ID of the pricing line.
+          # The id of the pricing line.
           sig { returns(T.nilable(String)) }
           def id; end
           sig { params(_id: T.nilable(String)).returns(T.nilable(String)) }

@@ -33,7 +33,7 @@ module Stripe
         attr_reader :currency
         # The fee amount being repaid, paid out, or reversed in minor units.
         attr_reader :fee_amount
-        # The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
+        # The linked payment for the transaction. This field only applies to financing transactions of type `payment` and reason `automatic_withholding`.
         attr_reader :linked_payment
         # The reason for the financing transaction (if applicable).
         attr_reader :reason

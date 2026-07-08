@@ -5,7 +5,7 @@
 module Stripe
   module V2
     module Billing
-      # Main Contract resource representing a comprehensive billing agreement
+      # Contract resource representing a comprehensive sales agreement
       class Contract < APIResource
         class BillingCycleAnchor < ::Stripe::StripeObject
           # The billing cycle anchor as a UTC timestamp.
@@ -128,51 +128,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class OneTimeFees < ::Stripe::StripeObject
-          class Data < ::Stripe::StripeObject
-            class BillAt < ::Stripe::StripeObject
-              # The timestamp at which the fee will be billed.
-              sig { returns(String) }
-              def timestamp; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # The amount billed for this fee.
-            sig { returns(::Stripe::V2::Amount) }
-            def amount; end
-            # When this fee will be billed. Always contains a concrete timestamp.
-            sig { returns(BillAt) }
-            def bill_at; end
-            # The ID of the one-time fee.
-            sig { returns(String) }
-            def id; end
-            # The user-provided lookup key.
-            sig { returns(T.nilable(String)) }
-            def lookup_key; end
-            # The ID of the v1 Product for this fee.
-            sig { returns(String) }
-            def product; end
-            def self.inner_class_types
-              @inner_class_types = {bill_at: BillAt}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The one-time fees for this page.
-          sig { returns(T::Array[Data]) }
-          def data; end
-          def self.inner_class_types
-            @inner_class_types = {data: Data}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class PricingLines < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class EndsAt < ::Stripe::StripeObject
@@ -202,51 +157,14 @@ module Stripe
                       end
                     end
                     class OverwritePrice < ::Stripe::StripeObject
-                      class Tier < ::Stripe::StripeObject
-                        # Price for the entire tier, represented as a decimal string in minor currency units.
-                        sig { returns(T.nilable(String)) }
-                        def flat_amount; end
-                        # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                        sig { returns(T.nilable(String)) }
-                        def unit_amount; end
-                        # Up to and including this quantity will be contained in the tier.
-                        sig { returns(T.nilable(BigDecimal)) }
-                        def up_to_decimal; end
-                        # No upper bound to this tier.
-                        sig { returns(T.nilable(String)) }
-                        def up_to_inf; end
-                        def self.inner_class_types
-                          @inner_class_types = {}
-                        end
-                        def self.field_remappings
-                          @field_remappings = {}
-                        end
-                        def self.field_encodings
-                          @field_encodings = {up_to_decimal: :decimal_string}
-                        end
-                      end
-                      # Defines whether the tiered price should be graduated or volume-based.
-                      sig { returns(T.nilable(String)) }
-                      def tiering_mode; end
-                      # Each element represents a pricing tier.
-                      sig { returns(T::Array[Tier]) }
-                      def tiers; end
                       # The per-unit amount to be charged, represented as a decimal string in minor currency units.
                       sig { returns(T.nilable(String)) }
                       def unit_amount; end
                       def self.inner_class_types
-                        @inner_class_types = {tiers: Tier}
+                        @inner_class_types = {}
                       end
                       def self.field_remappings
                         @field_remappings = {}
-                      end
-                      def self.field_encodings
-                        @field_encodings = {
-                          tiers: {
-                            kind: :array,
-                            element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
-                          },
-                        }
                       end
                     end
                     class StartsAt < ::Stripe::StripeObject
@@ -260,19 +178,22 @@ module Stripe
                         @field_remappings = {}
                       end
                     end
-                    # Resolved timestamp when this override ends.
+                    # Timestamp when this override ends.
                     sig { returns(EndsAt) }
                     def ends_at; end
+                    # The ID of the pricing override.
+                    sig { returns(String) }
+                    def id; end
                     # The user-provided lookup key for this override.
                     sig { returns(T.nilable(String)) }
                     def lookup_key; end
                     # Details for an overwrite_price override.
                     sig { returns(T.nilable(OverwritePrice)) }
                     def overwrite_price; end
-                    # The ID of the pricing line override.
-                    sig { returns(String) }
-                    def pricing_override; end
-                    # Resolved timestamp when this override starts.
+                    # The priority of this override relative to others. Lower number = higher priority.
+                    sig { returns(Integer) }
+                    def priority; end
+                    # Timestamp when this override starts.
                     sig { returns(StartsAt) }
                     def starts_at; end
                     # The type of override.
@@ -288,19 +209,6 @@ module Stripe
                     def self.field_remappings
                       @field_remappings = {}
                     end
-                    def self.field_encodings
-                      @field_encodings = {
-                        overwrite_price: {
-                          kind: :object,
-                          fields: {
-                            tiers: {
-                              kind: :array,
-                              element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
-                            },
-                          },
-                        },
-                      }
-                    end
                   end
                   # The pricing line overrides.
                   sig { returns(T::Array[Data]) }
@@ -310,30 +218,6 @@ module Stripe
                   end
                   def self.field_remappings
                     @field_remappings = {}
-                  end
-                  def self.field_encodings
-                    @field_encodings = {
-                      data: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: {
-                                tiers: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: {up_to_decimal: :decimal_string},
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    }
                   end
                 end
                 # The current quantity on this pricing line.
@@ -352,34 +236,7 @@ module Stripe
                   @field_remappings = {}
                 end
                 def self.field_encodings
-                  @field_encodings = {
-                    current_quantity: :decimal_string,
-                    pricing_overrides: {
-                      kind: :object,
-                      fields: {
-                        data: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: {
-                                  tiers: {
-                                    kind: :array,
-                                    element: {
-                                      kind: :object,
-                                      fields: {up_to_decimal: :decimal_string},
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  }
+                  @field_encodings = {current_quantity: :decimal_string}
                 end
               end
               # V1 price details. Present when `type` is `price`.
@@ -396,37 +253,7 @@ module Stripe
               end
               def self.field_encodings
                 @field_encodings = {
-                  price_details: {
-                    kind: :object,
-                    fields: {
-                      current_quantity: :decimal_string,
-                      pricing_overrides: {
-                        kind: :object,
-                        fields: {
-                          data: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {
-                                    tiers: {
-                                      kind: :array,
-                                      element: {
-                                        kind: :object,
-                                        fields: {up_to_decimal: :decimal_string},
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
+                  price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                 }
               end
             end
@@ -441,22 +268,22 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Resolved timestamp when the pricing line ends.
+            # Timestamp when the pricing line ends.
             sig { returns(EndsAt) }
             def ends_at; end
-            # The ID of the pricing line.
+            # The id of the pricing line.
             sig { returns(String) }
             def id; end
             # The user-provided lookup key for the pricing line.
             sig { returns(T.nilable(String)) }
             def lookup_key; end
-            # Set of key-value pairs that you can attach to an object.
+            # Set of key-value pairs.
             sig { returns(T.nilable(T::Hash[String, String])) }
             def metadata; end
             # The pricing configuration for the pricing line.
             sig { returns(Pricing) }
             def pricing; end
-            # Resolved timestamp when the pricing line starts.
+            # Timestamp when the pricing line starts.
             sig { returns(StartsAt) }
             def starts_at; end
             def self.inner_class_types
@@ -470,37 +297,7 @@ module Stripe
                 pricing: {
                   kind: :object,
                   fields: {
-                    price_details: {
-                      kind: :object,
-                      fields: {
-                        current_quantity: :decimal_string,
-                        pricing_overrides: {
-                          kind: :object,
-                          fields: {
-                            data: {
-                              kind: :array,
-                              element: {
-                                kind: :object,
-                                fields: {
-                                  overwrite_price: {
-                                    kind: :object,
-                                    fields: {
-                                      tiers: {
-                                        kind: :array,
-                                        element: {
-                                          kind: :object,
-                                          fields: {up_to_decimal: :decimal_string},
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                   },
                 },
               }
@@ -525,37 +322,7 @@ module Stripe
                     pricing: {
                       kind: :object,
                       fields: {
-                        price_details: {
-                          kind: :object,
-                          fields: {
-                            current_quantity: :decimal_string,
-                            pricing_overrides: {
-                              kind: :object,
-                              fields: {
-                                data: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: {
-                                      overwrite_price: {
-                                        kind: :object,
-                                        fields: {
-                                          tiers: {
-                                            kind: :array,
-                                            element: {
-                                              kind: :object,
-                                              fields: {up_to_decimal: :decimal_string},
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
+                        price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                       },
                     },
                   },
@@ -577,7 +344,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            class Multiplier < ::Stripe::StripeObject
+            class MultiplyPricing < ::Stripe::StripeObject
               class Criterion < ::Stripe::StripeObject
                 # Filter by pricing line IDs.
                 sig { returns(T.nilable(T::Array[String])) }
@@ -595,10 +362,10 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Criteria determining which rates the multiplier applies to.
+              # Criteria determining which rates the multiply_pricing override applies to.
               sig { returns(T::Array[Criterion]) }
               def criteria; end
-              # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+              # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
               sig { returns(String) }
               def factor; end
               def self.inner_class_types
@@ -628,9 +395,9 @@ module Stripe
             # The user-provided lookup key for the pricing override.
             sig { returns(T.nilable(String)) }
             def lookup_key; end
-            # Details for a multiplier override.
-            sig { returns(T.nilable(Multiplier)) }
-            def multiplier; end
+            # Details for a multiply_pricing override.
+            sig { returns(T.nilable(MultiplyPricing)) }
+            def multiply_pricing; end
             # The priority of this override relative to others. Lower number = higher priority.
             sig { returns(Integer) }
             def priority; end
@@ -641,7 +408,11 @@ module Stripe
             sig { returns(String) }
             def type; end
             def self.inner_class_types
-              @inner_class_types = {ends_at: EndsAt, multiplier: Multiplier, starts_at: StartsAt}
+              @inner_class_types = {
+                ends_at: EndsAt,
+                multiply_pricing: MultiplyPricing,
+                starts_at: StartsAt,
+              }
             end
             def self.field_remappings
               @field_remappings = {}
@@ -657,87 +428,65 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class StatusDetails < ::Stripe::StripeObject
-          class Active < ::Stripe::StripeObject
-            # The timestamp when the contract was activated.
-            sig { returns(String) }
-            def activated_at; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Canceled < ::Stripe::StripeObject
-            # The timestamp when the contract was canceled.
-            sig { returns(String) }
-            def canceled_at; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Details of the active contract status.
-          sig { returns(T.nilable(Active)) }
-          def active; end
-          # Details of the canceled contract status.
-          sig { returns(T.nilable(Canceled)) }
-          def canceled; end
+        class StatusTransitions < ::Stripe::StripeObject
+          # The timestamp when the contract was activated.
+          sig { returns(T.nilable(String)) }
+          def activated_at; end
+          # The timestamp when the contract was canceled.
+          sig { returns(T.nilable(String)) }
+          def canceled_at; end
+          # The timestamp when the contract ended.
+          sig { returns(T.nilable(String)) }
+          def ended_at; end
           def self.inner_class_types
-            @inner_class_types = {active: Active, canceled: Canceled}
+            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
-        # The billing cycle anchor for the contract.
+        # The billing cycle anchor.
         sig { returns(T.nilable(BillingCycleAnchor)) }
         def billing_cycle_anchor; end
-        # The billing settings for the contract.
+        # The billing settings.
         sig { returns(T.nilable(BillingSettings)) }
         def billing_settings; end
         # A unique user-provided contract number e.g. C-2026-0001.
         sig { returns(String) }
         def contract_number; end
-        # Timestamp of when the object was created.
+        # Timestamp of when the contract was created.
         sig { returns(String) }
         def created; end
-        # The currency of the contract.
+        # The currency.
         sig { returns(String) }
         def currency; end
-        # The ID of the customer associated with the contract.
+        # The customer id.
         sig { returns(String) }
         def customer; end
-        # The ID of the contract object.
+        # The contract id.
         sig { returns(String) }
         def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
-        # Set of key-value pairs that you can attach to an object.
+        # Set of key-value pairs.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The one-time fees of the contract. Only populated when `one_time_fees` is passed in the `include` parameter.
-        sig { returns(T.nilable(OneTimeFees)) }
-        def one_time_fees; end
-        # The pricing lines of the contract. Only populated when `pricing_lines` is passed in the `include` parameter.
+        # The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
         sig { returns(T.nilable(PricingLines)) }
         def pricing_lines; end
-        # The pricing overrides of the contract. Only populated when `pricing_overrides` is passed in the `include` parameter.
+        # The pricing overrides. Only populated when `pricing_overrides` is passed in the `include` parameter.
         sig { returns(T.nilable(PricingOverrides)) }
         def pricing_overrides; end
         # The current status of the contract.
         sig { returns(String) }
         def status; end
-        # Information about the contract status transitions.
-        sig { returns(StatusDetails) }
-        def status_details; end
+        # Historical timestamps of when the contract transitioned into each status.
+        sig { returns(T.nilable(StatusTransitions)) }
+        def status_transitions; end
       end
     end
   end

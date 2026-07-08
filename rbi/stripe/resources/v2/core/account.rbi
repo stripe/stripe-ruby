@@ -19470,6 +19470,20 @@ module Stripe
             }
           end
         end
+        class RelatedNetworkObject < ::Stripe::StripeObject
+          # The ID of the network business profile associated with this Account.
+          sig { returns(T.nilable(String)) }
+          def network_business_profile; end
+          # Closed Enum. The type of related network object.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Requirements < ::Stripe::StripeObject
           class Entry < ::Stripe::StripeObject
             class Error < ::Stripe::StripeObject
@@ -19682,6 +19696,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # The network object related to this Account.
+        sig { returns(T.nilable(RelatedNetworkObject)) }
+        def related_network_object; end
         # Information about the active requirements for the Account, including what information needs to be collected, and by when.
         sig { returns(T.nilable(Requirements)) }
         def requirements; end

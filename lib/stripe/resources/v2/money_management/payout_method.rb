@@ -108,6 +108,19 @@ module Stripe
           end
         end
 
+        class NetworkBusinessProfileWallet < ::Stripe::StripeObject
+          # The Network ID of the Stripe profile.
+          attr_reader :network_business_profile
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
           attr_reader :payments
@@ -140,6 +153,8 @@ module Stripe
         attr_reader :latest_outbound_setup_intent
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+        # The PayoutMethodNetworkBusinessProfileWallet object details.
+        attr_reader :network_business_profile_wallet
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
@@ -156,6 +171,7 @@ module Stripe
             bank_account: BankAccount,
             card: Card,
             crypto_wallet: CryptoWallet,
+            network_business_profile_wallet: NetworkBusinessProfileWallet,
             usage_status: UsageStatus,
           }
         end

@@ -205,20 +205,52 @@ module Stripe
         end
       end
       class NetworkData < ::Stripe::StripeObject
+        class TraceId < ::Stripe::StripeObject
+          # The unique reference number within the specified financial network on the specified network date.
+          sig { returns(T.nilable(String)) }
+          def banknet_reference_number; end
+          # The identifier of the program or service.
+          sig { returns(T.nilable(String)) }
+          def financial_network_code; end
+          # The card network's record date for this transaction.
+          sig { returns(T.nilable(String)) }
+          def network_date; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The network-provided acquirer reference number for this transaction, if available. Use this value for downstream operational workflows such as filing disputes with the card network.
         sig { returns(T.nilable(String)) }
         def acquirer_reference_number; end
+        # The two-letter country code of the acquirer ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def acquiring_institution_country; end
+        # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
+        sig { returns(T.nilable(String)) }
+        def acquiring_institution_id; end
         # A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
         sig { returns(T.nilable(String)) }
         def authorization_code; end
         # The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
         sig { returns(T.nilable(String)) }
         def processing_date; end
+        # Identifier assigned by the acquirer to track all messages related to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
+        # The card network over which Stripe received the transaction. This field may differ from the associated card’s primary network.
+        sig { returns(T.nilable(String)) }
+        def routed_network; end
+        # Attribute for field trace_id
+        sig { returns(T.nilable(TraceId)) }
+        def trace_id; end
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {trace_id: TraceId}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -548,6 +580,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class SettlementDetails < ::Stripe::StripeObject
+        # `merchant_amount` in the settlement currency.
+        sig { returns(T.nilable(Integer)) }
+        def amount; end
+        # Settlement currency.
+        sig { returns(T.nilable(String)) }
+        def currency; end
+        # Exchange rate used by the network to convert the `merchant_amount` to `settlement_details.amount`. The `merchant_amount` multiplied with this rate will equal to the `settlement_details.amount`.
+        sig { returns(T.nilable(Float)) }
+        def exchange_rate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://docs.stripe.com/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         sig { returns(T.nilable(String)) }
@@ -628,6 +677,9 @@ module Stripe
       # The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Settlement))) }
       def settlement; end
+      # Details about the transaction for settlement reconciliation.
+      sig { returns(T.nilable(SettlementDetails)) }
+      def settlement_details; end
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end

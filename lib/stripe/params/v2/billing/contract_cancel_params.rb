@@ -6,7 +6,7 @@ module Stripe
     module Billing
       class ContractCancelParams < ::Stripe::RequestParams
         class CancelPricingLine < ::Stripe::RequestParams
-          # The ID of the pricing line.
+          # The id of the pricing line.
           attr_accessor :id
           # The lookup key of the pricing line.
           attr_accessor :lookup_key

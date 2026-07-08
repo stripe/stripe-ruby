@@ -1304,6 +1304,36 @@ module Stripe
       register("v2.billing.cadence.created", &handler)
     end
 
+    def on_v2_billing_contract_activated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.billing.contract.activated", &handler)
+    end
+
+    def on_v2_billing_contract_canceled(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.billing.contract.canceled", &handler)
+    end
+
+    def on_v2_billing_contract_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.billing.contract.created", &handler)
+    end
+
+    def on_v2_billing_contract_ended(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.billing.contract.ended", &handler)
+    end
+
+    def on_v2_billing_contract_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.billing.contract.updated", &handler)
+    end
+
     def on_v2_billing_license_fee_created(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 

@@ -77,7 +77,7 @@ module Stripe
                   @interval_count = interval_count
                 end
               end
-              # The number of time units before the invoice is past due.
+              # How long the customer has to pay the invoice before it's past due.
               attr_accessor :time_until_due
 
               def initialize(time_until_due: nil)
@@ -108,7 +108,7 @@ module Stripe
           end
 
           class CollectionSettingsDetails < ::Stripe::RequestParams
-            # The collection method.
+            # How payment is collected for the contract.
             attr_accessor :collection_method
             # The payment method configuration.
             attr_accessor :payment_method_configuration
@@ -133,35 +133,6 @@ module Stripe
             @bill_settings_details = bill_settings_details
             @billing_profile_details = billing_profile_details
             @collection_settings_details = collection_settings_details
-          end
-        end
-
-        class OneTimeFee < ::Stripe::RequestParams
-          class BillAt < ::Stripe::RequestParams
-            # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-            attr_accessor :timestamp
-            # The type of the bill_at.
-            attr_accessor :type
-
-            def initialize(timestamp: nil, type: nil)
-              @timestamp = timestamp
-              @type = type
-            end
-          end
-          # The amount to bill.
-          attr_accessor :amount
-          # When this fee should be billed.
-          attr_accessor :bill_at
-          # A user-provided lookup key.
-          attr_accessor :lookup_key
-          # The ID of the v1 Product for this fee.
-          attr_accessor :product
-
-          def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
-            @amount = amount
-            @bill_at = bill_at
-            @lookup_key = lookup_key
-            @product = product
           end
         end
 
@@ -194,52 +165,11 @@ module Stripe
                 end
 
                 class OverwritePrice < ::Stripe::RequestParams
-                  class Tier < ::Stripe::RequestParams
-                    # Price for the entire tier, represented as a decimal string in minor currency units.
-                    attr_accessor :flat_amount
-                    # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                    attr_accessor :unit_amount
-                    # Up to and including this quantity will be contained in the tier.
-                    attr_accessor :up_to_decimal
-                    # No upper bound to this tier.
-                    attr_accessor :up_to_inf
-
-                    def initialize(
-                      flat_amount: nil,
-                      unit_amount: nil,
-                      up_to_decimal: nil,
-                      up_to_inf: nil
-                    )
-                      @flat_amount = flat_amount
-                      @unit_amount = unit_amount
-                      @up_to_decimal = up_to_decimal
-                      @up_to_inf = up_to_inf
-                    end
-
-                    def self.field_encodings
-                      @field_encodings = { up_to_decimal: :decimal_string }
-                    end
-                  end
-                  # Defines whether the tiered price should be graduated or volume-based.
-                  attr_accessor :tiering_mode
-                  # Each element represents a pricing tier.
-                  attr_accessor :tiers
                   # The per-unit amount to be charged, represented as a decimal string in minor currency units.
                   attr_accessor :unit_amount
 
-                  def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
-                    @tiering_mode = tiering_mode
-                    @tiers = tiers
+                  def initialize(unit_amount: nil)
                     @unit_amount = unit_amount
-                  end
-
-                  def self.field_encodings
-                    @field_encodings = {
-                      tiers: {
-                        kind: :array,
-                        element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                      },
-                    }
                   end
                 end
 
@@ -266,7 +196,7 @@ module Stripe
                 attr_accessor :priority
                 # When the override starts. Defaults to the pricing line's start if not specified.
                 attr_accessor :starts_at
-                # The type of override. Currently only `overwrite_price` is supported.
+                # The type of override.
                 attr_accessor :type
 
                 def initialize(
@@ -285,20 +215,6 @@ module Stripe
                   @priority = priority
                   @starts_at = starts_at
                   @type = type
-                end
-
-                def self.field_encodings
-                  @field_encodings = {
-                    overwrite_price: {
-                      kind: :object,
-                      fields: {
-                        tiers: {
-                          kind: :array,
-                          element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                        },
-                      },
-                    },
-                  }
                 end
               end
 
@@ -328,12 +244,12 @@ module Stripe
                   @field_encodings = { set: :decimal_string }
                 end
               end
-              # The ID of the V1 price.
+              # The id of the price.
               attr_accessor :price
               # Pricing overrides embedded directly on this pricing line.
               attr_accessor :pricing_overrides
               # Quantity changes for the pricing line. For now, at most one entry is allowed.
-              # A quantity change clears all future quantity changes on this pricing line.
+              # A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
               attr_accessor :quantity_changes
 
               def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil)
@@ -344,23 +260,6 @@ module Stripe
 
               def self.field_encodings
                 @field_encodings = {
-                  pricing_overrides: {
-                    kind: :array,
-                    element: {
-                      kind: :object,
-                      fields: {
-                        overwrite_price: {
-                          kind: :object,
-                          fields: {
-                            tiers: {
-                              kind: :array,
-                              element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
                   quantity_changes: {
                     kind: :array,
                     element: { kind: :object, fields: { set: :decimal_string } },
@@ -383,23 +282,6 @@ module Stripe
                 price_details: {
                   kind: :object,
                   fields: {
-                    pricing_overrides: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: {
-                            kind: :object,
-                            fields: {
-                              tiers: {
-                                kind: :array,
-                                element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -448,26 +330,6 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
-                      pricing_overrides: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: {
-                                tiers: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: { up_to_decimal: :decimal_string },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -493,7 +355,7 @@ module Stripe
             end
           end
 
-          class Multiplier < ::Stripe::RequestParams
+          class MultiplyPricing < ::Stripe::RequestParams
             class Criterion < ::Stripe::RequestParams
               # Filter by pricing line IDs.
               attr_accessor :pricing_line_ids
@@ -508,9 +370,9 @@ module Stripe
                 @type = type
               end
             end
-            # Criteria determining which rates the multiplier applies to.
+            # Criteria determining which rates the multiply_pricing override applies to.
             attr_accessor :criteria
-            # The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+            # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
             attr_accessor :factor
 
             def initialize(criteria: nil, factor: nil)
@@ -534,8 +396,8 @@ module Stripe
           attr_accessor :ends_at
           # A user-provided lookup key to reference this pricing override.
           attr_accessor :lookup_key
-          # Parameters for a multiplier override. Required if `type` is `multiplier`.
-          attr_accessor :multiplier
+          # Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
+          attr_accessor :multiply_pricing
           # The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
           attr_accessor :priority
           # When the pricing override starts.
@@ -546,14 +408,14 @@ module Stripe
           def initialize(
             ends_at: nil,
             lookup_key: nil,
-            multiplier: nil,
+            multiply_pricing: nil,
             priority: nil,
             starts_at: nil,
             type: nil
           )
             @ends_at = ends_at
             @lookup_key = lookup_key
-            @multiplier = multiplier
+            @multiply_pricing = multiply_pricing
             @priority = priority
             @starts_at = starts_at
             @type = type
@@ -572,8 +434,6 @@ module Stripe
         attr_accessor :include
         # Set of key-value pairs that you can attach to an object.
         attr_accessor :metadata
-        # A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
-        attr_accessor :one_time_fees
         # A list of pricing lines to create with the contract.
         attr_accessor :pricing_lines
         # A list of pricing overrides to create with the contract.
@@ -586,7 +446,6 @@ module Stripe
           currency: nil,
           include: nil,
           metadata: nil,
-          one_time_fees: nil,
           pricing_lines: nil,
           pricing_overrides: nil
         )
@@ -596,7 +455,6 @@ module Stripe
           @currency = currency
           @include = include
           @metadata = metadata
-          @one_time_fees = one_time_fees
           @pricing_lines = pricing_lines
           @pricing_overrides = pricing_overrides
         end
@@ -614,26 +472,6 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
-                          pricing_overrides: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {
-                                    tiers: {
-                                      kind: :array,
-                                      element: {
-                                        kind: :object,
-                                        fields: { up_to_decimal: :decimal_string },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },

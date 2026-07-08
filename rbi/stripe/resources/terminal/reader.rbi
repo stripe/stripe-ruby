@@ -9,6 +9,20 @@ module Stripe
     # Related guide: [Connecting to a reader](https://docs.stripe.com/terminal/payments/connect-reader)
     class Reader < APIResource
       class Action < ::Stripe::StripeObject
+        class ActivateGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCard))) }
+          def gift_card; end
+          # The GiftCardOperation created for this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCardOperation))) }
+          def gift_card_operation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class ApiError < ::Stripe::StripeObject
           # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
           sig { returns(T.nilable(String)) }
@@ -25,6 +39,10 @@ module Stripe
           # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
           sig { returns(T.nilable(String)) }
           def doc_url; end
+          # A GiftCardOperation represents an operation performed on a third-party gift card,
+          # such as activation, reload, cashout, balance check, or void.
+          sig { returns(T.nilable(::Stripe::GiftCardOperation)) }
+          def gift_card_operation; end
           # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
           sig { returns(T.nilable(String)) }
           def message; end
@@ -94,6 +112,34 @@ module Stripe
           # The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
           sig { returns(String) }
           def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CashoutGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCard))) }
+          def gift_card; end
+          # The GiftCardOperation created for this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCardOperation))) }
+          def gift_card_operation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CheckGiftCardBalance < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCard))) }
+          def gift_card; end
+          # The GiftCardOperation created for this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCardOperation))) }
+          def gift_card_operation; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -374,6 +420,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class DeactivateGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCard))) }
+          def gift_card; end
+          # The GiftCardOperation created for this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCardOperation))) }
+          def gift_card_operation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class PrintContent < ::Stripe::StripeObject
           class Image < ::Stripe::StripeObject
             # Creation time of the object (in seconds since the Unix epoch).
@@ -533,6 +593,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class ReloadGiftCard < ::Stripe::StripeObject
+          # The gift card used in this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCard))) }
+          def gift_card; end
+          # The GiftCardOperation created for this reader action.
+          sig { returns(T.nilable(T.any(String, ::Stripe::GiftCardOperation))) }
+          def gift_card_operation; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SetReaderDisplay < ::Stripe::StripeObject
           class Cart < ::Stripe::StripeObject
             class LineItem < ::Stripe::StripeObject
@@ -584,9 +658,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Represents a reader action to activate a gift card
+        sig { returns(T.nilable(ActivateGiftCard)) }
+        def activate_gift_card; end
         # The reader action failed due to an [API error](https://docs.stripe.com/api/errors). Only present when `status` is `failed` and the underlying failure was an API error. Avoid parsing the `message` field for programmatic logic; use `type` or `code` instead. The `message` field is for display to humans only and may be updated at anytime. Requires [reader version](https://docs.stripe.com/terminal/readers/stripe-reader-s700-s710#reader-software-version) 2.42 or later. Readers on older versions always return null.
         sig { returns(T.nilable(ApiError)) }
         def api_error; end
+        # Represents a reader action to cash out a gift card
+        sig { returns(T.nilable(CashoutGiftCard)) }
+        def cashout_gift_card; end
+        # Represents a reader action to check a gift card balance
+        sig { returns(T.nilable(CheckGiftCardBalance)) }
+        def check_gift_card_balance; end
         # Represents a reader action to collect customer inputs
         sig { returns(T.nilable(CollectInputs)) }
         def collect_inputs; end
@@ -596,6 +679,9 @@ module Stripe
         # Represents a reader action to confirm a payment
         sig { returns(T.nilable(ConfirmPaymentIntent)) }
         def confirm_payment_intent; end
+        # Represents a reader action to deactivate a gift card
+        sig { returns(T.nilable(DeactivateGiftCard)) }
+        def deactivate_gift_card; end
         # Failure code, only set if status is `failed`.
         sig { returns(T.nilable(String)) }
         def failure_code; end
@@ -614,6 +700,9 @@ module Stripe
         # Represents a reader action to refund a payment
         sig { returns(T.nilable(RefundPayment)) }
         def refund_payment; end
+        # Represents a reader action to reload a gift card
+        sig { returns(T.nilable(ReloadGiftCard)) }
+        def reload_gift_card; end
         # Represents a reader action to set the reader display
         sig { returns(T.nilable(SetReaderDisplay)) }
         def set_reader_display; end
@@ -625,14 +714,19 @@ module Stripe
         def type; end
         def self.inner_class_types
           @inner_class_types = {
+            activate_gift_card: ActivateGiftCard,
             api_error: ApiError,
+            cashout_gift_card: CashoutGiftCard,
+            check_gift_card_balance: CheckGiftCardBalance,
             collect_inputs: CollectInputs,
             collect_payment_method: CollectPaymentMethod,
             confirm_payment_intent: ConfirmPaymentIntent,
+            deactivate_gift_card: DeactivateGiftCard,
             print_content: PrintContent,
             process_payment_intent: ProcessPaymentIntent,
             process_setup_intent: ProcessSetupIntent,
             refund_payment: RefundPayment,
+            reload_gift_card: ReloadGiftCard,
             set_reader_display: SetReaderDisplay,
           }
         end
@@ -682,6 +776,18 @@ module Stripe
       # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
       sig { returns(T.nilable(String)) }
       def status; end
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      sig {
+        params(params: T.any(::Stripe::Terminal::ReaderActivateGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def activate_gift_card(params = {}, opts = {}); end
+
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderActivateGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def self.activate_gift_card(reader, params = {}, opts = {}); end
+
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       sig {
         params(params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
@@ -693,6 +799,30 @@ module Stripe
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.cancel_action(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      sig {
+        params(params: T.any(::Stripe::Terminal::ReaderCashoutGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def cashout_gift_card(params = {}, opts = {}); end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderCashoutGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def self.cashout_gift_card(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card balance check flow on a Reader.
+      sig {
+        params(params: T.any(::Stripe::Terminal::ReaderCheckGiftCardBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def check_gift_card_balance(params = {}, opts = {}); end
+
+      # Initiates a gift card balance check flow on a Reader.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderCheckGiftCardBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def self.check_gift_card_balance(reader, params = {}, opts = {}); end
 
       # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       sig {
@@ -789,6 +919,18 @@ module Stripe
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderRefundPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def self.refund_payment(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      sig {
+        params(params: T.any(::Stripe::Terminal::ReaderReloadGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def reload_gift_card(params = {}, opts = {}); end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderReloadGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def self.reload_gift_card(reader, params = {}, opts = {}); end
 
       # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
       sig {

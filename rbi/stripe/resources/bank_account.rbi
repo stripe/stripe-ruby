@@ -32,7 +32,7 @@ module Stripe
       # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
@@ -69,7 +69,7 @@ module Stripe
       # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.

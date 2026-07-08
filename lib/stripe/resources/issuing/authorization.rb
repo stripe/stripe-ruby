@@ -551,8 +551,12 @@ module Stripe
       end
 
       class NetworkData < ::Stripe::StripeObject
+        # Country code of the acquirer assigned by the card network.
+        attr_reader :acquiring_institution_country
         # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
         attr_reader :acquiring_institution_id
+        # Identifier assigned by the acquirer to track all messages related to this transaction.
+        attr_reader :retrieval_reference_number
         # The System Trace Audit Number (STAN) is a 6-digit identifier assigned by the acquirer. Prefer `network_data.transaction_id` if present, unless you have special requirements.
         attr_reader :system_trace_audit_number
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
@@ -661,6 +665,19 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { amount_details: AmountDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TerminalData < ::Stripe::StripeObject
+        # The method used to confirm the cardholder's identity.
+        attr_reader :cardholder_verification_result
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -922,6 +939,8 @@ module Stripe
       attr_reader :request_history
       # The current status of the authorization in its lifecycle.
       attr_reader :status
+      # Details about the cardholder verification outcome at the terminal.
+      attr_reader :terminal_data
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       attr_reader :token
       # Attribute for field token_details
@@ -1168,6 +1187,7 @@ module Stripe
           pending_request: PendingRequest,
           redaction: Redaction,
           request_history: RequestHistory,
+          terminal_data: TerminalData,
           token_details: TokenDetails,
           treasury: Treasury,
           verification_data: VerificationData,

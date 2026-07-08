@@ -524,6 +524,23 @@ module Stripe
         end
       end
 
+      class SettlementDetails < ::Stripe::StripeObject
+        # `merchant_amount` in the settlement currency.
+        attr_reader :amount
+        # Settlement currency.
+        attr_reader :currency
+        # Exchange rate used by the network to convert the `merchant_amount` to `settlement_details.amount`. The `merchant_amount` multiplied with this rate will equal to the `settlement_details.amount`.
+        attr_reader :exchange_rate
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Treasury < ::Stripe::StripeObject
         # The Treasury [ReceivedCredit](https://docs.stripe.com/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         attr_reader :received_credit
@@ -582,6 +599,8 @@ module Stripe
       attr_reader :redaction
       # The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
       attr_reader :settlement
+      # Details about the transaction for settlement reconciliation.
+      attr_reader :settlement_details
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
       attr_reader :token
       # [Treasury](https://docs.stripe.com/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
@@ -670,6 +689,7 @@ module Stripe
           network_data: NetworkData,
           purchase_details: PurchaseDetails,
           redaction: Redaction,
+          settlement_details: SettlementDetails,
           treasury: Treasury,
         }
       end

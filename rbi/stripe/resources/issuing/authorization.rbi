@@ -575,9 +575,15 @@ module Stripe
         end
       end
       class NetworkData < ::Stripe::StripeObject
+        # Country code of the acquirer assigned by the card network.
+        sig { returns(T.nilable(String)) }
+        def acquiring_institution_country; end
         # Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
         sig { returns(T.nilable(String)) }
         def acquiring_institution_id; end
+        # Identifier assigned by the acquirer to track all messages related to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
         # The System Trace Audit Number (STAN) is a 6-digit identifier assigned by the acquirer. Prefer `network_data.transaction_id` if present, unless you have special requirements.
         sig { returns(T.nilable(String)) }
         def system_trace_audit_number; end
@@ -698,6 +704,17 @@ module Stripe
         def requested_at; end
         def self.inner_class_types
           @inner_class_types = {amount_details: AmountDetails}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class TerminalData < ::Stripe::StripeObject
+        # The method used to confirm the cardholder's identity.
+        sig { returns(T.nilable(String)) }
+        def cardholder_verification_result; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1001,6 +1018,9 @@ module Stripe
       # The current status of the authorization in its lifecycle.
       sig { returns(String) }
       def status; end
+      # Details about the cardholder verification outcome at the terminal.
+      sig { returns(T.nilable(TerminalData)) }
+      def terminal_data; end
       # [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::Token))) }
       def token; end

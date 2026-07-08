@@ -4254,7 +4254,7 @@ module Stripe
         def application_fee_percent; end
         sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
         def application_fee_percent=(_application_fee_percent); end
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         sig { returns(T.nilable(Integer)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }

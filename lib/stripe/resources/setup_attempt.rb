@@ -371,6 +371,16 @@ module Stripe
         end
       end
 
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payto < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -528,6 +538,8 @@ module Stripe
       attr_reader :nz_bank_account
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -571,6 +583,7 @@ module Stripe
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           revolut_pay: RevolutPay,
@@ -600,6 +613,9 @@ module Stripe
       attr_reader :decline_code
       # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
+      # A GiftCardOperation represents an operation performed on a third-party gift card,
+      # such as activation, reload, cashout, balance check, or void.
+      attr_reader :gift_card_operation
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.

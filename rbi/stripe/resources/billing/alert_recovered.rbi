@@ -5,6 +5,23 @@
 module Stripe
   module Billing
     class AlertRecovered < APIResource
+      class AggregationPeriod < ::Stripe::StripeObject
+        # End time of the aggregation period
+        sig { returns(Integer) }
+        def ends_at; end
+        # Start time of the aggregation period
+        sig { returns(Integer) }
+        def starts_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The aggregation period for which this alert recovered
+      sig { returns(T.nilable(AggregationPeriod)) }
+      def aggregation_period; end
       # A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
       sig { returns(::Stripe::Billing::Alert) }
       def alert; end

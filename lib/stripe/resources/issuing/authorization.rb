@@ -638,6 +638,35 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class NetworkData < ::Stripe::StripeObject
+          class TraceId < ::Stripe::StripeObject
+            # The unique reference number within the specified financial network on the specified network date.
+            attr_reader :banknet_reference_number
+            # The identifier of the program or service.
+            attr_reader :financial_network_code
+            # The card network's record date for this authorization.
+            attr_reader :network_date
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Mastercard identifier for each authorization request.
+          attr_reader :trace_id
+
+          def self.inner_class_types
+            @inner_class_types = { trace_id: TraceId }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         attr_reader :amount
         # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -654,6 +683,8 @@ module Stripe
         attr_reader :merchant_amount
         # The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_reader :merchant_currency
+        # Details about the authorization request, such as identifiers, set by the card network.
+        attr_reader :network_data
         # The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         attr_reader :network_risk_score
         # When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
@@ -664,7 +695,7 @@ module Stripe
         attr_reader :requested_at
 
         def self.inner_class_types
-          @inner_class_types = { amount_details: AmountDetails }
+          @inner_class_types = { amount_details: AmountDetails, network_data: NetworkData }
         end
 
         def self.field_remappings

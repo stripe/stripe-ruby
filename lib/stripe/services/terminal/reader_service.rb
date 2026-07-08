@@ -4,11 +4,44 @@
 module Stripe
   module Terminal
     class ReaderService < StripeService
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      def activate_gift_card(reader, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/activate_gift_card", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       def cancel_action(reader, params = {}, opts = {})
         request(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      def cashout_gift_card(reader, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/cashout_gift_card", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
+      # Initiates a gift card balance check flow on a Reader.
+      def check_gift_card_balance(reader, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/check_gift_card_balance", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -108,6 +141,17 @@ module Stripe
         request(
           method: :post,
           path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      def reload_gift_card(reader, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/terminal/readers/%<reader>s/reload_gift_card", { reader: CGI.escape(reader) }),
           params: params,
           opts: opts,
           base_address: :api

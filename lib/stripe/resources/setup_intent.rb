@@ -61,6 +61,9 @@ module Stripe
       attr_reader :decline_code
       # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
+      # A GiftCardOperation represents an operation performed on a third-party gift card,
+      # such as activation, reload, cashout, balance check, or void.
+      attr_reader :gift_card_operation
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.

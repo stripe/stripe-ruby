@@ -53,7 +53,7 @@ module Stripe
       attr_reader :currently_due
       # This is typed as an enum for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is null because fields in `future_requirements` will never disable the account.
       attr_reader :disabled_reason
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
       attr_reader :eventually_due
@@ -140,7 +140,7 @@ module Stripe
       attr_reader :currently_due
       # Description of why the capability is disabled. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       attr_reader :disabled_reason
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
       attr_reader :eventually_due

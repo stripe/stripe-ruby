@@ -365,6 +365,9 @@ module Stripe
       attr_reader :decline_code
       # A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
       attr_reader :doc_url
+      # A GiftCardOperation represents an operation performed on a third-party gift card,
+      # such as activation, reload, cashout, balance check, or void.
+      attr_reader :gift_card_operation
       # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
       attr_reader :message
       # For card errors resulting from a card issuer decline, a 2 digit code which indicates the advice given to merchant by the card network on how to proceed with an error.
@@ -4288,6 +4291,14 @@ module Stripe
       class Payco < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -4389,6 +4400,15 @@ module Stripe
       end
 
       class Paypay < ::Stripe::StripeObject
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -4566,6 +4586,14 @@ module Stripe
       class SamsungPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
 
         def self.inner_class_types
           @inner_class_types = {}

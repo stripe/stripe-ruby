@@ -2952,7 +2952,7 @@ module Stripe
         def proration_behavior; end
         sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
         def proration_behavior=(_proration_behavior); end
-        # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+        # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
         sig { returns(T.nilable(T.any(Integer, String))) }
         def start_date; end
         sig {

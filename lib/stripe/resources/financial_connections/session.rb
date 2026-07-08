@@ -38,6 +38,8 @@ module Stripe
         attr_reader :countries
         # Stripe ID of the institution with which the customer should be directed to log in.
         attr_reader :institution
+        # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
+        attr_reader :require_payment_method_support
 
         def self.inner_class_types
           @inner_class_types = {}

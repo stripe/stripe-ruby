@@ -9,6 +9,22 @@ module Stripe
         "billing.alert_recovered"
       end
 
+      class AggregationPeriod < ::Stripe::StripeObject
+        # End time of the aggregation period
+        attr_reader :ends_at
+        # Start time of the aggregation period
+        attr_reader :starts_at
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # The aggregation period for which this alert recovered
+      attr_reader :aggregation_period
       # A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
       attr_reader :alert
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -29,7 +45,7 @@ module Stripe
       attr_reader :value
 
       def self.inner_class_types
-        @inner_class_types = {}
+        @inner_class_types = { aggregation_period: AggregationPeriod }
       end
 
       def self.field_remappings

@@ -345,6 +345,8 @@ module Stripe
         attr_reader :brand
         # The type of dispute opened. Different case types may have varying fees and financial impact.
         attr_reader :case_type
+        # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        attr_reader :network
         # The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
         attr_reader :network_reason_code
 
@@ -463,7 +465,7 @@ module Stripe
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     attr_reader :status
 
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     def close(params = {}, opts = {})
@@ -475,7 +477,7 @@ module Stripe
       )
     end
 
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     def self.close(dispute, params = {}, opts = {})

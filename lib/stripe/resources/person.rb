@@ -193,7 +193,7 @@ module Stripe
       attr_reader :alternatives
       # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
       attr_reader :currently_due
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
       attr_reader :eventually_due
@@ -297,7 +297,7 @@ module Stripe
       attr_reader :alternatives
       # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       attr_reader :currently_due
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
       attr_reader :eventually_due

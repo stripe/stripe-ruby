@@ -131,7 +131,7 @@ module Stripe
       params(_created: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer)))
      }
     def created=(_created); end
-    # Only return subscription schedules for the given customer.
+    # Only return subscription schedules for the given customer. The response will not include subscription schedules for customers with a test clock attached if this parameter is not set.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }

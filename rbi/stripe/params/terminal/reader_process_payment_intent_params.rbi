@@ -27,6 +27,11 @@ module Stripe
           params(_enable_customer_cancellation: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
          }
         def enable_customer_cancellation=(_enable_customer_cancellation); end
+        # The gift card brand to use in the transaction.
+        sig { returns(T.nilable(String)) }
+        def gift_card_brand; end
+        sig { params(_gift_card_brand: T.nilable(String)).returns(T.nilable(String)) }
+        def gift_card_brand=(_gift_card_brand); end
         # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
         sig { returns(T.nilable(String)) }
         def return_url; end
@@ -47,11 +52,12 @@ module Stripe
          }
         def tipping=(_tipping); end
         sig {
-          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).void
+          params(allow_redisplay: T.nilable(String), enable_customer_cancellation: T.nilable(T::Boolean), gift_card_brand: T.nilable(String), return_url: T.nilable(String), skip_tipping: T.nilable(T::Boolean), tipping: T.nilable(::Stripe::Terminal::ReaderProcessPaymentIntentParams::ProcessConfig::Tipping)).void
          }
         def initialize(
           allow_redisplay: nil,
           enable_customer_cancellation: nil,
+          gift_card_brand: nil,
           return_url: nil,
           skip_tipping: nil,
           tipping: nil

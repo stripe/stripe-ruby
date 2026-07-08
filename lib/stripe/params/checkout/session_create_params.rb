@@ -2859,7 +2859,7 @@ module Stripe
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. To use an application fee percent, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         attr_accessor :application_fee_percent
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         attr_accessor :billing_cycle_anchor
         # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
         attr_accessor :billing_cycle_anchor_config

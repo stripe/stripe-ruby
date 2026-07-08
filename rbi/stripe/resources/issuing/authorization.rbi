@@ -666,6 +666,34 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class NetworkData < ::Stripe::StripeObject
+          class TraceId < ::Stripe::StripeObject
+            # The unique reference number within the specified financial network on the specified network date.
+            sig { returns(T.nilable(String)) }
+            def banknet_reference_number; end
+            # The identifier of the program or service.
+            sig { returns(T.nilable(String)) }
+            def financial_network_code; end
+            # The card network's record date for this authorization.
+            sig { returns(T.nilable(String)) }
+            def network_date; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Mastercard identifier for each authorization request.
+          sig { returns(T.nilable(TraceId)) }
+          def trace_id; end
+          def self.inner_class_types
+            @inner_class_types = {trace_id: TraceId}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         sig { returns(Integer) }
         def amount; end
@@ -690,6 +718,9 @@ module Stripe
         # The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def merchant_currency; end
+        # Details about the authorization request, such as identifiers, set by the card network.
+        sig { returns(T.nilable(NetworkData)) }
+        def network_data; end
         # The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         sig { returns(T.nilable(Integer)) }
         def network_risk_score; end
@@ -703,7 +734,7 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         def requested_at; end
         def self.inner_class_types
-          @inner_class_types = {amount_details: AmountDetails}
+          @inner_class_types = {amount_details: AmountDetails, network_data: NetworkData}
         end
         def self.field_remappings
           @field_remappings = {}

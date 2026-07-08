@@ -1863,6 +1863,32 @@ module Stripe
             end
           end
 
+          class MassTransitParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class ResortTax < ::Stripe::StripeObject
             # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types) representing the local jurisdiction.
             attr_reader :jurisdiction
@@ -1933,6 +1959,10 @@ module Stripe
           attr_reader :local_lease_tax
           # Attribute for field luxury_tax
           attr_reader :luxury_tax
+          # Attribute for field mass_transit_parking_tax
+          attr_reader :mass_transit_parking_tax
+          # Attribute for field parking_tax
+          attr_reader :parking_tax
           # Attribute for field resort_tax
           attr_reader :resort_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1955,6 +1985,8 @@ module Stripe
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
               luxury_tax: LuxuryTax,
+              mass_transit_parking_tax: MassTransitParkingTax,
+              parking_tax: ParkingTax,
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,

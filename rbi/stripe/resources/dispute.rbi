@@ -379,6 +379,9 @@ module Stripe
         # The type of dispute opened. Different case types may have varying fees and financial impact.
         sig { returns(String) }
         def case_type; end
+        # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        sig { returns(String) }
+        def network; end
         # The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
         sig { returns(T.nilable(String)) }
         def network_reason_code; end
@@ -516,7 +519,7 @@ module Stripe
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     def status; end
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
@@ -524,7 +527,7 @@ module Stripe
      }
     def close(params = {}, opts = {}); end
 
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {

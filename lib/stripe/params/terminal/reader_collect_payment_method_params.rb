@@ -17,6 +17,8 @@ module Stripe
         attr_accessor :allow_redisplay
         # Enables cancel button on transaction screens.
         attr_accessor :enable_customer_cancellation
+        # The gift card brand to use in the transaction.
+        attr_accessor :gift_card_brand
         # Override showing a tipping selection screen on this transaction.
         attr_accessor :skip_tipping
         # Tipping configuration for this transaction.
@@ -25,11 +27,13 @@ module Stripe
         def initialize(
           allow_redisplay: nil,
           enable_customer_cancellation: nil,
+          gift_card_brand: nil,
           skip_tipping: nil,
           tipping: nil
         )
           @allow_redisplay = allow_redisplay
           @enable_customer_cancellation = enable_customer_cancellation
+          @gift_card_brand = gift_card_brand
           @skip_tipping = skip_tipping
           @tipping = tipping
         end

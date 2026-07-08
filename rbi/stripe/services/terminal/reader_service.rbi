@@ -5,11 +5,29 @@
 module Stripe
   module Terminal
     class ReaderService < StripeService
+      # Initiates a gift card activation flow on a Reader and optionally sets its balance.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderActivateGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def activate_gift_card(reader, params = {}, opts = {}); end
+
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
       sig {
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderCancelActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def cancel_action(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderCashoutGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def cashout_gift_card(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card balance check flow on a Reader.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderCheckGiftCardBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def check_gift_card_balance(reader, params = {}, opts = {}); end
 
       # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
       sig {
@@ -64,6 +82,12 @@ module Stripe
         params(reader: String, params: T.any(::Stripe::Terminal::ReaderRefundPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
        }
       def refund_payment(reader, params = {}, opts = {}); end
+
+      # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+      sig {
+        params(reader: String, params: T.any(::Stripe::Terminal::ReaderReloadGiftCardParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Reader)
+       }
+      def reload_gift_card(reader, params = {}, opts = {}); end
 
       # Retrieves a Reader object.
       sig {

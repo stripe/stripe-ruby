@@ -128,51 +128,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class OneTimeFees < ::Stripe::StripeObject
-          class Data < ::Stripe::StripeObject
-            class BillAt < ::Stripe::StripeObject
-              # The timestamp at which the fee will be billed.
-              sig { returns(String) }
-              def timestamp; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # The amount billed for this fee.
-            sig { returns(::Stripe::V2::Amount) }
-            def amount; end
-            # When this fee will be billed. Always contains a concrete timestamp.
-            sig { returns(BillAt) }
-            def bill_at; end
-            # The id of the one-time fee.
-            sig { returns(String) }
-            def id; end
-            # The user-provided lookup key.
-            sig { returns(T.nilable(String)) }
-            def lookup_key; end
-            # The id of the product for this fee.
-            sig { returns(String) }
-            def product; end
-            def self.inner_class_types
-              @inner_class_types = {bill_at: BillAt}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # The one-time fees for this page.
-          sig { returns(T::Array[Data]) }
-          def data; end
-          def self.inner_class_types
-            @inner_class_types = {data: Data}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class PricingLines < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class EndsAt < ::Stripe::StripeObject
@@ -202,51 +157,14 @@ module Stripe
                       end
                     end
                     class OverwritePrice < ::Stripe::StripeObject
-                      class Tier < ::Stripe::StripeObject
-                        # Price for the entire tier, represented as a decimal string in minor currency units.
-                        sig { returns(T.nilable(String)) }
-                        def flat_amount; end
-                        # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                        sig { returns(T.nilable(String)) }
-                        def unit_amount; end
-                        # Up to and including this quantity will be contained in the tier.
-                        sig { returns(T.nilable(BigDecimal)) }
-                        def up_to_decimal; end
-                        # No upper bound to this tier.
-                        sig { returns(T.nilable(String)) }
-                        def up_to_inf; end
-                        def self.inner_class_types
-                          @inner_class_types = {}
-                        end
-                        def self.field_remappings
-                          @field_remappings = {}
-                        end
-                        def self.field_encodings
-                          @field_encodings = {up_to_decimal: :decimal_string}
-                        end
-                      end
-                      # Defines whether the tiered price should be graduated or volume-based.
-                      sig { returns(T.nilable(String)) }
-                      def tiering_mode; end
-                      # Each element represents a pricing tier.
-                      sig { returns(T::Array[Tier]) }
-                      def tiers; end
                       # The per-unit amount to be charged, represented as a decimal string in minor currency units.
                       sig { returns(T.nilable(String)) }
                       def unit_amount; end
                       def self.inner_class_types
-                        @inner_class_types = {tiers: Tier}
+                        @inner_class_types = {}
                       end
                       def self.field_remappings
                         @field_remappings = {}
-                      end
-                      def self.field_encodings
-                        @field_encodings = {
-                          tiers: {
-                            kind: :array,
-                            element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
-                          },
-                        }
                       end
                     end
                     class StartsAt < ::Stripe::StripeObject
@@ -291,19 +209,6 @@ module Stripe
                     def self.field_remappings
                       @field_remappings = {}
                     end
-                    def self.field_encodings
-                      @field_encodings = {
-                        overwrite_price: {
-                          kind: :object,
-                          fields: {
-                            tiers: {
-                              kind: :array,
-                              element: {kind: :object, fields: {up_to_decimal: :decimal_string}},
-                            },
-                          },
-                        },
-                      }
-                    end
                   end
                   # The pricing line overrides.
                   sig { returns(T::Array[Data]) }
@@ -313,30 +218,6 @@ module Stripe
                   end
                   def self.field_remappings
                     @field_remappings = {}
-                  end
-                  def self.field_encodings
-                    @field_encodings = {
-                      data: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: {
-                                tiers: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: {up_to_decimal: :decimal_string},
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    }
                   end
                 end
                 # The current quantity on this pricing line.
@@ -355,34 +236,7 @@ module Stripe
                   @field_remappings = {}
                 end
                 def self.field_encodings
-                  @field_encodings = {
-                    current_quantity: :decimal_string,
-                    pricing_overrides: {
-                      kind: :object,
-                      fields: {
-                        data: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: {
-                                  tiers: {
-                                    kind: :array,
-                                    element: {
-                                      kind: :object,
-                                      fields: {up_to_decimal: :decimal_string},
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  }
+                  @field_encodings = {current_quantity: :decimal_string}
                 end
               end
               # V1 price details. Present when `type` is `price`.
@@ -399,37 +253,7 @@ module Stripe
               end
               def self.field_encodings
                 @field_encodings = {
-                  price_details: {
-                    kind: :object,
-                    fields: {
-                      current_quantity: :decimal_string,
-                      pricing_overrides: {
-                        kind: :object,
-                        fields: {
-                          data: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {
-                                    tiers: {
-                                      kind: :array,
-                                      element: {
-                                        kind: :object,
-                                        fields: {up_to_decimal: :decimal_string},
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
-                  },
+                  price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                 }
               end
             end
@@ -473,37 +297,7 @@ module Stripe
                 pricing: {
                   kind: :object,
                   fields: {
-                    price_details: {
-                      kind: :object,
-                      fields: {
-                        current_quantity: :decimal_string,
-                        pricing_overrides: {
-                          kind: :object,
-                          fields: {
-                            data: {
-                              kind: :array,
-                              element: {
-                                kind: :object,
-                                fields: {
-                                  overwrite_price: {
-                                    kind: :object,
-                                    fields: {
-                                      tiers: {
-                                        kind: :array,
-                                        element: {
-                                          kind: :object,
-                                          fields: {up_to_decimal: :decimal_string},
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
+                    price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                   },
                 },
               }
@@ -528,37 +322,7 @@ module Stripe
                     pricing: {
                       kind: :object,
                       fields: {
-                        price_details: {
-                          kind: :object,
-                          fields: {
-                            current_quantity: :decimal_string,
-                            pricing_overrides: {
-                              kind: :object,
-                              fields: {
-                                data: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: {
-                                      overwrite_price: {
-                                        kind: :object,
-                                        fields: {
-                                          tiers: {
-                                            kind: :array,
-                                            element: {
-                                              kind: :object,
-                                              fields: {up_to_decimal: :decimal_string},
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
+                        price_details: {kind: :object, fields: {current_quantity: :decimal_string}},
                       },
                     },
                   },
@@ -711,9 +475,6 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
-        sig { returns(T.nilable(OneTimeFees)) }
-        def one_time_fees; end
         # The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
         sig { returns(T.nilable(PricingLines)) }
         def pricing_lines; end

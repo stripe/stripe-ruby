@@ -11,11 +11,19 @@ module Stripe
         attr_accessor :closed
         # The upper limit on the number of accounts returned by the List Account request.
         attr_accessor :limit
+        # Filter by the network object related to the account. If omitted, returns all Accounts regardless of the network object they have.
+        attr_accessor :related_network_object
 
-        def initialize(applied_configurations: nil, closed: nil, limit: nil)
+        def initialize(
+          applied_configurations: nil,
+          closed: nil,
+          limit: nil,
+          related_network_object: nil
+        )
           @applied_configurations = applied_configurations
           @closed = closed
           @limit = limit
+          @related_network_object = related_network_object
         end
       end
     end

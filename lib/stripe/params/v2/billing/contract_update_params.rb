@@ -35,52 +35,11 @@ module Stripe
                   end
 
                   class OverwritePrice < ::Stripe::RequestParams
-                    class Tier < ::Stripe::RequestParams
-                      # Price for the entire tier, represented as a decimal string in minor currency units.
-                      attr_accessor :flat_amount
-                      # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                      attr_accessor :unit_amount
-                      # Up to and including this quantity will be contained in the tier.
-                      attr_accessor :up_to_decimal
-                      # No upper bound to this tier.
-                      attr_accessor :up_to_inf
-
-                      def initialize(
-                        flat_amount: nil,
-                        unit_amount: nil,
-                        up_to_decimal: nil,
-                        up_to_inf: nil
-                      )
-                        @flat_amount = flat_amount
-                        @unit_amount = unit_amount
-                        @up_to_decimal = up_to_decimal
-                        @up_to_inf = up_to_inf
-                      end
-
-                      def self.field_encodings
-                        @field_encodings = { up_to_decimal: :decimal_string }
-                      end
-                    end
-                    # Defines whether the tiered price should be graduated or volume-based.
-                    attr_accessor :tiering_mode
-                    # Each element represents a pricing tier.
-                    attr_accessor :tiers
                     # The per-unit amount to be charged, represented as a decimal string in minor currency units.
                     attr_accessor :unit_amount
 
-                    def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
-                      @tiering_mode = tiering_mode
-                      @tiers = tiers
+                    def initialize(unit_amount: nil)
                       @unit_amount = unit_amount
-                    end
-
-                    def self.field_encodings
-                      @field_encodings = {
-                        tiers: {
-                          kind: :array,
-                          element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                        },
-                      }
                     end
                   end
 
@@ -127,20 +86,6 @@ module Stripe
                     @starts_at = starts_at
                     @type = type
                   end
-
-                  def self.field_encodings
-                    @field_encodings = {
-                      overwrite_price: {
-                        kind: :object,
-                        fields: {
-                          tiers: {
-                            kind: :array,
-                            element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                          },
-                        },
-                      },
-                    }
-                  end
                 end
 
                 class QuantityChange < ::Stripe::RequestParams
@@ -185,23 +130,6 @@ module Stripe
 
                 def self.field_encodings
                   @field_encodings = {
-                    pricing_overrides: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: {
-                            kind: :object,
-                            fields: {
-                              tiers: {
-                                kind: :array,
-                                element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -224,26 +152,6 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
-                      pricing_overrides: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            overwrite_price: {
-                              kind: :object,
-                              fields: {
-                                tiers: {
-                                  kind: :array,
-                                  element: {
-                                    kind: :object,
-                                    fields: { up_to_decimal: :decimal_string },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -298,26 +206,6 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
-                        pricing_overrides: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: {
-                                  tiers: {
-                                    kind: :array,
-                                    element: {
-                                      kind: :object,
-                                      fields: { up_to_decimal: :decimal_string },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
                         quantity_changes: {
                           kind: :array,
                           element: { kind: :object, fields: { set: :decimal_string } },
@@ -369,52 +257,11 @@ module Stripe
                     end
 
                     class OverwritePrice < ::Stripe::RequestParams
-                      class Tier < ::Stripe::RequestParams
-                        # Price for the entire tier, represented as a decimal string in minor currency units.
-                        attr_accessor :flat_amount
-                        # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                        attr_accessor :unit_amount
-                        # Up to and including this quantity will be contained in the tier.
-                        attr_accessor :up_to_decimal
-                        # No upper bound to this tier.
-                        attr_accessor :up_to_inf
-
-                        def initialize(
-                          flat_amount: nil,
-                          unit_amount: nil,
-                          up_to_decimal: nil,
-                          up_to_inf: nil
-                        )
-                          @flat_amount = flat_amount
-                          @unit_amount = unit_amount
-                          @up_to_decimal = up_to_decimal
-                          @up_to_inf = up_to_inf
-                        end
-
-                        def self.field_encodings
-                          @field_encodings = { up_to_decimal: :decimal_string }
-                        end
-                      end
-                      # Defines whether the tiered price should be graduated or volume-based.
-                      attr_accessor :tiering_mode
-                      # Each element represents a pricing tier.
-                      attr_accessor :tiers
                       # The per-unit amount to be charged, represented as a decimal string in minor currency units.
                       attr_accessor :unit_amount
 
-                      def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
-                        @tiering_mode = tiering_mode
-                        @tiers = tiers
+                      def initialize(unit_amount: nil)
                         @unit_amount = unit_amount
-                      end
-
-                      def self.field_encodings
-                        @field_encodings = {
-                          tiers: {
-                            kind: :array,
-                            element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                          },
-                        }
                       end
                     end
 
@@ -460,20 +307,6 @@ module Stripe
                       @priority = priority
                       @starts_at = starts_at
                       @type = type
-                    end
-
-                    def self.field_encodings
-                      @field_encodings = {
-                        overwrite_price: {
-                          kind: :object,
-                          fields: {
-                            tiers: {
-                              kind: :array,
-                              element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                            },
-                          },
-                        },
-                      }
                     end
                   end
 
@@ -553,25 +386,6 @@ module Stripe
                     @type = type
                     @update = update
                   end
-
-                  def self.field_encodings
-                    @field_encodings = {
-                      add: {
-                        kind: :object,
-                        fields: {
-                          overwrite_price: {
-                            kind: :object,
-                            fields: {
-                              tiers: {
-                                kind: :array,
-                                element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    }
-                  end
                 end
 
                 class QuantityChange < ::Stripe::RequestParams
@@ -612,31 +426,6 @@ module Stripe
 
                 def self.field_encodings
                   @field_encodings = {
-                    pricing_override_actions: {
-                      kind: :array,
-                      element: {
-                        kind: :object,
-                        fields: {
-                          add: {
-                            kind: :object,
-                            fields: {
-                              overwrite_price: {
-                                kind: :object,
-                                fields: {
-                                  tiers: {
-                                    kind: :array,
-                                    element: {
-                                      kind: :object,
-                                      fields: { up_to_decimal: :decimal_string },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
-                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -656,31 +445,6 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
-                      pricing_override_actions: {
-                        kind: :array,
-                        element: {
-                          kind: :object,
-                          fields: {
-                            add: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {
-                                    tiers: {
-                                      kind: :array,
-                                      element: {
-                                        kind: :object,
-                                        fields: { up_to_decimal: :decimal_string },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
-                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -726,31 +490,6 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
-                        pricing_override_actions: {
-                          kind: :array,
-                          element: {
-                            kind: :object,
-                            fields: {
-                              add: {
-                                kind: :object,
-                                fields: {
-                                  overwrite_price: {
-                                    kind: :object,
-                                    fields: {
-                                      tiers: {
-                                        kind: :array,
-                                        element: {
-                                          kind: :object,
-                                          fields: { up_to_decimal: :decimal_string },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
-                        },
                         quantity_changes: {
                           kind: :array,
                           element: { kind: :object, fields: { set: :decimal_string } },
@@ -789,26 +528,6 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
-                          pricing_overrides: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                overwrite_price: {
-                                  kind: :object,
-                                  fields: {
-                                    tiers: {
-                                      kind: :array,
-                                      element: {
-                                        kind: :object,
-                                        fields: { up_to_decimal: :decimal_string },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },
@@ -828,31 +547,6 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
-                          pricing_override_actions: {
-                            kind: :array,
-                            element: {
-                              kind: :object,
-                              fields: {
-                                add: {
-                                  kind: :object,
-                                  fields: {
-                                    overwrite_price: {
-                                      kind: :object,
-                                      fields: {
-                                        tiers: {
-                                          kind: :array,
-                                          element: {
-                                            kind: :object,
-                                            fields: { up_to_decimal: :decimal_string },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
-                            },
-                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },
@@ -908,52 +602,11 @@ module Stripe
             end
 
             class OverwritePrice < ::Stripe::RequestParams
-              class Tier < ::Stripe::RequestParams
-                # Price for the entire tier, represented as a decimal string in minor currency units.
-                attr_accessor :flat_amount
-                # Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                attr_accessor :unit_amount
-                # Up to and including this quantity will be contained in the tier.
-                attr_accessor :up_to_decimal
-                # No upper bound to this tier.
-                attr_accessor :up_to_inf
-
-                def initialize(
-                  flat_amount: nil,
-                  unit_amount: nil,
-                  up_to_decimal: nil,
-                  up_to_inf: nil
-                )
-                  @flat_amount = flat_amount
-                  @unit_amount = unit_amount
-                  @up_to_decimal = up_to_decimal
-                  @up_to_inf = up_to_inf
-                end
-
-                def self.field_encodings
-                  @field_encodings = { up_to_decimal: :decimal_string }
-                end
-              end
-              # Defines whether the tiered price should be graduated or volume-based.
-              attr_accessor :tiering_mode
-              # Each element represents a pricing tier.
-              attr_accessor :tiers
               # The per-unit amount to be charged, represented as a decimal string in minor currency units.
               attr_accessor :unit_amount
 
-              def initialize(tiering_mode: nil, tiers: nil, unit_amount: nil)
-                @tiering_mode = tiering_mode
-                @tiers = tiers
+              def initialize(unit_amount: nil)
                 @unit_amount = unit_amount
-              end
-
-              def self.field_encodings
-                @field_encodings = {
-                  tiers: {
-                    kind: :array,
-                    element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                  },
-                }
               end
             end
 
@@ -999,20 +652,6 @@ module Stripe
               @priority = priority
               @starts_at = starts_at
               @type = type
-            end
-
-            def self.field_encodings
-              @field_encodings = {
-                overwrite_price: {
-                  kind: :object,
-                  fields: {
-                    tiers: {
-                      kind: :array,
-                      element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                    },
-                  },
-                },
-              }
             end
           end
 
@@ -1077,25 +716,6 @@ module Stripe
             @type = type
             @update = update
           end
-
-          def self.field_encodings
-            @field_encodings = {
-              add: {
-                kind: :object,
-                fields: {
-                  overwrite_price: {
-                    kind: :object,
-                    fields: {
-                      tiers: {
-                        kind: :array,
-                        element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
-                      },
-                    },
-                  },
-                },
-              },
-            }
-          end
         end
         # Additional fields to include in the response.
         attr_accessor :include
@@ -1126,26 +746,6 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
-                              pricing_overrides: {
-                                kind: :array,
-                                element: {
-                                  kind: :object,
-                                  fields: {
-                                    overwrite_price: {
-                                      kind: :object,
-                                      fields: {
-                                        tiers: {
-                                          kind: :array,
-                                          element: {
-                                            kind: :object,
-                                            fields: { up_to_decimal: :decimal_string },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: { kind: :object, fields: { set: :decimal_string } },
@@ -1165,58 +765,11 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
-                              pricing_override_actions: {
-                                kind: :array,
-                                element: {
-                                  kind: :object,
-                                  fields: {
-                                    add: {
-                                      kind: :object,
-                                      fields: {
-                                        overwrite_price: {
-                                          kind: :object,
-                                          fields: {
-                                            tiers: {
-                                              kind: :array,
-                                              element: {
-                                                kind: :object,
-                                                fields: { up_to_decimal: :decimal_string },
-                                              },
-                                            },
-                                          },
-                                        },
-                                      },
-                                    },
-                                  },
-                                },
-                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: { kind: :object, fields: { set: :decimal_string } },
                               },
                             },
-                          },
-                        },
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            pricing_override_actions: {
-              kind: :array,
-              element: {
-                kind: :object,
-                fields: {
-                  add: {
-                    kind: :object,
-                    fields: {
-                      overwrite_price: {
-                        kind: :object,
-                        fields: {
-                          tiers: {
-                            kind: :array,
-                            element: { kind: :object, fields: { up_to_decimal: :decimal_string } },
                           },
                         },
                       },

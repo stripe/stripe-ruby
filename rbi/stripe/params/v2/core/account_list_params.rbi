@@ -23,10 +23,20 @@ module Stripe
         def limit; end
         sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def limit=(_limit); end
+        # Filter by the network object related to the account. If omitted, returns all Accounts regardless of the network object they have.
+        sig { returns(T.nilable(String)) }
+        def related_network_object; end
+        sig { params(_related_network_object: T.nilable(String)).returns(T.nilable(String)) }
+        def related_network_object=(_related_network_object); end
         sig {
-          params(applied_configurations: T.nilable(T::Array[String]), closed: T.nilable(T::Boolean), limit: T.nilable(Integer)).void
+          params(applied_configurations: T.nilable(T::Array[String]), closed: T.nilable(T::Boolean), limit: T.nilable(Integer), related_network_object: T.nilable(String)).void
          }
-        def initialize(applied_configurations: nil, closed: nil, limit: nil); end
+        def initialize(
+          applied_configurations: nil,
+          closed: nil,
+          limit: nil,
+          related_network_object: nil
+        ); end
       end
     end
   end

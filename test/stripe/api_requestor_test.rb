@@ -1800,29 +1800,29 @@ module Stripe
         Stripe.enable_telemetry = false
       end
 
-      should "omit source when UNAME_HASH is empty" do
-        original = APIRequestor::SystemProfiler::UNAME_HASH
-        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
-        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "")
+      should "include telemetry_id when telemetry is enabled" do
         Stripe.enable_telemetry = true
+        TelemetryId.stubs(:get).returns("abc123def456")
         ua = APIRequestor::SystemProfiler.user_agent
-        refute ua.key?(:source)
+        assert_equal "abc123def456", ua[:telemetry_id]
       ensure
-        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
-        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
         Stripe.enable_telemetry = false
       end
 
-      should "include source when UNAME_HASH is non-empty" do
-        original = APIRequestor::SystemProfiler::UNAME_HASH
-        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
-        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, "abc123")
-        Stripe.enable_telemetry = true
+      should "omit telemetry_id when telemetry is disabled" do
+        Stripe.enable_telemetry = false
         ua = APIRequestor::SystemProfiler.user_agent
-        assert_equal "abc123", ua[:source]
+        refute ua.key?(:telemetry_id)
       ensure
-        APIRequestor::SystemProfiler.send(:remove_const, :UNAME_HASH)
-        APIRequestor::SystemProfiler.const_set(:UNAME_HASH, original)
+        Stripe.enable_telemetry = false
+      end
+
+      should "omit telemetry_id when TelemetryId.get returns nil" do
+        Stripe.enable_telemetry = true
+        TelemetryId.stubs(:get).returns(nil)
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:telemetry_id)
+      ensure
         Stripe.enable_telemetry = false
       end
     end

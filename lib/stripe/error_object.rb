@@ -37,6 +37,11 @@ module Stripe
       @values[:doc_url]
     end
 
+    # The GiftCardOperation object for errors returned on a request involving a GiftCardOperation.
+    def gift_card_operation
+      @values[:gift_card_operation]
+    end
+
     # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
     def message
       @values[:message]

@@ -26,8 +26,6 @@ module Stripe
     def self.get
       return @cached_id if @loaded
 
-      @loaded = true
-
       dir = config_dir
       return nil unless dir
 
@@ -43,19 +41,22 @@ module Stripe
         # File doesn't exist or can't be read
       end
 
-      @cached_id = SecureRandom.hex(16)
+      new_id = SecureRandom.hex(16)
 
       begin
         ::FileUtils.mkdir_p(dir)
-        ::File.write(file_path, @cached_id)
+        ::File.write(file_path, new_id)
       rescue SystemCallError
-        @cached_id = nil
         return nil
       end
 
+      @cached_id = new_id
       @cached_id
+    ensure
+      @loaded = true
     end
 
+    # For testing only
     def self.reset!
       @cached_id = nil
       @loaded = false

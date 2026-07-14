@@ -19,6 +19,7 @@ Layout/LineLength:
     - "lib/stripe/object_types.rb"
     - "lib/stripe/stripe_client.rb"
     - "lib/stripe/stripe_event_notification_handler.rb"
+    - "lib/stripe/error_object.rb"
     - "lib/stripe/resources/**/*.rb"
     - "lib/stripe/services/**/*.rb"
     - "lib/stripe/events/**/*.rb"

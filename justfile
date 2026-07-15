@@ -13,7 +13,7 @@ install *args:
 
 # ⭐ run all unit tests
 test: install
-    bundle exec rake test TESTOPTS="-v"
+    bundle exec rake test
 
 # check linting / formatting status of files
 format-check *args: install

@@ -20,7 +20,7 @@ MOCK_HOST_URI = MOCK_HOST.include?(":") ? "[#{MOCK_HOST}]" : MOCK_HOST
 
 # Disable all real network connections except those that are outgoing to
 # stripe-mock.
-WebMock.disable_net_connect!(allow: "#{MOCK_HOST}:#{MOCK_PORT}")
+WebMock.disable_net_connect!(allow: "#{MOCK_HOST_URI}:#{MOCK_PORT}")
 
 # Try one initial test connection to stripe-mock so that if there's a problem
 # we can print one error and fail fast so that it's more clear to the user how

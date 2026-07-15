@@ -2124,6 +2124,8 @@ module Stripe
        }
       def structure=(_structure); end
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+      #
+      # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def tax_id; end
       sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }

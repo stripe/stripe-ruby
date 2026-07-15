@@ -178,6 +178,138 @@ module Stripe
       end
     end
 
+    class PauseSchedule < ::Stripe::RequestParams
+      class Pause < ::Stripe::RequestParams
+        class PauseAt < ::Stripe::RequestParams
+          # The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+          attr_accessor :timestamp
+          # When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+          attr_accessor :type
+
+          def initialize(timestamp: nil, type: nil)
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class Settings < ::Stripe::RequestParams
+          class BillFor < ::Stripe::RequestParams
+            class OutstandingUsageThrough < ::Stripe::RequestParams
+              # Determines whether to collect metered usage accrued up to the pause date.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+
+            class UnusedTimeFrom < ::Stripe::RequestParams
+              # Determines which point in the billing period unused time is credited from.
+              attr_accessor :type
+
+              def initialize(type: nil)
+                @type = type
+              end
+            end
+            # Controls whether to collect metered usage accrued up to the pause date.
+            attr_accessor :outstanding_usage_through
+            # Controls how unused time on subscription items is credited when pausing.
+            attr_accessor :unused_time_from
+
+            def initialize(outstanding_usage_through: nil, unused_time_from: nil)
+              @outstanding_usage_through = outstanding_usage_through
+              @unused_time_from = unused_time_from
+            end
+          end
+          # Controls what to bill for when pausing the subscription.
+          attr_accessor :bill_for
+          # Determines whether to generate an invoice for outstanding amounts when pausing.
+          attr_accessor :invoicing_behavior
+          # The pause type. Currently only `subscription` is supported.
+          attr_accessor :type
+
+          def initialize(bill_for: nil, invoicing_behavior: nil, type: nil)
+            @bill_for = bill_for
+            @invoicing_behavior = invoicing_behavior
+            @type = type
+          end
+        end
+        # When to pause the subscription.
+        attr_accessor :pause_at
+        # Settings controlling billing behavior during the pause.
+        attr_accessor :settings
+
+        def initialize(pause_at: nil, settings: nil)
+          @pause_at = pause_at
+          @settings = settings
+        end
+      end
+
+      class Resume < ::Stripe::RequestParams
+        class ResumeAt < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+            attr_accessor :interval
+            # The number of intervals after which the subscription resumes.
+            attr_accessor :interval_count
+
+            def initialize(interval: nil, interval_count: nil)
+              @interval = interval
+              @interval_count = interval_count
+            end
+          end
+          # The duration after which to resume the subscription. Required when `type` is `duration`.
+          attr_accessor :duration
+          # The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+          attr_accessor :timestamp
+          # When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+          attr_accessor :type
+
+          def initialize(duration: nil, timestamp: nil, type: nil)
+            @duration = duration
+            @timestamp = timestamp
+            @type = type
+          end
+        end
+
+        class Settings < ::Stripe::RequestParams
+          # Controls the billing cycle anchor when the subscription resumes.
+          attr_accessor :billing_cycle_anchor
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+          attr_accessor :payment_behavior
+          # Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+          attr_accessor :proration_behavior
+
+          def initialize(billing_cycle_anchor: nil, payment_behavior: nil, proration_behavior: nil)
+            @billing_cycle_anchor = billing_cycle_anchor
+            @payment_behavior = payment_behavior
+            @proration_behavior = proration_behavior
+          end
+        end
+        # When to resume the subscription.
+        attr_accessor :resume_at
+        # Settings controlling how the subscription resumes.
+        attr_accessor :settings
+
+        def initialize(resume_at: nil, settings: nil)
+          @resume_at = resume_at
+          @settings = settings
+        end
+      end
+      # A unique identifier for this pause schedule entry.
+      attr_accessor :key
+      # Configuration for when and how the subscription pauses.
+      attr_accessor :pause
+      # Configuration for when and how the subscription resumes.
+      attr_accessor :resume
+
+      def initialize(key: nil, pause: nil, resume: nil)
+        @key = key
+        @pause = pause
+        @resume = resume
+      end
+    end
+
     class Phase < ::Stripe::RequestParams
       class AddInvoiceItem < ::Stripe::RequestParams
         class Discount < ::Stripe::RequestParams
@@ -799,7 +931,7 @@ module Stripe
       attr_accessor :trial
       # Specify trial behavior when crossing phase boundaries
       attr_accessor :trial_continuation
-      # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+      # Sets the phase to trialing from the start date to this date. Must be within the phase. When combined with `trial=true`, it must match the phase end date.
       attr_accessor :trial_end
       # Settings related to subscription trials.
       attr_accessor :trial_settings
@@ -903,6 +1035,8 @@ module Stripe
     attr_accessor :expand
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
+    # Sets the pause schedules for the subscription schedule. Include a `key` to update an existing entry or omit it to add a new one. Pass `""` to clear all entries or `[]` to leave them unchanged.
+    attr_accessor :pause_schedules
     # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
     attr_accessor :phases
     # If specified, the invoicing for the given billing cycle iterations will be processed now.
@@ -917,6 +1051,7 @@ module Stripe
       end_behavior: nil,
       expand: nil,
       metadata: nil,
+      pause_schedules: nil,
       phases: nil,
       prebilling: nil,
       proration_behavior: nil
@@ -927,6 +1062,7 @@ module Stripe
       @end_behavior = end_behavior
       @expand = expand
       @metadata = metadata
+      @pause_schedules = pause_schedules
       @phases = phases
       @prebilling = prebilling
       @proration_behavior = proration_behavior

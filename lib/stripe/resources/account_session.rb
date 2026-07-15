@@ -296,6 +296,8 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_reader :smart_disputes_management
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -685,6 +687,8 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_reader :smart_disputes_management
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -716,6 +720,8 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_reader :smart_disputes_management
 
           def self.inner_class_types
             @inner_class_types = {}
@@ -749,6 +755,8 @@ module Stripe
           attr_reader :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_reader :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_reader :smart_disputes_management
 
           def self.inner_class_types
             @inner_class_types = {}

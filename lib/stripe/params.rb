@@ -126,10 +126,6 @@ module Stripe
   autoload :FileLinkUpdateParams, "stripe/params/file_link_update_params"
   autoload :FileListParams, "stripe/params/file_list_params"
   autoload :FileRetrieveParams, "stripe/params/file_retrieve_params"
-  autoload :FrMealVouchersOnboardingCreateParams, "stripe/params/fr_meal_vouchers_onboarding_create_params"
-  autoload :FrMealVouchersOnboardingListParams, "stripe/params/fr_meal_vouchers_onboarding_list_params"
-  autoload :FrMealVouchersOnboardingRetrieveParams, "stripe/params/fr_meal_vouchers_onboarding_retrieve_params"
-  autoload :FrMealVouchersOnboardingUpdateParams, "stripe/params/fr_meal_vouchers_onboarding_update_params"
   autoload :FxQuoteCreateParams, "stripe/params/fx_quote_create_params"
   autoload :FxQuoteListParams, "stripe/params/fx_quote_list_params"
   autoload :FxQuoteRetrieveParams, "stripe/params/fx_quote_retrieve_params"
@@ -244,6 +240,7 @@ module Stripe
   autoload :PaymentMethodListParams, "stripe/params/payment_method_list_params"
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
+  autoload :PaymentRecordCreateParams, "stripe/params/payment_record_create_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
            "stripe/params/payment_record_report_payment_attempt_canceled_params"
   autoload :PaymentRecordReportPaymentAttemptFailedParams,
@@ -1534,10 +1531,6 @@ module Stripe
     stripe/params/forwarding/request_create_params
     stripe/params/forwarding/request_list_params
     stripe/params/forwarding/request_retrieve_params
-    stripe/params/fr_meal_vouchers_onboarding_create_params
-    stripe/params/fr_meal_vouchers_onboarding_list_params
-    stripe/params/fr_meal_vouchers_onboarding_retrieve_params
-    stripe/params/fr_meal_vouchers_onboarding_update_params
     stripe/params/fx_quote_create_params
     stripe/params/fx_quote_list_params
     stripe/params/fx_quote_retrieve_params
@@ -1728,6 +1721,7 @@ module Stripe
     stripe/params/payment_method_list_params
     stripe/params/payment_method_retrieve_params
     stripe/params/payment_method_update_params
+    stripe/params/payment_record_create_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
     stripe/params/payment_record_report_payment_attempt_failed_params
     stripe/params/payment_record_report_payment_attempt_guaranteed_params

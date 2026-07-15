@@ -7,6 +7,20 @@ module Stripe
     # A SharedPaymentIssuedToken is a limited-use reference to a PaymentMethod that can be created with a secret key. When shared with another Stripe account (Seller), it enables that account to either process a payment on Stripe against a PaymentMethod that your Stripe account owns, or to forward a usable credential created against the originalPaymentMethod to then process the payment off-Stripe.
     class IssuedToken < APIResource
       class NextAction < ::Stripe::StripeObject
+        class RedirectToUrl < ::Stripe::StripeObject
+          # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+          sig { returns(String) }
+          def return_url; end
+          # The URL you must redirect your customer to in order to authenticate the payment.
+          sig { returns(String) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UseStripeSdk < ::Stripe::StripeObject
           # A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
           sig { returns(String) }
@@ -18,6 +32,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Contains details for handling the next action by redirecting the customer. Present when `next_action.type` is `redirect_to_url`.
+        sig { returns(T.nilable(RedirectToUrl)) }
+        def redirect_to_url; end
         # Specifies the type of next action required. Determines which child attribute contains action details.
         sig { returns(String) }
         def type; end
@@ -25,7 +42,7 @@ module Stripe
         sig { returns(T.nilable(UseStripeSdk)) }
         def use_stripe_sdk; end
         def self.inner_class_types
-          @inner_class_types = {use_stripe_sdk: UseStripeSdk}
+          @inner_class_types = {redirect_to_url: RedirectToUrl, use_stripe_sdk: UseStripeSdk}
         end
         def self.field_remappings
           @field_remappings = {}

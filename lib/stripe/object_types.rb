@@ -90,7 +90,6 @@ module Stripe
         FinancialConnections::Session.object_name => FinancialConnections::Session,
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
         Forwarding::Request.object_name => Forwarding::Request,
-        FrMealVouchersOnboarding.object_name => FrMealVouchersOnboarding,
         FundingInstructions.object_name => FundingInstructions,
         FxQuote.object_name => FxQuote,
         GiftCard.object_name => GiftCard,

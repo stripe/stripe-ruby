@@ -11,7 +11,7 @@ module Stripe
 
     class Branding < ::Stripe::StripeObject
       class Icon < ::Stripe::StripeObject
-        # Attribute for field original
+        # The original image.
         attr_reader :original
 
         def self.inner_class_types
@@ -24,7 +24,7 @@ module Stripe
       end
 
       class Logo < ::Stripe::StripeObject
-        # Attribute for field original
+        # The original image.
         attr_reader :original
 
         def self.inner_class_types
@@ -35,13 +35,13 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field icon
+      # Profile icon image.
       attr_reader :icon
-      # Attribute for field logo
+      # Profile logo image.
       attr_reader :logo
-      # Attribute for field primary_color
+      # The primary brand color for the profile.
       attr_reader :primary_color
-      # Attribute for field secondary_color
+      # The secondary brand color for the profile.
       attr_reader :secondary_color
 
       def self.inner_class_types
@@ -52,21 +52,21 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # Attribute for field branding
+    # Branding information for the Stripe profile.
     attr_reader :branding
-    # Attribute for field description
+    # A description of the business or entity represented by the Stripe profile.
     attr_reader :description
-    # Attribute for field display_name
+    # The display name shown for the Stripe profile.
     attr_reader :display_name
-    # Attribute for field id
+    # Unique identifier for the Stripe profile.
     attr_reader :id
-    # Attribute for field livemode
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
-    # Attribute for field object
+    # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # Attribute for field url
+    # The external website URL associated with the Stripe profile.
     attr_reader :url
-    # Attribute for field username
+    # The unique username for the Stripe profile.
     attr_reader :username
 
     def self.inner_class_types

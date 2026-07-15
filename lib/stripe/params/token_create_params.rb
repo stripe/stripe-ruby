@@ -226,6 +226,8 @@ module Stripe
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
         attr_accessor :structure
         # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+        #
+        # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
         attr_accessor :tax_id
         # The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
         attr_accessor :tax_id_registrar
@@ -1197,8 +1199,12 @@ module Stripe
       # The person's gender (International regulations require either "male" or "female").
       attr_accessor :gender
       # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       attr_accessor :id_number
       # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       attr_accessor :id_number_secondary
       # The person's last name.
       attr_accessor :last_name
@@ -1225,6 +1231,8 @@ module Stripe
       # The credit applicant's self-reported monthly housing payment in minor units.
       attr_accessor :self_reported_monthly_housing_payment
       # The last four digits of the person's Social Security number (U.S. only).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       attr_accessor :ssn_last_4
       # Demographic data related to the person.
       attr_accessor :us_cfpb_data

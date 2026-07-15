@@ -23,6 +23,8 @@ module Stripe
     attr_accessor :payment_attempt_record
     # The identifier of the PaymentIntent to refund.
     attr_accessor :payment_intent
+    # The identifier of the PaymentRecord to refund.
+    attr_accessor :payment_record
     # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://docs.stripe.com/radar/lists), and will also help us improve our fraud detection algorithms.
     attr_accessor :reason
     # Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
@@ -41,6 +43,7 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_record: nil,
       reason: nil,
       refund_application_fee: nil,
       reverse_transfer: nil
@@ -55,6 +58,7 @@ module Stripe
       @origin = origin
       @payment_attempt_record = payment_attempt_record
       @payment_intent = payment_intent
+      @payment_record = payment_record
       @reason = reason
       @refund_application_fee = refund_application_fee
       @reverse_transfer = reverse_transfer

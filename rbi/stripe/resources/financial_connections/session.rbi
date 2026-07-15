@@ -72,6 +72,9 @@ module Stripe
         end
       end
       class ManualEntry < ::Stripe::StripeObject
+        # Controls how manual entry of bank account details is presented to the user.
+        sig { returns(T.nilable(String)) }
+        def mode; end
         def self.inner_class_types
           @inner_class_types = {}
         end

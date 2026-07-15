@@ -7,6 +7,7 @@ module Stripe
   # in order to mark an Invoice as paid and a Subscription as active. Payment Records consist of one or
   # more Payment Attempt Records, which represent individual attempts made on a payment network.
   class PaymentRecord < APIResource
+    extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::Search
 
     OBJECT_NAME = "payment_record"
@@ -2358,6 +2359,17 @@ module Stripe
     attr_reader :reported_by
     # Shipping information for this payment.
     attr_reader :shipping_details
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    def self.create(id, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_dispute", { id: CGI.escape(id) }),
+        params: params,
+        opts: opts
+      )
+    end
 
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment

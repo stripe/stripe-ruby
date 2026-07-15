@@ -243,7 +243,7 @@ module Stripe
         # The card network over which Stripe received the transaction. This field may differ from the associated card’s primary network.
         sig { returns(T.nilable(String)) }
         def routed_network; end
-        # Attribute for field trace_id
+        # Mastercard identifier assigned by the card network for the transaction.
         sig { returns(T.nilable(TraceId)) }
         def trace_id; end
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
@@ -283,7 +283,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::StripeObject
             class Fuel < ::Stripe::StripeObject
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               def self.inner_class_types

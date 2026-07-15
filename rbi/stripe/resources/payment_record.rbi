@@ -2529,6 +2529,13 @@ module Stripe
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
     def shipping_details; end
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    sig {
+      params(id: String, params: T.any(::Stripe::PaymentRecordCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentRecord)
+     }
+    def self.create(id, params = {}, opts = {}); end
+
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment
     #  Records in a terminal state directly, through this method.

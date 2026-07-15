@@ -73,6 +73,8 @@ jobs:
       run: just test
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
+        # ruby looks for an ipv6 connection on windows, so we have to set the address accordingly
+        STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '::1' || 'localhost' }}
     - name: typecheck
       # sorbet doesn't support windows
       if: runner.os != 'Windows'

@@ -70,7 +70,13 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: just test typecheck
+      run: just test
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+    - name: typecheck
+      # sorbet doesn't support windows
+      if: runner.os != 'Windows'
+      run: just typecheck
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

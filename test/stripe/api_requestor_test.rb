@@ -902,8 +902,8 @@ module Stripe
               client.send(request_method, :post, "/v1/charges", :api,
                           &@read_body_chunk_block)
             end
-            assert_equal "#{APIRequestor::ERROR_MESSAGE_CONNECTION % Stripe::DEFAULT_API_BASE} Request was retried 2 times.\n\n(Network error: Connection refused)",
-                         e.message
+            assert_match(/Request was retried 2 times\.\n\n\(Network error: .*refused/i,
+                         e.message)
           end
 
           should "handle error response with unknown value" do

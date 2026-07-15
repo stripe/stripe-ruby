@@ -73,6 +73,8 @@ jobs:
       run: just test
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
+        # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+        STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
     - name: typecheck
       # sorbet doesn't support windows
       if: runner.os != 'Windows'

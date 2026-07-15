@@ -14,8 +14,9 @@ require File.expand_path("stripe_mock", __dir__)
 
 MOCK_MINIMUM_VERSION = "0.109.0"
 MOCK_PORT = Stripe::StripeMock.start
-# to handle the override we need for windows
+# stripe-mock binds IPv6 on Windows, so we connect to [::1] there
 MOCK_HOST = ENV.fetch("STRIPE_MOCK_HOST", "localhost")
+MOCK_HOST_URI = MOCK_HOST.include?(":") ? "[#{MOCK_HOST}]" : MOCK_HOST
 
 # Disable all real network connections except those that are outgoing to
 # stripe-mock.
@@ -25,7 +26,7 @@ WebMock.disable_net_connect!(allow: "#{MOCK_HOST}:#{MOCK_PORT}")
 # we can print one error and fail fast so that it's more clear to the user how
 # they should fix the problem.
 begin
-  resp = Net::HTTP.get_response(URI("http://#{MOCK_HOST}:#{MOCK_PORT}/"))
+  resp = Net::HTTP.get_response(URI("http://#{MOCK_HOST_URI}:#{MOCK_PORT}/"))
   version = resp["Stripe-Mock-Version"]
 
   if version.nil?
@@ -58,8 +59,8 @@ module Test
 
       setup do
         Stripe.api_key = "sk_test_123"
-        Stripe.api_base = "http://#{MOCK_HOST}:#{MOCK_PORT}"
-        Stripe.uploads_base = "http://#{MOCK_HOST}:#{MOCK_PORT}"
+        Stripe.api_base = "http://#{MOCK_HOST_URI}:#{MOCK_PORT}"
+        Stripe.uploads_base = "http://#{MOCK_HOST_URI}:#{MOCK_PORT}"
 
         stub_connect
       end

@@ -7,7 +7,7 @@ module Stripe
   class Profile < APIResource
     class Branding < ::Stripe::StripeObject
       class Icon < ::Stripe::StripeObject
-        # Attribute for field original
+        # The original image.
         sig { returns(String) }
         def original; end
         def self.inner_class_types
@@ -18,7 +18,7 @@ module Stripe
         end
       end
       class Logo < ::Stripe::StripeObject
-        # Attribute for field original
+        # The original image.
         sig { returns(String) }
         def original; end
         def self.inner_class_types
@@ -28,16 +28,16 @@ module Stripe
           @field_remappings = {}
         end
       end
-      # Attribute for field icon
+      # Profile icon image.
       sig { returns(T.nilable(Icon)) }
       def icon; end
-      # Attribute for field logo
+      # Profile logo image.
       sig { returns(T.nilable(Logo)) }
       def logo; end
-      # Attribute for field primary_color
+      # The primary brand color for the profile.
       sig { returns(T.nilable(String)) }
       def primary_color; end
-      # Attribute for field secondary_color
+      # The secondary brand color for the profile.
       sig { returns(T.nilable(String)) }
       def secondary_color; end
       def self.inner_class_types
@@ -47,28 +47,28 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # Attribute for field branding
+    # Branding information for the Stripe profile.
     sig { returns(T.nilable(Branding)) }
     def branding; end
-    # Attribute for field description
+    # A description of the business or entity represented by the Stripe profile.
     sig { returns(T.nilable(String)) }
     def description; end
-    # Attribute for field display_name
+    # The display name shown for the Stripe profile.
     sig { returns(String) }
     def display_name; end
-    # Attribute for field id
+    # Unique identifier for the Stripe profile.
     sig { returns(String) }
     def id; end
-    # Attribute for field livemode
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Attribute for field object
+    # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Attribute for field url
+    # The external website URL associated with the Stripe profile.
     sig { returns(T.nilable(String)) }
     def url; end
-    # Attribute for field username
+    # The unique username for the Stripe profile.
     sig { returns(String) }
     def username; end
   end

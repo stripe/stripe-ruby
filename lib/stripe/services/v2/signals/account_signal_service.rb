@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Signals
       class AccountSignalService < StripeService
-        # Lists AccountSignals for a given account or customer, filtered by signal type.
+        # Lists the latest AccountSignals for a given account or customer, filtered by signal type. Note that this endpoint returns only the latest signal for each requested signal type.
         def list(params = {}, opts = {})
           request(
             method: :get,

@@ -56,6 +56,11 @@ module Stripe
     def payment_intent; end
     sig { params(_payment_intent: T.nilable(String)).returns(T.nilable(String)) }
     def payment_intent=(_payment_intent); end
+    # The identifier of the PaymentRecord to refund.
+    sig { returns(T.nilable(String)) }
+    def payment_record; end
+    sig { params(_payment_record: T.nilable(String)).returns(T.nilable(String)) }
+    def payment_record=(_payment_record); end
     # String indicating the reason for the refund. If set, possible values are `duplicate`, `fraudulent`, and `requested_by_customer`. If you believe the charge to be fraudulent, specifying `fraudulent` as the reason will add the associated card and email to your [block lists](https://docs.stripe.com/radar/lists), and will also help us improve our fraud detection algorithms.
     sig { returns(T.nilable(String)) }
     def reason; end
@@ -72,7 +77,7 @@ module Stripe
     sig { params(_reverse_transfer: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def reverse_transfer=(_reverse_transfer); end
     sig {
-      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
+      params(amount: T.nilable(Integer), charge: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), expand: T.nilable(T::Array[String]), instructions_email: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), origin: T.nilable(String), payment_attempt_record: T.nilable(String), payment_intent: T.nilable(String), payment_record: T.nilable(String), reason: T.nilable(String), refund_application_fee: T.nilable(T::Boolean), reverse_transfer: T.nilable(T::Boolean)).void
      }
     def initialize(
       amount: nil,
@@ -85,6 +90,7 @@ module Stripe
       origin: nil,
       payment_attempt_record: nil,
       payment_intent: nil,
+      payment_record: nil,
       reason: nil,
       refund_application_fee: nil,
       reverse_transfer: nil

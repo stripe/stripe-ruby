@@ -1820,7 +1820,7 @@ module Stripe
         attr_accessor :trial
         # Specify trial behavior when crossing phase boundaries
         attr_accessor :trial_continuation
-        # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+        # Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
         attr_accessor :trial_end
         # Settings related to subscription trials.
         attr_accessor :trial_settings

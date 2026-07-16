@@ -52,7 +52,6 @@ module Stripe
   autoload :FileService, "stripe/services/file_service"
   autoload :FinancialConnectionsService, "stripe/services/financial_connections_service"
   autoload :ForwardingService, "stripe/services/forwarding_service"
-  autoload :FrMealVouchersOnboardingService, "stripe/services/fr_meal_vouchers_onboarding_service"
   autoload :FxQuoteService, "stripe/services/fx_quote_service"
   autoload :GiftCardOperationService, "stripe/services/gift_card_operation_service"
   autoload :GiftCardService, "stripe/services/gift_card_service"
@@ -643,7 +642,6 @@ module Stripe
     stripe/services/financial_connections_service
     stripe/services/forwarding/request_service
     stripe/services/forwarding_service
-    stripe/services/fr_meal_vouchers_onboarding_service
     stripe/services/fx_quote_service
     stripe/services/gift_card_operation_service
     stripe/services/gift_card_service

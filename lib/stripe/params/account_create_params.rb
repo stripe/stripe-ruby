@@ -1508,6 +1508,8 @@ module Stripe
       # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
       attr_accessor :structure
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+      #
+      # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       attr_accessor :tax_id
       # The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
       attr_accessor :tax_id_registrar

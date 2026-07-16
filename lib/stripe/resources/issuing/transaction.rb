@@ -215,7 +215,7 @@ module Stripe
         attr_reader :retrieval_reference_number
         # The card network over which Stripe received the transaction. This field may differ from the associated card’s primary network.
         attr_reader :routed_network
-        # Attribute for field trace_id
+        # Mastercard identifier assigned by the card network for the transaction.
         attr_reader :trace_id
         # Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         attr_reader :transaction_id
@@ -254,7 +254,7 @@ module Stripe
 
           class ReportedBreakdown < ::Stripe::StripeObject
             class Fuel < ::Stripe::StripeObject
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               attr_reader :gross_amount_decimal
 
               def self.inner_class_types

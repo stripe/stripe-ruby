@@ -146,6 +146,8 @@ module Stripe
         attr_reader :address
         # Address validation details for the shipment.
         attr_reader :address_validation
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace.
+        attr_reader :business_name
         # The delivery company that shipped a card.
         attr_reader :carrier
         # Additional information that may be required for clearing customs.

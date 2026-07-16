@@ -304,6 +304,126 @@ module Stripe
       end
     end
 
+    class PauseSchedule < ::Stripe::StripeObject
+      class Pause < ::Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          class BillFor < ::Stripe::StripeObject
+            class OutstandingUsageThrough < ::Stripe::StripeObject
+              # The type of outstanding usage billing behavior.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class UnusedTimeFrom < ::Stripe::StripeObject
+              # The type of unused time credit behavior.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field outstanding_usage_through
+            attr_reader :outstanding_usage_through
+            # Attribute for field unused_time_from
+            attr_reader :unused_time_from
+
+            def self.inner_class_types
+              @inner_class_types = {
+                outstanding_usage_through: OutstandingUsageThrough,
+                unused_time_from: UnusedTimeFrom,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field bill_for
+          attr_reader :bill_for
+          # Determines how to handle debits and credits when pausing.
+          attr_reader :invoicing_behavior
+          # The type of pause settings.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { bill_for: BillFor }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Time at which the subscription pauses.
+        attr_reader :pause_at
+        # Settings controlling billing behavior during the pause.
+        attr_reader :settings
+
+        def self.inner_class_types
+          @inner_class_types = { settings: Settings }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Resume < ::Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          # The billing cycle anchor that applies when the subscription is resumed.
+          attr_reader :billing_cycle_anchor
+          # Controls whether Stripe attempts payment on the resumption invoice and how that affects the subscription's status.
+          attr_reader :payment_behavior
+          # Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
+          attr_reader :proration_behavior
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Time at which the subscription resumes.
+        attr_reader :resume_at
+        # Attribute for field settings
+        attr_reader :settings
+
+        def self.inner_class_types
+          @inner_class_types = { settings: Settings }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # A unique identifier for this pause schedule.
+      attr_reader :key
+      # Attribute for field pause
+      attr_reader :pause
+      # Details about when and how the subscription resumes.
+      attr_reader :resume
+
+      def self.inner_class_types
+        @inner_class_types = { pause: Pause, resume: Resume }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Phase < ::Stripe::StripeObject
       class AddInvoiceItem < ::Stripe::StripeObject
         class Discount < ::Stripe::StripeObject
@@ -826,6 +946,8 @@ module Stripe
       attr_reader :start_date
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       attr_reader :transfer_data
+      # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
+      attr_reader :trial
       # Specify behavior of the trial when crossing schedule phase boundaries
       attr_reader :trial_continuation
       # When the trial ends within the phase.
@@ -906,6 +1028,8 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # The pause schedules for this subscription schedule.
+    attr_reader :pause_schedules
     # Configuration for the subscription schedule's phases.
     attr_reader :phases
     # Time period and invoice for a Subscription billed in advance.
@@ -1018,6 +1142,7 @@ module Stripe
         current_phase: CurrentPhase,
         default_settings: DefaultSettings,
         last_price_migration_error: LastPriceMigrationError,
+        pause_schedules: PauseSchedule,
         phases: Phase,
         prebilling: Prebilling,
       }

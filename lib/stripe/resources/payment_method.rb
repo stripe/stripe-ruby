@@ -1908,7 +1908,7 @@ module Stripe
       request_stripe_object(method: :post, path: "/v1/payment_methods", params: params, opts: opts)
     end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     def detach(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -1918,7 +1918,7 @@ module Stripe
       )
     end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     def self.detach(payment_method, params = {}, opts = {})
       request_stripe_object(
         method: :post,

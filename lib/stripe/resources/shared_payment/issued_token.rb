@@ -13,6 +13,21 @@ module Stripe
       end
 
       class NextAction < ::Stripe::StripeObject
+        class RedirectToUrl < ::Stripe::StripeObject
+          # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+          attr_reader :return_url
+          # The URL you must redirect your customer to in order to authenticate the payment.
+          attr_reader :url
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class UseStripeSdk < ::Stripe::StripeObject
           # A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
           attr_reader :value
@@ -25,13 +40,15 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Contains details for handling the next action by redirecting the customer. Present when `next_action.type` is `redirect_to_url`.
+        attr_reader :redirect_to_url
         # Specifies the type of next action required. Determines which child attribute contains action details.
         attr_reader :type
         # Contains details for handling the next action using Stripe.js, iOS, or Android SDKs. Present when `next_action.type` is `use_stripe_sdk`.
         attr_reader :use_stripe_sdk
 
         def self.inner_class_types
-          @inner_class_types = { use_stripe_sdk: UseStripeSdk }
+          @inner_class_types = { redirect_to_url: RedirectToUrl, use_stripe_sdk: UseStripeSdk }
         end
 
         def self.field_remappings

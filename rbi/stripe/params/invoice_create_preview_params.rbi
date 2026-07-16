@@ -2978,7 +2978,7 @@ module Stripe
         def trial_continuation; end
         sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
         def trial_continuation=(_trial_continuation); end
-        # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+        # Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
         sig { returns(T.nilable(T.any(Integer, String))) }
         def trial_end; end
         sig {

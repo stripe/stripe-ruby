@@ -619,11 +619,15 @@ module Stripe
     sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
     def gender=(_gender); end
     # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number; end
     sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
     def id_number=(_id_number); end
     # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number_secondary; end
     sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
@@ -706,6 +710,8 @@ module Stripe
      }
     def self_reported_monthly_housing_payment=(_self_reported_monthly_housing_payment); end
     # The last four digits of the person's Social Security number (U.S. only).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def ssn_last_4; end
     sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }

@@ -304,6 +304,124 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class PauseSchedule < ::Stripe::StripeObject
+      class Pause < ::Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          class BillFor < ::Stripe::StripeObject
+            class OutstandingUsageThrough < ::Stripe::StripeObject
+              # The type of outstanding usage billing behavior.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class UnusedTimeFrom < ::Stripe::StripeObject
+              # The type of unused time credit behavior.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field outstanding_usage_through
+            sig { returns(OutstandingUsageThrough) }
+            def outstanding_usage_through; end
+            # Attribute for field unused_time_from
+            sig { returns(UnusedTimeFrom) }
+            def unused_time_from; end
+            def self.inner_class_types
+              @inner_class_types = {
+                outstanding_usage_through: OutstandingUsageThrough,
+                unused_time_from: UnusedTimeFrom,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field bill_for
+          sig { returns(BillFor) }
+          def bill_for; end
+          # Determines how to handle debits and credits when pausing.
+          sig { returns(String) }
+          def invoicing_behavior; end
+          # The type of pause settings.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {bill_for: BillFor}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Time at which the subscription pauses.
+        sig { returns(Integer) }
+        def pause_at; end
+        # Settings controlling billing behavior during the pause.
+        sig { returns(T.nilable(Settings)) }
+        def settings; end
+        def self.inner_class_types
+          @inner_class_types = {settings: Settings}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Resume < ::Stripe::StripeObject
+        class Settings < ::Stripe::StripeObject
+          # The billing cycle anchor that applies when the subscription is resumed.
+          sig { returns(String) }
+          def billing_cycle_anchor; end
+          # Controls whether Stripe attempts payment on the resumption invoice and how that affects the subscription's status.
+          sig { returns(String) }
+          def payment_behavior; end
+          # Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
+          sig { returns(String) }
+          def proration_behavior; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Time at which the subscription resumes.
+        sig { returns(Integer) }
+        def resume_at; end
+        # Attribute for field settings
+        sig { returns(Settings) }
+        def settings; end
+        def self.inner_class_types
+          @inner_class_types = {settings: Settings}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # A unique identifier for this pause schedule.
+      sig { returns(String) }
+      def key; end
+      # Attribute for field pause
+      sig { returns(Pause) }
+      def pause; end
+      # Details about when and how the subscription resumes.
+      sig { returns(T.nilable(Resume)) }
+      def resume; end
+      def self.inner_class_types
+        @inner_class_types = {pause: Pause, resume: Resume}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Phase < ::Stripe::StripeObject
       class AddInvoiceItem < ::Stripe::StripeObject
         class Discount < ::Stripe::StripeObject
@@ -859,6 +977,9 @@ module Stripe
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
       def transfer_data; end
+      # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
+      sig { returns(T.nilable(T::Boolean)) }
+      def trial; end
       # Specify behavior of the trial when crossing schedule phase boundaries
       sig { returns(T.nilable(String)) }
       def trial_continuation; end
@@ -959,6 +1080,9 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # The pause schedules for this subscription schedule.
+    sig { returns(T.nilable(T::Array[PauseSchedule])) }
+    def pause_schedules; end
     # Configuration for the subscription schedule's phases.
     sig { returns(T::Array[Phase]) }
     def phases; end

@@ -1968,13 +1968,13 @@ module Stripe
      }
     def self.create(params = {}, opts = {}); end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
       params(params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def detach(params = {}, opts = {}); end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }

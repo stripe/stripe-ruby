@@ -37,7 +37,6 @@ module Stripe
   autoload :ExchangeRate, "stripe/resources/exchange_rate"
   autoload :File, "stripe/resources/file"
   autoload :FileLink, "stripe/resources/file_link"
-  autoload :FrMealVouchersOnboarding, "stripe/resources/fr_meal_vouchers_onboarding"
   autoload :FundingInstructions, "stripe/resources/funding_instructions"
   autoload :FxQuote, "stripe/resources/fx_quote"
   autoload :GiftCard, "stripe/resources/gift_card"
@@ -1668,7 +1667,6 @@ module Stripe
     stripe/resources/financial_connections/session
     stripe/resources/financial_connections/transaction
     stripe/resources/forwarding/request
-    stripe/resources/fr_meal_vouchers_onboarding
     stripe/resources/funding_instructions
     stripe/resources/fx_quote
     stripe/resources/gift_card

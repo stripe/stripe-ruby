@@ -153,6 +153,10 @@ This release changes the pinned API version to 2026-06-24.preview.
   * Add support for `cancel_pricing_lines` and `proration_behavior` on `V2::Billing::ContractCancelParams`
   * Add support for event notifications `V2MoneyManagementDebitDisputeFailedEvent`, `V2MoneyManagementDebitDisputeSubmittedEvent`, and `V2MoneyManagementDebitDisputeSucceededEvent` with related object `V2::MoneyManagement::DebitDispute`
 
+## 19.3.1 - 2026-07-15
+* [#1902](https://github.com/stripe/stripe-ruby/pull/1902) Replace source hash with Telemetry UUID
+* [#1901](https://github.com/stripe/stripe-ruby/pull/1901) Make Error fields generated
+
 ## 19.3.0 - 2026-06-24
 This release changes the pinned API version to 2026-06-24.dahlia.
 

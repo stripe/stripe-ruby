@@ -28,9 +28,6 @@ lint: (format-check "--autocorrect")
 # offenses and only shows uncorrectable ones.
 format: (format-check "--autocorrect --display-only-fail-level-offenses")
 
-update-certs: install
-    bundle exec rake update_certs
-
 # run sorbet to check type definitions
 typecheck: install
     {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \

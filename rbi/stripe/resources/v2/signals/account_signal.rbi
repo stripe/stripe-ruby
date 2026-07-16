@@ -5,7 +5,10 @@
 module Stripe
   module V2
     module Signals
-      # An automatically evaluated signal on a v2 account.
+      # An automatically evaluated signal on an account. Each Account Signal object corresponds to
+      # exactly one signal type, indicated by type. Only the type-specific field is populated; other
+      # type-specific payload fields are null. If an account has multiple signals, Stripe creates
+      # separate account signal objects.
       class AccountSignal < APIResource
         class AccountDetails < ::Stripe::StripeObject
           # The v2 account ID of the account.

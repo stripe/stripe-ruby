@@ -45,14 +45,22 @@ jobs:
         path: '*.gem'
 
   test:
-    name: Test (${{ matrix.ruby-version }})
-    runs-on: ubuntu-24.04
+    name: Test (${{ matrix.ruby-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
     strategy:
+      fail-fast: false
       matrix:
-        # following https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
-        ruby-version: [2.7, '3.0', 3.1, 3.2, 3.3, 3.4, jruby-9.4.7.0, truffleruby-25.0.0]
+        os:
+          - ubuntu-24.04
+        # https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy
+        # https://endoflife.date/ruby
+        ruby-version: ['2.7', '3.0', '3.1', '3.2', '3.3', '3.4', jruby-9.4.7.0, truffleruby-25.0.0]
+        include:
+          - os: windows-latest
+            # use any modern-ish version
+            ruby-version: '3.4'
     steps:
     - uses: extractions/setup-just@v2
     - uses: actions/checkout@v3
@@ -62,7 +70,15 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
     - name: test
-      run: just test typecheck
+      run: just test
+      env:
+        GITHUB_TOKEN: ${{ secrets.github_token }}
+        # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+        STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
+    - name: typecheck
+      # sorbet doesn't support windows
+      if: runner.os != 'Windows'
+      run: just typecheck
       env:
         GITHUB_TOKEN: ${{ secrets.github_token }}
 

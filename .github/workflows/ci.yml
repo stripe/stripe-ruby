@@ -36,7 +36,7 @@ jobs:
       with:
         ruby-version:  3.1
     - name: Lint
-      run: just lint
+      run: just lint-check
     - name: Build
       run: gem build stripe.gemspec
     - name: 'Upload Artifact'

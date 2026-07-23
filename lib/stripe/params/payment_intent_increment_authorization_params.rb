@@ -7,6 +7,45 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class EvCharging < ::Stripe::RequestParams
+              # The carbon footprint avoided by the charging session, in grams of CO2.
+              attr_accessor :carbon_footprint_avoided_grams_co2
+              # The time the charging session ended, measured in seconds since the Unix epoch.
+              attr_accessor :charging_ended_at
+              # The power output capacity of the charging station, in kilowatts (kW).
+              attr_accessor :charging_power_output_capacity_kw
+              # The time the charging session started, measured in seconds since the Unix epoch.
+              attr_accessor :charging_started_at
+              # The type of connector used for the charging session.
+              attr_accessor :connector_type
+              # The estimated distance in kilometers or miles added to the vehicle during the charging session.
+              attr_accessor :estimated_range_added
+              # The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+              attr_accessor :estimated_range_left
+              # The maximum power dispensed during the charging session, in kilowatts (kW).
+              attr_accessor :maximum_power_dispensed_kw
+
+              def initialize(
+                carbon_footprint_avoided_grams_co2: nil,
+                charging_ended_at: nil,
+                charging_power_output_capacity_kw: nil,
+                charging_started_at: nil,
+                connector_type: nil,
+                estimated_range_added: nil,
+                estimated_range_left: nil,
+                maximum_power_dispensed_kw: nil
+              )
+                @carbon_footprint_avoided_grams_co2 = carbon_footprint_avoided_grams_co2
+                @charging_ended_at = charging_ended_at
+                @charging_power_output_capacity_kw = charging_power_output_capacity_kw
+                @charging_started_at = charging_started_at
+                @connector_type = connector_type
+                @estimated_range_added = estimated_range_added
+                @estimated_range_left = estimated_range_left
+                @maximum_power_dispensed_kw = maximum_power_dispensed_kw
+              end
+            end
+
             class FleetData < ::Stripe::RequestParams
               # The type of product being purchased at this line item.
               attr_accessor :product_type
@@ -20,11 +59,14 @@ module Stripe
             end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # EV charging data for this line item.
+            attr_accessor :ev_charging
             # Fleet data for this line item.
             attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil, fleet_data: nil)
+            def initialize(commodity_code: nil, ev_charging: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @ev_charging = ev_charging
               @fleet_data = fleet_data
             end
           end

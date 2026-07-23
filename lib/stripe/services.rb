@@ -127,6 +127,7 @@ module Stripe
   end
 
   module Billing
+    autoload :AlertNotificationService, "stripe/services/billing/alert_notification_service"
     autoload :AlertService, "stripe/services/billing/alert_service"
     autoload :AnalyticsService, "stripe/services/billing/analytics_service"
     autoload :CreditBalanceSummaryService, "stripe/services/billing/credit_balance_summary_service"
@@ -168,6 +169,7 @@ module Stripe
     autoload :CustomerConsumerWalletService, "stripe/services/crypto/customer_consumer_wallet_service"
     autoload :CustomerPaymentTokenService, "stripe/services/crypto/customer_payment_token_service"
     autoload :CustomerService, "stripe/services/crypto/customer_service"
+    autoload :DepositAddressService, "stripe/services/crypto/deposit_address_service"
     autoload :OnrampSessionService, "stripe/services/crypto/onramp_session_service"
     autoload :OnrampTransactionLimitsService, "stripe/services/crypto/onramp_transaction_limits_service"
   end
@@ -571,6 +573,7 @@ module Stripe
     stripe/services/balance_settings_service
     stripe/services/balance_transaction_service
     stripe/services/balance_transfer_service
+    stripe/services/billing/alert_notification_service
     stripe/services/billing/alert_service
     stripe/services/billing/analytics/meter_usage_service
     stripe/services/billing/analytics_service
@@ -606,6 +609,7 @@ module Stripe
     stripe/services/crypto/customer_consumer_wallet_service
     stripe/services/crypto/customer_payment_token_service
     stripe/services/crypto/customer_service
+    stripe/services/crypto/deposit_address_service
     stripe/services/crypto/onramp_session_service
     stripe/services/crypto/onramp_transaction_limits_service
     stripe/services/crypto_service

@@ -135,13 +135,34 @@ module Stripe
               @phone = phone
             end
           end
+
+          class Card < ::Stripe::RequestParams
+            # Two-digit number representing the card's expiration month.
+            attr_accessor :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_accessor :exp_year
+            # First six digits of the card number.
+            attr_accessor :first6
+            # Last four digits of the card number.
+            attr_accessor :last4
+
+            def initialize(exp_month: nil, exp_year: nil, first6: nil, last4: nil)
+              @exp_month = exp_month
+              @exp_year = exp_year
+              @first6 = first6
+              @last4 = last4
+            end
+          end
           # Billing information associated with the payment evaluation.
           attr_accessor :billing_details
+          # Masked PAN card details to use as an alternative to a payment_method token.
+          attr_accessor :card
           # ID of the payment method used in this payment evaluation.
           attr_accessor :payment_method
 
-          def initialize(billing_details: nil, payment_method: nil)
+          def initialize(billing_details: nil, card: nil, payment_method: nil)
             @billing_details = billing_details
+            @card = card
             @payment_method = payment_method
           end
         end

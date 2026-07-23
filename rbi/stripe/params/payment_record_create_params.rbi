@@ -99,10 +99,10 @@ module Stripe
      }
     def amount=(_amount); end
     # Information about the dispute closing.
-    sig { returns(::Stripe::PaymentRecordCreateParams::Closed) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordCreateParams::Closed)) }
     def closed; end
     sig {
-      params(_closed: ::Stripe::PaymentRecordCreateParams::Closed).returns(::Stripe::PaymentRecordCreateParams::Closed)
+      params(_closed: T.nilable(::Stripe::PaymentRecordCreateParams::Closed)).returns(T.nilable(::Stripe::PaymentRecordCreateParams::Closed))
      }
     def closed=(_closed); end
     # Specifies which fields in the response should be expanded.
@@ -111,10 +111,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Information about the dispute funding event.
-    sig { returns(::Stripe::PaymentRecordCreateParams::Funded) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordCreateParams::Funded)) }
     def funded; end
     sig {
-      params(_funded: ::Stripe::PaymentRecordCreateParams::Funded).returns(::Stripe::PaymentRecordCreateParams::Funded)
+      params(_funded: T.nilable(::Stripe::PaymentRecordCreateParams::Funded)).returns(T.nilable(::Stripe::PaymentRecordCreateParams::Funded))
      }
     def funded=(_funded); end
     # When the reported payment was initiated. Measured in seconds since the Unix epoch.
@@ -142,7 +142,7 @@ module Stripe
     sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
     def reason=(_reason); end
     sig {
-      params(amount: ::Stripe::PaymentRecordCreateParams::Amount, closed: ::Stripe::PaymentRecordCreateParams::Closed, expand: T.nilable(T::Array[String]), funded: ::Stripe::PaymentRecordCreateParams::Funded, initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: ::Stripe::PaymentRecordCreateParams::ProcessorDetails, reason: T.nilable(String)).void
+      params(amount: ::Stripe::PaymentRecordCreateParams::Amount, closed: T.nilable(::Stripe::PaymentRecordCreateParams::Closed), expand: T.nilable(T::Array[String]), funded: T.nilable(::Stripe::PaymentRecordCreateParams::Funded), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: ::Stripe::PaymentRecordCreateParams::ProcessorDetails, reason: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

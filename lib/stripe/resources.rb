@@ -105,6 +105,7 @@ module Stripe
 
   module Billing
     autoload :Alert, "stripe/resources/billing/alert"
+    autoload :AlertNotification, "stripe/resources/billing/alert_notification"
     autoload :AlertRecovered, "stripe/resources/billing/alert_recovered"
     autoload :AlertTriggered, "stripe/resources/billing/alert_triggered"
     autoload :CreditBalanceSummary, "stripe/resources/billing/credit_balance_summary"
@@ -146,6 +147,7 @@ module Stripe
     autoload :Customer, "stripe/resources/crypto/customer"
     autoload :CustomerConsumerWallet, "stripe/resources/crypto/customer_consumer_wallet"
     autoload :CustomerPaymentToken, "stripe/resources/crypto/customer_payment_token"
+    autoload :DepositAddress, "stripe/resources/crypto/deposit_address"
     autoload :OnrampSession, "stripe/resources/crypto/onramp_session"
     autoload :OnrampTransactionLimits, "stripe/resources/crypto/onramp_transaction_limits"
   end
@@ -1606,6 +1608,7 @@ module Stripe
     stripe/resources/balance_transfer
     stripe/resources/bank_account
     stripe/resources/billing/alert
+    stripe/resources/billing/alert_notification
     stripe/resources/billing/alert_recovered
     stripe/resources/billing/alert_triggered
     stripe/resources/billing/analytics/meter_usage
@@ -1639,6 +1642,7 @@ module Stripe
     stripe/resources/crypto/customer
     stripe/resources/crypto/customer_consumer_wallet
     stripe/resources/crypto/customer_payment_token
+    stripe/resources/crypto/deposit_address
     stripe/resources/crypto/onramp_session
     stripe/resources/crypto/onramp_transaction_limits
     stripe/resources/customer

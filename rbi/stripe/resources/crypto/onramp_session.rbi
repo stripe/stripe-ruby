@@ -64,6 +64,9 @@ module Stripe
           # A stellar address
           sig { returns(T.nilable(String)) }
           def stellar; end
+          # A Sui address
+          sig { returns(T.nilable(String)) }
+          def sui; end
           # A worldchain address
           sig { returns(T.nilable(String)) }
           def worldchain; end

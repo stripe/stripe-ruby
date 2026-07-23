@@ -6,6 +6,38 @@ module Stripe
   class PaymentIntentAmountDetailsLineItem < APIResource
     class PaymentMethodOptions < ::Stripe::StripeObject
       class Card < ::Stripe::StripeObject
+        class EvCharging < ::Stripe::StripeObject
+          # The carbon footprint avoided by the charging session, in grams of CO2.
+          sig { returns(T.nilable(Integer)) }
+          def carbon_footprint_avoided_grams_co2; end
+          # The time the charging session ended, measured in seconds since the Unix epoch.
+          sig { returns(T.nilable(Integer)) }
+          def charging_ended_at; end
+          # The power output capacity of the charging station, in kilowatts (kW).
+          sig { returns(T.nilable(Integer)) }
+          def charging_power_output_capacity_kw; end
+          # The time the charging session started, measured in seconds since the Unix epoch.
+          sig { returns(T.nilable(Integer)) }
+          def charging_started_at; end
+          # The type of connector used for the charging session.
+          sig { returns(T.nilable(String)) }
+          def connector_type; end
+          # The estimated distance in kilometers or miles added to the vehicle during the charging session.
+          sig { returns(T.nilable(Integer)) }
+          def estimated_range_added; end
+          # The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+          sig { returns(T.nilable(Integer)) }
+          def estimated_range_left; end
+          # The maximum power dispensed during the charging session, in kilowatts (kW).
+          sig { returns(T.nilable(Integer)) }
+          def maximum_power_dispensed_kw; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class FleetData < ::Stripe::StripeObject
           # The type of product being purchased at this line item.
           sig { returns(T.nilable(String)) }
@@ -23,11 +55,14 @@ module Stripe
         # Attribute for field commodity_code
         sig { returns(T.nilable(String)) }
         def commodity_code; end
+        # Attribute for field ev_charging
+        sig { returns(T.nilable(EvCharging)) }
+        def ev_charging; end
         # Attribute for field fleet_data
         sig { returns(T.nilable(FleetData)) }
         def fleet_data; end
         def self.inner_class_types
-          @inner_class_types = {fleet_data: FleetData}
+          @inner_class_types = {ev_charging: EvCharging, fleet_data: FleetData}
         end
         def self.field_remappings
           @field_remappings = {}

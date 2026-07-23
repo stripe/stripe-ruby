@@ -2099,7 +2099,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               attr_reader :amount
               # Tax rate.
@@ -2118,10 +2118,10 @@ module Stripe
             # Indicates whether the rental is tax-exempt.
             attr_reader :tax_exempt_indicator
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -2561,7 +2561,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               attr_reader :amount
               # Tax rate.
@@ -2578,10 +2578,10 @@ module Stripe
               end
             end
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -2799,7 +2799,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount in cents.
               attr_reader :amount
               # Tax rate.
@@ -2818,10 +2818,10 @@ module Stripe
             # Indicates whether the transaction is tax exempt.
             attr_reader :tax_exempt_indicator
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -4918,6 +4918,65 @@ module Stripe
         end
       end
 
+      class Vipps < ::Stripe::StripeObject
+        class PaymentDetails < ::Stripe::StripeObject
+          class MoneyServices < ::Stripe::StripeObject
+            class AccountFunding < ::Stripe::StripeObject
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_reader :digital_asset_category
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field account_funding
+            attr_reader :account_funding
+
+            def self.inner_class_types
+              @inner_class_types = { account_funding: AccountFunding }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field money_services
+          attr_reader :money_services
+
+          def self.inner_class_types
+            @inner_class_types = { money_services: MoneyServices }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+        # Attribute for field payment_details
+        attr_reader :payment_details
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = { payment_details: PaymentDetails }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class WechatPay < ::Stripe::StripeObject
         # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
         attr_reader :app_id
@@ -5085,6 +5144,8 @@ module Stripe
       attr_reader :upi
       # Attribute for field us_bank_account
       attr_reader :us_bank_account
+      # Attribute for field vipps
+      attr_reader :vipps
       # Attribute for field wechat_pay
       attr_reader :wechat_pay
       # Attribute for field zip
@@ -5154,6 +5215,7 @@ module Stripe
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,
+          vipps: Vipps,
           wechat_pay: WechatPay,
           zip: Zip,
         }

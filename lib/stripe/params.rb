@@ -400,6 +400,7 @@ module Stripe
     autoload :AlertCreateParams, "stripe/params/billing/alert_create_params"
     autoload :AlertDeactivateParams, "stripe/params/billing/alert_deactivate_params"
     autoload :AlertListParams, "stripe/params/billing/alert_list_params"
+    autoload :AlertNotificationListParams, "stripe/params/billing/alert_notification_list_params"
     autoload :AlertRetrieveParams, "stripe/params/billing/alert_retrieve_params"
     autoload :CreditBalanceSummaryRetrieveParams, "stripe/params/billing/credit_balance_summary_retrieve_params"
     autoload :CreditBalanceTransactionListParams, "stripe/params/billing/credit_balance_transaction_list_params"
@@ -471,6 +472,9 @@ module Stripe
     autoload :CustomerConsumerWalletListParams, "stripe/params/crypto/customer_consumer_wallet_list_params"
     autoload :CustomerPaymentTokenListParams, "stripe/params/crypto/customer_payment_token_list_params"
     autoload :CustomerRetrieveParams, "stripe/params/crypto/customer_retrieve_params"
+    autoload :DepositAddressCreateParams, "stripe/params/crypto/deposit_address_create_params"
+    autoload :DepositAddressListParams, "stripe/params/crypto/deposit_address_list_params"
+    autoload :DepositAddressRetrieveParams, "stripe/params/crypto/deposit_address_retrieve_params"
     autoload :OnrampSessionCheckoutParams, "stripe/params/crypto/onramp_session_checkout_params"
     autoload :OnrampSessionCreateParams, "stripe/params/crypto/onramp_session_create_params"
     autoload :OnrampSessionListParams, "stripe/params/crypto/onramp_session_list_params"
@@ -1359,6 +1363,7 @@ module Stripe
     stripe/params/billing/alert_create_params
     stripe/params/billing/alert_deactivate_params
     stripe/params/billing/alert_list_params
+    stripe/params/billing/alert_notification_list_params
     stripe/params/billing/alert_retrieve_params
     stripe/params/billing/analytics/meter_usage_retrieve_params
     stripe/params/billing/credit_balance_summary_retrieve_params
@@ -1436,6 +1441,9 @@ module Stripe
     stripe/params/crypto/customer_consumer_wallet_list_params
     stripe/params/crypto/customer_payment_token_list_params
     stripe/params/crypto/customer_retrieve_params
+    stripe/params/crypto/deposit_address_create_params
+    stripe/params/crypto/deposit_address_list_params
+    stripe/params/crypto/deposit_address_retrieve_params
     stripe/params/crypto/onramp_session_checkout_params
     stripe/params/crypto/onramp_session_create_params
     stripe/params/crypto/onramp_session_list_params

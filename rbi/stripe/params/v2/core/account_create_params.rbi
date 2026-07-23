@@ -494,6 +494,50 @@ module Stripe
                      }
                     def initialize(protections: nil, requested: nil); end
                   end
+                  class SpendCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        sig { returns(T::Boolean) }
+                        def requested; end
+                        sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                        def requested=(_requested); end
+                        sig { params(requested: T::Boolean).void }
+                        def initialize(requested: nil); end
+                      end
+                      # Parameter to request psp_migration protection.
+                      sig {
+                        returns(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections::PspMigration)
+                       }
+                      def psp_migration; end
+                      sig {
+                        params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections::PspMigration)
+                       }
+                      def psp_migration=(_psp_migration); end
+                      sig {
+                        params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections::PspMigration).void
+                       }
+                      def initialize(psp_migration: nil); end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    sig {
+                      returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections))
+                     }
+                    def protections; end
+                    sig {
+                      params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections))
+                     }
+                    def protections=(_protections); end
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig {
+                      params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard::Protections), requested: T::Boolean).void
+                     }
+                    def initialize(protections: nil, requested: nil); end
+                  end
                   # Can create commercial issuing charge cards with Stripe as BIN sponsor.
                   sig {
                     returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::ChargeCard))
@@ -512,10 +556,19 @@ module Stripe
                     params(_prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::PrepaidCard)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::PrepaidCard))
                    }
                   def prepaid_card=(_prepaid_card); end
+                  # Can create commercial issuing spend cards with Stripe as BIN sponsor.
                   sig {
-                    params(charge_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::ChargeCard), prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::PrepaidCard)).void
+                    returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard))
                    }
-                  def initialize(charge_card: nil, prepaid_card: nil); end
+                  def spend_card; end
+                  sig {
+                    params(_spend_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard))
+                   }
+                  def spend_card=(_spend_card); end
+                  sig {
+                    params(charge_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::ChargeCard), prepaid_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::PrepaidCard), spend_card: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator::Capabilities::Commercial::Stripe::SpendCard)).void
+                   }
+                  def initialize(charge_card: nil, prepaid_card: nil, spend_card: nil); end
                 end
                 # Can create commercial issuing cards with Celtic as BIN sponsor.
                 sig {

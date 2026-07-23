@@ -1693,6 +1693,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Vipps < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class WechatPay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1913,6 +1921,9 @@ module Stripe
       # Attribute for field us_bank_account
       sig { returns(T.nilable(UsBankAccount)) }
       def us_bank_account; end
+      # Attribute for field vipps
+      sig { returns(T.nilable(Vipps)) }
+      def vipps; end
       # Attribute for field wechat_pay
       sig { returns(T.nilable(WechatPay)) }
       def wechat_pay; end
@@ -1985,6 +1996,7 @@ module Stripe
           twint: Twint,
           upi: Upi,
           us_bank_account: UsBankAccount,
+          vipps: Vipps,
           wechat_pay: WechatPay,
           zip: Zip,
         }

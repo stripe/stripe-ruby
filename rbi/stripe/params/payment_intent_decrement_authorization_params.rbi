@@ -8,6 +8,63 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class EvCharging < ::Stripe::RequestParams
+              # The carbon footprint avoided by the charging session, in grams of CO2.
+              sig { returns(T.nilable(Integer)) }
+              def carbon_footprint_avoided_grams_co2; end
+              sig {
+                params(_carbon_footprint_avoided_grams_co2: T.nilable(Integer)).returns(T.nilable(Integer))
+               }
+              def carbon_footprint_avoided_grams_co2=(_carbon_footprint_avoided_grams_co2); end
+              # The time the charging session ended, measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              def charging_ended_at; end
+              sig { params(_charging_ended_at: Integer).returns(Integer) }
+              def charging_ended_at=(_charging_ended_at); end
+              # The power output capacity of the charging station, in kilowatts (kW).
+              sig { returns(Integer) }
+              def charging_power_output_capacity_kw; end
+              sig { params(_charging_power_output_capacity_kw: Integer).returns(Integer) }
+              def charging_power_output_capacity_kw=(_charging_power_output_capacity_kw); end
+              # The time the charging session started, measured in seconds since the Unix epoch.
+              sig { returns(Integer) }
+              def charging_started_at; end
+              sig { params(_charging_started_at: Integer).returns(Integer) }
+              def charging_started_at=(_charging_started_at); end
+              # The type of connector used for the charging session.
+              sig { returns(String) }
+              def connector_type; end
+              sig { params(_connector_type: String).returns(String) }
+              def connector_type=(_connector_type); end
+              # The estimated distance in kilometers or miles added to the vehicle during the charging session.
+              sig { returns(T.nilable(Integer)) }
+              def estimated_range_added; end
+              sig { params(_estimated_range_added: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def estimated_range_added=(_estimated_range_added); end
+              # The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+              sig { returns(T.nilable(Integer)) }
+              def estimated_range_left; end
+              sig { params(_estimated_range_left: T.nilable(Integer)).returns(T.nilable(Integer)) }
+              def estimated_range_left=(_estimated_range_left); end
+              # The maximum power dispensed during the charging session, in kilowatts (kW).
+              sig { returns(Integer) }
+              def maximum_power_dispensed_kw; end
+              sig { params(_maximum_power_dispensed_kw: Integer).returns(Integer) }
+              def maximum_power_dispensed_kw=(_maximum_power_dispensed_kw); end
+              sig {
+                params(carbon_footprint_avoided_grams_co2: T.nilable(Integer), charging_ended_at: Integer, charging_power_output_capacity_kw: Integer, charging_started_at: Integer, connector_type: String, estimated_range_added: T.nilable(Integer), estimated_range_left: T.nilable(Integer), maximum_power_dispensed_kw: Integer).void
+               }
+              def initialize(
+                carbon_footprint_avoided_grams_co2: nil,
+                charging_ended_at: nil,
+                charging_power_output_capacity_kw: nil,
+                charging_started_at: nil,
+                connector_type: nil,
+                estimated_range_added: nil,
+                estimated_range_left: nil,
+                maximum_power_dispensed_kw: nil
+              ); end
+            end
             class FleetData < ::Stripe::RequestParams
               # The type of product being purchased at this line item.
               sig { returns(String) }
@@ -27,6 +84,15 @@ module Stripe
             def commodity_code; end
             sig { params(_commodity_code: T.nilable(String)).returns(T.nilable(String)) }
             def commodity_code=(_commodity_code); end
+            # EV charging data for this line item.
+            sig {
+              returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::EvCharging))
+             }
+            def ev_charging; end
+            sig {
+              params(_ev_charging: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::EvCharging)).returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::EvCharging))
+             }
+            def ev_charging=(_ev_charging); end
             # Fleet data for this line item.
             sig {
               returns(T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData))
@@ -37,9 +103,9 @@ module Stripe
              }
             def fleet_data=(_fleet_data); end
             sig {
-              params(commodity_code: T.nilable(String), fleet_data: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).void
+              params(commodity_code: T.nilable(String), ev_charging: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::EvCharging), fleet_data: T.nilable(::Stripe::PaymentIntentDecrementAuthorizationParams::AmountDetails::LineItem::PaymentMethodOptions::Card::FleetData)).void
              }
-            def initialize(commodity_code: nil, fleet_data: nil); end
+            def initialize(commodity_code: nil, ev_charging: nil, fleet_data: nil); end
           end
           class CardPresent < ::Stripe::RequestParams
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.

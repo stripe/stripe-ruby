@@ -7,11 +7,14 @@ module Stripe
     class Alert < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
+      extend Stripe::APIOperations::NestedResource
 
       OBJECT_NAME = "billing.alert"
       def self.object_name
         "billing.alert"
       end
+
+      nested_resource_class_methods :notification, operations: %i[list]
 
       class CreditBalanceThreshold < ::Stripe::StripeObject
         class Filter < ::Stripe::StripeObject

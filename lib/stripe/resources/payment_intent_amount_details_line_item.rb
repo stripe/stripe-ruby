@@ -10,6 +10,33 @@ module Stripe
 
     class PaymentMethodOptions < ::Stripe::StripeObject
       class Card < ::Stripe::StripeObject
+        class EvCharging < ::Stripe::StripeObject
+          # The carbon footprint avoided by the charging session, in grams of CO2.
+          attr_reader :carbon_footprint_avoided_grams_co2
+          # The time the charging session ended, measured in seconds since the Unix epoch.
+          attr_reader :charging_ended_at
+          # The power output capacity of the charging station, in kilowatts (kW).
+          attr_reader :charging_power_output_capacity_kw
+          # The time the charging session started, measured in seconds since the Unix epoch.
+          attr_reader :charging_started_at
+          # The type of connector used for the charging session.
+          attr_reader :connector_type
+          # The estimated distance in kilometers or miles added to the vehicle during the charging session.
+          attr_reader :estimated_range_added
+          # The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+          attr_reader :estimated_range_left
+          # The maximum power dispensed during the charging session, in kilowatts (kW).
+          attr_reader :maximum_power_dispensed_kw
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class FleetData < ::Stripe::StripeObject
           # The type of product being purchased at this line item.
           attr_reader :product_type
@@ -26,11 +53,13 @@ module Stripe
         end
         # Attribute for field commodity_code
         attr_reader :commodity_code
+        # Attribute for field ev_charging
+        attr_reader :ev_charging
         # Attribute for field fleet_data
         attr_reader :fleet_data
 
         def self.inner_class_types
-          @inner_class_types = { fleet_data: FleetData }
+          @inner_class_types = { ev_charging: EvCharging, fleet_data: FleetData }
         end
 
         def self.field_remappings

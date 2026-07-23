@@ -145,6 +145,8 @@ module Stripe
       attr_accessor :return_url
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      attr_accessor :use_stripe_sdk
 
       def initialize(
         affiliate_attribution: nil,
@@ -153,7 +155,8 @@ module Stripe
         metadata: nil,
         payment_method: nil,
         return_url: nil,
-        risk_details: nil
+        risk_details: nil,
+        use_stripe_sdk: nil
       )
         @affiliate_attribution = affiliate_attribution
         @buyer_consents = buyer_consents
@@ -162,6 +165,7 @@ module Stripe
         @payment_method = payment_method
         @return_url = return_url
         @risk_details = risk_details
+        @use_stripe_sdk = use_stripe_sdk
       end
     end
   end

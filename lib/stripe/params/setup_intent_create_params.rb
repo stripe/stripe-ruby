@@ -457,6 +457,7 @@ module Stripe
         end
       end
 
+      class Vipps < ::Stripe::RequestParams; end
       class WechatPay < ::Stripe::RequestParams; end
       class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
@@ -593,6 +594,8 @@ module Stripe
       attr_accessor :upi
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       attr_accessor :us_bank_account
+      # If this is a `vipps` PaymentMethod, this hash contains details about the Vipps payment method.
+      attr_accessor :vipps
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
@@ -666,6 +669,7 @@ module Stripe
         type: nil,
         upi: nil,
         us_bank_account: nil,
+        vipps: nil,
         wechat_pay: nil,
         zip: nil
       )
@@ -736,6 +740,7 @@ module Stripe
         @type = type
         @upi = upi
         @us_bank_account = us_bank_account
+        @vipps = vipps
         @wechat_pay = wechat_pay
         @zip = zip
       end

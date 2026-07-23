@@ -24,6 +24,10 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def doc_url; end
     
+    # The GiftCardOperation object for errors returned on a request involving a GiftCardOperation.
+    sig { returns(T.nilable(::Stripe::GiftCardOperation)) }
+    def gift_card_operation; end
+    
     # A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
     sig { returns(T.nilable(String)) }
     def message; end

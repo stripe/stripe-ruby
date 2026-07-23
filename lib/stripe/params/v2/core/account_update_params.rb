@@ -302,14 +302,45 @@ module Stripe
                       @requested = requested
                     end
                   end
+
+                  class SpendCard < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
                   # Can create commercial issuing charge cards with Stripe as BIN sponsor.
                   attr_accessor :charge_card
                   # Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
                   attr_accessor :prepaid_card
+                  # Can create commercial issuing spend cards with Stripe as BIN sponsor.
+                  attr_accessor :spend_card
 
-                  def initialize(charge_card: nil, prepaid_card: nil)
+                  def initialize(charge_card: nil, prepaid_card: nil, spend_card: nil)
                     @charge_card = charge_card
                     @prepaid_card = prepaid_card
+                    @spend_card = spend_card
                   end
                 end
                 # Can create commercial issuing cards with Celtic as BIN sponsor.

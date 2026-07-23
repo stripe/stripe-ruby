@@ -16,6 +16,45 @@ module Stripe
       class LineItem < ::Stripe::RequestParams
         class PaymentMethodOptions < ::Stripe::RequestParams
           class Card < ::Stripe::RequestParams
+            class EvCharging < ::Stripe::RequestParams
+              # The carbon footprint avoided by the charging session, in grams of CO2.
+              attr_accessor :carbon_footprint_avoided_grams_co2
+              # The time the charging session ended, measured in seconds since the Unix epoch.
+              attr_accessor :charging_ended_at
+              # The power output capacity of the charging station, in kilowatts (kW).
+              attr_accessor :charging_power_output_capacity_kw
+              # The time the charging session started, measured in seconds since the Unix epoch.
+              attr_accessor :charging_started_at
+              # The type of connector used for the charging session.
+              attr_accessor :connector_type
+              # The estimated distance in kilometers or miles added to the vehicle during the charging session.
+              attr_accessor :estimated_range_added
+              # The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+              attr_accessor :estimated_range_left
+              # The maximum power dispensed during the charging session, in kilowatts (kW).
+              attr_accessor :maximum_power_dispensed_kw
+
+              def initialize(
+                carbon_footprint_avoided_grams_co2: nil,
+                charging_ended_at: nil,
+                charging_power_output_capacity_kw: nil,
+                charging_started_at: nil,
+                connector_type: nil,
+                estimated_range_added: nil,
+                estimated_range_left: nil,
+                maximum_power_dispensed_kw: nil
+              )
+                @carbon_footprint_avoided_grams_co2 = carbon_footprint_avoided_grams_co2
+                @charging_ended_at = charging_ended_at
+                @charging_power_output_capacity_kw = charging_power_output_capacity_kw
+                @charging_started_at = charging_started_at
+                @connector_type = connector_type
+                @estimated_range_added = estimated_range_added
+                @estimated_range_left = estimated_range_left
+                @maximum_power_dispensed_kw = maximum_power_dispensed_kw
+              end
+            end
+
             class FleetData < ::Stripe::RequestParams
               # The type of product being purchased at this line item.
               attr_accessor :product_type
@@ -29,11 +68,14 @@ module Stripe
             end
             # Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
             attr_accessor :commodity_code
+            # EV charging data for this line item.
+            attr_accessor :ev_charging
             # Fleet data for this line item.
             attr_accessor :fleet_data
 
-            def initialize(commodity_code: nil, fleet_data: nil)
+            def initialize(commodity_code: nil, ev_charging: nil, fleet_data: nil)
               @commodity_code = commodity_code
+              @ev_charging = ev_charging
               @fleet_data = fleet_data
             end
           end
@@ -2671,6 +2713,7 @@ module Stripe
         end
       end
 
+      class Vipps < ::Stripe::RequestParams; end
       class WechatPay < ::Stripe::RequestParams; end
       class Zip < ::Stripe::RequestParams; end
       # If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
@@ -2807,6 +2850,8 @@ module Stripe
       attr_accessor :upi
       # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
       attr_accessor :us_bank_account
+      # If this is a `vipps` PaymentMethod, this hash contains details about the Vipps payment method.
+      attr_accessor :vipps
       # If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
@@ -2880,6 +2925,7 @@ module Stripe
         type: nil,
         upi: nil,
         us_bank_account: nil,
+        vipps: nil,
         wechat_pay: nil,
         zip: nil
       )
@@ -2950,6 +2996,7 @@ module Stripe
         @type = type
         @upi = upi
         @us_bank_account = us_bank_account
+        @vipps = vipps
         @wechat_pay = wechat_pay
         @zip = zip
       end
@@ -5924,6 +5971,57 @@ module Stripe
         end
       end
 
+      class Vipps < ::Stripe::RequestParams
+        class PaymentDetails < ::Stripe::RequestParams
+          class MoneyServices < ::Stripe::RequestParams
+            class AccountFunding < ::Stripe::RequestParams
+              # The category of digital asset being acquired through this account funding transaction.
+              attr_accessor :digital_asset_category
+
+              def initialize(digital_asset_category: nil)
+                @digital_asset_category = digital_asset_category
+              end
+            end
+            # Payment method specific account funding transaction details.
+            attr_accessor :account_funding
+
+            def initialize(account_funding: nil)
+              @account_funding = account_funding
+            end
+          end
+          # Money services details for payment method specific funding fields.
+          attr_accessor :money_services
+
+          def initialize(money_services: nil)
+            @money_services = money_services
+          end
+        end
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+        # Payment details for payment method specific funding transaction fields.
+        attr_accessor :payment_details
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(capture_method: nil, payment_details: nil, setup_future_usage: nil)
+          @capture_method = capture_method
+          @payment_details = payment_details
+          @setup_future_usage = setup_future_usage
+        end
+      end
+
       class WechatPay < ::Stripe::RequestParams
         # The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
         attr_accessor :app_id
@@ -6090,6 +6188,8 @@ module Stripe
       attr_accessor :upi
       # If this is a `us_bank_account` PaymentMethod, this sub-hash contains details about the US bank account payment method options.
       attr_accessor :us_bank_account
+      # If this is a `Vipps` PaymentMethod, this sub-hash contains details about the Vipps payment method options.
+      attr_accessor :vipps
       # If this is a `wechat_pay` PaymentMethod, this sub-hash contains details about the WeChat Pay payment method options.
       attr_accessor :wechat_pay
       # If this is a `zip` PaymentMethod, this sub-hash contains details about the Zip payment method options.
@@ -6158,6 +6258,7 @@ module Stripe
         twint: nil,
         upi: nil,
         us_bank_account: nil,
+        vipps: nil,
         wechat_pay: nil,
         zip: nil
       )
@@ -6223,6 +6324,7 @@ module Stripe
         @twint = twint
         @upi = upi
         @us_bank_account = us_bank_account
+        @vipps = vipps
         @wechat_pay = wechat_pay
         @zip = zip
       end

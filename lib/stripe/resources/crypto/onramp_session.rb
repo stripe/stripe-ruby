@@ -64,6 +64,8 @@ module Stripe
           attr_reader :solana
           # A stellar address
           attr_reader :stellar
+          # A Sui address
+          attr_reader :sui
           # A worldchain address
           attr_reader :worldchain
 

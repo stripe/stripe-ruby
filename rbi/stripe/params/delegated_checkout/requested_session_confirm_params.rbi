@@ -248,8 +248,13 @@ module Stripe
         params(_risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
        }
       def risk_details=(_risk_details); end
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      sig { returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk; end
+      sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk=(_use_stripe_sdk); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         affiliate_attribution: nil,
@@ -258,7 +263,8 @@ module Stripe
         metadata: nil,
         payment_method: nil,
         return_url: nil,
-        risk_details: nil
+        risk_details: nil,
+        use_stripe_sdk: nil
       ); end
     end
   end

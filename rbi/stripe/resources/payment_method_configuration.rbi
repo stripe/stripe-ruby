@@ -1909,6 +1909,37 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Vipps < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        sig { returns(T.nilable(T::Boolean)) }
+        def overridable; end
+        # The account's display preference.
+        sig { returns(String) }
+        def preference; end
+        # The effective display preference value.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      sig { returns(T::Boolean) }
+      def available; end
+      # Attribute for field display_preference
+      sig { returns(DisplayPreference) }
+      def display_preference; end
+      def self.inner_class_types
+        @inner_class_types = {display_preference: DisplayPreference}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class WechatPay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -2178,6 +2209,9 @@ module Stripe
     # Attribute for field us_bank_account
     sig { returns(T.nilable(UsBankAccount)) }
     def us_bank_account; end
+    # Attribute for field vipps
+    sig { returns(T.nilable(Vipps)) }
+    def vipps; end
     # Attribute for field wechat_pay
     sig { returns(T.nilable(WechatPay)) }
     def wechat_pay; end

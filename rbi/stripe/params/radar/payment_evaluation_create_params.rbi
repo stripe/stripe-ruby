@@ -206,6 +206,32 @@ module Stripe
              }
             def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
+          class Card < ::Stripe::RequestParams
+            # Two-digit number representing the card's expiration month.
+            sig { returns(Integer) }
+            def exp_month; end
+            sig { params(_exp_month: Integer).returns(Integer) }
+            def exp_month=(_exp_month); end
+            # Four-digit number representing the card's expiration year.
+            sig { returns(Integer) }
+            def exp_year; end
+            sig { params(_exp_year: Integer).returns(Integer) }
+            def exp_year=(_exp_year); end
+            # First six digits of the card number.
+            sig { returns(String) }
+            def first6; end
+            sig { params(_first6: String).returns(String) }
+            def first6=(_first6); end
+            # Last four digits of the card number.
+            sig { returns(String) }
+            def last4; end
+            sig { params(_last4: String).returns(String) }
+            def last4=(_last4); end
+            sig {
+              params(exp_month: Integer, exp_year: Integer, first6: String, last4: String).void
+             }
+            def initialize(exp_month: nil, exp_year: nil, first6: nil, last4: nil); end
+          end
           # Billing information associated with the payment evaluation.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
@@ -215,15 +241,24 @@ module Stripe
             params(_billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
            }
           def billing_details=(_billing_details); end
+          # Masked PAN card details to use as an alternative to a payment_method token.
+          sig {
+            returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::Card))
+           }
+          def card; end
+          sig {
+            params(_card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::Card)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::Card))
+           }
+          def card=(_card); end
           # ID of the payment method used in this payment evaluation.
           sig { returns(String) }
           def payment_method; end
           sig { params(_payment_method: String).returns(String) }
           def payment_method=(_payment_method); end
           sig {
-            params(billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails), payment_method: String).void
+            params(billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails), card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::Card), payment_method: String).void
            }
-          def initialize(billing_details: nil, payment_method: nil); end
+          def initialize(billing_details: nil, card: nil, payment_method: nil); end
         end
         class ShippingDetails < ::Stripe::RequestParams
           class Address < ::Stripe::RequestParams

@@ -5,6 +5,7 @@
 module Stripe
   module Billing
     class AlertService < StripeService
+      attr_reader :notifications
       # Reactivates this alert, allowing it to trigger again.
       sig {
         params(id: String, params: T.any(::Stripe::Billing::AlertActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::Alert)

@@ -4,6 +4,13 @@
 module Stripe
   module Billing
     class AlertService < StripeService
+      attr_reader :notifications
+
+      def initialize(requestor)
+        super
+        @notifications = Stripe::Billing::AlertNotificationService.new(@requestor)
+      end
+
       # Reactivates this alert, allowing it to trigger again.
       def activate(id, params = {}, opts = {})
         request(

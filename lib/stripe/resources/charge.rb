@@ -316,7 +316,7 @@ module Stripe
       class AmazonPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             attr_reader :brand
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             attr_reader :brand_product
@@ -1979,7 +1979,7 @@ module Stripe
       class RevolutPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             attr_reader :brand
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
             attr_reader :brand_product

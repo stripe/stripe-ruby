@@ -128,6 +128,9 @@ module Stripe
             # Roles the user had before the change.
             sig { returns(T::Array[String]) }
             def old_roles; end
+            # Source of the role change.
+            sig { returns(String) }
+            def source; end
             # Email address of the user whose roles were changed.
             sig { returns(String) }
             def user_email; end

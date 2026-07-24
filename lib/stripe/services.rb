@@ -351,6 +351,7 @@ module Stripe
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
     autoload :PaymentsService, "stripe/services/v2/payments_service"
     autoload :ReportingService, "stripe/services/v2/reporting_service"
+    autoload :RiskService, "stripe/services/v2/risk_service"
     autoload :SignalsService, "stripe/services/v2/signals_service"
     autoload :TaxService, "stripe/services/v2/tax_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
@@ -500,6 +501,7 @@ module Stripe
                "stripe/services/v2/money_management/payout_methods_bank_account_spec_service"
       autoload :PayoutMethodService, "stripe/services/v2/money_management/payout_method_service"
       autoload :ReceivedCreditService, "stripe/services/v2/money_management/received_credit_service"
+      autoload :ReceivedDebitMandateService, "stripe/services/v2/money_management/received_debit_mandate_service"
       autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
       autoload :TestHelpersService, "stripe/services/v2/money_management/test_helpers_service"
@@ -535,6 +537,10 @@ module Stripe
     module Reporting
       autoload :ReportRunService, "stripe/services/v2/reporting/report_run_service"
       autoload :ReportService, "stripe/services/v2/reporting/report_service"
+    end
+
+    module Risk
+      autoload :InquiryService, "stripe/services/v2/risk/inquiry_service"
     end
 
     module Signals
@@ -879,6 +885,7 @@ module Stripe
     stripe/services/v2/money_management/payout_method_service
     stripe/services/v2/money_management/payout_methods_bank_account_spec_service
     stripe/services/v2/money_management/received_credit_service
+    stripe/services/v2/money_management/received_debit_mandate_service
     stripe/services/v2/money_management/received_debit_service
     stripe/services/v2/money_management/recipient_verification_service
     stripe/services/v2/money_management/test_helpers/financial_address_service
@@ -897,6 +904,8 @@ module Stripe
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service
+    stripe/services/v2/risk/inquiry_service
+    stripe/services/v2/risk_service
     stripe/services/v2/signals/account_signal_service
     stripe/services/v2/signals_service
     stripe/services/v2/tax/manual_rule_service

@@ -10,9 +10,15 @@ module Stripe
       # previewed before committing, allowing you to see the billing impact before changes take effect.
       class Intent < APIResource
         class AmountDetails < ::Stripe::StripeObject
+          # The outstanding amount after discount, tax, and customer balance application.
+          sig { returns(String) }
+          def amount_due; end
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           sig { returns(String) }
           def currency; end
+          # The customer's account balance applied to the amount.
+          sig { returns(String) }
+          def customer_balance_applied; end
           # Amount of discount applied.
           sig { returns(String) }
           def discount; end

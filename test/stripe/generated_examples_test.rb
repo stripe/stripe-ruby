@@ -7969,7 +7969,7 @@ module Stripe
     end
     should "Test v2 billing intent get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents").to_return(
-        body: '{"data":[{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -7979,7 +7979,7 @@ module Stripe
     end
     should "Test v2 billing intent post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents").to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8131,7 +8131,7 @@ module Stripe
     end
     should "Test v2 billing intent get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123").to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8141,7 +8141,7 @@ module Stripe
     end
     should "Test v2 billing intent post 2 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/cancel").to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8151,7 +8151,7 @@ module Stripe
     end
     should "Test v2 billing intent post 3 (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/commit").to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8164,7 +8164,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/release_reservation"
       ).to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8177,7 +8177,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/billing/intents/id_123/reserve"
       ).to_return(
-        body: '{"object":"v2.billing.intent","amount_details":{"currency":"usd","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
+        body: '{"object":"v2.billing.intent","amount_details":{"amount_due":"amount_due","currency":"usd","customer_balance_applied":"customer_balance_applied","discount":"discount","shipping":"shipping","subtotal":"subtotal","tax":"tax","total":"total"},"created":"1970-01-12T21:42:34.472Z","currency":"usd","id":"obj_123","livemode":true,"status":"draft","status_transitions":{"expires_at":"1970-01-10T15:36:51.170Z"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -10786,6 +10786,45 @@ module Stripe
       received_debit = client.v2.money_management.received_debits.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debits/id_123"
     end
+    should "Test v2 money management received debit mandate get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates"
+      ).to_return(
+        body: '{"data":[{"object":"v2.money_management.received_debit_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      received_debit_mandates = client.v2.money_management.received_debit_mandates.list
+      assert_requested :get,  "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates"
+    end
+    should "Test v2 money management received debit mandate get 2 (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates/id_123"
+      ).to_return(
+        body: '{"object":"v2.money_management.received_debit_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      received_debit_mandate = client.v2.money_management.received_debit_mandates.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates/id_123"
+    end
+    should "Test v2 money management received debit mandate post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates/id_123/cancel"
+      ).to_return(
+        body: '{"object":"v2.money_management.received_debit_mandate","created":"1970-01-12T21:42:34.472Z","currency":"usd","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"expired","type":"bank_transfer"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      received_debit_mandate = client.v2.money_management.received_debit_mandates.cancel("id_123")
+      assert_requested :post,  "#{Stripe::DEFAULT_API_BASE}/v2/money_management/received_debit_mandates/id_123/cancel"
+    end
     should "Test v2 money management recipient verification post (service)" do
       stub_request(
         :post,
@@ -11274,6 +11313,36 @@ module Stripe
 
       report_run = client.v2.reporting.report_runs.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/reporting/report_runs/id_123"
+    end
+    should "Test v2 risk inquiry get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries?account=account").to_return(
+        body: '{"data":[{"object":"v2.risk.inquiry","closed_at":"1970-01-06T13:53:35.258Z","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"opened_at":"1970-01-18T22:56:33.737Z","status":"closed","type":"appeal"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inquiries = client.v2.risk.inquiries.list({ account: "account" })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries?account=account"
+    end
+    should "Test v2 risk inquiry get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries/id_123").to_return(
+        body: '{"object":"v2.risk.inquiry","closed_at":"1970-01-06T13:53:35.258Z","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"opened_at":"1970-01-18T22:56:33.737Z","status":"closed","type":"appeal"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inquiry = client.v2.risk.inquiries.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries/id_123"
+    end
+    should "Test v2 risk inquiry post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries/id_123").to_return(
+        body: '{"object":"v2.risk.inquiry","closed_at":"1970-01-06T13:53:35.258Z","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"opened_at":"1970-01-18T22:56:33.737Z","status":"closed","type":"appeal"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      inquiry = client.v2.risk.inquiries.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/risk/inquiries/id_123"
     end
     should "Test v2 signals account signal get (service)" do
       stub_request(

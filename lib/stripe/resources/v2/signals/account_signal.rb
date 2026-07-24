@@ -106,6 +106,93 @@ module Stripe
             @field_encodings = { probability: :decimal_string }
           end
         end
+
+        class PaymentDelinquencyExposure < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class GrossExposureAmount < ::Stripe::StripeObject
+              # ISO 4217 currency code.
+              attr_reader :currency
+              # Amount in minor units for the given currency.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { value: :int64_string }
+              end
+            end
+            # Total payments still exposed to dispute or refund risk in the event of delinquency.
+            attr_reader :gross_exposure_amount
+            # Percentage of Gross Exposure expected to be disputed or refunded and materialize as a loss in the event of delinquency.
+            attr_reader :loss_given_default_in_percentages
+            # Predicted window size in days until dispute is raised.
+            attr_reader :predicted_dispute_window_in_days
+
+            def self.inner_class_types
+              @inner_class_types = { gross_exposure_amount: GrossExposureAmount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                gross_exposure_amount: { kind: :object, fields: { value: :int64_string } },
+              }
+            end
+          end
+
+          class ExposureAmount < ::Stripe::StripeObject
+            # ISO 4217 currency code.
+            attr_reader :currency
+            # Amount in minor units for the given currency.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :int64_string }
+            end
+          end
+          # Additional details about the exposure assessment.
+          attr_reader :additional_details
+          # The exposure amount if this account becomes delinquent.
+          attr_reader :exposure_amount
+
+          def self.inner_class_types
+            @inner_class_types = {
+              additional_details: AdditionalDetails,
+              exposure_amount: ExposureAmount,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              additional_details: {
+                kind: :object,
+                fields: { gross_exposure_amount: { kind: :object, fields: { value: :int64_string } } },
+              },
+              exposure_amount: { kind: :object, fields: { value: :int64_string } },
+            }
+          end
+        end
         # The account or customer this signal is associated with.
         attr_reader :account_details
         # Timestamp at which the signal was created.
@@ -120,6 +207,8 @@ module Stripe
         attr_reader :merchant_delinquency
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Data for the payment delinquency exposure signal. Present only when type is payment_delinquency_exposure.
+        attr_reader :payment_delinquency_exposure
         # The type of signal.
         attr_reader :type
 
@@ -128,6 +217,7 @@ module Stripe
             account_details: AccountDetails,
             fraudulent_merchant: FraudulentMerchant,
             merchant_delinquency: MerchantDelinquency,
+            payment_delinquency_exposure: PaymentDelinquencyExposure,
           }
         end
 
@@ -139,6 +229,16 @@ module Stripe
           @field_encodings = {
             fraudulent_merchant: { kind: :object, fields: { probability: :decimal_string } },
             merchant_delinquency: { kind: :object, fields: { probability: :decimal_string } },
+            payment_delinquency_exposure: {
+              kind: :object,
+              fields: {
+                additional_details: {
+                  kind: :object,
+                  fields: { gross_exposure_amount: { kind: :object, fields: { value: :int64_string } } },
+                },
+                exposure_amount: { kind: :object, fields: { value: :int64_string } },
+              },
+            },
           }
         end
       end

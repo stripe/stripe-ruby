@@ -304,6 +304,7 @@ module Stripe
         V2::MoneyManagement::PayoutMethodsBankAccountSpec,
         V2::MoneyManagement::ReceivedCredit.object_name => V2::MoneyManagement::ReceivedCredit,
         V2::MoneyManagement::ReceivedDebit.object_name => V2::MoneyManagement::ReceivedDebit,
+        V2::MoneyManagement::ReceivedDebitMandate.object_name => V2::MoneyManagement::ReceivedDebitMandate,
         V2::MoneyManagement::RecipientVerification.object_name =>
         V2::MoneyManagement::RecipientVerification,
         V2::MoneyManagement::Transaction.object_name => V2::MoneyManagement::Transaction,
@@ -316,6 +317,7 @@ module Stripe
         V2::Payments::SettlementAllocationIntentSplit,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
+        V2::Risk::Inquiry.object_name => V2::Risk::Inquiry,
         V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,
         V2::Tax::ManualRule.object_name => V2::Tax::ManualRule,
         # v2 object classes: The end of the section generated from our OpenAPI spec

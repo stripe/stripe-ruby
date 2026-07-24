@@ -2300,6 +2300,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_created(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_failed(&blk);
@@ -2312,6 +2318,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitScheduledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_scheduled(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_succeeded(&blk);
@@ -2321,6 +2333,36 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitMandateCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_mandate_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitMandateCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_mandate_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitMandateExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_mandate_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_mandate_pending_cancellation(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitMandateUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_received_debit_mandate_updated(&blk);
     end
     
     sig do
@@ -2537,6 +2579,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_signals_account_signal_merchant_delinquency_ready(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&blk);
     end
     
     

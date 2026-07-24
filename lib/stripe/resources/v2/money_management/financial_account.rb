@@ -84,19 +84,6 @@ module Stripe
           end
         end
 
-        class ManagedBy < ::Stripe::StripeObject
-          # Enum describing the Stripe product that is managing this FinancialAccount.
-          attr_reader :type
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class MultiprocessorSettlement < ::Stripe::StripeObject
           # Settlement currencies enabled for this FinancialAccount.
           attr_reader :settlement_currencies
@@ -282,9 +269,6 @@ module Stripe
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-        # If this is a managed FinancialAccount, `managed_by` indicates the product that created and manages this FinancialAccount. For managed FinancialAccounts,
-        # creation of money management resources can only be orchestrated by the managing product.
-        attr_reader :managed_by
         # Metadata associated with the FinancialAccount.
         attr_reader :metadata
         # If this is a `multiprocessor_settlement` FinancialAccount, this hash includes details specific to `multiprocessor_settlement` FinancialAccounts.
@@ -310,7 +294,6 @@ module Stripe
             accrued_fees: AccruedFees,
             balance: Balance,
             credit: Credit,
-            managed_by: ManagedBy,
             multiprocessor_settlement: MultiprocessorSettlement,
             other: Other,
             payments: Payments,

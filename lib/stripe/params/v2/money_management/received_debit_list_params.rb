@@ -7,9 +7,12 @@ module Stripe
       class ReceivedDebitListParams < ::Stripe::RequestParams
         # The page limit.
         attr_accessor :limit
+        # Filter by the received debit mandate ID.
+        attr_accessor :received_debit_mandate
 
-        def initialize(limit: nil)
+        def initialize(limit: nil, received_debit_mandate: nil)
           @limit = limit
+          @received_debit_mandate = received_debit_mandate
         end
       end
     end

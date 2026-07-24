@@ -2336,6 +2336,12 @@ module Stripe
       register("v2.money_management.received_debit.canceled", &handler)
     end
 
+    def on_v2_money_management_received_debit_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit.created", &handler)
+    end
+
     def on_v2_money_management_received_debit_failed(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -2348,6 +2354,12 @@ module Stripe
       register("v2.money_management.received_debit.pending", &handler)
     end
 
+    def on_v2_money_management_received_debit_scheduled(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit.scheduled", &handler)
+    end
+
     def on_v2_money_management_received_debit_succeeded(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -2358,6 +2370,36 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.money_management.received_debit.updated", &handler)
+    end
+
+    def on_v2_money_management_received_debit_mandate_canceled(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit_mandate.canceled", &handler)
+    end
+
+    def on_v2_money_management_received_debit_mandate_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit_mandate.created", &handler)
+    end
+
+    def on_v2_money_management_received_debit_mandate_expired(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit_mandate.expired", &handler)
+    end
+
+    def on_v2_money_management_received_debit_mandate_pending_cancellation(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit_mandate.pending_cancellation", &handler)
+    end
+
+    def on_v2_money_management_received_debit_mandate_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.money_management.received_debit_mandate.updated", &handler)
     end
 
     def on_v2_money_management_recipient_verification_created(&handler)
@@ -2574,6 +2616,12 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v2.signals.account_signal.merchant_delinquency_ready", &handler)
+    end
+
+    def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v2.signals.account_signal.payment_delinquency_exposure_ready", &handler)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

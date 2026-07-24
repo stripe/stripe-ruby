@@ -102,6 +102,88 @@ module Stripe
             @field_encodings = {probability: :decimal_string}
           end
         end
+        class PaymentDelinquencyExposure < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class GrossExposureAmount < ::Stripe::StripeObject
+              # ISO 4217 currency code.
+              sig { returns(String) }
+              def currency; end
+              # Amount in minor units for the given currency.
+              sig { returns(Integer) }
+              def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {value: :int64_string}
+              end
+            end
+            # Total payments still exposed to dispute or refund risk in the event of delinquency.
+            sig { returns(T.nilable(GrossExposureAmount)) }
+            def gross_exposure_amount; end
+            # Percentage of Gross Exposure expected to be disputed or refunded and materialize as a loss in the event of delinquency.
+            sig { returns(T.nilable(Integer)) }
+            def loss_given_default_in_percentages; end
+            # Predicted window size in days until dispute is raised.
+            sig { returns(T.nilable(Integer)) }
+            def predicted_dispute_window_in_days; end
+            def self.inner_class_types
+              @inner_class_types = {gross_exposure_amount: GrossExposureAmount}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {
+                gross_exposure_amount: {kind: :object, fields: {value: :int64_string}},
+              }
+            end
+          end
+          class ExposureAmount < ::Stripe::StripeObject
+            # ISO 4217 currency code.
+            sig { returns(String) }
+            def currency; end
+            # Amount in minor units for the given currency.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {value: :int64_string}
+            end
+          end
+          # Additional details about the exposure assessment.
+          sig { returns(AdditionalDetails) }
+          def additional_details; end
+          # The exposure amount if this account becomes delinquent.
+          sig { returns(ExposureAmount) }
+          def exposure_amount; end
+          def self.inner_class_types
+            @inner_class_types = {
+              additional_details: AdditionalDetails,
+              exposure_amount: ExposureAmount,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              additional_details: {
+                kind: :object,
+                fields: {gross_exposure_amount: {kind: :object, fields: {value: :int64_string}}},
+              },
+              exposure_amount: {kind: :object, fields: {value: :int64_string}},
+            }
+          end
+        end
         # The account or customer this signal is associated with.
         sig { returns(T.nilable(AccountDetails)) }
         def account_details; end
@@ -123,6 +205,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Data for the payment delinquency exposure signal. Present only when type is payment_delinquency_exposure.
+        sig { returns(T.nilable(PaymentDelinquencyExposure)) }
+        def payment_delinquency_exposure; end
         # The type of signal.
         sig { returns(String) }
         def type; end

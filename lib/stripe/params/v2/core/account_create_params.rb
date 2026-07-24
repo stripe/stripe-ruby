@@ -2213,6 +2213,18 @@ module Stripe
               end
             end
 
+            class GrossSettlement < ::Stripe::RequestParams
+              # The ID of the payment method to use for gross settlement payouts.
+              attr_accessor :payment_method
+              # Whether to collect a payment method for gross settlement.
+              attr_accessor :payment_method_collection
+
+              def initialize(payment_method: nil, payment_method_collection: nil)
+                @payment_method = payment_method
+                @payment_method_collection = payment_method_collection
+              end
+            end
+
             class KonbiniPayments < ::Stripe::RequestParams
               class Support < ::Stripe::RequestParams
                 class Hours < ::Stripe::RequestParams
@@ -2370,6 +2382,8 @@ module Stripe
             attr_accessor :capabilities
             # Card payments settings.
             attr_accessor :card_payments
+            # Settings for gross settlement.
+            attr_accessor :gross_settlement
             # Settings specific to Konbini payments on the account.
             attr_accessor :konbini_payments
             # The Merchant Category Code (MCC) for the Merchant Configuration. MCCs classify businesses based on the goods or services they provide.
@@ -2388,6 +2402,7 @@ module Stripe
               branding: nil,
               capabilities: nil,
               card_payments: nil,
+              gross_settlement: nil,
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
@@ -2399,6 +2414,7 @@ module Stripe
               @branding = branding
               @capabilities = capabilities
               @card_payments = card_payments
+              @gross_settlement = gross_settlement
               @konbini_payments = konbini_payments
               @mcc = mcc
               @script_statement_descriptor = script_statement_descriptor
@@ -5181,6 +5197,45 @@ module Stripe
           end
 
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # Purpose of additional address.
+              attr_accessor :purpose
+              # State, county, province, or region.
+              attr_accessor :state
+              # Town or district.
+              attr_accessor :town
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @purpose = purpose
+                @state = state
+                @town = town
+              end
+            end
+
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
@@ -5575,6 +5630,8 @@ module Stripe
                 @kanji = kanji
               end
             end
+            # Additional addresses associated with the business.
+            attr_accessor :additional_addresses
             # The business registration address of the business entity.
             attr_accessor :address
             # The business gross annual revenue for its preceding fiscal year.
@@ -5603,6 +5660,7 @@ module Stripe
             attr_accessor :structure
 
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               compliance_screening_description: nil,
@@ -5617,6 +5675,7 @@ module Stripe
               script_names: nil,
               structure: nil
             )
+              @additional_addresses = additional_addresses
               @address = address
               @annual_revenue = annual_revenue
               @compliance_screening_description = compliance_screening_description

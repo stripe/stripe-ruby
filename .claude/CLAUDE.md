@@ -18,6 +18,10 @@
 - Version: `lib/stripe/version.rb`
 - Sorbet type definitions: `rbi/`. NEVER read `rbi/stripe.rbi`, since it's a huge file that collects data already present in other `.rbi` files
 
+## RBI Type Annotations
+
+When adding or modifying public methods on non-generated, you **must** also update the corresponding `rbi/stripe/stripe_client.rbi` with matching Sorbet type signatures. This file provides type information for tools and IDEs.
+
 ## Generated Code
 
 - Files containing `File generated from our OpenAPI spec` at the top are generated; do not edit. Similarly, any code block starting with `The beginning of the section generated from our OpenAPI spec` is generated and should not be edited directly.

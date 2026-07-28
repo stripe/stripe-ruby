@@ -70,7 +70,7 @@ module Stripe
         e = assert_raises(ArgumentError) do
           Stripe::Webhook.construct_event(v2_payload, header, Test::WebhookHelpers::SECRET)
         end
-        assert_match(/StripeClient#parse_event_notification/, e.message)
+        assert_match(/parse_event_notification/, e.message)
       end
 
       should "can call refresh on Event data object" do

@@ -19,14 +19,19 @@ module Stripe
       # bad payload that fails to parse and throws an exception.
       data = JSON.parse(payload, symbolize_names: true)
 
+      _build_event(data)
+    end
+
+    def self._build_event(data)
       if data[:object] == "v2.core.event"
         raise ArgumentError,
-              "You passed an event notification to Webhook.construct_event, which expects " \
-              "a webhook payload. Use StripeClient#parse_event_notification instead."
+              "You passed a thin event notification to a method that expects a webhook body. " \
+              "Use the corresponding #parse_event_notification* method instead"
       end
 
       Event.construct_from(data, {}, nil, :v1, APIRequestor.active_requestor)
     end
+    private_class_method :_build_event
 
     module Signature
       EXPECTED_SCHEME = "v1"

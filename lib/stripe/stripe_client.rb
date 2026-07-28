@@ -65,18 +65,57 @@ module Stripe
 
       # v2 events use the same signing mechanism as v1 events
       Webhook::Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
+      build_event_notification(payload)
+    end
 
-      parsed = JSON.parse(payload, symbolize_names: true)
+    def construct_event_from_cloud_provider(payload)
+      Webhook.send(:_build_event, extract_from_cloud_provider_envelope(payload))
+    end
+
+    def parse_event_notification_from_cloud_provider(payload)
+      build_event_notification(extract_from_cloud_provider_envelope(payload))
+    end
+
+    private def build_event_notification(payload_or_obj)
+      parsed = if payload_or_obj.is_a?(String)
+                 JSON.parse(payload_or_obj, symbolize_names: true)
+               else
+                 payload_or_obj
+               end
 
       if parsed[:object] == "event"
         raise ArgumentError,
-              "You passed a webhook payload to StripeClient#parse_event_notification, which " \
-              "expects an event notification. Use Webhook.construct_event instead."
+              "You passed a webhook payload to a method that expects a thin event notification. Use the corresponding construct_event* method instead."
       end
 
       cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
 
       cls.new(parsed, self)
+    end
+
+    private def extract_from_cloud_provider_envelope(payload)
+      payload = payload.encode("utf-8") if payload.respond_to?(:encode)
+      data = JSON.parse(payload, symbolize_names: true)
+
+      # Could add as many checks as we want here, but we'll start simple
+      if data.key?(:detail)
+        # AWS
+        # https://docs.stripe.com/event-destinations/eventbridge#event-structure
+        data[:detail]
+      elsif data.key?(:specversion)
+        # Azure
+        # https://docs.stripe.com/event-destinations/eventgrid#event-structure
+        data[:data]
+      elsif data[:id].is_a?(String) && data[:id].start_with?("evt_")
+        raise ArgumentError,
+              "It looks like you passed a Stripe Event directly. " \
+              "Use construct_event instead to parse a webhook payload " \
+              "with signature verification."
+      else
+        raise ArgumentError,
+              "Unrecognized cloud event format. The payload must be an " \
+              "AWS EventBridge or Azure Event Grid event envelope."
+      end
     end
 
     def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)

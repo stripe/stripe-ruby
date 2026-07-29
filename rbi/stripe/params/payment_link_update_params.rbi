@@ -83,6 +83,48 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
+    class ConsentCollection < ::Stripe::RequestParams
+      class PaymentMethodReuseAgreement < ::Stripe::RequestParams
+        # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+        # defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
+        sig { returns(String) }
+        def position; end
+        sig { params(_position: String).returns(String) }
+        def position=(_position); end
+        sig { params(position: String).void }
+        def initialize(position: nil); end
+      end
+      # Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+      sig {
+        returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement))
+       }
+      def payment_method_reuse_agreement; end
+      sig {
+        params(_payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement))
+       }
+      def payment_method_reuse_agreement=(_payment_method_reuse_agreement); end
+      # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+      # Session will determine whether to display an option to opt into promotional communication
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
+      sig { returns(T.nilable(String)) }
+      def promotions; end
+      sig { params(_promotions: T.nilable(String)).returns(T.nilable(String)) }
+      def promotions=(_promotions); end
+      # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
+      # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+      sig { returns(T.nilable(String)) }
+      def terms_of_service; end
+      sig { params(_terms_of_service: T.nilable(String)).returns(T.nilable(String)) }
+      def terms_of_service=(_terms_of_service); end
+      sig {
+        params(payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement), promotions: T.nilable(String), terms_of_service: T.nilable(String)).void
+       }
+      def initialize(
+        payment_method_reuse_agreement: nil,
+        promotions: nil,
+        terms_of_service: nil
+      ); end
+    end
     class CustomField < ::Stripe::RequestParams
       class Dropdown < ::Stripe::RequestParams
         class Option < ::Stripe::RequestParams
@@ -591,6 +633,23 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
+      # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+      #
+      # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+      #
+      # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+      #
+      # If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
+      #
+      # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+      #
+      # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+      sig { returns(T.nilable(T.any(String, String))) }
+      def setup_future_usage; end
+      sig {
+        params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+       }
+      def setup_future_usage=(_setup_future_usage); end
       # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
       #
       # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
@@ -609,11 +668,12 @@ module Stripe
       sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
       def transfer_group=(_transfer_group); end
       sig {
-        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
+        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
        }
       def initialize(
         description: nil,
         metadata: nil,
+        setup_future_usage: nil,
         statement_descriptor: nil,
         statement_descriptor_suffix: nil,
         transfer_group: nil
@@ -700,6 +760,15 @@ module Stripe
       def allowed_countries=(_allowed_countries); end
       sig { params(allowed_countries: T::Array[String]).void }
       def initialize(allowed_countries: nil); end
+    end
+    class ShippingOption < ::Stripe::RequestParams
+      # The ID of the Shipping Rate to use for this shipping option.
+      sig { returns(T.nilable(String)) }
+      def shipping_rate; end
+      sig { params(_shipping_rate: T.nilable(String)).returns(T.nilable(String)) }
+      def shipping_rate=(_shipping_rate); end
+      sig { params(shipping_rate: T.nilable(String)).void }
+      def initialize(shipping_rate: nil); end
     end
     class SubscriptionData < ::Stripe::RequestParams
       class InvoiceSettings < ::Stripe::RequestParams
@@ -840,6 +909,13 @@ module Stripe
     def billing_address_collection; end
     sig { params(_billing_address_collection: T.nilable(String)).returns(T.nilable(String)) }
     def billing_address_collection=(_billing_address_collection); end
+    # Configure fields to gather active consent from customers.
+    sig { returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection)) }
+    def consent_collection; end
+    sig {
+      params(_consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection))
+     }
+    def consent_collection=(_consent_collection); end
     # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])))
@@ -967,6 +1043,15 @@ module Stripe
       params(_shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)))
      }
     def shipping_address_collection=(_shipping_address_collection); end
+    # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])))
+     }
+    def shipping_options; end
+    sig {
+      params(_shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])))
+     }
+    def shipping_options=(_shipping_options); end
     # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     sig { returns(T.nilable(String)) }
     def submit_type; end
@@ -987,7 +1072,7 @@ module Stripe
      }
     def tax_id_collection=(_tax_id_collection); end
     sig {
-      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).void
+      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).void
      }
     def initialize(
       active: nil,
@@ -995,6 +1080,7 @@ module Stripe
       allow_promotion_codes: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
+      consent_collection: nil,
       custom_fields: nil,
       custom_text: nil,
       customer_creation: nil,
@@ -1012,6 +1098,7 @@ module Stripe
       phone_number_collection: nil,
       restrictions: nil,
       shipping_address_collection: nil,
+      shipping_options: nil,
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil

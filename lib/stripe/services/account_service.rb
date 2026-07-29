@@ -16,7 +16,7 @@ module Stripe
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     def create(params = {}, opts = {})
@@ -47,7 +47,7 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     def reject(account, params = {}, opts = {})
       request(
         method: :post,
@@ -72,6 +72,21 @@ module Stripe
     # Retrieves the details of an account.
     def retrieve_current(params = {}, opts = {})
       request(method: :get, path: "/v1/account", params: params, opts: opts, base_address: :api)
+    end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def unreject(account, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
     end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are

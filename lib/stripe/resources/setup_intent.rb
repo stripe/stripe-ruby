@@ -742,6 +742,8 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer.
+    attr_reader :allowed_payment_method_types
     # ID of the Connect application that created the SetupIntent.
     attr_reader :application
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.

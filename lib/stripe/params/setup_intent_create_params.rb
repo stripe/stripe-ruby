@@ -1233,6 +1233,8 @@ module Stripe
         @currency = currency
       end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    attr_accessor :allowed_payment_method_types
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -1292,6 +1294,7 @@ module Stripe
     attr_accessor :use_stripe_sdk
 
     def initialize(
+      allowed_payment_method_types: nil,
       attach_to_self: nil,
       automatic_payment_methods: nil,
       confirm: nil,
@@ -1315,6 +1318,7 @@ module Stripe
       usage: nil,
       use_stripe_sdk: nil
     )
+      @allowed_payment_method_types = allowed_payment_method_types
       @attach_to_self = attach_to_self
       @automatic_payment_methods = automatic_payment_methods
       @confirm = confirm

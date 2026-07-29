@@ -90,6 +90,11 @@ module Stripe
           params(_address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation)).returns(T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation))
          }
         def address_validation=(_address_validation); end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
+        sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+        def business_name=(_business_name); end
         # Customs information for the shipment.
         sig { returns(T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs)) }
         def customs; end
@@ -123,11 +128,12 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(address: ::Stripe::Issuing::CardUpdateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation), customs: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
+          params(address: ::Stripe::Issuing::CardUpdateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation), business_name: T.nilable(String), customs: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           address: nil,
           address_validation: nil,
+          business_name: nil,
           customs: nil,
           name: nil,
           phone_number: nil,

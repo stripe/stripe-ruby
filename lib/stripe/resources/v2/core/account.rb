@@ -2438,6 +2438,33 @@ module Stripe
           end
 
           class BusinessDetails < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # Purpose of additional address.
+              attr_reader :purpose
+              # State, county, province, or region.
+              attr_reader :state
+              # Town or district.
+              attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
@@ -2859,6 +2886,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # Additional addresses associated with the business.
+            attr_reader :additional_addresses
             # The company’s primary address.
             attr_reader :address
             # The business gross annual revenue for its preceding fiscal year.
@@ -2886,6 +2915,7 @@ module Stripe
 
             def self.inner_class_types
               @inner_class_types = {
+                additional_addresses: AdditionalAddress,
                 address: Address,
                 annual_revenue: AnnualRevenue,
                 documents: Documents,

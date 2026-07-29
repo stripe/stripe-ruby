@@ -4,6 +4,12 @@
 # typed: true
 module Stripe
   class PaymentRecordService < StripeService
+    # List all the Payment Records for a given merchant.
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+     }
+    def list(params = {}, opts = {}); end
+
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment
     #  Records in a terminal state directly, through this method.

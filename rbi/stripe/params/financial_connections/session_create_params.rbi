@@ -44,10 +44,39 @@ module Stripe
         def countries; end
         sig { params(_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def countries=(_countries); end
+        # Whether the session should require payment method support and successful account number retrieval before completion.
+        sig { returns(T.nilable(String)) }
+        def require_payment_method_support; end
         sig {
-          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String])).void
+          params(_require_payment_method_support: T.nilable(String)).returns(T.nilable(String))
          }
-        def initialize(account_subcategories: nil, countries: nil); end
+        def require_payment_method_support=(_require_payment_method_support); end
+        sig {
+          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), require_payment_method_support: T.nilable(String)).void
+         }
+        def initialize(
+          account_subcategories: nil,
+          countries: nil,
+          require_payment_method_support: nil
+        ); end
+      end
+      class Limits < ::Stripe::RequestParams
+        # The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
+        sig { returns(T.any(String, Integer)) }
+        def accounts; end
+        sig { params(_accounts: T.any(String, Integer)).returns(T.any(String, Integer)) }
+        def accounts=(_accounts); end
+        sig { params(accounts: T.any(String, Integer)).void }
+        def initialize(accounts: nil); end
+      end
+      class ManualEntry < ::Stripe::RequestParams
+        # How manual entry should be handled.
+        sig { returns(T.nilable(String)) }
+        def mode; end
+        sig { params(_mode: T.nilable(String)).returns(T.nilable(String)) }
+        def mode=(_mode); end
+        sig { params(mode: T.nilable(String)).void }
+        def initialize(mode: nil); end
       end
       # The account holder to link accounts for.
       sig { returns(::Stripe::FinancialConnections::SessionCreateParams::AccountHolder) }
@@ -68,6 +97,20 @@ module Stripe
         params(_filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters))
        }
       def filters=(_filters); end
+      # Settings for configuring Session-specific limits.
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits)) }
+      def limits; end
+      sig {
+        params(_limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits))
+       }
+      def limits=(_limits); end
+      # Customize manual entry behavior
+      sig { returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry)) }
+      def manual_entry; end
+      sig {
+        params(_manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry)).returns(T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry))
+       }
+      def manual_entry=(_manual_entry); end
       # List of data features that you would like to request access to.
       #
       # Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
@@ -86,12 +129,14 @@ module Stripe
       sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
       def return_url=(_return_url); end
       sig {
-        params(account_holder: ::Stripe::FinancialConnections::SessionCreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
+        params(account_holder: ::Stripe::FinancialConnections::SessionCreateParams::AccountHolder, expand: T.nilable(T::Array[String]), filters: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Filters), limits: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::Limits), manual_entry: T.nilable(::Stripe::FinancialConnections::SessionCreateParams::ManualEntry), permissions: T::Array[String], prefetch: T.nilable(T::Array[String]), return_url: T.nilable(String)).void
        }
       def initialize(
         account_holder: nil,
         expand: nil,
         filters: nil,
+        limits: nil,
+        manual_entry: nil,
         permissions: nil,
         prefetch: nil,
         return_url: nil

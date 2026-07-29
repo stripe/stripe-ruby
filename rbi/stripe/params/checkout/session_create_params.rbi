@@ -768,13 +768,6 @@ module Stripe
           params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
-        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
-        sig { returns(T.nilable(T::Array[String])) }
-        def dynamic_tax_rates; end
-        sig {
-          params(_dynamic_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-         }
-        def dynamic_tax_rates=(_dynamic_tax_rates); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -805,11 +798,10 @@ module Stripe
         sig { params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def tax_rates=(_tax_rates); end
         sig {
-          params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity), dynamic_tax_rates: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String])).void
+          params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity), metadata: T.nilable(T::Hash[String, String]), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String])).void
          }
         def initialize(
           adjustable_quantity: nil,
-          dynamic_tax_rates: nil,
           metadata: nil,
           price: nil,
           price_data: nil,
@@ -2035,8 +2027,21 @@ module Stripe
           def capture_method; end
           sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
           def capture_method=(_capture_method); end
-          sig { params(capture_method: T.nilable(String)).void }
-          def initialize(capture_method: nil); end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+          def setup_future_usage=(_setup_future_usage); end
+          sig {
+            params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+           }
+          def initialize(capture_method: nil, setup_future_usage: nil); end
         end
         class Paynow < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2309,8 +2314,21 @@ module Stripe
           def capture_method; end
           sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
           def capture_method=(_capture_method); end
-          sig { params(capture_method: T.nilable(String)).void }
-          def initialize(capture_method: nil); end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+          def setup_future_usage=(_setup_future_usage); end
+          sig {
+            params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+           }
+          def initialize(capture_method: nil, setup_future_usage: nil); end
         end
         class Satispay < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
@@ -3464,7 +3482,7 @@ module Stripe
         def application_fee_percent; end
         sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
         def application_fee_percent=(_application_fee_percent); end
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         sig { returns(T.nilable(Integer)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }

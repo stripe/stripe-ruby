@@ -764,6 +764,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
     # ID of the Connect application that created the SetupIntent.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end

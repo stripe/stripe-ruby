@@ -80,7 +80,7 @@ module Stripe
     attr_accessor :completed_at
     # Only return subscription schedules that were created during the given date interval.
     attr_accessor :created
-    # Only return subscription schedules for the given customer.
+    # Only return subscription schedules for the given customer. The response will not include subscription schedules for customers with a test clock attached if this parameter is not set.
     attr_accessor :customer
     # Only return subscription schedules for the given account.
     attr_accessor :customer_account

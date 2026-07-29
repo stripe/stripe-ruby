@@ -1475,6 +1475,24 @@ module Stripe
             end
           end
 
+          class MassTransitParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class ParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class StateSalesTax < ::Stripe::RequestParams
             class Election < ::Stripe::RequestParams
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
@@ -1498,6 +1516,10 @@ module Stripe
           attr_accessor :local_amusement_tax
           # Options for the local lease tax registration.
           attr_accessor :local_lease_tax
+          # Options for the mass transit parking tax registration.
+          attr_accessor :mass_transit_parking_tax
+          # Options for the parking tax registration.
+          attr_accessor :parking_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
           # Options for the state sales tax registration.
@@ -1508,12 +1530,16 @@ module Stripe
           def initialize(
             local_amusement_tax: nil,
             local_lease_tax: nil,
+            mass_transit_parking_tax: nil,
+            parking_tax: nil,
             state: nil,
             state_sales_tax: nil,
             type: nil
           )
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
+            @mass_transit_parking_tax = mass_transit_parking_tax
+            @parking_tax = parking_tax
             @state = state
             @state_sales_tax = state_sales_tax
             @type = type

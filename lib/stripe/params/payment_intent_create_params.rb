@@ -1962,9 +1962,18 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, setup_future_usage: nil)
           @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -2187,9 +2196,18 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, setup_future_usage: nil)
           @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -2723,10 +2741,13 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::RequestParams
+      # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+      attr_accessor :referrer
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
-      def initialize(session: nil)
+      def initialize(referrer: nil, session: nil)
+        @referrer = referrer
         @session = session
       end
     end
@@ -2828,6 +2849,8 @@ module Stripe
         @payment_data = payment_data
       end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_accessor :amount
     # Provides industry-specific information about the amount.
@@ -2929,6 +2952,7 @@ module Stripe
     attr_accessor :use_stripe_sdk
 
     def initialize(
+      allowed_payment_method_types: nil,
       amount: nil,
       amount_details: nil,
       application_fee_amount: nil,
@@ -2967,6 +2991,7 @@ module Stripe
       transfer_group: nil,
       use_stripe_sdk: nil
     )
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount = amount
       @amount_details = amount_details
       @application_fee_amount = application_fee_amount

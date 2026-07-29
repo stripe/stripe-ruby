@@ -1971,6 +1971,24 @@ module Stripe
             sig { params(jurisdiction: String).void }
             def initialize(jurisdiction: nil); end
           end
+          class MassTransitParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class ParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class StateSalesTax < ::Stripe::RequestParams
             class Election < ::Stripe::RequestParams
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `003` (Allegheny County) and `60000` (Philadelphia City).
@@ -2018,6 +2036,24 @@ module Stripe
             params(_local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
            }
           def local_lease_tax=(_local_lease_tax); end
+          # Options for the mass transit parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax; end
+          sig {
+            params(_mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax=(_mass_transit_parking_tax); end
+          # Options for the parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax; end
+          sig {
+            params(_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax=(_parking_tax); end
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(String) }
           def state; end
@@ -2038,11 +2074,13 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
+            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax), parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
            }
           def initialize(
             local_amusement_tax: nil,
             local_lease_tax: nil,
+            mass_transit_parking_tax: nil,
+            parking_tax: nil,
             state: nil,
             state_sales_tax: nil,
             type: nil

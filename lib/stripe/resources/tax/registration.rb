@@ -1772,6 +1772,32 @@ module Stripe
             end
           end
 
+          class MassTransitParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class StateSalesTax < ::Stripe::StripeObject
             class Election < ::Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
@@ -1802,6 +1828,10 @@ module Stripe
           attr_reader :local_amusement_tax
           # Attribute for field local_lease_tax
           attr_reader :local_lease_tax
+          # Attribute for field mass_transit_parking_tax
+          attr_reader :mass_transit_parking_tax
+          # Attribute for field parking_tax
+          attr_reader :parking_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
           # Attribute for field state_sales_tax
@@ -1813,6 +1843,8 @@ module Stripe
             @inner_class_types = {
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
+              mass_transit_parking_tax: MassTransitParkingTax,
+              parking_tax: ParkingTax,
               state_sales_tax: StateSalesTax,
             }
           end

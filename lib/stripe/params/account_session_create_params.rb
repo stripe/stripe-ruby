@@ -111,17 +111,21 @@ module Stripe
           attr_accessor :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_accessor :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_accessor :smart_disputes_management
 
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           )
             @capture_payments = capture_payments
             @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
             @dispute_management = dispute_management
             @refund_management = refund_management
+            @smart_disputes_management = smart_disputes_management
           end
         end
         # Whether the embedded component is enabled.
@@ -337,17 +341,21 @@ module Stripe
           attr_accessor :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_accessor :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_accessor :smart_disputes_management
 
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           )
             @capture_payments = capture_payments
             @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
             @dispute_management = dispute_management
             @refund_management = refund_management
+            @smart_disputes_management = smart_disputes_management
           end
         end
         # Whether the embedded component is enabled.
@@ -369,15 +377,19 @@ module Stripe
           attr_accessor :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_accessor :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_accessor :smart_disputes_management
 
           def initialize(
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           )
             @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
             @dispute_management = dispute_management
             @refund_management = refund_management
+            @smart_disputes_management = smart_disputes_management
           end
         end
         # Whether the embedded component is enabled.
@@ -401,17 +413,21 @@ module Stripe
           attr_accessor :dispute_management
           # Whether sending refunds is enabled. This is `true` by default.
           attr_accessor :refund_management
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          attr_accessor :smart_disputes_management
 
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           )
             @capture_payments = capture_payments
             @destination_on_behalf_of_charge_management = destination_on_behalf_of_charge_management
             @dispute_management = dispute_management
             @refund_management = refund_management
+            @smart_disputes_management = smart_disputes_management
           end
         end
         # Whether the embedded component is enabled.

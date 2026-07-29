@@ -1198,6 +1198,37 @@ module Stripe
         end
       end
 
+      class AdministrativeAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        attr_accessor :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_accessor :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_accessor :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_accessor :line2
+        # ZIP or postal code.
+        attr_accessor :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_accessor :state
+
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        )
+          @city = city
+          @country = country
+          @line1 = line1
+          @line2 = line2
+          @postal_code = postal_code
+          @state = state
+        end
+      end
+
       class DirectorshipDeclaration < ::Stripe::RequestParams
         # The Unix timestamp marking when the directorship declaration attestation was made.
         attr_accessor :date
@@ -1225,6 +1256,37 @@ module Stripe
           @date = date
           @ip = ip
           @user_agent = user_agent
+        end
+      end
+
+      class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        attr_accessor :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_accessor :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_accessor :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_accessor :line2
+        # ZIP or postal code.
+        attr_accessor :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_accessor :state
+
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        )
+          @city = city
+          @country = country
+          @line1 = line1
+          @line2 = line2
+          @postal_code = postal_code
+          @state = state
         end
       end
 
@@ -1283,6 +1345,8 @@ module Stripe
       attr_accessor :address_kana
       # The Kanji variation of the company's primary address (Japan only).
       attr_accessor :address_kanji
+      # Attribute for param field administrative_address
+      attr_accessor :administrative_address
       # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
       attr_accessor :directors_provided
       # This hash is used to attest that the directors information provided to Stripe is both current and correct.
@@ -1307,6 +1371,8 @@ module Stripe
       attr_accessor :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_accessor :phone
+      # Attribute for param field principal_place_of_business
+      attr_accessor :principal_place_of_business
       # Attribute for param field registration_date
       attr_accessor :registration_date
       # The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
@@ -1316,6 +1382,8 @@ module Stripe
       # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
       attr_accessor :structure
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+      #
+      # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       attr_accessor :tax_id
       # The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
       attr_accessor :tax_id_registrar
@@ -1328,6 +1396,7 @@ module Stripe
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        administrative_address: nil,
         directors_provided: nil,
         directorship_declaration: nil,
         executives_provided: nil,
@@ -1340,6 +1409,7 @@ module Stripe
         ownership_declaration: nil,
         ownership_exemption_reason: nil,
         phone: nil,
+        principal_place_of_business: nil,
         registration_date: nil,
         registration_number: nil,
         representative_declaration: nil,
@@ -1352,6 +1422,7 @@ module Stripe
         @address = address
         @address_kana = address_kana
         @address_kanji = address_kanji
+        @administrative_address = administrative_address
         @directors_provided = directors_provided
         @directorship_declaration = directorship_declaration
         @executives_provided = executives_provided
@@ -1364,6 +1435,7 @@ module Stripe
         @ownership_declaration = ownership_declaration
         @ownership_exemption_reason = ownership_exemption_reason
         @phone = phone
+        @principal_place_of_business = principal_place_of_business
         @registration_date = registration_date
         @registration_number = registration_number
         @representative_declaration = representative_declaration
@@ -1997,6 +2069,15 @@ module Stripe
         end
       end
 
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        attr_accessor :creditor_id
+
+        def initialize(creditor_id: nil)
+          @creditor_id = creditor_id
+        end
+      end
+
       class Treasury < ::Stripe::RequestParams
         class TosAcceptance < ::Stripe::RequestParams
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -2033,6 +2114,8 @@ module Stripe
       attr_accessor :payments
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # Settings specific to SEPA Direct Debit payments.
+      attr_accessor :sepa_debit_payments
       # Settings specific to the account's Treasury FinancialAccounts.
       attr_accessor :treasury
 
@@ -2044,6 +2127,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        sepa_debit_payments: nil,
         treasury: nil
       )
         @bacs_debit_payments = bacs_debit_payments
@@ -2053,6 +2137,7 @@ module Stripe
         @invoices = invoices
         @payments = payments
         @payouts = payouts
+        @sepa_debit_payments = sepa_debit_payments
         @treasury = treasury
       end
     end

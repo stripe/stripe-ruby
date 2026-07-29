@@ -1,5 +1,28 @@
 # Changelog
 
+## 19.5.0-beta.1 - 2026-07-29
+This release changes the pinned API version to 2026-07-29.preview.
+
+* [#1899](https://github.com/stripe/stripe-ruby/pull/1899) Update generated code for beta
+  * Add support for `list` and `retrieve` methods on resource `ProductCatalog::TrialOffer`
+  * Add support for `tax_items` on `ChargeCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntent::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntent::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntent::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, and `PaymentIntentUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`
+  * ⚠️ Remove support for `taxes` on `ChargeCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntent::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntent::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntent::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, and `PaymentIntentUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`
+  * Add support for `tax_id` on `Checkout::Session::CollectedInformation`
+  * ⚠️ Remove support for `tax_ids` on `Checkout::Session::CollectedInformation`
+  * Add support for `mode` on `FinancialConnections::Session::ManualEntry`
+  * Add support for `name` on `Issuing::CardholderUpdateParams`
+  * Add support for `custom_fields`, `description`, and `footer` on `QuotePreviewSubscriptionSchedule::DefaultSetting::InvoiceSetting` and `QuotePreviewSubscriptionSchedule::Phase::InvoiceSetting`
+  * Add support for `trial` on `QuotePreviewSubscriptionSchedule::Phase`
+  * ⚠️ Remove support for `acss_debit`, `afterpay_clearpay`, `alipay`, `alma`, `amazon_pay`, `au_becs_debit`, `bacs_debit`, `bancontact`, `billie`, `bizum`, `blik`, `boleto`, `card_present`, `cashapp`, `crypto`, `customer_balance`, `eps`, `fpx`, `giropay`, `gopay`, `grabpay`, `id_bank_transfer`, `ideal`, `interac_present`, `kakao_pay`, `konbini`, `kr_card`, `mb_way`, `mobilepay`, `multibanco`, `naver_pay`, `nz_bank_account`, `oxxo`, `p24`, `pay_by_bank`, `payco`, `paynow`, `paypal`, `paypay`, `payto`, `pix`, `promptpay`, `qris`, `rechnung`, `revolut_pay`, `samsung_pay`, `satispay`, `scalapay`, `sepa_debit`, `shopeepay`, `sofort`, `stripe_balance`, `sunbit`, `swish`, `twint`, `upi`, `us_bank_account`, `wechat_pay`, and `zip` on `SharedPayment::GrantedToken::PaymentMethodDetail`
+  * Add support for `use_stripe_sdk` on `SharedPayment::IssuedTokenCreateParams` and `SharedPayment::IssuedToken`
+  * Add support for `redirect_to_url` on `SharedPayment::IssuedToken::NextAction`
+  * ⚠️ Change type of `SharedPayment::IssuedToken::NextAction.type` from `literal('use_stripe_sdk')` to `enum('redirect_to_url'|'use_stripe_sdk')`
+  * Add support for `livemode` on `Tax::Location`
+  * Add support for `source` on `V2::Iam::ActivityLog::Detail::UserRole`
+  * Add support for `payout` on `V2::MoneyManagement::ReceivedCredit::BalanceTransfer`
+  * ⚠️ Remove support for `payout_v1` on `V2::MoneyManagement::ReceivedCredit::BalanceTransfer`
+  * ⚠️ Change `V2::MoneyManagement::ReceivedDebit::BankTransfer.us_bank_account` to be optional
+
 ## 19.4.0-beta.1 - 2026-06-24
 This release changes the pinned API version to 2026-06-24.preview.
 

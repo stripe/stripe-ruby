@@ -663,7 +663,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               attr_accessor :amount
               # Tax rate applied.
@@ -680,11 +680,11 @@ module Stripe
             # Indicates if the transaction is tax exempt.
             attr_accessor :tax_exempt_indicator
             # Array of tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(tax_exempt_indicator: nil, taxes: nil)
+            def initialize(tax_exempt_indicator: nil, tax_items: nil)
               @tax_exempt_indicator = tax_exempt_indicator
-              @taxes = taxes
+              @tax_items = tax_items
             end
           end
           # Total amount in cents.
@@ -1215,7 +1215,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               attr_accessor :amount
               # Tax rate.
@@ -1230,10 +1230,10 @@ module Stripe
               end
             end
             # Array of tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(taxes: nil)
-              @taxes = taxes
+            def initialize(tax_items: nil)
+              @tax_items = tax_items
             end
           end
           # Total flight amount.
@@ -1651,7 +1651,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               attr_accessor :amount
               # Tax rate.
@@ -1668,11 +1668,11 @@ module Stripe
             # Indicates whether the transaction is tax exempt.
             attr_accessor :tax_exempt_indicator
             # Tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(tax_exempt_indicator: nil, taxes: nil)
+            def initialize(tax_exempt_indicator: nil, tax_items: nil)
               @tax_exempt_indicator = tax_exempt_indicator
-              @taxes = taxes
+              @tax_items = tax_items
             end
           end
           # Total price of the lodging reservation in cents.

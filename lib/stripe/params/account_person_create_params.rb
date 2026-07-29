@@ -338,8 +338,12 @@ module Stripe
     # The person's gender (International regulations require either "male" or "female").
     attr_accessor :gender
     # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     attr_accessor :id_number
     # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     attr_accessor :id_number_secondary
     # The person's last name.
     attr_accessor :last_name
@@ -364,6 +368,8 @@ module Stripe
     # The relationship that this person has with the account's legal entity.
     attr_accessor :relationship
     # The last four digits of the person's Social Security number (U.S. only).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     attr_accessor :ssn_last_4
     # Demographic data related to the person.
     attr_accessor :us_cfpb_data

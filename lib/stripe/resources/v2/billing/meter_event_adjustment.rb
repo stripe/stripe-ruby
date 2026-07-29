@@ -35,7 +35,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Open Enum. The meter event adjustment’s status.
+        # Open Enum. The meter event adjustment's status.
         attr_reader :status
         # Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
         attr_reader :type

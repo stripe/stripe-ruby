@@ -140,6 +140,9 @@ module Stripe
         # Address validation details for the shipment.
         sig { returns(T.nilable(AddressValidation)) }
         def address_validation; end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
         # The delivery company that shipped a card.
         sig { returns(T.nilable(String)) }
         def carrier; end

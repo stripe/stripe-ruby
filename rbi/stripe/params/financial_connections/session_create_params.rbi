@@ -49,10 +49,22 @@ module Stripe
         def institution; end
         sig { params(_institution: T.nilable(String)).returns(T.nilable(String)) }
         def institution=(_institution); end
+        # Whether the session should require payment method support and successful account number retrieval before completion.
+        sig { returns(T.nilable(String)) }
+        def require_payment_method_support; end
         sig {
-          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String)).void
+          params(_require_payment_method_support: T.nilable(String)).returns(T.nilable(String))
          }
-        def initialize(account_subcategories: nil, countries: nil, institution: nil); end
+        def require_payment_method_support=(_require_payment_method_support); end
+        sig {
+          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String), require_payment_method_support: T.nilable(String)).void
+         }
+        def initialize(
+          account_subcategories: nil,
+          countries: nil,
+          institution: nil,
+          require_payment_method_support: nil
+        ); end
       end
       class Hosted < ::Stripe::RequestParams
         # How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.

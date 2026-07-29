@@ -36,7 +36,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Open Enum. The meter event adjustment’s status.
+        # Open Enum. The meter event adjustment's status.
         sig { returns(String) }
         def status; end
         # Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.

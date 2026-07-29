@@ -10,7 +10,7 @@ module Stripe
      }
     def create(params = {}, opts = {}); end
 
-    # Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+    # Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
     sig {
       params(params: T.any(::Stripe::FxQuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }

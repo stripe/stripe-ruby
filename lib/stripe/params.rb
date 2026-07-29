@@ -28,6 +28,7 @@ module Stripe
   autoload :AccountRetrieveCurrentParams, "stripe/params/account_retrieve_current_params"
   autoload :AccountRetrieveParams, "stripe/params/account_retrieve_params"
   autoload :AccountSessionCreateParams, "stripe/params/account_session_create_params"
+  autoload :AccountUnrejectParams, "stripe/params/account_unreject_params"
   autoload :AccountUpdateParams, "stripe/params/account_update_params"
   autoload :ApplePayDomainCreateParams, "stripe/params/apple_pay_domain_create_params"
   autoload :ApplePayDomainDeleteParams, "stripe/params/apple_pay_domain_delete_params"
@@ -206,6 +207,7 @@ module Stripe
   autoload :PaymentMethodListParams, "stripe/params/payment_method_list_params"
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
+  autoload :PaymentRecordListParams, "stripe/params/payment_record_list_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
            "stripe/params/payment_record_report_payment_attempt_canceled_params"
   autoload :PaymentRecordReportPaymentAttemptFailedParams,
@@ -549,6 +551,8 @@ module Stripe
 
   module ProductCatalog
     autoload :TrialOfferCreateParams, "stripe/params/product_catalog/trial_offer_create_params"
+    autoload :TrialOfferListParams, "stripe/params/product_catalog/trial_offer_list_params"
+    autoload :TrialOfferRetrieveParams, "stripe/params/product_catalog/trial_offer_retrieve_params"
   end
 
   module Radar
@@ -995,6 +999,7 @@ module Stripe
     stripe/params/account_retrieve_current_params
     stripe/params/account_retrieve_params
     stripe/params/account_session_create_params
+    stripe/params/account_unreject_params
     stripe/params/account_update_params
     stripe/params/apple_pay_domain_create_params
     stripe/params/apple_pay_domain_delete_params
@@ -1319,6 +1324,7 @@ module Stripe
     stripe/params/payment_method_list_params
     stripe/params/payment_method_retrieve_params
     stripe/params/payment_method_update_params
+    stripe/params/payment_record_list_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
     stripe/params/payment_record_report_payment_attempt_failed_params
     stripe/params/payment_record_report_payment_attempt_guaranteed_params
@@ -1352,6 +1358,8 @@ module Stripe
     stripe/params/privacy/redaction_job_validate_params
     stripe/params/privacy/redaction_job_validation_error_list_params
     stripe/params/product_catalog/trial_offer_create_params
+    stripe/params/product_catalog/trial_offer_list_params
+    stripe/params/product_catalog/trial_offer_retrieve_params
     stripe/params/product_create_params
     stripe/params/product_delete_params
     stripe/params/product_feature_create_params

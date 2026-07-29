@@ -19,7 +19,7 @@ module Stripe
           # The ID of the outbound transfer object that originated the ReceivedCredit.
           attr_reader :outbound_transfer
           # The ID of the payout object that originated the ReceivedCredit.
-          attr_reader :payout_v1
+          attr_reader :payout
           # The ID of the v1 transfer object that originated the ReceivedCredit.
           attr_reader :transfer
           # Open Enum. The type of Stripe Money Movement that originated the ReceivedCredit.

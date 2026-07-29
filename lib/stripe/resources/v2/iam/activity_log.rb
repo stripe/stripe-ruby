@@ -129,6 +129,8 @@ module Stripe
             attr_reader :new_roles
             # Roles the user had before the change.
             attr_reader :old_roles
+            # Source of the role change.
+            attr_reader :source
             # Email address of the user whose roles were changed.
             attr_reader :user_email
 

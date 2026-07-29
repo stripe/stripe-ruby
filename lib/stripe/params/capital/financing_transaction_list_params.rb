@@ -4,7 +4,7 @@
 module Stripe
   module Capital
     class FinancingTransactionListParams < ::Stripe::RequestParams
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
       attr_accessor :charge
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
@@ -18,7 +18,7 @@ module Stripe
       attr_accessor :reversed_transaction
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
       attr_accessor :treasury_transaction
 
       def initialize(

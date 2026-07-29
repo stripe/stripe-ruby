@@ -34,7 +34,8 @@ module Stripe
           attr_reader :payment_method_type
           # The statement descriptor set by the originator of the debit.
           attr_reader :statement_descriptor
-          # The payment method used to originate the debit.
+          # Object containing details of the US Bank Account that originated the debit.
+          # Present when the debit was originated via ACH.
           attr_reader :us_bank_account
 
           def self.inner_class_types

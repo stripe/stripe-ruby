@@ -638,6 +638,12 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
+    # ID of the customer of this refund.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
+    def customer; end
+    # ID of the account of this refund.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
     sig { returns(T.nilable(String)) }
     def description; end
@@ -668,6 +674,9 @@ module Stripe
     # ID of the PaymentIntent that's refunded.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
+    # ID of the payment method associated with this refund.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+    def payment_method; end
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     sig { returns(T.nilable(String)) }
     def pending_reason; end

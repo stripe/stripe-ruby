@@ -374,6 +374,29 @@ module Stripe
         end
       end
 
+      class AdministrativeAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_reader :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class DirectorshipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the directorship declaration attestation was made.
         attr_reader :date
@@ -398,6 +421,29 @@ module Stripe
         attr_reader :ip
         # The user-agent string from the browser where the beneficial owner attestation was made.
         attr_reader :user_agent
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class PrincipalPlaceOfBusiness < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_reader :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_reader :state
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -478,6 +524,8 @@ module Stripe
       attr_reader :address_kana
       # The Kanji variation of the company's primary address (Japan only).
       attr_reader :address_kanji
+      # Attribute for field administrative_address
+      attr_reader :administrative_address
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
       attr_reader :directors_provided
       # This hash is used to attest that the director information provided to Stripe is both current and correct.
@@ -502,6 +550,8 @@ module Stripe
       attr_reader :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_reader :phone
+      # Attribute for field principal_place_of_business
+      attr_reader :principal_place_of_business
       # Attribute for field registration_date
       attr_reader :registration_date
       # This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
@@ -522,8 +572,10 @@ module Stripe
           address: Address,
           address_kana: AddressKana,
           address_kanji: AddressKanji,
+          administrative_address: AdministrativeAddress,
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
+          principal_place_of_business: PrincipalPlaceOfBusiness,
           registration_date: RegistrationDate,
           representative_declaration: RepresentativeDeclaration,
           verification: Verification,
@@ -676,7 +728,7 @@ module Stripe
       attr_reader :currently_due
       # This is typed as an enum for consistency with `requirements.disabled_reason`.
       attr_reader :disabled_reason
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
       attr_reader :eventually_due
@@ -743,11 +795,11 @@ module Stripe
       attr_reader :alternatives
       # Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
       attr_reader :current_deadline
-      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       attr_reader :currently_due
       # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       attr_reader :disabled_reason
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
       attr_reader :eventually_due
@@ -1297,7 +1349,7 @@ module Stripe
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     def self.create(params = {}, opts = {})
@@ -1363,7 +1415,7 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
@@ -1375,11 +1427,39 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     def self.reject(account, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def unreject(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def self.unreject(account, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
         params: params,
         opts: opts
       )

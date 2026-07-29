@@ -201,7 +201,7 @@ module Stripe
       attr_accessor :active
       # The business information shown to customers in the portal.
       attr_accessor :business_profile
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       attr_accessor :default_return_url
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand

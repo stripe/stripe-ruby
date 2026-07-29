@@ -5,7 +5,7 @@
 module Stripe
   module Capital
     class FinancingTransactionListParams < ::Stripe::RequestParams
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
       sig { returns(T.nilable(String)) }
       def charge; end
       sig { params(_charge: T.nilable(String)).returns(T.nilable(String)) }
@@ -40,7 +40,7 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
       sig { returns(T.nilable(String)) }
       def treasury_transaction; end
       sig { params(_treasury_transaction: T.nilable(String)).returns(T.nilable(String)) }

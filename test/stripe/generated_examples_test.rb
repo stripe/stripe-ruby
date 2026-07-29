@@ -9309,7 +9309,7 @@ module Stripe
     should "Test controlled by alternate resource error (service)" do
       stub_request(
         :post,
-        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits"
       ).to_return(
         body: '{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
         status: 400
@@ -9317,9 +9317,9 @@ module Stripe
       client = Stripe::StripeClient.new("sk_test_123")
 
       assert_raises Stripe::ControlledByAlternateResourceError do
-        outbound_setup_intent = client.v2.money_management.outbound_setup_intents.create
+        us_bank_account = client.v2.core.vault.us_bank_accounts.confirm_microdeposits("id_123")
       end
-      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits"
     end
     should "Test controlled by dashboard error (service)" do
       stub_request(

@@ -702,7 +702,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               attr_accessor :amount
               # Tax rate applied.
@@ -719,11 +719,11 @@ module Stripe
             # Indicates if the transaction is tax exempt.
             attr_accessor :tax_exempt_indicator
             # Array of tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(tax_exempt_indicator: nil, taxes: nil)
+            def initialize(tax_exempt_indicator: nil, tax_items: nil)
               @tax_exempt_indicator = tax_exempt_indicator
-              @taxes = taxes
+              @tax_items = tax_items
             end
           end
           # Total amount in cents.
@@ -1254,7 +1254,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               attr_accessor :amount
               # Tax rate.
@@ -1269,10 +1269,10 @@ module Stripe
               end
             end
             # Array of tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(taxes: nil)
-              @taxes = taxes
+            def initialize(tax_items: nil)
+              @tax_items = tax_items
             end
           end
           # Total flight amount.
@@ -1690,7 +1690,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               attr_accessor :amount
               # Tax rate.
@@ -1707,11 +1707,11 @@ module Stripe
             # Indicates whether the transaction is tax exempt.
             attr_accessor :tax_exempt_indicator
             # Tax details.
-            attr_accessor :taxes
+            attr_accessor :tax_items
 
-            def initialize(tax_exempt_indicator: nil, taxes: nil)
+            def initialize(tax_exempt_indicator: nil, tax_items: nil)
               @tax_exempt_indicator = tax_exempt_indicator
-              @taxes = taxes
+              @tax_items = tax_items
             end
           end
           # Total price of the lodging reservation in cents.
@@ -4699,9 +4699,18 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, setup_future_usage: nil)
           @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -5017,9 +5026,18 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, setup_future_usage: nil)
           @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -5636,10 +5654,13 @@ module Stripe
     end
 
     class RadarOptions < ::Stripe::RequestParams
+      # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+      attr_accessor :referrer
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       attr_accessor :session
 
-      def initialize(session: nil)
+      def initialize(referrer: nil, session: nil)
+        @referrer = referrer
         @session = session
       end
     end
@@ -5694,6 +5715,8 @@ module Stripe
         @tracking_number = tracking_number
       end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_accessor :allowed_payment_method_types
     # Provides industry-specific information about the amount.
     attr_accessor :amount_details
     # Amount to confirm on the PaymentIntent. Defaults to `amount` if not provided.
@@ -5733,7 +5756,7 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_accessor :payment_method_types
     # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     attr_accessor :radar_options
@@ -5759,6 +5782,7 @@ module Stripe
     attr_accessor :use_stripe_sdk
 
     def initialize(
+      allowed_payment_method_types: nil,
       amount_details: nil,
       amount_to_confirm: nil,
       application_fee_amount: nil,
@@ -5784,6 +5808,7 @@ module Stripe
       shipping: nil,
       use_stripe_sdk: nil
     )
+      @allowed_payment_method_types = allowed_payment_method_types
       @amount_details = amount_details
       @amount_to_confirm = amount_to_confirm
       @application_fee_amount = application_fee_amount

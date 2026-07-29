@@ -239,7 +239,7 @@ module Stripe
       attr_reader :business_profile
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       attr_reader :default_return_url
       # Attribute for field features
       attr_reader :features

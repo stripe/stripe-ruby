@@ -14,7 +14,12 @@ module Stripe
     end
 
     context ".config_dir" do
-      if RUBY_PLATFORM !~ /mingw|mswin/
+      if RUBY_PLATFORM =~ /mingw|mswin/
+        should "return APPDATA/Stripe on Windows" do
+          refute_nil TelemetryId.config_dir
+          assert TelemetryId.config_dir.end_with?("Stripe")
+        end
+      else
         should "return XDG_CONFIG_HOME/stripe when XDG_CONFIG_HOME is set" do
           with_env("XDG_CONFIG_HOME" => "/tmp/xdg") do
             assert_equal "/tmp/xdg/stripe", TelemetryId.config_dir
@@ -31,11 +36,6 @@ module Stripe
           with_env("XDG_CONFIG_HOME" => "") do
             assert_equal ::File.expand_path("~/.config/stripe"), TelemetryId.config_dir
           end
-        end
-      else
-        should "return APPDATA/Stripe on Windows" do
-          refute_nil TelemetryId.config_dir
-          assert TelemetryId.config_dir.end_with?("Stripe")
         end
       end
     end

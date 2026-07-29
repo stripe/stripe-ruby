@@ -109,7 +109,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::StripeObject
             class Fuel < ::Stripe::StripeObject
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               def self.inner_class_types

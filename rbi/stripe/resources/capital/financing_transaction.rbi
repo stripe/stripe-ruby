@@ -30,7 +30,7 @@ module Stripe
         # The fee amount being repaid, paid out, or reversed in minor units.
         sig { returns(Integer) }
         def fee_amount; end
-        # The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
+        # The linked payment for the transaction. This field only applies to financing transactions of type `payment` and reason `automatic_withholding`.
         sig { returns(T.nilable(String)) }
         def linked_payment; end
         # The reason for the financing transaction (if applicable).

@@ -34,8 +34,9 @@ module Stripe
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
-          # The payment method used to originate the debit.
-          sig { returns(UsBankAccount) }
+          # Object containing details of the US Bank Account that originated the debit.
+          # Present when the debit was originated via ACH.
+          sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
             @inner_class_types = {us_bank_account: UsBankAccount}

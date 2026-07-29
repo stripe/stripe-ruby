@@ -564,8 +564,6 @@ module Stripe
         end
         # When set, provides configuration for this item’s quantity to be adjusted by the customer during Checkout.
         attr_accessor :adjustable_quantity
-        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
-        attr_accessor :dynamic_tax_rates
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         attr_accessor :metadata
         # The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object. One of `price` or `price_data` is required.
@@ -579,7 +577,6 @@ module Stripe
 
         def initialize(
           adjustable_quantity: nil,
-          dynamic_tax_rates: nil,
           metadata: nil,
           price: nil,
           price_data: nil,
@@ -587,7 +584,6 @@ module Stripe
           tax_rates: nil
         )
           @adjustable_quantity = adjustable_quantity
-          @dynamic_tax_rates = dynamic_tax_rates
           @metadata = metadata
           @price = price
           @price_data = price_data
@@ -1546,9 +1542,18 @@ module Stripe
         class Payco < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
 
-          def initialize(capture_method: nil)
+          def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
           end
         end
 
@@ -1750,9 +1755,18 @@ module Stripe
         class SamsungPay < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
           attr_accessor :capture_method
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          attr_accessor :setup_future_usage
 
-          def initialize(capture_method: nil)
+          def initialize(capture_method: nil, setup_future_usage: nil)
             @capture_method = capture_method
+            @setup_future_usage = setup_future_usage
           end
         end
 
@@ -2472,7 +2486,7 @@ module Stripe
         end
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. To use an application fee percent, the request must be made on behalf of another account, using the `Stripe-Account` header or an OAuth key. For more information, see the application fees [documentation](https://stripe.com/docs/connect/subscriptions#collecting-fees-on-subscriptions).
         attr_accessor :application_fee_percent
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         attr_accessor :billing_cycle_anchor
         # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
         attr_accessor :billing_cycle_anchor_config

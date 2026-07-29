@@ -216,7 +216,7 @@ module Stripe
       # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
@@ -253,7 +253,7 @@ module Stripe
       # Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
@@ -2969,6 +2969,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -3214,6 +3217,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -3245,6 +3251,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -3279,6 +3288,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -4034,6 +4046,32 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class AdministrativeAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class DirectorshipDeclaration < ::Stripe::StripeObject
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -4061,6 +4099,32 @@ module Stripe
         # The user-agent string from the browser where the beneficial owner attestation was made.
         sig { returns(T.nilable(String)) }
         def user_agent; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class PrincipalPlaceOfBusiness < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -4142,6 +4206,9 @@ module Stripe
       # The Kanji variation of the company's primary address (Japan only).
       sig { returns(T.nilable(AddressKanji)) }
       def address_kanji; end
+      # Attribute for field administrative_address
+      sig { returns(T.nilable(AdministrativeAddress)) }
+      def administrative_address; end
       # Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
@@ -4178,6 +4245,9 @@ module Stripe
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
       def phone; end
+      # Attribute for field principal_place_of_business
+      sig { returns(T.nilable(PrincipalPlaceOfBusiness)) }
+      def principal_place_of_business; end
       # Attribute for field registration_date
       sig { returns(T.nilable(RegistrationDate)) }
       def registration_date; end
@@ -4204,8 +4274,10 @@ module Stripe
           address: Address,
           address_kana: AddressKana,
           address_kanji: AddressKanji,
+          administrative_address: AdministrativeAddress,
           directorship_declaration: DirectorshipDeclaration,
           ownership_declaration: OwnershipDeclaration,
+          principal_place_of_business: PrincipalPlaceOfBusiness,
           registration_date: RegistrationDate,
           representative_declaration: RepresentativeDeclaration,
           verification: Verification,
@@ -4358,7 +4430,7 @@ module Stripe
       # This is typed as an enum for consistency with `requirements.disabled_reason`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
@@ -4426,13 +4498,13 @@ module Stripe
       # Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
       sig { returns(T.nilable(Integer)) }
       def current_deadline; end
-      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
       # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T.nilable(T::Array[Error])) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
@@ -5013,7 +5085,7 @@ module Stripe
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     sig {
@@ -5065,7 +5137,7 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     sig {
       params(params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
@@ -5073,11 +5145,31 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     sig {
       params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
     def self.reject(account, params = {}, opts = {}); end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    sig {
+      params(params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+     }
+    def unreject(params = {}, opts = {}); end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    sig {
+      params(account: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+     }
+    def self.unreject(account, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
@@ -5148,7 +5240,7 @@ module Stripe
       # This is typed as an enum for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is null because fields in `future_requirements` will never disable the account.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well.
@@ -5211,7 +5303,7 @@ module Stripe
       # Description of why the capability is disabled. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
@@ -5447,7 +5539,7 @@ module Stripe
       # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
       sig { returns(T::Array[String]) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
@@ -5562,7 +5654,7 @@ module Stripe
       # Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
       sig { returns(T::Array[String]) }
       def currently_due; end
-      # Details about validation and verification failures for `due` requirements that must be resolved.
+      # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       sig { returns(T::Array[Error]) }
       def errors; end
       # Fields you must collect when all thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
@@ -6614,7 +6706,7 @@ module Stripe
     # An arbitrary string attached to the object. Often useful for displaying to users.
     sig { returns(T.nilable(String)) }
     def description; end
-    # If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multipled by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`.
+    # If applicable, this transaction uses an exchange rate. If money converts from currency A to currency B, then the `amount` in currency A, multiplied by the `exchange_rate`, equals the `amount` in currency B. For example, if you charge a customer 10.00 EUR, the PaymentIntent's `amount` is `1000` and `currency` is `eur`. If this converts to 12.34 USD in your Stripe account, the BalanceTransaction's `amount` is `1234`, its `currency` is `usd`, and the `exchange_rate` is `1.234`.
     sig { returns(T.nilable(Float)) }
     def exchange_rate; end
     # Fees (in cents (or local equivalent)) paid for this transaction. Represented as a positive integer when assessed.
@@ -7743,7 +7835,7 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       sig { returns(T.nilable(String)) }
       def default_return_url; end
       # Attribute for field features
@@ -8268,7 +8360,7 @@ module Stripe
         # The fee amount being repaid, paid out, or reversed in minor units.
         sig { returns(Integer) }
         def fee_amount; end
-        # The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
+        # The linked payment for the transaction. This field only applies to financing transactions of type `payment` and reason `automatic_withholding`.
         sig { returns(T.nilable(String)) }
         def linked_payment; end
         # The reason for the financing transaction (if applicable).
@@ -8660,7 +8752,7 @@ module Stripe
       class AmazonPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -9570,7 +9662,7 @@ module Stripe
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
-        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
         def bank; end
         # Unique transaction id generated by FPX for every request from the merchant
@@ -10259,7 +10351,7 @@ module Stripe
       class RevolutPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -11367,7 +11459,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -11395,11 +11487,11 @@ module Stripe
         # Shipping information for this Checkout Session.
         sig { returns(T.nilable(ShippingDetails)) }
         def shipping_details; end
-        # Customer’s tax ids for this Checkout Session.
-        sig { returns(T.nilable(T::Array[TaxId])) }
-        def tax_ids; end
+        # Customer’s tax id for this Checkout Session.
+        sig { returns(T.nilable(TaxId)) }
+        def tax_id; end
         def self.inner_class_types
-          @inner_class_types = {shipping_details: ShippingDetails, tax_ids: TaxId}
+          @inner_class_types = {shipping_details: ShippingDetails, tax_id: TaxId}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -11686,7 +11778,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -12606,6 +12698,15 @@ module Stripe
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -12790,6 +12891,15 @@ module Stripe
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }
           def capture_method; end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -15060,7 +15170,7 @@ module Stripe
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
-        # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+        # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
         def bank; end
         def self.inner_class_types
@@ -18088,6 +18198,9 @@ module Stripe
         # The type of dispute opened. Different case types may have varying fees and financial impact.
         sig { returns(String) }
         def case_type; end
+        # Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+        sig { returns(String) }
+        def network; end
         # The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
         sig { returns(T.nilable(String)) }
         def network_reason_code; end
@@ -18222,7 +18335,7 @@ module Stripe
     # The current status of a dispute. Possible values include:`warning_needs_response`, `warning_under_review`, `warning_closed`, `needs_response`, `under_review`, `won`, `lost`, or `prevented`.
     sig { returns(String) }
     def status; end
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
@@ -18230,7 +18343,7 @@ module Stripe
      }
     def close(params = {}, opts = {}); end
 
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
@@ -19303,6 +19416,9 @@ module Stripe
         # Stripe ID of the institution with which the customer should be directed to log in.
         sig { returns(T.nilable(String)) }
         def institution; end
+        # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
+        sig { returns(T.nilable(String)) }
+        def require_payment_method_support; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -19336,6 +19452,9 @@ module Stripe
         end
       end
       class ManualEntry < ::Stripe::StripeObject
+        # Controls how manual entry of bank account details is presented to the user.
+        sig { returns(T.nilable(String)) }
+        def mode; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -19402,6 +19521,28 @@ module Stripe
       # The accounts that were collected as part of this Session.
       sig { returns(::Stripe::ListObject) }
       def accounts; end
+      # Tokenization is the process Stripe uses to collect sensitive card or bank
+      # account details, or personally identifiable information (PII), directly from
+      # your customers in a secure manner. A token representing this information is
+      # returned to your server to use. Use our
+      # [recommended payments integrations](https://docs.stripe.com/payments) to perform this process
+      # on the client-side. This guarantees that no sensitive card data touches your server,
+      # and allows your integration to operate in a PCI-compliant way.
+      #
+      # If you can't use client-side tokenization, you can also create tokens using
+      # the API with either your publishable or secret API key. If
+      # your integration uses this method, you're responsible for any PCI compliance
+      # that it might require, and you must keep your secret API key safe. Unlike with
+      # client-side tokenization, your customer's information isn't sent directly to
+      # Stripe, so we can't determine how it's handled or stored.
+      #
+      # You can't store or use tokens more than once. To store card or bank account
+      # information for later use, create [Customer](https://docs.stripe.com/api#customers)
+      # objects or [External accounts](/api#external_accounts).
+      # [Radar](https://docs.stripe.com/radar), our integrated solution for automatic fraud protection,
+      # performs best with integrations that use client-side tokenization.
+      sig { returns(T.nilable(::Stripe::Token)) }
+      def bank_account_token; end
       # A value that will be passed to the client to launch the authentication flow.
       sig { returns(T.nilable(String)) }
       def client_secret; end
@@ -19671,7 +19812,7 @@ end
 module Stripe
   # The FX Quotes API provides three functions:
   # - View Stripe's current exchange rate for any given currency pair.
-  # - Extend quoted rates for a 1-hour period or a 24-hour period, minimizing uncertainty from FX fluctuations.
+  # - Extend quoted rates for up to a 24-hour period, minimizing uncertainty from FX fluctuations.
   # - Preview the FX fees Stripe will charge on your FX transaction, allowing you to anticipate specific settlement amounts before payment costs.
   #
   # [View the docs](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api)
@@ -19769,7 +19910,7 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # The duration the exchange rate quote remains valid from creation time. Allowed values are none, hour, and day. Note that for the test mode API available in alpha, you can request an extended quote, but it won't be usable for any transactions.
+    # The duration that the quote is locked for, from creation time. The quote will be usable for the duration specified.
     sig { returns(String) }
     def lock_duration; end
     # Time at which the quote will expire, measured in seconds since the Unix epoch.
@@ -19800,7 +19941,7 @@ module Stripe
      }
     def self.create(params = {}, opts = {}); end
 
-    # Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+    # Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
     sig {
       params(params: T.any(::Stripe::FxQuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
@@ -21226,7 +21367,7 @@ module Stripe
       end
     end
     class CustomerTaxId < ::Stripe::StripeObject
-      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
       sig { returns(String) }
       def type; end
       # The value of the tax ID.
@@ -23843,6 +23984,9 @@ module Stripe
         # Address validation details for the shipment.
         sig { returns(T.nilable(AddressValidation)) }
         def address_validation; end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
         # The delivery company that shipped a card.
         sig { returns(T.nilable(String)) }
         def carrier; end
@@ -25215,7 +25359,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::StripeObject
             class Fuel < ::Stripe::StripeObject
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               def self.inner_class_types
@@ -26826,7 +26970,7 @@ module Stripe
     end
     class TaxDetails < ::Stripe::StripeObject
       class TaxId < ::Stripe::StripeObject
-        # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+        # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
         sig { returns(String) }
         def type; end
         # The value of the tax ID.
@@ -27306,7 +27450,7 @@ module Stripe
       class AmazonPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -27968,7 +28112,7 @@ module Stripe
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
-        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
         def bank; end
         # Unique transaction id generated by FPX for every request from the merchant
@@ -31263,7 +31407,7 @@ module Stripe
             end
           end
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -31284,10 +31428,10 @@ module Stripe
             sig { returns(T.nilable(T::Boolean)) }
             def tax_exempt_indicator; end
             # Tax details.
-            sig { returns(T.nilable(T::Array[Tax])) }
-            def taxes; end
+            sig { returns(T.nilable(T::Array[TaxItem])) }
+            def tax_items; end
             def self.inner_class_types
-              @inner_class_types = {taxes: Tax}
+              @inner_class_types = {tax_items: TaxItem}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -31677,7 +31821,7 @@ module Stripe
             end
           end
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -31695,10 +31839,10 @@ module Stripe
               end
             end
             # Tax details.
-            sig { returns(T.nilable(T::Array[Tax])) }
-            def taxes; end
+            sig { returns(T.nilable(T::Array[TaxItem])) }
+            def tax_items; end
             def self.inner_class_types
-              @inner_class_types = {taxes: Tax}
+              @inner_class_types = {tax_items: TaxItem}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -31935,7 +32079,7 @@ module Stripe
             end
           end
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -31956,10 +32100,10 @@ module Stripe
             sig { returns(T.nilable(T::Boolean)) }
             def tax_exempt_indicator; end
             # Tax details.
-            sig { returns(T.nilable(T::Array[Tax])) }
-            def taxes; end
+            sig { returns(T.nilable(T::Array[TaxItem])) }
+            def tax_items; end
             def self.inner_class_types
-              @inner_class_types = {taxes: Tax}
+              @inner_class_types = {tax_items: TaxItem}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -33136,6 +33280,15 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -33422,6 +33575,15 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -34168,6 +34330,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
     def amount; end
@@ -38923,7 +39088,7 @@ module Stripe
       # Account holder type, if provided. Can be one of `individual` or `company`.
       sig { returns(T.nilable(String)) }
       def account_holder_type; end
-      # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+      # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
       sig { returns(String) }
       def bank; end
       def self.inner_class_types
@@ -39871,13 +40036,13 @@ module Stripe
      }
     def self.create(params = {}, opts = {}); end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
       params(params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
     def detach(params = {}, opts = {}); end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
@@ -40173,7 +40338,7 @@ module Stripe
       class AmazonPay < ::Stripe::StripeObject
         class Funding < ::Stripe::StripeObject
           class Card < ::Stripe::StripeObject
-            # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+            # Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
             sig { returns(T.nilable(String)) }
             def brand; end
             # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
@@ -40835,7 +41000,7 @@ module Stripe
         # Account holder type, if provided. Can be one of `individual` or `company`.
         sig { returns(T.nilable(String)) }
         def account_holder_type; end
-        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+        # The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bnp_paribas`, `bank_rakyat`, `bsn`, `cimb`, `citibank`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `mbsb_bank`, `pb_enterprise`, or `bank_of_china`.
         sig { returns(String) }
         def bank; end
         # Unique transaction id generated by FPX for every request from the merchant
@@ -42263,6 +42428,12 @@ module Stripe
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
     def shipping_details; end
+    # List all the Payment Records for a given merchant.
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+     }
+    def self.list(params = {}, opts = {}); end
+
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment
     #  Records in a terminal state directly, through this method.
@@ -43216,6 +43387,12 @@ module Stripe
         params(params: T.any(::Stripe::ProductCatalog::TrialOfferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
        }
       def self.create(params = {}, opts = {}); end
+
+      # Returns a list of trial offers.
+      sig {
+        params(params: T.any(::Stripe::ProductCatalog::TrialOfferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end
@@ -43814,6 +43991,20 @@ module Stripe
       end
     end
     class InvoiceSettings < ::Stripe::StripeObject
+      class CustomField < ::Stripe::StripeObject
+        # The name of the custom field.
+        sig { returns(String) }
+        def name; end
+        # The value of the custom field.
+        sig { returns(String) }
+        def value; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Issuer < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -43828,14 +44019,23 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # A list of up to 4 custom fields to be displayed on the invoice.
+      sig { returns(T.nilable(T::Array[CustomField])) }
+      def custom_fields; end
       # Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       sig { returns(T.nilable(Integer)) }
       def days_until_due; end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      # Footer to be displayed on the invoice.
+      sig { returns(T.nilable(String)) }
+      def footer; end
       # Attribute for field issuer
       sig { returns(Issuer) }
       def issuer; end
       def self.inner_class_types
-        @inner_class_types = {issuer: Issuer}
+        @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -44920,7 +45120,7 @@ module Stripe
       end
     end
     class CustomerTaxId < ::Stripe::StripeObject
-      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+      # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
       sig { returns(String) }
       def type; end
       # The value of the tax ID.
@@ -46062,6 +46262,20 @@ module Stripe
         end
       end
       class InvoiceSettings < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
+          # The name of the custom field.
+          sig { returns(String) }
+          def name; end
+          # The value of the custom field.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -46079,14 +46293,23 @@ module Stripe
         # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def account_tax_ids; end
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig { returns(T.nilable(T::Array[CustomField])) }
+        def custom_fields; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
         # Attribute for field issuer
         sig { returns(Issuer) }
         def issuer; end
         def self.inner_class_types
-          @inner_class_types = {issuer: Issuer}
+          @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -46365,6 +46588,20 @@ module Stripe
         end
       end
       class InvoiceSettings < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
+          # The name of the custom field.
+          sig { returns(String) }
+          def name; end
+          # The value of the custom field.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -46382,14 +46619,23 @@ module Stripe
         # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def account_tax_ids; end
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig { returns(T.nilable(T::Array[CustomField])) }
+        def custom_fields; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig { returns(T.nilable(Issuer)) }
         def issuer; end
         def self.inner_class_types
-          @inner_class_types = {issuer: Issuer}
+          @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -46600,6 +46846,9 @@ module Stripe
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
       def transfer_data; end
+      # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
+      sig { returns(T.nilable(T::Boolean)) }
+      def trial; end
       # Specify behavior of the trial when crossing schedule phase boundaries
       sig { returns(T.nilable(String)) }
       def trial_continuation; end
@@ -48034,6 +48283,12 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
+    # ID of the customer of this refund.
+    sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
+    def customer; end
+    # ID of the account of this refund.
+    sig { returns(T.nilable(String)) }
+    def customer_account; end
     # An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
     sig { returns(T.nilable(String)) }
     def description; end
@@ -48064,6 +48319,9 @@ module Stripe
     # ID of the PaymentIntent that's refunded.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
     def payment_intent; end
+    # ID of the payment method associated with this refund.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+    def payment_method; end
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     sig { returns(T.nilable(String)) }
     def pending_reason; end
@@ -50155,6 +50413,9 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
     # ID of the Connect application that created the SetupIntent.
     sig { returns(T.nilable(T.any(String, ::Stripe::Application))) }
     def application; end
@@ -50360,115 +50621,7 @@ module Stripe
         end
       end
       class PaymentMethodDetails < ::Stripe::StripeObject
-        class AcssDebit < ::Stripe::StripeObject
-          # Account number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def account_number; end
-          # Name of the bank associated with the bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_name; end
-          # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Institution number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def institution_number; end
-          # Last four digits of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # Transit number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def transit_number; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Affirm < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class AfterpayClearpay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Alipay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Alma < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class AmazonPay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class AuBecsDebit < ::Stripe::StripeObject
-          # Six-digit number identifying bank and branch associated with this bank account.
-          sig { returns(T.nilable(String)) }
-          def bsb_number; end
-          # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Last four digits of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class BacsDebit < ::Stripe::StripeObject
-          # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Last four digits of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # Sort code of the bank account. (e.g., `10-20-30`)
-          sig { returns(T.nilable(String)) }
-          def sort_code; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Bancontact < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Billie < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -50520,39 +50673,6 @@ module Stripe
           def tax_id; end
           def self.inner_class_types
             @inner_class_types = {address: Address}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Bizum < ::Stripe::StripeObject
-          # A unique identifier for the buyer as determined by the local payment processor.
-          sig { returns(T.nilable(String)) }
-          def buyer_id; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Blik < ::Stripe::StripeObject
-          # A unique and immutable identifier assigned by BLIK to every buyer.
-          sig { returns(T.nilable(String)) }
-          def buyer_id; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Boleto < ::Stripe::StripeObject
-          # Uniquely identifies the customer tax id (CNPJ or CPF)
-          sig { returns(String) }
-          def tax_id; end
-          def self.inner_class_types
-            @inner_class_types = {}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -50874,293 +50994,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class CardPresent < ::Stripe::StripeObject
-          class Networks < ::Stripe::StripeObject
-            # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
-            sig { returns(T::Array[String]) }
-            def available; end
-            # The preferred network for the card.
-            sig { returns(T.nilable(String)) }
-            def preferred; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Offline < ::Stripe::StripeObject
-            # Time at which the payment was collected while offline
-            sig { returns(T.nilable(Integer)) }
-            def stored_at; end
-            # The method used to process this payment method offline. Only deferred is allowed.
-            sig { returns(T.nilable(String)) }
-            def type; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class Wallet < ::Stripe::StripeObject
-            # The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
-            sig { returns(String) }
-            def type; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
-          sig { returns(T.nilable(String)) }
-          def brand; end
-          # The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card.
-          sig { returns(T.nilable(String)) }
-          def brand_product; end
-          # The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
-          sig { returns(T.nilable(String)) }
-          def cardholder_name; end
-          # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-          sig { returns(T.nilable(String)) }
-          def country; end
-          # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def description; end
-          # Two-digit number representing the card's expiration month.
-          sig { returns(Integer) }
-          def exp_month; end
-          # Four-digit number representing the card's expiration year.
-          sig { returns(Integer) }
-          def exp_year; end
-          # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-          #
-          # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-          sig { returns(T.nilable(String)) }
-          def funding; end
-          # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def iin; end
-          # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def issuer; end
-          # The last four digits of the card.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # Contains information about card networks that can be used to process the payment.
-          sig { returns(T.nilable(Networks)) }
-          def networks; end
-          # Details about payment methods collected offline.
-          sig { returns(T.nilable(Offline)) }
-          def offline; end
-          # The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
-          sig { returns(T.nilable(T::Array[String])) }
-          def preferred_locales; end
-          # How card details were read in this transaction.
-          sig { returns(T.nilable(String)) }
-          def read_method; end
-          # Attribute for field wallet
-          sig { returns(T.nilable(Wallet)) }
-          def wallet; end
-          def self.inner_class_types
-            @inner_class_types = {networks: Networks, offline: Offline, wallet: Wallet}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Cashapp < ::Stripe::StripeObject
-          # A unique and immutable identifier assigned by Cash App to every buyer.
-          sig { returns(T.nilable(String)) }
-          def buyer_id; end
-          # A public identifier for buyers using Cash App.
-          sig { returns(T.nilable(String)) }
-          def cashtag; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Crypto < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class CustomerBalance < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Eps < ::Stripe::StripeObject
-          # The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
-          sig { returns(T.nilable(String)) }
-          def bank; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Fpx < ::Stripe::StripeObject
-          # Account holder type, if provided. Can be one of `individual` or `company`.
-          sig { returns(T.nilable(String)) }
-          def account_holder_type; end
-          # The customer's bank, if provided. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
-          sig { returns(String) }
-          def bank; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Giropay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Gopay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Grabpay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class IdBankTransfer < ::Stripe::StripeObject
-          # Attribute for field bank
-          sig { returns(T.nilable(String)) }
-          def bank; end
-          # Attribute for field bank_code
-          sig { returns(T.nilable(String)) }
-          def bank_code; end
-          # Attribute for field bank_name
-          sig { returns(T.nilable(String)) }
-          def bank_name; end
-          # Attribute for field display_name
-          sig { returns(T.nilable(String)) }
-          def display_name; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Ideal < ::Stripe::StripeObject
-          # The customer's bank, if provided. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
-          sig { returns(T.nilable(String)) }
-          def bank; end
-          # The Bank Identifier Code of the customer's bank, if the bank was provided.
-          sig { returns(T.nilable(String)) }
-          def bic; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class InteracPresent < ::Stripe::StripeObject
-          class Networks < ::Stripe::StripeObject
-            # All networks available for selection via [payment_method_options.card.network](/api/payment_intents/confirm#confirm_payment_intent-payment_method_options-card-network).
-            sig { returns(T::Array[String]) }
-            def available; end
-            # The preferred network for the card.
-            sig { returns(T.nilable(String)) }
-            def preferred; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Card brand. Can be `interac`, `mastercard` or `visa`.
-          sig { returns(T.nilable(String)) }
-          def brand; end
-          # The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
-          sig { returns(T.nilable(String)) }
-          def cardholder_name; end
-          # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
-          sig { returns(T.nilable(String)) }
-          def country; end
-          # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def description; end
-          # Two-digit number representing the card's expiration month.
-          sig { returns(Integer) }
-          def exp_month; end
-          # Four-digit number representing the card's expiration year.
-          sig { returns(Integer) }
-          def exp_year; end
-          # Uniquely identifies this particular card number. You can use this attribute to check whether two customers who’ve signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
-          #
-          # *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
-          sig { returns(T.nilable(String)) }
-          def funding; end
-          # Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def iin; end
-          # The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
-          sig { returns(T.nilable(String)) }
-          def issuer; end
-          # The last four digits of the card.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # Contains information about card networks that can be used to process the payment.
-          sig { returns(T.nilable(Networks)) }
-          def networks; end
-          # The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
-          sig { returns(T.nilable(T::Array[String])) }
-          def preferred_locales; end
-          # How card details were read in this transaction.
-          sig { returns(T.nilable(String)) }
-          def read_method; end
-          def self.inner_class_types
-            @inner_class_types = {networks: Networks}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class KakaoPay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Klarna < ::Stripe::StripeObject
           class Dob < ::Stripe::StripeObject
             # The day of birth, between 1 and 31.
@@ -51189,28 +51022,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Konbini < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class KrCard < ::Stripe::StripeObject
-          # The local credit or debit card brand.
-          sig { returns(T.nilable(String)) }
-          def brand; end
-          # The last four digits of the card. This may not be present for American Express cards.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Link < ::Stripe::StripeObject
           # Account owner's email address.
           sig { returns(T.nilable(String)) }
@@ -51225,709 +51036,31 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class MbWay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Mobilepay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Multibanco < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class NaverPay < ::Stripe::StripeObject
-          # Uniquely identifies this particular Naver Pay account. You can use this attribute to check whether two Naver Pay accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def buyer_id; end
-          # Whether to fund this transaction with Naver Pay points or a card.
-          sig { returns(String) }
-          def funding; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class NzBankAccount < ::Stripe::StripeObject
-          # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
-          sig { returns(T.nilable(String)) }
-          def account_holder_name; end
-          # The numeric code for the bank account's bank.
-          sig { returns(String) }
-          def bank_code; end
-          # The name of the bank.
-          sig { returns(String) }
-          def bank_name; end
-          # The numeric code for the bank account's bank branch.
-          sig { returns(String) }
-          def branch_code; end
-          # Last four digits of the bank account number.
-          sig { returns(String) }
-          def last4; end
-          # The suffix of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def suffix; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Oxxo < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class P24 < ::Stripe::StripeObject
-          # The customer's bank, if provided.
-          sig { returns(T.nilable(String)) }
-          def bank; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class PayByBank < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Payco < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Paynow < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Paypal < ::Stripe::StripeObject
-          # Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-          sig { returns(T.nilable(String)) }
-          def country; end
-          # Uniquely identifies this particular PayPal account. You can use this attribute to check whether two PayPal accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Owner's email. Values are provided by PayPal directly
-          # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-          sig { returns(T.nilable(String)) }
-          def payer_email; end
-          # PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
-          sig { returns(T.nilable(String)) }
-          def payer_id; end
-          # Owner's verified email. Values are verified or provided by PayPal directly
-          # (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-          sig { returns(T.nilable(String)) }
-          def verified_email; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Paypay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Payto < ::Stripe::StripeObject
-          # Bank-State-Branch number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def bsb_number; end
-          # Last four digits of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # The PayID alias for the bank account.
-          sig { returns(T.nilable(String)) }
-          def pay_id; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Pix < ::Stripe::StripeObject
-          # Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Promptpay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Qris < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Rechnung < ::Stripe::StripeObject
-          class Dob < ::Stripe::StripeObject
-            # The day of birth, between 1 and 31.
-            sig { returns(Integer) }
-            def day; end
-            # The month of birth, between 1 and 12.
-            sig { returns(Integer) }
-            def month; end
-            # The four-digit year of birth.
-            sig { returns(Integer) }
-            def year; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Attribute for field dob
-          sig { returns(T.nilable(Dob)) }
-          def dob; end
-          def self.inner_class_types
-            @inner_class_types = {dob: Dob}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class RevolutPay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class SamsungPay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Satispay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Scalapay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class SepaDebit < ::Stripe::StripeObject
-          class GeneratedFrom < ::Stripe::StripeObject
-            # The ID of the Charge that generated this PaymentMethod, if any.
-            sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
-            def charge; end
-            # The ID of the SetupAttempt that generated this PaymentMethod, if any.
-            sig { returns(T.nilable(T.any(String, ::Stripe::SetupAttempt))) }
-            def setup_attempt; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Bank code of bank associated with the bank account.
-          sig { returns(T.nilable(String)) }
-          def bank_code; end
-          # Branch code of bank associated with the bank account.
-          sig { returns(T.nilable(String)) }
-          def branch_code; end
-          # Two-letter ISO code representing the country the bank account is located in.
-          sig { returns(T.nilable(String)) }
-          def country; end
-          # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Information about the object that generated this PaymentMethod.
-          sig { returns(T.nilable(GeneratedFrom)) }
-          def generated_from; end
-          # Last four characters of the IBAN.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          def self.inner_class_types
-            @inner_class_types = {generated_from: GeneratedFrom}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Shopeepay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Sofort < ::Stripe::StripeObject
-          # Two-letter ISO code representing the country the bank account is located in.
-          sig { returns(T.nilable(String)) }
-          def country; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class StripeBalance < ::Stripe::StripeObject
-          # The connected account ID whose Stripe balance to use as the source of payment
-          sig { returns(T.nilable(String)) }
-          def account; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Sunbit < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Swish < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Twint < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Upi < ::Stripe::StripeObject
-          # Customer's unique Virtual Payment Address
-          sig { returns(T.nilable(String)) }
-          def vpa; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class UsBankAccount < ::Stripe::StripeObject
-          class Networks < ::Stripe::StripeObject
-            # The preferred network.
-            sig { returns(T.nilable(String)) }
-            def preferred; end
-            # All supported networks.
-            sig { returns(T::Array[String]) }
-            def supported; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class StatusDetails < ::Stripe::StripeObject
-            class Blocked < ::Stripe::StripeObject
-              # The ACH network code that resulted in this block.
-              sig { returns(T.nilable(String)) }
-              def network_code; end
-              # The reason why this PaymentMethod's fingerprint has been blocked
-              sig { returns(T.nilable(String)) }
-              def reason; end
-              def self.inner_class_types
-                @inner_class_types = {}
-              end
-              def self.field_remappings
-                @field_remappings = {}
-              end
-            end
-            # Attribute for field blocked
-            sig { returns(T.nilable(Blocked)) }
-            def blocked; end
-            def self.inner_class_types
-              @inner_class_types = {blocked: Blocked}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          # Account holder type: individual or company.
-          sig { returns(T.nilable(String)) }
-          def account_holder_type; end
-          # Account number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def account_number; end
-          # Account type: checkings or savings. Defaults to checking if omitted.
-          sig { returns(T.nilable(String)) }
-          def account_type; end
-          # The name of the bank.
-          sig { returns(T.nilable(String)) }
-          def bank_name; end
-          # The ID of the Financial Connections Account used to create the payment method.
-          sig { returns(T.nilable(String)) }
-          def financial_connections_account; end
-          # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
-          sig { returns(T.nilable(String)) }
-          def fingerprint; end
-          # Last four digits of the bank account number.
-          sig { returns(T.nilable(String)) }
-          def last4; end
-          # Contains information about US bank account networks that can be used.
-          sig { returns(T.nilable(Networks)) }
-          def networks; end
-          # Routing number of the bank account.
-          sig { returns(T.nilable(String)) }
-          def routing_number; end
-          # Contains information about the future reusability of this PaymentMethod.
-          sig { returns(T.nilable(StatusDetails)) }
-          def status_details; end
-          def self.inner_class_types
-            @inner_class_types = {networks: Networks, status_details: StatusDetails}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class WechatPay < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        class Zip < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Attribute for field acss_debit
-        sig { returns(T.nilable(AcssDebit)) }
-        def acss_debit; end
         # Attribute for field affirm
         sig { returns(T.nilable(Affirm)) }
         def affirm; end
-        # Attribute for field afterpay_clearpay
-        sig { returns(T.nilable(AfterpayClearpay)) }
-        def afterpay_clearpay; end
-        # Attribute for field alipay
-        sig { returns(T.nilable(Alipay)) }
-        def alipay; end
-        # Attribute for field alma
-        sig { returns(T.nilable(Alma)) }
-        def alma; end
-        # Attribute for field amazon_pay
-        sig { returns(T.nilable(AmazonPay)) }
-        def amazon_pay; end
-        # Attribute for field au_becs_debit
-        sig { returns(T.nilable(AuBecsDebit)) }
-        def au_becs_debit; end
-        # Attribute for field bacs_debit
-        sig { returns(T.nilable(BacsDebit)) }
-        def bacs_debit; end
-        # Attribute for field bancontact
-        sig { returns(T.nilable(Bancontact)) }
-        def bancontact; end
-        # Attribute for field billie
-        sig { returns(T.nilable(Billie)) }
-        def billie; end
         # Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         sig { returns(T.nilable(BillingDetails)) }
         def billing_details; end
-        # Attribute for field bizum
-        sig { returns(T.nilable(Bizum)) }
-        def bizum; end
-        # Attribute for field blik
-        sig { returns(T.nilable(Blik)) }
-        def blik; end
-        # Attribute for field boleto
-        sig { returns(T.nilable(Boleto)) }
-        def boleto; end
         # Attribute for field card
         sig { returns(T.nilable(Card)) }
         def card; end
-        # Attribute for field card_present
-        sig { returns(T.nilable(CardPresent)) }
-        def card_present; end
-        # Attribute for field cashapp
-        sig { returns(T.nilable(Cashapp)) }
-        def cashapp; end
-        # Attribute for field crypto
-        sig { returns(T.nilable(Crypto)) }
-        def crypto; end
-        # Attribute for field customer_balance
-        sig { returns(T.nilable(CustomerBalance)) }
-        def customer_balance; end
-        # Attribute for field eps
-        sig { returns(T.nilable(Eps)) }
-        def eps; end
-        # Attribute for field fpx
-        sig { returns(T.nilable(Fpx)) }
-        def fpx; end
-        # Attribute for field giropay
-        sig { returns(T.nilable(Giropay)) }
-        def giropay; end
-        # Attribute for field gopay
-        sig { returns(T.nilable(Gopay)) }
-        def gopay; end
-        # Attribute for field grabpay
-        sig { returns(T.nilable(Grabpay)) }
-        def grabpay; end
-        # Attribute for field id_bank_transfer
-        sig { returns(T.nilable(IdBankTransfer)) }
-        def id_bank_transfer; end
-        # Attribute for field ideal
-        sig { returns(T.nilable(Ideal)) }
-        def ideal; end
-        # Attribute for field interac_present
-        sig { returns(T.nilable(InteracPresent)) }
-        def interac_present; end
-        # Attribute for field kakao_pay
-        sig { returns(T.nilable(KakaoPay)) }
-        def kakao_pay; end
         # Attribute for field klarna
         sig { returns(T.nilable(Klarna)) }
         def klarna; end
-        # Attribute for field konbini
-        sig { returns(T.nilable(Konbini)) }
-        def konbini; end
-        # Attribute for field kr_card
-        sig { returns(T.nilable(KrCard)) }
-        def kr_card; end
         # Attribute for field link
         sig { returns(T.nilable(Link)) }
         def link; end
-        # Attribute for field mb_way
-        sig { returns(T.nilable(MbWay)) }
-        def mb_way; end
-        # Attribute for field mobilepay
-        sig { returns(T.nilable(Mobilepay)) }
-        def mobilepay; end
-        # Attribute for field multibanco
-        sig { returns(T.nilable(Multibanco)) }
-        def multibanco; end
-        # Attribute for field naver_pay
-        sig { returns(T.nilable(NaverPay)) }
-        def naver_pay; end
-        # Attribute for field nz_bank_account
-        sig { returns(T.nilable(NzBankAccount)) }
-        def nz_bank_account; end
-        # Attribute for field oxxo
-        sig { returns(T.nilable(Oxxo)) }
-        def oxxo; end
-        # Attribute for field p24
-        sig { returns(T.nilable(P24)) }
-        def p24; end
-        # Attribute for field pay_by_bank
-        sig { returns(T.nilable(PayByBank)) }
-        def pay_by_bank; end
-        # Attribute for field payco
-        sig { returns(T.nilable(Payco)) }
-        def payco; end
-        # Attribute for field paynow
-        sig { returns(T.nilable(Paynow)) }
-        def paynow; end
-        # Attribute for field paypal
-        sig { returns(T.nilable(Paypal)) }
-        def paypal; end
-        # Attribute for field paypay
-        sig { returns(T.nilable(Paypay)) }
-        def paypay; end
-        # Attribute for field payto
-        sig { returns(T.nilable(Payto)) }
-        def payto; end
-        # Attribute for field pix
-        sig { returns(T.nilable(Pix)) }
-        def pix; end
-        # Attribute for field promptpay
-        sig { returns(T.nilable(Promptpay)) }
-        def promptpay; end
-        # Attribute for field qris
-        sig { returns(T.nilable(Qris)) }
-        def qris; end
-        # Attribute for field rechnung
-        sig { returns(T.nilable(Rechnung)) }
-        def rechnung; end
-        # Attribute for field revolut_pay
-        sig { returns(T.nilable(RevolutPay)) }
-        def revolut_pay; end
-        # Attribute for field samsung_pay
-        sig { returns(T.nilable(SamsungPay)) }
-        def samsung_pay; end
-        # Attribute for field satispay
-        sig { returns(T.nilable(Satispay)) }
-        def satispay; end
-        # Attribute for field scalapay
-        sig { returns(T.nilable(Scalapay)) }
-        def scalapay; end
-        # Attribute for field sepa_debit
-        sig { returns(T.nilable(SepaDebit)) }
-        def sepa_debit; end
-        # Attribute for field shopeepay
-        sig { returns(T.nilable(Shopeepay)) }
-        def shopeepay; end
-        # Attribute for field sofort
-        sig { returns(T.nilable(Sofort)) }
-        def sofort; end
-        # Attribute for field stripe_balance
-        sig { returns(T.nilable(StripeBalance)) }
-        def stripe_balance; end
-        # Attribute for field sunbit
-        sig { returns(T.nilable(Sunbit)) }
-        def sunbit; end
-        # Attribute for field swish
-        sig { returns(T.nilable(Swish)) }
-        def swish; end
-        # Attribute for field twint
-        sig { returns(T.nilable(Twint)) }
-        def twint; end
         # The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
         sig { returns(String) }
         def type; end
-        # Attribute for field upi
-        sig { returns(T.nilable(Upi)) }
-        def upi; end
-        # Attribute for field us_bank_account
-        sig { returns(T.nilable(UsBankAccount)) }
-        def us_bank_account; end
-        # Attribute for field wechat_pay
-        sig { returns(T.nilable(WechatPay)) }
-        def wechat_pay; end
-        # Attribute for field zip
-        sig { returns(T.nilable(Zip)) }
-        def zip; end
         def self.inner_class_types
           @inner_class_types = {
-            acss_debit: AcssDebit,
             affirm: Affirm,
-            afterpay_clearpay: AfterpayClearpay,
-            alipay: Alipay,
-            alma: Alma,
-            amazon_pay: AmazonPay,
-            au_becs_debit: AuBecsDebit,
-            bacs_debit: BacsDebit,
-            bancontact: Bancontact,
-            billie: Billie,
             billing_details: BillingDetails,
-            bizum: Bizum,
-            blik: Blik,
-            boleto: Boleto,
             card: Card,
-            card_present: CardPresent,
-            cashapp: Cashapp,
-            crypto: Crypto,
-            customer_balance: CustomerBalance,
-            eps: Eps,
-            fpx: Fpx,
-            giropay: Giropay,
-            gopay: Gopay,
-            grabpay: Grabpay,
-            id_bank_transfer: IdBankTransfer,
-            ideal: Ideal,
-            interac_present: InteracPresent,
-            kakao_pay: KakaoPay,
             klarna: Klarna,
-            konbini: Konbini,
-            kr_card: KrCard,
             link: Link,
-            mb_way: MbWay,
-            mobilepay: Mobilepay,
-            multibanco: Multibanco,
-            naver_pay: NaverPay,
-            nz_bank_account: NzBankAccount,
-            oxxo: Oxxo,
-            p24: P24,
-            pay_by_bank: PayByBank,
-            payco: Payco,
-            paynow: Paynow,
-            paypal: Paypal,
-            paypay: Paypay,
-            payto: Payto,
-            pix: Pix,
-            promptpay: Promptpay,
-            qris: Qris,
-            rechnung: Rechnung,
-            revolut_pay: RevolutPay,
-            samsung_pay: SamsungPay,
-            satispay: Satispay,
-            scalapay: Scalapay,
-            sepa_debit: SepaDebit,
-            shopeepay: Shopeepay,
-            sofort: Sofort,
-            stripe_balance: StripeBalance,
-            sunbit: Sunbit,
-            swish: Swish,
-            twint: Twint,
-            upi: Upi,
-            us_bank_account: UsBankAccount,
-            wechat_pay: WechatPay,
-            zip: Zip,
           }
         end
         def self.field_remappings
@@ -52131,6 +51264,20 @@ module Stripe
     # A SharedPaymentIssuedToken is a limited-use reference to a PaymentMethod that can be created with a secret key. When shared with another Stripe account (Seller), it enables that account to either process a payment on Stripe against a PaymentMethod that your Stripe account owns, or to forward a usable credential created against the originalPaymentMethod to then process the payment off-Stripe.
     class IssuedToken < APIResource
       class NextAction < ::Stripe::StripeObject
+        class RedirectToUrl < ::Stripe::StripeObject
+          # If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+          sig { returns(String) }
+          def return_url; end
+          # The URL you must redirect your customer to in order to authenticate the payment.
+          sig { returns(String) }
+          def url; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UseStripeSdk < ::Stripe::StripeObject
           # A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
           sig { returns(String) }
@@ -52142,6 +51289,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Contains details for handling the next action by redirecting the customer. Present when `next_action.type` is `redirect_to_url`.
+        sig { returns(T.nilable(RedirectToUrl)) }
+        def redirect_to_url; end
         # Specifies the type of next action required. Determines which child attribute contains action details.
         sig { returns(String) }
         def type; end
@@ -52149,7 +51299,7 @@ module Stripe
         sig { returns(T.nilable(UseStripeSdk)) }
         def use_stripe_sdk; end
         def self.inner_class_types
-          @inner_class_types = {use_stripe_sdk: UseStripeSdk}
+          @inner_class_types = {redirect_to_url: RedirectToUrl, use_stripe_sdk: UseStripeSdk}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -52369,6 +51519,9 @@ module Stripe
       # Usage limits of the SharedPaymentIssuedToken.
       sig { returns(T.nilable(UsageLimits)) }
       def usage_limits; end
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      sig { returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk; end
       # Creates a new SharedPaymentIssuedToken object
       sig {
         params(params: T.any(::Stripe::SharedPayment::IssuedTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
@@ -54106,6 +53259,20 @@ module Stripe
         end
       end
       class InvoiceSettings < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
+          # The name of the custom field.
+          sig { returns(String) }
+          def name; end
+          # The value of the custom field.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -54123,14 +53290,23 @@ module Stripe
         # The account tax IDs associated with the subscription schedule. Will be set on invoices generated by the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def account_tax_ids; end
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig { returns(T.nilable(T::Array[CustomField])) }
+        def custom_fields; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
         # Attribute for field issuer
         sig { returns(Issuer) }
         def issuer; end
         def self.inner_class_types
-          @inner_class_types = {issuer: Issuer}
+          @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -54409,6 +53585,20 @@ module Stripe
         end
       end
       class InvoiceSettings < ::Stripe::StripeObject
+        class CustomField < ::Stripe::StripeObject
+          # The name of the custom field.
+          sig { returns(String) }
+          def name; end
+          # The value of the custom field.
+          sig { returns(String) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Issuer < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -54426,14 +53616,23 @@ module Stripe
         # The account tax IDs associated with this phase of the subscription schedule. Will be set on invoices generated by this phase of the subscription schedule.
         sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::TaxId)])) }
         def account_tax_ids; end
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig { returns(T.nilable(T::Array[CustomField])) }
+        def custom_fields; end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig { returns(T.nilable(Issuer)) }
         def issuer; end
         def self.inner_class_types
-          @inner_class_types = {issuer: Issuer}
+          @inner_class_types = {custom_fields: CustomField, issuer: Issuer}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -54644,6 +53843,9 @@ module Stripe
       # The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
       sig { returns(T.nilable(TransferData)) }
       def transfer_data; end
+      # If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
+      sig { returns(T.nilable(T::Boolean)) }
+      def trial; end
       # Specify behavior of the trial when crossing schedule phase boundaries
       sig { returns(T.nilable(String)) }
       def trial_continuation; end
@@ -55953,7 +55155,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -56511,6 +55713,9 @@ module Stripe
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      sig { returns(T::Boolean) }
+      def livemode; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
@@ -58172,6 +57377,28 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class MassTransitParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class ResortTax < ::Stripe::StripeObject
             # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types) representing the local jurisdiction.
             sig { returns(String) }
@@ -58243,6 +57470,12 @@ module Stripe
           # Attribute for field luxury_tax
           sig { returns(T.nilable(LuxuryTax)) }
           def luxury_tax; end
+          # Attribute for field mass_transit_parking_tax
+          sig { returns(T.nilable(MassTransitParkingTax)) }
+          def mass_transit_parking_tax; end
+          # Attribute for field parking_tax
+          sig { returns(T.nilable(ParkingTax)) }
+          def parking_tax; end
           # Attribute for field resort_tax
           sig { returns(T.nilable(ResortTax)) }
           def resort_tax; end
@@ -58268,6 +57501,8 @@ module Stripe
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
               luxury_tax: LuxuryTax,
+              mass_transit_parking_tax: MassTransitParkingTax,
+              parking_tax: ParkingTax,
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
@@ -58954,7 +58189,7 @@ module Stripe
           end
         end
         class TaxId < ::Stripe::StripeObject
-          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+          # The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, `ic_nif`, or `unknown`
           sig { returns(String) }
           def type; end
           # The value of the tax ID.
@@ -59311,7 +58546,7 @@ module Stripe
     # The account or customer the tax ID belongs to.
     sig { returns(T.nilable(Owner)) }
     def owner; end
-    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
+    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`. Note that some legacy tax IDs have type `unknown`
     sig { returns(String) }
     def type; end
     # Value of the tax ID.
@@ -61491,6 +60726,28 @@ module Stripe
   #
   # Related guide: [Topping up your platform account](https://docs.stripe.com/connect/top-ups)
   class Topup < APIResource
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        # The US bank transfer network used for this top-up. The default is `ach`.
+        sig { returns(String) }
+        def network; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # If this top-up is to be used with a `us_bank_account` payment method, this sub-hash contains configuration for it.
+      sig { returns(T.nilable(UsBankAccount)) }
+      def us_bank_account; end
+      def self.inner_class_types
+        @inner_class_types = {us_bank_account: UsBankAccount}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount transferred.
     sig { returns(Integer) }
     def amount; end
@@ -61518,6 +60775,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # Indicates whether the top-up was initiated by Stripe or by the user.
+    sig { returns(T.nilable(String)) }
+    def initiated_by; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
@@ -61527,6 +60787,12 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # The ID of a PaymentMethod representing the payment method used for the top-up. A PaymentMethod of type `us_bank_account` can be used.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+    def payment_method; end
+    # Payment-method-specific configuration for this top-up.
+    sig { returns(T.nilable(PaymentMethodOptions)) }
+    def payment_method_options; end
     # The source field is deprecated. It might not always be present in the API response.
     sig { returns(T.nilable(::Stripe::Source)) }
     def source; end
@@ -65225,7 +64491,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Open Enum. The meter event adjustment’s status.
+        # Open Enum. The meter event adjustment's status.
         sig { returns(String) }
         def status; end
         # Open Enum. Specifies the type of cancellation. Currently supports canceling a single event.
@@ -65276,7 +64542,7 @@ module Stripe
         # The name of the meter event. Corresponds with the `event_name` field on a meter.
         sig { returns(String) }
         def event_name; end
-        # A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We’ll enforce uniqueness within a rolling 24 hour period.
+        # A unique identifier for the event. If not provided, one will be generated. We recommend using a globally unique identifier for this. We'll enforce uniqueness within a rolling 24 hour period.
         sig { returns(String) }
         def identifier; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -65285,7 +64551,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # The payload of the event. This must contain the fields corresponding to a meter’s
+        # The payload of the event. This must contain the fields corresponding to a meter's
         # `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
         # `value_settings.event_payload_key` (default is `value`). Read more about
         # the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/recording-usage#payload-key-overrides)..
@@ -69045,6 +68311,38 @@ module Stripe
             end
           end
           class BusinessDetails < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -69469,6 +68767,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # Additional addresses associated with the business.
+            sig { returns(T.nilable(T::Array[AdditionalAddress])) }
+            def additional_addresses; end
             # The company’s primary address.
             sig { returns(T.nilable(Address)) }
             def address; end
@@ -69507,6 +68808,7 @@ module Stripe
             def structure; end
             def self.inner_class_types
               @inner_class_types = {
+                additional_addresses: AdditionalAddress,
                 address: Address,
                 annual_revenue: AnnualRevenue,
                 documents: Documents,
@@ -72120,6 +71422,9 @@ module Stripe
             # Roles the user had before the change.
             sig { returns(T::Array[String]) }
             def old_roles; end
+            # Source of the role change.
+            sig { returns(String) }
+            def source; end
             # Email address of the user whose roles were changed.
             sig { returns(String) }
             def user_email; end
@@ -72707,7 +72012,7 @@ module Stripe
         # A nested object containing information about the destination of the InboundTransfer.
         sig { returns(To) }
         def to; end
-        # A list of history objects, representing changes in the state of the InboundTransfer.
+        # A list of history objects, representing changes in the state of the InboundTransfer. The most recent entry's type indicates the current status of the InboundTransfer.
         sig { returns(T::Array[TransferHistory]) }
         def transfer_history; end
       end
@@ -73570,7 +72875,7 @@ module Stripe
           def outbound_transfer; end
           # The ID of the payout object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          def payout_v1; end
+          def payout; end
           # The ID of the v1 transfer object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def transfer; end
@@ -73822,8 +73127,9 @@ module Stripe
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
-          # The payment method used to originate the debit.
-          sig { returns(UsBankAccount) }
+          # Object containing details of the US Bank Account that originated the debit.
+          # Present when the debit was originated via ACH.
+          sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
             @inner_class_types = {us_bank_account: UsBankAccount}
@@ -74409,7 +73715,7 @@ module Stripe
     # With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
     # To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
     #
-    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+    # If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
     # creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
     # You can prefill any information on the account.
     sig {
@@ -74437,7 +73743,7 @@ module Stripe
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
-    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+    # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     sig {
       params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
@@ -74460,6 +73766,16 @@ module Stripe
       params(account: String, params: ::Stripe::AccountUpdateParams, opts: T.untyped).returns(String)
      }
     def serialize_batch_update(account, params = {}, opts = {}); end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    sig {
+      params(account: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+     }
+    def unreject(account, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
@@ -74564,7 +73880,7 @@ module Stripe
      }
     def create(account, params = {}, opts = {}); end
 
-    # Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+    # Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
     sig {
       params(account: String, person: String, params: T.any(::Stripe::AccountPersonDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Person)
      }
@@ -75712,7 +75028,7 @@ end
 # typed: true
 module Stripe
   class DisputeService < StripeService
-    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+    # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
@@ -76124,7 +75440,7 @@ module Stripe
      }
     def create(params = {}, opts = {}); end
 
-    # Returns a list of FX quotes that have been issued. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
+    # Returns a list of active FX quotes. The FX quotes are returned in sorted order, with the most recent FX quotes appearing first.
     sig {
       params(params: T.any(::Stripe::FxQuoteListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
@@ -77147,7 +76463,7 @@ module Stripe
      }
     def create(params = {}, opts = {}); end
 
-    # Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+    # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
       params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
@@ -77242,6 +76558,12 @@ end
 # typed: true
 module Stripe
   class PaymentRecordService < StripeService
+    # List all the Payment Records for a given merchant.
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+     }
+    def list(params = {}, opts = {}); end
+
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment
     #  Records in a terminal state directly, through this method.
@@ -77581,6 +76903,18 @@ module Stripe
         params(params: T.any(::Stripe::ProductCatalog::TrialOfferCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
        }
       def create(params = {}, opts = {}); end
+
+      # Returns a list of trial offers.
+      sig {
+        params(params: T.any(::Stripe::ProductCatalog::TrialOfferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def list(params = {}, opts = {}); end
+
+      # Retrieves the trial offer with the given ID.
+      sig {
+        params(id: String, params: T.any(::Stripe::ProductCatalog::TrialOfferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
+       }
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end
@@ -80462,6 +79796,8 @@ module Stripe
           def archive(id, params = {}, opts = {}); end
 
           # Confirm microdeposits amounts or descriptor code that you have received from the Send Microdeposits request. Once you correctly confirm this, this US Bank Account will be verified and eligible to transfer funds with.
+          #
+          # ** raises ControlledByAlternateResourceError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountConfirmMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -80490,6 +79826,8 @@ module Stripe
           def retrieve(id, params = {}, opts = {}); end
 
           # Send microdeposits in order to verify your US Bank Account so it is eligible to transfer funds. This will start the verification process and you must Confirm Microdeposits to successfully verify your US Bank Account.
+          #
+          # ** raises ControlledByAlternateResourceError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountSendMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -81691,14 +81029,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -82088,14 +81434,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -82138,13 +81492,21 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -82213,14 +81575,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -84686,6 +84056,49 @@ module Stripe
           town: nil
         ); end
       end
+      class AdministrativeAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
+      end
       class DirectorshipDeclaration < ::Stripe::RequestParams
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -84727,6 +84140,49 @@ module Stripe
           params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
          }
         def initialize(date: nil, ip: nil, user_agent: nil); end
+      end
+      class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
       end
       class RegistrationDate < ::Stripe::RequestParams
         # The day of registration, between 1 and 31.
@@ -84816,6 +84272,13 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
+      # Attribute for param field administrative_address
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress)) }
+      def administrative_address; end
+      sig {
+        params(_administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress))
+       }
+      def administrative_address=(_administrative_address); end
       # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
@@ -84882,6 +84345,13 @@ module Stripe
       def phone; end
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
+      # Attribute for param field principal_place_of_business
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness)) }
+      def principal_place_of_business; end
+      sig {
+        params(_principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness))
+       }
+      def principal_place_of_business=(_principal_place_of_business); end
       # Attribute for param field registration_date
       sig {
         returns(T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)))
@@ -84911,6 +84381,8 @@ module Stripe
        }
       def structure=(_structure); end
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+      #
+      # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def tax_id; end
       sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
@@ -84933,12 +84405,13 @@ module Stripe
        }
       def verification=(_verification); end
       sig {
-        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
+        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
        }
       def initialize(
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        administrative_address: nil,
         directors_provided: nil,
         directorship_declaration: nil,
         executives_provided: nil,
@@ -84951,6 +84424,7 @@ module Stripe
         ownership_declaration: nil,
         ownership_exemption_reason: nil,
         phone: nil,
+        principal_place_of_business: nil,
         registration_date: nil,
         registration_number: nil,
         representative_declaration: nil,
@@ -86048,6 +85522,15 @@ module Stripe
          }
         def initialize(additional_files: nil, goods_type: nil, site: nil); end
       end
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        sig { returns(T.nilable(String)) }
+        def creditor_id; end
+        sig { params(_creditor_id: T.nilable(String)).returns(T.nilable(String)) }
+        def creditor_id=(_creditor_id); end
+        sig { params(creditor_id: T.nilable(String)).void }
+        def initialize(creditor_id: nil); end
+      end
       class SmartDisputes < ::Stripe::RequestParams
         class AutoRespond < ::Stripe::RequestParams
           # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
@@ -86187,6 +85670,13 @@ module Stripe
         params(_paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments))
        }
       def paypay_payments=(_paypay_payments); end
+      # Settings specific to SEPA Direct Debit payments.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments)) }
+      def sepa_debit_payments; end
+      sig {
+        params(_sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments))
+       }
+      def sepa_debit_payments=(_sepa_debit_payments); end
       # Settings specific to the account's use of Smart Disputes.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes)) }
       def smart_disputes; end
@@ -86209,7 +85699,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountUpdateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountUpdateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountUpdateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountUpdateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountUpdateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments), smart_disputes: T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountUpdateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -86222,6 +85712,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        sepa_debit_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
         treasury: nil
@@ -88318,6 +87809,49 @@ module Stripe
           town: nil
         ); end
       end
+      class AdministrativeAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
+      end
       class DirectorshipDeclaration < ::Stripe::RequestParams
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -88359,6 +87893,49 @@ module Stripe
           params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
          }
         def initialize(date: nil, ip: nil, user_agent: nil); end
+      end
+      class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
       end
       class RegistrationDate < ::Stripe::RequestParams
         # The day of registration, between 1 and 31.
@@ -88448,6 +88025,13 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji)).returns(T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
+      # Attribute for param field administrative_address
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Company::AdministrativeAddress)) }
+      def administrative_address; end
+      sig {
+        params(_administrative_address: T.nilable(::Stripe::AccountCreateParams::Company::AdministrativeAddress)).returns(T.nilable(::Stripe::AccountCreateParams::Company::AdministrativeAddress))
+       }
+      def administrative_address=(_administrative_address); end
       # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
@@ -88514,6 +88098,13 @@ module Stripe
       def phone; end
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
+      # Attribute for param field principal_place_of_business
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Company::PrincipalPlaceOfBusiness)) }
+      def principal_place_of_business; end
+      sig {
+        params(_principal_place_of_business: T.nilable(::Stripe::AccountCreateParams::Company::PrincipalPlaceOfBusiness)).returns(T.nilable(::Stripe::AccountCreateParams::Company::PrincipalPlaceOfBusiness))
+       }
+      def principal_place_of_business=(_principal_place_of_business); end
       # When the business was incorporated or registered.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::AccountCreateParams::Company::RegistrationDate)))
@@ -88543,6 +88134,8 @@ module Stripe
        }
       def structure=(_structure); end
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+      #
+      # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def tax_id; end
       sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
@@ -88565,12 +88158,13 @@ module Stripe
        }
       def verification=(_verification); end
       sig {
-        params(address: T.nilable(::Stripe::AccountCreateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountCreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountCreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountCreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::AccountCreateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountCreateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountCreateParams::Company::Verification)).void
+        params(address: T.nilable(::Stripe::AccountCreateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountCreateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji), administrative_address: T.nilable(::Stripe::AccountCreateParams::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountCreateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountCreateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::AccountCreateParams::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::AccountCreateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountCreateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountCreateParams::Company::Verification)).void
        }
       def initialize(
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        administrative_address: nil,
         directors_provided: nil,
         directorship_declaration: nil,
         executives_provided: nil,
@@ -88583,6 +88177,7 @@ module Stripe
         ownership_declaration: nil,
         ownership_exemption_reason: nil,
         phone: nil,
+        principal_place_of_business: nil,
         registration_date: nil,
         registration_number: nil,
         representative_declaration: nil,
@@ -88767,35 +88362,6 @@ module Stripe
         sig { params(files: T.nilable(T::Array[String])).void }
         def initialize(files: nil); end
       end
-      class ProofOfRegistration < ::Stripe::RequestParams
-        class Signer < ::Stripe::RequestParams
-          # The token of the person signing the document, if applicable.
-          sig { returns(T.nilable(String)) }
-          def person; end
-          sig { params(_person: T.nilable(String)).returns(T.nilable(String)) }
-          def person=(_person); end
-          sig { params(person: T.nilable(String)).void }
-          def initialize(person: nil); end
-        end
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
-        sig { returns(T.nilable(T::Array[String])) }
-        def files; end
-        sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def files=(_files); end
-        # Information regarding the person signing the document if applicable.
-        sig {
-          returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration::Signer))
-         }
-        def signer; end
-        sig {
-          params(_signer: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration::Signer)).returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration::Signer))
-         }
-        def signer=(_signer); end
-        sig {
-          params(files: T.nilable(T::Array[String]), signer: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration::Signer)).void
-         }
-        def initialize(files: nil, signer: nil); end
-      end
       class ProofOfUltimateBeneficialOwnership < ::Stripe::RequestParams
         class Signer < ::Stripe::RequestParams
           # The token of the person signing the document, if applicable.
@@ -88880,13 +88446,6 @@ module Stripe
         params(_proof_of_address: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfAddress))
        }
       def proof_of_address=(_proof_of_address); end
-      # One or more documents showing the company’s proof of registration with the national business registry.
-      sig { returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration)) }
-      def proof_of_registration; end
-      sig {
-        params(_proof_of_registration: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration)).returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration))
-       }
-      def proof_of_registration=(_proof_of_registration); end
       # One or more documents that demonstrate proof of ultimate beneficial ownership.
       sig {
         returns(T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership))
@@ -88897,7 +88456,7 @@ module Stripe
        }
       def proof_of_ultimate_beneficial_ownership=(_proof_of_ultimate_beneficial_ownership); end
       sig {
-        params(bank_account_ownership_verification: T.nilable(::Stripe::AccountCreateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyTaxIdVerification), proof_of_address: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfAddress), proof_of_registration: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfRegistration), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
+        params(bank_account_ownership_verification: T.nilable(::Stripe::AccountCreateParams::Documents::BankAccountOwnershipVerification), company_license: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyLicense), company_memorandum_of_association: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyMemorandumOfAssociation), company_ministerial_decree: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyMinisterialDecree), company_registration_verification: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyRegistrationVerification), company_tax_id_verification: T.nilable(::Stripe::AccountCreateParams::Documents::CompanyTaxIdVerification), proof_of_address: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfAddress), proof_of_ultimate_beneficial_ownership: T.nilable(::Stripe::AccountCreateParams::Documents::ProofOfUltimateBeneficialOwnership)).void
        }
       def initialize(
         bank_account_ownership_verification: nil,
@@ -88907,7 +88466,6 @@ module Stripe
         company_registration_verification: nil,
         company_tax_id_verification: nil,
         proof_of_address: nil,
-        proof_of_registration: nil,
         proof_of_ultimate_beneficial_ownership: nil
       ); end
     end
@@ -90233,13 +89791,32 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Whether to pause payouts on the account as part of the rejection. Defaults to `pause`. Use `none` to leave payouts enabled.
+    sig { returns(T.nilable(String)) }
+    def payouts_action; end
+    sig { params(_payouts_action: T.nilable(String)).returns(T.nilable(String)) }
+    def payouts_action=(_payouts_action); end
     # The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`.
     sig { returns(String) }
     def reason; end
     sig { params(_reason: String).returns(String) }
     def reason=(_reason); end
-    sig { params(expand: T.nilable(T::Array[String]), reason: String).void }
-    def initialize(expand: nil, reason: nil); end
+    sig {
+      params(expand: T.nilable(T::Array[String]), payouts_action: T.nilable(String), reason: String).void
+     }
+    def initialize(expand: nil, payouts_action: nil, reason: nil); end
+  end
+end
+# typed: true
+module Stripe
+  class AccountUnrejectParams < ::Stripe::RequestParams
+    # Specifies which fields in the response should be expanded.
+    sig { returns(T.nilable(T::Array[String])) }
+    def expand; end
+    sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+    def expand=(_expand); end
+    sig { params(expand: T.nilable(T::Array[String])).void }
+    def initialize(expand: nil); end
   end
 end
 # typed: true
@@ -90915,7 +90492,7 @@ module Stripe
           params(_filters: T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter])).returns(T.nilable(T::Array[::Stripe::Billing::AlertCreateParams::UsageThreshold::Filter]))
          }
         def filters=(_filters); end
-        # Defines the threshold value that triggers the alert.
+        # Defines the threshold value that triggers the alert. The value must be greater than 0.
         sig { returns(Integer) }
         def gte; end
         sig { params(_gte: Integer).returns(Integer) }
@@ -92067,7 +91644,7 @@ module Stripe
         params(_business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationCreateParams::BusinessProfile)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationCreateParams::BusinessProfile))
        }
       def business_profile=(_business_profile); end
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       sig { returns(T.nilable(String)) }
       def default_return_url; end
       sig { params(_default_return_url: T.nilable(String)).returns(T.nilable(String)) }
@@ -92450,7 +92027,7 @@ module Stripe
         params(_business_profile: T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile)).returns(T.nilable(::Stripe::BillingPortal::ConfigurationUpdateParams::BusinessProfile))
        }
       def business_profile=(_business_profile); end
-      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+      # The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
       sig { returns(T.nilable(String)) }
       def default_return_url; end
       sig { params(_default_return_url: T.nilable(String)).returns(T.nilable(String)) }
@@ -92886,7 +92463,7 @@ end
 module Stripe
   module Capital
     class FinancingTransactionListParams < ::Stripe::RequestParams
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this charge.
       sig { returns(T.nilable(String)) }
       def charge; end
       sig { params(_charge: T.nilable(String)).returns(T.nilable(String)) }
@@ -92921,7 +92498,7 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
-      # For transactions of type `paydown` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
+      # For transactions of type `payment` and reason `automatic_withholding` only, only returns transactions that were created as a result of this Treasury Transaction.
       sig { returns(T.nilable(String)) }
       def treasury_transaction; end
       sig { params(_treasury_transaction: T.nilable(String)).returns(T.nilable(String)) }
@@ -93942,7 +93519,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -93972,17 +93549,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -94798,7 +94375,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -94821,17 +94398,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -95460,7 +95037,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -95490,17 +95067,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -96663,7 +96240,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -96693,17 +96270,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -97519,7 +97096,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -97542,17 +97119,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -98183,7 +97760,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -98213,17 +97790,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -99617,13 +99194,6 @@ module Stripe
           params(_adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity))
          }
         def adjustable_quantity=(_adjustable_quantity); end
-        # The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
-        sig { returns(T.nilable(T::Array[String])) }
-        def dynamic_tax_rates; end
-        sig {
-          params(_dynamic_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-         }
-        def dynamic_tax_rates=(_dynamic_tax_rates); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
@@ -99654,11 +99224,10 @@ module Stripe
         sig { params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def tax_rates=(_tax_rates); end
         sig {
-          params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity), dynamic_tax_rates: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String])).void
+          params(adjustable_quantity: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::AdjustableQuantity), metadata: T.nilable(T::Hash[String, String]), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::LineItem::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T::Array[String])).void
          }
         def initialize(
           adjustable_quantity: nil,
-          dynamic_tax_rates: nil,
           metadata: nil,
           price: nil,
           price_data: nil,
@@ -100923,8 +100492,21 @@ module Stripe
           def capture_method; end
           sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
           def capture_method=(_capture_method); end
-          sig { params(capture_method: T.nilable(String)).void }
-          def initialize(capture_method: nil); end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+          def setup_future_usage=(_setup_future_usage); end
+          sig {
+            params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+           }
+          def initialize(capture_method: nil, setup_future_usage: nil); end
         end
         class Paynow < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -101211,8 +100793,21 @@ module Stripe
           def capture_method; end
           sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
           def capture_method=(_capture_method); end
-          sig { params(capture_method: T.nilable(String)).void }
-          def initialize(capture_method: nil); end
+          # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+          #
+          # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+          #
+          # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+          #
+          # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+          sig { returns(T.nilable(String)) }
+          def setup_future_usage; end
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+          def setup_future_usage=(_setup_future_usage); end
+          sig {
+            params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+           }
+          def initialize(capture_method: nil, setup_future_usage: nil); end
         end
         class Satispay < ::Stripe::RequestParams
           # Controls when the funds will be captured from the customer's account.
@@ -102428,7 +102023,7 @@ module Stripe
         def application_fee_percent; end
         sig { params(_application_fee_percent: T.nilable(Float)).returns(T.nilable(Float)) }
         def application_fee_percent=(_application_fee_percent); end
-        # A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+        # A future timestamp to anchor the subscription's billing cycle for new subscriptions.
         sig { returns(T.nilable(Integer)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -107596,7 +107191,7 @@ module Stripe
       def initialize(ip_address: nil, validate_location: nil); end
     end
     class TaxIdDatum < ::Stripe::RequestParams
-      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+      # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
       sig { returns(String) }
       def type; end
       sig { params(_type: String).returns(String) }
@@ -109384,10 +108979,22 @@ module Stripe
         def institution; end
         sig { params(_institution: T.nilable(String)).returns(T.nilable(String)) }
         def institution=(_institution); end
+        # Whether the session should require payment method support and successful account number retrieval before completion.
+        sig { returns(T.nilable(String)) }
+        def require_payment_method_support; end
         sig {
-          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String)).void
+          params(_require_payment_method_support: T.nilable(String)).returns(T.nilable(String))
          }
-        def initialize(account_subcategories: nil, countries: nil, institution: nil); end
+        def require_payment_method_support=(_require_payment_method_support); end
+        sig {
+          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String), require_payment_method_support: T.nilable(String)).void
+         }
+        def initialize(
+          account_subcategories: nil,
+          countries: nil,
+          institution: nil,
+          require_payment_method_support: nil
+        ); end
       end
       class Hosted < ::Stripe::RequestParams
         # How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
@@ -115002,7 +114609,7 @@ module Stripe
         def initialize(ip_address: nil); end
       end
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -117037,7 +116644,7 @@ module Stripe
         def proration_behavior; end
         sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
         def proration_behavior=(_proration_behavior); end
-        # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+        # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
         sig { returns(T.nilable(T.any(Integer, String))) }
         def start_date; end
         sig {
@@ -117063,7 +116670,7 @@ module Stripe
         def trial_continuation; end
         sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
         def trial_continuation=(_trial_continuation); end
-        # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+        # Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
         sig { returns(T.nilable(T.any(Integer, String))) }
         def trial_end; end
         sig {
@@ -117807,6 +117414,13 @@ module Stripe
         params(_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]))
        }
       def items=(_items); end
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+      sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
+      def metadata; end
+      sig {
+        params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
+       }
+      def metadata=(_metadata); end
       # Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
       #
       # To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
@@ -117855,7 +117469,7 @@ module Stripe
        }
       def trial_end=(_trial_end); end
       sig {
-        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause), prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause), prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         billing_cycle_anchor: nil,
@@ -117866,6 +117480,7 @@ module Stripe
         cancel_now: nil,
         default_tax_rates: nil,
         items: nil,
+        metadata: nil,
         pause: nil,
         prebilling: nil,
         proration_behavior: nil,
@@ -118704,7 +118319,7 @@ module Stripe
         end
         class ReportedBreakdown < ::Stripe::RequestParams
           class Fuel < ::Stripe::RequestParams
-            # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+            # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
             sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
             sig {
@@ -119332,7 +118947,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::RequestParams
             class Fuel < ::Stripe::RequestParams
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               sig {
@@ -119874,7 +119489,7 @@ module Stripe
         end
         class ReportedBreakdown < ::Stripe::RequestParams
           class Fuel < ::Stripe::RequestParams
-            # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+            # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
             sig { returns(T.nilable(BigDecimal)) }
             def gross_amount_decimal; end
             sig {
@@ -121000,6 +120615,11 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # The cardholder's name. This will be printed on cards issued to them.
+      sig { returns(T.nilable(String)) }
+      def name; end
+      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+      def name=(_name); end
       # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
       sig { returns(T.nilable(String)) }
       def phone_number; end
@@ -121026,7 +120646,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
+        params(billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
        }
       def initialize(
         billing: nil,
@@ -121035,6 +120655,7 @@ module Stripe
         expand: nil,
         individual: nil,
         metadata: nil,
+        name: nil,
         phone_number: nil,
         preferred_locales: nil,
         spending_controls: nil,
@@ -121266,6 +120887,11 @@ module Stripe
           params(_address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation))
          }
         def address_validation=(_address_validation); end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
+        sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+        def business_name=(_business_name); end
         # Customs information for the shipment.
         sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs)) }
         def customs; end
@@ -121299,11 +120925,12 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(address: ::Stripe::Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation), customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
+          params(address: ::Stripe::Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation), business_name: T.nilable(String), customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           address: nil,
           address_validation: nil,
+          business_name: nil,
           customs: nil,
           name: nil,
           phone_number: nil,
@@ -121609,6 +121236,11 @@ module Stripe
           params(_address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation)).returns(T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation))
          }
         def address_validation=(_address_validation); end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
+        sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+        def business_name=(_business_name); end
         # Customs information for the shipment.
         sig { returns(T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs)) }
         def customs; end
@@ -121642,11 +121274,12 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(address: ::Stripe::Issuing::CardUpdateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation), customs: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
+          params(address: ::Stripe::Issuing::CardUpdateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::AddressValidation), business_name: T.nilable(String), customs: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           address: nil,
           address_validation: nil,
+          business_name: nil,
           customs: nil,
           name: nil,
           phone_number: nil,
@@ -124465,7 +124098,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::RequestParams
             class Fuel < ::Stripe::RequestParams
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               sig {
@@ -125073,7 +124706,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::RequestParams
             class Fuel < ::Stripe::RequestParams
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               sig {
@@ -128714,7 +128347,7 @@ module Stripe
     end
     class TaxDetails < ::Stripe::RequestParams
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -131923,7 +131556,7 @@ module Stripe
     end
     class TaxDetails < ::Stripe::RequestParams
       class TaxId < ::Stripe::RequestParams
-        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+        # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
@@ -133272,7 +132905,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -133302,17 +132935,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -134136,7 +133769,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -134159,17 +133792,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -134804,7 +134437,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -134834,17 +134467,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCreateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -139278,8 +138911,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Paynow < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -139713,8 +139359,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Satispay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
@@ -140830,13 +140489,18 @@ module Stripe
       ); end
     end
     class RadarOptions < ::Stripe::RequestParams
+      # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+      sig { returns(T.nilable(String)) }
+      def referrer; end
+      sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+      def referrer=(_referrer); end
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
       sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
       def session=(_session); end
-      sig { params(session: T.nilable(String)).void }
-      def initialize(session: nil); end
+      sig { params(referrer: T.nilable(String), session: T.nilable(String)).void }
+      def initialize(referrer: nil, session: nil); end
     end
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams
@@ -140982,6 +140646,13 @@ module Stripe
         payment_data: nil
       ); end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(Integer) }
     def amount; end
@@ -141231,9 +140902,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentCreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentCreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentCreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentCreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentCreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentCreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), amount: Integer, amount_details: T.nilable(::Stripe::PaymentIntentCreateParams::AmountDetails), application_fee_amount: T.nilable(Integer), automatic_payment_methods: T.nilable(::Stripe::PaymentIntentCreateParams::AutomaticPaymentMethods), capture_method: T.nilable(String), confirm: T.nilable(T::Boolean), confirmation_method: T.nilable(String), confirmation_token: T.nilable(String), currency: String, customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentCreateParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), off_session: T.nilable(T.any(T::Boolean, String)), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentCreateParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), secret_key_confirmation: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(::Stripe::PaymentIntentCreateParams::Shipping), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentCreateParams::TransferData), transfer_group: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       amount: nil,
       amount_details: nil,
       application_fee_amount: nil,
@@ -142316,7 +141988,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -142346,17 +142018,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -143180,7 +142852,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -143203,17 +142875,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -143848,7 +143520,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -143878,17 +143550,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -148322,8 +147994,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Paynow < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -148757,8 +148442,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Satispay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
@@ -149997,6 +149695,13 @@ module Stripe
        }
       def initialize(amount: nil, description: nil, metadata: nil, payment_data: nil); end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     sig { returns(T.nilable(Integer)) }
     def amount; end
@@ -150179,9 +149884,10 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       amount: nil,
       amount_details: nil,
       application_fee_amount: nil,
@@ -151281,7 +150987,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -151311,17 +151017,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -152147,7 +151853,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -152170,17 +151876,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -152815,7 +152521,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -152845,17 +152551,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentCaptureParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -154351,7 +154057,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -154381,17 +154087,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -155217,7 +154923,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -155240,17 +154946,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -155885,7 +155591,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -155915,17 +155621,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::PaymentIntentConfirmParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }
@@ -160367,8 +160073,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Paynow < ::Stripe::RequestParams
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -160802,8 +160521,21 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
       end
       class Satispay < ::Stripe::RequestParams
         # Controls when the funds are captured from the customer's account.
@@ -161919,13 +161651,18 @@ module Stripe
       ); end
     end
     class RadarOptions < ::Stripe::RequestParams
+      # The referrer URL of the current checkout session. You can use this to supply session-level referrer data when a Radar Session isn't available or doesn't contain a referrer.
+      sig { returns(T.nilable(String)) }
+      def referrer; end
+      sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+      def referrer=(_referrer); end
       # A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
       sig { returns(T.nilable(String)) }
       def session; end
       sig { params(_session: T.nilable(String)).returns(T.nilable(String)) }
       def session=(_session); end
-      sig { params(session: T.nilable(String)).void }
-      def initialize(session: nil); end
+      sig { params(referrer: T.nilable(String), session: T.nilable(String)).void }
+      def initialize(referrer: nil, session: nil); end
     end
     class Shipping < ::Stripe::RequestParams
       class Address < ::Stripe::RequestParams
@@ -162003,6 +161740,13 @@ module Stripe
        }
       def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil); end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # Provides industry-specific information about the amount.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails))) }
     def amount_details; end
@@ -162111,7 +161855,7 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The list of payment method types (for example, a card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     sig { returns(T.nilable(T::Array[String])) }
     def payment_method_types; end
     sig {
@@ -162165,9 +161909,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), amount_to_confirm: T.nilable(Integer), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), amount_to_confirm: T.nilable(Integer), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       amount_details: nil,
       amount_to_confirm: nil,
       application_fee_amount: nil,
@@ -164646,6 +164391,48 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
+    class ConsentCollection < ::Stripe::RequestParams
+      class PaymentMethodReuseAgreement < ::Stripe::RequestParams
+        # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+        # defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
+        sig { returns(String) }
+        def position; end
+        sig { params(_position: String).returns(String) }
+        def position=(_position); end
+        sig { params(position: String).void }
+        def initialize(position: nil); end
+      end
+      # Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+      sig {
+        returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement))
+       }
+      def payment_method_reuse_agreement; end
+      sig {
+        params(_payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement))
+       }
+      def payment_method_reuse_agreement=(_payment_method_reuse_agreement); end
+      # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+      # Session will determine whether to display an option to opt into promotional communication
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
+      sig { returns(T.nilable(String)) }
+      def promotions; end
+      sig { params(_promotions: T.nilable(String)).returns(T.nilable(String)) }
+      def promotions=(_promotions); end
+      # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
+      # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+      sig { returns(T.nilable(String)) }
+      def terms_of_service; end
+      sig { params(_terms_of_service: T.nilable(String)).returns(T.nilable(String)) }
+      def terms_of_service=(_terms_of_service); end
+      sig {
+        params(payment_method_reuse_agreement: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection::PaymentMethodReuseAgreement), promotions: T.nilable(String), terms_of_service: T.nilable(String)).void
+       }
+      def initialize(
+        payment_method_reuse_agreement: nil,
+        promotions: nil,
+        terms_of_service: nil
+      ); end
+    end
     class CustomField < ::Stripe::RequestParams
       class Dropdown < ::Stripe::RequestParams
         class Option < ::Stripe::RequestParams
@@ -165154,6 +164941,23 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
+      # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+      #
+      # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+      #
+      # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+      #
+      # If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
+      #
+      # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+      #
+      # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+      sig { returns(T.nilable(T.any(String, String))) }
+      def setup_future_usage; end
+      sig {
+        params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
+       }
+      def setup_future_usage=(_setup_future_usage); end
       # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
       #
       # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
@@ -165172,11 +164976,12 @@ module Stripe
       sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
       def transfer_group=(_transfer_group); end
       sig {
-        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
+        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
        }
       def initialize(
         description: nil,
         metadata: nil,
+        setup_future_usage: nil,
         statement_descriptor: nil,
         statement_descriptor_suffix: nil,
         transfer_group: nil
@@ -165263,6 +165068,15 @@ module Stripe
       def allowed_countries=(_allowed_countries); end
       sig { params(allowed_countries: T::Array[String]).void }
       def initialize(allowed_countries: nil); end
+    end
+    class ShippingOption < ::Stripe::RequestParams
+      # The ID of the Shipping Rate to use for this shipping option.
+      sig { returns(T.nilable(String)) }
+      def shipping_rate; end
+      sig { params(_shipping_rate: T.nilable(String)).returns(T.nilable(String)) }
+      def shipping_rate=(_shipping_rate); end
+      sig { params(shipping_rate: T.nilable(String)).void }
+      def initialize(shipping_rate: nil); end
     end
     class SubscriptionData < ::Stripe::RequestParams
       class InvoiceSettings < ::Stripe::RequestParams
@@ -165403,6 +165217,13 @@ module Stripe
     def billing_address_collection; end
     sig { params(_billing_address_collection: T.nilable(String)).returns(T.nilable(String)) }
     def billing_address_collection=(_billing_address_collection); end
+    # Configure fields to gather active consent from customers.
+    sig { returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection)) }
+    def consent_collection; end
+    sig {
+      params(_consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection))
+     }
+    def consent_collection=(_consent_collection); end
     # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])))
@@ -165530,6 +165351,15 @@ module Stripe
       params(_shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)))
      }
     def shipping_address_collection=(_shipping_address_collection); end
+    # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])))
+     }
+    def shipping_options; end
+    sig {
+      params(_shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])))
+     }
+    def shipping_options=(_shipping_options); end
     # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     sig { returns(T.nilable(String)) }
     def submit_type; end
@@ -165550,7 +165380,7 @@ module Stripe
      }
     def tax_id_collection=(_tax_id_collection); end
     sig {
-      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).void
+      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).void
      }
     def initialize(
       active: nil,
@@ -165558,6 +165388,7 @@ module Stripe
       allow_promotion_codes: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
+      consent_collection: nil,
       custom_fields: nil,
       custom_text: nil,
       customer_creation: nil,
@@ -165575,6 +165406,7 @@ module Stripe
       phone_number_collection: nil,
       restrictions: nil,
       shipping_address_collection: nil,
+      shipping_options: nil,
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil
@@ -171384,6 +171216,52 @@ module Stripe
 end
 # typed: true
 module Stripe
+  class PaymentRecordListParams < ::Stripe::RequestParams
+    # Only return Payment Records that were created after this unix timestamp.
+    sig { returns(T.nilable(Integer)) }
+    def created_after; end
+    sig { params(_created_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def created_after=(_created_after); end
+    # Only return Payment Records that were created before this unix timestamp.
+    sig { returns(T.nilable(Integer)) }
+    def created_before; end
+    sig { params(_created_before: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def created_before=(_created_before); end
+    # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+    sig { returns(T.nilable(String)) }
+    def ending_before; end
+    sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+    def ending_before=(_ending_before); end
+    # Specifies which fields in the response should be expanded.
+    sig { returns(T.nilable(T::Array[String])) }
+    def expand; end
+    sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+    def expand=(_expand); end
+    # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+    sig { returns(T.nilable(Integer)) }
+    def limit; end
+    sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+    def limit=(_limit); end
+    # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+    sig { returns(T.nilable(String)) }
+    def starting_after; end
+    sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+    def starting_after=(_starting_after); end
+    sig {
+      params(created_after: T.nilable(Integer), created_before: T.nilable(Integer), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
+     }
+    def initialize(
+      created_after: nil,
+      created_before: nil,
+      ending_before: nil,
+      expand: nil,
+      limit: nil,
+      starting_after: nil
+    ); end
+  end
+end
+# typed: true
+module Stripe
   class PaymentRecordReportPaymentAttemptParams < ::Stripe::RequestParams
     class Failed < ::Stripe::RequestParams
       # When the reported payment failed. Measured in seconds since the Unix epoch.
@@ -174074,6 +173952,84 @@ end
 # typed: true
 module Stripe
   module ProductCatalog
+    class TrialOfferListParams < ::Stripe::RequestParams
+      class Created < ::Stripe::RequestParams
+        # Minimum value to filter by (exclusive)
+        sig { returns(T.nilable(Integer)) }
+        def gt; end
+        sig { params(_gt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gt=(_gt); end
+        # Minimum value to filter by (inclusive)
+        sig { returns(T.nilable(Integer)) }
+        def gte; end
+        sig { params(_gte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def gte=(_gte); end
+        # Maximum value to filter by (exclusive)
+        sig { returns(T.nilable(Integer)) }
+        def lt; end
+        sig { params(_lt: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lt=(_lt); end
+        # Maximum value to filter by (inclusive)
+        sig { returns(T.nilable(Integer)) }
+        def lte; end
+        sig { params(_lte: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def lte=(_lte); end
+        sig {
+          params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
+         }
+        def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
+      end
+      # Only return trial offers that were created during the given date interval.
+      sig {
+        returns(T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)))
+       }
+      def created; end
+      sig {
+        params(_created: T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)))
+       }
+      def created=(_created); end
+      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+      sig { returns(T.nilable(String)) }
+      def ending_before; end
+      sig { params(_ending_before: T.nilable(String)).returns(T.nilable(String)) }
+      def ending_before=(_ending_before); end
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
+      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+      sig { returns(T.nilable(Integer)) }
+      def limit; end
+      sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def limit=(_limit); end
+      # Only return trial offers that reference these prices (during the trial period).
+      sig { returns(T.nilable(T::Array[String])) }
+      def prices; end
+      sig { params(_prices: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def prices=(_prices); end
+      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+      sig { returns(T.nilable(String)) }
+      def starting_after; end
+      sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
+      def starting_after=(_starting_after); end
+      sig {
+        params(created: T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), prices: T.nilable(T::Array[String]), starting_after: T.nilable(String)).void
+       }
+      def initialize(
+        created: nil,
+        ending_before: nil,
+        expand: nil,
+        limit: nil,
+        prices: nil,
+        starting_after: nil
+      ); end
+    end
+  end
+end
+# typed: true
+module Stripe
+  module ProductCatalog
     class TrialOfferCreateParams < ::Stripe::RequestParams
       class Duration < ::Stripe::RequestParams
         class Relative < ::Stripe::RequestParams
@@ -174994,7 +174950,7 @@ module Stripe
         sig { params(minimum_amount: T.nilable(Integer)).void }
         def initialize(minimum_amount: nil); end
       end
-      # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+      # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). Each currency must be different from the `minimum_amount_currency` set on the promotion code.
       sig {
         returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeCreateParams::Restrictions::CurrencyOptions]))
        }
@@ -175116,7 +175072,7 @@ module Stripe
         sig { params(minimum_amount: T.nilable(Integer)).void }
         def initialize(minimum_amount: nil); end
       end
-      # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+      # Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). Each currency must be different from the `minimum_amount_currency` set on the promotion code.
       sig {
         returns(T.nilable(T::Hash[String, ::Stripe::PromotionCodeUpdateParams::Restrictions::CurrencyOptions]))
        }
@@ -175339,6 +175295,20 @@ module Stripe
       def initialize(is_revision: nil, quote: nil); end
     end
     class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
+        # The name of the custom field. This may be up to 40 characters.
+        sig { returns(String) }
+        def name; end
+        sig { params(_name: String).returns(String) }
+        def name=(_name); end
+        # The value of the custom field. This may be up to 140 characters.
+        sig { returns(String) }
+        def value; end
+        sig { params(_value: String).returns(String) }
+        def value=(_value); end
+        sig { params(name: String, value: String).void }
+        def initialize(name: nil, value: nil); end
+      end
       class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
@@ -175353,11 +175323,30 @@ module Stripe
         sig { params(account: T.nilable(String), type: String).void }
         def initialize(account: nil, type: nil); end
       end
+      # A list of up to 4 custom fields to be displayed on the invoice.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteCreateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields; end
+      sig {
+        params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::QuoteCreateParams::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteCreateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields=(_custom_fields); end
       # Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       sig { returns(T.nilable(Integer)) }
       def days_until_due; end
       sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def days_until_due=(_days_until_due); end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
+      # Footer to be displayed on the invoice.
+      sig { returns(T.nilable(String)) }
+      def footer; end
+      sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+      def footer=(_footer); end
       # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
       sig { returns(T.nilable(::Stripe::QuoteCreateParams::InvoiceSettings::Issuer)) }
       def issuer; end
@@ -175366,9 +175355,15 @@ module Stripe
        }
       def issuer=(_issuer); end
       sig {
-        params(days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::QuoteCreateParams::InvoiceSettings::Issuer)).void
+        params(custom_fields: T.nilable(T.any(String, T::Array[::Stripe::QuoteCreateParams::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::QuoteCreateParams::InvoiceSettings::Issuer)).void
        }
-      def initialize(days_until_due: nil, issuer: nil); end
+      def initialize(
+        custom_fields: nil,
+        days_until_due: nil,
+        description: nil,
+        footer: nil,
+        issuer: nil
+      ); end
     end
     class Line < ::Stripe::RequestParams
       class Action < ::Stripe::RequestParams
@@ -177075,6 +177070,20 @@ module Stripe
       def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
     class InvoiceSettings < ::Stripe::RequestParams
+      class CustomField < ::Stripe::RequestParams
+        # The name of the custom field. This may be up to 40 characters.
+        sig { returns(String) }
+        def name; end
+        sig { params(_name: String).returns(String) }
+        def name=(_name); end
+        # The value of the custom field. This may be up to 140 characters.
+        sig { returns(String) }
+        def value; end
+        sig { params(_value: String).returns(String) }
+        def value=(_value); end
+        sig { params(name: String, value: String).void }
+        def initialize(name: nil, value: nil); end
+      end
       class Issuer < ::Stripe::RequestParams
         # The connected account being referenced when `type` is `account`.
         sig { returns(T.nilable(String)) }
@@ -177089,11 +177098,30 @@ module Stripe
         sig { params(account: T.nilable(String), type: String).void }
         def initialize(account: nil, type: nil); end
       end
+      # A list of up to 4 custom fields to be displayed on the invoice.
+      sig {
+        returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields; end
+      sig {
+        params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::InvoiceSettings::CustomField])))
+       }
+      def custom_fields=(_custom_fields); end
       # Number of days within which a customer must pay the invoice generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
       sig { returns(T.nilable(Integer)) }
       def days_until_due; end
       sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def days_until_due=(_days_until_due); end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(T.nilable(String)) }
+      def description; end
+      sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+      def description=(_description); end
+      # Footer to be displayed on the invoice.
+      sig { returns(T.nilable(String)) }
+      def footer; end
+      sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+      def footer=(_footer); end
       # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
       sig { returns(T.nilable(::Stripe::QuoteUpdateParams::InvoiceSettings::Issuer)) }
       def issuer; end
@@ -177102,9 +177130,15 @@ module Stripe
        }
       def issuer=(_issuer); end
       sig {
-        params(days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::QuoteUpdateParams::InvoiceSettings::Issuer)).void
+        params(custom_fields: T.nilable(T.any(String, T::Array[::Stripe::QuoteUpdateParams::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::QuoteUpdateParams::InvoiceSettings::Issuer)).void
        }
-      def initialize(days_until_due: nil, issuer: nil); end
+      def initialize(
+        custom_fields: nil,
+        days_until_due: nil,
+        description: nil,
+        footer: nil,
+        issuer: nil
+      ); end
     end
     class Line < ::Stripe::RequestParams
       class Action < ::Stripe::RequestParams
@@ -182429,6 +182463,13 @@ module Stripe
       sig { params(amount: Integer, currency: String).void }
       def initialize(amount: nil, currency: nil); end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -182571,9 +182612,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       attach_to_self: nil,
       automatic_payment_methods: nil,
       confirm: nil,
@@ -184594,6 +184636,13 @@ module Stripe
         us_bank_account: nil
       ); end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -184681,9 +184730,10 @@ module Stripe
      }
     def payment_method_types=(_payment_method_types); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
+      params(allowed_payment_method_types: T.nilable(T.any(String, T::Array[String])), attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       attach_to_self: nil,
       customer: nil,
       customer_account: nil,
@@ -186786,6 +186836,13 @@ module Stripe
         us_bank_account: nil
       ); end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
@@ -186838,9 +186895,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       confirmation_token: nil,
       expand: nil,
       mandate_data: nil,
@@ -187035,8 +187093,13 @@ module Stripe
         params(_usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits).returns(::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits)
        }
       def usage_limits=(_usage_limits); end
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      sig { returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk; end
+      sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk=(_use_stripe_sdk); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: String, return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits).void
+        params(expand: T.nilable(T::Array[String]), payment_method: String, return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits, use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         expand: nil,
@@ -187045,7 +187108,8 @@ module Stripe
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil,
-        usage_limits: nil
+        usage_limits: nil,
+        use_stripe_sdk: nil
       ); end
     end
   end
@@ -189034,7 +189098,7 @@ module Stripe
       params(_created: T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer))).returns(T.nilable(T.any(::Stripe::SubscriptionScheduleListParams::Created, Integer)))
      }
     def created=(_created); end
-    # Only return subscription schedules for the given customer.
+    # Only return subscription schedules for the given customer. The response will not include subscription schedules for customers with a test clock attached if this parameter is not set.
     sig { returns(T.nilable(String)) }
     def customer; end
     sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
@@ -189178,6 +189242,20 @@ module Stripe
         def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
       end
       class InvoiceSettings < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
+          # The name of the custom field. This may be up to 40 characters.
+          sig { returns(String) }
+          def name; end
+          sig { params(_name: String).returns(String) }
+          def name=(_name); end
+          # The value of the custom field. This may be up to 140 characters.
+          sig { returns(String) }
+          def value; end
+          sig { params(_value: String).returns(String) }
+          def value=(_value); end
+          sig { params(name: String, value: String).void }
+          def initialize(name: nil, value: nil); end
+        end
         class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
@@ -189199,11 +189277,30 @@ module Stripe
           params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
         def account_tax_ids=(_account_tax_ids); end
+        # Attribute for param field custom_fields
+        sig {
+          returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::CustomField])))
+         }
+        def custom_fields; end
+        sig {
+          params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::CustomField])))
+         }
+        def custom_fields=(_custom_fields); end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
         sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_until_due=(_days_until_due); end
+        # Attribute for param field description
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Attribute for param field footer
+        sig { returns(T.nilable(String)) }
+        def footer; end
+        sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+        def footer=(_footer); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer))
@@ -189214,9 +189311,16 @@ module Stripe
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::DefaultSettings::InvoiceSettings::Issuer)).void
          }
-        def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
+        def initialize(
+          account_tax_ids: nil,
+          custom_fields: nil,
+          days_until_due: nil,
+          description: nil,
+          footer: nil,
+          issuer: nil
+        ); end
       end
       class TransferData < ::Stripe::RequestParams
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
@@ -189688,6 +189792,20 @@ module Stripe
         def initialize(interval: nil, interval_count: nil); end
       end
       class InvoiceSettings < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
+          # The name of the custom field. This may be up to 40 characters.
+          sig { returns(String) }
+          def name; end
+          sig { params(_name: String).returns(String) }
+          def name=(_name); end
+          # The value of the custom field. This may be up to 140 characters.
+          sig { returns(String) }
+          def value; end
+          sig { params(_value: String).returns(String) }
+          def value=(_value); end
+          sig { params(name: String, value: String).void }
+          def initialize(name: nil, value: nil); end
+        end
         class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
@@ -189709,11 +189827,30 @@ module Stripe
           params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
         def account_tax_ids=(_account_tax_ids); end
-        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig {
+          returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::CustomField])))
+         }
+        def custom_fields; end
+        sig {
+          params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::CustomField])))
+         }
+        def custom_fields=(_custom_fields); end
+        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
         sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_until_due=(_days_until_due); end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
+        sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+        def footer=(_footer); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer))
@@ -189724,9 +189861,16 @@ module Stripe
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Phase::InvoiceSettings::Issuer)).void
          }
-        def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
+        def initialize(
+          account_tax_ids: nil,
+          custom_fields: nil,
+          days_until_due: nil,
+          description: nil,
+          footer: nil,
+          issuer: nil
+        ); end
       end
       class Item < ::Stripe::RequestParams
         class BillingThresholds < ::Stripe::RequestParams
@@ -190300,7 +190444,7 @@ module Stripe
       params(_prebilling: T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::Prebilling))
      }
     def prebilling=(_prebilling); end
-    # When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
+    # When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately, and to avoid unexpected behavior due to request delays or clock skew resulting in a slightly backdated or postdated start. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
     sig { returns(T.nilable(T.any(Integer, String))) }
     def start_date; end
     sig {
@@ -190413,6 +190557,20 @@ module Stripe
         def initialize(amount_gte: nil, reset_billing_cycle_anchor: nil); end
       end
       class InvoiceSettings < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
+          # The name of the custom field. This may be up to 40 characters.
+          sig { returns(String) }
+          def name; end
+          sig { params(_name: String).returns(String) }
+          def name=(_name); end
+          # The value of the custom field. This may be up to 140 characters.
+          sig { returns(String) }
+          def value; end
+          sig { params(_value: String).returns(String) }
+          def value=(_value); end
+          sig { params(name: String, value: String).void }
+          def initialize(name: nil, value: nil); end
+        end
         class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
@@ -190434,11 +190592,30 @@ module Stripe
           params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
         def account_tax_ids=(_account_tax_ids); end
+        # Attribute for param field custom_fields
+        sig {
+          returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::CustomField])))
+         }
+        def custom_fields; end
+        sig {
+          params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::CustomField])))
+         }
+        def custom_fields=(_custom_fields); end
         # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
         sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_until_due=(_days_until_due); end
+        # Attribute for param field description
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Attribute for param field footer
+        sig { returns(T.nilable(String)) }
+        def footer; end
+        sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+        def footer=(_footer); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::Issuer))
@@ -190449,9 +190626,16 @@ module Stripe
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings::InvoiceSettings::Issuer)).void
          }
-        def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
+        def initialize(
+          account_tax_ids: nil,
+          custom_fields: nil,
+          days_until_due: nil,
+          description: nil,
+          footer: nil,
+          issuer: nil
+        ); end
       end
       class TransferData < ::Stripe::RequestParams
         # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
@@ -190923,6 +191107,20 @@ module Stripe
         def initialize(interval: nil, interval_count: nil); end
       end
       class InvoiceSettings < ::Stripe::RequestParams
+        class CustomField < ::Stripe::RequestParams
+          # The name of the custom field. This may be up to 40 characters.
+          sig { returns(String) }
+          def name; end
+          sig { params(_name: String).returns(String) }
+          def name=(_name); end
+          # The value of the custom field. This may be up to 140 characters.
+          sig { returns(String) }
+          def value; end
+          sig { params(_value: String).returns(String) }
+          def value=(_value); end
+          sig { params(name: String, value: String).void }
+          def initialize(name: nil, value: nil); end
+        end
         class Issuer < ::Stripe::RequestParams
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(String)) }
@@ -190944,11 +191142,30 @@ module Stripe
           params(_account_tax_ids: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
         def account_tax_ids=(_account_tax_ids); end
-        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `billing=charge_automatically`.
+        # A list of up to 4 custom fields to be displayed on the invoice.
+        sig {
+          returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::CustomField])))
+         }
+        def custom_fields; end
+        sig {
+          params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::CustomField])))
+         }
+        def custom_fields=(_custom_fields); end
+        # Number of days within which a customer must pay invoices generated by this subscription schedule. This value will be `null` for subscription schedules where `collection_method=charge_automatically`.
         sig { returns(T.nilable(Integer)) }
         def days_until_due; end
         sig { params(_days_until_due: T.nilable(Integer)).returns(T.nilable(Integer)) }
         def days_until_due=(_days_until_due); end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Footer to be displayed on the invoice.
+        sig { returns(T.nilable(String)) }
+        def footer; end
+        sig { params(_footer: T.nilable(String)).returns(T.nilable(String)) }
+        def footer=(_footer); end
         # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
         sig {
           returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::Issuer))
@@ -190959,9 +191176,16 @@ module Stripe
          }
         def issuer=(_issuer); end
         sig {
-          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), days_until_due: T.nilable(Integer), issuer: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::Issuer)).void
+          params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::CustomField])), days_until_due: T.nilable(Integer), description: T.nilable(String), footer: T.nilable(String), issuer: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Phase::InvoiceSettings::Issuer)).void
          }
-        def initialize(account_tax_ids: nil, days_until_due: nil, issuer: nil); end
+        def initialize(
+          account_tax_ids: nil,
+          custom_fields: nil,
+          days_until_due: nil,
+          description: nil,
+          footer: nil,
+          issuer: nil
+        ); end
       end
       class Item < ::Stripe::RequestParams
         class BillingThresholds < ::Stripe::RequestParams
@@ -191381,7 +191605,7 @@ module Stripe
       def proration_behavior; end
       sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
       def proration_behavior=(_proration_behavior); end
-      # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+      # The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
       sig { returns(T.nilable(T.any(Integer, String))) }
       def start_date; end
       sig {
@@ -191405,7 +191629,7 @@ module Stripe
       def trial_continuation; end
       sig { params(_trial_continuation: T.nilable(String)).returns(T.nilable(String)) }
       def trial_continuation=(_trial_continuation); end
-      # Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+      # Sets the phase to trialing from the start date to this date. Must be within the phase. When combined with `trial=true`, it must match the phase end date.
       sig { returns(T.nilable(T.any(Integer, String))) }
       def trial_end; end
       sig {
@@ -194004,7 +194228,7 @@ module Stripe
       params(_cancel_at: T.nilable(T.any(String, T.any(Integer, String)))).returns(T.nilable(T.any(String, T.any(Integer, String))))
      }
     def cancel_at=(_cancel_at); end
-    # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+    # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`).
     sig { returns(T.nilable(T::Boolean)) }
     def cancel_at_period_end; end
     sig { params(_cancel_at_period_end: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -196371,7 +196595,7 @@ module Stripe
           ); end
         end
         class TaxId < ::Stripe::RequestParams
-          # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+          # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
@@ -196609,7 +196833,7 @@ module Stripe
         params(_shipping_cost: T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost)).returns(T.nilable(::Stripe::Tax::CalculationCreateParams::ShippingCost))
        }
       def shipping_cost=(_shipping_cost); end
-      # Timestamp of date at which the tax rules and rates in effect applies for the calculation. Measured in seconds since the Unix epoch. Can be up to 48 hours in the past, and up to 48 hours in the future.
+      # The calculation uses the tax rules and rates that are in effect at this timestamp. You can use a date up to 31 days in the past or up to 31 days in the future. If you use a future date, Stripe doesn't guarantee that the expected tax rules and rate being used match the actual rules and rate that will be in effect on that date. We deploy tax changes before their effective date, but not within a fixed window.
       sig { returns(T.nilable(Integer)) }
       def tax_date; end
       sig { params(_tax_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
@@ -198899,6 +199123,24 @@ module Stripe
             sig { params(jurisdiction: String).void }
             def initialize(jurisdiction: nil); end
           end
+          class MassTransitParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class ParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class ResortTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             sig { returns(String) }
@@ -199018,6 +199260,24 @@ module Stripe
             params(_luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax))
            }
           def luxury_tax=(_luxury_tax); end
+          # Options for the mass transit parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax; end
+          sig {
+            params(_mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax=(_mass_transit_parking_tax); end
+          # Options for the parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax; end
+          sig {
+            params(_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax=(_parking_tax); end
           # Options for the resort tax registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax))
@@ -199056,7 +199316,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax), attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax), entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax), gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax), hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax), resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax), type: String).void
+            params(admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax), attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax), entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax), gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax), hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax), mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax), parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax), resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax), type: String).void
            }
           def initialize(
             admissions_tax: nil,
@@ -199067,6 +199327,8 @@ module Stripe
             local_amusement_tax: nil,
             local_lease_tax: nil,
             luxury_tax: nil,
+            mass_transit_parking_tax: nil,
+            parking_tax: nil,
             resort_tax: nil,
             state: nil,
             state_sales_tax: nil,
@@ -200512,7 +200774,7 @@ module Stripe
       params(_owner: T.nilable(::Stripe::TaxIdCreateParams::Owner)).returns(T.nilable(::Stripe::TaxIdCreateParams::Owner))
      }
     def owner=(_owner); end
-    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     sig { returns(String) }
     def type; end
     sig { params(_type: String).returns(String) }
@@ -204631,6 +204893,49 @@ module Stripe
             town: nil
           ); end
         end
+        class AdministrativeAddress < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(T.nilable(String)) }
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
+          sig {
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+           }
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          ); end
+        end
         class DirectorshipDeclaration < ::Stripe::RequestParams
           # The Unix timestamp marking when the directorship declaration attestation was made.
           sig { returns(T.nilable(Integer)) }
@@ -204672,6 +204977,49 @@ module Stripe
             params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
            }
           def initialize(date: nil, ip: nil, user_agent: nil); end
+        end
+        class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
+          # City, district, suburb, town, or village.
+          sig { returns(T.nilable(String)) }
+          def city; end
+          sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+          def city=(_city); end
+          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+          sig { returns(T.nilable(String)) }
+          def country; end
+          sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+          def country=(_country); end
+          # Address line 1, such as the street, PO Box, or company name.
+          sig { returns(T.nilable(String)) }
+          def line1; end
+          sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+          def line1=(_line1); end
+          # Address line 2, such as the apartment, suite, unit, or building.
+          sig { returns(T.nilable(String)) }
+          def line2; end
+          sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+          def line2=(_line2); end
+          # ZIP or postal code.
+          sig { returns(T.nilable(String)) }
+          def postal_code; end
+          sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+          def postal_code=(_postal_code); end
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+          sig { returns(T.nilable(String)) }
+          def state; end
+          sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+          def state=(_state); end
+          sig {
+            params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+           }
+          def initialize(
+            city: nil,
+            country: nil,
+            line1: nil,
+            line2: nil,
+            postal_code: nil,
+            state: nil
+          ); end
         end
         class RegistrationDate < ::Stripe::RequestParams
           # The day of registration, between 1 and 31.
@@ -204763,6 +205111,15 @@ module Stripe
           params(_address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji))
          }
         def address_kanji=(_address_kanji); end
+        # Attribute for param field administrative_address
+        sig {
+          returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress))
+         }
+        def administrative_address; end
+        sig {
+          params(_administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress))
+         }
+        def administrative_address=(_administrative_address); end
         # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
         sig { returns(T.nilable(T::Boolean)) }
         def directors_provided; end
@@ -204840,6 +205197,15 @@ module Stripe
         def phone; end
         sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
         def phone=(_phone); end
+        # Attribute for param field principal_place_of_business
+        sig {
+          returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness))
+         }
+        def principal_place_of_business; end
+        sig {
+          params(_principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness))
+         }
+        def principal_place_of_business=(_principal_place_of_business); end
         # When the business was incorporated or registered.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)))
@@ -204871,6 +205237,8 @@ module Stripe
          }
         def structure=(_structure); end
         # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+        #
+        # Changing this value requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
         sig { returns(T.nilable(String)) }
         def tax_id; end
         sig { params(_tax_id: T.nilable(String)).returns(T.nilable(String)) }
@@ -204893,12 +205261,13 @@ module Stripe
          }
         def verification=(_verification); end
         sig {
-          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
+          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
          }
         def initialize(
           address: nil,
           address_kana: nil,
           address_kanji: nil,
+          administrative_address: nil,
           directors_provided: nil,
           directorship_declaration: nil,
           executives_provided: nil,
@@ -204912,6 +205281,7 @@ module Stripe
           ownership_declaration_shown_and_signed: nil,
           ownership_exemption_reason: nil,
           phone: nil,
+          principal_place_of_business: nil,
           registration_date: nil,
           registration_number: nil,
           representative_declaration: nil,
@@ -206114,11 +206484,15 @@ module Stripe
       sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
       def gender=(_gender); end
       # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def id_number; end
       sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
       def id_number=(_id_number); end
       # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def id_number_secondary; end
       sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
@@ -206180,6 +206554,8 @@ module Stripe
        }
       def relationship=(_relationship); end
       # The last four digits of the person's Social Security number (U.S. only).
+      #
+      # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
       sig { returns(T.nilable(String)) }
       def ssn_last_4; end
       sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
@@ -210853,11 +211229,15 @@ module Stripe
     sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
     def gender=(_gender); end
     # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number; end
     sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
     def id_number=(_id_number); end
     # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number_secondary; end
     sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
@@ -210924,6 +211304,8 @@ module Stripe
      }
     def relationship=(_relationship); end
     # The last four digits of the person's Social Security number (U.S. only).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def ssn_last_4; end
     sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
@@ -211603,11 +211985,15 @@ module Stripe
     sig { params(_gender: T.nilable(String)).returns(T.nilable(String)) }
     def gender=(_gender); end
     # The person's ID number, as appropriate for their country. For example, a social security number in the U.S., social insurance number in Canada, etc. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number; end
     sig { params(_id_number: T.nilable(String)).returns(T.nilable(String)) }
     def id_number=(_id_number); end
     # The person's secondary ID number, as appropriate for their country, will be used for enhanced verification checks. In Thailand, this would be the laser code found on the back of an ID card. Instead of the number itself, you can also provide a [PII token provided by Stripe.js](https://docs.stripe.com/js/tokens/create_token?type=pii).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def id_number_secondary; end
     sig { params(_id_number_secondary: T.nilable(String)).returns(T.nilable(String)) }
@@ -211674,6 +212060,8 @@ module Stripe
      }
     def relationship=(_relationship); end
     # The last four digits of the person's Social Security number (U.S. only).
+    #
+    # Changing this value for the account's representative requires that the account re-accept the [terms of service](/api/accounts/object#account_object-tos_acceptance).
     sig { returns(T.nilable(String)) }
     def ssn_last_4; end
     sig { params(_ssn_last_4: T.nilable(String)).returns(T.nilable(String)) }
@@ -213392,7 +213780,7 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
-    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
+    # Type of the tax ID, one of `ad_nrt`, `ae_trn`, `al_tin`, `am_tin`, `ao_tin`, `ar_cuit`, `au_abn`, `au_arn`, `aw_tin`, `az_tin`, `ba_tin`, `bb_tin`, `bd_bin`, `bf_ifu`, `bg_uic`, `bh_vat`, `bj_ifu`, `bo_tin`, `br_cnpj`, `br_cpf`, `bs_tin`, `by_tin`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `cd_nif`, `ch_uid`, `ch_vat`, `cl_tin`, `cm_niu`, `cn_tin`, `co_nit`, `cr_tin`, `cv_nif`, `de_stn`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `et_tin`, `eu_oss_vat`, `eu_vat`, `fo_vat`, `gb_vat`, `ge_vat`, `gi_tin`, `gn_nif`, `hk_br`, `hr_oib`, `hu_tin`, `ic_nif`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `it_cf`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kg_tin`, `kh_tin`, `kr_brn`, `kz_bin`, `la_tin`, `li_uid`, `li_vat`, `lk_vat`, `ma_vat`, `md_vat`, `me_pib`, `mk_vat`, `mr_nif`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `ng_tin`, `no_vat`, `no_voec`, `np_pan`, `nz_gst`, `om_vat`, `pe_ruc`, `ph_tin`, `pl_nip`, `py_ruc`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sn_ninea`, `sr_fin`, `sv_nit`, `th_vat`, `tj_tin`, `tr_tin`, `tw_vat`, `tz_vat`, `ua_vat`, `ug_tin`, `us_ein`, `uy_ruc`, `uz_tin`, `uz_vat`, `ve_rif`, `vn_tin`, `za_vat`, `zm_tin`, or `zw_tin`
     sig { returns(String) }
     def type; end
     sig { params(_type: String).returns(String) }
@@ -214715,6 +215103,20 @@ module Stripe
     def expand=(_expand); end
     sig { params(entitlement_feature: String, expand: T.nilable(T::Array[String])).void }
     def initialize(entitlement_feature: nil, expand: nil); end
+  end
+end
+# typed: true
+module Stripe
+  module ProductCatalog
+    class TrialOfferRetrieveParams < ::Stripe::RequestParams
+      # Specifies which fields in the response should be expanded.
+      sig { returns(T.nilable(T::Array[String])) }
+      def expand; end
+      sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+      def expand=(_expand); end
+      sig { params(expand: T.nilable(T::Array[String])).void }
+      def initialize(expand: nil); end
+    end
   end
 end
 # typed: true
@@ -216863,7 +217265,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::RequestParams
             class Fuel < ::Stripe::RequestParams
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               sig {
@@ -217510,7 +217912,7 @@ module Stripe
             end
             class ReportedBreakdown < ::Stripe::RequestParams
               class Fuel < ::Stripe::RequestParams
-                # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+                # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(BigDecimal)) }
                 def gross_amount_decimal; end
                 sig {
@@ -218063,7 +218465,7 @@ module Stripe
           end
           class ReportedBreakdown < ::Stripe::RequestParams
             class Fuel < ::Stripe::RequestParams
-              # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+              # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
               sig { returns(T.nilable(BigDecimal)) }
               def gross_amount_decimal; end
               sig {
@@ -218682,7 +219084,7 @@ module Stripe
             end
             class ReportedBreakdown < ::Stripe::RequestParams
               class Fuel < ::Stripe::RequestParams
-                # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+                # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(BigDecimal)) }
                 def gross_amount_decimal; end
                 sig {
@@ -219297,7 +219699,7 @@ module Stripe
             end
             class ReportedBreakdown < ::Stripe::RequestParams
               class Fuel < ::Stripe::RequestParams
-                # Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+                # Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
                 sig { returns(T.nilable(BigDecimal)) }
                 def gross_amount_decimal; end
                 sig {
@@ -222975,13 +223377,13 @@ module Stripe
         sig { params(_event_name: String).returns(String) }
         def event_name=(_event_name); end
         # A unique identifier for the event. If not provided, one will be generated.
-        # We recommend using a globally unique identifier for this. We’ll enforce
+        # We recommend using a globally unique identifier for this. We'll enforce
         # uniqueness within a rolling 24 hour period.
         sig { returns(T.nilable(String)) }
         def identifier; end
         sig { params(_identifier: T.nilable(String)).returns(T.nilable(String)) }
         def identifier=(_identifier); end
-        # The payload of the event. This must contain the fields corresponding to a meter’s
+        # The payload of the event. This must contain the fields corresponding to a meter's
         # `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
         # `value_settings.event_payload_key` (default is `value`). Read more about
         # the
@@ -223063,13 +223465,13 @@ module Stripe
           sig { params(_event_name: String).returns(String) }
           def event_name=(_event_name); end
           # A unique identifier for the event. If not provided, one will be generated.
-          # We recommend using a globally unique identifier for this. We’ll enforce
+          # We recommend using a globally unique identifier for this. We'll enforce
           # uniqueness within a rolling 24 hour period.
           sig { returns(T.nilable(String)) }
           def identifier; end
           sig { params(_identifier: T.nilable(String)).returns(T.nilable(String)) }
           def identifier=(_identifier); end
-          # The payload of the event. This must contain the fields corresponding to a meter’s
+          # The payload of the event. This must contain the fields corresponding to a meter's
           # `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
           # `value_settings.event_payload_key` (default is `value`). Read more about
           # the
@@ -225837,6 +226239,61 @@ module Stripe
             ); end
           end
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              sig { params(_purpose: String).returns(String) }
+              def purpose=(_purpose); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+              def town=(_town); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              ); end
+            end
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -226426,6 +226883,15 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            # Additional addresses associated with the business.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses; end
+            sig {
+              params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses=(_additional_addresses); end
             # The business registration address of the business entity.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
@@ -226519,9 +226985,10 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]), address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               documents: nil,
@@ -229925,6 +230392,61 @@ module Stripe
             ); end
           end
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              sig { params(_purpose: String).returns(String) }
+              def purpose=(_purpose); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+              def town=(_town); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              ); end
+            end
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -230514,6 +231036,15 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            # Additional addresses associated with the business.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses; end
+            sig {
+              params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses=(_additional_addresses); end
             # The business registration address of the business entity.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Address))
@@ -230607,9 +231138,10 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AdditionalAddress]), address: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountUpdateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               documents: nil,
@@ -234151,6 +234683,61 @@ module Stripe
             ); end
           end
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              sig { params(_purpose: String).returns(String) }
+              def purpose=(_purpose); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+              def town=(_town); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              ); end
+            end
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -234740,6 +235327,15 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            # Additional addresses associated with the business.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses; end
+            sig {
+              params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses=(_additional_addresses); end
             # The business registration address of the business entity.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address))
@@ -234833,9 +235429,10 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AdditionalAddress]), address: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::AnnualRevenue), documents: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountTokenCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               documents: nil,

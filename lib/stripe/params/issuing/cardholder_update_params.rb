@@ -200,6 +200,8 @@ module Stripe
       attr_accessor :individual
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # The cardholder's name. This will be printed on cards issued to them.
+      attr_accessor :name
       # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
       attr_accessor :phone_number
       # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
@@ -217,6 +219,7 @@ module Stripe
         expand: nil,
         individual: nil,
         metadata: nil,
+        name: nil,
         phone_number: nil,
         preferred_locales: nil,
         spending_controls: nil,
@@ -228,6 +231,7 @@ module Stripe
         @expand = expand
         @individual = individual
         @metadata = metadata
+        @name = name
         @phone_number = phone_number
         @preferred_locales = preferred_locales
         @spending_controls = spending_controls

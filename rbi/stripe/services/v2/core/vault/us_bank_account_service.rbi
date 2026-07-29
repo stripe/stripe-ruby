@@ -19,6 +19,8 @@ module Stripe
           def archive(id, params = {}, opts = {}); end
 
           # Confirm microdeposits amounts or descriptor code that you have received from the Send Microdeposits request. Once you correctly confirm this, this US Bank Account will be verified and eligible to transfer funds with.
+          #
+          # ** raises ControlledByAlternateResourceError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountConfirmMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -47,6 +49,8 @@ module Stripe
           def retrieve(id, params = {}, opts = {}); end
 
           # Send microdeposits in order to verify your US Bank Account so it is eligible to transfer funds. This will start the verification process and you must Confirm Microdeposits to successfully verify your US Bank Account.
+          #
+          # ** raises ControlledByAlternateResourceError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountSendMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }

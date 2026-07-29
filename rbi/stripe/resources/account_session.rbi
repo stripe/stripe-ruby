@@ -207,6 +207,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -452,6 +455,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -483,6 +489,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -517,6 +526,9 @@ module Stripe
           # Whether sending refunds is enabled. This is `true` by default.
           sig { returns(T::Boolean) }
           def refund_management; end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T::Boolean) }
+          def smart_disputes_management; end
           def self.inner_class_types
             @inner_class_types = {}
           end

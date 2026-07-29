@@ -1732,7 +1732,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               attr_reader :amount
               # Tax rate.
@@ -1751,10 +1751,10 @@ module Stripe
             # Indicates whether the rental is tax-exempt.
             attr_reader :tax_exempt_indicator
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -2107,7 +2107,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount.
               attr_reader :amount
               # Tax rate.
@@ -2124,10 +2124,10 @@ module Stripe
               end
             end
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -2345,7 +2345,7 @@ module Stripe
           end
 
           class Tax < ::Stripe::StripeObject
-            class Tax < ::Stripe::StripeObject
+            class TaxItem < ::Stripe::StripeObject
               # Tax amount in cents.
               attr_reader :amount
               # Tax rate.
@@ -2364,10 +2364,10 @@ module Stripe
             # Indicates whether the transaction is tax exempt.
             attr_reader :tax_exempt_indicator
             # Tax details.
-            attr_reader :taxes
+            attr_reader :tax_items
 
             def self.inner_class_types
-              @inner_class_types = { taxes: Tax }
+              @inner_class_types = { tax_items: TaxItem }
             end
 
             def self.field_remappings
@@ -3539,6 +3539,14 @@ module Stripe
       class Payco < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -3817,6 +3825,14 @@ module Stripe
       class SamsungPay < ::Stripe::StripeObject
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -4516,6 +4532,8 @@ module Stripe
         @field_remappings = {}
       end
     end
+    # The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
+    attr_reader :allowed_payment_method_types
     # Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     attr_reader :amount
     # Amount that can be captured from this PaymentIntent.

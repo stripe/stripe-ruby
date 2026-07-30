@@ -10,6 +10,7 @@ module Stripe
     # using `items[current_trial][trial_offer]` when creating or updating a subscription.
     class TrialOffer < APIResource
       extend Stripe::APIOperations::Create
+      extend Stripe::APIOperations::List
 
       OBJECT_NAME = "product_catalog.trial_offer"
       def self.object_name
@@ -88,6 +89,16 @@ module Stripe
       def self.create(params = {}, opts = {})
         request_stripe_object(
           method: :post,
+          path: "/v1/product_catalog/trial_offers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of trial offers.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
           path: "/v1/product_catalog/trial_offers",
           params: params,
           opts: opts

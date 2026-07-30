@@ -47,6 +47,8 @@ module Stripe
       attr_accessor :shared_metadata
       # Limits on how this SharedPaymentToken can be used.
       attr_accessor :usage_limits
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      attr_accessor :use_stripe_sdk
 
       def initialize(
         expand: nil,
@@ -55,7 +57,8 @@ module Stripe
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil,
-        usage_limits: nil
+        usage_limits: nil,
+        use_stripe_sdk: nil
       )
         @expand = expand
         @payment_method = payment_method
@@ -64,6 +67,7 @@ module Stripe
         @setup_future_usage = setup_future_usage
         @shared_metadata = shared_metadata
         @usage_limits = usage_limits
+        @use_stripe_sdk = use_stripe_sdk
       end
     end
   end

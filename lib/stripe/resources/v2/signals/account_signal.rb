@@ -68,6 +68,21 @@ module Stripe
           end
         end
 
+        class FraudulentWebsite < ::Stripe::StripeObject
+          # Human-readable details about the fraudulent website evaluation.
+          attr_reader :details
+          # Categorical assessment of the fraudulent website risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class MerchantDelinquency < ::Stripe::StripeObject
           class Indicator < ::Stripe::StripeObject
             # A brief explanation of how this indicator contributed to the delinquency probability.
@@ -106,12 +121,143 @@ module Stripe
             @field_encodings = { probability: :decimal_string }
           end
         end
+
+        class PaymentDelinquencyExposure < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class GrossExposureAmount < ::Stripe::StripeObject
+              # ISO 4217 currency code.
+              attr_reader :currency
+              # Amount in minor units for the given currency.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { value: :int64_string }
+              end
+            end
+            # Total payments still exposed to dispute or refund risk in the event of delinquency.
+            attr_reader :gross_exposure_amount
+            # Percentage of Gross Exposure expected to be disputed or refunded and materialize as a loss in the event of delinquency.
+            attr_reader :loss_given_default_in_percentages
+            # Predicted window size in days until dispute is raised.
+            attr_reader :predicted_dispute_window_in_days
+
+            def self.inner_class_types
+              @inner_class_types = { gross_exposure_amount: GrossExposureAmount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = {
+                gross_exposure_amount: { kind: :object, fields: { value: :int64_string } },
+              }
+            end
+          end
+
+          class ExposureAmount < ::Stripe::StripeObject
+            # ISO 4217 currency code.
+            attr_reader :currency
+            # Amount in minor units for the given currency.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { value: :int64_string }
+            end
+          end
+          # Additional details about the exposure assessment.
+          attr_reader :additional_details
+          # The exposure amount if this account becomes delinquent.
+          attr_reader :exposure_amount
+
+          def self.inner_class_types
+            @inner_class_types = {
+              additional_details: AdditionalDetails,
+              exposure_amount: ExposureAmount,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              additional_details: {
+                kind: :object,
+                fields: { gross_exposure_amount: { kind: :object, fields: { value: :int64_string } } },
+              },
+              exposure_amount: { kind: :object, fields: { value: :int64_string } },
+            }
+          end
+        end
+
+        class UserAccountSharing < ::Stripe::StripeObject
+          # Categorical assessment of the account-sharing risk.
+          attr_reader :risk_level
+          # The specific risk score for the account, between 0.00 and 100.00. Absent when risk level is
+          # not_assessed or unknown, or when the user is not on a product tier that includes numeric scores.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { score: :decimal_string }
+          end
+        end
+
+        class UserMultiAccounting < ::Stripe::StripeObject
+          # Categorical assessment of the multi-accounting risk.
+          attr_reader :risk_level
+          # The specific risk score for the account, between 0.00 and 100.00. Absent when risk level is
+          # not_assessed or unknown, or when the user is not on a product tier that includes numeric scores.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { score: :decimal_string }
+          end
+        end
         # The account or customer this signal is associated with.
         attr_reader :account_details
+        # The account evaluation that produced this signal, if applicable.
+        attr_reader :account_evaluation
         # Timestamp at which the signal was created.
         attr_reader :created
         # Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
         attr_reader :fraudulent_merchant
+        # Data for the fraudulent website signal. Present only when type is fraudulent_website.
+        attr_reader :fraudulent_website
         # Unique identifier for the account signal.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -120,14 +266,24 @@ module Stripe
         attr_reader :merchant_delinquency
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Data for the payment delinquency exposure signal. Present only when type is payment_delinquency_exposure.
+        attr_reader :payment_delinquency_exposure
         # The type of signal.
         attr_reader :type
+        # Data for the user account-sharing signal. Present only when type is user_account_sharing.
+        attr_reader :user_account_sharing
+        # Data for the user multi-accounting signal. Present only when type is user_multi_accounting.
+        attr_reader :user_multi_accounting
 
         def self.inner_class_types
           @inner_class_types = {
             account_details: AccountDetails,
             fraudulent_merchant: FraudulentMerchant,
+            fraudulent_website: FraudulentWebsite,
             merchant_delinquency: MerchantDelinquency,
+            payment_delinquency_exposure: PaymentDelinquencyExposure,
+            user_account_sharing: UserAccountSharing,
+            user_multi_accounting: UserMultiAccounting,
           }
         end
 
@@ -139,6 +295,18 @@ module Stripe
           @field_encodings = {
             fraudulent_merchant: { kind: :object, fields: { probability: :decimal_string } },
             merchant_delinquency: { kind: :object, fields: { probability: :decimal_string } },
+            payment_delinquency_exposure: {
+              kind: :object,
+              fields: {
+                additional_details: {
+                  kind: :object,
+                  fields: { gross_exposure_amount: { kind: :object, fields: { value: :int64_string } } },
+                },
+                exposure_amount: { kind: :object, fields: { value: :int64_string } },
+              },
+            },
+            user_account_sharing: { kind: :object, fields: { score: :decimal_string } },
+            user_multi_accounting: { kind: :object, fields: { score: :decimal_string } },
           }
         end
       end

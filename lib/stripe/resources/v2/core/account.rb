@@ -7739,6 +7739,21 @@ module Stripe
               end
             end
 
+            class GrossSettlement < ::Stripe::StripeObject
+              # The ID of the payment method to use for gross settlement payouts.
+              attr_reader :payment_method
+              # Whether to collect a payment method for gross settlement.
+              attr_reader :payment_method_collection
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class KonbiniPayments < ::Stripe::StripeObject
               class Support < ::Stripe::StripeObject
                 class Hours < ::Stripe::StripeObject
@@ -7933,6 +7948,8 @@ module Stripe
             attr_reader :capabilities
             # Card payments settings.
             attr_reader :card_payments
+            # Settings for gross settlement.
+            attr_reader :gross_settlement
             # Settings specific to Konbini payments on the account.
             attr_reader :konbini_payments
             # The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
@@ -7954,6 +7971,7 @@ module Stripe
                 branding: Branding,
                 capabilities: Capabilities,
                 card_payments: CardPayments,
+                gross_settlement: GrossSettlement,
                 konbini_payments: KonbiniPayments,
                 script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
@@ -18924,6 +18942,33 @@ module Stripe
           end
 
           class BusinessDetails < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_reader :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # Purpose of additional address.
+              attr_reader :purpose
+              # State, county, province, or region.
+              attr_reader :state
+              # Town or district.
+              attr_reader :town
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               attr_reader :city
@@ -19345,6 +19390,8 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # Additional addresses associated with the business.
+            attr_reader :additional_addresses
             # The company’s primary address.
             attr_reader :address
             # The business gross annual revenue for its preceding fiscal year.
@@ -19374,6 +19421,7 @@ module Stripe
 
             def self.inner_class_types
               @inner_class_types = {
+                additional_addresses: AdditionalAddress,
                 address: Address,
                 annual_revenue: AnnualRevenue,
                 documents: Documents,

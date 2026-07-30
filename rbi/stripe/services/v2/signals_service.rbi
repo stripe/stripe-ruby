@@ -5,6 +5,8 @@
 module Stripe
   module V2
     class SignalsService < StripeService
+      attr_reader :account_activity
+      attr_reader :account_evaluations
       attr_reader :account_signals
     end
   end

@@ -513,6 +513,33 @@ module Stripe
         end
       end
 
+      class Healthcare < ::Stripe::StripeObject
+        # Clinic and urgent care sub-amount for Visa only. Null if the merchant did not include this amount.
+        attr_reader :clinic_amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_reader :currency
+        # Dental care sub-amount for Visa only. Null if the merchant did not include this amount.
+        attr_reader :dental_amount
+        # Prescription drug sub-amount. Null if the merchant did not include this amount.
+        attr_reader :prescription_amount
+        # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        attr_reader :purchase_type
+        # Total FSA/HSA-eligible amount in the smallest currency unit.
+        attr_reader :total_qualified_amount
+        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        attr_reader :verification_status
+        # Vision/optical sub-amount. Null if the merchant did not include this amount.
+        attr_reader :vision_amount
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         attr_reader :category
@@ -944,6 +971,8 @@ module Stripe
       attr_reader :fraud_challenges
       # Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
       attr_reader :fuel
+      # Details about the IIAS FSA/HSA healthcare amounts on this authorization.
+      attr_reader :healthcare
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -1213,6 +1242,7 @@ module Stripe
           fleet: Fleet,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,
+          healthcare: Healthcare,
           merchant_data: MerchantData,
           network_data: NetworkData,
           pending_request: PendingRequest,

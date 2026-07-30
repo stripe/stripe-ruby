@@ -67,6 +67,9 @@ module Stripe
           # A Sui address
           sig { returns(T.nilable(String)) }
           def sui; end
+          # A Tempo address
+          sig { returns(T.nilable(String)) }
+          def tempo; end
           # A worldchain address
           sig { returns(T.nilable(String)) }
           def worldchain; end

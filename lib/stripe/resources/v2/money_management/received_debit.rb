@@ -27,6 +27,29 @@ module Stripe
         end
 
         class BankTransfer < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
+            # The name of the account holder that originated the debit.
+            attr_reader :account_holder_name
+            # The name of the bank the debit originated from.
+            attr_reader :bank_name
+            # Last 4 digits of the bank account number.
+            attr_reader :last4
+            # Open Enum. The bank network the debit was originated on.
+            attr_reader :network
+            # The ID of the mandate associated with this debit.
+            attr_reader :received_debit_mandate
+            # The sort code of the bank that originated the debit.
+            attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             attr_reader :bank_name
@@ -45,17 +68,21 @@ module Stripe
           end
           # The Financial Address that was debited.
           attr_reader :financial_address
+          # Object containing details of the GB Bank Account that originated the debit.
+          # Present when the debit was originated via BACS.
+          attr_reader :gb_bank_account
           # Open Enum. Indicates the origin type through which this debit was initiated.
           attr_reader :origin_type
           # Open Enum. The type of the payment method used to originate the debit.
           attr_reader :payment_method_type
           # The statement descriptor set by the originator of the debit.
           attr_reader :statement_descriptor
-          # The payment method used to originate the debit.
+          # Object containing details of the US Bank Account that originated the debit.
+          # Present when the debit was originated via ACH.
           attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { us_bank_account: UsBankAccount }
+            @inner_class_types = { gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount }
           end
 
           def self.field_remappings
@@ -230,6 +257,10 @@ module Stripe
         attr_reader :object
         # A link to the Stripe-hosted receipt for this ReceivedDebit.
         attr_reader :receipt_url
+        # The time at which the scheduled ReceivedDebit is expected to settle.
+        # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+        # Only present when status is `scheduled`.
+        attr_reader :settles_at
         # Open Enum. The status of the ReceivedDebit.
         attr_reader :status
         # Detailed information about the status of the ReceivedDebit.

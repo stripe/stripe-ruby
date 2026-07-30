@@ -1662,7 +1662,7 @@ module Stripe
       params(_cancel_at: T.nilable(T.any(String, T.any(Integer, String)))).returns(T.nilable(T.any(String, T.any(Integer, String))))
      }
     def cancel_at=(_cancel_at); end
-    # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`). Defaults to `false`.
+    # Indicate whether this subscription should cancel at the end of the current period (`current_period_end`).
     sig { returns(T.nilable(T::Boolean)) }
     def cancel_at_period_end; end
     sig { params(_cancel_at_period_end: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

@@ -284,6 +284,9 @@ module Stripe
         # `failed`, `canceled`, `requires_capture`, or `succeeded`.
         sig { returns(String) }
         def status; end
+        # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
+        sig { returns(T.nilable(String)) }
+        def target_date; end
         # Test clock that can be used to advance the retry attempts in a sandbox.
         sig { returns(T.nilable(String)) }
         def test_clock; end

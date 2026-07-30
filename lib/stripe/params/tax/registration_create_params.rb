@@ -1538,6 +1538,24 @@ module Stripe
             end
           end
 
+          class MassTransitParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class ParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class ResortTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             attr_accessor :jurisdiction
@@ -1593,6 +1611,10 @@ module Stripe
           attr_accessor :local_lease_tax
           # Options for the luxury tax registration.
           attr_accessor :luxury_tax
+          # Options for the mass transit parking tax registration.
+          attr_accessor :mass_transit_parking_tax
+          # Options for the parking tax registration.
+          attr_accessor :parking_tax
           # Options for the resort tax registration.
           attr_accessor :resort_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1614,6 +1636,8 @@ module Stripe
             local_amusement_tax: nil,
             local_lease_tax: nil,
             luxury_tax: nil,
+            mass_transit_parking_tax: nil,
+            parking_tax: nil,
             resort_tax: nil,
             state: nil,
             state_sales_tax: nil,
@@ -1629,6 +1653,8 @@ module Stripe
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
             @luxury_tax = luxury_tax
+            @mass_transit_parking_tax = mass_transit_parking_tax
+            @parking_tax = parking_tax
             @resort_tax = resort_tax
             @state = state
             @state_sales_tax = state_sales_tax

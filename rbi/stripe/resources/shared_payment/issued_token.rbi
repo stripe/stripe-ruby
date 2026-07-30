@@ -265,6 +265,9 @@ module Stripe
       # Usage limits of the SharedPaymentIssuedToken.
       sig { returns(T.nilable(UsageLimits)) }
       def usage_limits; end
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      sig { returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk; end
       # Creates a new SharedPaymentIssuedToken object
       sig {
         params(params: T.any(::Stripe::SharedPayment::IssuedTokenCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)

@@ -659,7 +659,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -689,17 +689,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::CarRentalDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total amount in cents.
           sig { returns(Integer) }
@@ -1656,7 +1656,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -1679,17 +1679,17 @@ module Stripe
             end
             # Array of tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::Tax])).void
+              params(tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::FlightDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(taxes: nil); end
+            def initialize(tax_items: nil); end
           end
           # Total flight amount.
           sig { returns(Integer) }
@@ -2318,7 +2318,7 @@ module Stripe
             def initialize(amount: nil, type: nil); end
           end
           class Tax < ::Stripe::RequestParams
-            class Tax < ::Stripe::RequestParams
+            class TaxItem < ::Stripe::RequestParams
               # Tax amount in cents.
               sig { returns(T.nilable(Integer)) }
               def amount; end
@@ -2348,17 +2348,17 @@ module Stripe
             def tax_exempt_indicator=(_tax_exempt_indicator); end
             # Tax details.
             sig {
-              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes; end
+            def tax_items; end
             sig {
-              params(_taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax]))
+              params(_tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).returns(T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem]))
              }
-            def taxes=(_taxes); end
+            def tax_items=(_tax_items); end
             sig {
-              params(tax_exempt_indicator: T.nilable(T::Boolean), taxes: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::Tax])).void
+              params(tax_exempt_indicator: T.nilable(T::Boolean), tax_items: T.nilable(T::Array[::Stripe::ChargeUpdateParams::PaymentDetails::LodgingDatum::Total::Tax::TaxItem])).void
              }
-            def initialize(tax_exempt_indicator: nil, taxes: nil); end
+            def initialize(tax_exempt_indicator: nil, tax_items: nil); end
           end
           # Total price of the lodging reservation in cents.
           sig { returns(Integer) }

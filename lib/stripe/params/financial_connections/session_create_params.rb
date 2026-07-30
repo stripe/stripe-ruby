@@ -29,11 +29,19 @@ module Stripe
         attr_accessor :countries
         # Stripe ID of the institution with which the customer should be directed to log in.
         attr_accessor :institution
+        # Whether the session should require payment method support and successful account number retrieval before completion.
+        attr_accessor :require_payment_method_support
 
-        def initialize(account_subcategories: nil, countries: nil, institution: nil)
+        def initialize(
+          account_subcategories: nil,
+          countries: nil,
+          institution: nil,
+          require_payment_method_support: nil
+        )
           @account_subcategories = account_subcategories
           @countries = countries
           @institution = institution
+          @require_payment_method_support = require_payment_method_support
         end
       end
 

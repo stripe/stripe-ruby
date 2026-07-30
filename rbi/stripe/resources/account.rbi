@@ -908,7 +908,7 @@ module Stripe
       # Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
       sig { returns(T.nilable(Integer)) }
       def current_deadline; end
-      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
       # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
@@ -1569,6 +1569,26 @@ module Stripe
       params(account_id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
     def self.retrieve_signal(account_id, params = {}, opts = {}); end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    sig {
+      params(params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+     }
+    def unreject(params = {}, opts = {}); end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    sig {
+      params(account: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+     }
+    def self.unreject(account, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.

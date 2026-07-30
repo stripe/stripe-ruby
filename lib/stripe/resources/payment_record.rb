@@ -8,6 +8,7 @@ module Stripe
   # more Payment Attempt Records, which represent individual attempts made on a payment network.
   class PaymentRecord < APIResource
     extend Stripe::APIOperations::Create
+    extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
 
     OBJECT_NAME = "payment_record"
@@ -2369,6 +2370,11 @@ module Stripe
         params: params,
         opts: opts
       )
+    end
+
+    # List all the Payment Records for a given merchant.
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_records", params: params, opts: opts)
     end
 
     # Report a new Payment Record. You may report a Payment Record as it is

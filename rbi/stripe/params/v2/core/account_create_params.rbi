@@ -3721,6 +3721,24 @@ module Stripe
                }
               def initialize(decline_on: nil); end
             end
+            class GrossSettlement < ::Stripe::RequestParams
+              # The ID of the payment method to use for gross settlement payouts.
+              sig { returns(T.nilable(String)) }
+              def payment_method; end
+              sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+              def payment_method=(_payment_method); end
+              # Whether to collect a payment method for gross settlement.
+              sig { returns(T.nilable(String)) }
+              def payment_method_collection; end
+              sig {
+                params(_payment_method_collection: T.nilable(String)).returns(T.nilable(String))
+               }
+              def payment_method_collection=(_payment_method_collection); end
+              sig {
+                params(payment_method: T.nilable(String), payment_method_collection: T.nilable(String)).void
+               }
+              def initialize(payment_method: nil, payment_method_collection: nil); end
+            end
             class KonbiniPayments < ::Stripe::RequestParams
               class Support < ::Stripe::RequestParams
                 class Hours < ::Stripe::RequestParams
@@ -3980,6 +3998,15 @@ module Stripe
               params(_card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments))
              }
             def card_payments=(_card_payments); end
+            # Settings for gross settlement.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::GrossSettlement))
+             }
+            def gross_settlement; end
+            sig {
+              params(_gross_settlement: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::GrossSettlement)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::GrossSettlement))
+             }
+            def gross_settlement=(_gross_settlement); end
             # Settings specific to Konbini payments on the account.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments))
@@ -4031,13 +4058,14 @@ module Stripe
              }
             def support=(_support); end
             sig {
-              params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), smart_disputes: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
+              params(bacs_debit_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::BacsDebitPayments), branding: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Branding), capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Capabilities), card_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::CardPayments), gross_settlement: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::GrossSettlement), konbini_payments: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::KonbiniPayments), mcc: T.nilable(String), script_statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::ScriptStatementDescriptor), smart_disputes: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::SmartDisputes), statement_descriptor: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::StatementDescriptor), support: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant::Support)).void
              }
             def initialize(
               bacs_debit_payments: nil,
               branding: nil,
               capabilities: nil,
               card_payments: nil,
+              gross_settlement: nil,
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
@@ -8699,6 +8727,61 @@ module Stripe
             ); end
           end
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              sig { params(_purpose: String).returns(String) }
+              def purpose=(_purpose); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              sig { params(_town: T.nilable(String)).returns(T.nilable(String)) }
+              def town=(_town); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), purpose: String, state: T.nilable(String), town: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              ); end
+            end
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -9288,6 +9371,15 @@ module Stripe
                }
               def initialize(kana: nil, kanji: nil); end
             end
+            # Additional addresses associated with the business.
+            sig {
+              returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses; end
+            sig {
+              params(_additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress])).returns(T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]))
+             }
+            def additional_addresses=(_additional_addresses); end
             # The business registration address of the business entity.
             sig {
               returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address))
@@ -9388,9 +9480,10 @@ module Stripe
             sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
             def structure=(_structure); end
             sig {
-              params(address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), compliance_screening_description: T.nilable(String), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
+              params(additional_addresses: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AdditionalAddress]), address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Address), annual_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::AnnualRevenue), compliance_screening_description: T.nilable(String), documents: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents), estimated_worker_count: T.nilable(Integer), id_numbers: T.nilable(T::Array[::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::IdNumber]), monthly_estimated_revenue: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::MonthlyEstimatedRevenue), phone: T.nilable(String), registered_name: T.nilable(String), registration_date: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::RegistrationDate), script_addresses: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptAddresses), script_names: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::ScriptNames), structure: T.nilable(String)).void
              }
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               compliance_screening_description: nil,

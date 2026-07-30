@@ -54,6 +54,21 @@ module Stripe
         end
       end
 
+      class ProductGraduationState < ::Stripe::StripeObject
+        # Status of the product graduation request. `pending` while awaiting card network confirmation, `succeeded` once confirmed, `failed` if rejected.
+        attr_reader :state
+        # The product code the card graduation is targeting.
+        attr_reader :target_product_code
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         attr_reader :status
@@ -314,6 +329,10 @@ module Stripe
       attr_reader :object
       # The personalization design object belonging to this card.
       attr_reader :personalization_design
+      # The product code the card is currently enrolled under. `product_graduation_state` reflects any in-flight product graduation and whether the card network has confirmed it.
+      attr_reader :product_code
+      # State of the product graduation request on this card. Only present when a product graduation has been requested.
+      attr_reader :product_graduation_state
       # The program that this card belongs to — will not be nil.
       attr_reader :program
       # Redaction status of this card. If not null, this card is associated to a redaction job.
@@ -472,6 +491,7 @@ module Stripe
         @inner_class_types = {
           latest_fraud_warning: LatestFraudWarning,
           lifecycle_controls: LifecycleControls,
+          product_graduation_state: ProductGraduationState,
           redaction: Redaction,
           shipping: Shipping,
           spending_controls: SpendingControls,

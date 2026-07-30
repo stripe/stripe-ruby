@@ -5,17 +5,17 @@
 module Stripe
   module Crypto
     class DepositAddressListParams < ::Stripe::RequestParams
-      # Attribute for param field address
+      # Only return the deposit address matching this on-chain address.
       sig { returns(T.nilable(String)) }
       def address; end
       sig { params(_address: T.nilable(String)).returns(T.nilable(String)) }
       def address=(_address); end
-      # Attribute for param field customer
+      # Only return deposit addresses scoped to this [Customer](https://docs.stripe.com/api/customers/object).
       sig { returns(T.nilable(String)) }
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
-      # Attribute for param field customer_account
+      # Only return deposit addresses belonging to this customer account.
       sig { returns(T.nilable(String)) }
       def customer_account; end
       sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
@@ -35,7 +35,7 @@ module Stripe
       def limit; end
       sig { params(_limit: T.nilable(Integer)).returns(T.nilable(Integer)) }
       def limit=(_limit); end
-      # Attribute for param field network
+      # Only return deposit addresses for this blockchain network.
       sig { returns(T.nilable(String)) }
       def network; end
       sig { params(_network: T.nilable(String)).returns(T.nilable(String)) }

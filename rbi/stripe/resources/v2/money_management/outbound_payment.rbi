@@ -335,6 +335,9 @@ module Stripe
         # The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
         sig { returns(T.nilable(String)) }
         def outbound_payment_quote; end
+        # The PayoutIntent ID that triggered this OutboundPayment.
+        sig { returns(T.nilable(String)) }
+        def payout_intent; end
         # The purpose of the OutboundPayment.
         sig { returns(T.nilable(String)) }
         def purpose; end

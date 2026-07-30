@@ -795,7 +795,7 @@ module Stripe
       attr_reader :alternatives
       # Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
       attr_reader :current_deadline
-      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+      # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       attr_reader :currently_due
       # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       attr_reader :disabled_reason
@@ -1444,6 +1444,34 @@ module Stripe
       request_stripe_object(
         method: :get,
         path: format("/v1/accounts/%<account_id>s/signals", { account_id: CGI.escape(account_id) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def unreject(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def self.unreject(account, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
         params: params,
         opts: opts
       )

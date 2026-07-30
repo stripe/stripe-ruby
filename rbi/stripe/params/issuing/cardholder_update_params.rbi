@@ -331,6 +331,11 @@ module Stripe
         params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
        }
       def metadata=(_metadata); end
+      # The cardholder's name. This will be printed on cards issued to them.
+      sig { returns(T.nilable(String)) }
+      def name; end
+      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
+      def name=(_name); end
       # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
       sig { returns(T.nilable(String)) }
       def phone_number; end
@@ -357,7 +362,7 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
+        params(billing: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Billing), company: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Company), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual: T.nilable(::Stripe::Issuing::CardholderUpdateParams::Individual), metadata: T.nilable(T::Hash[String, String]), name: T.nilable(String), phone_number: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), spending_controls: T.nilable(::Stripe::Issuing::CardholderUpdateParams::SpendingControls), status: T.nilable(String)).void
        }
       def initialize(
         billing: nil,
@@ -366,6 +371,7 @@ module Stripe
         expand: nil,
         individual: nil,
         metadata: nil,
+        name: nil,
         phone_number: nil,
         preferred_locales: nil,
         spending_controls: nil,

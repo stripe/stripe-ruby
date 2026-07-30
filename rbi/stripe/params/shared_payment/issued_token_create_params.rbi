@@ -93,8 +93,13 @@ module Stripe
         params(_usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits).returns(::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits)
        }
       def usage_limits=(_usage_limits); end
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      sig { returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk; end
+      sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def use_stripe_sdk=(_use_stripe_sdk); end
       sig {
-        params(expand: T.nilable(T::Array[String]), payment_method: String, return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits).void
+        params(expand: T.nilable(T::Array[String]), payment_method: String, return_url: T.nilable(String), seller_details: ::Stripe::SharedPayment::IssuedTokenCreateParams::SellerDetails, setup_future_usage: T.nilable(String), shared_metadata: T.nilable(T::Hash[String, String]), usage_limits: ::Stripe::SharedPayment::IssuedTokenCreateParams::UsageLimits, use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         expand: nil,
@@ -103,7 +108,8 @@ module Stripe
         seller_details: nil,
         setup_future_usage: nil,
         shared_metadata: nil,
-        usage_limits: nil
+        usage_limits: nil,
+        use_stripe_sdk: nil
       ); end
     end
   end

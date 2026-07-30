@@ -123,15 +123,30 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class RateCard < ::Stripe::StripeObject
+            # Unique identifier for the object.
+            attr_reader :id
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The billable items that credit grants can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
           attr_reader :billable_items
           # The price type that credit grants can apply to. We currently only support the `metered` price type. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `prices`.
           attr_reader :price_type
           # The prices that credit grants can apply to. We currently only support `metered` prices. This refers to prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them. Cannot be used in combination with `price_type`.
           attr_reader :prices
+          # The rate cards that credit grants can apply to. The credit grant applies to any metered item billed under one of these rate cards. Cannot be used in combination with `price_type`, `prices`, or `billable_items`.
+          attr_reader :rate_cards
 
           def self.inner_class_types
-            @inner_class_types = { billable_items: BillableItem, prices: Price }
+            @inner_class_types = { billable_items: BillableItem, prices: Price, rate_cards: RateCard }
           end
 
           def self.field_remappings

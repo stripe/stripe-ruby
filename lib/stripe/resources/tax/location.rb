@@ -41,6 +41,8 @@ module Stripe
       attr_reader :description
       # Unique identifier for the object.
       attr_reader :id
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The type of tax location to be defined. Currently the only option is `performance`.

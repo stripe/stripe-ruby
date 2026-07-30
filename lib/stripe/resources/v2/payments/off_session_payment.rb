@@ -263,6 +263,8 @@ module Stripe
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
         # `failed`, `canceled`, `requires_capture`, or `succeeded`.
         attr_reader :status
+        # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
+        attr_reader :target_date
         # Test clock that can be used to advance the retry attempts in a sandbox.
         attr_reader :test_clock
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).

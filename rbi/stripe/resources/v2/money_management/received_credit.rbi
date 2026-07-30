@@ -19,7 +19,7 @@ module Stripe
           def outbound_transfer; end
           # The ID of the payout object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
-          def payout_v1; end
+          def payout; end
           # The ID of the v1 transfer object that originated the ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def transfer; end

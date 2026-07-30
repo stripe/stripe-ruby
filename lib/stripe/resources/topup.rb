@@ -17,6 +17,30 @@ module Stripe
       "topup"
     end
 
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        # The US bank transfer network used for this top-up. The default is `ach`.
+        attr_reader :network
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # If this top-up is to be used with a `us_bank_account` payment method, this sub-hash contains configuration for it.
+      attr_reader :us_bank_account
+
+      def self.inner_class_types
+        @inner_class_types = { us_bank_account: UsBankAccount }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount transferred.
     attr_reader :amount
     # ID of the balance transaction that describes the impact of this top-up on your account balance. May not be specified depending on status of top-up.
@@ -35,12 +59,18 @@ module Stripe
     attr_reader :failure_message
     # Unique identifier for the object.
     attr_reader :id
+    # Indicates whether the top-up was initiated by Stripe or by the user.
+    attr_reader :initiated_by
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
+    # The ID of a PaymentMethod representing the payment method used for the top-up. A PaymentMethod of type `us_bank_account` can be used.
+    attr_reader :payment_method
+    # Payment-method-specific configuration for this top-up.
+    attr_reader :payment_method_options
     # The source field is deprecated. It might not always be present in the API response.
     attr_reader :source
     # Extra information about a top-up. This will appear on your source's bank statement. It must contain at least one letter.
@@ -91,7 +121,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = {}
+      @inner_class_types = { payment_method_options: PaymentMethodOptions }
     end
 
     def self.field_remappings

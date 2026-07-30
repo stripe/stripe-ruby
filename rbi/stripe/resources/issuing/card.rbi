@@ -42,6 +42,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ProductGraduationState < ::Stripe::StripeObject
+        # Status of the product graduation request. `pending` while awaiting card network confirmation, `succeeded` once confirmed, `failed` if rejected.
+        sig { returns(String) }
+        def state; end
+        # The product code the card graduation is targeting.
+        sig { returns(T.nilable(String)) }
+        def target_product_code; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Redaction < ::Stripe::StripeObject
         # Indicates whether this object and its related objects have been redacted or not.
         sig { returns(String) }
@@ -343,6 +357,12 @@ module Stripe
       # The personalization design object belonging to this card.
       sig { returns(T.nilable(T.any(String, ::Stripe::Issuing::PersonalizationDesign))) }
       def personalization_design; end
+      # The product code the card is currently enrolled under. `product_graduation_state` reflects any in-flight product graduation and whether the card network has confirmed it.
+      sig { returns(T.nilable(String)) }
+      def product_code; end
+      # State of the product graduation request on this card. Only present when a product graduation has been requested.
+      sig { returns(T.nilable(ProductGraduationState)) }
+      def product_graduation_state; end
       # The program that this card belongs to — will not be nil.
       sig { returns(T.nilable(String)) }
       def program; end

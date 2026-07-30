@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :currency_conversions, :debit_disputes, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
+      attr_reader :adjustments, :currency_conversions, :debit_disputes, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -27,6 +27,8 @@ module Stripe
                                             .new(@requestor)
         @received_credits = Stripe::V2::MoneyManagement::ReceivedCreditService.new(@requestor)
         @received_debits = Stripe::V2::MoneyManagement::ReceivedDebitService.new(@requestor)
+        @received_debit_mandates = Stripe::V2::MoneyManagement::ReceivedDebitMandateService
+                                   .new(@requestor)
         @recipient_verifications = Stripe::V2::MoneyManagement::RecipientVerificationService
                                    .new(@requestor)
         @test_helpers = Stripe::V2::MoneyManagement::TestHelpersService.new(@requestor)

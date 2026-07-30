@@ -14,8 +14,12 @@ module Stripe
         end
 
         class AmountDetails < ::Stripe::StripeObject
+          # The outstanding amount after discount, tax, and customer balance application.
+          attr_reader :amount_due
           # Three-letter ISO currency code, in lowercase. Must be a supported currency.
           attr_reader :currency
+          # The customer's account balance applied to the amount.
+          attr_reader :customer_balance_applied
           # Amount of discount applied.
           attr_reader :discount
           # Amount of shipping charges.

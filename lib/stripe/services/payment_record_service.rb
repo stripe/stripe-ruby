@@ -15,6 +15,17 @@ module Stripe
       )
     end
 
+    # List all the Payment Records for a given merchant.
+    def list(params = {}, opts = {})
+      request(
+        method: :get,
+        path: "/v1/payment_records",
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment
     #  Records in a terminal state directly, through this method.

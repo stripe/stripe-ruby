@@ -9,6 +9,28 @@ module Stripe
   #
   # Related guide: [Topping up your platform account](https://docs.stripe.com/connect/top-ups)
   class Topup < APIResource
+    class PaymentMethodOptions < ::Stripe::StripeObject
+      class UsBankAccount < ::Stripe::StripeObject
+        # The US bank transfer network used for this top-up. The default is `ach`.
+        sig { returns(String) }
+        def network; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # If this top-up is to be used with a `us_bank_account` payment method, this sub-hash contains configuration for it.
+      sig { returns(T.nilable(UsBankAccount)) }
+      def us_bank_account; end
+      def self.inner_class_types
+        @inner_class_types = {us_bank_account: UsBankAccount}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Amount transferred.
     sig { returns(Integer) }
     def amount; end
@@ -36,6 +58,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # Indicates whether the top-up was initiated by Stripe or by the user.
+    sig { returns(T.nilable(String)) }
+    def initiated_by; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
@@ -45,6 +70,12 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
+    # The ID of a PaymentMethod representing the payment method used for the top-up. A PaymentMethod of type `us_bank_account` can be used.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentMethod))) }
+    def payment_method; end
+    # Payment-method-specific configuration for this top-up.
+    sig { returns(T.nilable(PaymentMethodOptions)) }
+    def payment_method_options; end
     # The source field is deprecated. It might not always be present in the API response.
     sig { returns(T.nilable(::Stripe::Source)) }
     def source; end

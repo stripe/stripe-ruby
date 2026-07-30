@@ -88,6 +88,15 @@ module Stripe
             sig { params(id: String).void }
             def initialize(id: nil); end
           end
+          class RateCard < ::Stripe::RequestParams
+            # The rate card ID this credit grant should apply to.
+            sig { returns(String) }
+            def id; end
+            sig { params(_id: String).returns(String) }
+            def id=(_id); end
+            sig { params(id: String).void }
+            def initialize(id: nil); end
+          end
           # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
           sig {
             returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]))
@@ -111,10 +120,19 @@ module Stripe
             params(_prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]))
            }
           def prices=(_prices); end
+          # A list of rate cards that the credit grant can apply to. The credit grant applies to any metered item billed under one of these rate cards. Cannot be used in combination with `price_type`, `prices`, or `billable_items`.
           sig {
-            params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price])).void
+            returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::RateCard]))
            }
-          def initialize(billable_items: nil, price_type: nil, prices: nil); end
+          def rate_cards; end
+          sig {
+            params(_rate_cards: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::RateCard])).returns(T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::RateCard]))
+           }
+          def rate_cards=(_rate_cards); end
+          sig {
+            params(billable_items: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::BillableItem]), price_type: T.nilable(String), prices: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::Price]), rate_cards: T.nilable(T::Array[::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope::RateCard])).void
+           }
+          def initialize(billable_items: nil, price_type: nil, prices: nil, rate_cards: nil); end
         end
         # Specify the scope of this applicability config.
         sig { returns(::Stripe::Billing::CreditGrantCreateParams::ApplicabilityConfig::Scope) }

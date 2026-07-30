@@ -527,6 +527,38 @@ module Stripe
           @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
         end
       end
+      class Healthcare < ::Stripe::StripeObject
+        # Clinic and urgent care sub-amount for Visa only. Null if the merchant did not include this amount.
+        sig { returns(T.nilable(Integer)) }
+        def clinic_amount; end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(T.nilable(String)) }
+        def currency; end
+        # Dental care sub-amount for Visa only. Null if the merchant did not include this amount.
+        sig { returns(T.nilable(Integer)) }
+        def dental_amount; end
+        # Prescription drug sub-amount. Null if the merchant did not include this amount.
+        sig { returns(T.nilable(Integer)) }
+        def prescription_amount; end
+        # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        sig { returns(T.nilable(String)) }
+        def purchase_type; end
+        # Total FSA/HSA-eligible amount in the smallest currency unit.
+        sig { returns(T.nilable(Integer)) }
+        def total_qualified_amount; end
+        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        sig { returns(T.nilable(String)) }
+        def verification_status; end
+        # Vision/optical sub-amount. Null if the merchant did not include this amount.
+        sig { returns(T.nilable(Integer)) }
+        def vision_amount; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class MerchantData < ::Stripe::StripeObject
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(String) }
@@ -1010,6 +1042,9 @@ module Stripe
       # Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
       sig { returns(T.nilable(Fuel)) }
       def fuel; end
+      # Details about the IIAS FSA/HSA healthcare amounts on this authorization.
+      sig { returns(T.nilable(Healthcare)) }
+      def healthcare; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end

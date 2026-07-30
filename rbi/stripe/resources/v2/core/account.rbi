@@ -7527,6 +7527,20 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class GrossSettlement < ::Stripe::StripeObject
+              # The ID of the payment method to use for gross settlement payouts.
+              sig { returns(T.nilable(String)) }
+              def payment_method; end
+              # Whether to collect a payment method for gross settlement.
+              sig { returns(T.nilable(String)) }
+              def payment_method_collection; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class KonbiniPayments < ::Stripe::StripeObject
               class Support < ::Stripe::StripeObject
                 class Hours < ::Stripe::StripeObject
@@ -7725,6 +7739,9 @@ module Stripe
             # Card payments settings.
             sig { returns(T.nilable(CardPayments)) }
             def card_payments; end
+            # Settings for gross settlement.
+            sig { returns(T.nilable(GrossSettlement)) }
+            def gross_settlement; end
             # Settings specific to Konbini payments on the account.
             sig { returns(T.nilable(KonbiniPayments)) }
             def konbini_payments; end
@@ -7752,6 +7769,7 @@ module Stripe
                 branding: Branding,
                 capabilities: Capabilities,
                 card_payments: CardPayments,
+                gross_settlement: GrossSettlement,
                 konbini_payments: KonbiniPayments,
                 script_statement_descriptor: ScriptStatementDescriptor,
                 sepa_debit_payments: SepaDebitPayments,
@@ -18621,6 +18639,38 @@ module Stripe
             end
           end
           class BusinessDetails < ::Stripe::StripeObject
+            class AdditionalAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (e.g., street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # Purpose of additional address.
+              sig { returns(String) }
+              def purpose; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              # Town or district.
+              sig { returns(T.nilable(String)) }
+              def town; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             class Address < ::Stripe::StripeObject
               # City, district, suburb, town, or village.
               sig { returns(T.nilable(String)) }
@@ -19045,6 +19095,9 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            # Additional addresses associated with the business.
+            sig { returns(T.nilable(T::Array[AdditionalAddress])) }
+            def additional_addresses; end
             # The company’s primary address.
             sig { returns(T.nilable(Address)) }
             def address; end
@@ -19086,6 +19139,7 @@ module Stripe
             def structure; end
             def self.inner_class_types
               @inner_class_types = {
+                additional_addresses: AdditionalAddress,
                 address: Address,
                 annual_revenue: AnnualRevenue,
                 documents: Documents,

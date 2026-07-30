@@ -357,13 +357,34 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class Card < ::Stripe::StripeObject
+            # Two-digit number representing the card's expiration month.
+            attr_reader :exp_month
+            # Four-digit number representing the card's expiration year.
+            attr_reader :exp_year
+            # First six digits of the card number.
+            attr_reader :first6
+            # Last four digits of the card number.
+            attr_reader :last4
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Billing information associated with the payment evaluation.
           attr_reader :billing_details
+          # Card details associated with the payment evaluation.
+          attr_reader :card
           # The payment method used in this payment evaluation.
           attr_reader :payment_method
 
           def self.inner_class_types
-            @inner_class_types = { billing_details: BillingDetails }
+            @inner_class_types = { billing_details: BillingDetails, card: Card }
           end
 
           def self.field_remappings

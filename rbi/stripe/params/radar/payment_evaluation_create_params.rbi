@@ -207,6 +207,11 @@ module Stripe
             def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
           class Card < ::Stripe::RequestParams
+            # The CVC of the card.
+            sig { returns(T.nilable(String)) }
+            def cvc; end
+            sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
+            def cvc=(_cvc); end
             # Two-digit number representing the card's expiration month.
             sig { returns(Integer) }
             def exp_month; end
@@ -218,19 +223,31 @@ module Stripe
             sig { params(_exp_year: Integer).returns(Integer) }
             def exp_year=(_exp_year); end
             # First six digits of the card number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def first6; end
-            sig { params(_first6: String).returns(String) }
+            sig { params(_first6: T.nilable(String)).returns(T.nilable(String)) }
             def first6=(_first6); end
             # Last four digits of the card number.
-            sig { returns(String) }
+            sig { returns(T.nilable(String)) }
             def last4; end
-            sig { params(_last4: String).returns(String) }
+            sig { params(_last4: T.nilable(String)).returns(T.nilable(String)) }
             def last4=(_last4); end
+            # The card number, as a string without any separators.
+            sig { returns(T.nilable(String)) }
+            def number; end
+            sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }
+            def number=(_number); end
             sig {
-              params(exp_month: Integer, exp_year: Integer, first6: String, last4: String).void
+              params(cvc: T.nilable(String), exp_month: Integer, exp_year: Integer, first6: T.nilable(String), last4: T.nilable(String), number: T.nilable(String)).void
              }
-            def initialize(exp_month: nil, exp_year: nil, first6: nil, last4: nil); end
+            def initialize(
+              cvc: nil,
+              exp_month: nil,
+              exp_year: nil,
+              first6: nil,
+              last4: nil,
+              number: nil
+            ); end
           end
           # Billing information associated with the payment evaluation.
           sig {
@@ -241,7 +258,7 @@ module Stripe
             params(_billing_details: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::BillingDetails))
            }
           def billing_details=(_billing_details); end
-          # Masked PAN card details to use as an alternative to a payment_method token.
+          # Masked/raw PAN card details to use as an alternative to a payment_method token.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::PaymentMethodDetails::Card))
            }

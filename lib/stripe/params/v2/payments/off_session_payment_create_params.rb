@@ -310,6 +310,8 @@ module Stripe
         # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
         # to form the complete statement descriptor that appears on the customer’s statement.
         attr_accessor :statement_descriptor_suffix
+        # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
+        attr_accessor :target_date
         # Test clock that can be used to advance the retry attempts in a sandbox.
         attr_accessor :test_clock
         # The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
@@ -333,6 +335,7 @@ module Stripe
           retry_details: nil,
           statement_descriptor: nil,
           statement_descriptor_suffix: nil,
+          target_date: nil,
           test_clock: nil,
           transfer_data: nil
         )
@@ -353,6 +356,7 @@ module Stripe
           @retry_details = retry_details
           @statement_descriptor = statement_descriptor
           @statement_descriptor_suffix = statement_descriptor_suffix
+          @target_date = target_date
           @test_clock = test_clock
           @transfer_data = transfer_data
         end

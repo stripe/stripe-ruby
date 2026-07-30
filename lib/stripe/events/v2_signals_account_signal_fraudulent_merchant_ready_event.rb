@@ -52,8 +52,6 @@ module Stripe
         attr_reader :evaluated_at
         # Fraudulent merchant signal data. Present when type is fraudulent_merchant.
         attr_reader :fraudulent_merchant
-        # Unique identifier for this account signal.
-        attr_reader :id
         # The type of account signal. Currently only fraudulent_merchant is supported.
         attr_reader :type
 
@@ -75,13 +73,36 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = { data: V2SignalsAccountSignalFraudulentMerchantReadyEventData }
       end
-      attr_reader :data
+      attr_reader :data, :related_object
+
+      # Retrieves the related object from the API. Makes an API request on every call.
+      def fetch_related_object
+        _request(
+          method: :get,
+          path: related_object.url,
+          base_address: :api,
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" }
+        )
+      end
     end
 
     # Occurs when a fraudulent merchant signal is ready for an account.
     class V2SignalsAccountSignalFraudulentMerchantReadyEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v2.signals.account_signal.fraudulent_merchant_ready"
+      end
+
+      attr_reader :related_object
+
+      # Retrieves the AccountSignal related to this EventNotification from the Stripe API. Makes an API request on every call.
+      def fetch_related_object
+        resp = @client.raw_request(
+          :get,
+          related_object.url,
+          opts: { stripe_context: context, "Stripe-Request-Trigger": "event=#{id}" },
+          usage: ["fetch_related_object"]
+        )
+        @client.deserialize(resp.http_body, api_mode: Util.get_api_mode(related_object.url))
       end
     end
   end

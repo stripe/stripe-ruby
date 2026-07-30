@@ -2034,6 +2034,24 @@ module Stripe
             sig { params(jurisdiction: String).void }
             def initialize(jurisdiction: nil); end
           end
+          class MassTransitParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class ParkingTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class ResortTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             sig { returns(String) }
@@ -2162,6 +2180,24 @@ module Stripe
             params(_luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax))
            }
           def luxury_tax=(_luxury_tax); end
+          # Options for the mass transit parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax; end
+          sig {
+            params(_mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
+           }
+          def mass_transit_parking_tax=(_mass_transit_parking_tax); end
+          # Options for the parking tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax; end
+          sig {
+            params(_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
+           }
+          def parking_tax=(_parking_tax); end
           # Options for the resort tax registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax))
@@ -2200,7 +2236,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax), attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax), entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax), gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax), home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax), hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax), resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax), type: String).void
+            params(admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax), attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax), entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax), gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax), home_rule_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HomeRuleTax), hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax), mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax), parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax), resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax), type: String).void
            }
           def initialize(
             admissions_tax: nil,
@@ -2212,6 +2248,8 @@ module Stripe
             local_amusement_tax: nil,
             local_lease_tax: nil,
             luxury_tax: nil,
+            mass_transit_parking_tax: nil,
+            parking_tax: nil,
             resort_tax: nil,
             state: nil,
             state_sales_tax: nil,

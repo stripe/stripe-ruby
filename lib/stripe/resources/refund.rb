@@ -662,6 +662,10 @@ module Stripe
     attr_reader :created
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_reader :currency
+    # ID of the customer of this refund.
+    attr_reader :customer
+    # ID of the account of this refund.
+    attr_reader :customer_account
     # An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
     attr_reader :description
     # Attribute for field destination_details
@@ -682,6 +686,8 @@ module Stripe
     attr_reader :object
     # ID of the PaymentIntent that's refunded.
     attr_reader :payment_intent
+    # ID of the payment method associated with this refund.
+    attr_reader :payment_method
     # Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     attr_reader :pending_reason
     # Attribute for field presentment_details

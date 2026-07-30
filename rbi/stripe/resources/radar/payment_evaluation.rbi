@@ -361,14 +361,37 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Card < ::Stripe::StripeObject
+            # Two-digit number representing the card's expiration month.
+            sig { returns(Integer) }
+            def exp_month; end
+            # Four-digit number representing the card's expiration year.
+            sig { returns(Integer) }
+            def exp_year; end
+            # First six digits of the card number.
+            sig { returns(T.nilable(String)) }
+            def first6; end
+            # Last four digits of the card number.
+            sig { returns(T.nilable(String)) }
+            def last4; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Billing information associated with the payment evaluation.
           sig { returns(T.nilable(BillingDetails)) }
           def billing_details; end
+          # Card details associated with the payment evaluation.
+          sig { returns(T.nilable(Card)) }
+          def card; end
           # The payment method used in this payment evaluation.
           sig { returns(T.any(String, ::Stripe::PaymentMethod)) }
           def payment_method; end
           def self.inner_class_types
-            @inner_class_types = {billing_details: BillingDetails}
+            @inner_class_types = {billing_details: BillingDetails, card: Card}
           end
           def self.field_remappings
             @field_remappings = {}

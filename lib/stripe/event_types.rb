@@ -578,10 +578,24 @@ module Stripe
         Events::V2MoneyManagementReceivedCreditSucceededEvent,
         Events::V2MoneyManagementReceivedDebitCanceledEvent.lookup_type =>
         Events::V2MoneyManagementReceivedDebitCanceledEvent,
+        Events::V2MoneyManagementReceivedDebitCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitCreatedEvent,
         Events::V2MoneyManagementReceivedDebitFailedEvent.lookup_type =>
         Events::V2MoneyManagementReceivedDebitFailedEvent,
+        Events::V2MoneyManagementReceivedDebitMandateCanceledEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateCanceledEvent,
+        Events::V2MoneyManagementReceivedDebitMandateCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateCreatedEvent,
+        Events::V2MoneyManagementReceivedDebitMandateExpiredEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateExpiredEvent,
+        Events::V2MoneyManagementReceivedDebitMandatePendingCancellationEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandatePendingCancellationEvent,
+        Events::V2MoneyManagementReceivedDebitMandateUpdatedEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateUpdatedEvent,
         Events::V2MoneyManagementReceivedDebitPendingEvent.lookup_type =>
         Events::V2MoneyManagementReceivedDebitPendingEvent,
+        Events::V2MoneyManagementReceivedDebitScheduledEvent.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitScheduledEvent,
         Events::V2MoneyManagementReceivedDebitSucceededEvent.lookup_type =>
         Events::V2MoneyManagementReceivedDebitSucceededEvent,
         Events::V2MoneyManagementReceivedDebitUpdatedEvent.lookup_type =>
@@ -651,10 +665,16 @@ module Stripe
         Events::V2ReportingReportRunSucceededEvent.lookup_type =>
         Events::V2ReportingReportRunSucceededEvent,
         Events::V2ReportingReportRunUpdatedEvent.lookup_type => Events::V2ReportingReportRunUpdatedEvent,
+        Events::V2SignalsAccountEvaluationCompleteEvent.lookup_type =>
+        Events::V2SignalsAccountEvaluationCompleteEvent,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEvent,
+        Events::V2SignalsAccountSignalFraudulentWebsiteReadyEvent.lookup_type =>
+        Events::V2SignalsAccountSignalFraudulentWebsiteReadyEvent,
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
+        Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent.lookup_type =>
+        Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -1362,10 +1382,24 @@ module Stripe
         Events::V2MoneyManagementReceivedCreditSucceededEventNotification,
         Events::V2MoneyManagementReceivedDebitCanceledEventNotification.lookup_type =>
         Events::V2MoneyManagementReceivedDebitCanceledEventNotification,
+        Events::V2MoneyManagementReceivedDebitCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitCreatedEventNotification,
         Events::V2MoneyManagementReceivedDebitFailedEventNotification.lookup_type =>
         Events::V2MoneyManagementReceivedDebitFailedEventNotification,
+        Events::V2MoneyManagementReceivedDebitMandateCanceledEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateCanceledEventNotification,
+        Events::V2MoneyManagementReceivedDebitMandateCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateCreatedEventNotification,
+        Events::V2MoneyManagementReceivedDebitMandateExpiredEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateExpiredEventNotification,
+        Events::V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification,
+        Events::V2MoneyManagementReceivedDebitMandateUpdatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitMandateUpdatedEventNotification,
         Events::V2MoneyManagementReceivedDebitPendingEventNotification.lookup_type =>
         Events::V2MoneyManagementReceivedDebitPendingEventNotification,
+        Events::V2MoneyManagementReceivedDebitScheduledEventNotification.lookup_type =>
+        Events::V2MoneyManagementReceivedDebitScheduledEventNotification,
         Events::V2MoneyManagementReceivedDebitSucceededEventNotification.lookup_type =>
         Events::V2MoneyManagementReceivedDebitSucceededEventNotification,
         Events::V2MoneyManagementReceivedDebitUpdatedEventNotification.lookup_type =>
@@ -1438,10 +1472,16 @@ module Stripe
         Events::V2ReportingReportRunSucceededEventNotification,
         Events::V2ReportingReportRunUpdatedEventNotification.lookup_type =>
         Events::V2ReportingReportRunUpdatedEventNotification,
+        Events::V2SignalsAccountEvaluationCompleteEventNotification.lookup_type =>
+        Events::V2SignalsAccountEvaluationCompleteEventNotification,
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
+        Events::V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification.lookup_type =>
+        Events::V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification,
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+        Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification.lookup_type =>
+        Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

@@ -41,6 +41,20 @@ module Stripe
           sig { params(number: T.nilable(String)).void }
           def initialize(number: nil); end
         end
+        class GiftCard < ::Stripe::RequestParams
+          # The brand of the gift card.
+          sig { returns(String) }
+          def brand; end
+          sig { params(_brand: String).returns(String) }
+          def brand=(_brand); end
+          # Simulated track 2 data for the gift card payment method.
+          sig { returns(String) }
+          def track_2; end
+          sig { params(_track_2: String).returns(String) }
+          def track_2=(_track_2); end
+          sig { params(brand: String, track_2: String).void }
+          def initialize(brand: nil, track_2: nil); end
+        end
         class InteracPresent < ::Stripe::RequestParams
           # The Interac card number.
           sig { returns(T.nilable(String)) }
@@ -78,6 +92,15 @@ module Stripe
         def expand; end
         sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def expand=(_expand); end
+        # Simulated data for the gift_card payment method.
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::GiftCard))
+         }
+        def gift_card; end
+        sig {
+          params(_gift_card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::GiftCard)).returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::GiftCard))
+         }
+        def gift_card=(_gift_card); end
         # Simulated data for the interac_present payment method.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent))
@@ -93,13 +116,14 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(amount_tip: T.nilable(Integer), card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card), card_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent), expand: T.nilable(T::Array[String]), interac_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent), type: T.nilable(String)).void
+          params(amount_tip: T.nilable(Integer), card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::Card), card_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::CardPresent), expand: T.nilable(T::Array[String]), gift_card: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::GiftCard), interac_present: T.nilable(::Stripe::TestHelpers::Terminal::ReaderPresentPaymentMethodParams::InteracPresent), type: T.nilable(String)).void
          }
         def initialize(
           amount_tip: nil,
           card: nil,
           card_present: nil,
           expand: nil,
+          gift_card: nil,
           interac_present: nil,
           type: nil
         ); end

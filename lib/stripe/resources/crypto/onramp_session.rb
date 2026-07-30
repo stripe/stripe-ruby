@@ -66,6 +66,8 @@ module Stripe
           attr_reader :stellar
           # A Sui address
           attr_reader :sui
+          # A Tempo address
+          attr_reader :tempo
           # A worldchain address
           attr_reader :worldchain
 

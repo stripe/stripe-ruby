@@ -2188,6 +2188,13 @@ module Stripe
        }
       def initialize(benefit: nil, location: nil); end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    sig { returns(T.nilable(T::Array[String])) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
@@ -2247,9 +2254,10 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), setup_details: T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), confirmation_token: T.nilable(String), expand: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions), return_url: T.nilable(String), setup_details: T.nilable(::Stripe::SetupIntentConfirmParams::SetupDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       confirmation_token: nil,
       expand: nil,
       mandate_data: nil,

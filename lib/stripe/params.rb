@@ -29,6 +29,7 @@ module Stripe
   autoload :AccountRetrieveParams, "stripe/params/account_retrieve_params"
   autoload :AccountSessionCreateParams, "stripe/params/account_session_create_params"
   autoload :AccountSignalsRetrieveParams, "stripe/params/account_signals_retrieve_params"
+  autoload :AccountUnrejectParams, "stripe/params/account_unreject_params"
   autoload :AccountUpdateParams, "stripe/params/account_update_params"
   autoload :ApplePayDomainCreateParams, "stripe/params/apple_pay_domain_create_params"
   autoload :ApplePayDomainDeleteParams, "stripe/params/apple_pay_domain_delete_params"
@@ -241,6 +242,7 @@ module Stripe
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
   autoload :PaymentRecordCreateParams, "stripe/params/payment_record_create_params"
+  autoload :PaymentRecordListParams, "stripe/params/payment_record_list_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
            "stripe/params/payment_record_report_payment_attempt_canceled_params"
   autoload :PaymentRecordReportPaymentAttemptFailedParams,
@@ -640,6 +642,8 @@ module Stripe
 
   module ProductCatalog
     autoload :TrialOfferCreateParams, "stripe/params/product_catalog/trial_offer_create_params"
+    autoload :TrialOfferListParams, "stripe/params/product_catalog/trial_offer_list_params"
+    autoload :TrialOfferRetrieveParams, "stripe/params/product_catalog/trial_offer_retrieve_params"
   end
 
   module Radar
@@ -1212,6 +1216,11 @@ module Stripe
       autoload :ReceivedCreditListParams, "stripe/params/v2/money_management/received_credit_list_params"
       autoload :ReceivedCreditRetrieveParams, "stripe/params/v2/money_management/received_credit_retrieve_params"
       autoload :ReceivedDebitListParams, "stripe/params/v2/money_management/received_debit_list_params"
+      autoload :ReceivedDebitMandateCancelParams,
+               "stripe/params/v2/money_management/received_debit_mandate_cancel_params"
+      autoload :ReceivedDebitMandateListParams, "stripe/params/v2/money_management/received_debit_mandate_list_params"
+      autoload :ReceivedDebitMandateRetrieveParams,
+               "stripe/params/v2/money_management/received_debit_mandate_retrieve_params"
       autoload :ReceivedDebitRetrieveParams, "stripe/params/v2/money_management/received_debit_retrieve_params"
       autoload :RecipientVerificationAcknowledgeParams,
                "stripe/params/v2/money_management/recipient_verification_acknowledge_params"
@@ -1284,7 +1293,18 @@ module Stripe
       autoload :ReportRunRetrieveParams, "stripe/params/v2/reporting/report_run_retrieve_params"
     end
 
+    module Risk
+      autoload :InquiryListParams, "stripe/params/v2/risk/inquiry_list_params"
+      autoload :InquiryRetrieveParams, "stripe/params/v2/risk/inquiry_retrieve_params"
+      autoload :InquiryUpdateParams, "stripe/params/v2/risk/inquiry_update_params"
+    end
+
     module Signals
+      autoload :AccountActivityCreateParams, "stripe/params/v2/signals/account_activity_create_params"
+      autoload :AccountActivityDeleteParams, "stripe/params/v2/signals/account_activity_delete_params"
+      autoload :AccountActivityRetrieveParams, "stripe/params/v2/signals/account_activity_retrieve_params"
+      autoload :AccountEvaluationCreateParams, "stripe/params/v2/signals/account_evaluation_create_params"
+      autoload :AccountEvaluationRetrieveParams, "stripe/params/v2/signals/account_evaluation_retrieve_params"
       autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
       autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
     end
@@ -1337,6 +1357,7 @@ module Stripe
     stripe/params/account_retrieve_params
     stripe/params/account_session_create_params
     stripe/params/account_signals_retrieve_params
+    stripe/params/account_unreject_params
     stripe/params/account_update_params
     stripe/params/apple_pay_domain_create_params
     stripe/params/apple_pay_domain_delete_params
@@ -1730,6 +1751,7 @@ module Stripe
     stripe/params/payment_method_retrieve_params
     stripe/params/payment_method_update_params
     stripe/params/payment_record_create_params
+    stripe/params/payment_record_list_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
     stripe/params/payment_record_report_payment_attempt_failed_params
     stripe/params/payment_record_report_payment_attempt_guaranteed_params
@@ -1764,6 +1786,8 @@ module Stripe
     stripe/params/privacy/redaction_job_validate_params
     stripe/params/privacy/redaction_job_validation_error_list_params
     stripe/params/product_catalog/trial_offer_create_params
+    stripe/params/product_catalog/trial_offer_list_params
+    stripe/params/product_catalog/trial_offer_retrieve_params
     stripe/params/product_create_params
     stripe/params/product_delete_params
     stripe/params/product_feature_create_params
@@ -2298,6 +2322,9 @@ module Stripe
     stripe/params/v2/money_management/received_credit_list_params
     stripe/params/v2/money_management/received_credit_retrieve_params
     stripe/params/v2/money_management/received_debit_list_params
+    stripe/params/v2/money_management/received_debit_mandate_cancel_params
+    stripe/params/v2/money_management/received_debit_mandate_list_params
+    stripe/params/v2/money_management/received_debit_mandate_retrieve_params
     stripe/params/v2/money_management/received_debit_retrieve_params
     stripe/params/v2/money_management/recipient_verification_acknowledge_params
     stripe/params/v2/money_management/recipient_verification_create_params
@@ -2334,6 +2361,14 @@ module Stripe
     stripe/params/v2/reporting/report_retrieve_params
     stripe/params/v2/reporting/report_run_create_params
     stripe/params/v2/reporting/report_run_retrieve_params
+    stripe/params/v2/risk/inquiry_list_params
+    stripe/params/v2/risk/inquiry_retrieve_params
+    stripe/params/v2/risk/inquiry_update_params
+    stripe/params/v2/signals/account_activity_create_params
+    stripe/params/v2/signals/account_activity_delete_params
+    stripe/params/v2/signals/account_activity_retrieve_params
+    stripe/params/v2/signals/account_evaluation_create_params
+    stripe/params/v2/signals/account_evaluation_retrieve_params
     stripe/params/v2/signals/account_signal_list_params
     stripe/params/v2/signals/account_signal_retrieve_params
     stripe/params/v2/tax/manual_rule_create_params

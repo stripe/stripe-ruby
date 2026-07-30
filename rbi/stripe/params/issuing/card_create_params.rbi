@@ -112,6 +112,11 @@ module Stripe
           params(_address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation))
          }
         def address_validation=(_address_validation); end
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
+        sig { returns(T.nilable(String)) }
+        def business_name; end
+        sig { params(_business_name: T.nilable(String)).returns(T.nilable(String)) }
+        def business_name=(_business_name); end
         # Customs information for the shipment.
         sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs)) }
         def customs; end
@@ -145,11 +150,12 @@ module Stripe
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
         def type=(_type); end
         sig {
-          params(address: ::Stripe::Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation), customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
+          params(address: ::Stripe::Issuing::CardCreateParams::Shipping::Address, address_validation: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::AddressValidation), business_name: T.nilable(String), customs: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping::Customs), name: String, phone_number: T.nilable(String), require_signature: T.nilable(T::Boolean), service: T.nilable(String), type: T.nilable(String)).void
          }
         def initialize(
           address: nil,
           address_validation: nil,
+          business_name: nil,
           customs: nil,
           name: nil,
           phone_number: nil,
@@ -302,6 +308,11 @@ module Stripe
         params(_pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::Pin))
        }
       def pin=(_pin); end
+      # The product code to request via product graduation.
+      sig { returns(T.nilable(String)) }
+      def product_code; end
+      sig { params(_product_code: T.nilable(String)).returns(T.nilable(String)) }
+      def product_code=(_product_code); end
       # The card this is meant to be a replacement for (if any).
       sig { returns(T.nilable(String)) }
       def replacement_for; end
@@ -342,7 +353,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
+        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), product_code: T.nilable(String), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
        }
       def initialize(
         cardholder: nil,
@@ -355,6 +366,7 @@ module Stripe
         metadata: nil,
         personalization_design: nil,
         pin: nil,
+        product_code: nil,
         replacement_for: nil,
         replacement_reason: nil,
         second_line: nil,

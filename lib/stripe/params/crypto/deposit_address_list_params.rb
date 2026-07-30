@@ -4,11 +4,11 @@
 module Stripe
   module Crypto
     class DepositAddressListParams < ::Stripe::RequestParams
-      # Attribute for param field address
+      # Only return the deposit address matching this on-chain address.
       attr_accessor :address
-      # Attribute for param field customer
+      # Only return deposit addresses scoped to this [Customer](https://docs.stripe.com/api/customers/object).
       attr_accessor :customer
-      # Attribute for param field customer_account
+      # Only return deposit addresses belonging to this customer account.
       attr_accessor :customer_account
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
       attr_accessor :ending_before
@@ -16,7 +16,7 @@ module Stripe
       attr_accessor :expand
       # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
       attr_accessor :limit
-      # Attribute for param field network
+      # Only return deposit addresses for this blockchain network.
       attr_accessor :network
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after

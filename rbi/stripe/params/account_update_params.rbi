@@ -1899,6 +1899,49 @@ module Stripe
           town: nil
         ); end
       end
+      class AdministrativeAddress < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
+      end
       class DirectorshipDeclaration < ::Stripe::RequestParams
         # The Unix timestamp marking when the directorship declaration attestation was made.
         sig { returns(T.nilable(Integer)) }
@@ -1940,6 +1983,49 @@ module Stripe
           params(date: T.nilable(Integer), ip: T.nilable(String), user_agent: T.nilable(String)).void
          }
         def initialize(date: nil, ip: nil, user_agent: nil); end
+      end
+      class PrincipalPlaceOfBusiness < ::Stripe::RequestParams
+        # City, district, suburb, town, or village.
+        sig { returns(T.nilable(String)) }
+        def city; end
+        sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+        def city=(_city); end
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
+        # Address line 1, such as the street, PO Box, or company name.
+        sig { returns(T.nilable(String)) }
+        def line1; end
+        sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+        def line1=(_line1); end
+        # Address line 2, such as the apartment, suite, unit, or building.
+        sig { returns(T.nilable(String)) }
+        def line2; end
+        sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+        def line2=(_line2); end
+        # ZIP or postal code.
+        sig { returns(T.nilable(String)) }
+        def postal_code; end
+        sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+        def postal_code=(_postal_code); end
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        sig { returns(T.nilable(String)) }
+        def state; end
+        sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+        def state=(_state); end
+        sig {
+          params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+         }
+        def initialize(
+          city: nil,
+          country: nil,
+          line1: nil,
+          line2: nil,
+          postal_code: nil,
+          state: nil
+        ); end
       end
       class RegistrationDate < ::Stripe::RequestParams
         # The day of registration, between 1 and 31.
@@ -2029,6 +2115,13 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
+      # Attribute for param field administrative_address
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress)) }
+      def administrative_address; end
+      sig {
+        params(_administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress))
+       }
+      def administrative_address=(_administrative_address); end
       # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
       sig { returns(T.nilable(T::Boolean)) }
       def directors_provided; end
@@ -2095,6 +2188,13 @@ module Stripe
       def phone; end
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
+      # Attribute for param field principal_place_of_business
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness)) }
+      def principal_place_of_business; end
+      sig {
+        params(_principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness))
+       }
+      def principal_place_of_business=(_principal_place_of_business); end
       # Attribute for param field registration_date
       sig {
         returns(T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)))
@@ -2148,12 +2248,13 @@ module Stripe
        }
       def verification=(_verification); end
       sig {
-        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
+        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
        }
       def initialize(
         address: nil,
         address_kana: nil,
         address_kanji: nil,
+        administrative_address: nil,
         directors_provided: nil,
         directorship_declaration: nil,
         executives_provided: nil,
@@ -2166,6 +2267,7 @@ module Stripe
         ownership_declaration: nil,
         ownership_exemption_reason: nil,
         phone: nil,
+        principal_place_of_business: nil,
         registration_date: nil,
         registration_number: nil,
         representative_declaration: nil,
@@ -3360,6 +3462,15 @@ module Stripe
          }
         def initialize(additional_files: nil, goods_type: nil, site: nil); end
       end
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        sig { returns(T.nilable(String)) }
+        def creditor_id; end
+        sig { params(_creditor_id: T.nilable(String)).returns(T.nilable(String)) }
+        def creditor_id=(_creditor_id); end
+        sig { params(creditor_id: T.nilable(String)).void }
+        def initialize(creditor_id: nil); end
+      end
       class SmartDisputes < ::Stripe::RequestParams
         class AutoRespond < ::Stripe::RequestParams
           # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
@@ -3499,6 +3610,13 @@ module Stripe
         params(_paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments))
        }
       def paypay_payments=(_paypay_payments); end
+      # Settings specific to SEPA Direct Debit payments.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments)) }
+      def sepa_debit_payments; end
+      sig {
+        params(_sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments))
+       }
+      def sepa_debit_payments=(_sepa_debit_payments); end
       # Settings specific to the account's use of Smart Disputes.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes)) }
       def smart_disputes; end
@@ -3521,7 +3639,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountUpdateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountUpdateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountUpdateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountUpdateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountUpdateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments), smart_disputes: T.nilable(::Stripe::AccountUpdateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountUpdateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3534,6 +3652,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        sepa_debit_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
         treasury: nil

@@ -66,6 +66,8 @@ module Stripe
         attr_accessor :address
         # Address validation settings.
         attr_accessor :address_validation
+        # The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace. Allowed characters: `A-Z`, `a-z`, `0-9`, ` `, `.`, `-`. All other characters are stripped or ASCII-normalized when printed.
+        attr_accessor :business_name
         # Customs information for the shipment.
         attr_accessor :customs
         # The name printed on the shipping label when shipping the card.
@@ -82,6 +84,7 @@ module Stripe
         def initialize(
           address: nil,
           address_validation: nil,
+          business_name: nil,
           customs: nil,
           name: nil,
           phone_number: nil,
@@ -91,6 +94,7 @@ module Stripe
         )
           @address = address
           @address_validation = address_validation
+          @business_name = business_name
           @customs = customs
           @name = name
           @phone_number = phone_number
@@ -158,6 +162,8 @@ module Stripe
       attr_accessor :personalization_design
       # The desired new PIN for this card.
       attr_accessor :pin
+      # The product code to request via product graduation.
+      attr_accessor :product_code
       # Updated shipping information for the card.
       attr_accessor :shipping
       # Rules that control spending for this card. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
@@ -171,6 +177,7 @@ module Stripe
         metadata: nil,
         personalization_design: nil,
         pin: nil,
+        product_code: nil,
         shipping: nil,
         spending_controls: nil,
         status: nil
@@ -180,6 +187,7 @@ module Stripe
         @metadata = metadata
         @personalization_design = personalization_design
         @pin = pin
+        @product_code = product_code
         @shipping = shipping
         @spending_controls = spending_controls
         @status = status

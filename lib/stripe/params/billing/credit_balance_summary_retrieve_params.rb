@@ -23,17 +23,29 @@ module Stripe
               @id = id
             end
           end
+
+          class RateCard < ::Stripe::RequestParams
+            # The rate card ID this credit grant should apply to.
+            attr_accessor :id
+
+            def initialize(id: nil)
+              @id = id
+            end
+          end
           # A list of billable items that the credit grant can apply to. We currently only support metered billable items. Cannot be used in combination with `price_type` or `prices`.
           attr_accessor :billable_items
           # The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
           attr_accessor :price_type
           # A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
           attr_accessor :prices
+          # A list of rate cards that the credit grant can apply to. The credit grant applies to any metered item billed under one of these rate cards. Cannot be used in combination with `price_type`, `prices`, or `billable_items`.
+          attr_accessor :rate_cards
 
-          def initialize(billable_items: nil, price_type: nil, prices: nil)
+          def initialize(billable_items: nil, price_type: nil, prices: nil, rate_cards: nil)
             @billable_items = billable_items
             @price_type = price_type
             @prices = prices
+            @rate_cards = rate_cards
           end
         end
         # The billing credit applicability scope for which to fetch credit balance summary.

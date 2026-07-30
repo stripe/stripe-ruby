@@ -349,6 +349,45 @@ module Stripe
           end
 
           class BusinessDetails < ::Stripe::RequestParams
+            class AdditionalAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+              attr_accessor :country
+              # Address line 1 (e.g., street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (e.g., apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # Purpose of additional address.
+              attr_accessor :purpose
+              # State, county, province, or region.
+              attr_accessor :state
+              # Town or district.
+              attr_accessor :town
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                purpose: nil,
+                state: nil,
+                town: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @purpose = purpose
+                @state = state
+                @town = town
+              end
+            end
+
             class Address < ::Stripe::RequestParams
               # City, district, suburb, town, or village.
               attr_accessor :city
@@ -743,6 +782,8 @@ module Stripe
                 @kanji = kanji
               end
             end
+            # Additional addresses associated with the business.
+            attr_accessor :additional_addresses
             # The business registration address of the business entity.
             attr_accessor :address
             # The business gross annual revenue for its preceding fiscal year.
@@ -771,6 +812,7 @@ module Stripe
             attr_accessor :structure
 
             def initialize(
+              additional_addresses: nil,
               address: nil,
               annual_revenue: nil,
               compliance_screening_description: nil,
@@ -785,6 +827,7 @@ module Stripe
               script_names: nil,
               structure: nil
             )
+              @additional_addresses = additional_addresses
               @address = address
               @annual_revenue = annual_revenue
               @compliance_screening_description = compliance_screening_description

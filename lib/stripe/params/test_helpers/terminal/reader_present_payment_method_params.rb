@@ -32,6 +32,18 @@ module Stripe
           end
         end
 
+        class GiftCard < ::Stripe::RequestParams
+          # The brand of the gift card.
+          attr_accessor :brand
+          # Simulated track 2 data for the gift card payment method.
+          attr_accessor :track_2
+
+          def initialize(brand: nil, track_2: nil)
+            @brand = brand
+            @track_2 = track_2
+          end
+        end
+
         class InteracPresent < ::Stripe::RequestParams
           # The Interac card number.
           attr_accessor :number
@@ -48,6 +60,8 @@ module Stripe
         attr_accessor :card_present
         # Specifies which fields in the response should be expanded.
         attr_accessor :expand
+        # Simulated data for the gift_card payment method.
+        attr_accessor :gift_card
         # Simulated data for the interac_present payment method.
         attr_accessor :interac_present
         # Simulated payment type.
@@ -58,6 +72,7 @@ module Stripe
           card: nil,
           card_present: nil,
           expand: nil,
+          gift_card: nil,
           interac_present: nil,
           type: nil
         )
@@ -65,6 +80,7 @@ module Stripe
           @card = card
           @card_present = card_present
           @expand = expand
+          @gift_card = gift_card
           @interac_present = interac_present
           @type = type
         end

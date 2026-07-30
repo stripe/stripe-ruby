@@ -22,6 +22,32 @@ module Stripe
           end
         end
         class BankTransfer < ::Stripe::StripeObject
+          class GbBankAccount < ::Stripe::StripeObject
+            # The name of the account holder that originated the debit.
+            sig { returns(T.nilable(String)) }
+            def account_holder_name; end
+            # The name of the bank the debit originated from.
+            sig { returns(T.nilable(String)) }
+            def bank_name; end
+            # Last 4 digits of the bank account number.
+            sig { returns(T.nilable(String)) }
+            def last4; end
+            # Open Enum. The bank network the debit was originated on.
+            sig { returns(String) }
+            def network; end
+            # The ID of the mandate associated with this debit.
+            sig { returns(T.nilable(String)) }
+            def received_debit_mandate; end
+            # The sort code of the bank that originated the debit.
+            sig { returns(T.nilable(String)) }
+            def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
@@ -42,6 +68,10 @@ module Stripe
           # The Financial Address that was debited.
           sig { returns(String) }
           def financial_address; end
+          # Object containing details of the GB Bank Account that originated the debit.
+          # Present when the debit was originated via BACS.
+          sig { returns(T.nilable(GbBankAccount)) }
+          def gb_bank_account; end
           # Open Enum. Indicates the origin type through which this debit was initiated.
           sig { returns(String) }
           def origin_type; end
@@ -51,11 +81,12 @@ module Stripe
           # The statement descriptor set by the originator of the debit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
-          # The payment method used to originate the debit.
-          sig { returns(UsBankAccount) }
+          # Object containing details of the US Bank Account that originated the debit.
+          # Present when the debit was originated via ACH.
+          sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {us_bank_account: UsBankAccount}
+            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -236,6 +267,11 @@ module Stripe
         # A link to the Stripe-hosted receipt for this ReceivedDebit.
         sig { returns(T.nilable(String)) }
         def receipt_url; end
+        # The time at which the scheduled ReceivedDebit is expected to settle.
+        # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+        # Only present when status is `scheduled`.
+        sig { returns(T.nilable(String)) }
+        def settles_at; end
         # Open Enum. The status of the ReceivedDebit.
         sig { returns(String) }
         def status; end

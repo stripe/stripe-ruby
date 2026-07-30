@@ -137,6 +137,8 @@ module Stripe
           end
 
           class Card < ::Stripe::RequestParams
+            # The CVC of the card.
+            attr_accessor :cvc
             # Two-digit number representing the card's expiration month.
             attr_accessor :exp_month
             # Four-digit number representing the card's expiration year.
@@ -145,17 +147,28 @@ module Stripe
             attr_accessor :first6
             # Last four digits of the card number.
             attr_accessor :last4
+            # The card number, as a string without any separators.
+            attr_accessor :number
 
-            def initialize(exp_month: nil, exp_year: nil, first6: nil, last4: nil)
+            def initialize(
+              cvc: nil,
+              exp_month: nil,
+              exp_year: nil,
+              first6: nil,
+              last4: nil,
+              number: nil
+            )
+              @cvc = cvc
               @exp_month = exp_month
               @exp_year = exp_year
               @first6 = first6
               @last4 = last4
+              @number = number
             end
           end
           # Billing information associated with the payment evaluation.
           attr_accessor :billing_details
-          # Masked PAN card details to use as an alternative to a payment_method token.
+          # Masked/raw PAN card details to use as an alternative to a payment_method token.
           attr_accessor :card
           # ID of the payment method used in this payment evaluation.
           attr_accessor :payment_method

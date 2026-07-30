@@ -261,6 +261,8 @@ module Stripe
       attr_reader :usage_details
       # Usage limits of the SharedPaymentIssuedToken.
       attr_reader :usage_limits
+      # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
+      attr_reader :use_stripe_sdk
 
       # Creates a new SharedPaymentIssuedToken object
       def self.create(params = {}, opts = {})

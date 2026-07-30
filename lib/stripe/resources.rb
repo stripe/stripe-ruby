@@ -1177,13 +1177,41 @@ module Stripe
              "stripe/events/v2_money_management_received_debit_canceled_event"
     autoload :V2MoneyManagementReceivedDebitCanceledEventNotification,
              "stripe/events/v2_money_management_received_debit_canceled_event"
+    autoload :V2MoneyManagementReceivedDebitCreatedEvent,
+             "stripe/events/v2_money_management_received_debit_created_event"
+    autoload :V2MoneyManagementReceivedDebitCreatedEventNotification,
+             "stripe/events/v2_money_management_received_debit_created_event"
     autoload :V2MoneyManagementReceivedDebitFailedEvent, "stripe/events/v2_money_management_received_debit_failed_event"
     autoload :V2MoneyManagementReceivedDebitFailedEventNotification,
              "stripe/events/v2_money_management_received_debit_failed_event"
+    autoload :V2MoneyManagementReceivedDebitMandateCanceledEvent,
+             "stripe/events/v2_money_management_received_debit_mandate_canceled_event"
+    autoload :V2MoneyManagementReceivedDebitMandateCanceledEventNotification,
+             "stripe/events/v2_money_management_received_debit_mandate_canceled_event"
+    autoload :V2MoneyManagementReceivedDebitMandateCreatedEvent,
+             "stripe/events/v2_money_management_received_debit_mandate_created_event"
+    autoload :V2MoneyManagementReceivedDebitMandateCreatedEventNotification,
+             "stripe/events/v2_money_management_received_debit_mandate_created_event"
+    autoload :V2MoneyManagementReceivedDebitMandateExpiredEvent,
+             "stripe/events/v2_money_management_received_debit_mandate_expired_event"
+    autoload :V2MoneyManagementReceivedDebitMandateExpiredEventNotification,
+             "stripe/events/v2_money_management_received_debit_mandate_expired_event"
+    autoload :V2MoneyManagementReceivedDebitMandatePendingCancellationEvent,
+             "stripe/events/v2_money_management_received_debit_mandate_pending_cancellation_event"
+    autoload :V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification,
+             "stripe/events/v2_money_management_received_debit_mandate_pending_cancellation_event"
+    autoload :V2MoneyManagementReceivedDebitMandateUpdatedEvent,
+             "stripe/events/v2_money_management_received_debit_mandate_updated_event"
+    autoload :V2MoneyManagementReceivedDebitMandateUpdatedEventNotification,
+             "stripe/events/v2_money_management_received_debit_mandate_updated_event"
     autoload :V2MoneyManagementReceivedDebitPendingEvent,
              "stripe/events/v2_money_management_received_debit_pending_event"
     autoload :V2MoneyManagementReceivedDebitPendingEventNotification,
              "stripe/events/v2_money_management_received_debit_pending_event"
+    autoload :V2MoneyManagementReceivedDebitScheduledEvent,
+             "stripe/events/v2_money_management_received_debit_scheduled_event"
+    autoload :V2MoneyManagementReceivedDebitScheduledEventNotification,
+             "stripe/events/v2_money_management_received_debit_scheduled_event"
     autoload :V2MoneyManagementReceivedDebitSucceededEvent,
              "stripe/events/v2_money_management_received_debit_succeeded_event"
     autoload :V2MoneyManagementReceivedDebitSucceededEventNotification,
@@ -1312,14 +1340,25 @@ module Stripe
     autoload :V2ReportingReportRunSucceededEventNotification, "stripe/events/v2_reporting_report_run_succeeded_event"
     autoload :V2ReportingReportRunUpdatedEvent, "stripe/events/v2_reporting_report_run_updated_event"
     autoload :V2ReportingReportRunUpdatedEventNotification, "stripe/events/v2_reporting_report_run_updated_event"
+    autoload :V2SignalsAccountEvaluationCompleteEvent, "stripe/events/v2_signals_account_evaluation_complete_event"
+    autoload :V2SignalsAccountEvaluationCompleteEventNotification,
+             "stripe/events/v2_signals_account_evaluation_complete_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEvent,
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
     autoload :V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
              "stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event"
+    autoload :V2SignalsAccountSignalFraudulentWebsiteReadyEvent,
+             "stripe/events/v2_signals_account_signal_fraudulent_website_ready_event"
+    autoload :V2SignalsAccountSignalFraudulentWebsiteReadyEventNotification,
+             "stripe/events/v2_signals_account_signal_fraudulent_website_ready_event"
     autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
              "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
     autoload :V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
              "stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event"
+    autoload :V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent,
+             "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
+    autoload :V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+             "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
   end
 
   module FinancialConnections
@@ -1554,6 +1593,7 @@ module Stripe
       autoload :PayoutMethodsBankAccountSpec, "stripe/resources/v2/money_management/payout_methods_bank_account_spec"
       autoload :ReceivedCredit, "stripe/resources/v2/money_management/received_credit"
       autoload :ReceivedDebit, "stripe/resources/v2/money_management/received_debit"
+      autoload :ReceivedDebitMandate, "stripe/resources/v2/money_management/received_debit_mandate"
       autoload :RecipientVerification, "stripe/resources/v2/money_management/recipient_verification"
       autoload :Transaction, "stripe/resources/v2/money_management/transaction"
       autoload :TransactionEntry, "stripe/resources/v2/money_management/transaction_entry"
@@ -1578,7 +1618,13 @@ module Stripe
       autoload :ReportRun, "stripe/resources/v2/reporting/report_run"
     end
 
+    module Risk
+      autoload :Inquiry, "stripe/resources/v2/risk/inquiry"
+    end
+
     module Signals
+      autoload :AccountActivity, "stripe/resources/v2/signals/account_activity"
+      autoload :AccountEvaluation, "stripe/resources/v2/signals/account_evaluation"
       autoload :AccountSignal, "stripe/resources/v2/signals/account_signal"
     end
 
@@ -1868,6 +1914,7 @@ module Stripe
     stripe/resources/v2/money_management/payout_methods_bank_account_spec
     stripe/resources/v2/money_management/received_credit
     stripe/resources/v2/money_management/received_debit
+    stripe/resources/v2/money_management/received_debit_mandate
     stripe/resources/v2/money_management/recipient_verification
     stripe/resources/v2/money_management/transaction
     stripe/resources/v2/money_management/transaction_entry
@@ -1878,6 +1925,9 @@ module Stripe
     stripe/resources/v2/payments/settlement_allocation_intent_split
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
+    stripe/resources/v2/risk/inquiry
+    stripe/resources/v2/signals/account_activity
+    stripe/resources/v2/signals/account_evaluation
     stripe/resources/v2/signals/account_signal
     stripe/resources/v2/tax/manual_rule
     stripe/resources/webhook_endpoint
@@ -2258,8 +2308,15 @@ module Stripe
     stripe/events/v2_money_management_received_credit_returned_event
     stripe/events/v2_money_management_received_credit_succeeded_event
     stripe/events/v2_money_management_received_debit_canceled_event
+    stripe/events/v2_money_management_received_debit_created_event
     stripe/events/v2_money_management_received_debit_failed_event
+    stripe/events/v2_money_management_received_debit_mandate_canceled_event
+    stripe/events/v2_money_management_received_debit_mandate_created_event
+    stripe/events/v2_money_management_received_debit_mandate_expired_event
+    stripe/events/v2_money_management_received_debit_mandate_pending_cancellation_event
+    stripe/events/v2_money_management_received_debit_mandate_updated_event
     stripe/events/v2_money_management_received_debit_pending_event
+    stripe/events/v2_money_management_received_debit_scheduled_event
     stripe/events/v2_money_management_received_debit_succeeded_event
     stripe/events/v2_money_management_received_debit_updated_event
     stripe/events/v2_money_management_recipient_verification_created_event
@@ -2296,8 +2353,11 @@ module Stripe
     stripe/events/v2_reporting_report_run_failed_event
     stripe/events/v2_reporting_report_run_succeeded_event
     stripe/events/v2_reporting_report_run_updated_event
+    stripe/events/v2_signals_account_evaluation_complete_event
     stripe/events/v2_signals_account_signal_fraudulent_merchant_ready_event
+    stripe/events/v2_signals_account_signal_fraudulent_website_ready_event
     stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event
+    stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

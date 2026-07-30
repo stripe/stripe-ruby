@@ -119,6 +119,21 @@ module Stripe
       JSON.generate(request_body)
     end
 
+    # With Connect, you can unreject accounts that you have previously rejected.
+    #
+    # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+    #
+    # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+    def unreject(account, params = {}, opts = {})
+      request(
+        method: :post,
+        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
+        params: params,
+        opts: opts,
+        base_address: :api
+      )
+    end
+
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
     #

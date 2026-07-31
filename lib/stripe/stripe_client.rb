@@ -60,6 +60,10 @@ module Stripe
     extend Gem::Deprecate
     deprecate :request, :raw_request, 2024, 9
 
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook after verifying its authenticity. To work with a webhook that has already been
+    # verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see
+    # `parse_event_notification_without_verification`.
     def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
 
@@ -68,19 +72,21 @@ module Stripe
       build_event_notification(payload)
     end
 
-    def construct_event_from_cloud_provider(payload)
-      Webhook.send(:_build_event, extract_from_cloud_provider_envelope(payload))
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook without first verifying its authenticity. Should be used after calling
+    # `Webhook::Signature.verify_header` or with input from a trusted source (such as
+    # [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or
+    # [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify &
+    # parse in a single call, use `parse_event_notification` instead.
+    def parse_event_notification_without_verification(payload)
+      build_event_notification(Webhook.send(:_maybe_extract_from_cloud_provider_envelope, payload))
     end
 
-    def parse_event_notification_from_cloud_provider(payload)
-      build_event_notification(extract_from_cloud_provider_envelope(payload))
-    end
-
-    private def build_event_notification(payload_or_obj)
-      parsed = if payload_or_obj.is_a?(String)
-                 JSON.parse(payload_or_obj, symbolize_names: true)
+    private def build_event_notification(payload)
+      parsed = if payload.is_a?(String)
+                 JSON.parse(payload, symbolize_names: true)
                else
-                 payload_or_obj
+                 payload
                end
 
       if parsed[:object] == "event"
@@ -91,31 +97,6 @@ module Stripe
       cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
 
       cls.new(parsed, self)
-    end
-
-    private def extract_from_cloud_provider_envelope(payload)
-      payload = payload.encode("utf-8") if payload.respond_to?(:encode)
-      data = JSON.parse(payload, symbolize_names: true)
-
-      # Could add as many checks as we want here, but we'll start simple
-      if data.key?(:detail)
-        # AWS
-        # https://docs.stripe.com/event-destinations/eventbridge#event-structure
-        data[:detail]
-      elsif data.key?(:specversion)
-        # Azure
-        # https://docs.stripe.com/event-destinations/eventgrid#event-structure
-        data[:data]
-      elsif data[:id].is_a?(String) && data[:id].start_with?("evt_")
-        raise ArgumentError,
-              "It looks like you passed a Stripe Event directly. " \
-              "Use construct_event instead to parse a webhook payload " \
-              "with signature verification."
-      else
-        raise ArgumentError,
-              "Unrecognized cloud event format. The payload must be an " \
-              "AWS EventBridge or Azure Event Grid event envelope."
-      end
     end
 
     def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)

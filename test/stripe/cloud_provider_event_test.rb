@@ -90,58 +90,45 @@ class CloudProviderEventTest < Test::Unit::TestCase
     },
   })
 
+  RAW_V1_EVENT_PAYLOAD = JSON.generate({
+    "id" => "evt_test_123",
+    "object" => "event",
+    "api_version" => "2023-10-16",
+    "created" => 1_709_836_076,
+    "data" => { "object" => { "id" => "cus_123", "object" => "customer" } },
+    "livemode" => true,
+    "pending_webhooks" => 0,
+    "request" => { "id" => "req_123", "idempotency_key" => nil },
+    "type" => "customer.created",
+  })
+
+  RAW_V2_EVENT_PAYLOAD = JSON.generate({
+    "id" => "evt_234",
+    "object" => "v2.core.event",
+    "type" => "v1.billing.meter.error_report_triggered",
+    "created" => "2022-02-15T00:27:45.330Z",
+    "related_object" => {
+      "id" => "mtr_123",
+      "type" => "billing.meter",
+      "url" => "/v1/billing/meters/mtr_123",
+    },
+  })
+
   def setup
     @client = Stripe::StripeClient.new("sk_test_fake")
   end
 
-  # construct_event_from_cloud_provider tests
-
-  def test_eventbridge
-    event = @client.construct_event_from_cloud_provider(EVENTBRIDGE_V1_PAYLOAD)
-    assert_instance_of Stripe::Event, event
-    assert_equal "evt_test_123", event.id
-    assert_equal "customer.created", event.type
-  end
-
-  def test_event_grid
-    event = @client.construct_event_from_cloud_provider(EVENTGRID_V1_PAYLOAD)
-    assert_instance_of Stripe::Event, event
-    assert_equal "evt_test_456", event.id
-    assert_equal "customer.created", event.type
-  end
-
-  def test_invalid_json
-    assert_raises(JSON::ParserError) do
-      @client.construct_event_from_cloud_provider("not valid json")
-    end
-  end
-
-  def test_raw_event_suggests_construct_event
-    raw_event = '{"id":"evt_test_123","object":"event","type":"customer.created"}'
-    error = assert_raises(ArgumentError) do
-      @client.construct_event_from_cloud_provider(raw_event)
-    end
-    assert_match(/construct_event/, error.message)
-  end
-
-  def test_unrecognized_format
-    error = assert_raises(ArgumentError) do
-      @client.construct_event_from_cloud_provider('{"foo":"bar"}')
-    end
-    assert_match(/Unrecognized cloud event format/, error.message)
-  end
-
-  # parse_event_notification_from_cloud_provider tests
+  # parse_event_notification_without_verification tests
 
   def test_parse_notification_from_eventbridge
-    notification = @client.parse_event_notification_from_cloud_provider(EVENTBRIDGE_V2_PAYLOAD)
+    notification = @client.parse_event_notification_without_verification(EVENTBRIDGE_V2_PAYLOAD)
     assert_instance_of Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification, notification
     assert_equal "evt_234", notification.id
     assert_equal "v1.billing.meter.error_report_triggered", notification.type
   end
 
   def test_parse_notification_from_event_grid
-    notification = @client.parse_event_notification_from_cloud_provider(EVENTGRID_V2_PAYLOAD)
+    notification = @client.parse_event_notification_without_verification(EVENTGRID_V2_PAYLOAD)
     assert_instance_of Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification, notification
     assert_equal "evt_234", notification.id
     assert_equal "v1.billing.meter.error_report_triggered", notification.type
@@ -149,8 +136,42 @@ class CloudProviderEventTest < Test::Unit::TestCase
 
   def test_parse_notification_raises_when_cloud_event_contains_v1_event
     error = assert_raises(ArgumentError) do
-      @client.parse_event_notification_from_cloud_provider(EVENTBRIDGE_V1_PAYLOAD)
+      @client.parse_event_notification_without_verification(EVENTBRIDGE_V1_PAYLOAD)
     end
     assert_match(/construct_event/, error.message)
+  end
+
+  def test_parse_notification_invalid_json
+    assert_raises(JSON::ParserError) do
+      @client.parse_event_notification_without_verification("not valid json")
+    end
+  end
+
+  def test_parse_notification_unrecognized_format
+    error = assert_raises(ArgumentError) do
+      @client.parse_event_notification_without_verification('{"foo": "bar"}')
+    end
+    assert_match(/Unrecognized cloud event format/, error.message)
+  end
+
+  def test_parse_raw_v2_event_notification
+    notification = @client.parse_event_notification_without_verification(RAW_V2_EVENT_PAYLOAD)
+    assert_instance_of Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification, notification
+    assert_equal "evt_234", notification.id
+    assert_equal "v1.billing.meter.error_report_triggered", notification.type
+  end
+
+  def test_construct_event_without_verification_via_webhook_module
+    event = Stripe::Webhook.construct_event_without_verification(EVENTBRIDGE_V1_PAYLOAD)
+    assert_instance_of Stripe::Event, event
+    assert_equal "evt_test_123", event.id
+    assert_equal "customer.created", event.type
+  end
+
+  def test_construct_event_via_webhook_module_rejects_v2_thin_event
+    error = assert_raises(ArgumentError) do
+      Stripe::Webhook.construct_event_without_verification(RAW_V2_EVENT_PAYLOAD)
+    end
+    assert_match(/thin event notification/, error.message)
   end
 end

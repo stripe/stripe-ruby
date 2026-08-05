@@ -369,10 +369,10 @@ module Stripe
             sig { returns(Integer) }
             def exp_year; end
             # First six digits of the card number.
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def first6; end
             # Last four digits of the card number.
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def last4; end
             def self.inner_class_types
               @inner_class_types = {}

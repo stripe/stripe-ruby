@@ -614,10 +614,17 @@ module Stripe
           params(_shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData))
          }
         def shipping_rate_data=(_shipping_rate_data); end
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+        def tax_rates; end
         sig {
-          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).void
+          params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
-        def initialize(shipping_rate: nil, shipping_rate_data: nil); end
+        def tax_rates=(_tax_rates); end
+        sig {
+          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+         }
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil); end
       end
       class SubscriptionData < ::Stripe::RequestParams
         class InvoiceSettings < ::Stripe::RequestParams

@@ -884,6 +884,9 @@ module Stripe
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
+        # The retrieval reference number assigned to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
         # Attribute for field wallet
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
@@ -1849,6 +1852,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # The Sequra transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2225,6 +2239,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -2330,6 +2347,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,

@@ -1224,7 +1224,7 @@ module Stripe
         params(_applies_to: T.nilable(::Stripe::QuoteCreateParams::Line::AppliesTo)).returns(T.nilable(::Stripe::QuoteCreateParams::Line::AppliesTo))
        }
       def applies_to=(_applies_to); end
-      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp. For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }

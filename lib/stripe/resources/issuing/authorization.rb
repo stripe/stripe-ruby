@@ -526,7 +526,7 @@ module Stripe
         attr_reader :purchase_type
         # Total FSA/HSA-eligible amount in the smallest currency unit.
         attr_reader :total_qualified_amount
-        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified. Defaults to not_verified when the network does not provide IIAS status.
         attr_reader :verification_status
         # Vision/optical sub-amount. Null if the merchant did not include this amount.
         attr_reader :vision_amount

@@ -261,7 +261,7 @@ module Stripe
               @value = value
             end
           end
-          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
@@ -687,9 +687,9 @@ module Stripe
                 @field_encodings = { unit_amount_decimal: :decimal_string }
               end
             end
-            # The ID of the price for this subscription item.
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
             attr_accessor :price
-            # Data used to generate a new Price object inline.
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
             attr_accessor :price_data
             # Quantity for this item.
             attr_accessor :quantity
@@ -2762,10 +2762,13 @@ module Stripe
         attr_accessor :shipping_rate
         # Parameters to be passed to Shipping Rate creation for this shipping option.
         attr_accessor :shipping_rate_data
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        attr_accessor :tax_rates
 
-        def initialize(shipping_rate: nil, shipping_rate_data: nil)
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil)
           @shipping_rate = shipping_rate
           @shipping_rate_data = shipping_rate_data
+          @tax_rates = tax_rates
         end
       end
 

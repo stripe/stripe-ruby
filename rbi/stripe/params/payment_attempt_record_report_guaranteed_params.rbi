@@ -103,6 +103,11 @@ module Stripe
     def guaranteed_at; end
     sig { params(_guaranteed_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def guaranteed_at=(_guaranteed_at); end
+    # Set to `true` to enable writing an anomalous guaranteed payment to an outdated PaymentAttemptRecord. This parameter defaults to `false`.
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_anomalous; end
+    sig { params(_is_anomalous: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def is_anomalous=(_is_anomalous); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -136,11 +141,12 @@ module Stripe
      }
     def processor_details=(_processor_details); end
     sig {
-      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
+      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), is_anomalous: T.nilable(T::Boolean), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
      }
     def initialize(
       expand: nil,
       guaranteed_at: nil,
+      is_anomalous: nil,
       metadata: nil,
       payment_evaluations: nil,
       payment_method_details: nil,

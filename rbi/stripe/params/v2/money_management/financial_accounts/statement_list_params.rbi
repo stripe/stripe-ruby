@@ -17,8 +17,15 @@ module Stripe
           def order_by; end
           sig { params(_order_by: T.nilable(String)).returns(T.nilable(String)) }
           def order_by=(_order_by); end
-          sig { params(limit: T.nilable(Integer), order_by: T.nilable(String)).void }
-          def initialize(limit: nil, order_by: nil); end
+          # Filter results by status. If omitted, statements of all statuses are returned.
+          sig { returns(T.nilable(String)) }
+          def status; end
+          sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+          def status=(_status); end
+          sig {
+            params(limit: T.nilable(Integer), order_by: T.nilable(String), status: T.nilable(String)).void
+           }
+          def initialize(limit: nil, order_by: nil, status: nil); end
         end
       end
     end

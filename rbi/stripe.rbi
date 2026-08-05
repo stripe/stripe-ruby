@@ -915,6 +915,43 @@ module Stripe
 end
 # typed: true
 module Stripe
+  module Billing
+    # A resource for the feedback options model (for custom cancellation reasons)
+    class FeedbackOptions < APIResource
+      class StatusTransitions < ::Stripe::StripeObject
+        # The time the feedback option was deactivated, if any. Measured in seconds since Unix epoch.
+        sig { returns(T.nilable(Integer)) }
+        def deactivated_at; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # An arbitrary string attached to the object. Often useful for displaying to users.
+      sig { returns(String) }
+      def description; end
+      # Unique identifier for the object.
+      sig { returns(String) }
+      def id; end
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      sig { returns(T::Boolean) }
+      def livemode; end
+      # String representing the object's type. Objects of the same type share the same value.
+      sig { returns(String) }
+      def object; end
+      # The feedback option's status.
+      sig { returns(String) }
+      def status; end
+      # Attribute for field status_transitions
+      sig { returns(StatusTransitions) }
+      def status_transitions; end
+    end
+  end
+end
+# typed: true
+module Stripe
   module Treasury
     # Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
     # Stripe or the platform can control Features via the requested field.
@@ -3079,7 +3116,7 @@ module Stripe
     # Details to identify the subscription schedule the quote line applies to.
     sig { returns(T.nilable(AppliesTo)) }
     def applies_to; end
-    # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+    # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp. For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
     sig { returns(T.nilable(String)) }
     def billing_cycle_anchor; end
     # A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
@@ -4997,6 +5034,9 @@ module Stripe
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       sig { returns(T.nilable(String)) }
       def sepa_debit_payments; end
+      # The status of the Sequra capability of the account, or whether the account can directly process Sequra payments.
+      sig { returns(T.nilable(String)) }
+      def sequra_payments; end
       # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
       sig { returns(T.nilable(String)) }
       def shopeepay_payments; end
@@ -9876,6 +9916,9 @@ module Stripe
             # Whether the feature is enabled.
             sig { returns(T::Boolean) }
             def enabled; end
+            # The IDs of custom feedback options configured for this cancellation reason.
+            sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Billing::FeedbackOptions)])) }
+            def feedback_options; end
             # Which cancellation reasons will be given as options to the customer.
             sig { returns(T::Array[String]) }
             def options; end
@@ -10527,7 +10570,7 @@ module Stripe
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
       # repayment start date, and advance payout date.
       #
-      # Only present for financing offers with the `paid_out` status.
+      # Only present for financing offers with a `status` other than `none`.
       sig { returns(T.nilable(Details)) }
       def details; end
       # The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
@@ -11894,6 +11937,9 @@ module Stripe
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
+        # The retrieval reference number assigned to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
         # Attribute for field wallet
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
@@ -12353,6 +12399,9 @@ module Stripe
         # You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The pricing bundle applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if bundle lookup failed at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def pricing_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -12858,6 +12907,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # The Sequra transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -13225,6 +13285,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -13328,6 +13391,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,
@@ -15112,6 +15176,9 @@ module Stripe
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def funding_types_blocked; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -15789,6 +15856,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -16111,6 +16189,9 @@ module Stripe
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
+        # Attribute for field sequra
+        sig { returns(T.nilable(Sequra)) }
+        def sequra; end
         # Attribute for field sofort
         sig { returns(T.nilable(Sofort)) }
         def sofort; end
@@ -16174,6 +16255,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,
@@ -16351,6 +16433,9 @@ module Stripe
         # The shipping rate.
         sig { returns(T.any(String, ::Stripe::ShippingRate)) }
         def shipping_rate; end
+        # The tax rates applied to this shipping option.
+        sig { returns(T.nilable(T::Array[String])) }
+        def tax_rates; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -17692,6 +17777,9 @@ module Stripe
               # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
               sig { returns(T.nilable(Receipt)) }
               def receipt; end
+              # The retrieval reference number assigned to this transaction.
+              sig { returns(T.nilable(String)) }
+              def retrieval_reference_number; end
               # Attribute for field wallet
               sig { returns(T.nilable(Wallet)) }
               def wallet; end
@@ -18726,6 +18814,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -19074,6 +19170,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -19170,6 +19269,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,
@@ -19492,7 +19592,7 @@ module Stripe
     # Number of times this coupon has been applied to a customer.
     sig { returns(Integer) }
     def times_redeemed; end
-    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    # The type of coupon logic used to calculate the discount.
     sig { returns(T.nilable(String)) }
     def type; end
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
@@ -28990,7 +29090,7 @@ module Stripe
         # Total FSA/HSA-eligible amount in the smallest currency unit.
         sig { returns(T.nilable(Integer)) }
         def total_qualified_amount; end
-        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified.
+        # IIAS verification status from the merchant terminal. For Visa, this value will always be iias_verified. Defaults to not_verified when the network does not provide IIAS status.
         sig { returns(T.nilable(String)) }
         def verification_status; end
         # Vision/optical sub-amount. Null if the merchant did not include this amount.
@@ -34670,6 +34770,9 @@ module Stripe
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
+        # The retrieval reference number assigned to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
         # Attribute for field wallet
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
@@ -35635,6 +35738,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # The Sequra transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -36011,6 +36125,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -36116,6 +36233,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,
@@ -40312,6 +40430,29 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class AadeData < ::Stripe::StripeObject
+          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def mark_data; end
+          # The e-invoicing mode under which the mark was generated.
+          sig { returns(String) }
+          def mode; end
+          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          sig { returns(T.nilable(Integer)) }
+          def provider_id; end
+          # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def signed_mark; end
+          # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
+          sig { returns(T.nilable(String)) }
+          def unbound_pos; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class CaptureDelay < ::Stripe::StripeObject
           # The number of days to delay the capture of the funds.
           #
@@ -40341,6 +40482,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field aade_data
+        sig { returns(T.nilable(AadeData)) }
+        def aade_data; end
         # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
         #
         # If omitted, funds are captured before the authorization expires.
@@ -40368,7 +40512,7 @@ module Stripe
         sig { returns(T.nilable(Routing)) }
         def routing; end
         def self.inner_class_types
-          @inner_class_types = {capture_delay: CaptureDelay, routing: Routing}
+          @inner_class_types = {aade_data: AadeData, capture_delay: CaptureDelay, routing: Routing}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -41312,6 +41456,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -41809,6 +41964,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -41898,6 +42056,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,
@@ -46720,6 +46879,9 @@ module Stripe
             # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             sig { returns(T.nilable(Receipt)) }
             def receipt; end
+            # The retrieval reference number assigned to this transaction.
+            sig { returns(T.nilable(String)) }
+            def retrieval_reference_number; end
             # Attribute for field wallet
             sig { returns(T.nilable(Wallet)) }
             def wallet; end
@@ -49194,6 +49356,9 @@ module Stripe
         # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
         sig { returns(T.nilable(Receipt)) }
         def receipt; end
+        # The retrieval reference number assigned to this transaction.
+        sig { returns(T.nilable(String)) }
+        def retrieval_reference_number; end
         # Attribute for field wallet
         sig { returns(T.nilable(Wallet)) }
         def wallet; end
@@ -50159,6 +50324,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # The Sequra transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -50535,6 +50711,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -50640,6 +50819,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,
@@ -57023,10 +57203,10 @@ module Stripe
             sig { returns(Integer) }
             def exp_year; end
             # First six digits of the card number.
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def first6; end
             # Last four digits of the card number.
-            sig { returns(T.nilable(String)) }
+            sig { returns(String) }
             def last4; end
             def self.inner_class_types
               @inner_class_types = {}
@@ -64300,6 +64480,9 @@ module Stripe
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
       sig { returns(T.nilable(String)) }
       def feedback; end
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      sig { returns(T.nilable(T.any(String, ::Stripe::Billing::FeedbackOptions))) }
+      def feedback_option; end
       # Why this subscription was canceled.
       sig { returns(T.nilable(String)) }
       def reason; end
@@ -65281,7 +65464,7 @@ module Stripe
     # When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
     # To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
     #
-    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
     #
     # Switching prices does not normally change the billing date or generate an immediate charge unless:
     #
@@ -107253,6 +107436,9 @@ module Stripe
         # The “presentment amount” to be collected from the customer.
         sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
+        # The application associated with this OffSessionPayment.
+        sig { returns(T.nilable(String)) }
+        def application; end
         # The amount of the application fee requested to be applied to the payment.
         sig { returns(T.nilable(::Stripe::V2::Amount)) }
         def application_fee_amount_requested; end
@@ -113624,7 +113810,7 @@ module Stripe
     # When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
     # To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
     #
-    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
     #
     # Switching prices does not normally change the billing date or generate an immediate charge unless:
     #
@@ -122145,7 +122331,7 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji)).returns(T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
-      # Attribute for param field administrative_address
+      # The location where the business is administered.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress)) }
       def administrative_address; end
       sig {
@@ -122218,7 +122404,7 @@ module Stripe
       def phone; end
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
-      # Attribute for param field principal_place_of_business
+      # The primary location where the business conducts operations.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness)) }
       def principal_place_of_business; end
       sig {
@@ -126030,7 +126216,7 @@ module Stripe
         params(_address_kanji: T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji)).returns(T.nilable(::Stripe::AccountCreateParams::Company::AddressKanji))
        }
       def address_kanji=(_address_kanji); end
-      # Attribute for param field administrative_address
+      # The location where the business is administered.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Company::AdministrativeAddress)) }
       def administrative_address; end
       sig {
@@ -126103,7 +126289,7 @@ module Stripe
       def phone; end
       sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
       def phone=(_phone); end
-      # Attribute for param field principal_place_of_business
+      # The primary location where the business conducts operations.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Company::PrincipalPlaceOfBusiness)) }
       def principal_place_of_business; end
       sig {
@@ -137816,7 +138002,7 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
-          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -138466,12 +138652,12 @@ module Stripe
                 @field_encodings = {unit_amount_decimal: :decimal_string}
               end
             end
-            # The ID of the price for this subscription item.
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
             sig { returns(T.nilable(String)) }
             def price; end
             sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
             def price=(_price); end
-            # Data used to generate a new Price object inline.
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
             sig {
               returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData))
              }
@@ -141550,10 +141736,15 @@ module Stripe
           params(_shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData))
          }
         def shipping_rate_data=(_shipping_rate_data); end
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        sig { returns(T.nilable(T::Array[String])) }
+        def tax_rates; end
+        sig { params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def tax_rates=(_tax_rates); end
         sig {
-          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData)).void
+          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData), tax_rates: T.nilable(T::Array[String])).void
          }
-        def initialize(shipping_rate: nil, shipping_rate_data: nil); end
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil); end
       end
       class SubscriptionData < ::Stripe::RequestParams
         class BillingCycleAnchorConfig < ::Stripe::RequestParams
@@ -142998,10 +143189,17 @@ module Stripe
           params(_shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData))
          }
         def shipping_rate_data=(_shipping_rate_data); end
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+        def tax_rates; end
         sig {
-          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData)).void
+          params(_tax_rates: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
          }
-        def initialize(shipping_rate: nil, shipping_rate_data: nil); end
+        def tax_rates=(_tax_rates); end
+        sig {
+          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionUpdateParams::ShippingOption::ShippingRateData), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+         }
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil); end
       end
       class SubscriptionData < ::Stripe::RequestParams
         class InvoiceSettings < ::Stripe::RequestParams
@@ -157957,7 +158155,7 @@ module Stripe
           params(_amendment_start: ::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart).returns(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::Amendment::AmendmentStart)
          }
         def amendment_start=(_amendment_start); end
-        # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+        # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp. For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
         sig { returns(T.nilable(String)) }
         def billing_cycle_anchor; end
         sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -161194,6 +161392,61 @@ module Stripe
           @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
         end
       end
+      class Healthcare < ::Stripe::RequestParams
+        # Clinic and urgent care sub-amount for Visa only.
+        sig { returns(T.nilable(Integer)) }
+        def clinic_amount; end
+        sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def clinic_amount=(_clinic_amount); end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # Dental care sub-amount for Visa only.
+        sig { returns(T.nilable(Integer)) }
+        def dental_amount; end
+        sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def dental_amount=(_dental_amount); end
+        # Prescription drug sub-amount. Null if the merchant did not send this amount.
+        sig { returns(T.nilable(Integer)) }
+        def prescription_amount; end
+        sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def prescription_amount=(_prescription_amount); end
+        # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        sig { returns(T.nilable(String)) }
+        def purchase_type; end
+        sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+        def purchase_type=(_purchase_type); end
+        # Total FSA/HSA-eligible amount in the smallest currency unit.
+        sig { returns(Integer) }
+        def total_qualified_amount; end
+        sig { params(_total_qualified_amount: Integer).returns(Integer) }
+        def total_qualified_amount=(_total_qualified_amount); end
+        # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+        sig { returns(String) }
+        def verification_status; end
+        sig { params(_verification_status: String).returns(String) }
+        def verification_status=(_verification_status); end
+        # Vision/optical sub-amount. Null if the merchant did not send this amount.
+        sig { returns(T.nilable(Integer)) }
+        def vision_amount; end
+        sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def vision_amount=(_vision_amount); end
+        sig {
+          params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+         }
+        def initialize(
+          clinic_amount: nil,
+          currency: nil,
+          dental_amount: nil,
+          prescription_amount: nil,
+          purchase_type: nil,
+          total_qualified_amount: nil,
+          verification_status: nil,
+          vision_amount: nil
+        ); end
+      end
       class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(T.nilable(String)) }
@@ -161495,6 +161748,13 @@ module Stripe
         params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel))
        }
       def fuel=(_fuel); end
+      # Healthcare-specific information for IIAS-eligible authorizations.
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare)) }
+      def healthcare; end
+      sig {
+        params(_healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare))
+       }
+      def healthcare=(_healthcare); end
       # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
       sig { returns(T.nilable(T::Boolean)) }
       def is_amount_controllable; end
@@ -161544,7 +161804,7 @@ module Stripe
       sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
       def wallet=(_wallet); end
       sig {
-        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -161556,6 +161816,7 @@ module Stripe
         fleet: nil,
         fraud_disputability_likelihood: nil,
         fuel: nil,
+        healthcare: nil,
         is_amount_controllable: nil,
         merchant_amount: nil,
         merchant_currency: nil,
@@ -161930,6 +162191,61 @@ module Stripe
             }
           end
         end
+        class Healthcare < ::Stripe::RequestParams
+          # Clinic and urgent care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def clinic_amount; end
+          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def clinic_amount=(_clinic_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Dental care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def dental_amount; end
+          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def dental_amount=(_dental_amount); end
+          # Prescription drug sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def prescription_amount; end
+          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def prescription_amount=(_prescription_amount); end
+          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+          sig { returns(T.nilable(String)) }
+          def purchase_type; end
+          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+          def purchase_type=(_purchase_type); end
+          # Total FSA/HSA-eligible amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def total_qualified_amount; end
+          sig { params(_total_qualified_amount: Integer).returns(Integer) }
+          def total_qualified_amount=(_total_qualified_amount); end
+          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+          sig { returns(String) }
+          def verification_status; end
+          sig { params(_verification_status: String).returns(String) }
+          def verification_status=(_verification_status); end
+          # Vision/optical sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def vision_amount; end
+          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def vision_amount=(_vision_amount); end
+          sig {
+            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+           }
+          def initialize(
+            clinic_amount: nil,
+            currency: nil,
+            dental_amount: nil,
+            prescription_amount: nil,
+            purchase_type: nil,
+            total_qualified_amount: nil,
+            verification_status: nil,
+            vision_amount: nil
+          ); end
+        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -162000,6 +162316,15 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
+        # Healthcare sub-amounts for IIAS-eligible transactions.
+        sig {
+          returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare; end
+        sig {
+          params(_healthcare: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging))
@@ -162024,12 +162349,13 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
+          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -167441,6 +167767,61 @@ module Stripe
             }
           end
         end
+        class Healthcare < ::Stripe::RequestParams
+          # Clinic and urgent care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def clinic_amount; end
+          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def clinic_amount=(_clinic_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Dental care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def dental_amount; end
+          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def dental_amount=(_dental_amount); end
+          # Prescription drug sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def prescription_amount; end
+          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def prescription_amount=(_prescription_amount); end
+          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+          sig { returns(T.nilable(String)) }
+          def purchase_type; end
+          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+          def purchase_type=(_purchase_type); end
+          # Total FSA/HSA-eligible amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def total_qualified_amount; end
+          sig { params(_total_qualified_amount: Integer).returns(Integer) }
+          def total_qualified_amount=(_total_qualified_amount); end
+          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+          sig { returns(String) }
+          def verification_status; end
+          sig { params(_verification_status: String).returns(String) }
+          def verification_status=(_verification_status); end
+          # Vision/optical sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def vision_amount; end
+          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def vision_amount=(_vision_amount); end
+          sig {
+            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+           }
+          def initialize(
+            clinic_amount: nil,
+            currency: nil,
+            dental_amount: nil,
+            prescription_amount: nil,
+            purchase_type: nil,
+            total_qualified_amount: nil,
+            verification_status: nil,
+            vision_amount: nil
+          ); end
+        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -167511,6 +167892,15 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
+        # Healthcare sub-amounts for IIAS-eligible transactions.
+        sig {
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare; end
+        sig {
+          params(_healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -167535,12 +167925,13 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
+          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -168071,6 +168462,61 @@ module Stripe
             }
           end
         end
+        class Healthcare < ::Stripe::RequestParams
+          # Clinic and urgent care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def clinic_amount; end
+          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def clinic_amount=(_clinic_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Dental care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def dental_amount; end
+          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def dental_amount=(_dental_amount); end
+          # Prescription drug sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def prescription_amount; end
+          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def prescription_amount=(_prescription_amount); end
+          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+          sig { returns(T.nilable(String)) }
+          def purchase_type; end
+          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+          def purchase_type=(_purchase_type); end
+          # Total FSA/HSA-eligible amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def total_qualified_amount; end
+          sig { params(_total_qualified_amount: Integer).returns(Integer) }
+          def total_qualified_amount=(_total_qualified_amount); end
+          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+          sig { returns(String) }
+          def verification_status; end
+          sig { params(_verification_status: String).returns(String) }
+          def verification_status=(_verification_status); end
+          # Vision/optical sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def vision_amount; end
+          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def vision_amount=(_vision_amount); end
+          sig {
+            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+           }
+          def initialize(
+            clinic_amount: nil,
+            currency: nil,
+            dental_amount: nil,
+            prescription_amount: nil,
+            purchase_type: nil,
+            total_qualified_amount: nil,
+            verification_status: nil,
+            vision_amount: nil
+          ); end
+        end
         class Lodging < ::Stripe::RequestParams
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -168141,6 +168587,15 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel))
          }
         def fuel=(_fuel); end
+        # Healthcare sub-amounts for IIAS-eligible transactions.
+        sig {
+          returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare; end
+        sig {
+          params(_healthcare: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
+         }
+        def healthcare=(_healthcare); end
         # Information about lodging that was purchased with this transaction.
         sig {
           returns(T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging))
@@ -168165,12 +168620,13 @@ module Stripe
         sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
         def reference=(_reference); end
         sig {
-          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+          params(fleet: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
          }
         def initialize(
           fleet: nil,
           flight: nil,
           fuel: nil,
+          healthcare: nil,
           lodging: nil,
           receipt: nil,
           reference: nil
@@ -175380,6 +175836,11 @@ module Stripe
     def guaranteed_at; end
     sig { params(_guaranteed_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def guaranteed_at=(_guaranteed_at); end
+    # Set to `true` to enable writing an anomalous guaranteed payment to an outdated PaymentAttemptRecord. This parameter defaults to `false`.
+    sig { returns(T.nilable(T::Boolean)) }
+    def is_anomalous; end
+    sig { params(_is_anomalous: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+    def is_anomalous=(_is_anomalous); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -175413,11 +175874,12 @@ module Stripe
      }
     def processor_details=(_processor_details); end
     sig {
-      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
+      params(expand: T.nilable(T::Array[String]), guaranteed_at: T.nilable(Integer), is_anomalous: T.nilable(T::Boolean), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::PaymentMethodDetails), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportGuaranteedParams::ProcessorDetails)).void
      }
     def initialize(
       expand: nil,
       guaranteed_at: nil,
+      is_anomalous: nil,
       metadata: nil,
       payment_evaluations: nil,
       payment_method_details: nil,
@@ -210964,7 +211426,7 @@ module Stripe
           sig { params(label: String, value: String).void }
           def initialize(label: nil, value: nil); end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         sig { returns(T.nilable(String)) }
         def default_value; end
         sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -212298,7 +212760,7 @@ module Stripe
           sig { params(label: String, value: String).void }
           def initialize(label: nil, value: nil); end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         sig { returns(T.nilable(String)) }
         def default_value; end
         sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -225554,7 +226016,7 @@ module Stripe
         params(_applies_to: T.nilable(::Stripe::QuoteCreateParams::Line::AppliesTo)).returns(T.nilable(::Stripe::QuoteCreateParams::Line::AppliesTo))
        }
       def applies_to=(_applies_to); end
-      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp. For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -228031,7 +228493,7 @@ module Stripe
         params(_applies_to: T.nilable(::Stripe::QuoteUpdateParams::Line::AppliesTo)).returns(T.nilable(::Stripe::QuoteUpdateParams::Line::AppliesTo))
        }
       def applies_to=(_applies_to); end
-      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
+      # For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp. For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -245881,7 +246343,7 @@ module Stripe
         params(_amendment_start: ::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart).returns(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart)
        }
       def amendment_start=(_amendment_start); end
-      # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+      # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp. For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
@@ -259385,7 +259847,7 @@ module Stripe
           params(_address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji))
          }
         def address_kanji=(_address_kanji); end
-        # Attribute for param field administrative_address
+        # The location where the business is administered.
         sig {
           returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress))
          }
@@ -259471,7 +259933,7 @@ module Stripe
         def phone; end
         sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
         def phone=(_phone); end
-        # Attribute for param field principal_place_of_business
+        # The primary location where the business conducts operations.
         sig {
           returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness))
          }
@@ -272795,6 +273257,61 @@ module Stripe
             }
           end
         end
+        class Healthcare < ::Stripe::RequestParams
+          # Clinic and urgent care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def clinic_amount; end
+          sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def clinic_amount=(_clinic_amount); end
+          # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+          sig { returns(String) }
+          def currency; end
+          sig { params(_currency: String).returns(String) }
+          def currency=(_currency); end
+          # Dental care sub-amount for Visa only.
+          sig { returns(T.nilable(Integer)) }
+          def dental_amount; end
+          sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def dental_amount=(_dental_amount); end
+          # Prescription drug sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def prescription_amount; end
+          sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def prescription_amount=(_prescription_amount); end
+          # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+          sig { returns(T.nilable(String)) }
+          def purchase_type; end
+          sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+          def purchase_type=(_purchase_type); end
+          # Total FSA/HSA-eligible amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def total_qualified_amount; end
+          sig { params(_total_qualified_amount: Integer).returns(Integer) }
+          def total_qualified_amount=(_total_qualified_amount); end
+          # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+          sig { returns(String) }
+          def verification_status; end
+          sig { params(_verification_status: String).returns(String) }
+          def verification_status=(_verification_status); end
+          # Vision/optical sub-amount. Null if the merchant did not send this amount.
+          sig { returns(T.nilable(Integer)) }
+          def vision_amount; end
+          sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def vision_amount=(_vision_amount); end
+          sig {
+            params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+           }
+          def initialize(
+            clinic_amount: nil,
+            currency: nil,
+            dental_amount: nil,
+            prescription_amount: nil,
+            purchase_type: nil,
+            total_qualified_amount: nil,
+            verification_status: nil,
+            vision_amount: nil
+          ); end
+        end
         class MerchantData < ::Stripe::RequestParams
           # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
           sig { returns(T.nilable(String)) }
@@ -273100,6 +273617,15 @@ module Stripe
           params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel))
          }
         def fuel=(_fuel); end
+        # Healthcare-specific information for IIAS-eligible authorizations.
+        sig {
+          returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare))
+         }
+        def healthcare; end
+        sig {
+          params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare))
+         }
+        def healthcare=(_healthcare); end
         # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         sig { returns(T.nilable(T::Boolean)) }
         def is_amount_controllable; end
@@ -273159,7 +273685,7 @@ module Stripe
         sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
         def wallet=(_wallet); end
         sig {
-          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -273171,6 +273697,7 @@ module Stripe
           fleet: nil,
           fraud_disputability_likelihood: nil,
           fuel: nil,
+          healthcare: nil,
           is_amount_controllable: nil,
           merchant_amount: nil,
           merchant_currency: nil,
@@ -273549,6 +274076,61 @@ module Stripe
               }
             end
           end
+          class Healthcare < ::Stripe::RequestParams
+            # Clinic and urgent care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def clinic_amount; end
+            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def clinic_amount=(_clinic_amount); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Dental care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def dental_amount; end
+            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def dental_amount=(_dental_amount); end
+            # Prescription drug sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def prescription_amount; end
+            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def prescription_amount=(_prescription_amount); end
+            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+            sig { returns(T.nilable(String)) }
+            def purchase_type; end
+            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+            def purchase_type=(_purchase_type); end
+            # Total FSA/HSA-eligible amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def total_qualified_amount; end
+            sig { params(_total_qualified_amount: Integer).returns(Integer) }
+            def total_qualified_amount=(_total_qualified_amount); end
+            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+            sig { returns(String) }
+            def verification_status; end
+            sig { params(_verification_status: String).returns(String) }
+            def verification_status=(_verification_status); end
+            # Vision/optical sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def vision_amount; end
+            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def vision_amount=(_vision_amount); end
+            sig {
+              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+             }
+            def initialize(
+              clinic_amount: nil,
+              currency: nil,
+              dental_amount: nil,
+              prescription_amount: nil,
+              purchase_type: nil,
+              total_qualified_amount: nil,
+              verification_status: nil,
+              vision_amount: nil
+            ); end
+          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -273619,6 +274201,15 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
+          # Healthcare sub-amounts for IIAS-eligible transactions.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare; end
+          sig {
+            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging))
@@ -273643,12 +274234,13 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
+            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -274909,6 +275501,61 @@ module Stripe
               }
             end
           end
+          class Healthcare < ::Stripe::RequestParams
+            # Clinic and urgent care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def clinic_amount; end
+            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def clinic_amount=(_clinic_amount); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Dental care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def dental_amount; end
+            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def dental_amount=(_dental_amount); end
+            # Prescription drug sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def prescription_amount; end
+            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def prescription_amount=(_prescription_amount); end
+            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+            sig { returns(T.nilable(String)) }
+            def purchase_type; end
+            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+            def purchase_type=(_purchase_type); end
+            # Total FSA/HSA-eligible amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def total_qualified_amount; end
+            sig { params(_total_qualified_amount: Integer).returns(Integer) }
+            def total_qualified_amount=(_total_qualified_amount); end
+            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+            sig { returns(String) }
+            def verification_status; end
+            sig { params(_verification_status: String).returns(String) }
+            def verification_status=(_verification_status); end
+            # Vision/optical sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def vision_amount; end
+            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def vision_amount=(_vision_amount); end
+            sig {
+              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+             }
+            def initialize(
+              clinic_amount: nil,
+              currency: nil,
+              dental_amount: nil,
+              prescription_amount: nil,
+              purchase_type: nil,
+              total_qualified_amount: nil,
+              verification_status: nil,
+              vision_amount: nil
+            ); end
+          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -274979,6 +275626,15 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
+          # Healthcare sub-amounts for IIAS-eligible transactions.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare; end
+          sig {
+            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -275003,12 +275659,13 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
+            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -275546,6 +276203,61 @@ module Stripe
               }
             end
           end
+          class Healthcare < ::Stripe::RequestParams
+            # Clinic and urgent care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def clinic_amount; end
+            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def clinic_amount=(_clinic_amount); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Dental care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def dental_amount; end
+            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def dental_amount=(_dental_amount); end
+            # Prescription drug sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def prescription_amount; end
+            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def prescription_amount=(_prescription_amount); end
+            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+            sig { returns(T.nilable(String)) }
+            def purchase_type; end
+            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+            def purchase_type=(_purchase_type); end
+            # Total FSA/HSA-eligible amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def total_qualified_amount; end
+            sig { params(_total_qualified_amount: Integer).returns(Integer) }
+            def total_qualified_amount=(_total_qualified_amount); end
+            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+            sig { returns(String) }
+            def verification_status; end
+            sig { params(_verification_status: String).returns(String) }
+            def verification_status=(_verification_status); end
+            # Vision/optical sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def vision_amount; end
+            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def vision_amount=(_vision_amount); end
+            sig {
+              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+             }
+            def initialize(
+              clinic_amount: nil,
+              currency: nil,
+              dental_amount: nil,
+              prescription_amount: nil,
+              purchase_type: nil,
+              total_qualified_amount: nil,
+              verification_status: nil,
+              vision_amount: nil
+            ); end
+          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -275616,6 +276328,15 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
+          # Healthcare sub-amounts for IIAS-eligible transactions.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare; end
+          sig {
+            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging))
@@ -275640,12 +276361,13 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateUnlinkedRefundParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
+            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil
@@ -279762,10 +280484,12 @@ module Stripe
          }
         def metadata=(_metadata); end
         # A list of pricing lines to create with the contract.
-        sig { returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
+         }
         def pricing_lines; end
         sig {
-          params(_pricing_lines: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]).returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine])
+          params(_pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
          }
         def pricing_lines=(_pricing_lines); end
         # A list of pricing overrides to create with the contract.
@@ -279778,7 +280502,7 @@ module Stripe
          }
         def pricing_overrides=(_pricing_overrides); end
         sig {
-          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), pricing_lines: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine], pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
+          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]), pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -313741,8 +314465,15 @@ module Stripe
           def order_by; end
           sig { params(_order_by: T.nilable(String)).returns(T.nilable(String)) }
           def order_by=(_order_by); end
-          sig { params(limit: T.nilable(Integer), order_by: T.nilable(String)).void }
-          def initialize(limit: nil, order_by: nil); end
+          # Filter results by status. If omitted, statements of all statuses are returned.
+          sig { returns(T.nilable(String)) }
+          def status; end
+          sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+          def status=(_status); end
+          sig {
+            params(limit: T.nilable(Integer), order_by: T.nilable(String), status: T.nilable(String)).void
+           }
+          def initialize(limit: nil, order_by: nil, status: nil); end
         end
       end
     end

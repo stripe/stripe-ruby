@@ -413,6 +413,9 @@ module Stripe
             # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             sig { returns(T.nilable(Receipt)) }
             def receipt; end
+            # The retrieval reference number assigned to this transaction.
+            sig { returns(T.nilable(String)) }
+            def retrieval_reference_number; end
             # Attribute for field wallet
             sig { returns(T.nilable(Wallet)) }
             def wallet; end

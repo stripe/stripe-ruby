@@ -675,10 +675,12 @@ module Stripe
          }
         def metadata=(_metadata); end
         # A list of pricing lines to create with the contract.
-        sig { returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]) }
+        sig {
+          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
+         }
         def pricing_lines; end
         sig {
-          params(_pricing_lines: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]).returns(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine])
+          params(_pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
          }
         def pricing_lines=(_pricing_lines); end
         # A list of pricing overrides to create with the contract.
@@ -691,7 +693,7 @@ module Stripe
          }
         def pricing_overrides=(_pricing_overrides); end
         sig {
-          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), pricing_lines: T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine], pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
+          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]), pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
          }
         def initialize(
           billing_cycle_anchor: nil,

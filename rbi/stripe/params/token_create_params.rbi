@@ -365,7 +365,7 @@ module Stripe
           params(_address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji)).returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji))
          }
         def address_kanji=(_address_kanji); end
-        # Attribute for param field administrative_address
+        # The location where the business is administered.
         sig {
           returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress))
          }
@@ -451,7 +451,7 @@ module Stripe
         def phone; end
         sig { params(_phone: T.nilable(String)).returns(T.nilable(String)) }
         def phone=(_phone); end
-        # Attribute for param field principal_place_of_business
+        # The primary location where the business conducts operations.
         sig {
           returns(T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness))
          }

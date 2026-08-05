@@ -111,6 +111,7 @@ module Stripe
     autoload :CreditBalanceSummary, "stripe/resources/billing/credit_balance_summary"
     autoload :CreditBalanceTransaction, "stripe/resources/billing/credit_balance_transaction"
     autoload :CreditGrant, "stripe/resources/billing/credit_grant"
+    autoload :FeedbackOptions, "stripe/resources/billing/feedback_options"
     autoload :Meter, "stripe/resources/billing/meter"
     autoload :MeterEvent, "stripe/resources/billing/meter_event"
     autoload :MeterEventAdjustment, "stripe/resources/billing/meter_event_adjustment"
@@ -1662,6 +1663,7 @@ module Stripe
     stripe/resources/billing/credit_balance_summary
     stripe/resources/billing/credit_balance_transaction
     stripe/resources/billing/credit_grant
+    stripe/resources/billing/feedback_options
     stripe/resources/billing/meter
     stripe/resources/billing/meter_event
     stripe/resources/billing/meter_event_adjustment

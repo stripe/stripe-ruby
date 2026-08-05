@@ -404,6 +404,8 @@ module Stripe
             attr_reader :reauthorize_before
             # A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             attr_reader :receipt
+            # The retrieval reference number assigned to this transaction.
+            attr_reader :retrieval_reference_number
             # Attribute for field wallet
             attr_reader :wallet
 

@@ -394,10 +394,13 @@ module Stripe
         attr_accessor :shipping_rate
         # Parameters to be passed to Shipping Rate creation for this shipping option.
         attr_accessor :shipping_rate_data
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        attr_accessor :tax_rates
 
-        def initialize(shipping_rate: nil, shipping_rate_data: nil)
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil)
           @shipping_rate = shipping_rate
           @shipping_rate_data = shipping_rate_data
+          @tax_rates = tax_rates
         end
       end
 

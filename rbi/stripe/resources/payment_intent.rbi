@@ -3895,6 +3895,29 @@ module Stripe
         end
       end
       class CardPresent < ::Stripe::StripeObject
+        class AadeData < ::Stripe::StripeObject
+          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def mark_data; end
+          # The e-invoicing mode under which the mark was generated.
+          sig { returns(String) }
+          def mode; end
+          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          sig { returns(T.nilable(Integer)) }
+          def provider_id; end
+          # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+          sig { returns(T.nilable(String)) }
+          def signed_mark; end
+          # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
+          sig { returns(T.nilable(String)) }
+          def unbound_pos; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class CaptureDelay < ::Stripe::StripeObject
           # The number of days to delay the capture of the funds.
           #
@@ -3924,6 +3947,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Attribute for field aade_data
+        sig { returns(T.nilable(AadeData)) }
+        def aade_data; end
         # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
         #
         # If omitted, funds are captured before the authorization expires.
@@ -3951,7 +3977,7 @@ module Stripe
         sig { returns(T.nilable(Routing)) }
         def routing; end
         def self.inner_class_types
-          @inner_class_types = {capture_delay: CaptureDelay, routing: Routing}
+          @inner_class_types = {aade_data: AadeData, capture_delay: CaptureDelay, routing: Routing}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -4895,6 +4921,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Sequra < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Shopeepay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -5392,6 +5429,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -5481,6 +5521,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,

@@ -1462,6 +1462,9 @@ module Stripe
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def funding_types_blocked; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -2139,6 +2142,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2461,6 +2475,9 @@ module Stripe
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
+        # Attribute for field sequra
+        sig { returns(T.nilable(Sequra)) }
+        def sequra; end
         # Attribute for field sofort
         sig { returns(T.nilable(Sofort)) }
         def sofort; end
@@ -2524,6 +2541,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,
@@ -2701,6 +2719,9 @@ module Stripe
         # The shipping rate.
         sig { returns(T.any(String, ::Stripe::ShippingRate)) }
         def shipping_rate; end
+        # The tax rates applied to this shipping option.
+        sig { returns(T.nilable(T::Array[String])) }
+        def tax_rates; end
         def self.inner_class_types
           @inner_class_types = {}
         end

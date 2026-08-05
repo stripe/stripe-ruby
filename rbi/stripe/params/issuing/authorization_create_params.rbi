@@ -253,6 +253,61 @@ module Stripe
           @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
         end
       end
+      class Healthcare < ::Stripe::RequestParams
+        # Clinic and urgent care sub-amount for Visa only.
+        sig { returns(T.nilable(Integer)) }
+        def clinic_amount; end
+        sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def clinic_amount=(_clinic_amount); end
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # Dental care sub-amount for Visa only.
+        sig { returns(T.nilable(Integer)) }
+        def dental_amount; end
+        sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def dental_amount=(_dental_amount); end
+        # Prescription drug sub-amount. Null if the merchant did not send this amount.
+        sig { returns(T.nilable(Integer)) }
+        def prescription_amount; end
+        sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def prescription_amount=(_prescription_amount); end
+        # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        sig { returns(T.nilable(String)) }
+        def purchase_type; end
+        sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+        def purchase_type=(_purchase_type); end
+        # Total FSA/HSA-eligible amount in the smallest currency unit.
+        sig { returns(Integer) }
+        def total_qualified_amount; end
+        sig { params(_total_qualified_amount: Integer).returns(Integer) }
+        def total_qualified_amount=(_total_qualified_amount); end
+        # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+        sig { returns(String) }
+        def verification_status; end
+        sig { params(_verification_status: String).returns(String) }
+        def verification_status=(_verification_status); end
+        # Vision/optical sub-amount. Null if the merchant did not send this amount.
+        sig { returns(T.nilable(Integer)) }
+        def vision_amount; end
+        sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def vision_amount=(_vision_amount); end
+        sig {
+          params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+         }
+        def initialize(
+          clinic_amount: nil,
+          currency: nil,
+          dental_amount: nil,
+          prescription_amount: nil,
+          purchase_type: nil,
+          total_qualified_amount: nil,
+          verification_status: nil,
+          vision_amount: nil
+        ); end
+      end
       class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         sig { returns(T.nilable(String)) }
@@ -554,6 +609,13 @@ module Stripe
         params(_fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel))
        }
       def fuel=(_fuel); end
+      # Healthcare-specific information for IIAS-eligible authorizations.
+      sig { returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare)) }
+      def healthcare; end
+      sig {
+        params(_healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare)).returns(T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare))
+       }
+      def healthcare=(_healthcare); end
       # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
       sig { returns(T.nilable(T::Boolean)) }
       def is_amount_controllable; end
@@ -603,7 +665,7 @@ module Stripe
       sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
       def wallet=(_wallet); end
       sig {
-        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+        params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -615,6 +677,7 @@ module Stripe
         fleet: nil,
         fraud_disputability_likelihood: nil,
         fuel: nil,
+        healthcare: nil,
         is_amount_controllable: nil,
         merchant_amount: nil,
         merchant_currency: nil,

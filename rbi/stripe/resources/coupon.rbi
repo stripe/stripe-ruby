@@ -134,7 +134,7 @@ module Stripe
     # Number of times this coupon has been applied to a customer.
     sig { returns(Integer) }
     def times_redeemed; end
-    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    # The type of coupon logic used to calculate the discount.
     sig { returns(T.nilable(String)) }
     def type; end
     # Taking account of the above properties, whether this coupon can still be applied to a customer.

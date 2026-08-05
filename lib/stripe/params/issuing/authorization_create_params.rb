@@ -188,6 +188,45 @@ module Stripe
         end
       end
 
+      class Healthcare < ::Stripe::RequestParams
+        # Clinic and urgent care sub-amount for Visa only.
+        attr_accessor :clinic_amount
+        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        attr_accessor :currency
+        # Dental care sub-amount for Visa only.
+        attr_accessor :dental_amount
+        # Prescription drug sub-amount. Null if the merchant did not send this amount.
+        attr_accessor :prescription_amount
+        # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+        attr_accessor :purchase_type
+        # Total FSA/HSA-eligible amount in the smallest currency unit.
+        attr_accessor :total_qualified_amount
+        # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+        attr_accessor :verification_status
+        # Vision/optical sub-amount. Null if the merchant did not send this amount.
+        attr_accessor :vision_amount
+
+        def initialize(
+          clinic_amount: nil,
+          currency: nil,
+          dental_amount: nil,
+          prescription_amount: nil,
+          purchase_type: nil,
+          total_qualified_amount: nil,
+          verification_status: nil,
+          vision_amount: nil
+        )
+          @clinic_amount = clinic_amount
+          @currency = currency
+          @dental_amount = dental_amount
+          @prescription_amount = prescription_amount
+          @purchase_type = purchase_type
+          @total_qualified_amount = total_qualified_amount
+          @verification_status = verification_status
+          @vision_amount = vision_amount
+        end
+      end
+
       class MerchantData < ::Stripe::RequestParams
         # A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         attr_accessor :category
@@ -373,6 +412,8 @@ module Stripe
       attr_accessor :fraud_disputability_likelihood
       # Information about fuel that was purchased with this transaction.
       attr_accessor :fuel
+      # Healthcare-specific information for IIAS-eligible authorizations.
+      attr_accessor :healthcare
       # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
       attr_accessor :is_amount_controllable
       # The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -400,6 +441,7 @@ module Stripe
         fleet: nil,
         fraud_disputability_likelihood: nil,
         fuel: nil,
+        healthcare: nil,
         is_amount_controllable: nil,
         merchant_amount: nil,
         merchant_currency: nil,
@@ -418,6 +460,7 @@ module Stripe
         @fleet = fleet
         @fraud_disputability_likelihood = fraud_disputability_likelihood
         @fuel = fuel
+        @healthcare = healthcare
         @is_amount_controllable = is_amount_controllable
         @merchant_amount = merchant_amount
         @merchant_currency = merchant_currency

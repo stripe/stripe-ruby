@@ -162,7 +162,7 @@ module Stripe
           sig { params(label: String, value: String).void }
           def initialize(label: nil, value: nil); end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         sig { returns(T.nilable(String)) }
         def default_value; end
         sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }

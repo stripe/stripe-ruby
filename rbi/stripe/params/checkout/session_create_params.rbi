@@ -386,7 +386,7 @@ module Stripe
             sig { params(label: String, value: String).void }
             def initialize(label: nil, value: nil); end
           end
-          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
           sig { returns(T.nilable(String)) }
           def default_value; end
           sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -1036,12 +1036,12 @@ module Stripe
                 @field_encodings = {unit_amount_decimal: :decimal_string}
               end
             end
-            # The ID of the price for this subscription item.
+            # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
             sig { returns(T.nilable(String)) }
             def price; end
             sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
             def price=(_price); end
-            # Data used to generate a new Price object inline.
+            # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
             sig {
               returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData))
              }
@@ -4120,10 +4120,15 @@ module Stripe
           params(_shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData))
          }
         def shipping_rate_data=(_shipping_rate_data); end
+        # The tax rates that will be applied to this shipping option. This parameter is only supported for Checkout Sessions with `ui_mode` set to `form` or `elements`.
+        sig { returns(T.nilable(T::Array[String])) }
+        def tax_rates; end
+        sig { params(_tax_rates: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def tax_rates=(_tax_rates); end
         sig {
-          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData)).void
+          params(shipping_rate: T.nilable(String), shipping_rate_data: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingOption::ShippingRateData), tax_rates: T.nilable(T::Array[String])).void
          }
-        def initialize(shipping_rate: nil, shipping_rate_data: nil); end
+        def initialize(shipping_rate: nil, shipping_rate_data: nil, tax_rates: nil); end
       end
       class SubscriptionData < ::Stripe::RequestParams
         class BillingCycleAnchorConfig < ::Stripe::RequestParams

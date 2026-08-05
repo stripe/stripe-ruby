@@ -209,6 +209,8 @@ module Stripe
         attr_reader :amount_details
         # The “presentment amount” to be collected from the customer.
         attr_reader :amount_requested
+        # The application associated with this OffSessionPayment.
+        attr_reader :application
         # The amount of the application fee requested to be applied to the payment.
         attr_reader :application_fee_amount_requested
         # The frequency of the underlying payment.

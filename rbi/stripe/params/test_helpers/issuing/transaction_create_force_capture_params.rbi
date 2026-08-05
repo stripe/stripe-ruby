@@ -412,6 +412,61 @@ module Stripe
               }
             end
           end
+          class Healthcare < ::Stripe::RequestParams
+            # Clinic and urgent care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def clinic_amount; end
+            sig { params(_clinic_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def clinic_amount=(_clinic_amount); end
+            # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            sig { returns(String) }
+            def currency; end
+            sig { params(_currency: String).returns(String) }
+            def currency=(_currency); end
+            # Dental care sub-amount for Visa only.
+            sig { returns(T.nilable(Integer)) }
+            def dental_amount; end
+            sig { params(_dental_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def dental_amount=(_dental_amount); end
+            # Prescription drug sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def prescription_amount; end
+            sig { params(_prescription_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def prescription_amount=(_prescription_amount); end
+            # The type of healthcare transaction. `medical` for FSA/HSA-eligible healthcare purchases; `transit_for_healthcare` for FSA/HSA-eligible transit for healthcare purchases.
+            sig { returns(T.nilable(String)) }
+            def purchase_type; end
+            sig { params(_purchase_type: T.nilable(String)).returns(T.nilable(String)) }
+            def purchase_type=(_purchase_type); end
+            # Total FSA/HSA-eligible amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def total_qualified_amount; end
+            sig { params(_total_qualified_amount: Integer).returns(Integer) }
+            def total_qualified_amount=(_total_qualified_amount); end
+            # IIAS verification status from the merchant terminal. For Visa, this is always iias_verified.
+            sig { returns(String) }
+            def verification_status; end
+            sig { params(_verification_status: String).returns(String) }
+            def verification_status=(_verification_status); end
+            # Vision/optical sub-amount. Null if the merchant did not send this amount.
+            sig { returns(T.nilable(Integer)) }
+            def vision_amount; end
+            sig { params(_vision_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def vision_amount=(_vision_amount); end
+            sig {
+              params(clinic_amount: T.nilable(Integer), currency: String, dental_amount: T.nilable(Integer), prescription_amount: T.nilable(Integer), purchase_type: T.nilable(String), total_qualified_amount: Integer, verification_status: String, vision_amount: T.nilable(Integer)).void
+             }
+            def initialize(
+              clinic_amount: nil,
+              currency: nil,
+              dental_amount: nil,
+              prescription_amount: nil,
+              purchase_type: nil,
+              total_qualified_amount: nil,
+              verification_status: nil,
+              vision_amount: nil
+            ); end
+          end
           class Lodging < ::Stripe::RequestParams
             # The time of checking into the lodging.
             sig { returns(T.nilable(Integer)) }
@@ -482,6 +537,15 @@ module Stripe
             params(_fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel))
            }
           def fuel=(_fuel); end
+          # Healthcare sub-amounts for IIAS-eligible transactions.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare; end
+          sig {
+            params(_healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare)).returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare))
+           }
+          def healthcare=(_healthcare); end
           # Information about lodging that was purchased with this transaction.
           sig {
             returns(T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging))
@@ -506,12 +570,13 @@ module Stripe
           sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
           def reference=(_reference); end
           sig {
-            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
+            params(fleet: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fleet), flight: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Flight), fuel: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Healthcare), lodging: T.nilable(::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Lodging), receipt: T.nilable(T::Array[::Stripe::TestHelpers::Issuing::TransactionCreateForceCaptureParams::PurchaseDetails::Receipt]), reference: T.nilable(String)).void
            }
           def initialize(
             fleet: nil,
             flight: nil,
             fuel: nil,
+            healthcare: nil,
             lodging: nil,
             receipt: nil,
             reference: nil

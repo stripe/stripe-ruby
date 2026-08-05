@@ -1455,6 +1455,8 @@ module Stripe
           class Restrictions < ::Stripe::StripeObject
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_reader :brands_blocked
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            attr_reader :funding_types_blocked
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -2145,6 +2147,19 @@ module Stripe
           end
         end
 
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2430,6 +2445,8 @@ module Stripe
         attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
+        # Attribute for field sequra
+        attr_reader :sequra
         # Attribute for field sofort
         attr_reader :sofort
         # Attribute for field sunbit
@@ -2487,6 +2504,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,
@@ -2667,6 +2685,8 @@ module Stripe
         attr_reader :shipping_amount
         # The shipping rate.
         attr_reader :shipping_rate
+        # The tax rates applied to this shipping option.
+        attr_reader :tax_rates
 
         def self.inner_class_types
           @inner_class_types = {}

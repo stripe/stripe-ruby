@@ -52,7 +52,7 @@ module Stripe
         # AWS
         # https://docs.stripe.com/event-destinations/eventbridge#event-structure
         data[:detail]
-      elsif data.key?(:specversion)
+      elsif data.key?(:specversion) && data.key?(:data)
         # Azure
         # https://docs.stripe.com/event-destinations/eventgrid#event-structure
         data[:data]
@@ -61,8 +61,9 @@ module Stripe
         data
       else
         raise ArgumentError,
-              "Unrecognized cloud event format. The payload must be an " \
-              "AWS EventBridge or Azure Event Grid event envelope."
+              "Unrecognized event format. The payload must be an " \
+              "AWS EventBridge/Azure Event Grid event envelope or a Stripe webhook " \
+              "(thin event notification or snapshot)."
       end
     end
     private_class_method :_maybe_extract_from_cloud_provider_envelope

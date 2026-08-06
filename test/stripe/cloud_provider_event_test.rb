@@ -151,7 +151,7 @@ class CloudProviderEventTest < Test::Unit::TestCase
     error = assert_raises(ArgumentError) do
       @client.parse_event_notification_without_verification('{"foo": "bar"}')
     end
-    assert_match(/Unrecognized cloud event format/, error.message)
+    assert_match(/Unrecognized event format/, error.message)
   end
 
   def test_parse_raw_v2_event_notification
@@ -173,5 +173,46 @@ class CloudProviderEventTest < Test::Unit::TestCase
       Stripe::Webhook.construct_event_without_verification(RAW_V2_EVENT_PAYLOAD)
     end
     assert_match(/thin event notification/, error.message)
+  end
+
+  def test_azure_envelope_missing_data_falls_through_construct_event
+    payload = JSON.generate({
+      "specversion" => "1.0",
+      "type" => "customer.created",
+      "source" => "/providers/stripe/ed_test_123",
+      "id" => "test-missing-data",
+    })
+    error = assert_raises(ArgumentError) do
+      Stripe::Webhook.construct_event_without_verification(payload)
+    end
+    assert_match(/Unrecognized event format/i, error.message)
+  end
+
+  def test_azure_envelope_missing_data_falls_through_parse_notification
+    payload = JSON.generate({
+      "specversion" => "1.0",
+      "type" => "customer.created",
+      "source" => "/providers/stripe/ed_test_123",
+      "id" => "test-missing-data",
+    })
+    error = assert_raises(ArgumentError) do
+      @client.parse_event_notification_without_verification(payload)
+    end
+    assert_match(/Unrecognized event format/i, error.message)
+  end
+
+  def test_unexpected_object_type_in_event_notification
+    payload = JSON.generate({
+      "version" => "0",
+      "detail" => {
+        "object" => "customer",
+        "type" => "customer.created",
+        "id" => "cus_123",
+      },
+    })
+    error = assert_raises(ArgumentError) do
+      @client.parse_event_notification_without_verification(payload)
+    end
+    assert_match(/Unexpected object type/, error.message)
   end
 end

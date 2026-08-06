@@ -94,6 +94,11 @@ module Stripe
               "You passed a webhook payload to a method that expects a thin event notification. Use the corresponding construct_event* method instead."
       end
 
+      if parsed[:object] != "v2.core.event"
+        raise ArgumentError,
+              "Unexpected object type '#{parsed[:object]}'. Expected 'v2.core.event' for an event notification."
+      end
+
       cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
 
       cls.new(parsed, self)

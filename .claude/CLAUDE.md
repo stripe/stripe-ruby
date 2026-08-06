@@ -20,7 +20,7 @@
 
 ## RBI Type Annotations
 
-When adding or modifying public methods on non-generated, you **must** also update the corresponding `rbi/stripe/stripe_client.rbi` with matching Sorbet type signatures. This file provides type information for tools and IDEs.
+When adding or modifying public methods on non-generated files, you **must** also update the corresponding `rbi/stripe/stripe_client.rbi` with matching Sorbet type signatures. This file provides type information for tools and IDEs.
 
 ## Generated Code
 

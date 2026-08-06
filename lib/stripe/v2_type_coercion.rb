@@ -55,6 +55,8 @@ module Stripe
         when Array then value.map { |v| v.is_a?(String) ? Integer(v) : v }
         else value
         end
+      else
+        raise ArgumentError, "unknown direction: #{direction.inspect}"
       end
     end
 
@@ -73,6 +75,8 @@ module Stripe
         when Array then value.map { |v| coerce_decimal_string(v, direction) }
         else value
         end
+      else
+        raise ArgumentError, "unknown direction: #{direction.inspect}"
       end
     end
 

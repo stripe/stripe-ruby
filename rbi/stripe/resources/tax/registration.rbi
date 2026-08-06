@@ -1572,6 +1572,28 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class MassTransitParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ParkingTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class StateSalesTax < ::Stripe::StripeObject
             class Election < ::Stripe::StripeObject
               # A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
@@ -1603,6 +1625,12 @@ module Stripe
           # Attribute for field local_lease_tax
           sig { returns(T.nilable(LocalLeaseTax)) }
           def local_lease_tax; end
+          # Attribute for field mass_transit_parking_tax
+          sig { returns(T.nilable(MassTransitParkingTax)) }
+          def mass_transit_parking_tax; end
+          # Attribute for field parking_tax
+          sig { returns(T.nilable(ParkingTax)) }
+          def parking_tax; end
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(String) }
           def state; end
@@ -1616,6 +1644,8 @@ module Stripe
             @inner_class_types = {
               local_amusement_tax: LocalAmusementTax,
               local_lease_tax: LocalLeaseTax,
+              mass_transit_parking_tax: MassTransitParkingTax,
+              parking_tax: ParkingTax,
               state_sales_tax: StateSalesTax,
             }
           end

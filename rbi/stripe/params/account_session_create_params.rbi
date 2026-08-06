@@ -201,14 +201,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -577,14 +585,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -627,13 +643,21 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.
@@ -681,14 +705,22 @@ module Stripe
           def refund_management; end
           sig { params(_refund_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
           def refund_management=(_refund_management); end
+          # Whether to allow connected accounts to submit disputes using Smart Disputes. Defaults to the value of `dispute_management`.
+          sig { returns(T.nilable(T::Boolean)) }
+          def smart_disputes_management; end
           sig {
-            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean)).void
+            params(_smart_disputes_management: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def smart_disputes_management=(_smart_disputes_management); end
+          sig {
+            params(capture_payments: T.nilable(T::Boolean), destination_on_behalf_of_charge_management: T.nilable(T::Boolean), dispute_management: T.nilable(T::Boolean), refund_management: T.nilable(T::Boolean), smart_disputes_management: T.nilable(T::Boolean)).void
            }
           def initialize(
             capture_payments: nil,
             destination_on_behalf_of_charge_management: nil,
             dispute_management: nil,
-            refund_management: nil
+            refund_management: nil,
+            smart_disputes_management: nil
           ); end
         end
         # Whether the embedded component is enabled.

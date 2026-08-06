@@ -60,6 +60,33 @@ module Stripe
       end
     end
 
+    class ConsentCollection < ::Stripe::RequestParams
+      class PaymentMethodReuseAgreement < ::Stripe::RequestParams
+        # Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+        # defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
+        attr_accessor :position
+
+        def initialize(position: nil)
+          @position = position
+        end
+      end
+      # Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+      attr_accessor :payment_method_reuse_agreement
+      # If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+      # Session will determine whether to display an option to opt into promotional communication
+      # from the merchant depending on the customer's locale. Only available to US merchants and US customers.
+      attr_accessor :promotions
+      # If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
+      # There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+      attr_accessor :terms_of_service
+
+      def initialize(payment_method_reuse_agreement: nil, promotions: nil, terms_of_service: nil)
+        @payment_method_reuse_agreement = payment_method_reuse_agreement
+        @promotions = promotions
+        @terms_of_service = terms_of_service
+      end
+    end
+
     class CustomField < ::Stripe::RequestParams
       class Dropdown < ::Stripe::RequestParams
         class Option < ::Stripe::RequestParams
@@ -396,6 +423,18 @@ module Stripe
       attr_accessor :description
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
       attr_accessor :metadata
+      # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+      #
+      # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+      #
+      # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+      #
+      # If a Customer has been provided or Checkout creates a new Customer,Checkout will attach the payment method to the Customer.
+      #
+      # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+      #
+      # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+      attr_accessor :setup_future_usage
       # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
       #
       # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
@@ -408,12 +447,14 @@ module Stripe
       def initialize(
         description: nil,
         metadata: nil,
+        setup_future_usage: nil,
         statement_descriptor: nil,
         statement_descriptor_suffix: nil,
         transfer_group: nil
       )
         @description = description
         @metadata = metadata
+        @setup_future_usage = setup_future_usage
         @statement_descriptor = statement_descriptor
         @statement_descriptor_suffix = statement_descriptor_suffix
         @transfer_group = transfer_group
@@ -478,6 +519,15 @@ module Stripe
 
       def initialize(allowed_countries: nil)
         @allowed_countries = allowed_countries
+      end
+    end
+
+    class ShippingOption < ::Stripe::RequestParams
+      # The ID of the Shipping Rate to use for this shipping option.
+      attr_accessor :shipping_rate
+
+      def initialize(shipping_rate: nil)
+        @shipping_rate = shipping_rate
       end
     end
 
@@ -561,6 +611,8 @@ module Stripe
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
     attr_accessor :billing_address_collection
+    # Configure fields to gather active consent from customers.
+    attr_accessor :consent_collection
     # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     attr_accessor :custom_fields
     # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
@@ -603,6 +655,8 @@ module Stripe
     attr_accessor :restrictions
     # Configuration for collecting the customer's shipping address.
     attr_accessor :shipping_address_collection
+    # The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
+    attr_accessor :shipping_options
     # Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     attr_accessor :submit_type
     # When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -616,6 +670,7 @@ module Stripe
       allow_promotion_codes: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
+      consent_collection: nil,
       custom_fields: nil,
       custom_text: nil,
       customer_creation: nil,
@@ -633,6 +688,7 @@ module Stripe
       phone_number_collection: nil,
       restrictions: nil,
       shipping_address_collection: nil,
+      shipping_options: nil,
       submit_type: nil,
       subscription_data: nil,
       tax_id_collection: nil
@@ -642,6 +698,7 @@ module Stripe
       @allow_promotion_codes = allow_promotion_codes
       @automatic_tax = automatic_tax
       @billing_address_collection = billing_address_collection
+      @consent_collection = consent_collection
       @custom_fields = custom_fields
       @custom_text = custom_text
       @customer_creation = customer_creation
@@ -659,6 +716,7 @@ module Stripe
       @phone_number_collection = phone_number_collection
       @restrictions = restrictions
       @shipping_address_collection = shipping_address_collection
+      @shipping_options = shipping_options
       @submit_type = submit_type
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection

@@ -27,10 +27,35 @@ module Stripe
         attr_accessor :account_subcategories
         # List of countries from which to collect accounts.
         attr_accessor :countries
+        # Whether the session should require payment method support and successful account number retrieval before completion.
+        attr_accessor :require_payment_method_support
 
-        def initialize(account_subcategories: nil, countries: nil)
+        def initialize(
+          account_subcategories: nil,
+          countries: nil,
+          require_payment_method_support: nil
+        )
           @account_subcategories = account_subcategories
           @countries = countries
+          @require_payment_method_support = require_payment_method_support
+        end
+      end
+
+      class Limits < ::Stripe::RequestParams
+        # The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
+        attr_accessor :accounts
+
+        def initialize(accounts: nil)
+          @accounts = accounts
+        end
+      end
+
+      class ManualEntry < ::Stripe::RequestParams
+        # How manual entry should be handled.
+        attr_accessor :mode
+
+        def initialize(mode: nil)
+          @mode = mode
         end
       end
       # The account holder to link accounts for.
@@ -39,6 +64,10 @@ module Stripe
       attr_accessor :expand
       # Filters to restrict the kinds of accounts to collect.
       attr_accessor :filters
+      # Settings for configuring Session-specific limits.
+      attr_accessor :limits
+      # Customize manual entry behavior
+      attr_accessor :manual_entry
       # List of data features that you would like to request access to.
       #
       # Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
@@ -52,6 +81,8 @@ module Stripe
         account_holder: nil,
         expand: nil,
         filters: nil,
+        limits: nil,
+        manual_entry: nil,
         permissions: nil,
         prefetch: nil,
         return_url: nil
@@ -59,6 +90,8 @@ module Stripe
         @account_holder = account_holder
         @expand = expand
         @filters = filters
+        @limits = limits
+        @manual_entry = manual_entry
         @permissions = permissions
         @prefetch = prefetch
         @return_url = return_url

@@ -202,6 +202,7 @@ module Stripe
     autoload :Account, "stripe/resources/financial_connections/account"
     autoload :AccountOwner, "stripe/resources/financial_connections/account_owner"
     autoload :AccountOwnership, "stripe/resources/financial_connections/account_ownership"
+    autoload :Authorization, "stripe/resources/financial_connections/authorization"
     autoload :Session, "stripe/resources/financial_connections/session"
     autoload :Transaction, "stripe/resources/financial_connections/transaction"
   end
@@ -370,6 +371,7 @@ module Stripe
     stripe/resources/financial_connections/account
     stripe/resources/financial_connections/account_owner
     stripe/resources/financial_connections/account_ownership
+    stripe/resources/financial_connections/authorization
     stripe/resources/financial_connections/session
     stripe/resources/financial_connections/transaction
     stripe/resources/forwarding/request

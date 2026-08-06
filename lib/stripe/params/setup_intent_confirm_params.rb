@@ -1207,6 +1207,8 @@ module Stripe
         @us_bank_account = us_bank_account
       end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    attr_accessor :allowed_payment_method_types
     # ID of the ConfirmationToken used to confirm this SetupIntent.
     #
     # If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
@@ -1230,6 +1232,7 @@ module Stripe
     attr_accessor :use_stripe_sdk
 
     def initialize(
+      allowed_payment_method_types: nil,
       confirmation_token: nil,
       expand: nil,
       mandate_data: nil,
@@ -1239,6 +1242,7 @@ module Stripe
       return_url: nil,
       use_stripe_sdk: nil
     )
+      @allowed_payment_method_types = allowed_payment_method_types
       @confirmation_token = confirmation_token
       @expand = expand
       @mandate_data = mandate_data

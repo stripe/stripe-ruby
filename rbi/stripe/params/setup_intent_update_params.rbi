@@ -1831,6 +1831,13 @@ module Stripe
         us_bank_account: nil
       ); end
     end
+    # The list of payment method types to allow for this SetupIntent. Stripe will only use methods in this list when determining the payment methods to offer. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+    def allowed_payment_method_types; end
+    sig {
+      params(_allowed_payment_method_types: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+     }
+    def allowed_payment_method_types=(_allowed_payment_method_types); end
     # If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
     #
     # It can only be used for this Stripe Account’s own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
@@ -1918,9 +1925,10 @@ module Stripe
      }
     def payment_method_types=(_payment_method_types); end
     sig {
-      params(attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
+      params(allowed_payment_method_types: T.nilable(T.any(String, T::Array[String])), attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String])).void
      }
     def initialize(
+      allowed_payment_method_types: nil,
       attach_to_self: nil,
       customer: nil,
       customer_account: nil,

@@ -157,8 +157,9 @@ module Stripe
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
         @values[k] = convert_value_with_inner_types(k, v, opts)
-        if self.class.field_encodings[k.to_sym] == :decimal_string && @values[k].is_a?(String)
-          @values[k] = BigDecimal(@values[k])
+        encoding = self.class.field_encodings[k.to_sym]
+        if encoding
+          @values[k] = V2TypeCoercion.coerce_value(@values[k], encoding, direction: :decode)
         end
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)

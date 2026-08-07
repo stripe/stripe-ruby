@@ -1611,7 +1611,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         attr_reader :country
-        # The pricing bundle applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if bundle lookup failed at confirmation time.
+        # The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+        attr_reader :funding_source_group
+        # Deprecated: use funding_source_group instead.
         attr_reader :pricing_group
 
         def self.inner_class_types
@@ -2117,7 +2119,7 @@ module Stripe
       end
 
       class Sequra < ::Stripe::StripeObject
-        # The Sequra transaction ID associated with this payment.
+        # The SeQura transaction ID associated with this payment.
         attr_reader :transaction_id
 
         def self.inner_class_types

@@ -52,6 +52,8 @@ module Stripe
           attr_reader :base_network
           # A bitcoin address
           attr_reader :bitcoin
+          # A Celo address
+          attr_reader :celo
           # The end customer's crypto wallet destination tag (for each network) to use for this transaction.
           attr_reader :destination_tags
           # An ethereum address

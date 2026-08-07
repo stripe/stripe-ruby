@@ -1853,7 +1853,7 @@ module Stripe
         end
       end
       class Sequra < ::Stripe::StripeObject
-        # The Sequra transaction ID associated with this payment.
+        # The SeQura transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
         def self.inner_class_types

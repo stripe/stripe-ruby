@@ -474,7 +474,7 @@ module Stripe
           def billing_cycle_anchor; end
           sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
           def billing_cycle_anchor=(_billing_cycle_anchor); end
-          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
           sig { returns(T.nilable(String)) }
           def payment_behavior; end
           sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -529,14 +529,16 @@ module Stripe
        }
       def pause=(_pause); end
       # Configuration for when and how the subscription resumes.
-      sig { returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)) }
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)))
+       }
       def resume; end
       sig {
-        params(_resume: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume))
+        params(_resume: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)))
        }
       def resume=(_resume); end
       sig {
-        params(key: T.nilable(String), pause: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause), resume: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)).void
+        params(key: T.nilable(String), pause: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause), resume: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume))).void
        }
       def initialize(key: nil, pause: nil, resume: nil); end
     end

@@ -303,7 +303,7 @@ module Stripe
         class Settings < ::Stripe::RequestParams
           # Controls the billing cycle anchor when the subscription resumes.
           attr_accessor :billing_cycle_anchor
-          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
           attr_accessor :payment_behavior
           # Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
           attr_accessor :proration_behavior

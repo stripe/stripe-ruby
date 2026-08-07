@@ -1769,7 +1769,7 @@ module Stripe
       end
 
       class Sequra < ::Stripe::StripeObject
-        # The Sequra transaction ID associated with this payment.
+        # The SeQura transaction ID associated with this payment.
         attr_reader :transaction_id
 
         def self.inner_class_types

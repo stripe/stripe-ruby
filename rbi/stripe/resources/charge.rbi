@@ -1722,7 +1722,10 @@ module Stripe
         # You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
-        # The pricing bundle applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if bundle lookup failed at confirmation time.
+        # The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
+        # Deprecated: use funding_source_group instead.
         sig { returns(T.nilable(String)) }
         def pricing_group; end
         def self.inner_class_types
@@ -2231,7 +2234,7 @@ module Stripe
         end
       end
       class Sequra < ::Stripe::StripeObject
-        # The Sequra transaction ID associated with this payment.
+        # The SeQura transaction ID associated with this payment.
         sig { returns(T.nilable(String)) }
         def transaction_id; end
         def self.inner_class_types

@@ -256,7 +256,7 @@ module Stripe
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       attr_reader :sepa_debit_payments
-      # The status of the Sequra capability of the account, or whether the account can directly process Sequra payments.
+      # The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
       attr_reader :sequra_payments
       # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
       attr_reader :shopeepay_payments

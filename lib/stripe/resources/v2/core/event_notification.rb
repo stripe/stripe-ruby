@@ -32,10 +32,11 @@ module Stripe
       end
 
       class EventNotification
-        attr_reader :id, :type, :created, :context, :livemode, :reason
+        attr_reader :id, :object, :type, :created, :context, :livemode, :reason
 
         def initialize(event_payload, client)
           @id = event_payload[:id]
+          @object = event_payload[:object]
           @type = event_payload[:type]
           @created = event_payload[:created]
           @livemode = event_payload[:livemode]

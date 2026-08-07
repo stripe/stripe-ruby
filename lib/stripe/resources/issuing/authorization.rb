@@ -613,12 +613,75 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class HoldAmount < ::Stripe::StripeObject
+          # Three-letter ISO currency code.
+          attr_reader :currency
+          # The amount in the smallest currency unit.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class HoldAmountDetails < ::Stripe::StripeObject
+          class Network < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Reserve < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field network
+          attr_reader :network
+          # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+          attr_reader :reserve
+
+          def self.inner_class_types
+            @inner_class_types = { network: Network, reserve: Reserve }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://docs.stripe.com/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_reader :amount
         # Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_reader :amount_details
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_reader :currency
+        # The total amount to be held for this authorization request.
+        attr_reader :hold_amount
+        # Breakdown of the amounts contributing to hold_amount.
+        attr_reader :hold_amount_details
         # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         attr_reader :is_amount_controllable
         # The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
@@ -629,7 +692,11 @@ module Stripe
         attr_reader :network_risk_score
 
         def self.inner_class_types
-          @inner_class_types = { amount_details: AmountDetails }
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            hold_amount: HoldAmount,
+            hold_amount_details: HoldAmountDetails,
+          }
         end
 
         def self.field_remappings
@@ -659,6 +726,65 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class HoldAmount < ::Stripe::StripeObject
+          # Three-letter ISO currency code.
+          attr_reader :currency
+          # The amount in the smallest currency unit.
+          attr_reader :value
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class HoldAmountDetails < ::Stripe::StripeObject
+          class Network < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Reserve < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field network
+          attr_reader :network
+          # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+          attr_reader :reserve
+
+          def self.inner_class_types
+            @inner_class_types = { network: Network, reserve: Reserve }
           end
 
           def self.field_remappings
@@ -706,6 +832,10 @@ module Stripe
         attr_reader :created
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_reader :currency
+        # The total amount that was held for this authorization request.
+        attr_reader :hold_amount
+        # Breakdown of the amounts contributing to hold_amount.
+        attr_reader :hold_amount_details
         # The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         attr_reader :merchant_amount
         # The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -722,7 +852,12 @@ module Stripe
         attr_reader :requested_at
 
         def self.inner_class_types
-          @inner_class_types = { amount_details: AmountDetails, network_data: NetworkData }
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            hold_amount: HoldAmount,
+            hold_amount_details: HoldAmountDetails,
+            network_data: NetworkData,
+          }
         end
 
         def self.field_remappings

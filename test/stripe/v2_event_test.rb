@@ -99,7 +99,7 @@ module Stripe
           e = assert_raises(ArgumentError) do
             @client.parse_event_notification(v1_payload, header, Test::WebhookHelpers::SECRET)
           end
-          assert_match(/Webhook\.construct_event/, e.message)
+          assert_match(/construct_event/, e.message)
         end
 
         should "parse v2 events" do

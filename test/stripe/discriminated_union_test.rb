@@ -12,6 +12,7 @@ module Stripe
     # A standalone union where each variant is a distinct RequestParams class.
     # The discriminator field (model) defaults to the variant name so callers
     # only need to supply the variant-specific fields.
+    # rubocop:disable Naming/MethodParameterName
     class RgbColor < Stripe::RequestParams
       attr_accessor :model, :r, :g, :b
 
@@ -20,6 +21,7 @@ module Stripe
         @r = r
         @g = g
         @b = b
+        super()
       end
     end
 
@@ -31,8 +33,10 @@ module Stripe
         @h = h
         @s = s
         @v = v
+        super()
       end
     end
+    # rubocop:enable Naming/MethodParameterName
 
     # A parent params object whose `color` field accepts an inline union variant.
     class DrawParams < Stripe::RequestParams
@@ -40,6 +44,7 @@ module Stripe
 
       def initialize(color: nil)
         @color = color
+        super()
       end
     end
 

@@ -63,18 +63,43 @@ module Stripe
     extend Gem::Deprecate
     deprecate :request, :raw_request, 2024, 9
 
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook after verifying its authenticity. To work with a webhook that has already been
+    # verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see
+    # `parse_event_notification_without_verification`.
     def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
 
       # v2 events use the same signing mechanism as v1 events
       Webhook::Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
+      build_event_notification(payload)
+    end
 
-      parsed = JSON.parse(payload, symbolize_names: true)
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook without first verifying its authenticity. Should be used after calling
+    # `Webhook::Signature.verify_header` or with input from a trusted source (such as
+    # [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or
+    # [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify &
+    # parse in a single call, use `parse_event_notification` instead.
+    def parse_event_notification_without_verification(payload)
+      build_event_notification(Webhook.send(:_maybe_extract_from_cloud_provider_envelope, payload))
+    end
+
+    private def build_event_notification(payload)
+      parsed = if payload.is_a?(String)
+                 JSON.parse(payload, symbolize_names: true)
+               else
+                 payload
+               end
 
       if parsed[:object] == "event"
         raise ArgumentError,
-              "You passed a webhook payload to StripeClient#parse_event_notification, which " \
-              "expects an event notification. Use Webhook.construct_event instead."
+              "You passed a webhook payload to a method that expects a thin event notification. Use the corresponding construct_event* method instead."
+      end
+
+      if parsed[:object] != "v2.core.event"
+        raise ArgumentError,
+              "Unexpected object type '#{parsed[:object]}'. Expected 'v2.core.event' for an event notification."
       end
 
       cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)

@@ -11,6 +11,18 @@ module Stripe
       }
     PAYLOAD
 
+    V2_EVENT_PAYLOAD = JSON.generate({
+      "id" => "evt_234",
+      "object" => "v2.core.event",
+      "type" => "v1.billing.meter.error_report_triggered",
+      "created" => "2022-02-15T00:27:45.330Z",
+      "related_object" => {
+        "id" => "mtr_123",
+        "type" => "billing.meter",
+        "url" => "/v1/billing/meters/mtr_123",
+      },
+    })
+
     context ".compute_signature" do
       should "compute a signature which can then be verified" do
         timestamp = Time.now
@@ -70,7 +82,7 @@ module Stripe
         e = assert_raises(ArgumentError) do
           Stripe::Webhook.construct_event(v2_payload, header, Test::WebhookHelpers::SECRET)
         end
-        assert_match(/StripeClient#parse_event_notification/, e.message)
+        assert_match(/parse_event_notification/, e.message)
       end
 
       should "can call refresh on Event data object" do
@@ -91,6 +103,35 @@ module Stripe
 
         event.data.object.refresh
         assert_equal("cus_123", event.data.object.id)
+      end
+    end
+
+    context ".parse_event_notification" do
+      should "return a typed notification from a valid v2 payload with a valid signature" do
+        header = Test::WebhookHelpers.generate_header(payload: V2_EVENT_PAYLOAD)
+        client = Stripe::StripeClient.new("sk_test_fake")
+        notification = client.parse_event_notification(V2_EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+        assert notification.is_a?(Stripe::V2::Core::EventNotification)
+        assert_equal "evt_234", notification.id
+        assert_equal "v1.billing.meter.error_report_triggered", notification.type
+      end
+
+      should "raise an ArgumentError when given a v1 event payload and suggest construct_event" do
+        payload = EVENT_PAYLOAD.dup
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+        client = Stripe::StripeClient.new("sk_test_fake")
+        e = assert_raises(ArgumentError) do
+          client.parse_event_notification(payload, header, Test::WebhookHelpers::SECRET)
+        end
+        assert_match(/construct_event/, e.message)
+      end
+
+      should "raise a SignatureVerificationError when the signature is invalid" do
+        header = Test::WebhookHelpers.generate_header(payload: V2_EVENT_PAYLOAD, signature: "bad_signature")
+        client = Stripe::StripeClient.new("sk_test_fake")
+        assert_raises(Stripe::SignatureVerificationError) do
+          client.parse_event_notification(V2_EVENT_PAYLOAD, header, Test::WebhookHelpers::SECRET)
+        end
       end
     end
 

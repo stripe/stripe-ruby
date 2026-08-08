@@ -31,6 +31,8 @@ module Stripe
         sig { returns(String) }
         def id; end
         sig { returns(String) }
+        def object; end
+        sig { returns(String) }
         def type; end
         sig { returns(String) }
         def created; end

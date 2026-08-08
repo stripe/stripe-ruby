@@ -66,6 +66,10 @@ module Stripe
     # allows a request body, headers, and query string to be specified.
     def execute_request(method, uri, body: nil, headers: nil, query: nil,
                         &block)
+      # Assigned up front so that the rescue below can tell whether a connection was ever
+      # obtained. Argument validation, for instance, fails before one exists.
+      connection = nil
+
       # Perform some basic argument validation because it's easy to get
       # confused between strings and hashes for things like body and query
       # parameters.
@@ -129,11 +133,37 @@ module Stripe
                      log_timestamp: Util.monotonic_time)
 
       resp
+    rescue Exception # rubocop:disable Lint/RescueException
+      discard_connection(connection)
+      raise
     end
 
     #
     # private
     #
+
+    # Closes a connection and drops it from internal tracking. Accepts `nil` for the case where a
+    # request failed before a connection was obtained.
+    #
+    # `Net::HTTP` closes its own socket when a request fails with a `StandardError`, but an
+    # exception outside that hierarchy — an asynchronous `Thread#raise` from a request-timeout
+    # mechanism, for example — unwinds past those rescue clauses. The socket is then left open
+    # with the response still unread, and because `end_transport` never ran, `@last_communicated`
+    # is unset, which makes `begin_transport` skip both its keep-alive-timeout and EOF checks. The
+    # next request to reuse that connection reads the abandoned response rather than its own.
+    private def discard_connection(connection)
+      return if connection.nil?
+
+      @mutex.synchronize do
+        @active_connections.delete_if { |_, active| active.equal?(connection) }
+      end
+
+      connection.finish
+    rescue IOError
+      # The connection was never started, so there is nothing to close. Swallowed so that this
+      # cleanup can never replace the exception that triggered it.
+      nil
+    end
 
     # `uri` should be a parsed `URI` object.
     private def create_connection(uri)

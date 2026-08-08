@@ -227,6 +227,36 @@ module Stripe
         manager.execute_request(:post, "#{Stripe.api_base}/path")
         assert_equal t + 1.0, manager.last_used
       end
+
+      should "discard the connection when a request is interrupted by a non-StandardError" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        @manager.execute_request(:post, "#{Stripe.api_base}/path")
+        refute_empty @manager.instance_variable_get(:@active_connections)
+
+        # `Interrupt` stands in for any exception outside the `StandardError` hierarchy, such as
+        # the asynchronous `Thread#raise` a request-timeout mechanism performs. `Net::HTTP` does
+        # not close its socket for these, so without cleanup the connection would be reused with
+        # the previous response still buffered on it.
+        stub_request(:post, "#{Stripe.api_base}/path").to_raise(Interrupt)
+
+        assert_raises Interrupt do
+          @manager.execute_request(:post, "#{Stripe.api_base}/path")
+        end
+
+        assert_equal({}, @manager.instance_variable_get(:@active_connections))
+      end
+
+      should "keep the connection when a request succeeds" do
+        stub_request(:post, "#{Stripe.api_base}/path")
+          .to_return(body: JSON.generate(object: "account"))
+
+        @manager.execute_request(:post, "#{Stripe.api_base}/path")
+        @manager.execute_request(:post, "#{Stripe.api_base}/path")
+
+        assert_equal 1, @manager.instance_variable_get(:@active_connections).count
+      end
     end
   end
 end

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 # typed: true
 
-require "bigdecimal"
-
 module Stripe
   # For internal use only. Does not provide a stable API and may be broken
   # with future non-major changes.
@@ -64,61 +62,8 @@ module Stripe
       @field_encodings ||= {}
     end
 
-    # Recursively coerce a value based on its field encoding schema.
-    # Handles :int64_string leaves, { kind: :object, fields: ... } nesting,
-    # and { kind: :array, element: ... } for arrays.
     def self.coerce_value(value, encoding)
-      return value if value.nil?
-
-      case encoding
-      when :int64_string
-        coerce_int64_string(value)
-      when :decimal_string
-        coerce_decimal_string(value)
-      when Hash
-        coerce_composite(value, encoding)
-      else
-        value
-      end
-    end
-
-    private_class_method def self.coerce_int64_string(value)
-      case value
-      when Integer then value.to_s
-      when Array then value.map { |v| v.is_a?(Integer) ? v.to_s : v }
-      else value
-      end
-    end
-
-    private_class_method def self.coerce_decimal_string(value)
-      case value
-      when BigDecimal then value.to_s("F")
-      when Integer, Float then value.to_s
-      when Array then value.map { |v| coerce_decimal_string(v) }
-      else value
-      end
-    end
-
-    private_class_method def self.coerce_composite(value, encoding)
-      case encoding[:kind]
-      when :object
-        coerce_object(value, encoding[:fields] || {})
-      when :array
-        return value unless value.is_a?(Array)
-
-        value.map { |v| coerce_value(v, encoding[:element]) }
-      else
-        value
-      end
-    end
-
-    private_class_method def self.coerce_object(value, fields_schema)
-      return value unless value.is_a?(Hash)
-
-      value.each_with_object({}) do |(k, v), result|
-        field_encoding = fields_schema[k.to_sym]
-        result[k] = field_encoding ? coerce_value(v, field_encoding) : v
-      end
+      V2TypeCoercion.coerce_value(value, encoding, direction: :encode)
     end
 
     # Coerce a plain Hash using this class's field_encodings.

@@ -43,6 +43,35 @@ module Stripe
       end
     end
 
+    # True inline union: discriminator + per-variant payload fields on parent.
+    class CardPayload < Stripe::RequestParams
+      attr_accessor :number, :exp_month
+
+      def initialize(number: nil, exp_month: nil)
+        @number = number
+        @exp_month = exp_month
+      end
+    end
+
+    class BankPayload < Stripe::RequestParams
+      attr_accessor :routing_number, :account_number
+
+      def initialize(routing_number: nil, account_number: nil)
+        @routing_number = routing_number
+        @account_number = account_number
+      end
+    end
+
+    class PaymentMethodParams < Stripe::RequestParams
+      attr_accessor :type, :card, :bank
+
+      def initialize(type: nil, card: nil, bank: nil)
+        @type = type
+        @card = card
+        @bank = bank
+      end
+    end
+
     context "standalone union RequestParams" do
       should "serialize discriminator and variant fields for RgbColor" do
         params = RgbColor.new(model: "rgb", r: 255, g: 128, b: 0)
@@ -86,7 +115,7 @@ module Stripe
       end
     end
 
-    context "inline union RequestParams (nested inside parent params)" do
+    context "standalone union as a nested field" do
       should "serialize the discriminator and variant fields when nested" do
         color = RgbColor.new(model: "rgb", r: 100, g: 200, b: 50)
         draw = DrawParams.new(color: color)
@@ -102,6 +131,93 @@ module Stripe
 
         assert_equal "hsv", result[:color][:model]
         assert_equal 270, result[:color][:h]
+      end
+    end
+
+    context "inline union RequestParams (discriminator + payload fields on parent)" do
+      should "serialize card variant with discriminator at parent level" do
+        params = PaymentMethodParams.new(
+          type: "card",
+          card: CardPayload.new(number: "4242424242424242", exp_month: 12)
+        )
+        result = params.to_h
+
+        assert_equal "card", result[:type]
+        assert_equal "4242424242424242", result[:card][:number]
+        assert_equal 12, result[:card][:exp_month]
+      end
+
+      should "serialize bank variant with discriminator at parent level" do
+        params = PaymentMethodParams.new(
+          type: "bank",
+          bank: BankPayload.new(routing_number: "110000000", account_number: "000123456789")
+        )
+        result = params.to_h
+
+        assert_equal "bank", result[:type]
+        assert_equal "110000000", result[:bank][:routing_number]
+        assert_equal "000123456789", result[:bank][:account_number]
+      end
+
+      should "omit non-selected variant from serialization" do
+        params = PaymentMethodParams.new(
+          type: "card",
+          card: CardPayload.new(number: "4242424242424242")
+        )
+        result = params.to_h
+
+        assert_equal "card", result[:type]
+        assert result.key?(:card)
+        refute result.key?(:bank), "bank was not set and should be omitted"
+      end
+
+      should "include only explicitly set fields in nested payload" do
+        params = PaymentMethodParams.new(
+          type: "card",
+          card: CardPayload.new(number: "4242424242424242")
+        )
+        result = params.to_h
+
+        assert_equal "4242424242424242", result[:card][:number]
+        refute result[:card].key?(:exp_month), "exp_month was not set and should be omitted"
+      end
+    end
+
+    context "response-side inline union deserialization" do
+      should "deserialize inline DU with nested variant payload" do
+        obj = Stripe::StripeObject.construct_from({
+          type: "card",
+          card: { number: "4242424242424242", exp_month: 12 },
+          amount: 1000,
+        })
+
+        assert_equal "card", obj.type
+        assert_equal "4242424242424242", obj.card.number
+        assert_equal 12, obj.card.exp_month
+        assert_equal 1000, obj.amount
+      end
+
+      should "not expose non-selected variant when absent from response" do
+        obj = Stripe::StripeObject.construct_from({
+          type: "card",
+          card: { number: "4242" },
+        })
+
+        assert_equal "card", obj.type
+        # StripeObject only defines accessors for keys present in the response;
+        # an absent key is not accessible (respond_to? returns false).
+        refute obj.respond_to?(:bank), "bank is not in the response and should not be accessible"
+      end
+
+      should "preserve discriminator in to_hash output" do
+        obj = Stripe::StripeObject.construct_from({
+          type: "bank",
+          bank: { routing_number: "110000000" },
+        })
+        h = obj.to_hash
+
+        assert_equal "bank", h[:type]
+        assert_equal "110000000", h[:bank][:routing_number]
       end
     end
 

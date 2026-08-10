@@ -99,13 +99,14 @@ module Stripe
           e = assert_raises(ArgumentError) do
             @client.parse_event_notification(v1_payload, header, Test::WebhookHelpers::SECRET)
           end
-          assert_match(/Webhook\.construct_event/, e.message)
+          assert_match(/construct_event/, e.message)
         end
 
         should "parse v2 events" do
           event = parse_signed_event(@v2_push_payload)
           assert event.is_a?(Stripe::V2::Core::EventNotification)
           assert_equal "evt_234", event.id
+          assert_equal "v2.core.event", event.object
           assert_equal "v1.billing.meter.error_report_triggered", event.type
           assert_equal "2022-02-15T00:27:45.330Z", event.created
           assert_nil event.reason

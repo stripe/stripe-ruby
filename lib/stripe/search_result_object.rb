@@ -71,6 +71,8 @@ module Stripe
         page = page.next_search_result_page
 
         break if page.empty?
+      rescue LocalJumpError
+        break
       end
     end
 

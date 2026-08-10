@@ -58,6 +58,8 @@ module Stripe
           break if page.next_page_url.nil?
 
           page = page.fetch_next_page
+        rescue LocalJumpError
+          break
         end
       end
 

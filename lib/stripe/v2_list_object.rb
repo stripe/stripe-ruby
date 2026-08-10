@@ -58,9 +58,11 @@ module Stripe
           break if page.next_page_url.nil?
 
           page = page.fetch_next_page
-rescue LocalJumpError => e
-  raise unless e.reason == :break
-  break
+        rescue LocalJumpError => e
+          raise unless e.reason == :break
+
+          break
+        end
       end
 
       # Returns true if the page object contains no elements.

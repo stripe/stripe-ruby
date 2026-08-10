@@ -71,9 +71,11 @@ module Stripe
         page = page.next_search_result_page
 
         break if page.empty?
-rescue LocalJumpError => e
-  raise unless e.reason == :break
-  break
+      rescue LocalJumpError => e
+        raise unless e.reason == :break
+
+        break
+      end
     end
 
     # Fetches the next page in the resource list (if there is one).

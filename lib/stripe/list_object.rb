@@ -85,9 +85,9 @@ module Stripe
         end
 
         break if page.empty?
-      rescue LocalJumpError
-        break
-      end
+rescue LocalJumpError => e
+  raise unless e.reason == :break
+  break
     end
 
     # Returns true if the page object contains no elements.

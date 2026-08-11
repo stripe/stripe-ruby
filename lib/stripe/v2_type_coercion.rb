@@ -9,11 +9,9 @@ module Stripe
   #
   # Used by RequestParams (encode: native → wire) and StripeObject (decode: wire → native).
   module V2TypeCoercion
-    module_function
-
     # Coerce a single value based on its field encoding schema.
     # direction: :encode (request: native → wire) or :decode (response: wire → native)
-    def coerce_value(value, encoding, direction:)
+    module_function def coerce_value(value, encoding, direction:)
       return value if value.nil?
 
       case encoding
@@ -29,7 +27,7 @@ module Stripe
     end
 
     # Coerce all fields in a hash according to a schema map.
-    def coerce_fields(hash, schema, direction:)
+    module_function def coerce_fields(hash, schema, direction:)
       return hash unless hash.is_a?(Hash)
       return hash if schema.nil? || schema.empty?
 
@@ -41,7 +39,7 @@ module Stripe
 
     # --- leaf coercions ---
 
-    def coerce_int64_string(value, direction)
+    module_function def coerce_int64_string(value, direction)
       case direction
       when :encode
         case value
@@ -60,7 +58,7 @@ module Stripe
       end
     end
 
-    def coerce_decimal_string(value, direction)
+    module_function def coerce_decimal_string(value, direction)
       case direction
       when :encode
         case value
@@ -82,7 +80,7 @@ module Stripe
 
     # --- composite coercions ---
 
-    def coerce_composite(value, encoding, direction)
+    module_function def coerce_composite(value, encoding, direction)
       case encoding[:kind]
       when :object
         coerce_object(value, encoding[:fields] || {}, direction)
@@ -95,7 +93,7 @@ module Stripe
       end
     end
 
-    def coerce_object(value, fields_schema, direction)
+    module_function def coerce_object(value, fields_schema, direction)
       return value unless value.is_a?(Hash)
 
       coerce_fields(value, fields_schema, direction: direction)

@@ -158,9 +158,7 @@ module Stripe
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
         @values[k] = convert_value_with_inner_types(k, v, opts)
         encoding = self.class.field_encodings[k.to_sym]
-        if encoding
-          @values[k] = V2TypeCoercion.coerce_value(@values[k], encoding, direction: :decode)
-        end
+        @values[k] = V2TypeCoercion.coerce_value(@values[k], encoding, direction: :decode) if encoding
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
       end

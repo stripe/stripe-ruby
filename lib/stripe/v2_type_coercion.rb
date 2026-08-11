@@ -49,12 +49,12 @@ module Stripe
         end
       when :decode
         case value
-        when String then Integer(value)
-        when Array then value.map { |v| v.is_a?(String) ? Integer(v) : v }
+        when String then Kernel.Integer(value)
+        when Array then value.map { |v| v.is_a?(String) ? Kernel.Integer(v) : v }
         else value
         end
       else
-        raise ArgumentError, "unknown direction: #{direction.inspect}"
+        Kernel.raise ArgumentError, "unknown direction: #{direction.inspect}"
       end
     end
 
@@ -69,12 +69,12 @@ module Stripe
         end
       when :decode
         case value
-        when String then BigDecimal(value)
+        when String then Kernel.BigDecimal(value)
         when Array then value.map { |v| coerce_decimal_string(v, direction) }
         else value
         end
       else
-        raise ArgumentError, "unknown direction: #{direction.inspect}"
+        Kernel.raise ArgumentError, "unknown direction: #{direction.inspect}"
       end
     end
 

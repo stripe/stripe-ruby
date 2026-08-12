@@ -7,15 +7,84 @@ module Stripe
     module MoneyManagement
       # PayoutIntent represents an intent to send funds from a Financial Account to a payout method.
       class PayoutIntent < APIResource
+        class EstimatedFee < ::Stripe::StripeObject
+          class TaxAmount < ::Stripe::StripeObject
+            # Currency code.
+            sig { returns(String) }
+            def currency; end
+            # Tax amount value represented as a decimal string in major units.
+            sig { returns(String) }
+            def value_decimal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The fee amount.
+          sig { returns(::Stripe::V2::Amount) }
+          def amount; end
+          # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+          sig { returns(T.nilable(TaxAmount)) }
+          def tax_amount; end
+          # Open Enum. The type of fee.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {tax_amount: TaxAmount}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class From < ::Stripe::StripeObject
           # The currency of the financial account.
           sig { returns(String) }
           def currency; end
+          # Estimated amount to be debited from the financial account.
+          sig { returns(T.nilable(::Stripe::V2::Amount)) }
+          def debited; end
           # The FinancialAccount that funds are pulled from.
           sig { returns(String) }
           def financial_account; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FxQuote < ::Stripe::StripeObject
+          class Rates < ::Stripe::StripeObject
+            # The exchange rate going from_currency -> to_currency, represented as a decimal string
+            # (e.g., "1.1520") to preserve the full precision of the rate.
+            sig { returns(String) }
+            def exchange_rate; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Open Enum. Duration of the FX rate lock.
+          sig { returns(String) }
+          def lock_duration; end
+          # Timestamp when the rate lock expires. Null when rate locking is not supported.
+          sig { returns(T.nilable(String)) }
+          def lock_expires_at; end
+          # Open Enum. Lock status of the FX rate.
+          sig { returns(String) }
+          def lock_status; end
+          # Key: source currency. Value: exchange rate from source currency to to_currency.
+          sig { returns(T::Hash[String, Rates]) }
+          def rates; end
+          # The destination currency.
+          sig { returns(String) }
+          def to_currency; end
+          def self.inner_class_types
+            @inner_class_types = {rates: Rates}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -39,6 +108,17 @@ module Stripe
           end
         end
         class NextAction < ::Stripe::StripeObject
+          class Confirm < ::Stripe::StripeObject
+            # Open Enum. The reason the PayoutIntent requires confirmation.
+            sig { returns(String) }
+            def reason; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class HandleFailure < ::Stripe::StripeObject
             # Open Enum. The reason for the failure.
             sig { returns(String) }
@@ -50,6 +130,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Details about a confirmation required. Populated when type is confirm.
+          sig { returns(T.nilable(Confirm)) }
+          def confirm; end
           # Details about a failure that requires user action. Populated when type is handle_failure.
           sig { returns(T.nilable(HandleFailure)) }
           def handle_failure; end
@@ -57,7 +140,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {handle_failure: HandleFailure}
+            @inner_class_types = {confirm: Confirm, handle_failure: HandleFailure}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -161,6 +244,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Estimated amount to be credited to the recipient in the destination currency.
+          sig { returns(T.nilable(::Stripe::V2::Amount)) }
+          def credited; end
           # The currency to send to the recipient.
           sig { returns(T.nilable(String)) }
           def currency; end
@@ -183,6 +269,9 @@ module Stripe
         # The monetary amount to be sent.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
+        # Controls whether the intent requires explicit confirmation before transitioning to pending.
+        sig { returns(String) }
+        def confirmation_method; end
         # Time at which the PayoutIntent was created.
         # Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         sig { returns(String) }
@@ -190,9 +279,15 @@ module Stripe
         # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
         sig { returns(T.nilable(String)) }
         def description; end
+        # Estimated fees and taxes.
+        sig { returns(T.nilable(T::Array[EstimatedFee])) }
+        def estimated_fees; end
         # The FinancialAccount that funds are pulled from.
         sig { returns(From) }
         def from; end
+        # FX rate information for fee transparency.
+        sig { returns(T.nilable(FxQuote)) }
+        def fx_quote; end
         # Unique identifier for the PayoutIntent.
         sig { returns(String) }
         def id; end

@@ -205,7 +205,7 @@ module Stripe
         # Provides industry-specific information about the amount.
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
-        # The “presentment amount” to be collected from the customer.
+        # The "presentment amount" to be collected from the customer.
         sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
         # The application associated with this OffSessionPayment.
@@ -272,15 +272,15 @@ module Stripe
         # Details about the OffSessionPayment retries.
         sig { returns(RetryDetails) }
         def retry_details; end
-        # Text that appears on the customer’s statement as the statement descriptor for a
-        # non-card charge. This value overrides the account’s default statement descriptor.
+        # Text that appears on the customer's statement as the statement descriptor for a
+        # non-card charge. This value overrides the account's default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }
         def statement_descriptor; end
-        # Provides information about a card charge. Concatenated to the account’s
+        # Provides information about a card charge. Concatenated to the account's
         # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
-        # to form the complete statement descriptor that appears on the customer’s statement.
+        # to form the complete statement descriptor that appears on the customer's statement.
         sig { returns(T.nilable(String)) }
         def statement_descriptor_suffix; end
         # Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,

@@ -122,9 +122,11 @@ module Stripe
 
           class AuthorizationRateDrop < ::Stripe::StripeObject
             class Dimension < ::Stripe::StripeObject
+              # Populated when type is acquirer.
+              attr_reader :acquirer
               # Populated when type is issuer.
               attr_reader :issuer
-              # The type of the dimension. Determines which field in dimension_details is populated.
+              # The type of the dimension. Determines which field is populated.
               attr_reader :type
 
               def self.inner_class_types

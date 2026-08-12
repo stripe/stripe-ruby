@@ -123,10 +123,13 @@ module Stripe
           end
           class AuthorizationRateDrop < ::Stripe::StripeObject
             class Dimension < ::Stripe::StripeObject
+              # Populated when type is acquirer.
+              sig { returns(T.nilable(String)) }
+              def acquirer; end
               # Populated when type is issuer.
               sig { returns(T.nilable(String)) }
               def issuer; end
-              # The type of the dimension. Determines which field in dimension_details is populated.
+              # The type of the dimension. Determines which field is populated.
               sig { returns(String) }
               def type; end
               def self.inner_class_types

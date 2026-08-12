@@ -210,6 +210,9 @@ module Stripe
   class FxQuoteExpiredError < StripeError
   end
 
+  class FxQuoteNeedsRefreshError < StripeError
+  end
+
   class InsufficientFundsError < StripeError
   end
 

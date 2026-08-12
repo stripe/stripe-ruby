@@ -128,6 +128,44 @@ module Stripe
         end
       end
 
+      class ClassificationState < ::Stripe::StripeObject
+        # The taxonomy classification status for this account. One of 'pending' or 'completed'.
+        attr_reader :status
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class EnrichmentState < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          # The merchant enrichment status for this account. One of 'pending' or 'completed'.
+          attr_reader :status
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The enrichment status for merchant name normalization.
+        attr_reader :merchant
+
+        def self.inner_class_types
+          @inner_class_types = { merchant: Merchant }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class InferredBalancesRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         attr_reader :last_attempted_at
@@ -238,10 +276,14 @@ module Stripe
       attr_reader :balance_refresh
       # The type of the account. Account category is further divided in `subcategory`.
       attr_reader :category
+      # Per-taxonomy processing state for this account. One entry per subscribed taxonomy.
+      attr_reader :classification_state
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
       # A human-readable name that has been assigned to this account, either by the account holder or by the institution.
       attr_reader :display_name
+      # The state of merchant name enrichment for this account.
+      attr_reader :enrichment_state
       # Unique identifier for the object.
       attr_reader :id
       # The state of the most recent attempt to refresh the account's inferred balance history.
@@ -404,6 +446,8 @@ module Stripe
           account_numbers: AccountNumber,
           balance: Balance,
           balance_refresh: BalanceRefresh,
+          classification_state: ClassificationState,
+          enrichment_state: EnrichmentState,
           inferred_balances_refresh: InferredBalancesRefresh,
           ownership_refresh: OwnershipRefresh,
           status_details: StatusDetails,

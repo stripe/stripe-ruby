@@ -1203,7 +1203,9 @@ module Stripe
       autoload :OutboundTransferListParams, "stripe/params/v2/money_management/outbound_transfer_list_params"
       autoload :OutboundTransferRetrieveParams, "stripe/params/v2/money_management/outbound_transfer_retrieve_params"
       autoload :PayoutIntentCancelParams, "stripe/params/v2/money_management/payout_intent_cancel_params"
+      autoload :PayoutIntentConfirmParams, "stripe/params/v2/money_management/payout_intent_confirm_params"
       autoload :PayoutIntentCreateParams, "stripe/params/v2/money_management/payout_intent_create_params"
+      autoload :PayoutIntentFxQuoteParams, "stripe/params/v2/money_management/payout_intent_fx_quote_params"
       autoload :PayoutIntentListParams, "stripe/params/v2/money_management/payout_intent_list_params"
       autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
       autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
@@ -1315,6 +1317,7 @@ module Stripe
       autoload :ManualRuleListParams, "stripe/params/v2/tax/manual_rule_list_params"
       autoload :ManualRuleRetrieveParams, "stripe/params/v2/tax/manual_rule_retrieve_params"
       autoload :ManualRuleUpdateParams, "stripe/params/v2/tax/manual_rule_update_params"
+      autoload :OperationResolveAddressParams, "stripe/params/v2/tax/operation_resolve_address_params"
     end
 
     module TestHelpers
@@ -2310,7 +2313,9 @@ module Stripe
     stripe/params/v2/money_management/outbound_transfer_list_params
     stripe/params/v2/money_management/outbound_transfer_retrieve_params
     stripe/params/v2/money_management/payout_intent_cancel_params
+    stripe/params/v2/money_management/payout_intent_confirm_params
     stripe/params/v2/money_management/payout_intent_create_params
+    stripe/params/v2/money_management/payout_intent_fx_quote_params
     stripe/params/v2/money_management/payout_intent_list_params
     stripe/params/v2/money_management/payout_intent_retrieve_params
     stripe/params/v2/money_management/payout_intent_update_params
@@ -2376,6 +2381,7 @@ module Stripe
     stripe/params/v2/tax/manual_rule_list_params
     stripe/params/v2/tax/manual_rule_retrieve_params
     stripe/params/v2/tax/manual_rule_update_params
+    stripe/params/v2/tax/operation_resolve_address_params
     stripe/params/v2/test_helpers/financial_address_credit_params
     stripe/params/v2/test_helpers/financial_address_generate_microdeposits_params
     stripe/params/v2/test_helpers/money_management_recipient_verifications_params

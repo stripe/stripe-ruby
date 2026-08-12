@@ -79,7 +79,7 @@ module Stripe
       def failed_at; end
       sig { params(_failed_at: Integer).returns(Integer) }
       def failed_at=(_failed_at); end
-      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline`, `payment_method_provider_unknown_outcome`, `authentication_failure`, `expired_payment_method`, `incorrect_cvc`, `incorrect_number`, `incorrect_postal_code`, `insufficient_funds`, `processing_error`, or `payment_method_restricted`.
       sig { returns(T.nilable(String)) }
       def failure_code; end
       sig { params(_failure_code: T.nilable(String)).returns(T.nilable(String)) }

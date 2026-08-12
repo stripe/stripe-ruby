@@ -55,7 +55,7 @@ module Stripe
       end
       # When the reported payment failed. Measured in seconds since the Unix epoch.
       attr_accessor :failed_at
-      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+      # The failure code for this payment attempt. Must be one of `payment_method_customer_decline`, `payment_method_provider_unknown_outcome`, `authentication_failure`, `expired_payment_method`, `incorrect_cvc`, `incorrect_number`, `incorrect_postal_code`, `insufficient_funds`, `processing_error`, or `payment_method_restricted`.
       attr_accessor :failure_code
       # Payment evaluations associated with this reported payment.
       attr_accessor :payment_evaluations

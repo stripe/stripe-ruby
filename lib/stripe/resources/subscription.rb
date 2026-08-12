@@ -346,6 +346,16 @@ module Stripe
           end
         end
 
+        class Billie < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Bizum < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Amount to be charged for future payments. Required when `amount_type=fixed`.
@@ -668,6 +678,8 @@ module Stripe
         attr_reader :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         attr_reader :bancontact
+        # This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
+        attr_reader :billie
         # This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
         attr_reader :bizum
         # This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
@@ -699,6 +711,7 @@ module Stripe
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            billie: Billie,
             bizum: Bizum,
             blik: Blik,
             card: Card,

@@ -98,6 +98,8 @@ module Stripe
         end
         # The monetary amount to be sent.
         attr_accessor :amount
+        # Controls whether the intent requires explicit confirmation before transitioning to pending. Defaults to automatic.
+        attr_accessor :confirmation_method
         # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
         attr_accessor :description
         # The FinancialAccount that funds are pulled from.
@@ -115,6 +117,7 @@ module Stripe
 
         def initialize(
           amount: nil,
+          confirmation_method: nil,
           description: nil,
           from: nil,
           metadata: nil,
@@ -124,6 +127,7 @@ module Stripe
           to: nil
         )
           @amount = amount
+          @confirmation_method = confirmation_method
           @description = description
           @from = from
           @metadata = metadata

@@ -644,6 +644,62 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class HoldAmount < ::Stripe::StripeObject
+          # Three-letter ISO currency code.
+          sig { returns(String) }
+          def currency; end
+          # The amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class HoldAmountDetails < ::Stripe::StripeObject
+          class Network < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Reserve < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field network
+          sig { returns(Network) }
+          def network; end
+          # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+          sig { returns(T.nilable(Reserve)) }
+          def reserve; end
+          def self.inner_class_types
+            @inner_class_types = {network: Network, reserve: Reserve}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://docs.stripe.com/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def amount; end
@@ -653,6 +709,12 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
+        # The total amount to be held for this authorization request.
+        sig { returns(T.nilable(HoldAmount)) }
+        def hold_amount; end
+        # Breakdown of the amounts contributing to hold_amount.
+        sig { returns(T.nilable(HoldAmountDetails)) }
+        def hold_amount_details; end
         # If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         sig { returns(T::Boolean) }
         def is_amount_controllable; end
@@ -666,7 +728,11 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         def network_risk_score; end
         def self.inner_class_types
-          @inner_class_types = {amount_details: AmountDetails}
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            hold_amount: HoldAmount,
+            hold_amount_details: HoldAmountDetails,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -693,6 +759,62 @@ module Stripe
           def cashback_amount; end
           def self.inner_class_types
             @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class HoldAmount < ::Stripe::StripeObject
+          # Three-letter ISO currency code.
+          sig { returns(String) }
+          def currency; end
+          # The amount in the smallest currency unit.
+          sig { returns(Integer) }
+          def value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class HoldAmountDetails < ::Stripe::StripeObject
+          class Network < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Reserve < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field network
+          sig { returns(Network) }
+          def network; end
+          # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
+          sig { returns(T.nilable(Reserve)) }
+          def reserve; end
+          def self.inner_class_types
+            @inner_class_types = {network: Network, reserve: Reserve}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -744,6 +866,12 @@ module Stripe
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
+        # The total amount that was held for this authorization request.
+        sig { returns(T.nilable(HoldAmount)) }
+        def hold_amount; end
+        # Breakdown of the amounts contributing to hold_amount.
+        sig { returns(T.nilable(HoldAmountDetails)) }
+        def hold_amount_details; end
         # The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         sig { returns(Integer) }
         def merchant_amount; end
@@ -766,7 +894,12 @@ module Stripe
         sig { returns(T.nilable(Integer)) }
         def requested_at; end
         def self.inner_class_types
-          @inner_class_types = {amount_details: AmountDetails, network_data: NetworkData}
+          @inner_class_types = {
+            amount_details: AmountDetails,
+            hold_amount: HoldAmount,
+            hold_amount_details: HoldAmountDetails,
+            network_data: NetworkData,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

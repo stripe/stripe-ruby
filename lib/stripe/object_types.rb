@@ -323,6 +323,7 @@ module Stripe
         V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,
         V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,
         V2::Tax::ManualRule.object_name => V2::Tax::ManualRule,
+        V2::Tax::OperationsResolveAddressResult.object_name => V2::Tax::OperationsResolveAddressResult,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

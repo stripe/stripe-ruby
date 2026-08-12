@@ -267,7 +267,7 @@ module Stripe
             @destination = destination
           end
         end
-        # The “presentment amount” to be collected from the customer.
+        # The "presentment amount" to be collected from the customer.
         attr_accessor :amount
         # Provides industry-specific information about the amount.
         attr_accessor :amount_details
@@ -301,14 +301,14 @@ module Stripe
         attr_accessor :payments_orchestration
         # Details about the OffSessionPayment retries.
         attr_accessor :retry_details
-        # Text that appears on the customer’s statement as the statement descriptor for a
-        # non-card charge. This value overrides the account’s default statement descriptor.
+        # Text that appears on the customer's statement as the statement descriptor for a
+        # non-card charge. This value overrides the account's default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         attr_accessor :statement_descriptor
-        # Provides information about a card charge. Concatenated to the account’s
+        # Provides information about a card charge. Concatenated to the account's
         # [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
-        # to form the complete statement descriptor that appears on the customer’s statement.
+        # to form the complete statement descriptor that appears on the customer's statement.
         attr_accessor :statement_descriptor_suffix
         # Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
         attr_accessor :target_date

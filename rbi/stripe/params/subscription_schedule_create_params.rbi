@@ -497,7 +497,7 @@ module Stripe
           def billing_cycle_anchor; end
           sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
           def billing_cycle_anchor=(_billing_cycle_anchor); end
-          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
           sig { returns(T.nilable(String)) }
           def payment_behavior; end
           sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -543,10 +543,10 @@ module Stripe
       sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
       def key=(_key); end
       # Configuration for when and how the subscription pauses.
-      sig { returns(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause) }
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause)) }
       def pause; end
       sig {
-        params(_pause: ::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause).returns(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause)
+        params(_pause: T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause))
        }
       def pause=(_pause); end
       # Configuration for when and how the subscription resumes.
@@ -557,7 +557,7 @@ module Stripe
        }
       def resume=(_resume); end
       sig {
-        params(key: T.nilable(String), pause: ::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause, resume: T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Resume)).void
+        params(key: T.nilable(String), pause: T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause), resume: T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Resume)).void
        }
       def initialize(key: nil, pause: nil, resume: nil); end
     end
@@ -1772,7 +1772,7 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
-    # Sets the pause schedules for the subscription schedule. Each entry configures when and how the subscription pauses and optionally when and how it resumes.
+    # Configures the subscription's pause behavior and, optionally, its resume behavior. Only one entry is supported.
     sig { returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleCreateParams::PauseSchedule])) }
     def pause_schedules; end
     sig {

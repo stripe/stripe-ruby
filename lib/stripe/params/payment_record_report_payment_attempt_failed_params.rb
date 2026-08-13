@@ -21,9 +21,12 @@ module Stripe
         end
         # Verification checks performed on the card.
         attr_accessor :checks
+        # Decline code from the card network for the failed payment.
+        attr_accessor :network_decline_code
 
-        def initialize(checks: nil)
+        def initialize(checks: nil, network_decline_code: nil)
           @checks = checks
+          @network_decline_code = network_decline_code
         end
       end
       # Information about the card payment method used to make this payment.
@@ -60,7 +63,7 @@ module Stripe
     attr_accessor :expand
     # When the reported payment failed. Measured in seconds since the Unix epoch.
     attr_accessor :failed_at
-    # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+    # The failure code for this payment attempt. Must be one of `payment_method_customer_decline`, `payment_method_provider_unknown_outcome`, `authentication_failure`, `expired_payment_method`, `incorrect_cvc`, `incorrect_number`, `incorrect_postal_code`, `insufficient_funds`, `processing_error`, or `payment_method_restricted`.
     attr_accessor :failure_code
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata

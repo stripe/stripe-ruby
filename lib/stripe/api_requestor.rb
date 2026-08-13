@@ -875,6 +875,8 @@ module Stripe
         FinancialAccountNotOpenError.new(error_data[:message], **opts)
       when "fx_quote_expired"
         FxQuoteExpiredError.new(error_data[:message], **opts)
+      when "fx_quote_needs_refresh"
+        FxQuoteNeedsRefreshError.new(error_data[:message], **opts)
       when "insufficient_funds"
         InsufficientFundsError.new(error_data[:message], **opts)
       when "invalid_payment_method"

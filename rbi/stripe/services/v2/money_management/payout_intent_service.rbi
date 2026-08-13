@@ -6,13 +6,21 @@ module Stripe
   module V2
     module MoneyManagement
       class PayoutIntentService < StripeService
-        # Cancels a PayoutIntent. Only pending PayoutIntents or processing PayoutIntents with cancelable OutboundPayment/Transfer can be canceled.
+        # Cancels a PayoutIntent. Only pending PayoutIntents, processing PayoutIntents with cancelable OutboundPayment/Transfer, or requires_action PayoutIntents can be canceled.
         #
         # ** raises NotCancelableError
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
          }
         def cancel(id, params = {}, opts = {}); end
+
+        # Confirms a PayoutIntent that is in the requires_action state, transitioning it to pending.
+        #
+        # ** raises FxQuoteNeedsRefreshError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def confirm(id, params = {}, opts = {}); end
 
         # Creates a PayoutIntent.
         #
@@ -21,6 +29,12 @@ module Stripe
           params(params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
          }
         def create(params = {}, opts = {}); end
+
+        # Refreshes FX quote for a PayoutIntent.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentFxQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
+         }
+        def fx_quote(id, params = {}, opts = {}); end
 
         # Returns a list of PayoutIntents.
         sig {

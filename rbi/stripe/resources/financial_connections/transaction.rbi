@@ -6,6 +6,82 @@ module Stripe
   module FinancialConnections
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.
     class Transaction < APIResource
+      class Classification < ::Stripe::StripeObject
+        class MoneyMovement < ::Stripe::StripeObject
+          # Stripe's confidence in this classification.
+          sig { returns(T.nilable(String)) }
+          def confidence_level; end
+          # The detailed category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def detailed_label; end
+          # The primary category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def primary_label; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PersonalFinance < ::Stripe::StripeObject
+          # Stripe's confidence in this classification.
+          sig { returns(T.nilable(String)) }
+          def confidence_level; end
+          # The detailed category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def detailed_label; end
+          # The primary category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def primary_label; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Money movement classification labels for this transaction.
+        sig { returns(T.nilable(MoneyMovement)) }
+        def money_movement; end
+        # Personal finance classification labels for this transaction.
+        sig { returns(T.nilable(PersonalFinance)) }
+        def personal_finance; end
+        # The taxonomy type for this classification entry.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {money_movement: MoneyMovement, personal_finance: PersonalFinance}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Enrichments < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          # Stripe's confidence in the enriched merchant name.
+          sig { returns(T.nilable(String)) }
+          def confidence_level; end
+          # The normalized merchant name for this transaction.
+          sig { returns(T.nilable(String)) }
+          def name; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field merchant
+        sig { returns(Merchant) }
+        def merchant; end
+        def self.inner_class_types
+          @inner_class_types = {merchant: Merchant}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class StatusTransitions < ::Stripe::StripeObject
         # Time at which this transaction posted. Measured in seconds since the Unix epoch.
         sig { returns(T.nilable(Integer)) }
@@ -26,12 +102,18 @@ module Stripe
       # The amount of this transaction, in cents (or local equivalent).
       sig { returns(Integer) }
       def amount; end
+      # Classification labels for this transaction, one entry per subscribed use case.
+      sig { returns(T.nilable(T::Array[Classification])) }
+      def classifications; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
       # The description of this transaction.
       sig { returns(String) }
       def description; end
+      # Enriched merchant information for this transaction.
+      sig { returns(T.nilable(Enrichments)) }
+      def enrichments; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end

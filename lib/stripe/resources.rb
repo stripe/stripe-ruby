@@ -194,13 +194,31 @@ module Stripe
     autoload :V1ApplicationFeeRefundUpdatedEventNotification, "stripe/events/v1_application_fee_refund_updated_event"
     autoload :V1BalanceAvailableEvent, "stripe/events/v1_balance_available_event"
     autoload :V1BalanceAvailableEventNotification, "stripe/events/v1_balance_available_event"
+    autoload :V1BalanceSettingsUpdatedEvent, "stripe/events/v1_balance_settings_updated_event"
+    autoload :V1BalanceSettingsUpdatedEventNotification, "stripe/events/v1_balance_settings_updated_event"
     autoload :V1BillingAlertTriggeredEvent, "stripe/events/v1_billing_alert_triggered_event"
     autoload :V1BillingAlertTriggeredEventNotification, "stripe/events/v1_billing_alert_triggered_event"
+    autoload :V1BillingCreditBalanceTransactionCreatedEvent,
+             "stripe/events/v1_billing_credit_balance_transaction_created_event"
+    autoload :V1BillingCreditBalanceTransactionCreatedEventNotification,
+             "stripe/events/v1_billing_credit_balance_transaction_created_event"
+    autoload :V1BillingCreditGrantCreatedEvent, "stripe/events/v1_billing_credit_grant_created_event"
+    autoload :V1BillingCreditGrantCreatedEventNotification, "stripe/events/v1_billing_credit_grant_created_event"
+    autoload :V1BillingCreditGrantUpdatedEvent, "stripe/events/v1_billing_credit_grant_updated_event"
+    autoload :V1BillingCreditGrantUpdatedEventNotification, "stripe/events/v1_billing_credit_grant_updated_event"
+    autoload :V1BillingMeterCreatedEvent, "stripe/events/v1_billing_meter_created_event"
+    autoload :V1BillingMeterCreatedEventNotification, "stripe/events/v1_billing_meter_created_event"
+    autoload :V1BillingMeterDeactivatedEvent, "stripe/events/v1_billing_meter_deactivated_event"
+    autoload :V1BillingMeterDeactivatedEventNotification, "stripe/events/v1_billing_meter_deactivated_event"
     autoload :V1BillingMeterErrorReportTriggeredEvent, "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterErrorReportTriggeredEventNotification,
              "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterNoMeterFoundEvent, "stripe/events/v1_billing_meter_no_meter_found_event"
     autoload :V1BillingMeterNoMeterFoundEventNotification, "stripe/events/v1_billing_meter_no_meter_found_event"
+    autoload :V1BillingMeterReactivatedEvent, "stripe/events/v1_billing_meter_reactivated_event"
+    autoload :V1BillingMeterReactivatedEventNotification, "stripe/events/v1_billing_meter_reactivated_event"
+    autoload :V1BillingMeterUpdatedEvent, "stripe/events/v1_billing_meter_updated_event"
+    autoload :V1BillingMeterUpdatedEventNotification, "stripe/events/v1_billing_meter_updated_event"
     autoload :V1BillingPortalConfigurationCreatedEvent, "stripe/events/v1_billing_portal_configuration_created_event"
     autoload :V1BillingPortalConfigurationCreatedEventNotification,
              "stripe/events/v1_billing_portal_configuration_created_event"
@@ -320,6 +338,10 @@ module Stripe
              "stripe/events/v1_entitlements_active_entitlement_summary_updated_event"
     autoload :V1FileCreatedEvent, "stripe/events/v1_file_created_event"
     autoload :V1FileCreatedEventNotification, "stripe/events/v1_file_created_event"
+    autoload :V1FinancialConnectionsAccountAccountNumbersUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
+    autoload :V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
     autoload :V1FinancialConnectionsAccountCreatedEvent, "stripe/events/v1_financial_connections_account_created_event"
     autoload :V1FinancialConnectionsAccountCreatedEventNotification,
              "stripe/events/v1_financial_connections_account_created_event"
@@ -331,6 +353,10 @@ module Stripe
              "stripe/events/v1_financial_connections_account_disconnected_event"
     autoload :V1FinancialConnectionsAccountDisconnectedEventNotification,
              "stripe/events/v1_financial_connections_account_disconnected_event"
+    autoload :V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
+    autoload :V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
     autoload :V1FinancialConnectionsAccountReactivatedEvent,
              "stripe/events/v1_financial_connections_account_reactivated_event"
     autoload :V1FinancialConnectionsAccountReactivatedEventNotification,
@@ -347,6 +373,18 @@ module Stripe
              "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
     autoload :V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
              "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
+    autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
+    autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
+    autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
+             "stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event"
+    autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+             "stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event"
+    autoload :V1FinancialConnectionsAccountUpcomingDeactivationEvent,
+             "stripe/events/v1_financial_connections_account_upcoming_deactivation_event"
+    autoload :V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
+             "stripe/events/v1_financial_connections_account_upcoming_deactivation_event"
     autoload :V1IdentityVerificationSessionCanceledEvent,
              "stripe/events/v1_identity_verification_session_canceled_event"
     autoload :V1IdentityVerificationSessionCanceledEventNotification,
@@ -392,6 +430,9 @@ module Stripe
     autoload :V1InvoicePaidEventNotification, "stripe/events/v1_invoice_paid_event"
     autoload :V1InvoicePaymentActionRequiredEvent, "stripe/events/v1_invoice_payment_action_required_event"
     autoload :V1InvoicePaymentActionRequiredEventNotification, "stripe/events/v1_invoice_payment_action_required_event"
+    autoload :V1InvoicePaymentAttemptRequiredEvent, "stripe/events/v1_invoice_payment_attempt_required_event"
+    autoload :V1InvoicePaymentAttemptRequiredEventNotification,
+             "stripe/events/v1_invoice_payment_attempt_required_event"
     autoload :V1InvoicePaymentFailedEvent, "stripe/events/v1_invoice_payment_failed_event"
     autoload :V1InvoicePaymentFailedEventNotification, "stripe/events/v1_invoice_payment_failed_event"
     autoload :V1InvoicePaymentPaidEvent, "stripe/events/v1_invoice_payment_paid_event"
@@ -1631,6 +1672,7 @@ module Stripe
 
     module Tax
       autoload :ManualRule, "stripe/resources/v2/tax/manual_rule"
+      autoload :OperationsResolveAddressResult, "stripe/resources/v2/tax/operations_resolve_address_result"
     end
   end
 end
@@ -1932,6 +1974,7 @@ module Stripe
     stripe/resources/v2/signals/account_evaluation
     stripe/resources/v2/signals/account_signal
     stripe/resources/v2/tax/manual_rule
+    stripe/resources/v2/tax/operations_resolve_address_result
     stripe/resources/webhook_endpoint
     stripe/events/v1_account_application_authorized_event
     stripe/events/v1_account_application_deauthorized_event
@@ -1944,9 +1987,17 @@ module Stripe
     stripe/events/v1_application_fee_refund_updated_event
     stripe/events/v1_application_fee_refunded_event
     stripe/events/v1_balance_available_event
+    stripe/events/v1_balance_settings_updated_event
     stripe/events/v1_billing_alert_triggered_event
+    stripe/events/v1_billing_credit_balance_transaction_created_event
+    stripe/events/v1_billing_credit_grant_created_event
+    stripe/events/v1_billing_credit_grant_updated_event
+    stripe/events/v1_billing_meter_created_event
+    stripe/events/v1_billing_meter_deactivated_event
     stripe/events/v1_billing_meter_error_report_triggered_event
     stripe/events/v1_billing_meter_no_meter_found_event
+    stripe/events/v1_billing_meter_reactivated_event
+    stripe/events/v1_billing_meter_updated_event
     stripe/events/v1_billing_portal_configuration_created_event
     stripe/events/v1_billing_portal_configuration_updated_event
     stripe/events/v1_billing_portal_session_created_event
@@ -1999,13 +2050,18 @@ module Stripe
     stripe/events/v1_customer_updated_event
     stripe/events/v1_entitlements_active_entitlement_summary_updated_event
     stripe/events/v1_file_created_event
+    stripe/events/v1_financial_connections_account_account_numbers_updated_event
     stripe/events/v1_financial_connections_account_created_event
     stripe/events/v1_financial_connections_account_deactivated_event
     stripe/events/v1_financial_connections_account_disconnected_event
+    stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event
     stripe/events/v1_financial_connections_account_reactivated_event
     stripe/events/v1_financial_connections_account_refreshed_balance_event
     stripe/events/v1_financial_connections_account_refreshed_ownership_event
     stripe/events/v1_financial_connections_account_refreshed_transactions_event
+    stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event
+    stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event
+    stripe/events/v1_financial_connections_account_upcoming_deactivation_event
     stripe/events/v1_identity_verification_session_canceled_event
     stripe/events/v1_identity_verification_session_created_event
     stripe/events/v1_identity_verification_session_processing_event
@@ -2021,6 +2077,7 @@ module Stripe
     stripe/events/v1_invoice_overpaid_event
     stripe/events/v1_invoice_paid_event
     stripe/events/v1_invoice_payment_action_required_event
+    stripe/events/v1_invoice_payment_attempt_required_event
     stripe/events/v1_invoice_payment_failed_event
     stripe/events/v1_invoice_payment_paid_event
     stripe/events/v1_invoice_payment_succeeded_event

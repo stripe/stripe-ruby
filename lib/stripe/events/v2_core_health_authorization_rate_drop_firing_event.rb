@@ -12,6 +12,8 @@ module Stripe
       class V2CoreHealthAuthorizationRateDropFiringEventData < ::Stripe::StripeObject
         class Impact < ::Stripe::StripeObject
           class Dimension < ::Stripe::StripeObject
+            # The acquirer dimension.
+            attr_reader :acquirer
             # The issuer dimension.
             attr_reader :issuer
             # The type of the dimension.

@@ -224,8 +224,8 @@ module Stripe
           params(_payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::PaymentDetails)).returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCaptureParams::PaymentDetails))
          }
         def payment_details=(_payment_details); end
-        # Text that appears on the customer’s statement as the statement descriptor for a
-        # non-card charge. This value overrides the account’s default statement descriptor.
+        # Text that appears on the customer's statement as the statement descriptor for a
+        # non-card charge. This value overrides the account's default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         sig { returns(T.nilable(String)) }

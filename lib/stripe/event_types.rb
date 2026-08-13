@@ -23,10 +23,19 @@ module Stripe
         Events::V1ApplicationFeeRefundUpdatedEvent,
         Events::V1ApplicationFeeRefundedEvent.lookup_type => Events::V1ApplicationFeeRefundedEvent,
         Events::V1BalanceAvailableEvent.lookup_type => Events::V1BalanceAvailableEvent,
+        Events::V1BalanceSettingsUpdatedEvent.lookup_type => Events::V1BalanceSettingsUpdatedEvent,
         Events::V1BillingAlertTriggeredEvent.lookup_type => Events::V1BillingAlertTriggeredEvent,
+        Events::V1BillingCreditBalanceTransactionCreatedEvent.lookup_type =>
+        Events::V1BillingCreditBalanceTransactionCreatedEvent,
+        Events::V1BillingCreditGrantCreatedEvent.lookup_type => Events::V1BillingCreditGrantCreatedEvent,
+        Events::V1BillingCreditGrantUpdatedEvent.lookup_type => Events::V1BillingCreditGrantUpdatedEvent,
+        Events::V1BillingMeterCreatedEvent.lookup_type => Events::V1BillingMeterCreatedEvent,
+        Events::V1BillingMeterDeactivatedEvent.lookup_type => Events::V1BillingMeterDeactivatedEvent,
         Events::V1BillingMeterErrorReportTriggeredEvent.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEvent,
         Events::V1BillingMeterNoMeterFoundEvent.lookup_type => Events::V1BillingMeterNoMeterFoundEvent,
+        Events::V1BillingMeterReactivatedEvent.lookup_type => Events::V1BillingMeterReactivatedEvent,
+        Events::V1BillingMeterUpdatedEvent.lookup_type => Events::V1BillingMeterUpdatedEvent,
         Events::V1BillingPortalConfigurationCreatedEvent.lookup_type =>
         Events::V1BillingPortalConfigurationCreatedEvent,
         Events::V1BillingPortalConfigurationUpdatedEvent.lookup_type =>
@@ -97,12 +106,16 @@ module Stripe
         Events::V1EntitlementsActiveEntitlementSummaryUpdatedEvent.lookup_type =>
         Events::V1EntitlementsActiveEntitlementSummaryUpdatedEvent,
         Events::V1FileCreatedEvent.lookup_type => Events::V1FileCreatedEvent,
+        Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEvent.lookup_type =>
+        Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEvent,
         Events::V1FinancialConnectionsAccountCreatedEvent.lookup_type =>
         Events::V1FinancialConnectionsAccountCreatedEvent,
         Events::V1FinancialConnectionsAccountDeactivatedEvent.lookup_type =>
         Events::V1FinancialConnectionsAccountDeactivatedEvent,
         Events::V1FinancialConnectionsAccountDisconnectedEvent.lookup_type =>
         Events::V1FinancialConnectionsAccountDisconnectedEvent,
+        Events::V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent.lookup_type =>
+        Events::V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent,
         Events::V1FinancialConnectionsAccountReactivatedEvent.lookup_type =>
         Events::V1FinancialConnectionsAccountReactivatedEvent,
         Events::V1FinancialConnectionsAccountRefreshedBalanceEvent.lookup_type =>
@@ -111,6 +124,12 @@ module Stripe
         Events::V1FinancialConnectionsAccountRefreshedOwnershipEvent,
         Events::V1FinancialConnectionsAccountRefreshedTransactionsEvent.lookup_type =>
         Events::V1FinancialConnectionsAccountRefreshedTransactionsEvent,
+        Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent.lookup_type =>
+        Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
+        Events::V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent.lookup_type =>
+        Events::V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
+        Events::V1FinancialConnectionsAccountUpcomingDeactivationEvent.lookup_type =>
+        Events::V1FinancialConnectionsAccountUpcomingDeactivationEvent,
         Events::V1IdentityVerificationSessionCanceledEvent.lookup_type =>
         Events::V1IdentityVerificationSessionCanceledEvent,
         Events::V1IdentityVerificationSessionCreatedEvent.lookup_type =>
@@ -133,6 +152,8 @@ module Stripe
         Events::V1InvoicePaidEvent.lookup_type => Events::V1InvoicePaidEvent,
         Events::V1InvoicePaymentActionRequiredEvent.lookup_type =>
         Events::V1InvoicePaymentActionRequiredEvent,
+        Events::V1InvoicePaymentAttemptRequiredEvent.lookup_type =>
+        Events::V1InvoicePaymentAttemptRequiredEvent,
         Events::V1InvoicePaymentFailedEvent.lookup_type => Events::V1InvoicePaymentFailedEvent,
         Events::V1InvoicePaymentPaidEvent.lookup_type => Events::V1InvoicePaymentPaidEvent,
         Events::V1InvoicePaymentSucceededEvent.lookup_type => Events::V1InvoicePaymentSucceededEvent,
@@ -703,12 +724,28 @@ module Stripe
         Events::V1ApplicationFeeRefundedEventNotification,
         Events::V1BalanceAvailableEventNotification.lookup_type =>
         Events::V1BalanceAvailableEventNotification,
+        Events::V1BalanceSettingsUpdatedEventNotification.lookup_type =>
+        Events::V1BalanceSettingsUpdatedEventNotification,
         Events::V1BillingAlertTriggeredEventNotification.lookup_type =>
         Events::V1BillingAlertTriggeredEventNotification,
+        Events::V1BillingCreditBalanceTransactionCreatedEventNotification.lookup_type =>
+        Events::V1BillingCreditBalanceTransactionCreatedEventNotification,
+        Events::V1BillingCreditGrantCreatedEventNotification.lookup_type =>
+        Events::V1BillingCreditGrantCreatedEventNotification,
+        Events::V1BillingCreditGrantUpdatedEventNotification.lookup_type =>
+        Events::V1BillingCreditGrantUpdatedEventNotification,
+        Events::V1BillingMeterCreatedEventNotification.lookup_type =>
+        Events::V1BillingMeterCreatedEventNotification,
+        Events::V1BillingMeterDeactivatedEventNotification.lookup_type =>
+        Events::V1BillingMeterDeactivatedEventNotification,
         Events::V1BillingMeterErrorReportTriggeredEventNotification.lookup_type =>
         Events::V1BillingMeterErrorReportTriggeredEventNotification,
         Events::V1BillingMeterNoMeterFoundEventNotification.lookup_type =>
         Events::V1BillingMeterNoMeterFoundEventNotification,
+        Events::V1BillingMeterReactivatedEventNotification.lookup_type =>
+        Events::V1BillingMeterReactivatedEventNotification,
+        Events::V1BillingMeterUpdatedEventNotification.lookup_type =>
+        Events::V1BillingMeterUpdatedEventNotification,
         Events::V1BillingPortalConfigurationCreatedEventNotification.lookup_type =>
         Events::V1BillingPortalConfigurationCreatedEventNotification,
         Events::V1BillingPortalConfigurationUpdatedEventNotification.lookup_type =>
@@ -803,12 +840,16 @@ module Stripe
         Events::V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification.lookup_type =>
         Events::V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
         Events::V1FileCreatedEventNotification.lookup_type => Events::V1FileCreatedEventNotification,
+        Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification.lookup_type =>
+        Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
         Events::V1FinancialConnectionsAccountCreatedEventNotification.lookup_type =>
         Events::V1FinancialConnectionsAccountCreatedEventNotification,
         Events::V1FinancialConnectionsAccountDeactivatedEventNotification.lookup_type =>
         Events::V1FinancialConnectionsAccountDeactivatedEventNotification,
         Events::V1FinancialConnectionsAccountDisconnectedEventNotification.lookup_type =>
         Events::V1FinancialConnectionsAccountDisconnectedEventNotification,
+        Events::V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification.lookup_type =>
+        Events::V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
         Events::V1FinancialConnectionsAccountReactivatedEventNotification.lookup_type =>
         Events::V1FinancialConnectionsAccountReactivatedEventNotification,
         Events::V1FinancialConnectionsAccountRefreshedBalanceEventNotification.lookup_type =>
@@ -817,6 +858,12 @@ module Stripe
         Events::V1FinancialConnectionsAccountRefreshedOwnershipEventNotification,
         Events::V1FinancialConnectionsAccountRefreshedTransactionsEventNotification.lookup_type =>
         Events::V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
+        Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification.lookup_type =>
+        Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+        Events::V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification.lookup_type =>
+        Events::V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+        Events::V1FinancialConnectionsAccountUpcomingDeactivationEventNotification.lookup_type =>
+        Events::V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
         Events::V1IdentityVerificationSessionCanceledEventNotification.lookup_type =>
         Events::V1IdentityVerificationSessionCanceledEventNotification,
         Events::V1IdentityVerificationSessionCreatedEventNotification.lookup_type =>
@@ -843,6 +890,8 @@ module Stripe
         Events::V1InvoicePaidEventNotification.lookup_type => Events::V1InvoicePaidEventNotification,
         Events::V1InvoicePaymentActionRequiredEventNotification.lookup_type =>
         Events::V1InvoicePaymentActionRequiredEventNotification,
+        Events::V1InvoicePaymentAttemptRequiredEventNotification.lookup_type =>
+        Events::V1InvoicePaymentAttemptRequiredEventNotification,
         Events::V1InvoicePaymentFailedEventNotification.lookup_type =>
         Events::V1InvoicePaymentFailedEventNotification,
         Events::V1InvoicePaymentPaidEventNotification.lookup_type =>

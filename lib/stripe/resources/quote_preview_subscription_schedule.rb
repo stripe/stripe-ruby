@@ -374,13 +374,44 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Status < ::Stripe::StripeObject
+          class Error < ::Stripe::StripeObject
+            # A machine-readable error code.
+            attr_reader :code
+            # A description of the error.
+            attr_reader :message
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field error
+          attr_reader :error
+          # The lifecycle state of the pause operation.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { error: Error }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the subscription pauses.
         attr_reader :pause_at
         # Settings controlling billing behavior during the pause.
         attr_reader :settings
+        # Attribute for field status
+        attr_reader :status
 
         def self.inner_class_types
-          @inner_class_types = { settings: Settings }
+          @inner_class_types = { settings: Settings, status: Status }
         end
 
         def self.field_remappings
@@ -405,13 +436,44 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class Status < ::Stripe::StripeObject
+          class Error < ::Stripe::StripeObject
+            # A machine-readable error code.
+            attr_reader :code
+            # A description of the error.
+            attr_reader :message
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field error
+          attr_reader :error
+          # The lifecycle state of the resume operation.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { error: Error }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the subscription resumes.
         attr_reader :resume_at
         # Attribute for field settings
         attr_reader :settings
+        # Attribute for field status
+        attr_reader :status
 
         def self.inner_class_types
-          @inner_class_types = { settings: Settings }
+          @inner_class_types = { settings: Settings, status: Status }
         end
 
         def self.field_remappings

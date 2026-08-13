@@ -362,14 +362,45 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Status < ::Stripe::StripeObject
+          class Error < ::Stripe::StripeObject
+            # A machine-readable error code.
+            sig { returns(T.nilable(String)) }
+            def code; end
+            # A description of the error.
+            sig { returns(String) }
+            def message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field error
+          sig { returns(T.nilable(Error)) }
+          def error; end
+          # The lifecycle state of the pause operation.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {error: Error}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the subscription pauses.
         sig { returns(Integer) }
         def pause_at; end
         # Settings controlling billing behavior during the pause.
         sig { returns(T.nilable(Settings)) }
         def settings; end
+        # Attribute for field status
+        sig { returns(Status) }
+        def status; end
         def self.inner_class_types
-          @inner_class_types = {settings: Settings}
+          @inner_class_types = {settings: Settings, status: Status}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -393,14 +424,45 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Status < ::Stripe::StripeObject
+          class Error < ::Stripe::StripeObject
+            # A machine-readable error code.
+            sig { returns(T.nilable(String)) }
+            def code; end
+            # A description of the error.
+            sig { returns(String) }
+            def message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field error
+          sig { returns(T.nilable(Error)) }
+          def error; end
+          # The lifecycle state of the resume operation.
+          sig { returns(String) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {error: Error}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Time at which the subscription resumes.
         sig { returns(Integer) }
         def resume_at; end
         # Attribute for field settings
         sig { returns(Settings) }
         def settings; end
+        # Attribute for field status
+        sig { returns(Status) }
+        def status; end
         def self.inner_class_types
-          @inner_class_types = {settings: Settings}
+          @inner_class_types = {settings: Settings, status: Status}
         end
         def self.field_remappings
           @field_remappings = {}

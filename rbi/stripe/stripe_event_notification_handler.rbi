@@ -1,7 +1,6 @@
 # File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
-# frozen_string_literal: true
 # typed: true
 
 module Stripe
@@ -104,9 +103,45 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BalanceSettingsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_balance_settings_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingAlertTriggeredEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_billing_alert_triggered(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingCreditBalanceTransactionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_credit_balance_transaction_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingCreditGrantCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_credit_grant_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingCreditGrantUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_credit_grant_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterDeactivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_deactivated(&blk);
     end
     
     sig do
@@ -119,6 +154,18 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterNoMeterFoundEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_billing_meter_no_meter_found(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterReactivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_reactivated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_updated(&blk);
     end
     
     sig do
@@ -434,6 +481,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_financial_connections_account_account_numbers_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_created(&blk);
@@ -449,6 +502,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountDisconnectedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_disconnected(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_financial_connections_account_expected_deactivation_date_updated(&blk);
     end
     
     sig do
@@ -473,6 +532,24 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountRefreshedTransactionsEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_financial_connections_account_refreshed_transactions(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_financial_connections_account_supported_payment_method_types_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_financial_connections_account_upcoming_account_number_expiry(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1FinancialConnectionsAccountUpcomingDeactivationEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_financial_connections_account_upcoming_deactivation(&blk);
     end
     
     sig do
@@ -563,6 +640,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoicePaymentActionRequiredEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_invoice_payment_action_required(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1InvoicePaymentAttemptRequiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_invoice_payment_attempt_required(&blk);
     end
     
     sig do

@@ -313,7 +313,7 @@ module Stripe
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       sig { returns(T.nilable(String)) }
       def sepa_debit_payments; end
-      # The status of the Sequra capability of the account, or whether the account can directly process Sequra payments.
+      # The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
       sig { returns(T.nilable(String)) }
       def sequra_payments; end
       # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.

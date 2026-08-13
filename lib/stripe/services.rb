@@ -551,6 +551,7 @@ module Stripe
 
     module Tax
       autoload :ManualRuleService, "stripe/services/v2/tax/manual_rule_service"
+      autoload :OperationService, "stripe/services/v2/tax/operation_service"
     end
 
     module TestHelpers
@@ -913,6 +914,7 @@ module Stripe
     stripe/services/v2/signals/account_signal_service
     stripe/services/v2/signals_service
     stripe/services/v2/tax/manual_rule_service
+    stripe/services/v2/tax/operation_service
     stripe/services/v2/tax_service
     stripe/services/v2/test_helper_service
     stripe/services/v2/test_helpers/financial_address_service

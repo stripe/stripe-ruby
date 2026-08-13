@@ -40,10 +40,15 @@ module Stripe
           params(_checks: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card::Checks)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card::Checks))
          }
         def checks=(_checks); end
+        # Decline code from the card network for the failed payment.
+        sig { returns(T.nilable(String)) }
+        def network_decline_code; end
+        sig { params(_network_decline_code: T.nilable(String)).returns(T.nilable(String)) }
+        def network_decline_code=(_network_decline_code); end
         sig {
-          params(checks: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card::Checks)).void
+          params(checks: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card::Checks), network_decline_code: T.nilable(String)).void
          }
-        def initialize(checks: nil); end
+        def initialize(checks: nil, network_decline_code: nil); end
       end
       # Information about the card payment method used to make this payment.
       sig {
@@ -103,7 +108,7 @@ module Stripe
     def failed_at; end
     sig { params(_failed_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def failed_at=(_failed_at); end
-    # The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
+    # The failure code for this payment attempt. Must be one of `payment_method_customer_decline`, `payment_method_provider_unknown_outcome`, `authentication_failure`, `expired_payment_method`, `incorrect_cvc`, `incorrect_number`, `incorrect_postal_code`, `insufficient_funds`, `processing_error`, or `payment_method_restricted`.
     sig { returns(T.nilable(String)) }
     def failure_code; end
     sig { params(_failure_code: T.nilable(String)).returns(T.nilable(String)) }

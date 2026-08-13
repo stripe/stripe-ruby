@@ -22,6 +22,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CustomerPortal < ::Stripe::StripeObject
+        # Whether the customer portal is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CustomerSheet < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # A list of [`allow_redisplay`](https://docs.stripe.com/api/payment_methods/object#payment_method_object-allow_redisplay) values that controls which saved payment methods the customer sheet displays by filtering to only show payment methods with an `allow_redisplay` value that is present in this list.
@@ -193,6 +204,9 @@ module Stripe
       # This hash contains whether the buy button is enabled.
       sig { returns(BuyButton) }
       def buy_button; end
+      # This hash contains whether the customer portal is enabled.
+      sig { returns(CustomerPortal) }
+      def customer_portal; end
       # This hash contains whether the customer sheet is enabled and the features it supports.
       sig { returns(CustomerSheet) }
       def customer_sheet; end
@@ -211,6 +225,7 @@ module Stripe
       def self.inner_class_types
         @inner_class_types = {
           buy_button: BuyButton,
+          customer_portal: CustomerPortal,
           customer_sheet: CustomerSheet,
           mobile_payment_element: MobilePaymentElement,
           payment_element: PaymentElement,

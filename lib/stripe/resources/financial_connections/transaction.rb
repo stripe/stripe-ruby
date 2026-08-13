@@ -12,6 +12,83 @@ module Stripe
         "financial_connections.transaction"
       end
 
+      class Classification < ::Stripe::StripeObject
+        class MoneyMovement < ::Stripe::StripeObject
+          # Stripe's confidence in this classification.
+          attr_reader :confidence_level
+          # The detailed category label for this transaction.
+          attr_reader :detailed_label
+          # The primary category label for this transaction.
+          attr_reader :primary_label
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PersonalFinance < ::Stripe::StripeObject
+          # Stripe's confidence in this classification.
+          attr_reader :confidence_level
+          # The detailed category label for this transaction.
+          attr_reader :detailed_label
+          # The primary category label for this transaction.
+          attr_reader :primary_label
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Money movement classification labels for this transaction.
+        attr_reader :money_movement
+        # Personal finance classification labels for this transaction.
+        attr_reader :personal_finance
+        # The taxonomy type for this classification entry.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { money_movement: MoneyMovement, personal_finance: PersonalFinance }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Enrichments < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          # Stripe's confidence in the enriched merchant name.
+          attr_reader :confidence_level
+          # The normalized merchant name for this transaction.
+          attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field merchant
+        attr_reader :merchant
+
+        def self.inner_class_types
+          @inner_class_types = { merchant: Merchant }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class StatusTransitions < ::Stripe::StripeObject
         # Time at which this transaction posted. Measured in seconds since the Unix epoch.
         attr_reader :posted_at
@@ -30,10 +107,14 @@ module Stripe
       attr_reader :account
       # The amount of this transaction, in cents (or local equivalent).
       attr_reader :amount
+      # Classification labels for this transaction, one entry per subscribed use case.
+      attr_reader :classifications
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
       # The description of this transaction.
       attr_reader :description
+      # Enriched merchant information for this transaction.
+      attr_reader :enrichments
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -62,7 +143,11 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { status_transitions: StatusTransitions }
+        @inner_class_types = {
+          classifications: Classification,
+          enrichments: Enrichments,
+          status_transitions: StatusTransitions,
+        }
       end
 
       def self.field_remappings

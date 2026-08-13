@@ -46,6 +46,9 @@ module Stripe
           # A bitcoin address
           sig { returns(T.nilable(String)) }
           def bitcoin; end
+          # A Celo address
+          sig { returns(T.nilable(String)) }
+          def celo; end
           # The end customer's crypto wallet destination tag (for each network) to use for this transaction.
           sig { returns(T.nilable(DestinationTags)) }
           def destination_tags; end

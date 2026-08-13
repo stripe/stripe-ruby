@@ -140,10 +140,46 @@ module Stripe
       register("v1.balance.available", &handler)
     end
 
+    def on_v1_balance_settings_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.balance_settings.updated", &handler)
+    end
+
     def on_v1_billing_alert_triggered(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v1.billing.alert.triggered", &handler)
+    end
+
+    def on_v1_billing_credit_balance_transaction_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.credit_balance_transaction.created", &handler)
+    end
+
+    def on_v1_billing_credit_grant_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.credit_grant.created", &handler)
+    end
+
+    def on_v1_billing_credit_grant_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.credit_grant.updated", &handler)
+    end
+
+    def on_v1_billing_meter_created(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.meter.created", &handler)
+    end
+
+    def on_v1_billing_meter_deactivated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.meter.deactivated", &handler)
     end
 
     def on_v1_billing_meter_error_report_triggered(&handler)
@@ -156,6 +192,18 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v1.billing.meter.no_meter_found", &handler)
+    end
+
+    def on_v1_billing_meter_reactivated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.meter.reactivated", &handler)
+    end
+
+    def on_v1_billing_meter_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.billing.meter.updated", &handler)
     end
 
     def on_v1_billing_portal_configuration_created(&handler)
@@ -470,6 +518,12 @@ module Stripe
       register("v1.file.created", &handler)
     end
 
+    def on_v1_financial_connections_account_account_numbers_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.financial_connections.account.account_numbers_updated", &handler)
+    end
+
     def on_v1_financial_connections_account_created(&handler)
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
@@ -486,6 +540,12 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v1.financial_connections.account.disconnected", &handler)
+    end
+
+    def on_v1_financial_connections_account_expected_deactivation_date_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.financial_connections.account.expected_deactivation_date_updated", &handler)
     end
 
     def on_v1_financial_connections_account_reactivated(&handler)
@@ -510,6 +570,24 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v1.financial_connections.account.refreshed_transactions", &handler)
+    end
+
+    def on_v1_financial_connections_account_supported_payment_method_types_updated(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.financial_connections.account.supported_payment_method_types_updated", &handler)
+    end
+
+    def on_v1_financial_connections_account_upcoming_account_number_expiry(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.financial_connections.account.upcoming_account_number_expiry", &handler)
+    end
+
+    def on_v1_financial_connections_account_upcoming_deactivation(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.financial_connections.account.upcoming_deactivation", &handler)
     end
 
     def on_v1_identity_verification_session_canceled(&handler)
@@ -600,6 +678,12 @@ module Stripe
       raise ArgumentError, "Block required to register event handler" if handler.nil?
 
       register("v1.invoice.payment_action_required", &handler)
+    end
+
+    def on_v1_invoice_payment_attempt_required(&handler)
+      raise ArgumentError, "Block required to register event handler" if handler.nil?
+
+      register("v1.invoice.payment_attempt_required", &handler)
     end
 
     def on_v1_invoice_payment_failed(&handler)

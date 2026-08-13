@@ -145,6 +145,11 @@ module Stripe
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
         def amount=(_amount); end
+        # Controls whether the intent requires explicit confirmation before transitioning to pending. Defaults to automatic.
+        sig { returns(T.nilable(String)) }
+        def confirmation_method; end
+        sig { params(_confirmation_method: T.nilable(String)).returns(T.nilable(String)) }
+        def confirmation_method=(_confirmation_method); end
         # An arbitrary string attached to the PayoutIntent. Often useful for displaying to users.
         sig { returns(T.nilable(String)) }
         def description; end
@@ -195,10 +200,11 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::RecipientNotification), schedule_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::ScheduleOptions), statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, confirmation_method: T.nilable(String), description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::From, metadata: T.nilable(T::Hash[String, String]), recipient_notification: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::RecipientNotification), schedule_options: T.nilable(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::ScheduleOptions), statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::PayoutIntentCreateParams::To).void
          }
         def initialize(
           amount: nil,
+          confirmation_method: nil,
           description: nil,
           from: nil,
           metadata: nil,

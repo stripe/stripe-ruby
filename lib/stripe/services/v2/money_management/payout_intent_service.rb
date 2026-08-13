@@ -5,13 +5,26 @@ module Stripe
   module V2
     module MoneyManagement
       class PayoutIntentService < StripeService
-        # Cancels a PayoutIntent. Only pending PayoutIntents or processing PayoutIntents with cancelable OutboundPayment/Transfer can be canceled.
+        # Cancels a PayoutIntent. Only pending PayoutIntents, processing PayoutIntents with cancelable OutboundPayment/Transfer, or requires_action PayoutIntents can be canceled.
         #
         # ** raises NotCancelableError
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
             path: format("/v2/money_management/payout_intents/%<id>s/cancel", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Confirms a PayoutIntent that is in the requires_action state, transitioning it to pending.
+        #
+        # ** raises FxQuoteNeedsRefreshError
+        def confirm(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/money_management/payout_intents/%<id>s/confirm", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -25,6 +38,17 @@ module Stripe
           request(
             method: :post,
             path: "/v2/money_management/payout_intents",
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
+        # Refreshes FX quote for a PayoutIntent.
+        def fx_quote(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/money_management/payout_intents/%<id>s/fx_quote", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

@@ -176,6 +176,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class CustomerBalance < ::Stripe::StripeObject
+      # The total amount of customer balance applied to this invoice (automatically + manually).
+      sig { returns(Integer) }
+      def applied_balance; end
+      # The amount of customer balance automatically applied during invoice finalization.
+      sig { returns(Integer) }
+      def automatically_applied_balance; end
+      # The total amount of customer balance manually applied after finalization.
+      sig { returns(Integer) }
+      def manually_applied_balance; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class CustomerShipping < ::Stripe::StripeObject
       class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
@@ -500,6 +517,14 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Billie < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bizum < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -750,6 +775,9 @@ module Stripe
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
+        # If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(Billie)) }
+        def billie; end
         # If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bizum)) }
         def bizum; end
@@ -793,6 +821,7 @@ module Stripe
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            billie: Billie,
             bizum: Bizum,
             blik: Blik,
             card: Card,
@@ -1169,6 +1198,9 @@ module Stripe
     # The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(CustomerAddress)) }
     def customer_address; end
+    # The customer balance amounts applied to this invoice.
+    sig { returns(T.nilable(CustomerBalance)) }
+    def customer_balance; end
     # The customer's email. Until the invoice is finalized, this field will equal `customer.email`. Once the invoice is finalized, this field will no longer be updated.
     sig { returns(T.nilable(String)) }
     def customer_email; end

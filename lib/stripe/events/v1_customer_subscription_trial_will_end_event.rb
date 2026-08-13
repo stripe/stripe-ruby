@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs three days before a subscription's trial period is scheduled to end, or when a trial is ended immediately (using `trial_end=now`).
+    # Occurs three days before a subscription's trial period is scheduled to end, or immediately when a trial is ended early (for example, with `trial_end=now` or when a Customer Portal plan change ends a trial). If a trial is shortened so that fewer than three days remain, this event can fire immediately, including during the same transaction that collects payment. Before sending payment-reminder communications from this webhook, check the subscription status and latest invoice to determine whether payment has already been collected.
     class V1CustomerSubscriptionTrialWillEndEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.customer.subscription.trial_will_end"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs three days before a subscription's trial period is scheduled to end, or when a trial is ended immediately (using `trial_end=now`).
+    # Occurs three days before a subscription's trial period is scheduled to end, or immediately when a trial is ended early (for example, with `trial_end=now` or when a Customer Portal plan change ends a trial). If a trial is shortened so that fewer than three days remain, this event can fire immediately, including during the same transaction that collects payment. Before sending payment-reminder communications from this webhook, check the subscription status and latest invoice to determine whether payment has already been collected.
     class V1CustomerSubscriptionTrialWillEndEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.customer.subscription.trial_will_end"

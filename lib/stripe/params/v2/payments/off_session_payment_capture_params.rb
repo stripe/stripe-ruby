@@ -141,8 +141,8 @@ module Stripe
         attr_accessor :metadata
         # Provides industry-specific information about the payment.
         attr_accessor :payment_details
-        # Text that appears on the customer’s statement as the statement descriptor for a
-        # non-card charge. This value overrides the account’s default statement descriptor.
+        # Text that appears on the customer's statement as the statement descriptor for a
+        # non-card charge. This value overrides the account's default statement descriptor.
         # For information about requirements, including the 22-character limit, see the
         # [Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         attr_accessor :statement_descriptor

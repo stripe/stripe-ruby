@@ -120,6 +120,39 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ClassificationState < ::Stripe::StripeObject
+        # The taxonomy classification status for this account. One of 'pending' or 'completed'.
+        sig { returns(T.nilable(String)) }
+        def status; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class EnrichmentState < ::Stripe::StripeObject
+        class Merchant < ::Stripe::StripeObject
+          # The merchant enrichment status for this account. One of 'pending' or 'completed'.
+          sig { returns(T.nilable(String)) }
+          def status; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The enrichment status for merchant name normalization.
+        sig { returns(T.nilable(Merchant)) }
+        def merchant; end
+        def self.inner_class_types
+          @inner_class_types = {merchant: Merchant}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class InferredBalancesRefresh < ::Stripe::StripeObject
         # The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         sig { returns(Integer) }
@@ -237,12 +270,18 @@ module Stripe
       # The type of the account. Account category is further divided in `subcategory`.
       sig { returns(String) }
       def category; end
+      # Per-taxonomy processing state for this account. One entry per subscribed taxonomy.
+      sig { returns(T.nilable(T::Hash[String, ClassificationState])) }
+      def classification_state; end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
       # A human-readable name that has been assigned to this account, either by the account holder or by the institution.
       sig { returns(T.nilable(String)) }
       def display_name; end
+      # The state of merchant name enrichment for this account.
+      sig { returns(T.nilable(EnrichmentState)) }
+      def enrichment_state; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end

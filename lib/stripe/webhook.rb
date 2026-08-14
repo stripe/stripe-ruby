@@ -4,10 +4,10 @@ module Stripe
   module Webhook
     DEFAULT_TOLERANCE = 300
 
-    # Initializes an Event object from a JSON payload.
-    #
-    # This may raise JSON::ParserError if the payload is not valid JSON, or
-    # SignatureVerificationError if the signature verification fails.
+    # Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an
+    # incoming webhook after verifying its authenticity. To work with a webhook that has already been
+    # verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see
+    # `construct_event_without_verification`.
     def self.construct_event(payload, sig_header, secret,
                              tolerance: DEFAULT_TOLERANCE)
       Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
@@ -17,16 +17,56 @@ module Stripe
       # flood a target's memory if they were on an older version of Ruby that
       # doesn't GC symbols. It also decreases the likelihood that we receive a
       # bad payload that fails to parse and throws an exception.
-      data = JSON.parse(payload, symbolize_names: true)
+      _build_v1_event(payload)
+    end
+
+    # Constructs a [snapshot event](https://docs.stripe.com/event-destinations#snapshot-payload) from an
+    # incoming webhook without first verifying its authenticity. Should be used after calling
+    # `Webhook::Signature.verify_header` or with input from a trusted source (such as
+    # [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or
+    # [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify &
+    # construct in a single call, use `Webhook.construct_event` instead.
+    def self.construct_event_without_verification(payload)
+      _build_v1_event(_maybe_extract_from_cloud_provider_envelope(payload))
+    end
+
+    def self._build_v1_event(payload)
+      data = payload.is_a?(String) ? JSON.parse(payload, symbolize_names: true) : payload
 
       if data[:object] == "v2.core.event"
         raise ArgumentError,
-              "You passed an event notification to Webhook.construct_event, which expects " \
-              "a webhook payload. Use StripeClient#parse_event_notification instead."
+              "You passed a thin event notification to a method that expects a webhook body. " \
+              "Use the corresponding #parse_event_notification* method instead"
       end
 
       Event.construct_from(data, {}, nil, :v1, APIRequestor.active_requestor)
     end
+    private_class_method :_build_v1_event
+
+    def self._maybe_extract_from_cloud_provider_envelope(payload)
+      payload = payload.encode("utf-8") if payload.respond_to?(:encode)
+      data = JSON.parse(payload, symbolize_names: true)
+
+      # Could add as many checks as we want here, but we'll start simple
+      if data.key?(:detail)
+        # AWS
+        # https://docs.stripe.com/event-destinations/eventbridge#event-structure
+        data[:detail]
+      elsif data.key?(:specversion) && data.key?(:data)
+        # Azure
+        # https://docs.stripe.com/event-destinations/eventgrid#event-structure
+        data[:data]
+      elsif %w[event v2.core.event].include?(data[:object])
+        # Raw Stripe event: pass through as-is
+        data
+      else
+        raise ArgumentError,
+              "Unrecognized event format. The payload must be an " \
+              "AWS EventBridge/Azure Event Grid event envelope or a Stripe webhook " \
+              "(thin event notification or snapshot)."
+      end
+    end
+    private_class_method :_maybe_extract_from_cloud_provider_envelope
 
     module Signature
       EXPECTED_SCHEME = "v1"
@@ -46,12 +86,8 @@ module Stripe
                                 timestamped_payload)
       end
 
-      # Generates a value that would be added to a `Stripe-Signature` for a
-      # given webhook payload.
-      #
-      # Note that this isn't needed to verify webhooks in any way, and is
-      # mainly here for use in test cases (those that are both within this
-      # project and without).
+      # Compute the `Stripe-Signature` header for a given webhook body & secret. Useful for signing
+      # payloads in unit tests.
       def self.generate_header(timestamp, signature, scheme: EXPECTED_SCHEME)
         raise ArgumentError, "timestamp should be an instance of Time" \
           unless timestamp.is_a?(Time)
@@ -73,16 +109,9 @@ module Stripe
       end
       private_class_method :get_timestamp_and_signatures
 
-      # Verifies the signature header for a given payload.
-      #
-      # Raises a SignatureVerificationError in the following cases:
-      # - the header does not match the expected format
-      # - no signatures found with the expected scheme
-      # - no signatures matching the expected signature
-      # - a tolerance is provided and the timestamp is not within the
-      #   tolerance
-      #
-      # Returns true otherwise
+      # Verifies the authenticity (and recency) of a webhook, raising a `SignatureVerificationError` if
+      # there's a mismatch. Useful for quickly validating incoming webhooks before storing them for later
+      # processing (at which time you can use the `*_without_verification` methods for parsing).
       def self.verify_header(payload, header, secret, tolerance: nil)
         begin
           timestamp, signatures =

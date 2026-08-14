@@ -162,6 +162,21 @@ module Stripe
       assert_equal expected, actual
     end
 
+    should "support break inside #auto_paging_each block" do
+      list = TestListObject.construct_from(data: [{ id: 1 }, { id: 2 }],
+                                           has_more: true,
+                                           url: "/things",
+                                           object: "list")
+
+      actual = []
+      list.auto_paging_each do |obj|
+        actual << obj
+        break if actual.size == 1
+      end
+
+      assert_equal 1, actual.size
+    end
+
     should "provide #empty?" do
       list = Stripe::ListObject.construct_from(data: [])
       assert list.empty?

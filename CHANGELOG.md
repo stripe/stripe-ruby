@@ -1,5 +1,17 @@
 # Changelog
 
+## 19.5.0 - 2026-08-10
+* [#1932](https://github.com/stripe/stripe-ruby/pull/1932) Handle break in auto-paging blocks
+  - Rescues `LocalJumpError` to prevent crash when calling `break` inside an `auto_paging_each`
+* [#1927](https://github.com/stripe/stripe-ruby/pull/1927) Surface `object` property on `EventNotification`
+* [#1918](https://github.com/stripe/stripe-ruby/pull/1918) add/adjust event parsing helpers
+  
+  - Added methods that return their respective `Event`/`EventNotification` class instances without verifying authenticity. Use them when you've previously verified an event (e.g. you verified, put the event in a queue, and are now processing). Supports events from [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) and [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) natively.
+    - `Webhook#construct_event_without_verification(payload)`
+    - `StripeClient#parse_event_notification_without_verification(payload)`
+* [#1924](https://github.com/stripe/stripe-ruby/pull/1924) Discard the connection when a request is interrupted
+  - Fix connection reuse after a request is interrupted by a non-StandardError exception (e.g. from rack-timeout), which could cause subsequent requests to receive a previous request's response
+
 ## 19.4.0 - 2026-07-29
 This release changes the pinned API version to 2026-07-29.dahlia.
 

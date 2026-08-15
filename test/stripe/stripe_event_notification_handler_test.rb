@@ -311,6 +311,20 @@ module Stripe
         assert_equal "Unhandled error!", e.message
       end
 
+      should "raise ArgumentError when initialized with nil webhook_secret" do
+        e = assert_raises(ArgumentError) do
+          StripeEventNotificationHandler.new(@client, nil, &@on_unhandled_handler)
+        end
+        assert_match(/webhook_secret must be a non-empty string/, e.message)
+      end
+
+      should "raise ArgumentError when initialized with empty webhook_secret" do
+        e = assert_raises(ArgumentError) do
+          StripeEventNotificationHandler.new(@client, "", &@on_unhandled_handler)
+        end
+        assert_match(/webhook_secret must be a non-empty string/, e.message)
+      end
+
       should "handler uses event stripe_context" do
         client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
         handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
@@ -406,6 +420,124 @@ module Stripe
         assert_equal api_key, received_api_key
         assert_equal "event_context_456", received_context.to_s
         assert_equal original_context, client_with_config.requestor.config.stripe_context.to_s
+      end
+    end
+
+    context "StripeEventNotificationHandlerWithoutVerification" do
+      should "raise ArgumentError when initialized without block" do
+        e = assert_raises(ArgumentError) do
+          StripeEventNotificationHandler.without_verification(@client)
+        end
+        assert_match(/You must pass a block to act as a fallback/, e.message)
+      end
+
+      should "route event to registered handler without signature" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        handler_called = false
+        received_notif = nil
+        received_client = nil
+
+        handler.on_v1_billing_meter_error_report_triggered do |notif, client|
+          handler_called = true
+          received_notif = notif
+          received_client = client
+        end
+
+        handler.handle(V1_BILLING_METER_PAYLOAD)
+
+        assert handler_called
+        assert_not_nil received_notif
+        assert received_notif.is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
+        assert_equal "v1.billing.meter.error_report_triggered", received_notif.type
+        assert_equal "evt_123", received_notif.id
+        assert_not_nil received_client
+        assert_equal 0, @on_unhandled_calls.length
+      end
+
+      should "handle accepts only webhook body with no signature header argument" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        # Calling handle with only the body must succeed
+        assert_nothing_raised { handler.handle(V1_BILLING_METER_PAYLOAD) }
+
+        # Calling handle with a second argument must raise ArgumentError
+        assert_raises(ArgumentError) do
+          handler.handle(V1_BILLING_METER_PAYLOAD, "unexpected_sig_header")
+        end
+      end
+
+      should "route known unregistered event to fallback with is_known_event_type true" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        handler.handle(V1_BILLING_METER_PAYLOAD)
+
+        assert_equal 1, @on_unhandled_calls.length
+
+        call = @on_unhandled_calls[0]
+        assert call[:notif].is_a?(Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification)
+        assert_equal "v1.billing.meter.error_report_triggered", call[:notif].type
+        assert call[:client].is_a?(StripeClient)
+        assert call[:details].is_a?(UnhandledNotificationDetails)
+        assert_equal true, call[:details].is_known_event_type
+      end
+
+      should "route unknown event type to fallback with is_known_event_type false" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        handler.handle(UNKNOWN_EVENT_PAYLOAD)
+
+        assert_equal 1, @on_unhandled_calls.length
+
+        call = @on_unhandled_calls[0]
+        assert call[:notif].is_a?(Stripe::Events::UnknownEventNotification)
+        assert_equal "llama.created", call[:notif].type
+        assert call[:client].is_a?(StripeClient)
+        assert call[:details].is_a?(UnhandledNotificationDetails)
+        assert_equal false, call[:details].is_known_event_type
+      end
+
+      should "propagate event stripe_context to callback client" do
+        client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
+        handler = StripeEventNotificationHandler.without_verification(client_with_context, &@on_unhandled_handler)
+
+        received_context = nil
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
+          received_context = client.requestor.config.stripe_context
+        end
+
+        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+
+        handler.handle(V1_BILLING_METER_PAYLOAD)
+
+        assert_equal "event_context_456", received_context.to_s
+        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+      end
+
+      # assert_instance_of, not is_a?: the verifying handler is a *subclass* of
+      # this one, so is_a? would also pass for a handler that does verify
+      should "class method factory returns StripeEventNotificationHandlerWithoutVerification" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+        assert_instance_of StripeEventNotificationHandlerWithoutVerification, handler
+      end
+
+      should "client factory method returns StripeEventNotificationHandlerWithoutVerification" do
+        handler = @client.notification_handler_without_verification(&@on_unhandled_handler)
+        assert_instance_of StripeEventNotificationHandlerWithoutVerification, handler
+      end
+
+      should "does not expose the verifying two-argument handle" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+        assert_raises(ArgumentError) do
+          handler.handle(V1_BILLING_METER_PAYLOAD, "some-sig-header")
+        end
+      end
+
+      should "cannot be instantiated directly" do
+        assert_raises(NoMethodError) do
+          StripeEventNotificationHandlerWithoutVerification.new(@client, &@on_unhandled_handler)
+        end
       end
     end
   end

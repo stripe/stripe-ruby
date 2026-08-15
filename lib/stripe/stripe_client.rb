@@ -125,5 +125,9 @@ module Stripe
     def notification_handler(webhook_secret, &fallback_callback)
       ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
     end
+
+    def notification_handler_without_verification(&fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.without_verification(self, &fallback_callback)
+    end
   end
 end

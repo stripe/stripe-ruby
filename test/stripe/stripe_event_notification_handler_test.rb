@@ -171,6 +171,21 @@ module Stripe
         assert_match(/Cannot register new event handlers after handling events/, e.message)
       end
 
+      should "not allow registering handlers after a failed parse" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        assert_raises(Stripe::SignatureVerificationError) do
+          handler.handle(V1_BILLING_METER_PAYLOAD, "t=1,v1=not-a-sig")
+        end
+
+        e = assert_raises(RuntimeError) do
+          handler.on_v2_core_account_created do |_notif, _client|
+            # Handler body
+          end
+        end
+        assert_match(/Cannot register new event handlers after handling events/, e.message)
+      end
+
       should "not allow registering duplicate handlers" do
         handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
@@ -515,8 +530,6 @@ module Stripe
         assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
       end
 
-      # assert_instance_of, not is_a?: the verifying handler is a *subclass* of
-      # this one, so is_a? would also pass for a handler that does verify
       should "class method factory returns StripeEventNotificationHandlerWithoutVerification" do
         handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
         assert_instance_of StripeEventNotificationHandlerWithoutVerification, handler
@@ -538,6 +551,28 @@ module Stripe
         assert_raises(NoMethodError) do
           StripeEventNotificationHandlerWithoutVerification.new(@client, &@on_unhandled_handler)
         end
+      end
+
+      should "not allow registering handlers after a failed parse" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        assert_raises(JSON::ParserError) do
+          handler.handle("not json")
+        end
+
+        e = assert_raises(RuntimeError) do
+          handler.on_v2_core_account_created do |_notif, _client|
+            # Handler body
+          end
+        end
+        assert_match(/Cannot register new event handlers after handling events/, e.message)
+      end
+
+      # neither handler is substitutable for the other, so neither should be a
+      # subclass of the other; each defines its own `handle` over a shared base
+      should "is a sibling of StripeEventNotificationHandler, not an ancestor" do
+        refute StripeEventNotificationHandler < StripeEventNotificationHandlerWithoutVerification
+        refute StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandler
       end
     end
   end

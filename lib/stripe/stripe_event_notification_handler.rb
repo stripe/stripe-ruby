@@ -10,19 +10,10 @@ module Stripe
     end
   end
 
-  # A variant of StripeEventNotificationHandler that parses events without
-  # verifying webhook signatures. Intended for pre-authenticated channels
-  # like AWS EventBridge or Azure Event Grid.
+  # Shared registration and dispatch machinery for the two handlers below.
   #
-  # Do not instantiate directly. Use
-  # StripeEventNotificationHandler.without_verification or
-  # client.notification_handler_without_verification instead.
-  class StripeEventNotificationHandlerWithoutVerification
-    # Construct through the factories so that skipping signature verification is
-    # always an explicit choice. StripeEventNotificationHandler makes `new`
-    # public again for itself, since verifying handlers are built directly.
-    private_class_method :new
-
+  # Shared internal registration and dispatch machinery for the two user-facing event handlers.
+  class StripeEventNotificationHandlerBase
     def initialize(client, &fallback_callback)
       raise ArgumentError, "You must pass a block to act as a fallback" if fallback_callback.nil?
 
@@ -31,10 +22,6 @@ module Stripe
 
       @registered_handlers = {}
       @has_handled_events = false
-    end
-
-    def handle(webhook_body)
-      dispatch(@client.parse_event_notification_without_verification(webhook_body))
     end
 
     def registered_event_types
@@ -51,10 +38,6 @@ module Stripe
     end
 
     private def dispatch(notif)
-      # we're ok with this not being a thread-safe write since registering
-      # handlers should happen synchronously on startup before any multi-threaded reads happen
-      @has_handled_events = true
-
       event_client = new_client_with_context(notif.context)
 
       handler = @registered_handlers[notif.type]
@@ -603,9 +586,7 @@ module Stripe
   # Verifies incoming webhook signatures before routing events to the callbacks
   # registered on it. This is the handler you want unless events reach you
   # through a channel that has already authenticated them.
-  class StripeEventNotificationHandler < StripeEventNotificationHandlerWithoutVerification
-    public_class_method :new
-
+  class StripeEventNotificationHandler < StripeEventNotificationHandlerBase
     def initialize(client, webhook_secret, &fallback_callback)
       super(client, &fallback_callback)
 
@@ -619,11 +600,31 @@ module Stripe
     end
 
     def handle(webhook_body, sig_header)
+      # set before parsing, so that even a failed parse locks out registration.
+      # we're ok with this not being a thread-safe write since registering
+      # handlers should happen synchronously on startup before any multi-threaded reads happen
+      @has_handled_events = true
+
       dispatch(@client.parse_event_notification(
                  webhook_body,
                  sig_header,
                  @webhook_secret
                ))
+    end
+  end
+
+  # A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+  #
+  # Prefer `StripeEventNotificationHandler#without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
+  class StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandlerBase
+    # Construct through the factories so that skipping signature verification is
+    # always an explicit choice.
+    private_class_method :new
+
+    def handle(webhook_body)
+      @has_handled_events = true
+
+      dispatch(@client.parse_event_notification_without_verification(webhook_body))
     end
   end
 end

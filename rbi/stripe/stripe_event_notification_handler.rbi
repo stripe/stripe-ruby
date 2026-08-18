@@ -9,14 +9,8 @@ module Stripe
     def is_known_event_type; end
   end
 
-  # A variant of StripeEventNotificationHandler that parses events without
-  # verifying webhook signatures. Intended for pre-authenticated channels
-  # like AWS EventBridge or Azure Event Grid.
-  #
-  # Do not instantiate directly. Use
-  # StripeEventNotificationHandler.without_verification or
-  # client.notification_handler_without_verification instead.
-  class StripeEventNotificationHandlerWithoutVerification
+  # Shared internal registration and dispatch machinery for the two handlers below.
+  class StripeEventNotificationHandlerBase
     sig do
       params(
         client: ::Stripe::StripeClient,
@@ -27,14 +21,6 @@ module Stripe
         .void
     end
     def initialize(client, &on_unhandled_handler); end
-
-    sig do
-      params(
-        webhook_body: String
-      )
-        .void
-    end
-    def handle(webhook_body); end
 
     sig { returns(T::Array[String]) }
     def registered_event_types; end
@@ -562,7 +548,7 @@ module Stripe
 
   # Verifies incoming webhook signatures before routing events to the callbacks
   # registered on it.
-  class StripeEventNotificationHandler < StripeEventNotificationHandlerWithoutVerification
+  class StripeEventNotificationHandler < StripeEventNotificationHandlerBase
     sig do
       params(
         client: ::Stripe::StripeClient,
@@ -594,5 +580,18 @@ module Stripe
         .void
     end
     def handle(webhook_body, sig_header); end
+  end
+
+  # A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+  #
+  # Prefer `StripeEventNotificationHandler#without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
+  class StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandlerBase
+    sig do
+      params(
+        webhook_body: String
+      )
+        .void
+    end
+    def handle(webhook_body); end
   end
 end

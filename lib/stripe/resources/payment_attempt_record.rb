@@ -562,8 +562,6 @@ module Stripe
         class ThreeDSecure < ::Stripe::StripeObject
           # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
           attr_reader :authentication_flow
-          # The 3D Secure cryptogram, also known as the "authentication value" (AAV, CAVV or AEVV).
-          attr_reader :cryptogram
           # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
           attr_reader :electronic_commerce_indicator
           # The exemption requested via 3DS and accepted by the issuer at authentication time.
@@ -1353,7 +1351,7 @@ module Stripe
       end
 
       class NzBankAccount < ::Stripe::StripeObject
-        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
         attr_reader :account_holder_name
         # The numeric code for the bank account's bank.
         attr_reader :bank_code

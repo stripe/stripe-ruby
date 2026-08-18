@@ -599,6 +599,13 @@ module Stripe
           def lookup_key; end
           sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
           def lookup_key=(_lookup_key); end
+          # Set of key-value pairs.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def metadata; end
+          sig {
+            params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+           }
+          def metadata=(_metadata); end
           # Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
           sig {
             returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing))
@@ -626,11 +633,12 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt, lookup_key: T.nilable(String), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt, type: String).void
+            params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt, type: String).void
            }
           def initialize(
             ends_at: nil,
             lookup_key: nil,
+            metadata: nil,
             multiply_pricing: nil,
             priority: nil,
             starts_at: nil,

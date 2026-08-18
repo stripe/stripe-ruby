@@ -17,6 +17,12 @@ module Stripe
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
          }
         def retrieve(id, params = {}, opts = {}); end
+
+        # Updates the description of an existing Transaction.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::Transaction)
+         }
+        def update(id, params = {}, opts = {}); end
       end
     end
   end

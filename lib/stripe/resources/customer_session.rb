@@ -17,6 +17,19 @@ module Stripe
     end
 
     class Components < ::Stripe::StripeObject
+      class ActiveEntitlements < ::Stripe::StripeObject
+        # Whether the active entitlements is enabled.
+        attr_reader :enabled
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class BuyButton < ::Stripe::StripeObject
         # Whether the buy button is enabled.
         attr_reader :enabled
@@ -209,6 +222,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # This hash contains whether the active entitlements is enabled.
+      attr_reader :active_entitlements
       # This hash contains whether the buy button is enabled.
       attr_reader :buy_button
       # This hash contains whether the customer portal is enabled.
@@ -226,6 +241,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          active_entitlements: ActiveEntitlements,
           buy_button: BuyButton,
           customer_portal: CustomerPortal,
           customer_sheet: CustomerSheet,

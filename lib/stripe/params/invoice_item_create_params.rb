@@ -46,6 +46,15 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       attr_accessor :end
@@ -115,6 +124,8 @@ module Stripe
     attr_accessor :expand
     # The ID of an existing invoice to add this invoice item to. For subscription invoices, when left blank, the invoice item will be added to the next upcoming scheduled invoice. For standalone invoices, the invoice item won't be automatically added unless you pass `pending_invoice_item_behavior: 'include'` when creating the invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice.
     attr_accessor :invoice
+    # Settings for Managed Payments for this invoice item.
+    attr_accessor :managed_payments
     # The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     attr_accessor :margins
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -150,6 +161,7 @@ module Stripe
       discounts: nil,
       expand: nil,
       invoice: nil,
+      managed_payments: nil,
       margins: nil,
       metadata: nil,
       period: nil,
@@ -172,6 +184,7 @@ module Stripe
       @discounts = discounts
       @expand = expand
       @invoice = invoice
+      @managed_payments = managed_payments
       @margins = margins
       @metadata = metadata
       @period = period

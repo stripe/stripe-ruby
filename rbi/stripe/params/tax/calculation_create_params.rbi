@@ -335,7 +335,7 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # A list of items the customer is purchasing.
+      # A list of items the customer is purchasing. You can pass up to 100 line items, or 1,000 if your account has an increased limit.
       sig { returns(T::Array[::Stripe::Tax::CalculationCreateParams::LineItem]) }
       def line_items; end
       sig {

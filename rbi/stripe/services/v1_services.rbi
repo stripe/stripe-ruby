@@ -60,6 +60,7 @@ module Stripe
     attr_reader :payment_methods
     attr_reader :payment_method_configurations
     attr_reader :payment_method_domains
+    attr_reader :payment_plans
     attr_reader :payment_records
     attr_reader :payouts
     attr_reader :plans

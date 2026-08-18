@@ -3115,7 +3115,7 @@ module Stripe
       # The ID of the Payment Link that created this Session.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentLink))) }
       def payment_link; end
-      # Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def payment_method_collection; end
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.

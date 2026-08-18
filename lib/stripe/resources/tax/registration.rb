@@ -86,6 +86,19 @@ module Stripe
         end
 
         class At < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -98,13 +111,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -205,6 +220,19 @@ module Stripe
         end
 
         class Be < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -217,13 +245,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -245,6 +275,19 @@ module Stripe
         end
 
         class Bg < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -257,13 +300,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -456,6 +501,19 @@ module Stripe
         end
 
         class Cy < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -468,13 +526,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -483,6 +543,19 @@ module Stripe
         end
 
         class Cz < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -495,13 +568,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -510,6 +585,19 @@ module Stripe
         end
 
         class De < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -522,13 +610,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -537,6 +627,19 @@ module Stripe
         end
 
         class Dk < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -549,13 +652,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -577,6 +682,19 @@ module Stripe
         end
 
         class Ee < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -589,13 +707,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -617,6 +737,19 @@ module Stripe
         end
 
         class Es < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -629,13 +762,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -657,6 +792,19 @@ module Stripe
         end
 
         class Fi < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -669,13 +817,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -684,6 +834,19 @@ module Stripe
         end
 
         class Fr < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -696,13 +859,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -764,6 +929,19 @@ module Stripe
         end
 
         class Gr < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -776,13 +954,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -791,6 +971,19 @@ module Stripe
         end
 
         class Hr < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -803,13 +996,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -818,6 +1013,19 @@ module Stripe
         end
 
         class Hu < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -830,13 +1038,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -858,6 +1068,19 @@ module Stripe
         end
 
         class Ie < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -870,13 +1093,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -911,6 +1136,19 @@ module Stripe
         end
 
         class It < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -923,13 +1161,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1056,6 +1296,19 @@ module Stripe
         end
 
         class Lt < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1068,13 +1321,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1083,6 +1338,19 @@ module Stripe
         end
 
         class Lu < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1095,13 +1363,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1110,6 +1380,19 @@ module Stripe
         end
 
         class Lv < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1122,13 +1405,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1202,6 +1487,19 @@ module Stripe
         end
 
         class Mt < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1214,13 +1512,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1268,6 +1568,19 @@ module Stripe
         end
 
         class Nl < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1280,13 +1593,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1401,6 +1716,19 @@ module Stripe
         end
 
         class Pl < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1413,13 +1741,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1428,6 +1758,19 @@ module Stripe
         end
 
         class Pt < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1440,13 +1783,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1455,6 +1800,19 @@ module Stripe
         end
 
         class Ro < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1467,13 +1825,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1521,6 +1881,19 @@ module Stripe
         end
 
         class Se < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1533,13 +1906,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1575,6 +1950,19 @@ module Stripe
         end
 
         class Si < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1587,13 +1975,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings
@@ -1602,6 +1992,19 @@ module Stripe
         end
 
         class Sk < ::Stripe::StripeObject
+          class Igic < ::Stripe::StripeObject
+            # Place of supply scheme used in an IGIC registration.
+            attr_reader :place_of_supply_scheme
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             attr_reader :place_of_supply_scheme
@@ -1614,13 +2017,15 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Attribute for field igic
+          attr_reader :igic
           # Attribute for field standard
           attr_reader :standard
           # Type of registration in an EU country.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { standard: Standard }
+            @inner_class_types = { igic: Igic, standard: Standard }
           end
 
           def self.field_remappings

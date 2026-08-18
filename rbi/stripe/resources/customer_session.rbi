@@ -11,6 +11,17 @@ module Stripe
   # [Customer Session with the Buy Button](https://docs.stripe.com/payment-links/buy-button#pass-an-existing-customer).
   class CustomerSession < APIResource
     class Components < ::Stripe::StripeObject
+      class ActiveEntitlements < ::Stripe::StripeObject
+        # Whether the active entitlements is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class BuyButton < ::Stripe::StripeObject
         # Whether the buy button is enabled.
         sig { returns(T::Boolean) }
@@ -201,6 +212,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # This hash contains whether the active entitlements is enabled.
+      sig { returns(ActiveEntitlements) }
+      def active_entitlements; end
       # This hash contains whether the buy button is enabled.
       sig { returns(BuyButton) }
       def buy_button; end
@@ -224,6 +238,7 @@ module Stripe
       def tax_id_element; end
       def self.inner_class_types
         @inner_class_types = {
+          active_entitlements: ActiveEntitlements,
           buy_button: BuyButton,
           customer_portal: CustomerPortal,
           customer_sheet: CustomerSheet,

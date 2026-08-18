@@ -203,6 +203,8 @@ module Stripe
                     attr_reader :id
                     # The user-provided lookup key for this override.
                     attr_reader :lookup_key
+                    # Set of key-value pairs.
+                    attr_reader :metadata
                     # Details for an overwrite_price override.
                     attr_reader :overwrite_price
                     # The priority of this override relative to others. Lower number = higher priority.
@@ -413,6 +415,8 @@ module Stripe
             attr_reader :id
             # The user-provided lookup key for the pricing override.
             attr_reader :lookup_key
+            # Set of key-value pairs.
+            attr_reader :metadata
             # Details for a multiply_pricing override.
             attr_reader :multiply_pricing
             # The priority of this override relative to others. Lower number = higher priority.

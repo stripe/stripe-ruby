@@ -1222,6 +1222,19 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class WechatPayPayments < ::Stripe::StripeObject
+        # The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+        attr_reader :mobile_web_domains
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field bacs_debit_payments
       attr_reader :bacs_debit_payments
       # Attribute for field bank_bca_onboarding
@@ -1250,6 +1263,8 @@ module Stripe
       attr_reader :tax_forms
       # Attribute for field treasury
       attr_reader :treasury
+      # Attribute for field wechat_pay_payments
+      attr_reader :wechat_pay_payments
 
       def self.inner_class_types
         @inner_class_types = {
@@ -1267,6 +1282,7 @@ module Stripe
           smart_disputes: SmartDisputes,
           tax_forms: TaxForms,
           treasury: Treasury,
+          wechat_pay_payments: WechatPayPayments,
         }
       end
 

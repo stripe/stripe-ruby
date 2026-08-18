@@ -95,6 +95,15 @@ module Stripe
         def self.field_remappings
           @field_remappings = {}
         end
+
+        def self.field_encodings
+          @field_encodings = {
+            files_by_currency: {
+              kind: :array,
+              element: { kind: :object, fields: { size: :int64_string } },
+            },
+          }
+        end
       end
     end
   end

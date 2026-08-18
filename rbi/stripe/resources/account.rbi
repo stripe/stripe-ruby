@@ -1332,6 +1332,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class WechatPayPayments < ::Stripe::StripeObject
+        # The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+        sig { returns(T.nilable(T::Array[String])) }
+        def mobile_web_domains; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # Attribute for field bacs_debit_payments
       sig { returns(T.nilable(BacsDebitPayments)) }
       def bacs_debit_payments; end
@@ -1374,6 +1385,9 @@ module Stripe
       # Attribute for field treasury
       sig { returns(T.nilable(Treasury)) }
       def treasury; end
+      # Attribute for field wechat_pay_payments
+      sig { returns(T.nilable(WechatPayPayments)) }
+      def wechat_pay_payments; end
       def self.inner_class_types
         @inner_class_types = {
           bacs_debit_payments: BacsDebitPayments,
@@ -1390,6 +1404,7 @@ module Stripe
           smart_disputes: SmartDisputes,
           tax_forms: TaxForms,
           treasury: Treasury,
+          wechat_pay_payments: WechatPayPayments,
         }
       end
       def self.field_remappings

@@ -99,7 +99,10 @@ module Stripe
           end
           def self.field_encodings
             @field_encodings = {
-              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+              custom_pricing_unit: {
+                kind: :nullable,
+                inner: {kind: :object, fields: {value: :decimal_string}},
+              },
             }
           end
         end
@@ -119,7 +122,12 @@ module Stripe
           @field_encodings = {
             lte: {
               kind: :object,
-              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              fields: {
+                custom_pricing_unit: {
+                  kind: :nullable,
+                  inner: {kind: :object, fields: {value: :decimal_string}},
+                },
+              },
             },
           }
         end
@@ -220,7 +228,10 @@ module Stripe
           end
           def self.field_encodings
             @field_encodings = {
-              custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}},
+              custom_pricing_unit: {
+                kind: :nullable,
+                inner: {kind: :object, fields: {value: :decimal_string}},
+              },
             }
           end
         end
@@ -246,7 +257,12 @@ module Stripe
           @field_encodings = {
             gte: {
               kind: :object,
-              fields: {custom_pricing_unit: {kind: :object, fields: {value: :decimal_string}}},
+              fields: {
+                custom_pricing_unit: {
+                  kind: :nullable,
+                  inner: {kind: :object, fields: {value: :decimal_string}},
+                },
+              },
             },
           }
         end

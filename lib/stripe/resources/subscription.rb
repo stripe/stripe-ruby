@@ -766,6 +766,8 @@ module Stripe
     class PendingUpdate < ::Stripe::StripeObject
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      attr_reader :cancel_at_period_end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       attr_reader :discount
       # The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.

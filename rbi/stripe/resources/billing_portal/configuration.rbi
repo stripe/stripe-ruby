@@ -69,7 +69,7 @@ module Stripe
             sig { returns(T::Boolean) }
             def enabled; end
             # The IDs of custom feedback options configured for this cancellation reason.
-            sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Billing::FeedbackOptions)])) }
+            sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Billing::FeedbackOption)])) }
             def feedback_options; end
             # Which cancellation reasons will be given as options to the customer.
             sig { returns(T::Array[String]) }

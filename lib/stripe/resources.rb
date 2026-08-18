@@ -61,6 +61,7 @@ module Stripe
   autoload :PaymentMethodBalance, "stripe/resources/payment_method_balance"
   autoload :PaymentMethodConfiguration, "stripe/resources/payment_method_configuration"
   autoload :PaymentMethodDomain, "stripe/resources/payment_method_domain"
+  autoload :PaymentPlan, "stripe/resources/payment_plan"
   autoload :PaymentRecord, "stripe/resources/payment_record"
   autoload :Payout, "stripe/resources/payout"
   autoload :Person, "stripe/resources/person"
@@ -111,7 +112,7 @@ module Stripe
     autoload :CreditBalanceSummary, "stripe/resources/billing/credit_balance_summary"
     autoload :CreditBalanceTransaction, "stripe/resources/billing/credit_balance_transaction"
     autoload :CreditGrant, "stripe/resources/billing/credit_grant"
-    autoload :FeedbackOptions, "stripe/resources/billing/feedback_options"
+    autoload :FeedbackOption, "stripe/resources/billing/feedback_option"
     autoload :Meter, "stripe/resources/billing/meter"
     autoload :MeterEvent, "stripe/resources/billing/meter_event"
     autoload :MeterEventAdjustment, "stripe/resources/billing/meter_event_adjustment"
@@ -1705,7 +1706,7 @@ module Stripe
     stripe/resources/billing/credit_balance_summary
     stripe/resources/billing/credit_balance_transaction
     stripe/resources/billing/credit_grant
-    stripe/resources/billing/feedback_options
+    stripe/resources/billing/feedback_option
     stripe/resources/billing/meter
     stripe/resources/billing/meter_event
     stripe/resources/billing/meter_event_adjustment
@@ -1802,6 +1803,7 @@ module Stripe
     stripe/resources/payment_method_balance
     stripe/resources/payment_method_configuration
     stripe/resources/payment_method_domain
+    stripe/resources/payment_plan
     stripe/resources/payment_record
     stripe/resources/payout
     stripe/resources/person

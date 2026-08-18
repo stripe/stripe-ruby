@@ -22,14 +22,31 @@ module Stripe
           end
         end
         class EstimatedFee < ::Stripe::StripeObject
+          class TaxAmount < ::Stripe::StripeObject
+            # Currency code.
+            sig { returns(String) }
+            def currency; end
+            # Tax amount value represented as a decimal string in major units.
+            sig { returns(String) }
+            def value_decimal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The fee amount for corresponding fee type.
           sig { returns(::Stripe::V2::Amount) }
           def amount; end
+          # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+          sig { returns(T.nilable(TaxAmount)) }
+          def tax_amount; end
           # The fee type.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {tax_amount: TaxAmount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -84,17 +101,70 @@ module Stripe
           end
         end
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  sig { returns(T.nilable(String)) }
+                  def submission; end
+                  # The transaction purpose for this ACH payment.
+                  sig { returns(T.nilable(String)) }
+                  def transaction_purpose; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                sig { returns(T.nilable(Ach)) }
+                def ach; end
+                def self.inner_class_types
+                  @inner_class_types = {ach: Ach}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              sig { returns(T.nilable(PreferredNetworkOptions)) }
+              def preferred_network_options; end
+              # The preferred networks to use for this OutboundPayment.
+              sig { returns(T::Array[String]) }
+              def preferred_networks; end
+              def self.inner_class_types
+                @inner_class_types = {preferred_network_options: PreferredNetworkOptions}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            sig { returns(T.nilable(BankAccount)) }
+            def bank_account; end
+            def self.inner_class_types
+              @inner_class_types = {bank_account: BankAccount}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           sig { returns(::Stripe::V2::Amount) }
           def credited; end
           # The payout method which the OutboundPayment uses to send payout.
           sig { returns(String) }
           def payout_method; end
+          # Payout method options for the OutboundPaymentQuote.
+          sig { returns(T.nilable(PayoutMethodOptions)) }
+          def payout_method_options; end
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
           def recipient; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {payout_method_options: PayoutMethodOptions}
           end
           def self.field_remappings
             @field_remappings = {}

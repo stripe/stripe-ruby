@@ -54,6 +54,7 @@ require "stripe/api_resource"
 require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
+require "stripe/stripe_event_notification_handler"
 require "stripe/stripe_configuration"
 
 # Named API resources — autoloaded on first use to reduce boot time.

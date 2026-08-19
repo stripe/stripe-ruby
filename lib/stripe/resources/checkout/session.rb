@@ -3029,7 +3029,7 @@ module Stripe
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
       attr_reader :payment_link
-      # Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
       attr_reader :payment_method_collection
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.
       attr_reader :payment_method_configuration_details
@@ -3235,7 +3235,10 @@ module Stripe
 
       def self.field_encodings
         @field_encodings = {
-          currency_conversion: { kind: :object, fields: { fx_rate: :decimal_string } },
+          currency_conversion: {
+            kind: :nullable,
+            inner: { kind: :object, fields: { fx_rate: :decimal_string } },
+          },
         }
       end
     end

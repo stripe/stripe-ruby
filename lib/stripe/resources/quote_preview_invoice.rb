@@ -357,6 +357,19 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      attr_reader :enabled
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Parent < ::Stripe::StripeObject
       class BillingCadenceDetails < ::Stripe::StripeObject
         # The billing cadence that generated this invoice
@@ -1197,6 +1210,8 @@ module Stripe
     attr_reader :lines
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
+    # Attribute for field managed_payments
+    attr_reader :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # The time at which payment will next be attempted. This value will be `null` for invoices where `collection_method=send_invoice`.
@@ -1276,6 +1291,7 @@ module Stripe
         from_invoice: FromInvoice,
         issuer: Issuer,
         last_finalization_error: LastFinalizationError,
+        managed_payments: ManagedPayments,
         parent: Parent,
         payment_settings: PaymentSettings,
         rendering: Rendering,

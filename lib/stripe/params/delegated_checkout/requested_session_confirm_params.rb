@@ -145,6 +145,8 @@ module Stripe
       attr_accessor :return_url
       # Risk details/signals associated with the requested session
       attr_accessor :risk_details
+      # A SharedPaymentIssuedToken (`spt_...`) previously issued to this buyer. Mutually exclusive with `payment_method` and `payment_method_data`.
+      attr_accessor :shared_payment_issued_token
       # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
       attr_accessor :use_stripe_sdk
 
@@ -156,6 +158,7 @@ module Stripe
         payment_method: nil,
         return_url: nil,
         risk_details: nil,
+        shared_payment_issued_token: nil,
         use_stripe_sdk: nil
       )
         @affiliate_attribution = affiliate_attribution
@@ -165,6 +168,7 @@ module Stripe
         @payment_method = payment_method
         @return_url = return_url
         @risk_details = risk_details
+        @shared_payment_issued_token = shared_payment_issued_token
         @use_stripe_sdk = use_stripe_sdk
       end
     end

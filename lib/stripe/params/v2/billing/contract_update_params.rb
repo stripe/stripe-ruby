@@ -352,7 +352,7 @@ module Stripe
                     attr_accessor :id
                     # Updated lookup key.
                     attr_accessor :lookup_key
-                    # Metadata for the pricing override.
+                    # Metadata mutations to apply to the pricing override.
                     attr_accessor :metadata
                     # Updated start time.
                     attr_accessor :starts_at
@@ -470,14 +470,17 @@ module Stripe
             attr_accessor :ends_at
             # The id of the pricing line.
             attr_accessor :id
+            # Metadata mutations to apply to the pricing line.
+            attr_accessor :metadata
             # Updated pricing configuration.
             attr_accessor :pricing
             # Updated start time.
             attr_accessor :starts_at
 
-            def initialize(ends_at: nil, id: nil, pricing: nil, starts_at: nil)
+            def initialize(ends_at: nil, id: nil, metadata: nil, pricing: nil, starts_at: nil)
               @ends_at = ends_at
               @id = id
+              @metadata = metadata
               @pricing = pricing
               @starts_at = starts_at
             end
@@ -625,6 +628,8 @@ module Stripe
             attr_accessor :ends_at
             # A lookup key for the pricing override.
             attr_accessor :lookup_key
+            # Metadata for the pricing override.
+            attr_accessor :metadata
             # A multiply_pricing override to add.
             attr_accessor :multiply_pricing
             # An overwrite price override to add.
@@ -639,6 +644,7 @@ module Stripe
             def initialize(
               ends_at: nil,
               lookup_key: nil,
+              metadata: nil,
               multiply_pricing: nil,
               overwrite_price: nil,
               priority: nil,
@@ -647,6 +653,7 @@ module Stripe
             )
               @ends_at = ends_at
               @lookup_key = lookup_key
+              @metadata = metadata
               @multiply_pricing = multiply_pricing
               @overwrite_price = overwrite_price
               @priority = priority
@@ -692,12 +699,15 @@ module Stripe
             attr_accessor :ends_at
             # The ID of the pricing override.
             attr_accessor :id
+            # Metadata mutations to apply to the pricing override.
+            attr_accessor :metadata
             # The updated start time for the pricing override.
             attr_accessor :starts_at
 
-            def initialize(ends_at: nil, id: nil, starts_at: nil)
+            def initialize(ends_at: nil, id: nil, metadata: nil, starts_at: nil)
               @ends_at = ends_at
               @id = id
+              @metadata = metadata
               @starts_at = starts_at
             end
           end
@@ -719,13 +729,21 @@ module Stripe
         end
         # Additional fields to include in the response.
         attr_accessor :include
+        # Set of key-value pairs.
+        attr_accessor :metadata
         # Pricing line actions to apply.
         attr_accessor :pricing_line_actions
         # Pricing override actions to apply.
         attr_accessor :pricing_override_actions
 
-        def initialize(include: nil, pricing_line_actions: nil, pricing_override_actions: nil)
+        def initialize(
+          include: nil,
+          metadata: nil,
+          pricing_line_actions: nil,
+          pricing_override_actions: nil
+        )
           @include = include
+          @metadata = metadata
           @pricing_line_actions = pricing_line_actions
           @pricing_override_actions = pricing_override_actions
         end

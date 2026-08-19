@@ -119,6 +119,19 @@ module Stripe
           end
         end
 
+        class SubscriptionPause < ::Stripe::StripeObject
+          # The ID of the subscription to be paused.
+          attr_reader :subscription
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SubscriptionUpdate < ::Stripe::StripeObject
           # The ID of the subscription to be updated.
           attr_reader :subscription
@@ -185,6 +198,8 @@ module Stripe
         attr_reader :customer_update
         # Configuration when `flow.type=subscription_cancel`.
         attr_reader :subscription_cancel
+        # Configuration when `flow.type=subscription_pause`.
+        attr_reader :subscription_pause
         # Configuration when `flow.type=subscription_update`.
         attr_reader :subscription_update
         # Configuration when `flow.type=subscription_update_confirm`.
@@ -197,6 +212,7 @@ module Stripe
             after_completion: AfterCompletion,
             customer_update: CustomerUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
             subscription_update_confirm: SubscriptionUpdateConfirm,
           }

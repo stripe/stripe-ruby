@@ -378,7 +378,7 @@ module Stripe
               @field_remappings = {}
             end
             def self.field_encodings
-              @field_encodings = {gross_amount_decimal: :decimal_string}
+              @field_encodings = {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}}
             end
           end
           class NonFuel < ::Stripe::StripeObject
@@ -392,7 +392,7 @@ module Stripe
               @field_remappings = {}
             end
             def self.field_encodings
-              @field_encodings = {gross_amount_decimal: :decimal_string}
+              @field_encodings = {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}}
             end
           end
           class Tax < ::Stripe::StripeObject
@@ -410,8 +410,8 @@ module Stripe
             end
             def self.field_encodings
               @field_encodings = {
-                local_amount_decimal: :decimal_string,
-                national_amount_decimal: :decimal_string,
+                local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                national_amount_decimal: {kind: :nullable, inner: :decimal_string},
               }
             end
           end
@@ -432,13 +432,28 @@ module Stripe
           end
           def self.field_encodings
             @field_encodings = {
-              fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-              non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+              fuel: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                },
+              },
+              non_fuel: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                },
+              },
               tax: {
-                kind: :object,
-                fields: {
-                  local_amount_decimal: :decimal_string,
-                  national_amount_decimal: :decimal_string,
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                    national_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                  },
                 },
               },
             }
@@ -468,15 +483,33 @@ module Stripe
         def self.field_encodings
           @field_encodings = {
             reported_breakdown: {
-              kind: :object,
-              fields: {
-                fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                tax: {
-                  kind: :object,
-                  fields: {
-                    local_amount_decimal: :decimal_string,
-                    national_amount_decimal: :decimal_string,
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  fuel: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                    },
+                  },
+                  non_fuel: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                    },
+                  },
+                  tax: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: {
+                        local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                        national_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                      },
+                    },
                   },
                 },
               },
@@ -524,7 +557,10 @@ module Stripe
           @field_remappings = {}
         end
         def self.field_encodings
-          @field_encodings = {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string}
+          @field_encodings = {
+            quantity_decimal: {kind: :nullable, inner: :decimal_string},
+            unit_cost_decimal: {kind: :nullable, inner: :decimal_string},
+          }
         end
       end
       class Healthcare < ::Stripe::StripeObject
@@ -659,6 +695,76 @@ module Stripe
           end
         end
         class HoldAmountDetails < ::Stripe::StripeObject
+          class EstimatedFee < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class EstimatedFeeDetail < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # Three-letter ISO currency code.
+              sig { returns(String) }
+              def currency; end
+              # The amount in the smallest currency unit.
+              sig { returns(Integer) }
+              def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class ChargedBy < ::Stripe::StripeObject
+              class Application < ::Stripe::StripeObject
+                # Human-readable product name.
+                sig { returns(String) }
+                def feature_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Details for a fee charged by a Connect application.
+              sig { returns(T.nilable(Application)) }
+              def application; end
+              # The type of entity that charged this fee.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {application: Application}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field amount
+            sig { returns(Amount) }
+            def amount; end
+            # Attribute for field charged_by
+            sig { returns(ChargedBy) }
+            def charged_by; end
+            # The category of this fee.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {amount: Amount, charged_by: ChargedBy}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Network < ::Stripe::StripeObject
             # Three-letter ISO currency code.
             sig { returns(String) }
@@ -687,6 +793,12 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Advisory estimate of total fees for this authorization request.
+          sig { returns(T.nilable(EstimatedFee)) }
+          def estimated_fee; end
+          # Per-fee-type breakdown of the estimated fees for this authorization request.
+          sig { returns(T.nilable(T::Array[EstimatedFeeDetail])) }
+          def estimated_fee_details; end
           # Attribute for field network
           sig { returns(Network) }
           def network; end
@@ -694,7 +806,12 @@ module Stripe
           sig { returns(T.nilable(Reserve)) }
           def reserve; end
           def self.inner_class_types
-            @inner_class_types = {network: Network, reserve: Reserve}
+            @inner_class_types = {
+              estimated_fee: EstimatedFee,
+              estimated_fee_details: EstimatedFeeDetail,
+              network: Network,
+              reserve: Reserve,
+            }
           end
           def self.field_remappings
             @field_remappings = {}
@@ -779,6 +896,76 @@ module Stripe
           end
         end
         class HoldAmountDetails < ::Stripe::StripeObject
+          class EstimatedFee < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            sig { returns(String) }
+            def currency; end
+            # The amount in the smallest currency unit.
+            sig { returns(Integer) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class EstimatedFeeDetail < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # Three-letter ISO currency code.
+              sig { returns(String) }
+              def currency; end
+              # The amount in the smallest currency unit.
+              sig { returns(Integer) }
+              def value; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class ChargedBy < ::Stripe::StripeObject
+              class Application < ::Stripe::StripeObject
+                # Human-readable product name.
+                sig { returns(String) }
+                def feature_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Details for a fee charged by a Connect application.
+              sig { returns(T.nilable(Application)) }
+              def application; end
+              # The type of entity that charged this fee.
+              sig { returns(String) }
+              def type; end
+              def self.inner_class_types
+                @inner_class_types = {application: Application}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field amount
+            sig { returns(Amount) }
+            def amount; end
+            # Attribute for field charged_by
+            sig { returns(ChargedBy) }
+            def charged_by; end
+            # The category of this fee.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {amount: Amount, charged_by: ChargedBy}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Network < ::Stripe::StripeObject
             # Three-letter ISO currency code.
             sig { returns(String) }
@@ -807,6 +994,12 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Advisory estimate of total fees for this authorization request.
+          sig { returns(T.nilable(EstimatedFee)) }
+          def estimated_fee; end
+          # Per-fee-type breakdown of the estimated fees for this authorization request.
+          sig { returns(T.nilable(T::Array[EstimatedFeeDetail])) }
+          def estimated_fee_details; end
           # Attribute for field network
           sig { returns(Network) }
           def network; end
@@ -814,7 +1007,12 @@ module Stripe
           sig { returns(T.nilable(Reserve)) }
           def reserve; end
           def self.inner_class_types
-            @inner_class_types = {network: Network, reserve: Reserve}
+            @inner_class_types = {
+              estimated_fee: EstimatedFee,
+              estimated_fee_details: EstimatedFeeDetail,
+              network: Network,
+              reserve: Reserve,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

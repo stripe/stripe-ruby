@@ -248,13 +248,18 @@ module Stripe
         params(_risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails)).returns(T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails))
        }
       def risk_details=(_risk_details); end
+      # A SharedPaymentIssuedToken (`spt_...`) previously issued to this buyer. Mutually exclusive with `payment_method` and `payment_method_data`.
+      sig { returns(T.nilable(String)) }
+      def shared_payment_issued_token; end
+      sig { params(_shared_payment_issued_token: T.nilable(String)).returns(T.nilable(String)) }
+      def shared_payment_issued_token=(_shared_payment_issued_token); end
       # Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
       sig { returns(T.nilable(T::Boolean)) }
       def use_stripe_sdk; end
       sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
       def use_stripe_sdk=(_use_stripe_sdk); end
       sig {
-        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails), use_stripe_sdk: T.nilable(T::Boolean)).void
+        params(affiliate_attribution: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::AffiliateAttribution), buyer_consents: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::BuyerConsents), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), return_url: T.nilable(String), risk_details: T.nilable(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams::RiskDetails), shared_payment_issued_token: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
        }
       def initialize(
         affiliate_attribution: nil,
@@ -264,6 +269,7 @@ module Stripe
         payment_method: nil,
         return_url: nil,
         risk_details: nil,
+        shared_payment_issued_token: nil,
         use_stripe_sdk: nil
       ); end
     end

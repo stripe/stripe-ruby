@@ -76,6 +76,7 @@ module Stripe
   autoload :PaymentMethodConfigurationService, "stripe/services/payment_method_configuration_service"
   autoload :PaymentMethodDomainService, "stripe/services/payment_method_domain_service"
   autoload :PaymentMethodService, "stripe/services/payment_method_service"
+  autoload :PaymentPlanService, "stripe/services/payment_plan_service"
   autoload :PaymentRecordService, "stripe/services/payment_record_service"
   autoload :PayoutService, "stripe/services/payout_service"
   autoload :PlanService, "stripe/services/plan_service"
@@ -695,6 +696,7 @@ module Stripe
     stripe/services/payment_method_configuration_service
     stripe/services/payment_method_domain_service
     stripe/services/payment_method_service
+    stripe/services/payment_plan_service
     stripe/services/payment_record_service
     stripe/services/payout_service
     stripe/services/plan_service

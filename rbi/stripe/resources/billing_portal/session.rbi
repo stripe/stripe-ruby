@@ -106,6 +106,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class SubscriptionPause < ::Stripe::StripeObject
+          # The ID of the subscription to be paused.
+          sig { returns(String) }
+          def subscription; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class SubscriptionUpdate < ::Stripe::StripeObject
           # The ID of the subscription to be updated.
           sig { returns(String) }
@@ -174,6 +185,9 @@ module Stripe
         # Configuration when `flow.type=subscription_cancel`.
         sig { returns(T.nilable(SubscriptionCancel)) }
         def subscription_cancel; end
+        # Configuration when `flow.type=subscription_pause`.
+        sig { returns(T.nilable(SubscriptionPause)) }
+        def subscription_pause; end
         # Configuration when `flow.type=subscription_update`.
         sig { returns(T.nilable(SubscriptionUpdate)) }
         def subscription_update; end
@@ -188,6 +202,7 @@ module Stripe
             after_completion: AfterCompletion,
             customer_update: CustomerUpdate,
             subscription_cancel: SubscriptionCancel,
+            subscription_pause: SubscriptionPause,
             subscription_update: SubscriptionUpdate,
             subscription_update_confirm: SubscriptionUpdateConfirm,
           }

@@ -3595,6 +3595,17 @@ module Stripe
          }
         def initialize(tos_acceptance: nil); end
       end
+      class WechatPayPayments < ::Stripe::RequestParams
+        # The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+        def mobile_web_domains; end
+        sig {
+          params(_mobile_web_domains: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+         }
+        def mobile_web_domains=(_mobile_web_domains); end
+        sig { params(mobile_web_domains: T.nilable(T.any(String, T::Array[String]))).void }
+        def initialize(mobile_web_domains: nil); end
+      end
       # Settings specific to Bacs Direct Debit.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments)) }
       def bacs_debit_payments; end
@@ -3686,8 +3697,15 @@ module Stripe
         params(_treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::Treasury))
        }
       def treasury=(_treasury); end
+      # Settings specific to the WeChat Pay payments method.
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)) }
+      def wechat_pay_payments; end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury)).void
+        params(_wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments))
+       }
+      def wechat_pay_payments=(_wechat_pay_payments); end
+      sig {
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury), wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3702,7 +3720,8 @@ module Stripe
         paypay_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
-        treasury: nil
+        treasury: nil,
+        wechat_pay_payments: nil
       ); end
     end
     class TosAcceptance < ::Stripe::RequestParams

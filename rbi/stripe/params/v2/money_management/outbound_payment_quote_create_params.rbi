@@ -35,6 +35,72 @@ module Stripe
           def initialize(currency: nil, financial_account: nil); end
         end
         class To < ::Stripe::RequestParams
+          class PayoutMethodOptions < ::Stripe::RequestParams
+            class BankAccount < ::Stripe::RequestParams
+              class PreferredNetworkOptions < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # Open Enum. ACH submission timing.
+                  sig { returns(T.nilable(String)) }
+                  def submission; end
+                  sig { params(_submission: T.nilable(String)).returns(T.nilable(String)) }
+                  def submission=(_submission); end
+                  # The transaction purpose for this ACH payment.
+                  sig { returns(T.nilable(String)) }
+                  def transaction_purpose; end
+                  sig { params(_transaction_purpose: T.nilable(String)).returns(T.nilable(String)) }
+                  def transaction_purpose=(_transaction_purpose); end
+                  sig {
+                    params(submission: T.nilable(String), transaction_purpose: T.nilable(String)).void
+                   }
+                  def initialize(submission: nil, transaction_purpose: nil); end
+                end
+                # ACH-specific network options.
+                sig {
+                  returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach))
+                 }
+                def ach; end
+                sig {
+                  params(_ach: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach))
+                 }
+                def ach=(_ach); end
+                sig {
+                  params(ach: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach)).void
+                 }
+                def initialize(ach: nil); end
+              end
+              # Per-network configuration options.
+              sig {
+                returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions))
+               }
+              def preferred_network_options; end
+              sig {
+                params(_preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions))
+               }
+              def preferred_network_options=(_preferred_network_options); end
+              # The preferred networks to use for this OutboundPayment.
+              sig { returns(T::Array[String]) }
+              def preferred_networks; end
+              sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
+              def preferred_networks=(_preferred_networks); end
+              sig {
+                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T::Array[String]).void
+               }
+              def initialize(preferred_network_options: nil, preferred_networks: nil); end
+            end
+            # Options for bank account payout methods.
+            sig {
+              returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount))
+             }
+            def bank_account; end
+            sig {
+              params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount))
+             }
+            def bank_account=(_bank_account); end
+            sig {
+              params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions::BankAccount)).void
+             }
+            def initialize(bank_account: nil); end
+          end
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:
@@ -51,15 +117,29 @@ module Stripe
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
           def payout_method=(_payout_method); end
+          # Payout method options for the OutboundPaymentQuote.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions))
+           }
+          def payout_method_options; end
+          sig {
+            params(_payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions))
+           }
+          def payout_method_options=(_payout_method_options); end
           # To which account the OutboundPayment is sent.
           sig { returns(String) }
           def recipient; end
           sig { params(_recipient: String).returns(String) }
           def recipient=(_recipient); end
           sig {
-            params(currency: T.nilable(String), payout_method: T.nilable(String), recipient: String).void
+            params(currency: T.nilable(String), payout_method: T.nilable(String), payout_method_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundPaymentQuoteCreateParams::To::PayoutMethodOptions), recipient: String).void
            }
-          def initialize(currency: nil, payout_method: nil, recipient: nil); end
+          def initialize(
+            currency: nil,
+            payout_method: nil,
+            payout_method_options: nil,
+            recipient: nil
+          ); end
         end
         # The "presentment amount" to be sent to the recipient.
         sig { returns(::Stripe::V2::Amount) }

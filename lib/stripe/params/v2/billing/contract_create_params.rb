@@ -396,6 +396,8 @@ module Stripe
           attr_accessor :ends_at
           # A user-provided lookup key to reference this pricing override.
           attr_accessor :lookup_key
+          # Set of key-value pairs.
+          attr_accessor :metadata
           # Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
           attr_accessor :multiply_pricing
           # The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
@@ -408,6 +410,7 @@ module Stripe
           def initialize(
             ends_at: nil,
             lookup_key: nil,
+            metadata: nil,
             multiply_pricing: nil,
             priority: nil,
             starts_at: nil,
@@ -415,6 +418,7 @@ module Stripe
           )
             @ends_at = ends_at
             @lookup_key = lookup_key
+            @metadata = metadata
             @multiply_pricing = multiply_pricing
             @priority = priority
             @starts_at = starts_at

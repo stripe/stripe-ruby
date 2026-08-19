@@ -2498,6 +2498,15 @@ module Stripe
           @tos_acceptance = tos_acceptance
         end
       end
+
+      class WechatPayPayments < ::Stripe::RequestParams
+        # The domains of the user's mobile web checkout pages for WeChat Pay payments. At most 4 domains are allowed.
+        attr_accessor :mobile_web_domains
+
+        def initialize(mobile_web_domains: nil)
+          @mobile_web_domains = mobile_web_domains
+        end
+      end
       # Settings specific to Bacs Direct Debit payments.
       attr_accessor :bacs_debit_payments
       # Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
@@ -2526,6 +2535,8 @@ module Stripe
       attr_accessor :tax_forms
       # Settings specific to the account's Treasury FinancialAccounts.
       attr_accessor :treasury
+      # Settings specific to the WeChat Pay payments method.
+      attr_accessor :wechat_pay_payments
 
       def initialize(
         bacs_debit_payments: nil,
@@ -2541,7 +2552,8 @@ module Stripe
         sepa_debit_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
-        treasury: nil
+        treasury: nil,
+        wechat_pay_payments: nil
       )
         @bacs_debit_payments = bacs_debit_payments
         @bank_bca_onboarding = bank_bca_onboarding
@@ -2557,6 +2569,7 @@ module Stripe
         @smart_disputes = smart_disputes
         @tax_forms = tax_forms
         @treasury = treasury
+        @wechat_pay_payments = wechat_pay_payments
       end
     end
 

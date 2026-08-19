@@ -12,6 +12,17 @@ module Stripe
   #
   # Related guides: [Integrate with the Invoicing API](https://docs.stripe.com/invoicing/integration), [Subscription Invoices](https://docs.stripe.com/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Parent < ::Stripe::StripeObject
       class PricingPlanSubscriptionDetails < ::Stripe::StripeObject
         # The pricing plan subscription that manages this charge
@@ -209,7 +220,7 @@ module Stripe
         @field_remappings = {}
       end
       def self.field_encodings
-        @field_encodings = {unit_amount_decimal: :decimal_string}
+        @field_encodings = {unit_amount_decimal: {kind: :nullable, inner: :decimal_string}}
       end
     end
     class ProrationDetails < ::Stripe::StripeObject
@@ -310,6 +321,9 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Attribute for field managed_payments
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Margin)])) }
     def margins; end

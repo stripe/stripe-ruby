@@ -360,7 +360,7 @@ module Stripe
             end
 
             def self.field_encodings
-              @field_encodings = { gross_amount_decimal: :decimal_string }
+              @field_encodings = { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } }
             end
           end
 
@@ -377,7 +377,7 @@ module Stripe
             end
 
             def self.field_encodings
-              @field_encodings = { gross_amount_decimal: :decimal_string }
+              @field_encodings = { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } }
             end
           end
 
@@ -397,8 +397,8 @@ module Stripe
 
             def self.field_encodings
               @field_encodings = {
-                local_amount_decimal: :decimal_string,
-                national_amount_decimal: :decimal_string,
+                local_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                national_amount_decimal: { kind: :nullable, inner: :decimal_string },
               }
             end
           end
@@ -419,13 +419,28 @@ module Stripe
 
           def self.field_encodings
             @field_encodings = {
-              fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
-              non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
+              fuel: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                },
+              },
+              non_fuel: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                },
+              },
               tax: {
-                kind: :object,
-                fields: {
-                  local_amount_decimal: :decimal_string,
-                  national_amount_decimal: :decimal_string,
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {
+                    local_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                    national_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                  },
                 },
               },
             }
@@ -454,15 +469,33 @@ module Stripe
         def self.field_encodings
           @field_encodings = {
             reported_breakdown: {
-              kind: :object,
-              fields: {
-                fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
-                non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
-                tax: {
-                  kind: :object,
-                  fields: {
-                    local_amount_decimal: :decimal_string,
-                    national_amount_decimal: :decimal_string,
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  fuel: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                    },
+                  },
+                  non_fuel: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                    },
+                  },
+                  tax: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: {
+                        local_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                        national_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                      },
+                    },
                   },
                 },
               },
@@ -509,7 +542,10 @@ module Stripe
         end
 
         def self.field_encodings
-          @field_encodings = { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string }
+          @field_encodings = {
+            quantity_decimal: { kind: :nullable, inner: :decimal_string },
+            unit_cost_decimal: { kind: :nullable, inner: :decimal_string },
+          }
         end
       end
 
@@ -630,6 +666,79 @@ module Stripe
         end
 
         class HoldAmountDetails < ::Stripe::StripeObject
+          class EstimatedFee < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class EstimatedFeeDetail < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # Three-letter ISO currency code.
+              attr_reader :currency
+              # The amount in the smallest currency unit.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ChargedBy < ::Stripe::StripeObject
+              class Application < ::Stripe::StripeObject
+                # Human-readable product name.
+                attr_reader :feature_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Details for a fee charged by a Connect application.
+              attr_reader :application
+              # The type of entity that charged this fee.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { application: Application }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field amount
+            attr_reader :amount
+            # Attribute for field charged_by
+            attr_reader :charged_by
+            # The category of this fee.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { amount: Amount, charged_by: ChargedBy }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Network < ::Stripe::StripeObject
             # Three-letter ISO currency code.
             attr_reader :currency
@@ -659,13 +768,22 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Advisory estimate of total fees for this authorization request.
+          attr_reader :estimated_fee
+          # Per-fee-type breakdown of the estimated fees for this authorization request.
+          attr_reader :estimated_fee_details
           # Attribute for field network
           attr_reader :network
           # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
           attr_reader :reserve
 
           def self.inner_class_types
-            @inner_class_types = { network: Network, reserve: Reserve }
+            @inner_class_types = {
+              estimated_fee: EstimatedFee,
+              estimated_fee_details: EstimatedFeeDetail,
+              network: Network,
+              reserve: Reserve,
+            }
           end
 
           def self.field_remappings
@@ -749,6 +867,79 @@ module Stripe
         end
 
         class HoldAmountDetails < ::Stripe::StripeObject
+          class EstimatedFee < ::Stripe::StripeObject
+            # Three-letter ISO currency code.
+            attr_reader :currency
+            # The amount in the smallest currency unit.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class EstimatedFeeDetail < ::Stripe::StripeObject
+            class Amount < ::Stripe::StripeObject
+              # Three-letter ISO currency code.
+              attr_reader :currency
+              # The amount in the smallest currency unit.
+              attr_reader :value
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class ChargedBy < ::Stripe::StripeObject
+              class Application < ::Stripe::StripeObject
+                # Human-readable product name.
+                attr_reader :feature_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Details for a fee charged by a Connect application.
+              attr_reader :application
+              # The type of entity that charged this fee.
+              attr_reader :type
+
+              def self.inner_class_types
+                @inner_class_types = { application: Application }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field amount
+            attr_reader :amount
+            # Attribute for field charged_by
+            attr_reader :charged_by
+            # The category of this fee.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = { amount: Amount, charged_by: ChargedBy }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Network < ::Stripe::StripeObject
             # Three-letter ISO currency code.
             attr_reader :currency
@@ -778,13 +969,22 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Advisory estimate of total fees for this authorization request.
+          attr_reader :estimated_fee
+          # Per-fee-type breakdown of the estimated fees for this authorization request.
+          attr_reader :estimated_fee_details
           # Attribute for field network
           attr_reader :network
           # The reserve amount held for this authorization. Present for certain MCCs that may have overcaptures.
           attr_reader :reserve
 
           def self.inner_class_types
-            @inner_class_types = { network: Network, reserve: Reserve }
+            @inner_class_types = {
+              estimated_fee: EstimatedFee,
+              estimated_fee_details: EstimatedFeeDetail,
+              network: Network,
+              reserve: Reserve,
+            }
           end
 
           def self.field_remappings
@@ -1397,18 +1597,39 @@ module Stripe
       def self.field_encodings
         @field_encodings = {
           fleet: {
-            kind: :object,
-            fields: {
-              reported_breakdown: {
-                kind: :object,
-                fields: {
-                  fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
-                  non_fuel: { kind: :object, fields: { gross_amount_decimal: :decimal_string } },
-                  tax: {
+            kind: :nullable,
+            inner: {
+              kind: :object,
+              fields: {
+                reported_breakdown: {
+                  kind: :nullable,
+                  inner: {
                     kind: :object,
                     fields: {
-                      local_amount_decimal: :decimal_string,
-                      national_amount_decimal: :decimal_string,
+                      fuel: {
+                        kind: :nullable,
+                        inner: {
+                          kind: :object,
+                          fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                        },
+                      },
+                      non_fuel: {
+                        kind: :nullable,
+                        inner: {
+                          kind: :object,
+                          fields: { gross_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+                        },
+                      },
+                      tax: {
+                        kind: :nullable,
+                        inner: {
+                          kind: :object,
+                          fields: {
+                            local_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                            national_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                          },
+                        },
+                      },
                     },
                   },
                 },
@@ -1416,8 +1637,14 @@ module Stripe
             },
           },
           fuel: {
-            kind: :object,
-            fields: { quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string },
+            kind: :nullable,
+            inner: {
+              kind: :object,
+              fields: {
+                quantity_decimal: { kind: :nullable, inner: :decimal_string },
+                unit_cost_decimal: { kind: :nullable, inner: :decimal_string },
+              },
+            },
           },
         }
       end

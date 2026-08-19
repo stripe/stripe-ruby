@@ -71,6 +71,15 @@ module Stripe
        }
       def initialize(coupon: nil, discount: nil, discount_end: nil, promotion_code: nil); end
     end
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
+      sig { params(enabled: T.nilable(T::Boolean)).void }
+      def initialize(enabled: nil); end
+    end
     class Period < ::Stripe::RequestParams
       # The end of the period, which must be greater than or equal to the start. This value is inclusive.
       sig { returns(Integer) }
@@ -181,6 +190,13 @@ module Stripe
     def invoice; end
     sig { params(_invoice: T.nilable(String)).returns(T.nilable(String)) }
     def invoice=(_invoice); end
+    # Settings for Managed Payments for this invoice item.
+    sig { returns(T.nilable(::Stripe::InvoiceItemCreateParams::ManagedPayments)) }
+    def managed_payments; end
+    sig {
+      params(_managed_payments: T.nilable(::Stripe::InvoiceItemCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::InvoiceItemCreateParams::ManagedPayments))
+     }
+    def managed_payments=(_managed_payments); end
     # The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     sig { returns(T.nilable(T::Array[String])) }
     def margins; end
@@ -250,7 +266,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(amount: T.nilable(Integer), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), margins: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemCreateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemCreateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemCreateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T::Array[String]), unit_amount_decimal: T.nilable(BigDecimal)).void
+      params(amount: T.nilable(Integer), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), invoice: T.nilable(String), managed_payments: T.nilable(::Stripe::InvoiceItemCreateParams::ManagedPayments), margins: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemCreateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemCreateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemCreateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), subscription: T.nilable(String), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T::Array[String]), unit_amount_decimal: T.nilable(BigDecimal)).void
      }
     def initialize(
       amount: nil,
@@ -262,6 +278,7 @@ module Stripe
       discounts: nil,
       expand: nil,
       invoice: nil,
+      managed_payments: nil,
       margins: nil,
       metadata: nil,
       period: nil,

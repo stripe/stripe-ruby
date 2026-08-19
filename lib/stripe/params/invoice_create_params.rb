@@ -123,6 +123,15 @@ module Stripe
       end
     end
 
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution.
+      attr_accessor :enabled
+
+      def initialize(enabled: nil)
+        @enabled = enabled
+      end
+    end
+
     class PaymentSettings < ::Stripe::RequestParams
       class PaymentMethodOptions < ::Stripe::RequestParams
         class AcssDebit < ::Stripe::RequestParams
@@ -659,6 +668,8 @@ module Stripe
     attr_accessor :from_invoice
     # The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
     attr_accessor :issuer
+    # Settings for Managed Payments for this invoice.
+    attr_accessor :managed_payments
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # Set the number for this invoice. If no number is present then a number will be assigned automatically when the invoice is finalized. In many markets, regulations require invoices to be unique, sequential and / or gapless. You are responsible for ensuring this is true across all your different invoicing systems in the event that you edit the invoice number using our API. If you use only Stripe for your invoices and do not change invoice numbers, Stripe handles this aspect of compliance for you automatically.
@@ -707,6 +718,7 @@ module Stripe
       footer: nil,
       from_invoice: nil,
       issuer: nil,
+      managed_payments: nil,
       metadata: nil,
       number: nil,
       on_behalf_of: nil,
@@ -743,6 +755,7 @@ module Stripe
       @footer = footer
       @from_invoice = from_invoice
       @issuer = issuer
+      @managed_payments = managed_payments
       @metadata = metadata
       @number = number
       @on_behalf_of = on_behalf_of

@@ -564,9 +564,6 @@ module Stripe
           # For authenticated transactions: Indicates how the issuing bank authenticated the customer.
           sig { returns(T.nilable(String)) }
           def authentication_flow; end
-          # The 3D Secure cryptogram, also known as the "authentication value" (AAV, CAVV or AEVV).
-          sig { returns(T.nilable(String)) }
-          def cryptogram; end
           # The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
           sig { returns(T.nilable(String)) }
           def electronic_commerce_indicator; end
@@ -1430,7 +1427,7 @@ module Stripe
         end
       end
       class NzBankAccount < ::Stripe::StripeObject
-        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod’s billing details.
+        # The name on the bank account. Only present if the account holder name is different from the name of the authorized signatory collected in the PaymentMethod's billing details.
         sig { returns(T.nilable(String)) }
         def account_holder_name; end
         # The numeric code for the bank account's bank.

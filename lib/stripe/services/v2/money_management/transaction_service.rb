@@ -26,6 +26,17 @@ module Stripe
             base_address: :api
           )
         end
+
+        # Updates the description of an existing Transaction.
+        def update(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/money_management/transactions/%<id>s", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
       end
     end
   end

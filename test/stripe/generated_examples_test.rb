@@ -10384,6 +10384,17 @@ module Stripe
         to: {
           currency: "usd",
           payout_method: "payout_method",
+          payout_method_options: {
+            bank_account: {
+              preferred_network_options: {
+                ach: {
+                  submission: "next_day",
+                  transaction_purpose: "payroll",
+                },
+              },
+              preferred_networks: ["sepa_credit"],
+            },
+          },
           recipient: "recipient",
         },
       })
@@ -10890,6 +10901,19 @@ module Stripe
 
       transaction = client.v2.money_management.transactions.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
+    end
+    should "Test v2 money management transaction post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
+      ).to_return(
+        body: '{"object":"v2.money_management.transaction","amount":{"currency":"USD","value":96},"balance_impact":{"available":{"currency":"USD","value":35},"inbound_pending":{"currency":"USD","value":11},"outbound_pending":{"currency":"USD","value":60}},"category":"platform_earning_refund","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","id":"obj_123","livemode":true,"status":"pending","status_transitions":{}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      transaction = client.v2.money_management.transactions.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/transactions/id_123"
     end
     should "Test v2 money management transaction entry get (service)" do
       stub_request(

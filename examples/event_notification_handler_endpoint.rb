@@ -31,6 +31,18 @@ handler.on_v1_billing_meter_error_report_triggered do |event_notification, _clie
   puts "Meter #{meter.display_name} (#{meter.id}) had a problem"
 end
 
+# Handles events delivered through a channel that has already authenticated them, such as
+# AWS EventBridge or Azure Event Grid. Those payloads carry no Stripe-Signature header, so
+# this handler skips verification. Callbacks are registered separately from the one above.
+unverified_handler = client.notification_handler_without_verification do |notif, _client, _details|
+  puts "Received unhandled notification:", notif.type
+end
+
+unverified_handler.on_v1_billing_meter_error_report_triggered do |event_notification, _client|
+  meter = event_notification.fetch_related_object
+  puts "Meter #{meter.display_name} (#{meter.id}) had a problem"
+end
+
 post "/webhook" do
   webhook_body = request.body.read
   sig_header = request.env["HTTP_STRIPE_SIGNATURE"]
@@ -42,4 +54,10 @@ post "/webhook" do
     puts "Signature verification failed:", e.message
     status 400
   end
+end
+
+post "/webhook-from-cloud-provider" do
+  # handle takes only the body here; there's no signature to check
+  unverified_handler.handle(request.body.read)
+  status 200
 end

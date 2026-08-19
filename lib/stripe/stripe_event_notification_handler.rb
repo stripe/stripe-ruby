@@ -10,39 +10,16 @@ module Stripe
     end
   end
 
-  class StripeEventNotificationHandler
-    def initialize(client, webhook_secret, &fallback_callback)
+  # Shared internal registration and dispatch machinery for the two user-facing event handlers.
+  class StripeEventNotificationHandlerBase
+    def initialize(client, &fallback_callback)
       raise ArgumentError, "You must pass a block to act as a fallback" if fallback_callback.nil?
 
       @client = client
-      @webhook_secret = webhook_secret
       @fallback_callback = fallback_callback
 
       @registered_handlers = {}
       @has_handled_events = false
-    end
-
-    def handle(webhook_body, sig_header)
-      # we're ok with this not being a thread-safe write since registering
-      # handlers should happen synchronously on startup before any multi-threaded reads happen
-      @has_handled_events = true
-
-      notif = @client.parse_event_notification(
-        webhook_body,
-        sig_header,
-        @webhook_secret
-      )
-
-      # Create a new client with the event's context to ensure thread-safety
-      event_client = new_client_with_context(notif.context)
-
-      handler = @registered_handlers[notif.type]
-      if handler
-        handler.call(notif, event_client)
-      else
-        @fallback_callback.call(notif, event_client,
-                                UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
-      end
     end
 
     def registered_event_types
@@ -56,6 +33,18 @@ module Stripe
       end
 
       @registered_handlers[event_type] = handler
+    end
+
+    private def dispatch(notif)
+      event_client = new_client_with_context(notif.context)
+
+      handler = @registered_handlers[notif.type]
+      if handler
+        handler.call(notif, event_client)
+      else
+        @fallback_callback.call(notif, event_client,
+                                UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
+      end
     end
 
     private def new_client_with_context(context)
@@ -2720,5 +2709,50 @@ module Stripe
       register("v2.signals.account_signal.payment_delinquency_exposure_ready", &handler)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
+  end
+
+  # Verifies incoming webhook signatures before routing events to the callbacks
+  # registered on it. This is the handler you want unless events reach you
+  # through a channel that has already authenticated them.
+  class StripeEventNotificationHandler < StripeEventNotificationHandlerBase
+    def initialize(client, webhook_secret, &fallback_callback)
+      super(client, &fallback_callback)
+
+      raise ArgumentError, "webhook_secret must be a non-empty string" if webhook_secret.nil? || webhook_secret.empty?
+
+      @webhook_secret = webhook_secret
+    end
+
+    def self.without_verification(client, &fallback_callback)
+      StripeEventNotificationHandlerWithoutVerification.send(:new, client, &fallback_callback)
+    end
+
+    def handle(webhook_body, sig_header)
+      # set before parsing, so that even a failed parse locks out registration.
+      # we're ok with this not being a thread-safe write since registering
+      # handlers should happen synchronously on startup before any multi-threaded reads happen
+      @has_handled_events = true
+
+      dispatch(@client.parse_event_notification(
+                 webhook_body,
+                 sig_header,
+                 @webhook_secret
+               ))
+    end
+  end
+
+  # A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+  #
+  # Prefer `StripeEventNotificationHandler#without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
+  class StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandlerBase
+    # Construct through the factories so that skipping signature verification is
+    # always an explicit choice.
+    private_class_method :new
+
+    def handle(webhook_body)
+      @has_handled_events = true
+
+      dispatch(@client.parse_event_notification_without_verification(webhook_body))
+    end
   end
 end

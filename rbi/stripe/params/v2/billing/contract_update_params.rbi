@@ -501,11 +501,11 @@ module Stripe
                     def lookup_key; end
                     sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
                     def lookup_key=(_lookup_key); end
-                    # Metadata for the pricing override.
-                    sig { returns(T.nilable(T::Hash[String, String])) }
+                    # Metadata mutations to apply to the pricing override.
+                    sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
                     def metadata; end
                     sig {
-                      params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+                      params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
                      }
                     def metadata=(_metadata); end
                     # Updated start time.
@@ -518,7 +518,7 @@ module Stripe
                      }
                     def starts_at=(_starts_at); end
                     sig {
-                      params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::EndsAt), id: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::StartsAt)).void
+                      params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::EndsAt), id: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)]), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update::StartsAt)).void
                      }
                     def initialize(
                       ends_at: nil,
@@ -688,6 +688,13 @@ module Stripe
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
+            # Metadata mutations to apply to the pricing line.
+            sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+             }
+            def metadata=(_metadata); end
             # Updated pricing configuration.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing))
@@ -707,9 +714,9 @@ module Stripe
              }
             def starts_at=(_starts_at); end
             sig {
-              params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::EndsAt), id: String, pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::StartsAt)).void
+              params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::EndsAt), id: String, metadata: T.nilable(T::Hash[String, T.nilable(String)]), pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::StartsAt)).void
              }
-            def initialize(ends_at: nil, id: nil, pricing: nil, starts_at: nil); end
+            def initialize(ends_at: nil, id: nil, metadata: nil, pricing: nil, starts_at: nil); end
             def self.field_encodings
               @field_encodings = {
                 pricing: {
@@ -906,6 +913,13 @@ module Stripe
             def lookup_key; end
             sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
             def lookup_key=(_lookup_key); end
+            # Metadata for the pricing override.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
             # A multiply_pricing override to add.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing))
@@ -944,11 +958,12 @@ module Stripe
             sig { params(_type: String).returns(String) }
             def type=(_type); end
             sig {
-              params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::EndsAt, lookup_key: T.nilable(String), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing), overwrite_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::StartsAt, type: String).void
+              params(ends_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::EndsAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::MultiplyPricing), overwrite_price: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::OverwritePrice), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Add::StartsAt, type: String).void
              }
             def initialize(
               ends_at: nil,
               lookup_key: nil,
+              metadata: nil,
               multiply_pricing: nil,
               overwrite_price: nil,
               priority: nil,
@@ -1008,6 +1023,13 @@ module Stripe
             def id; end
             sig { params(_id: String).returns(String) }
             def id=(_id); end
+            # Metadata mutations to apply to the pricing override.
+            sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+             }
+            def metadata=(_metadata); end
             # The updated start time for the pricing override.
             sig {
               returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update::StartsAt))
@@ -1018,9 +1040,9 @@ module Stripe
              }
             def starts_at=(_starts_at); end
             sig {
-              params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update::EndsAt), id: String, starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update::StartsAt)).void
+              params(ends_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update::EndsAt), id: String, metadata: T.nilable(T::Hash[String, T.nilable(String)]), starts_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction::Update::StartsAt)).void
              }
-            def initialize(ends_at: nil, id: nil, starts_at: nil); end
+            def initialize(ends_at: nil, id: nil, metadata: nil, starts_at: nil); end
           end
           # Add a pricing override.
           sig {
@@ -1064,6 +1086,13 @@ module Stripe
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def include=(_include); end
+        # Set of key-value pairs.
+        sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
+         }
+        def metadata=(_metadata); end
         # Pricing line actions to apply.
         sig {
           returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]))
@@ -1083,9 +1112,14 @@ module Stripe
          }
         def pricing_override_actions=(_pricing_override_actions); end
         sig {
-          params(include: T.nilable(T::Array[String]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
+          params(include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
          }
-        def initialize(include: nil, pricing_line_actions: nil, pricing_override_actions: nil); end
+        def initialize(
+          include: nil,
+          metadata: nil,
+          pricing_line_actions: nil,
+          pricing_override_actions: nil
+        ); end
         def self.field_encodings
           @field_encodings = {
             pricing_line_actions: {

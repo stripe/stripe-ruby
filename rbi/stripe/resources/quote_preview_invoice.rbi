@@ -380,6 +380,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class ManagedPayments < ::Stripe::StripeObject
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+      sig { returns(T::Boolean) }
+      def enabled; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Parent < ::Stripe::StripeObject
       class BillingCadenceDetails < ::Stripe::StripeObject
         # The billing cadence that generated this invoice
@@ -1272,6 +1283,9 @@ module Stripe
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
+    # Attribute for field managed_payments
+    sig { returns(T.nilable(ManagedPayments)) }
+    def managed_payments; end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     sig { returns(T.nilable(T::Hash[String, String])) }
     def metadata; end

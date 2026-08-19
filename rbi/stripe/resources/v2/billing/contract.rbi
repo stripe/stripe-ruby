@@ -187,6 +187,9 @@ module Stripe
                     # The user-provided lookup key for this override.
                     sig { returns(T.nilable(String)) }
                     def lookup_key; end
+                    # Set of key-value pairs.
+                    sig { returns(T.nilable(T::Hash[String, String])) }
+                    def metadata; end
                     # Details for an overwrite_price override.
                     sig { returns(T.nilable(OverwritePrice)) }
                     def overwrite_price; end
@@ -395,6 +398,9 @@ module Stripe
             # The user-provided lookup key for the pricing override.
             sig { returns(T.nilable(String)) }
             def lookup_key; end
+            # Set of key-value pairs.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
             # Details for a multiply_pricing override.
             sig { returns(T.nilable(MultiplyPricing)) }
             def multiply_pricing; end

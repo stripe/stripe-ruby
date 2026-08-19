@@ -30,6 +30,44 @@ module Stripe
         end
 
         class To < ::Stripe::RequestParams
+          class PayoutMethodOptions < ::Stripe::RequestParams
+            class BankAccount < ::Stripe::RequestParams
+              class PreferredNetworkOptions < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # Open Enum. ACH submission timing.
+                  attr_accessor :submission
+                  # The transaction purpose for this ACH payment.
+                  attr_accessor :transaction_purpose
+
+                  def initialize(submission: nil, transaction_purpose: nil)
+                    @submission = submission
+                    @transaction_purpose = transaction_purpose
+                  end
+                end
+                # ACH-specific network options.
+                attr_accessor :ach
+
+                def initialize(ach: nil)
+                  @ach = ach
+                end
+              end
+              # Per-network configuration options.
+              attr_accessor :preferred_network_options
+              # The preferred networks to use for this OutboundPayment.
+              attr_accessor :preferred_networks
+
+              def initialize(preferred_network_options: nil, preferred_networks: nil)
+                @preferred_network_options = preferred_network_options
+                @preferred_networks = preferred_networks
+              end
+            end
+            # Options for bank account payout methods.
+            attr_accessor :bank_account
+
+            def initialize(bank_account: nil)
+              @bank_account = bank_account
+            end
+          end
           # Describes the currency to send to the recipient.
           # If included, this currency must match a currency supported by the destination.
           # Can be omitted in the following cases:
@@ -40,12 +78,20 @@ module Stripe
           attr_accessor :currency
           # The payout method which the OutboundPayment uses to send payout.
           attr_accessor :payout_method
+          # Payout method options for the OutboundPaymentQuote.
+          attr_accessor :payout_method_options
           # To which account the OutboundPayment is sent.
           attr_accessor :recipient
 
-          def initialize(currency: nil, payout_method: nil, recipient: nil)
+          def initialize(
+            currency: nil,
+            payout_method: nil,
+            payout_method_options: nil,
+            recipient: nil
+          )
             @currency = currency
             @payout_method = payout_method
+            @payout_method_options = payout_method_options
             @recipient = recipient
           end
         end

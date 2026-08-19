@@ -27,13 +27,29 @@ module Stripe
         end
 
         class EstimatedFee < ::Stripe::StripeObject
+          class TaxAmount < ::Stripe::StripeObject
+            # Currency code.
+            attr_reader :currency
+            # Tax amount value represented as a decimal string in major units.
+            attr_reader :value_decimal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The fee amount for corresponding fee type.
           attr_reader :amount
+          # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
+          attr_reader :tax_amount
           # The fee type.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { tax_amount: TaxAmount }
           end
 
           def self.field_remappings
@@ -90,15 +106,69 @@ module Stripe
         end
 
         class To < ::Stripe::StripeObject
+          class PayoutMethodOptions < ::Stripe::StripeObject
+            class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Open Enum. ACH submission timing.
+                  attr_reader :submission
+                  # The transaction purpose for this ACH payment.
+                  attr_reader :transaction_purpose
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                attr_reader :ach
+
+                def self.inner_class_types
+                  @inner_class_types = { ach: Ach }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              attr_reader :preferred_network_options
+              # The preferred networks to use for this OutboundPayment.
+              attr_reader :preferred_networks
+
+              def self.inner_class_types
+                @inner_class_types = { preferred_network_options: PreferredNetworkOptions }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Options for bank account payout methods.
+            attr_reader :bank_account
+
+            def self.inner_class_types
+              @inner_class_types = { bank_account: BankAccount }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The monetary amount being credited to the destination.
           attr_reader :credited
           # The payout method which the OutboundPayment uses to send payout.
           attr_reader :payout_method
+          # Payout method options for the OutboundPaymentQuote.
+          attr_reader :payout_method_options
           # To which account the OutboundPayment is sent.
           attr_reader :recipient
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { payout_method_options: PayoutMethodOptions }
           end
 
           def self.field_remappings

@@ -241,6 +241,10 @@ module Stripe
   autoload :PaymentMethodListParams, "stripe/params/payment_method_list_params"
   autoload :PaymentMethodRetrieveParams, "stripe/params/payment_method_retrieve_params"
   autoload :PaymentMethodUpdateParams, "stripe/params/payment_method_update_params"
+  autoload :PaymentPlanCreateParams, "stripe/params/payment_plan_create_params"
+  autoload :PaymentPlanListParams, "stripe/params/payment_plan_list_params"
+  autoload :PaymentPlanRetrieveParams, "stripe/params/payment_plan_retrieve_params"
+  autoload :PaymentPlanUpdateParams, "stripe/params/payment_plan_update_params"
   autoload :PaymentRecordCreateParams, "stripe/params/payment_record_create_params"
   autoload :PaymentRecordListParams, "stripe/params/payment_record_list_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
@@ -1234,6 +1238,7 @@ module Stripe
       autoload :TransactionEntryRetrieveParams, "stripe/params/v2/money_management/transaction_entry_retrieve_params"
       autoload :TransactionListParams, "stripe/params/v2/money_management/transaction_list_params"
       autoload :TransactionRetrieveParams, "stripe/params/v2/money_management/transaction_retrieve_params"
+      autoload :TransactionUpdateParams, "stripe/params/v2/money_management/transaction_update_params"
 
       module FinancialAccounts
         autoload :StatementListParams, "stripe/params/v2/money_management/financial_accounts/statement_list_params"
@@ -1753,6 +1758,10 @@ module Stripe
     stripe/params/payment_method_list_params
     stripe/params/payment_method_retrieve_params
     stripe/params/payment_method_update_params
+    stripe/params/payment_plan_create_params
+    stripe/params/payment_plan_list_params
+    stripe/params/payment_plan_retrieve_params
+    stripe/params/payment_plan_update_params
     stripe/params/payment_record_create_params
     stripe/params/payment_record_list_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
@@ -2339,6 +2348,7 @@ module Stripe
     stripe/params/v2/money_management/transaction_entry_retrieve_params
     stripe/params/v2/money_management/transaction_list_params
     stripe/params/v2/money_management/transaction_retrieve_params
+    stripe/params/v2/money_management/transaction_update_params
     stripe/params/v2/network/business_profile_me_params
     stripe/params/v2/network/business_profile_retrieve_params
     stripe/params/v2/orchestrated_commerce/agreement_confirm_params

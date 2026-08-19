@@ -375,7 +375,7 @@ module Stripe
       end
 
       def self.field_encodings
-        @field_encodings = { unit_amount_decimal: :decimal_string }
+        @field_encodings = { unit_amount_decimal: { kind: :nullable, inner: :decimal_string } }
       end
     end
 
@@ -507,8 +507,14 @@ module Stripe
 
     def self.field_encodings
       @field_encodings = {
-        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
-        quantity_decimal: :decimal_string,
+        pricing: {
+          kind: :nullable,
+          inner: {
+            kind: :object,
+            fields: { unit_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+          },
+        },
+        quantity_decimal: { kind: :nullable, inner: :decimal_string },
       }
     end
   end

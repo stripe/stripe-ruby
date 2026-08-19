@@ -107,7 +107,10 @@ module Stripe
 
           def self.field_encodings
             @field_encodings = {
-              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              custom_pricing_unit: {
+                kind: :nullable,
+                inner: { kind: :object, fields: { value: :decimal_string } },
+              },
             }
           end
         end
@@ -128,7 +131,12 @@ module Stripe
           @field_encodings = {
             lte: {
               kind: :object,
-              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              fields: {
+                custom_pricing_unit: {
+                  kind: :nullable,
+                  inner: { kind: :object, fields: { value: :decimal_string } },
+                },
+              },
             },
           }
         end
@@ -227,7 +235,10 @@ module Stripe
 
           def self.field_encodings
             @field_encodings = {
-              custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } },
+              custom_pricing_unit: {
+                kind: :nullable,
+                inner: { kind: :object, fields: { value: :decimal_string } },
+              },
             }
           end
         end
@@ -252,7 +263,12 @@ module Stripe
           @field_encodings = {
             gte: {
               kind: :object,
-              fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+              fields: {
+                custom_pricing_unit: {
+                  kind: :nullable,
+                  inner: { kind: :object, fields: { value: :decimal_string } },
+                },
+              },
             },
           }
         end
@@ -394,20 +410,36 @@ module Stripe
       def self.field_encodings
         @field_encodings = {
           credit_balance_threshold: {
-            kind: :object,
-            fields: {
-              lte: {
-                kind: :object,
-                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            kind: :nullable,
+            inner: {
+              kind: :object,
+              fields: {
+                lte: {
+                  kind: :object,
+                  fields: {
+                    custom_pricing_unit: {
+                      kind: :nullable,
+                      inner: { kind: :object, fields: { value: :decimal_string } },
+                    },
+                  },
+                },
               },
             },
           },
           spend_threshold: {
-            kind: :object,
-            fields: {
-              gte: {
-                kind: :object,
-                fields: { custom_pricing_unit: { kind: :object, fields: { value: :decimal_string } } },
+            kind: :nullable,
+            inner: {
+              kind: :object,
+              fields: {
+                gte: {
+                  kind: :object,
+                  fields: {
+                    custom_pricing_unit: {
+                      kind: :nullable,
+                      inner: { kind: :object, fields: { value: :decimal_string } },
+                    },
+                  },
+                },
               },
             },
           },

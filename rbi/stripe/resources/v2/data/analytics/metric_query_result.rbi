@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Data
       module Analytics
-        # The result of a metric query.
+        # The result of a metric query. For the full list of supported metrics, see [Supported metrics](https://docs.stripe.com/data/analytics/supported-metrics).
         class MetricQueryResult < APIResource
           class Data < ::Stripe::StripeObject
             class Result < ::Stripe::StripeObject

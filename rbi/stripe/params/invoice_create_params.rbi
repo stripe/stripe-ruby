@@ -169,6 +169,15 @@ module Stripe
       sig { params(account: T.nilable(String), type: String).void }
       def initialize(account: nil, type: nil); end
     end
+    class ManagedPayments < ::Stripe::RequestParams
+      # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution.
+      sig { returns(T.nilable(T::Boolean)) }
+      def enabled; end
+      sig { params(_enabled: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def enabled=(_enabled); end
+      sig { params(enabled: T.nilable(T::Boolean)).void }
+      def initialize(enabled: nil); end
+    end
     class PaymentSettings < ::Stripe::RequestParams
       class PaymentMethodOptions < ::Stripe::RequestParams
         class AcssDebit < ::Stripe::RequestParams
@@ -1111,6 +1120,13 @@ module Stripe
       params(_issuer: T.nilable(::Stripe::InvoiceCreateParams::Issuer)).returns(T.nilable(::Stripe::InvoiceCreateParams::Issuer))
      }
     def issuer=(_issuer); end
+    # Settings for Managed Payments for this invoice.
+    sig { returns(T.nilable(::Stripe::InvoiceCreateParams::ManagedPayments)) }
+    def managed_payments; end
+    sig {
+      params(_managed_payments: T.nilable(::Stripe::InvoiceCreateParams::ManagedPayments)).returns(T.nilable(::Stripe::InvoiceCreateParams::ManagedPayments))
+     }
+    def managed_payments=(_managed_payments); end
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     sig { returns(T.nilable(T.any(String, T::Hash[String, String]))) }
     def metadata; end
@@ -1179,7 +1195,7 @@ module Stripe
      }
     def transfer_data=(_transfer_data); end
     sig {
-      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::AmountsDue])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceCreateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), currency: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::CustomField])), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_margins: T.nilable(T::Array[String]), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), footer: T.nilable(String), from_invoice: T.nilable(::Stripe::InvoiceCreateParams::FromInvoice), issuer: T.nilable(::Stripe::InvoiceCreateParams::Issuer), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceCreateParams::PaymentSettings), pending_invoice_items_behavior: T.nilable(String), rendering: T.nilable(::Stripe::InvoiceCreateParams::Rendering), shipping_cost: T.nilable(::Stripe::InvoiceCreateParams::ShippingCost), shipping_details: T.nilable(::Stripe::InvoiceCreateParams::ShippingDetails), statement_descriptor: T.nilable(String), subscription: T.nilable(String), transfer_data: T.nilable(::Stripe::InvoiceCreateParams::TransferData)).void
+      params(account_tax_ids: T.nilable(T.any(String, T::Array[String])), amounts_due: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::AmountsDue])), application_fee_amount: T.nilable(Integer), auto_advance: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::InvoiceCreateParams::AutomaticTax), automatically_finalizes_at: T.nilable(Integer), collection_method: T.nilable(String), currency: T.nilable(String), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::CustomField])), customer: T.nilable(String), customer_account: T.nilable(String), days_until_due: T.nilable(Integer), default_margins: T.nilable(T::Array[String]), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T::Array[String]), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreateParams::Discount])), due_date: T.nilable(Integer), effective_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), footer: T.nilable(String), from_invoice: T.nilable(::Stripe::InvoiceCreateParams::FromInvoice), issuer: T.nilable(::Stripe::InvoiceCreateParams::Issuer), managed_payments: T.nilable(::Stripe::InvoiceCreateParams::ManagedPayments), metadata: T.nilable(T.any(String, T::Hash[String, String])), number: T.nilable(String), on_behalf_of: T.nilable(String), payment_settings: T.nilable(::Stripe::InvoiceCreateParams::PaymentSettings), pending_invoice_items_behavior: T.nilable(String), rendering: T.nilable(::Stripe::InvoiceCreateParams::Rendering), shipping_cost: T.nilable(::Stripe::InvoiceCreateParams::ShippingCost), shipping_details: T.nilable(::Stripe::InvoiceCreateParams::ShippingDetails), statement_descriptor: T.nilable(String), subscription: T.nilable(String), transfer_data: T.nilable(::Stripe::InvoiceCreateParams::TransferData)).void
      }
     def initialize(
       account_tax_ids: nil,
@@ -1206,6 +1222,7 @@ module Stripe
       footer: nil,
       from_invoice: nil,
       issuer: nil,
+      managed_payments: nil,
       metadata: nil,
       number: nil,
       on_behalf_of: nil,

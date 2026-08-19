@@ -10,8 +10,6 @@ module Stripe
     end
   end
 
-  # Shared registration and dispatch machinery for the two handlers below.
-  #
   # Shared internal registration and dispatch machinery for the two user-facing event handlers.
   class StripeEventNotificationHandlerBase
     def initialize(client, &fallback_callback)

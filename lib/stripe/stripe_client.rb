@@ -118,5 +118,31 @@ module Stripe
       data = JSON.parse(data) if data.is_a?(String)
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
     end
+
+    # Returns a new StripeClient with the same configuration as this one, but
+    # scoped to the given Stripe-Context. Useful when handling event
+    # notifications, where each event may carry its own context.
+    def with_stripe_context(context)
+      config = @requestor.config
+      StripeClient.new(
+        config.api_key,
+        stripe_account: config.stripe_account,
+        stripe_context: context,
+        stripe_version: config.api_version,
+        api_base: config.api_base,
+        uploads_base: config.uploads_base,
+        connect_base: config.connect_base,
+        meter_events_base: config.meter_events_base,
+        client_id: config.client_id
+      )
+    end
+
+    def notification_handler(webhook_secret, &fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
+    end
+
+    def notification_handler_without_verification(&fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.without_verification(self, &fallback_callback)
+    end
   end
 end

@@ -1,0 +1,223 @@
+# frozen_string_literal: true
+# typed: true
+
+module Stripe
+  class UnhandledNotificationDetails
+    sig { returns(T::Boolean) }
+    def is_known_event_type; end
+  end
+
+  # Shared internal registration and dispatch machinery for the two handlers below.
+  class StripeEventNotificationHandlerBase
+    sig do
+      params(
+        client: ::Stripe::StripeClient,
+        on_unhandled_handler: T.proc.params(
+          event_notification: ::Stripe::V2::Core::EventNotification,
+          client: ::Stripe::StripeClient,
+          details: ::Stripe::UnhandledNotificationDetails).void)
+        .void
+    end
+    def initialize(client, &on_unhandled_handler); end
+
+    sig { returns(T::Array[String]) }
+    def registered_event_types; end
+
+    # event-handler-methods: The beginning of the section generated from our OpenAPI spec
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_error_report_triggered(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterNoMeterFoundEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v1_billing_meter_no_meter_found(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsProcessingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_processing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountClosedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_closed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_customer_capability_status_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_customer_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_merchant_capability_status_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_merchant_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_recipient_capability_status_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_configuration_recipient_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_defaults_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_future_requirements_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingIdentityUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_identity_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingRequirementsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_including_requirements_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountLinkReturnedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_link_returned(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_person_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonDeletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_person_deleted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_account_person_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreEventDestinationPingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_event_destination_ping(&blk);
+    end
+    
+    
+    # event-handler-methods: The end of the section generated from our OpenAPI spec
+  end
+
+  # Verifies incoming webhook signatures before routing events to the callbacks
+  # registered on it.
+  class StripeEventNotificationHandler < StripeEventNotificationHandlerBase
+    sig do
+      params(
+        client: ::Stripe::StripeClient,
+        webhook_secret: String,
+        on_unhandled_handler: T.proc.params(
+          event_notification: ::Stripe::V2::Core::EventNotification,
+          client: ::Stripe::StripeClient,
+          details: ::Stripe::UnhandledNotificationDetails).void)
+        .void
+    end
+    def initialize(client, webhook_secret, &on_unhandled_handler); end
+
+    sig do
+      params(
+        client: ::Stripe::StripeClient,
+        on_unhandled_handler: T.proc.params(
+          event_notification: ::Stripe::V2::Core::EventNotification,
+          client: ::Stripe::StripeClient,
+          details: ::Stripe::UnhandledNotificationDetails).void)
+        .returns(::Stripe::StripeEventNotificationHandlerWithoutVerification)
+    end
+    def self.without_verification(client, &on_unhandled_handler); end
+
+    sig do
+      params(
+        webhook_body: String,
+        sig_header: String
+      )
+        .void
+    end
+    def handle(webhook_body, sig_header); end
+  end
+
+  # A variant of StripeEventNotificationHandler that parses events without verifying webhook signatures. Intended for pre-authenticated channels like AWS EventBridge, Azure Event Grid, or your own pre-authenticated queuing system.
+  #
+  # Prefer `StripeEventNotificationHandler#without_verification()` or `client.notification_handler_without_verification()` instead of constructing it directly.
+  class StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandlerBase
+    sig do
+      params(
+        webhook_body: String
+      )
+        .void
+    end
+    def handle(webhook_body); end
+  end
+end

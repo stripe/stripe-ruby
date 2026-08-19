@@ -39,5 +39,17 @@ module Stripe
       .returns(::Stripe::StripeEventNotificationHandler)
     end
     def notification_handler(webhook_secret, &blk); end
+
+    sig do
+      params(
+        blk: T.proc.params(
+          event_notification: ::Stripe::V2::Core::EventNotification,
+          client: ::Stripe::StripeClient,
+          details: ::Stripe::UnhandledNotificationDetails
+        ).void
+      )
+      .returns(::Stripe::StripeEventNotificationHandlerWithoutVerification)
+    end
+    def notification_handler_without_verification(&blk); end
   end
 end

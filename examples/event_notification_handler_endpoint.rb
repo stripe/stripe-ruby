@@ -1,6 +1,4 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
-
 # typed: false
 
 # event_notification_handler_endpoint.rb - receive and process event notifications (AKA thin events) like

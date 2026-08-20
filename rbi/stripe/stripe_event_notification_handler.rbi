@@ -1,6 +1,4 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
-
 # typed: true
 
 module Stripe
@@ -31,518 +29,518 @@ module Stripe
     end
     def on_v1_billing_meter_error_report_triggered(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterNoMeterFoundEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v1_billing_meter_no_meter_found(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_commerce_product_catalog_imports_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsProcessingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_commerce_product_catalog_imports_processing(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_commerce_product_catalog_imports_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountClosedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_closed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_customer_capability_status_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_customer_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_merchant_capability_status_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_merchant_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_money_manager_capability_status_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_money_manager_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_recipient_capability_status_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_configuration_recipient_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingDefaultsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_defaults_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_future_requirements_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingIdentityUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_identity_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountIncludingRequirementsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_including_requirements_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountLinkReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_link_returned(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_person_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonDeletedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_person_deleted(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreAccountPersonUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_account_person_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobBatchFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_batch_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCanceledEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_canceled(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCompletedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_completed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobReadyForUploadEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_ready_for_upload(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobTimeoutEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_timeout(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobUploadTimeoutEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_upload_timeout(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobValidatingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_validating(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreBatchJobValidationFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_batch_job_validation_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreEventDestinationPingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_event_destination_ping(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthEventGenerationFailureResolvedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_event_generation_failure_resolved(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_extend_workflow_run_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunStartedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_extend_workflow_run_started(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2ExtendWorkflowRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_extend_workflow_run_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementAdjustmentCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_adjustment_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_account_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_account_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAddressActivatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_address_activated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAddressFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_address_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferAvailableEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_available(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferBankDebitFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_bank_debit_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferBankDebitProcessingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_bank_debit_processing(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferBankDebitQueuedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_bank_debit_queued(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferBankDebitReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_bank_debit_returned(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferBankDebitSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_inbound_transfer_bank_debit_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentCanceledEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_canceled(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentPostedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_posted(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_returned(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentUnderReviewEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_under_review(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferCanceledEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_canceled(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferPostedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_posted(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_returned(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferUnderReviewEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_under_review(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundTransferUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_transfer_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutMethodCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_payout_method_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutMethodUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_payout_method_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedCreditAvailableEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_credit_available(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedCreditFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_credit_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedCreditReturnedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_credit_returned(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedCreditSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_credit_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitCanceledEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_canceled(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitFailedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_failed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitPendingEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_pending(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_succeeded(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementReceivedDebitUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_received_debit_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementTransactionCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_transaction_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementTransactionUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_transaction_updated(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementConfirmedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_orchestrated_commerce_agreement_confirmed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_orchestrated_commerce_agreement_created(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_orchestrated_commerce_agreement_partially_confirmed(&blk);
     end
-    
+
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2OrchestratedCommerceAgreementTerminatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_orchestrated_commerce_agreement_terminated(&blk);
     end
-    
-    
+
+
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end
 

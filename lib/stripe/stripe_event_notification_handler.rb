@@ -1,4 +1,3 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
 module Stripe
@@ -36,7 +35,7 @@ module Stripe
     end
 
     private def dispatch(notif)
-      event_client = new_client_with_context(notif.context)
+      event_client = @client.with_stripe_context(notif.context)
 
       handler = @registered_handlers[notif.type]
       if handler
@@ -45,21 +44,6 @@ module Stripe
         @fallback_callback.call(notif, event_client,
                                 UnhandledNotificationDetails.new(!notif.is_a?(Stripe::Events::UnknownEventNotification)))
       end
-    end
-
-    private def new_client_with_context(context)
-      config = @client.requestor.config
-      StripeClient.new(
-        config.api_key,
-        stripe_account: config.stripe_account,
-        stripe_context: context,
-        stripe_version: config.api_version,
-        api_base: config.api_base,
-        uploads_base: config.uploads_base,
-        connect_base: config.connect_base,
-        meter_events_base: config.meter_events_base,
-        client_id: config.client_id
-      )
     end
 
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec

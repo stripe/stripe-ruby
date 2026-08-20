@@ -1,4 +1,3 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
 module Stripe
@@ -36,7 +35,7 @@ module Stripe
     end
 
     private def dispatch(notif)
-      event_client = new_client_with_context(notif.context)
+      event_client = @client.with_stripe_context(notif.context)
 
       handler = @registered_handlers[notif.type]
       if handler

@@ -1,4 +1,3 @@
-# File copied from our code generator; changes here will be overwritten.
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
@@ -347,10 +346,10 @@ module Stripe
         received_context = nil
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
-          received_context = client.requestor.config.stripe_context
+          received_context = client.instance_variable_get(:@requestor).config.stripe_context
         end
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
         handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
@@ -363,15 +362,15 @@ module Stripe
         handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
-          assert_equal "event_context_456", client.requestor.config.stripe_context.to_s
+          assert_equal "event_context_456", client.instance_variable_get(:@requestor).config.stripe_context.to_s
         end
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
         handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
 
       should "restore stripe_context after handler error" do
@@ -379,11 +378,11 @@ module Stripe
         handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
-          assert_equal "event_context_456", client.requestor.config.stripe_context.to_s
+          assert_equal "event_context_456", client.instance_variable_get(:@requestor).config.stripe_context.to_s
           raise StandardError, "Handler error!"
         end
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
 
@@ -392,7 +391,7 @@ module Stripe
         end
         assert_equal "Handler error!", e.message
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
 
       should "set stripe_context to nil when event has no context" do
@@ -402,16 +401,16 @@ module Stripe
         received_context = "not_nil"
 
         handler.on_v2_core_account_created do |_notif, client|
-          received_context = client.requestor.config.stripe_context
+          received_context = client.instance_variable_get(:@requestor).config.stripe_context
         end
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V2_ACCOUNT_CREATED_PAYLOAD)
         handler.handle(V2_ACCOUNT_CREATED_PAYLOAD, sig_header)
 
         assert_nil received_context
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
 
       should "handler client retains configuration except context" do
@@ -425,8 +424,8 @@ module Stripe
         received_context = nil
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
-          received_api_key = client.requestor.config.api_key
-          received_context = client.requestor.config.stripe_context
+          received_api_key = client.instance_variable_get(:@requestor).config.api_key
+          received_context = client.instance_variable_get(:@requestor).config.stripe_context
         end
 
         sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
@@ -434,7 +433,7 @@ module Stripe
 
         assert_equal api_key, received_api_key
         assert_equal "event_context_456", received_context.to_s
-        assert_equal original_context, client_with_config.requestor.config.stripe_context.to_s
+        assert_equal original_context, client_with_config.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
     end
 
@@ -519,15 +518,15 @@ module Stripe
         received_context = nil
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
-          received_context = client.requestor.config.stripe_context
+          received_context = client.instance_variable_get(:@requestor).config.stripe_context
         end
 
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
 
         handler.handle(V1_BILLING_METER_PAYLOAD)
 
         assert_equal "event_context_456", received_context.to_s
-        assert_equal "original_context_123", client_with_context.requestor.config.stripe_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
 
       should "class method factory returns StripeEventNotificationHandlerWithoutVerification" do

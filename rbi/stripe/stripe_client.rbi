@@ -27,6 +27,18 @@ module Stripe
     sig { params(payload: String).returns(::Stripe::V2::Core::EventNotification) }
     def parse_event_notification_without_verification(payload); end
 
+<<<<<<< HEAD
+=======
+    # Returns a new StripeClient with the same configuration as this one, but
+    # scoped to the given Stripe-Context. Useful when handling event
+    # notifications, where each event may carry its own context.
+    sig do
+      params(context: T.nilable(T.any(String, ::Stripe::StripeContext)))
+        .returns(::Stripe::StripeClient)
+    end
+    def with_stripe_context(context); end
+
+>>>>>>> 51a180998268147fb40a7712b4fa66b7a3e033c0
     sig do
       params(
         webhook_secret: String,

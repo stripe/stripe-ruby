@@ -19,14 +19,30 @@ module Stripe
 
       @registered_handlers = {}
       @has_handled_events = false
+      @pre_handle_callback = nil
     end
 
     def registered_event_types
       @registered_handlers.keys.sort
     end
 
-    private def register(event_type, &handler)
+    def pre_handle(&hook)
+      raise ArgumentError, "Block required to register a pre_handle hook" if hook.nil?
+
+      assert_can_register
+      raise ArgumentError, "A pre_handle hook has already been registered" if @pre_handle_callback
+
+      @pre_handle_callback = hook
+    end
+
+    # callbacks are expected to be registered once on startup, so registering anything
+    # after handling has begun indicates a bug
+    private def assert_can_register
       raise "Cannot register new event handlers after handling events" if @has_handled_events
+    end
+
+    private def register(event_type, &handler)
+      assert_can_register
       if @registered_handlers.key?(event_type)
         raise ArgumentError, "Handler already registered for event type: #{event_type}"
       end
@@ -36,6 +52,8 @@ module Stripe
 
     private def dispatch(notif)
       event_client = @client.with_stripe_context(notif.context)
+
+      return if @pre_handle_callback && !@pre_handle_callback.call(notif, event_client)
 
       handler = @registered_handlers[notif.type]
       if handler

@@ -8,6 +8,8 @@
 #     - write a fallback callback to handle unrecognized event notifications
 #     - create a StripeClient called client
 #     - Initialize an EventNotificationHandler with the client, webhook secret, and fallback callback
+#     - register a pre_handle hook that deduplicates events we've already processed, before any
+#       callback (registered handler or fallback) runs
 #     - register a specific handler for the "v1.billing.meter.error_report_triggered" event notification type
 #     - use handler.handle() to process the received notification webhook body
 
@@ -22,6 +24,20 @@ client = Stripe::StripeClient.new(api_key)
 
 handler = client.notification_handler(webhook_secret) do |notif, _client, _details|
   puts "Received unhandled notification:", notif.type
+end
+
+# Stripe may occasionally deliver the same event notification more than once. pre_handle
+# runs after the payload is parsed but before any callback fires, so it's a good place to
+# deduplicate by event id (e.g. against a store like Redis) and skip already-processed events.
+seen_event_ids = {}
+handler.pre_handle do |event_notification, _client|
+  if seen_event_ids[event_notification.id]
+    puts "Skipping already-processed event:", event_notification.id
+    next false
+  end
+
+  seen_event_ids[event_notification.id] = true
+  true
 end
 
 handler.on_v1_billing_meter_error_report_triggered do |event_notification, _client|

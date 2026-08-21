@@ -8,6 +8,11 @@ module Stripe
   # native Ruby types and their wire representations.
   #
   # Used by RequestParams (encode: native → wire) and StripeObject (decode: wire → native).
+  #
+  # On the response side, composite schemas (:object, :discriminated_union) are
+  # effectively no-ops because StripeObject's inner class hierarchy instantiates
+  # the correct subclass (which carries its own field_encodings) before coercion
+  # runs. The composite cases here exist for request-side use.
   module V2TypeCoercion
     # Coerce a single value based on its field encoding schema.
     # direction: :encode (request: native → wire) or :decode (response: wire → native)
@@ -44,13 +49,13 @@ module Stripe
       when :encode
         case value
         when Integer then value.to_s
-        when Array then value.map { |v| v.is_a?(Integer) ? v.to_s : v }
+        when Array then value.map { |v| coerce_int64_string(v, direction) }
         else value
         end
       when :decode
         case value
         when String then Kernel.Integer(value)
-        when Array then value.map { |v| v.is_a?(String) ? Kernel.Integer(v) : v }
+        when Array then value.map { |v| coerce_int64_string(v, direction) }
         else value
         end
       else
@@ -88,6 +93,10 @@ module Stripe
         return value unless value.is_a?(Array)
 
         value.map { |v| coerce_value(v, encoding[:element], direction: direction) }
+      when :nullable
+        coerce_value(value, encoding[:inner], direction: direction)
+      when :discriminated_union
+        coerce_discriminated_union(value, encoding[:discriminator], encoding[:variants] || {}, direction)
       else
         value
       end
@@ -97,6 +106,18 @@ module Stripe
       return value unless value.is_a?(Hash)
 
       coerce_fields(value, fields_schema, direction: direction)
+    end
+
+    module_function def coerce_discriminated_union(value, discriminator, variants, direction)
+      return value unless value.is_a?(Hash)
+
+      disc_value = value[discriminator.to_sym] || value[discriminator.to_s]
+      return value if disc_value.nil?
+
+      variant_schema = variants[disc_value.to_sym]
+      return value if variant_schema.nil?
+
+      coerce_value(value, variant_schema, direction: direction)
     end
   end
 end

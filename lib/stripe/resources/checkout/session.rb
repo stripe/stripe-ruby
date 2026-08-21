@@ -2637,7 +2637,10 @@ module Stripe
 
       def self.field_encodings
         @field_encodings = {
-          currency_conversion: { kind: :object, fields: { fx_rate: :decimal_string } },
+          currency_conversion: {
+            kind: :nullable,
+            inner: { kind: :object, fields: { fx_rate: :decimal_string } },
+          },
         }
       end
     end

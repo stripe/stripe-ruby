@@ -238,7 +238,28 @@ module Stripe
         unit_amount_decimal: nil
       ); end
       def self.field_encodings
-        @field_encodings = {unit_amount_decimal: :decimal_string}
+        @field_encodings = {
+          currency_options: {
+            kind: :array,
+            element: {
+              kind: :object,
+              fields: {
+                tiers: {
+                  kind: :array,
+                  element: {
+                    kind: :object,
+                    fields: {
+                      flat_amount_decimal: :decimal_string,
+                      unit_amount_decimal: :decimal_string,
+                    },
+                  },
+                },
+                unit_amount_decimal: :decimal_string,
+              },
+            },
+          },
+          unit_amount_decimal: :decimal_string,
+        }
       end
     end
     class MarketingFeature < ::Stripe::RequestParams
@@ -388,7 +409,31 @@ module Stripe
     ); end
     def self.field_encodings
       @field_encodings = {
-        default_price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
+        default_price_data: {
+          kind: :object,
+          fields: {
+            currency_options: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  tiers: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        flat_amount_decimal: :decimal_string,
+                        unit_amount_decimal: :decimal_string,
+                      },
+                    },
+                  },
+                  unit_amount_decimal: :decimal_string,
+                },
+              },
+            },
+            unit_amount_decimal: :decimal_string,
+          },
+        },
       }
     end
   end

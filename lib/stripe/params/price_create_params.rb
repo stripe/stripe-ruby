@@ -304,6 +304,25 @@ module Stripe
 
     def self.field_encodings
       @field_encodings = {
+        currency_options: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {
+              tiers: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    flat_amount_decimal: :decimal_string,
+                    unit_amount_decimal: :decimal_string,
+                  },
+                },
+              },
+              unit_amount_decimal: :decimal_string,
+            },
+          },
+        },
         tiers: {
           kind: :array,
           element: {

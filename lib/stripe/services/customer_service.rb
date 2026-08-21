@@ -3,7 +3,7 @@
 
 module Stripe
   class CustomerService < StripeService
-    attr_reader :balance_transactions, :cash_balance, :cash_balance_transactions, :funding_instructions, :payment_methods, :payment_sources, :tax_ids
+    attr_reader :balance_transactions, :cash_balance, :cash_balance_transactions, :funding_instructions, :payment_methods, :payment_sources, :tax_exemptions, :tax_ids
 
     def initialize(requestor)
       super
@@ -13,6 +13,7 @@ module Stripe
       @funding_instructions = Stripe::CustomerFundingInstructionsService.new(@requestor)
       @payment_methods = Stripe::CustomerPaymentMethodService.new(@requestor)
       @payment_sources = Stripe::CustomerPaymentSourceService.new(@requestor)
+      @tax_exemptions = Stripe::CustomerTaxExemptionService.new(@requestor)
       @tax_ids = Stripe::CustomerTaxIdService.new(@requestor)
     end
 

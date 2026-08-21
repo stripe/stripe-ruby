@@ -109,6 +109,160 @@ module Stripe
             end
           end
 
+          class UserAccess < ::Stripe::StripeObject
+            class Authentication < ::Stripe::StripeObject
+              class PrimaryFactor < ::Stripe::StripeObject
+                # SSO provider for the authentication factor.
+                attr_reader :sso_provider
+                # Type of authentication factor.
+                attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class SecondaryFactor < ::Stripe::StripeObject
+                # SSO provider for the authentication factor.
+                attr_reader :sso_provider
+                # Type of authentication factor.
+                attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Primary authentication factor.
+              attr_reader :primary_factor
+              # Secondary authentication factors.
+              attr_reader :secondary_factors
+
+              def self.inner_class_types
+                @inner_class_types = {
+                  primary_factor: PrimaryFactor,
+                  secondary_factors: SecondaryFactor,
+                }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class DashboardClient < ::Stripe::StripeObject
+              # Browser used for the user access action.
+              attr_reader :browser
+              # Browser version used for the user access action.
+              attr_reader :browser_version
+              # Device type used for the user access action.
+              attr_reader :device_type
+              # Operating system used for the user access action.
+              attr_reader :os
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Network < ::Stripe::StripeObject
+              # City for the user access action.
+              attr_reader :city
+              # Country for the user access action.
+              attr_reader :country
+              # IP address for the user access action.
+              attr_reader :ip_address
+              # Region for the user access action.
+              attr_reader :region
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class Risk < ::Stripe::StripeObject
+              class Signal < ::Stripe::StripeObject
+                class NovelDevice < ::Stripe::StripeObject
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The user access action used a novel device.
+                attr_reader :novel_device
+                # Type of risk signal.
+                attr_reader :type
+
+                def self.inner_class_types
+                  @inner_class_types = { novel_device: NovelDevice }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Risk level for the user access action.
+              attr_reader :level
+              # Risk signals for the user access action.
+              attr_reader :signals
+
+              def self.inner_class_types
+                @inner_class_types = { signals: Signal }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Authentication details for the user access action.
+            attr_reader :authentication
+            # Dashboard client details for the user access action.
+            attr_reader :dashboard_client
+            # Timestamp when the user access expires.
+            attr_reader :expires_at
+            # Network details for the user access action.
+            attr_reader :network
+            # Risk details for the user access action.
+            attr_reader :risk
+            # Roles associated with the user access action.
+            attr_reader :roles
+            # Session fingerprint for the user access action.
+            attr_reader :session_fingerprint
+            # Surface where the user access action started.
+            attr_reader :surface
+
+            def self.inner_class_types
+              @inner_class_types = {
+                authentication: Authentication,
+                dashboard_client: DashboardClient,
+                network: Network,
+                risk: Risk,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UserInvite < ::Stripe::StripeObject
             # Email address of the invited user.
             attr_reader :invited_user_email
@@ -146,13 +300,20 @@ module Stripe
           attr_reader :api_key
           # The action group type of the activity log entry.
           attr_reader :type
+          # Details of a user access action.
+          attr_reader :user_access
           # Details of a user invite action.
           attr_reader :user_invite
           # Details of a user role change action.
           attr_reader :user_roles
 
           def self.inner_class_types
-            @inner_class_types = { api_key: ApiKey, user_invite: UserInvite, user_roles: UserRoles }
+            @inner_class_types = {
+              api_key: ApiKey,
+              user_access: UserAccess,
+              user_invite: UserInvite,
+              user_roles: UserRoles,
+            }
           end
 
           def self.field_remappings

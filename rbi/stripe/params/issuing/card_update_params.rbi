@@ -5,6 +5,15 @@
 module Stripe
   module Issuing
     class CardUpdateParams < ::Stripe::RequestParams
+      class CryptoWallet < ::Stripe::RequestParams
+        # Updates the crypto wallet's funding currency for subsequent card movements. This doesn't convert existing balances or change the wallet's address, chain, or type.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        sig { params(currency: String).void }
+        def initialize(currency: nil); end
+      end
       class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         sig { returns(T.nilable(String)) }
@@ -235,6 +244,13 @@ module Stripe
       def cancellation_reason; end
       sig { params(_cancellation_reason: T.nilable(String)).returns(T.nilable(String)) }
       def cancellation_reason=(_cancellation_reason); end
+      # Updates the cryptocurrency used to fund this card's existing crypto wallet.
+      sig { returns(T.nilable(::Stripe::Issuing::CardUpdateParams::CryptoWallet)) }
+      def crypto_wallet; end
+      sig {
+        params(_crypto_wallet: T.nilable(::Stripe::Issuing::CardUpdateParams::CryptoWallet)).returns(T.nilable(::Stripe::Issuing::CardUpdateParams::CryptoWallet))
+       }
+      def crypto_wallet=(_crypto_wallet); end
       # Specifies which fields in the response should be expanded.
       sig { returns(T.nilable(T::Array[String])) }
       def expand; end
@@ -284,10 +300,11 @@ module Stripe
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
       sig {
-        params(cancellation_reason: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardUpdateParams::Pin), product_code: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardUpdateParams::SpendingControls), status: T.nilable(String)).void
+        params(cancellation_reason: T.nilable(String), crypto_wallet: T.nilable(::Stripe::Issuing::CardUpdateParams::CryptoWallet), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardUpdateParams::Pin), product_code: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardUpdateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardUpdateParams::SpendingControls), status: T.nilable(String)).void
        }
       def initialize(
         cancellation_reason: nil,
+        crypto_wallet: nil,
         expand: nil,
         metadata: nil,
         personalization_design: nil,

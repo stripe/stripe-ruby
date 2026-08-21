@@ -443,7 +443,7 @@ module Stripe
       end
     end
     class SmartDisputes < ::Stripe::StripeObject
-      # Evidence that could be provided to improve the SmartDisputes packet
+      # Evidence that could be provided to improve the Smart Disputes packet
       sig { returns(T.nilable(T::Array[T::Array[String]])) }
       def recommended_evidence; end
       # Smart Disputes auto representment packet availability status.

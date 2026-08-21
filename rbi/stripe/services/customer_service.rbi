@@ -10,6 +10,7 @@ module Stripe
     attr_reader :funding_instructions
     attr_reader :payment_methods
     attr_reader :payment_sources
+    attr_reader :tax_exemptions
     attr_reader :tax_ids
     # Creates a new customer object.
     sig {

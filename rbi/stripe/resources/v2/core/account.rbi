@@ -3640,6 +3640,89 @@ module Stripe
                   }
                 end
               end
+              class BlikRecurringPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    sig { returns(T.nilable(Integer)) }
+                    def expires_at; end
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    sig { returns(Integer) }
+                    def requested_at; end
+                    # The current status of the protection.
+                    sig { returns(String) }
+                    def status; end
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+                    def self.field_encodings
+                      @field_encodings = {expires_at: :int64_string, requested_at: :int64_string}
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  sig { returns(PspMigration) }
+                  def psp_migration; end
+                  def self.inner_class_types
+                    @inner_class_types = {psp_migration: PspMigration}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: {expires_at: :int64_string, requested_at: :int64_string},
+                      },
+                    }
+                  end
+                end
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                sig { returns(Protections) }
+                def protections; end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {protections: Protections, status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: {expires_at: :int64_string, requested_at: :int64_string},
+                        },
+                      },
+                    },
+                  }
+                end
+              end
               class BoletoPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
@@ -6687,6 +6770,9 @@ module Stripe
               # Allow the merchant to process BLIK payments.
               sig { returns(T.nilable(BlikPayments)) }
               def blik_payments; end
+              # Allow the merchant to process recurring BLIK payments.
+              sig { returns(T.nilable(BlikRecurringPayments)) }
+              def blik_recurring_payments; end
               # Allow the merchant to process Boleto payments.
               sig { returns(T.nilable(BoletoPayments)) }
               def boleto_payments; end
@@ -6807,6 +6893,7 @@ module Stripe
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   blik_payments: BlikPayments,
+                  blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
                   card_payments: CardPayments,
                   cartes_bancaires_payments: CartesBancairesPayments,
@@ -6977,6 +7064,20 @@ module Stripe
                     },
                   },
                   blik_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: {expires_at: :int64_string, requested_at: :int64_string},
+                          },
+                        },
+                      },
+                    },
+                  },
+                  blik_recurring_payments: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -7913,6 +8014,20 @@ module Stripe
                       },
                     },
                     blik_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: {expires_at: :int64_string, requested_at: :int64_string},
+                            },
+                          },
+                        },
+                      },
+                    },
+                    blik_recurring_payments: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -15678,6 +15793,20 @@ module Stripe
                         },
                       },
                       blik_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: {expires_at: :int64_string, requested_at: :int64_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                      blik_recurring_payments: {
                         kind: :object,
                         fields: {
                           protections: {

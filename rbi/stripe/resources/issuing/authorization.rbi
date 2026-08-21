@@ -1406,6 +1406,9 @@ module Stripe
       # The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
       sig { returns(T.nilable(PendingRequest)) }
       def pending_request; end
+      # The point-of-sale initiation condition. This is null when the card network did not provide one.
+      sig { returns(T.nilable(String)) }
+      def pos_condition; end
       # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
       sig { returns(T.nilable(Redaction)) }
       def redaction; end

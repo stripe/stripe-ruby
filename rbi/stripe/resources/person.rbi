@@ -180,9 +180,23 @@ module Stripe
         end
       end
       class Error < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # The rejection code as received from our payment method partner.
+          sig { returns(T.nilable(String)) }
+          def partner_rejection_code; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The code for the type of error.
         sig { returns(String) }
         def code; end
+        # Attribute for field details
+        sig { returns(T.nilable(Details)) }
+        def details; end
         # An informative message that indicates the error type and provides additional details about the error.
         sig { returns(String) }
         def reason; end
@@ -190,7 +204,7 @@ module Stripe
         sig { returns(String) }
         def requirement; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {details: Details}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -295,9 +309,23 @@ module Stripe
         end
       end
       class Error < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # The rejection code as received from our payment method partner.
+          sig { returns(T.nilable(String)) }
+          def partner_rejection_code; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The code for the type of error.
         sig { returns(String) }
         def code; end
+        # Attribute for field details
+        sig { returns(T.nilable(Details)) }
+        def details; end
         # An informative message that indicates the error type and provides additional details about the error.
         sig { returns(String) }
         def reason; end
@@ -305,7 +333,7 @@ module Stripe
         sig { returns(String) }
         def requirement; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {details: Details}
         end
         def self.field_remappings
           @field_remappings = {}

@@ -30,15 +30,29 @@ module Stripe
       end
 
       class Error < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # The rejection code as received from our payment method partner.
+          attr_reader :partner_rejection_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The code for the type of error.
         attr_reader :code
+        # Attribute for field details
+        attr_reader :details
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { details: Details }
         end
 
         def self.field_remappings
@@ -117,15 +131,29 @@ module Stripe
       end
 
       class Error < ::Stripe::StripeObject
+        class Details < ::Stripe::StripeObject
+          # The rejection code as received from our payment method partner.
+          attr_reader :partner_rejection_code
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # The code for the type of error.
         attr_reader :code
+        # Attribute for field details
+        attr_reader :details
         # An informative message that indicates the error type and provides additional details about the error.
         attr_reader :reason
         # The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
         attr_reader :requirement
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { details: Details }
         end
 
         def self.field_remappings

@@ -7,7 +7,6 @@ module Stripe
   # in order to mark an Invoice as paid and a Subscription as active. Payment Records consist of one or
   # more Payment Attempt Records, which represent individual attempts made on a payment network.
   class PaymentRecord < APIResource
-    extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::Search
 
@@ -1768,19 +1767,6 @@ module Stripe
         end
       end
 
-      class Sequra < ::Stripe::StripeObject
-        # The SeQura transaction ID associated with this payment.
-        attr_reader :transaction_id
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2101,8 +2087,6 @@ module Stripe
       attr_reader :sepa_credit_transfer
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
-      # Attribute for field sequra
-      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -2195,7 +2179,6 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
-          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,
@@ -2377,20 +2360,31 @@ module Stripe
     # Shipping information for this payment.
     attr_reader :shipping_details
 
+    # List all the Payment Records for a given merchant.
+    def self.list(params = {}, opts = {})
+      request_stripe_object(method: :get, path: "/v1/payment_records", params: params, opts: opts)
+    end
+
     # Report that the most recent payment attempt on the specified Payment Record
     #  was disputed.
-    def self.create(id, params = {}, opts = {})
+    def report_dispute(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_dispute", { id: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    def self.report_dispute(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
         path: format("/v1/payment_records/%<id>s/report_dispute", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
-    end
-
-    # List all the Payment Records for a given merchant.
-    def self.list(params = {}, opts = {})
-      request_stripe_object(method: :get, path: "/v1/payment_records", params: params, opts: opts)
     end
 
     # Report a new Payment Record. You may report a Payment Record as it is

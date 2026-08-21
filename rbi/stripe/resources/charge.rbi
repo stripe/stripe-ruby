@@ -747,6 +747,9 @@ module Stripe
             end
           end
           class Link < ::Stripe::StripeObject
+            # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+            sig { returns(T.nilable(String)) }
+            def funding_source_group; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -1722,7 +1725,7 @@ module Stripe
         # You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
-        # The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
         sig { returns(T.nilable(String)) }
         def funding_source_group; end
         def self.inner_class_types
@@ -2230,17 +2233,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Sequra < ::Stripe::StripeObject
-        # The SeQura transaction ID associated with this payment.
-        sig { returns(T.nilable(String)) }
-        def transaction_id; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2608,9 +2600,6 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
-      # Attribute for field sequra
-      sig { returns(T.nilable(Sequra)) }
-      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -2714,7 +2703,6 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
-          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,

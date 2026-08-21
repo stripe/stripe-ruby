@@ -1328,6 +1328,8 @@ module Stripe
       attr_reader :object
       # The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
       attr_reader :pending_request
+      # The point-of-sale initiation condition. This is null when the card network did not provide one.
+      attr_reader :pos_condition
       # Redaction status of this authorization. If the authorization is not redacted, this field will be null.
       attr_reader :redaction
       # History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.

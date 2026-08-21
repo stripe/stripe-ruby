@@ -7,6 +7,23 @@ module Stripe
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.
     class Transaction < APIResource
       class Classification < ::Stripe::StripeObject
+        class Credit < ::Stripe::StripeObject
+          # Stripe's confidence in this classification.
+          sig { returns(T.nilable(String)) }
+          def confidence_level; end
+          # The detailed category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def detailed_label; end
+          # The primary category label for this transaction.
+          sig { returns(T.nilable(String)) }
+          def primary_label; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class MoneyMovement < ::Stripe::StripeObject
           # Stripe's confidence in this classification.
           sig { returns(T.nilable(String)) }
@@ -41,17 +58,24 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Money movement classification labels for this transaction.
+        # Attribute for field credit
+        sig { returns(T.nilable(Credit)) }
+        def credit; end
+        # Attribute for field money_movement
         sig { returns(T.nilable(MoneyMovement)) }
         def money_movement; end
-        # Personal finance classification labels for this transaction.
+        # Attribute for field personal_finance
         sig { returns(T.nilable(PersonalFinance)) }
         def personal_finance; end
         # The taxonomy type for this classification entry.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
-          @inner_class_types = {money_movement: MoneyMovement, personal_finance: PersonalFinance}
+          @inner_class_types = {
+            credit: Credit,
+            money_movement: MoneyMovement,
+            personal_finance: PersonalFinance,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

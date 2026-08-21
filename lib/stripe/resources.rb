@@ -30,6 +30,7 @@ module Stripe
   autoload :CustomerBalanceTransaction, "stripe/resources/customer_balance_transaction"
   autoload :CustomerCashBalanceTransaction, "stripe/resources/customer_cash_balance_transaction"
   autoload :CustomerSession, "stripe/resources/customer_session"
+  autoload :CustomerTaxExemption, "stripe/resources/customer_tax_exemption"
   autoload :Discount, "stripe/resources/discount"
   autoload :Dispute, "stripe/resources/dispute"
   autoload :EphemeralKey, "stripe/resources/ephemeral_key"
@@ -1740,6 +1741,7 @@ module Stripe
     stripe/resources/customer_balance_transaction
     stripe/resources/customer_cash_balance_transaction
     stripe/resources/customer_session
+    stripe/resources/customer_tax_exemption
     stripe/resources/delegated_checkout/order
     stripe/resources/delegated_checkout/order_event
     stripe/resources/delegated_checkout/requested_session

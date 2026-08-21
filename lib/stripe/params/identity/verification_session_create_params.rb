@@ -58,6 +58,21 @@ module Stripe
           @person = person
         end
       end
+
+      class UserConsent < ::Stripe::RequestParams
+        # The time at which the user gave consent, as a Unix timestamp.
+        attr_accessor :date
+        # The IP address of the user when they gave consent.
+        attr_accessor :ip
+        # The user agent of the browser or device the user used to give consent.
+        attr_accessor :user_agent
+
+        def initialize(date: nil, ip: nil, user_agent: nil)
+          @date = date
+          @ip = ip
+          @user_agent = user_agent
+        end
+      end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_accessor :client_reference_id
       # Confirm and submit the provided details for verification.
@@ -80,6 +95,8 @@ module Stripe
       attr_accessor :return_url
       # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
       attr_accessor :type
+      # Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+      attr_accessor :user_consent
       # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
       attr_accessor :verification_flow
 
@@ -95,6 +112,7 @@ module Stripe
         related_person: nil,
         return_url: nil,
         type: nil,
+        user_consent: nil,
         verification_flow: nil
       )
         @client_reference_id = client_reference_id
@@ -108,6 +126,7 @@ module Stripe
         @related_person = related_person
         @return_url = return_url
         @type = type
+        @user_consent = user_consent
         @verification_flow = verification_flow
       end
     end

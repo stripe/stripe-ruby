@@ -1849,17 +1849,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Sequra < ::Stripe::StripeObject
-        # The SeQura transaction ID associated with this payment.
-        sig { returns(T.nilable(String)) }
-        def transaction_id; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2236,9 +2225,6 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
-      # Attribute for field sequra
-      sig { returns(T.nilable(Sequra)) }
-      def sequra; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -2344,7 +2330,6 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
-          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,
@@ -2544,18 +2529,25 @@ module Stripe
     # Shipping information for this payment.
     sig { returns(T.nilable(ShippingDetails)) }
     def shipping_details; end
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was disputed.
-    sig {
-      params(id: String, params: T.any(::Stripe::PaymentRecordCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentRecord)
-     }
-    def self.create(id, params = {}, opts = {}); end
-
     # List all the Payment Records for a given merchant.
     sig {
       params(params: T.any(::Stripe::PaymentRecordListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    sig {
+      params(params: T.any(::Stripe::PaymentRecordReportDisputeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentRecord)
+     }
+    def report_dispute(params = {}, opts = {}); end
+
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    sig {
+      params(id: String, params: T.any(::Stripe::PaymentRecordReportDisputeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentRecord)
+     }
+    def self.report_dispute(id, params = {}, opts = {}); end
 
     # Report a new Payment Record. You may report a Payment Record as it is
     #  initialized and later report updates through the other report_* methods, or report Payment

@@ -67,7 +67,7 @@ module Stripe
         params(_applies_to: T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::BillingSchedule::AppliesTo]))
        }
       def applies_to=(_applies_to); end
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       sig {
         returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::BillingSchedule::BillUntil))
        }

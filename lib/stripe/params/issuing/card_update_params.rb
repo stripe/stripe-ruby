@@ -4,6 +4,15 @@
 module Stripe
   module Issuing
     class CardUpdateParams < ::Stripe::RequestParams
+      class CryptoWallet < ::Stripe::RequestParams
+        # Updates the crypto wallet's funding currency for subsequent card movements. This doesn't convert existing balances or change the wallet's address, chain, or type.
+        attr_accessor :currency
+
+        def initialize(currency: nil)
+          @currency = currency
+        end
+      end
+
       class Pin < ::Stripe::RequestParams
         # The card's desired new PIN, encrypted under Stripe's public key.
         attr_accessor :encrypted_number
@@ -154,6 +163,8 @@ module Stripe
       end
       # Reason why the `status` of this card is `canceled`.
       attr_accessor :cancellation_reason
+      # Updates the cryptocurrency used to fund this card's existing crypto wallet.
+      attr_accessor :crypto_wallet
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -173,6 +184,7 @@ module Stripe
 
       def initialize(
         cancellation_reason: nil,
+        crypto_wallet: nil,
         expand: nil,
         metadata: nil,
         personalization_design: nil,
@@ -183,6 +195,7 @@ module Stripe
         status: nil
       )
         @cancellation_reason = cancellation_reason
+        @crypto_wallet = crypto_wallet
         @expand = expand
         @metadata = metadata
         @personalization_design = personalization_design

@@ -85,6 +85,25 @@ module Stripe
         sig { params(account: String, person: String).void }
         def initialize(account: nil, person: nil); end
       end
+      class UserConsent < ::Stripe::RequestParams
+        # The time at which the user gave consent, as a Unix timestamp.
+        sig { returns(Integer) }
+        def date; end
+        sig { params(_date: Integer).returns(Integer) }
+        def date=(_date); end
+        # The IP address of the user when they gave consent.
+        sig { returns(String) }
+        def ip; end
+        sig { params(_ip: String).returns(String) }
+        def ip=(_ip); end
+        # The user agent of the browser or device the user used to give consent.
+        sig { returns(T.nilable(String)) }
+        def user_agent; end
+        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+        def user_agent=(_user_agent); end
+        sig { params(date: Integer, ip: String, user_agent: T.nilable(String)).void }
+        def initialize(date: nil, ip: nil, user_agent: nil); end
+      end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }
       def client_reference_id; end
@@ -150,13 +169,20 @@ module Stripe
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
+      # Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+      sig { returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent)) }
+      def user_consent; end
+      sig {
+        params(_user_consent: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent)).returns(T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent))
+       }
+      def user_consent=(_user_consent); end
       # The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
       sig { returns(T.nilable(String)) }
       def verification_flow; end
       sig { params(_verification_flow: T.nilable(String)).returns(T.nilable(String)) }
       def verification_flow=(_verification_flow); end
       sig {
-        params(client_reference_id: T.nilable(String), confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), verification_flow: T.nilable(String)).void
+        params(client_reference_id: T.nilable(String), confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::ProvidedDetails), related_customer: T.nilable(String), related_customer_account: T.nilable(String), related_person: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::RelatedPerson), return_url: T.nilable(String), type: T.nilable(String), user_consent: T.nilable(::Stripe::Identity::VerificationSessionCreateParams::UserConsent), verification_flow: T.nilable(String)).void
        }
       def initialize(
         client_reference_id: nil,
@@ -170,6 +196,7 @@ module Stripe
         related_person: nil,
         return_url: nil,
         type: nil,
+        user_consent: nil,
         verification_flow: nil
       ); end
     end

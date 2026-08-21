@@ -87,6 +87,33 @@ module Stripe
         end
       end
       class AutomaticTax < ::Stripe::StripeObject
+        class EnablementDetails < ::Stripe::StripeObject
+          class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
+            # The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+            sig { returns(String) }
+            def conflicting_field; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Present when `source=tax_integration_configuration` and `automatic_tax[enabled]=false`.
+          sig { returns(T.nilable(IntegrationConfigurationDisabledReason)) }
+          def integration_configuration_disabled_reason; end
+          # How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+          sig { returns(String) }
+          def source; end
+          def self.inner_class_types
+            @inner_class_types = {
+              integration_configuration_disabled_reason: IntegrationConfigurationDisabledReason,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           sig { returns(T.nilable(T.any(String, ::Stripe::Account))) }
@@ -107,6 +134,9 @@ module Stripe
         # Indicates whether automatic tax is enabled for the session
         sig { returns(T::Boolean) }
         def enabled; end
+        # How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        sig { returns(T.nilable(EnablementDetails)) }
+        def enablement_details; end
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         sig { returns(T.nilable(Liability)) }
         def liability; end
@@ -117,7 +147,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def status; end
         def self.inner_class_types
-          @inner_class_types = {liability: Liability}
+          @inner_class_types = {enablement_details: EnablementDetails, liability: Liability}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2142,17 +2172,6 @@ module Stripe
             @field_remappings = {}
           end
         end
-        class Sequra < ::Stripe::StripeObject
-          # Controls when the funds will be captured from the customer's account.
-          sig { returns(T.nilable(String)) }
-          def capture_method; end
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2475,9 +2494,6 @@ module Stripe
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
-        # Attribute for field sequra
-        sig { returns(T.nilable(Sequra)) }
-        def sequra; end
         # Attribute for field sofort
         sig { returns(T.nilable(Sofort)) }
         def sofort; end
@@ -2541,7 +2557,6 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
-            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,

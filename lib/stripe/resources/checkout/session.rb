@@ -95,6 +95,35 @@ module Stripe
       end
 
       class AutomaticTax < ::Stripe::StripeObject
+        class EnablementDetails < ::Stripe::StripeObject
+          class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
+            # The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+            attr_reader :conflicting_field
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Present when `source=tax_integration_configuration` and `automatic_tax[enabled]=false`.
+          attr_reader :integration_configuration_disabled_reason
+          # How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+          attr_reader :source
+
+          def self.inner_class_types
+            @inner_class_types = {
+              integration_configuration_disabled_reason: IntegrationConfigurationDisabledReason,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Liability < ::Stripe::StripeObject
           # The connected account being referenced when `type` is `account`.
           attr_reader :account
@@ -113,6 +142,8 @@ module Stripe
         attr_reader :address_collection_precision
         # Indicates whether automatic tax is enabled for the session
         attr_reader :enabled
+        # How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+        attr_reader :enablement_details
         # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
         attr_reader :liability
         # The tax provider powering automatic tax.
@@ -121,7 +152,7 @@ module Stripe
         attr_reader :status
 
         def self.inner_class_types
-          @inner_class_types = { liability: Liability }
+          @inner_class_types = { enablement_details: EnablementDetails, liability: Liability }
         end
 
         def self.field_remappings
@@ -2147,19 +2178,6 @@ module Stripe
           end
         end
 
-        class Sequra < ::Stripe::StripeObject
-          # Controls when the funds will be captured from the customer's account.
-          attr_reader :capture_method
-
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2445,8 +2463,6 @@ module Stripe
         attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
-        # Attribute for field sequra
-        attr_reader :sequra
         # Attribute for field sofort
         attr_reader :sofort
         # Attribute for field sunbit
@@ -2504,7 +2520,6 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
-            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,

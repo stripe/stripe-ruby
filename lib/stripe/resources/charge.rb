@@ -749,6 +749,9 @@ module Stripe
           end
 
           class Link < ::Stripe::StripeObject
+            # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+            attr_reader :funding_source_group
+
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -1611,7 +1614,7 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment.
         # You could use this attribute to get a sense of international fees.
         attr_reader :country
-        # The funding source group applied to this Link payment at confirmation time. Maps to a bundle in your Stripe pricing contract and on Stripe's published pricing page. Omitted if group lookup failed at confirmation time.
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
         attr_reader :funding_source_group
 
         def self.inner_class_types
@@ -2116,19 +2119,6 @@ module Stripe
         end
       end
 
-      class Sequra < ::Stripe::StripeObject
-        # The SeQura transaction ID associated with this payment.
-        attr_reader :transaction_id
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2443,8 +2433,6 @@ module Stripe
       attr_reader :sepa_credit_transfer
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
-      # Attribute for field sequra
-      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -2535,7 +2523,6 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
-          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,

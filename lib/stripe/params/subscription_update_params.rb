@@ -219,7 +219,7 @@ module Stripe
       end
       # Configure billing schedule differently for individual subscription items.
       attr_accessor :applies_to
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       attr_accessor :bill_until
       # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
       attr_accessor :key
@@ -1045,7 +1045,7 @@ module Stripe
     attr_accessor :billing_cadence
     # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
-    # Sets the billing schedules for the subscription.
+    # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds

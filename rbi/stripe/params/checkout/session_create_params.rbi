@@ -1706,26 +1706,17 @@ module Stripe
         def receipt_email; end
         sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }
         def receipt_email=(_receipt_email); end
-        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
-        # method collected by this Checkout Session.
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
         #
-        # When setting this to `on_session`, Checkout will show a notice to the
-        # customer that their payment details will be saved.
+        # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
         #
-        # When setting this to `off_session`, Checkout will show a notice to the
-        # customer that their payment details will be saved and used for future
-        # payments.
+        # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
         #
-        # If a Customer has been provided or Checkout creates a new Customer,
-        # Checkout will attach the payment method to the Customer.
+        # If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
         #
-        # If Checkout does not create a Customer, the payment method is not attached
-        # to a Customer. To reuse the payment method, you can retrieve it from the
-        # Checkout Session's PaymentIntent.
+        # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
         #
-        # When processing card payments, Checkout also uses `setup_future_usage`
-        # to dynamically optimize your payment flow and comply with regional
-        # legislation and network rules, such as SCA.
+        # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }

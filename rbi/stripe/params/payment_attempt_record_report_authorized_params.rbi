@@ -4,6 +4,66 @@
 # typed: true
 module Stripe
   class PaymentAttemptRecordReportAuthorizedParams < ::Stripe::RequestParams
+    class PaymentMethodDetails < ::Stripe::RequestParams
+      class Card < ::Stripe::RequestParams
+        class Checks < ::Stripe::RequestParams
+          # The result of the check on the cardholder's address line 1.
+          sig { returns(T.nilable(String)) }
+          def address_line1_check; end
+          sig { params(_address_line1_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_line1_check=(_address_line1_check); end
+          # The result of the check on the cardholder's postal code.
+          sig { returns(T.nilable(String)) }
+          def address_postal_code_check; end
+          sig { params(_address_postal_code_check: T.nilable(String)).returns(T.nilable(String)) }
+          def address_postal_code_check=(_address_postal_code_check); end
+          # The result of the check on the card's CVC.
+          sig { returns(T.nilable(String)) }
+          def cvc_check; end
+          sig { params(_cvc_check: T.nilable(String)).returns(T.nilable(String)) }
+          def cvc_check=(_cvc_check); end
+          sig {
+            params(address_line1_check: T.nilable(String), address_postal_code_check: T.nilable(String), cvc_check: T.nilable(String)).void
+           }
+          def initialize(
+            address_line1_check: nil,
+            address_postal_code_check: nil,
+            cvc_check: nil
+          ); end
+        end
+        # Verification checks performed on the card.
+        sig {
+          returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks; end
+        sig {
+          params(_checks: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card::Checks)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card::Checks))
+         }
+        def checks=(_checks); end
+        sig {
+          params(checks: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card::Checks)).void
+         }
+        def initialize(checks: nil); end
+      end
+      # Information about the card payment method used to make this payment.
+      sig {
+        returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card))
+       }
+      def card; end
+      sig {
+        params(_card: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card))
+       }
+      def card=(_card); end
+      # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig {
+        params(card: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails::Card), type: String).void
+       }
+      def initialize(card: nil, type: nil); end
+    end
     class ProcessorDetails < ::Stripe::RequestParams
       class Custom < ::Stripe::RequestParams
         # An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
@@ -50,6 +110,22 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Payment evaluations associated with this reported payment.
+    sig { returns(T.nilable(T::Array[String])) }
+    def payment_evaluations; end
+    sig {
+      params(_payment_evaluations: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+     }
+    def payment_evaluations=(_payment_evaluations); end
+    # Information about the Payment Method debited for this payment.
+    sig {
+      returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails))
+     }
+    def payment_method_details; end
+    sig {
+      params(_payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails))
+     }
+    def payment_method_details=(_payment_method_details); end
     # Processor information for this payment.
     sig {
       returns(T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::ProcessorDetails))
@@ -60,8 +136,15 @@ module Stripe
      }
     def processor_details=(_processor_details); end
     sig {
-      params(authorized_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::ProcessorDetails)).void
+      params(authorized_at: T.nilable(Integer), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_evaluations: T.nilable(T::Array[String]), payment_method_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::PaymentMethodDetails), processor_details: T.nilable(::Stripe::PaymentAttemptRecordReportAuthorizedParams::ProcessorDetails)).void
      }
-    def initialize(authorized_at: nil, expand: nil, metadata: nil, processor_details: nil); end
+    def initialize(
+      authorized_at: nil,
+      expand: nil,
+      metadata: nil,
+      payment_evaluations: nil,
+      payment_method_details: nil,
+      processor_details: nil
+    ); end
   end
 end

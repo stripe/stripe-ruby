@@ -386,7 +386,7 @@ module Stripe
         params(_applies_to: T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule::AppliesTo]))
        }
       def applies_to=(_applies_to); end
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       sig { returns(::Stripe::SubscriptionCreateParams::BillingSchedule::BillUntil) }
       def bill_until; end
       sig {
@@ -1692,7 +1692,7 @@ module Stripe
       params(_billing_mode: T.nilable(::Stripe::SubscriptionCreateParams::BillingMode)).returns(T.nilable(::Stripe::SubscriptionCreateParams::BillingMode))
      }
     def billing_mode=(_billing_mode); end
-    # Sets the billing schedules for the subscription.
+    # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     sig { returns(T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule])) }
     def billing_schedules; end
     sig {

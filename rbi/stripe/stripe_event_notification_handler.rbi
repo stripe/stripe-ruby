@@ -23,6 +23,9 @@ module Stripe
     sig { returns(T::Array[String]) }
     def registered_event_types; end
 
+    sig { params(hook: T.proc.params(event_notification: ::Stripe::V2::Core::EventNotification, client: ::Stripe::StripeClient).returns(T::Boolean)).void }
+    def pre_handle(&hook); end
+
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec
     sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V1BillingMeterErrorReportTriggeredEventNotification, client: ::Stripe::StripeClient).void).void

@@ -167,7 +167,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       should "not allow registering handlers after a failed parse" do
@@ -182,7 +182,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       should "not allow registering duplicate handlers" do
@@ -197,7 +197,7 @@ module Stripe
             # Duplicate handler
           end
         end
-        assert_match(/Handler already registered for event type/, e.message)
+        assert_match(/Callback for event type ".*" is already registered/, e.message)
       end
 
       should "route unknown event to on_unhandled handler" do
@@ -251,7 +251,7 @@ module Stripe
         e = assert_raises(ArgumentError) do
           handler.on_v1_billing_meter_error_report_triggered
         end
-        assert_match(/Block required to register event handler/, e.message)
+        assert_match(/Block required to register a callback/, e.message)
       end
 
       should "validate webhook signature" do
@@ -560,7 +560,7 @@ module Stripe
             true
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       should "not allow registering more than one pre_handle hook" do
@@ -575,7 +575,7 @@ module Stripe
             true
           end
         end
-        assert_match(/A pre_handle hook has already been registered/, e.message)
+        assert_match(/A pre_handle callback is already registered/, e.message)
       end
 
       should "raise ArgumentError when pre_handle is registered without a block" do
@@ -584,7 +584,7 @@ module Stripe
         e = assert_raises(ArgumentError) do
           handler.pre_handle
         end
-        assert_match(/Block required to register a pre_handle hook/, e.message)
+        assert_match(/Block required to register a callback/, e.message)
       end
     end
 
@@ -715,7 +715,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       # neither handler is substitutable for the other, so neither should be a

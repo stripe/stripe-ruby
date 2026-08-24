@@ -215,14 +215,68 @@ module Stripe
         assert_equal expected, V2TypeCoercion.coerce_value(input, encoding, direction: :decode)
       end
 
-      should "return value unchanged when discriminator key is missing" do
+      should "raise on encode when discriminator key is missing" do
+        # Skipping coercion here would send `fee` as a raw JSON number and lose
+        # precision above 2^53, with no error and no warning.
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: :type,
+          variants: { card: { kind: :object, fields: { fee: :int64_string } } },
+        }
+        error = assert_raises ArgumentError do
+          V2TypeCoercion.coerce_value({ amount: 100 }, encoding, direction: :encode)
+        end
+        assert_match(/discriminator `type`/, error.message)
+        assert_match(/card/, error.message, "the message should list the valid variants")
+      end
+
+      should "return value unchanged on decode when discriminator key is missing" do
+        # The data came from Stripe. Raising here would break every client the
+        # moment the API ships a variant this version does not know about.
         encoding = {
           kind: :discriminated_union,
           discriminator: :type,
           variants: { card: { kind: :object, fields: { fee: :int64_string } } },
         }
         input = { amount: 100 }
-        assert_equal input, V2TypeCoercion.coerce_value(input, encoding, direction: :encode)
+        assert_equal input, V2TypeCoercion.coerce_value(input, encoding, direction: :decode)
+      end
+
+      should "raise on encode when discriminator is present but not name-like" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: :type,
+          variants: { card: { kind: :object, fields: { fee: :int64_string } } },
+        }
+        [123, true, {}, [], 1.5].each do |bad|
+          assert_raises ArgumentError, "expected #{bad.inspect} to be rejected" do
+            V2TypeCoercion.coerce_value({ type: bad, fee: 100 }, encoding, direction: :encode)
+          end
+        end
+      end
+
+      should "return value unchanged on decode when discriminator is not name-like" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: :type,
+          variants: { card: { kind: :object, fields: { fee: :int64_string } } },
+        }
+        input = { type: 123, fee: "100" }
+        assert_equal input, V2TypeCoercion.coerce_value(input, encoding, direction: :decode)
+      end
+
+      should "accept a symbol discriminator value in both directions" do
+        # Symbols are the idiomatic Ruby spelling for a name-like value, so
+        # tightening the guard to String only would be a regression.
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: :type,
+          variants: { card: { kind: :object, fields: { fee: :int64_string } } },
+        }
+        assert_equal({ type: :card, fee: "100" },
+                     V2TypeCoercion.coerce_value({ type: :card, fee: 100 }, encoding, direction: :encode))
+        assert_equal({ type: :card, fee: 100 },
+                     V2TypeCoercion.coerce_value({ type: :card, fee: "100" }, encoding, direction: :decode))
       end
 
       should "return value unchanged when variant is unknown" do
@@ -242,6 +296,16 @@ module Stripe
           variants: { card: { kind: :object, fields: {} } },
         }
         assert_equal "not a hash", V2TypeCoercion.coerce_value("not a hash", encoding, direction: :encode)
+      end
+
+      should "not raise on encode when the union field itself is nil" do
+        # An omitted optional union is not a missing discriminator.
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: :type,
+          variants: { card: { kind: :object, fields: { fee: :int64_string } } },
+        }
+        assert_nil V2TypeCoercion.coerce_value(nil, encoding, direction: :encode)
       end
 
       should "handle symbol discriminator key in input" do

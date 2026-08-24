@@ -527,14 +527,28 @@ module Stripe
         assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
       end
 
-      should "return hash as-is when discriminator field is absent for discriminated_union" do
+      should "raise when discriminator field is absent for discriminated_union" do
+        # coerce_value is the encode path, where an unusable discriminator means
+        # int64_string fields silently go out as raw JSON numbers.
         encoding = {
           kind: :discriminated_union,
           discriminator: "type",
           variants: { card: { kind: :object, fields: { exp_year: :int64_string } } },
         }
-        input = { exp_year: 2025, name: "Jane" }
-        assert_equal input, Stripe::RequestParams.coerce_value(input, encoding)
+        assert_raises ArgumentError do
+          Stripe::RequestParams.coerce_value({ exp_year: 2025, name: "Jane" }, encoding)
+        end
+      end
+
+      should "raise when discriminator field is not name-like for discriminated_union" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: { card: { kind: :object, fields: { exp_year: :int64_string } } },
+        }
+        assert_raises ArgumentError do
+          Stripe::RequestParams.coerce_value({ type: 123, exp_year: 2025 }, encoding)
+        end
       end
 
       should "return hash as-is when discriminator value has no matching variant" do

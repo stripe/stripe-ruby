@@ -28,11 +28,34 @@ module Stripe
           end
         end
       end
+
+      # Declares this class a discriminated-union variant with a fixed tag.
+      #
+      # The tag is deliberately kept outside the explicit-set tracking used by
+      # attr_accessor: the wire format requires it in order to route the union,
+      # so it is always serialized whether or not the caller mentioned it. A
+      # reader is defined but no writer, because a mutable tag could only ever
+      # produce a payload that lies about its own shape.
+      def discriminator(name, value)
+        @_discriminator = [name.to_sym, value]
+        define_method(name) { value }
+      end
+
+      # Returns [name, value] for this class's discriminator, or nil.
+      #
+      # Walks the ancestor chain because class-level instance variables are not
+      # inherited — without the walk, a subclass of a variant would silently
+      # serialize without its tag.
+      def discriminator_field
+        return @_discriminator if defined?(@_discriminator) && @_discriminator
+
+        superclass.respond_to?(:discriminator_field) ? superclass.discriminator_field : nil
+      end
     end
 
     def to_h
       encodings = self.class.field_encodings
-      instance_variables.each_with_object({}) do |var, hash|
+      hash = instance_variables.each_with_object({}) do |var, hash|
         # _explicitly_set_keys is set as an instance variable.
         # Ignore the var if it is _explicitly_set_keys itself.
         next if var == :@_explicitly_set_keys
@@ -56,6 +79,14 @@ module Stripe
         encoding = encodings[key]
         hash[key] = self.class.coerce_value(hash[key], encoding) if encoding
       end
+
+      # Merged last so the declared tag wins over any same-named instance
+      # variable. Ordering the tag last is cosmetic: Hash equality is
+      # order-independent and JSON has no ordering semantics.
+      discriminator = self.class.discriminator_field
+      hash[discriminator[0]] = discriminator[1] if discriminator
+
+      hash
     end
 
     def self.field_encodings

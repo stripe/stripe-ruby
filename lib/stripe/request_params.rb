@@ -37,19 +37,20 @@ module Stripe
       # reader is defined but no writer, because a mutable tag could only ever
       # produce a payload that lies about its own shape.
       def discriminator(name, value)
-        @_discriminator = [name.to_sym, value]
+        fields = { name.to_sym => value }
+        define_singleton_method(:discriminator_fields) { fields }
         define_method(name) { value }
       end
 
-      # Returns [name, value] for this class's discriminator, or nil.
+      # The fields contributed by a `discriminator` declaration, or an empty
+      # hash for a class that is not a union variant.
       #
-      # Walks the ancestor chain because class-level instance variables are not
-      # inherited — without the walk, a subclass of a variant would silently
-      # serialize without its tag.
-      def discriminator_field
-        return @_discriminator if defined?(@_discriminator) && @_discriminator
-
-        superclass.respond_to?(:discriminator_field) ? superclass.discriminator_field : nil
+      # `discriminator` overrides this on the declaring class's singleton rather
+      # than storing a class-level instance variable, because singleton methods
+      # are inherited and class-level instance variables are not — otherwise a
+      # subclass of a variant would silently serialize without its tag.
+      def discriminator_fields
+        {}
       end
     end
 
@@ -83,10 +84,7 @@ module Stripe
       # Merged last so the declared tag wins over any same-named instance
       # variable. Ordering the tag last is cosmetic: Hash equality is
       # order-independent and JSON has no ordering semantics.
-      discriminator = self.class.discriminator_field
-      hash[discriminator[0]] = discriminator[1] if discriminator
-
-      hash
+      hash.merge(self.class.discriminator_fields)
     end
 
     def self.field_encodings

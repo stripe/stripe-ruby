@@ -41,8 +41,8 @@ module Stripe
     end
     # rubocop:enable Naming/MethodParameterName
 
-    # A subclass of a variant. Class-level instance variables are not inherited,
-    # so this exercises the ancestor walk in RequestParams.discriminator_field.
+    # A subclass of a variant, exercising inheritance of the singleton method
+    # that `discriminator` defines.
     class BrightRgbColor < RgbColor; end
 
     # A parent params object whose `color` field accepts an inline union variant.
@@ -123,8 +123,8 @@ module Stripe
 
     context "non-variant RequestParams" do
       should "not report a discriminator" do
-        assert_nil DrawParams.discriminator_field
-        assert_nil Stripe::RequestParams.discriminator_field
+        assert_empty DrawParams.discriminator_fields
+        assert_empty Stripe::RequestParams.discriminator_fields
       end
 
       should "not add a discriminator key to the serialized hash" do

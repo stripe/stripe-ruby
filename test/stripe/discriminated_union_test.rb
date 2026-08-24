@@ -3,13 +3,16 @@
 require File.expand_path("../test_helper", __dir__)
 
 module Stripe
-  # Tests for discriminated union serialization on the request side: variants
-  # declare a fixed discriminator that the caller never supplies.
+  # Tests for discriminated union serialization on both the request side
+  # (RequestParams variants declaring a fixed discriminator) and the response
+  # side (StripeObject dispatching a union field to its variant class).
   class DiscriminatedUnionTest < Test::Unit::TestCase
-    # These fixtures mirror generated output: the variant declares its tag with
-    # the `discriminator` macro and does not accept it as a keyword argument.
-    # Keep them in step with src/ruby/generator.tsx — a fixture that drifts from
-    # the generator stops being evidence about anything.
+    # --- Request-side fixtures ---
+    #
+    # These mirror generated output: the variant declares its tag with the
+    # `discriminator` macro and does not accept it as a keyword argument. Keep
+    # them in step with src/ruby/generator.tsx — a fixture that drifts from the
+    # generator stops being evidence about anything.
     # rubocop:disable Naming/MethodParameterName
     class RgbColor < Stripe::RequestParams
       discriminator :model, "rgb"
@@ -145,6 +148,90 @@ module Stripe
 
         assert_equal "hsv", result[:color][:model]
         assert_equal 270, result[:color][:h]
+      end
+    end
+
+    # --- Response-side fixtures ---
+    #
+    # These mirror generated output for a union field: a base class per union,
+    # one subclass per known variant, and the two class maps the runtime reads.
+    class ColorBase < Stripe::StripeObject; end
+    class RgbVariant < ColorBase; end
+    class HsvVariant < ColorBase; end
+
+    class DrawResource < Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = { color: ColorBase }
+      end
+
+      def self.inner_class_union_variant_types
+        @inner_class_union_variant_types = {
+          color: ["model", { rgb: RgbVariant, hsv: HsvVariant }],
+        }
+      end
+    end
+
+    context "response-side union dispatch" do
+      should "resolve a known variant to its variant class" do
+        obj = DrawResource.construct_from({ color: { model: "rgb", r: 255, g: 128, b: 0 } })
+
+        assert_instance_of RgbVariant, obj.color
+        assert_equal "rgb", obj.color.model
+        assert_equal 255, obj.color.r
+      end
+
+      should "resolve a different known variant to its own class" do
+        obj = DrawResource.construct_from({ color: { model: "hsv", h: 180, s: 50, v: 75 } })
+
+        assert_instance_of HsvVariant, obj.color
+        assert_equal 180, obj.color.h
+      end
+
+      should "resolve a symbol discriminator to its variant class" do
+        obj = DrawResource.construct_from({ color: { model: :rgb, r: 1 } })
+
+        assert_instance_of RgbVariant, obj.color
+      end
+
+      should "fall back to the base class for an unrecognized variant" do
+        # A variant the API ships after this release must still deserialize.
+        obj = DrawResource.construct_from({ color: { model: "cmyk", c: 1, m: 2 } })
+
+        assert_instance_of ColorBase, obj.color
+        assert_equal "cmyk", obj.color.model
+        assert_equal 1, obj.color.c
+      end
+
+      should "fall back to the base class when the discriminator is missing" do
+        obj = DrawResource.construct_from({ color: { r: 1, g: 2, b: 3 } })
+
+        assert_instance_of ColorBase, obj.color
+        assert_equal 1, obj.color.r
+      end
+
+      should "fall back to the base class when the discriminator is not a string" do
+        obj = DrawResource.construct_from({ color: { model: 123, r: 1 } })
+
+        assert_instance_of ColorBase, obj.color
+        assert_equal 123, obj.color.model
+      end
+
+      should "not raise for any unresolvable discriminator" do
+        [{ model: "cmyk" }, { r: 1 }, { model: 123 }, { model: nil }, { model: {} }].each do |color|
+          DrawResource.construct_from({ color: color })
+        end
+      end
+
+      should "leave a nil union field alone" do
+        assert_nil DrawResource.construct_from({ color: nil }).color
+      end
+
+      should "not affect objects without a union variant map" do
+        obj = Stripe::StripeObject.construct_from({ model: "rgb", r: 255 })
+
+        assert_instance_of Stripe::StripeObject, obj
+        assert_equal "rgb", obj.model
+        assert_equal 255, obj.r
       end
     end
   end

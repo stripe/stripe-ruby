@@ -10,9 +10,7 @@ module Stripe
     # --- Request-side fixtures ---
     #
     # These mirror generated output: the variant declares its tag with the
-    # `discriminator` macro and does not accept it as a keyword argument. Keep
-    # them in step with src/ruby/generator.tsx — a fixture that drifts from the
-    # generator stops being evidence about anything.
+    # `discriminator` macro.
     # rubocop:disable Naming/MethodParameterName
     class RgbColor < Stripe::RequestParams
       discriminator :model, "rgb"

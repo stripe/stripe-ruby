@@ -35,7 +35,7 @@ module Stripe
     # are called.
     def pre_handle(&hook)
       assert_callback_given(hook)
-      assert_can_register
+      assert_hasnt_handled_events
 
       raise ArgumentError, "A pre_handle callback is already registered" if @pre_handle_callback
 
@@ -44,7 +44,7 @@ module Stripe
 
     # callbacks are expected to be registered once on startup, so registering anything
     # after handling has begun indicates a bug
-    private def assert_can_register
+    private def assert_hasnt_handled_events
       return unless @has_handled_events
 
       raise "Cannot register new callbacks after an event has been handled. This is indicative of a bug."
@@ -60,7 +60,7 @@ module Stripe
       # checked before assert_can_register so a missing block reports as such even
       # once handling has started
       assert_callback_given(handler)
-      assert_can_register
+      assert_hasnt_handled_events
       if @registered_handlers.key?(event_type)
         raise ArgumentError, "Callback for event type \"#{event_type}\" is already registered"
       end

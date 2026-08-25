@@ -8,6 +8,7 @@
 #     - write a fallback callback to handle unrecognized event notifications
 #     - create a StripeClient called client
 #     - Initialize an EventNotificationHandler with the client, webhook secret, and fallback callback
+#     - register a pre_handle hook that deduplicates events by id before any callback runs
 #     - register a specific handler for the "v1.billing.meter.error_report_triggered" event notification type
 #     - use handler.handle() to process the received notification webhook body
 
@@ -24,16 +25,36 @@ handler = client.notification_handler(webhook_secret) do |notif, _client, _detai
   puts "Received unhandled notification:", notif.type
 end
 
-handler.on_v1_billing_meter_error_report_triggered do |event_notification, _client|
-  meter = event_notification.fetch_related_object
-  puts "Meter #{meter.display_name} (#{meter.id}) had a problem"
-end
-
 # Handles events delivered through a channel that has already authenticated them, such as
 # AWS EventBridge or Azure Event Grid. Those payloads carry no Stripe-Signature header, so
 # this handler skips verification. Callbacks are registered separately from the one above.
 unverified_handler = client.notification_handler_without_verification do |notif, _client, _details|
   puts "Received unhandled notification:", notif.type
+end
+
+# Webhooks can be delivered more than once, so we track ids we've already
+# processed. In production, back this with something durable and shared
+# across processes (e.g. Redis or a database table) instead of an in-memory Set.
+seen_event_ids = Set.new
+
+# Runs before any registered callback. Returning false here skips handling
+# entirely for this delivery, which is useful for deduplicating webhooks.
+dedupe_events = lambda do |event_notification, _client|
+  if seen_event_ids.include?(event_notification.id)
+    puts "Skipping already-processed event:", event_notification.id
+    next false
+  end
+
+  seen_event_ids.add(event_notification.id)
+  true
+end
+handler.pre_handle(&dedupe_events)
+unverified_handler.pre_handle(&dedupe_events)
+
+# can be anywhere in your codebase with access to `handler`
+handler.on_v1_billing_meter_error_report_triggered do |event_notification, _client|
+  meter = event_notification.fetch_related_object
+  puts "Meter #{meter.display_name} (#{meter.id}) had a problem"
 end
 
 unverified_handler.on_v1_billing_meter_error_report_triggered do |event_notification, _client|

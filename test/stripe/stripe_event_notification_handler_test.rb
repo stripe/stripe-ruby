@@ -167,7 +167,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       should "not allow registering handlers after a failed parse" do
@@ -182,7 +182,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       should "not allow registering duplicate handlers" do
@@ -197,7 +197,7 @@ module Stripe
             # Duplicate handler
           end
         end
-        assert_match(/Handler already registered for event type/, e.message)
+        assert_match(/Callback for event type ".*" is already registered/, e.message)
       end
 
       should "route unknown event to on_unhandled handler" do
@@ -251,7 +251,7 @@ module Stripe
         e = assert_raises(ArgumentError) do
           handler.on_v1_billing_meter_error_report_triggered
         end
-        assert_match(/Block required to register event handler/, e.message)
+        assert_match(/Block required to register a callback/, e.message)
       end
 
       should "validate webhook signature" do
@@ -435,6 +435,157 @@ module Stripe
         assert_equal "event_context_456", received_context.to_s
         assert_equal original_context, client_with_config.instance_variable_get(:@requestor).config.stripe_context.to_s
       end
+
+      should "run the registered handler as usual when no pre_handle hook is registered" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        handler_called = false
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          handler_called = true
+        end
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+
+        assert handler_called
+      end
+
+      should "run the pre_handle hook before the registered handler when it returns true" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        call_order = []
+
+        handler.pre_handle do |_notif, _client|
+          call_order << :pre_handle
+          true
+        end
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          call_order << :handler
+        end
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+
+        assert_equal %i[pre_handle handler], call_order
+      end
+
+      should "not run the registered handler when the pre_handle hook returns false" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        handler_called = false
+
+        handler.pre_handle do |_notif, _client|
+          false
+        end
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          handler_called = true
+        end
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+
+        refute handler_called
+      end
+
+      should "not run the fallback when the pre_handle hook returns false for an unknown event" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        handler.pre_handle do |_notif, _client|
+          false
+        end
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: UNKNOWN_EVENT_PAYLOAD)
+        handler.handle(UNKNOWN_EVENT_PAYLOAD, sig_header)
+
+        assert_equal 0, @on_unhandled_calls.length
+      end
+
+      should "give the pre_handle hook the context-scoped client without mutating the handler's own client" do
+        client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
+        handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        received_context = nil
+
+        handler.pre_handle do |_notif, client|
+          received_context = client.instance_variable_get(:@requestor).config.stripe_context
+          true
+        end
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          # Handler body
+        end
+
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+
+        assert_equal "event_context_456", received_context.to_s
+        assert_equal "original_context_123", client_with_context.instance_variable_get(:@requestor).config.stripe_context.to_s
+      end
+
+      should "propagate an error raised by the pre_handle hook without running any callback" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        handler_called = false
+
+        handler.pre_handle do |_notif, _client|
+          raise StandardError, "pre_handle error!"
+        end
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          handler_called = true
+        end
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+
+        e = assert_raises(StandardError) do
+          handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+        end
+        assert_equal "pre_handle error!", e.message
+        refute handler_called
+        assert_equal 0, @on_unhandled_calls.length
+      end
+
+      should "not allow registering a pre_handle hook after handling events" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        sig_header = Test::WebhookHelpers.generate_header(payload: V1_BILLING_METER_PAYLOAD)
+        handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
+
+        e = assert_raises(RuntimeError) do
+          handler.pre_handle do |_notif, _client|
+            true
+          end
+        end
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
+      end
+
+      should "not allow registering more than one pre_handle hook" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        handler.pre_handle do |_notif, _client|
+          true
+        end
+
+        e = assert_raises(ArgumentError) do
+          handler.pre_handle do |_notif, _client|
+            true
+          end
+        end
+        assert_match(/A pre_handle callback is already registered/, e.message)
+      end
+
+      should "raise ArgumentError when pre_handle is registered without a block" do
+        handler = StripeEventNotificationHandler.new(@client, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
+
+        e = assert_raises(ArgumentError) do
+          handler.pre_handle
+        end
+        assert_match(/Block required to register a callback/, e.message)
+      end
     end
 
     context "StripeEventNotificationHandlerWithoutVerification" do
@@ -564,7 +715,7 @@ module Stripe
             # Handler body
           end
         end
-        assert_match(/Cannot register new event handlers after handling events/, e.message)
+        assert_match(/Cannot register new callbacks after an event has been handled\. This is indicative of a bug\./, e.message)
       end
 
       # neither handler is substitutable for the other, so neither should be a
@@ -572,6 +723,27 @@ module Stripe
       should "is a sibling of StripeEventNotificationHandler, not an ancestor" do
         refute StripeEventNotificationHandler < StripeEventNotificationHandlerWithoutVerification
         refute StripeEventNotificationHandlerWithoutVerification < StripeEventNotificationHandler
+      end
+
+      should "gate both the registered handler and the fallback with a pre_handle hook" do
+        handler = StripeEventNotificationHandler.without_verification(@client, &@on_unhandled_handler)
+
+        handler_called = false
+
+        handler.pre_handle do |_notif, _client|
+          false
+        end
+
+        handler.on_v1_billing_meter_error_report_triggered do |_notif, _client|
+          handler_called = true
+        end
+
+        handler.handle(V1_BILLING_METER_PAYLOAD)
+        refute handler_called
+        assert_equal 0, @on_unhandled_calls.length
+
+        handler.handle(UNKNOWN_EVENT_PAYLOAD)
+        assert_equal 0, @on_unhandled_calls.length
       end
     end
   end

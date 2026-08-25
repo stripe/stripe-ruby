@@ -23,7 +23,6 @@ module Stripe
         @r = r
         @g = g
         @b = b
-        super()
       end
     end
 
@@ -36,7 +35,6 @@ module Stripe
         @h = h
         @s = s
         @v = v
-        super()
       end
     end
     # rubocop:enable Naming/MethodParameterName
@@ -53,7 +51,6 @@ module Stripe
 
       def initialize(color: nil)
         @color = color
-        super()
       end
     end
 

@@ -29,6 +29,7 @@ Lint/MissingSuper:
   Exclude:
     - "lib/stripe/params/**/*.rb"
     - "test/stripe/request_params_test.rb"
+    - "test/stripe/discriminated_union_test.rb"
 
 Metrics/AbcSize:
   Enabled: false

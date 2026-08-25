@@ -165,7 +165,7 @@ module Stripe
     end
 
     private def convert_value_with_inner_types(key, value, opts)
-      inner_class = _get_inner_class_type(key)
+      inner_class = _get_union_variant_class(key, value) || _get_inner_class_type(key)
 
       if inner_class
         Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor, klass: inner_class)
@@ -675,9 +675,36 @@ module Stripe
       self.class.inner_class_types[field_name.to_sym]
     end
 
+    # Resolves a discriminated-union field to its variant class by reading the
+    # discriminator out of the incoming response.
+    #
+    # Returns nil rather than raising when the discriminator is absent, not
+    # name-like, or names a variant this version of the SDK does not know about.
+    # The caller then falls back to the union's base class, so a variant the API
+    # adds after this release still deserializes instead of blowing up.
+    def _get_union_variant_class(field_name, value)
+      return nil unless value.is_a?(Hash)
+
+      union = self.class.inner_class_union_variant_types[field_name.to_sym]
+      return nil unless union
+
+      discriminator, variants = union
+      disc_value = value[discriminator.to_sym] || value[discriminator.to_s]
+      return nil unless disc_value.is_a?(String) || disc_value.is_a?(Symbol)
+
+      variants[disc_value.to_sym]
+    end
+
     # Class methods for inner class types, similar to Python's implementation
     def self.inner_class_types
       @inner_class_types ||= {}
+    end
+
+    # Maps a discriminated-union field to [discriminator, {value => class}].
+    # Generated subclasses override this; the default keeps the lookup in
+    # convert_value_with_inner_types cheap for every other object.
+    def self.inner_class_union_variant_types
+      @inner_class_union_variant_types ||= {}
     end
 
     def self.field_remappings

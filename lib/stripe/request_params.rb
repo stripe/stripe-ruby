@@ -33,9 +33,9 @@ module Stripe
       #
       # The tag is deliberately kept outside the explicit-set tracking used by
       # attr_accessor: the wire format requires it in order to route the union,
-      # so it is always serialized whether or not the caller mentioned it. A
-      # reader is defined but no writer, because a mutable tag could only ever
-      # produce a payload that lies about its own shape.
+      # so it is always serialized whether or not the caller mentioned it, but
+      # there should be no reason to change it after a variant instance is
+      # created.
       def discriminator(name, value)
         fields = { name.to_sym => value }
         define_singleton_method(:discriminator_fields) { fields }

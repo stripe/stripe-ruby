@@ -113,13 +113,9 @@ module Stripe
 
       disc_value = value[discriminator.to_sym] || value[discriminator.to_s]
 
-      # A discriminator that is absent, or present but not name-like, is equally
-      # unusable: either way there is no way to pick a variant schema. On encode
-      # that is a local mistake worth failing on, because skipping coercion
-      # silently sends int64_string fields as raw JSON numbers and loses
-      # precision above 2^53. On decode the data came from Stripe, so we pass it
-      # through — raising would break every client the moment the API ships a
-      # variant this version does not know about.
+      # A discriminator that is absent, or present but not name-like, not usable.
+      # On encode, that's worth failing on to make sure we don't skip coercion
+      # and silently fail to send the correct data types.
       unless disc_value.is_a?(String) || disc_value.is_a?(Symbol)
         return value unless direction == :encode
 

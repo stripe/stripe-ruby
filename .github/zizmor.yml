@@ -1,0 +1,8 @@
+rules:
+  # Actions under the stripe namespace are unpinned on purpose.
+  # This is deliberately scoped to that namespace so that other actions
+  # still require a full commit hash.
+  unpinned-uses:
+    config:
+      policies:
+        "stripe/*": ref-pin

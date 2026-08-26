@@ -141,7 +141,7 @@ module Stripe
           sig { params(label: String, value: String).void }
           def initialize(label: nil, value: nil); end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         sig { returns(T.nilable(String)) }
         def default_value; end
         sig { params(_default_value: T.nilable(String)).returns(T.nilable(String)) }
@@ -880,6 +880,25 @@ module Stripe
       sig { params(enabled: T::Boolean, required: T.nilable(String)).void }
       def initialize(enabled: nil, required: nil); end
     end
+    class TransferData < ::Stripe::RequestParams
+      # The amount that will be transferred automatically when a charge succeeds.
+      sig { returns(T.nilable(T.any(String, Integer))) }
+      def amount; end
+      sig {
+        params(_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+       }
+      def amount=(_amount); end
+      # If specified, successful charges will be attributed to the destination
+      #  account for tax reporting, and the funds from charges will be transferred
+      #  to the destination account. The ID of the resulting transfer will be
+      #  returned on the successful charge's `transfer` field.
+      sig { returns(String) }
+      def destination; end
+      sig { params(_destination: String).returns(String) }
+      def destination=(_destination); end
+      sig { params(amount: T.nilable(T.any(String, Integer)), destination: String).void }
+      def initialize(amount: nil, destination: nil); end
+    end
     # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     sig { returns(T.nilable(T::Boolean)) }
     def active; end
@@ -897,6 +916,20 @@ module Stripe
     def allow_promotion_codes; end
     sig { params(_allow_promotion_codes: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def allow_promotion_codes=(_allow_promotion_codes); end
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
+    sig { returns(T.nilable(T.any(String, Integer))) }
+    def application_fee_amount; end
+    sig {
+      params(_application_fee_amount: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+     }
+    def application_fee_amount=(_application_fee_amount); end
+    # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
+    sig { returns(T.nilable(T.any(String, Float))) }
+    def application_fee_percent; end
+    sig {
+      params(_application_fee_percent: T.nilable(T.any(String, Float))).returns(T.nilable(T.any(String, Float)))
+     }
+    def application_fee_percent=(_application_fee_percent); end
     # Configuration for automatic tax collection.
     sig { returns(T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax)) }
     def automatic_tax; end
@@ -975,6 +1008,11 @@ module Stripe
       params(_name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)))
      }
     def name_collection=(_name_collection); end
+    # The account on behalf of which to charge.
+    sig { returns(T.nilable(String)) }
+    def on_behalf_of; end
+    sig { params(_on_behalf_of: T.nilable(String)).returns(T.nilable(String)) }
+    def on_behalf_of=(_on_behalf_of); end
     # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
     # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
     # There is a maximum of 20 combined line items and optional items.
@@ -1071,13 +1109,22 @@ module Stripe
       params(_tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection))
      }
     def tax_id_collection=(_tax_id_collection); end
+    # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::TransferData))) }
+    def transfer_data; end
     sig {
-      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection)).void
+      params(_transfer_data: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::TransferData))).returns(T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::TransferData)))
+     }
+    def transfer_data=(_transfer_data); end
+    sig {
+      params(active: T.nilable(T::Boolean), after_completion: T.nilable(::Stripe::PaymentLinkUpdateParams::AfterCompletion), allow_promotion_codes: T.nilable(T::Boolean), application_fee_amount: T.nilable(T.any(String, Integer)), application_fee_percent: T.nilable(T.any(String, Float)), automatic_tax: T.nilable(::Stripe::PaymentLinkUpdateParams::AutomaticTax), billing_address_collection: T.nilable(String), consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection), custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])), custom_text: T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText), customer_creation: T.nilable(String), expand: T.nilable(T::Array[String]), inactive_message: T.nilable(String), invoice_creation: T.nilable(::Stripe::PaymentLinkUpdateParams::InvoiceCreation), line_items: T.nilable(T::Array[::Stripe::PaymentLinkUpdateParams::LineItem]), metadata: T.nilable(T::Hash[String, String]), name_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::NameCollection)), on_behalf_of: T.nilable(String), optional_items: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::OptionalItem])), payment_intent_data: T.nilable(::Stripe::PaymentLinkUpdateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_options: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::PaymentMethodOptions)), payment_method_types: T.nilable(T.any(String, T::Array[String])), phone_number_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::PhoneNumberCollection), restrictions: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::Restrictions)), shipping_address_collection: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::ShippingAddressCollection)), shipping_options: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::ShippingOption])), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::PaymentLinkUpdateParams::SubscriptionData), tax_id_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::TaxIdCollection), transfer_data: T.nilable(T.any(String, ::Stripe::PaymentLinkUpdateParams::TransferData))).void
      }
     def initialize(
       active: nil,
       after_completion: nil,
       allow_promotion_codes: nil,
+      application_fee_amount: nil,
+      application_fee_percent: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -1090,6 +1137,7 @@ module Stripe
       line_items: nil,
       metadata: nil,
       name_collection: nil,
+      on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
@@ -1101,7 +1149,8 @@ module Stripe
       shipping_options: nil,
       submit_type: nil,
       subscription_data: nil,
-      tax_id_collection: nil
+      tax_id_collection: nil,
+      transfer_data: nil
     ); end
   end
 end

@@ -339,6 +339,11 @@ module Stripe
     autoload :CreditGrantRetrieveParams, "stripe/params/billing/credit_grant_retrieve_params"
     autoload :CreditGrantUpdateParams, "stripe/params/billing/credit_grant_update_params"
     autoload :CreditGrantVoidGrantParams, "stripe/params/billing/credit_grant_void_grant_params"
+    autoload :FeedbackOptionCreateParams, "stripe/params/billing/feedback_option_create_params"
+    autoload :FeedbackOptionDeactivateParams, "stripe/params/billing/feedback_option_deactivate_params"
+    autoload :FeedbackOptionListParams, "stripe/params/billing/feedback_option_list_params"
+    autoload :FeedbackOptionRetrieveParams, "stripe/params/billing/feedback_option_retrieve_params"
+    autoload :FeedbackOptionUpdateParams, "stripe/params/billing/feedback_option_update_params"
     autoload :MeterCreateParams, "stripe/params/billing/meter_create_params"
     autoload :MeterDeactivateParams, "stripe/params/billing/meter_deactivate_params"
     autoload :MeterEventAdjustmentCreateParams, "stripe/params/billing/meter_event_adjustment_create_params"
@@ -784,6 +789,11 @@ module Stripe
     stripe/params/billing/credit_grant_retrieve_params
     stripe/params/billing/credit_grant_update_params
     stripe/params/billing/credit_grant_void_grant_params
+    stripe/params/billing/feedback_option_create_params
+    stripe/params/billing/feedback_option_deactivate_params
+    stripe/params/billing/feedback_option_list_params
+    stripe/params/billing/feedback_option_retrieve_params
+    stripe/params/billing/feedback_option_update_params
     stripe/params/billing/meter_create_params
     stripe/params/billing/meter_deactivate_params
     stripe/params/billing/meter_event_adjustment_create_params

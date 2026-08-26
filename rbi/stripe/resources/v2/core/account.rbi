@@ -2704,22 +2704,22 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
+              # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig { returns(T.nilable(BankAccountOwnershipVerification)) }
               def bank_account_ownership_verification; end
-              # One or more documents that demonstrate proof of a company’s license to operate.
+              # One or more documents that demonstrate proof of a company's license to operate.
               sig { returns(T.nilable(CompanyLicense)) }
               def company_license; end
-              # One or more documents showing the company’s Memorandum of Association.
+              # One or more documents showing the company's Memorandum of Association.
               sig { returns(T.nilable(CompanyMemorandumOfAssociation)) }
               def company_memorandum_of_association; end
-              # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
+              # Certain countries only: One or more documents showing the ministerial decree legalizing the company's establishment.
               sig { returns(T.nilable(CompanyMinisterialDecree)) }
               def company_ministerial_decree; end
-              # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
+              # One or more documents that demonstrate proof of a company's registration with the appropriate local authorities.
               sig { returns(T.nilable(CompanyRegistrationVerification)) }
               def company_registration_verification; end
-              # One or more documents that demonstrate proof of a company’s tax ID.
+              # One or more documents that demonstrate proof of a company's tax ID.
               sig { returns(T.nilable(CompanyTaxIdVerification)) }
               def company_tax_id_verification; end
               # A document verifying the business.
@@ -2728,7 +2728,7 @@ module Stripe
               # One or more documents that demonstrate proof of address.
               sig { returns(T.nilable(ProofOfAddress)) }
               def proof_of_address; end
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents showing the company's proof of registration with the national business registry.
               sig { returns(T.nilable(ProofOfRegistration)) }
               def proof_of_registration; end
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
@@ -2905,7 +2905,7 @@ module Stripe
             # Additional addresses associated with the business.
             sig { returns(T.nilable(T::Array[AdditionalAddress])) }
             def additional_addresses; end
-            # The company’s primary address.
+            # The company's primary address.
             sig { returns(T.nilable(Address)) }
             def address; end
             # The business gross annual revenue for its preceding fiscal year.
@@ -2923,7 +2923,7 @@ module Stripe
             # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
             sig { returns(T.nilable(MonthlyEstimatedRevenue)) }
             def monthly_estimated_revenue; end
-            # The company’s phone number (used for verification).
+            # The company's phone number (used for verification).
             sig { returns(T.nilable(String)) }
             def phone; end
             # The business legal name.
@@ -3187,7 +3187,7 @@ module Stripe
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               sig { returns(T.nilable(CompanyAuthorization)) }
               def company_authorization; end
-              # One or more documents showing the person’s passport page with photo and personal data.
+              # One or more documents showing the person's passport page with photo and personal data.
               sig { returns(T.nilable(Passport)) }
               def passport; end
               # An identifying document showing the person's name, either a passport or local ID card.
@@ -3196,7 +3196,7 @@ module Stripe
               # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
               sig { returns(T.nilable(SecondaryVerification)) }
               def secondary_verification; end
-              # One or more documents showing the person’s visa required for living in the country where they are residing.
+              # One or more documents showing the person's visa required for living in the country where they are residing.
               sig { returns(T.nilable(Visa)) }
               def visa; end
               def self.inner_class_types
@@ -3408,7 +3408,7 @@ module Stripe
             # The identification numbers (e.g., SSN) associated with the individual.
             sig { returns(T.nilable(T::Array[IdNumber])) }
             def id_numbers; end
-            # The individual's gender (International regulations require either "male” or "female").
+            # The individual's gender (International regulations require either "male" or "female").
             sig { returns(T.nilable(String)) }
             def legal_gender; end
             # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.

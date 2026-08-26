@@ -94,7 +94,7 @@ module Stripe
       attr_reader :delivered_at
       # Details about the delivery of carbon removal for this order.
       attr_reader :delivery_details
-      # The year this order is expected to be delivered.
+      # The year this order is expected to be delivered. If the year is in the past, the order is a spot purchase and will be delivered within 30 days of purchase.
       attr_reader :expected_delivery_year
       # Unique identifier for the object.
       attr_reader :id

@@ -36,6 +36,8 @@ module Stripe
         attr_reader :account_subcategories
         # List of countries from which to filter accounts.
         attr_reader :countries
+        # Country from which to filter accounts.
+        attr_reader :country
         # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
         attr_reader :require_payment_method_support
 

@@ -312,7 +312,7 @@ module Stripe
               params(_company_authorization: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::CompanyAuthorization))
              }
             def company_authorization=(_company_authorization); end
-            # One or more documents showing the person’s passport page with photo and personal data.
+            # One or more documents showing the person's passport page with photo and personal data.
             sig {
               returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Passport))
              }
@@ -339,7 +339,7 @@ module Stripe
               params(_secondary_verification: T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::SecondaryVerification))
              }
             def secondary_verification=(_secondary_verification); end
-            # One or more documents showing the person’s visa required for living in the country where they are residing.
+            # One or more documents showing the person's visa required for living in the country where they are residing.
             sig {
               returns(T.nilable(::Stripe::V2::Core::Accounts::PersonUpdateParams::Documents::Visa))
              }

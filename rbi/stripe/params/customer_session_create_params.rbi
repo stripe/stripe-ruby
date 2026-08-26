@@ -5,8 +5,26 @@
 module Stripe
   class CustomerSessionCreateParams < ::Stripe::RequestParams
     class Components < ::Stripe::RequestParams
+      class ActiveEntitlements < ::Stripe::RequestParams
+        # Whether the active entitlements is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        sig { params(enabled: T::Boolean).void }
+        def initialize(enabled: nil); end
+      end
       class BuyButton < ::Stripe::RequestParams
         # Whether the buy button is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        sig { params(_enabled: T::Boolean).returns(T::Boolean) }
+        def enabled=(_enabled); end
+        sig { params(enabled: T::Boolean).void }
+        def initialize(enabled: nil); end
+      end
+      class CustomerPortal < ::Stripe::RequestParams
+        # Whether the customer portal is enabled.
         sig { returns(T::Boolean) }
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
@@ -214,6 +232,15 @@ module Stripe
         sig { params(enabled: T::Boolean).void }
         def initialize(enabled: nil); end
       end
+      # Configuration for active entitlements.
+      sig {
+        returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::ActiveEntitlements))
+       }
+      def active_entitlements; end
+      sig {
+        params(_active_entitlements: T.nilable(::Stripe::CustomerSessionCreateParams::Components::ActiveEntitlements)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::ActiveEntitlements))
+       }
+      def active_entitlements=(_active_entitlements); end
       # Configuration for buy button.
       sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton)) }
       def buy_button; end
@@ -221,6 +248,13 @@ module Stripe
         params(_buy_button: T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton))
        }
       def buy_button=(_buy_button); end
+      # Configuration for customer portal.
+      sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerPortal)) }
+      def customer_portal; end
+      sig {
+        params(_customer_portal: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerPortal)).returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerPortal))
+       }
+      def customer_portal=(_customer_portal); end
       # Configuration for the customer sheet.
       sig { returns(T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet)) }
       def customer_sheet; end
@@ -252,10 +286,12 @@ module Stripe
        }
       def pricing_table=(_pricing_table); end
       sig {
-        params(buy_button: T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton), customer_sheet: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable)).void
+        params(active_entitlements: T.nilable(::Stripe::CustomerSessionCreateParams::Components::ActiveEntitlements), buy_button: T.nilable(::Stripe::CustomerSessionCreateParams::Components::BuyButton), customer_portal: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerPortal), customer_sheet: T.nilable(::Stripe::CustomerSessionCreateParams::Components::CustomerSheet), mobile_payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::MobilePaymentElement), payment_element: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PaymentElement), pricing_table: T.nilable(::Stripe::CustomerSessionCreateParams::Components::PricingTable)).void
        }
       def initialize(
+        active_entitlements: nil,
         buy_button: nil,
+        customer_portal: nil,
         customer_sheet: nil,
         mobile_payment_element: nil,
         payment_element: nil,

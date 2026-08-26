@@ -30,7 +30,7 @@ module Stripe
       # Current prices for a metric ton of carbon removal in a currency's smallest unit.
       sig { returns(T::Hash[String, CurrentPricesPerMetricTon]) }
       def current_prices_per_metric_ton; end
-      # The year in which the carbon removal is expected to be delivered.
+      # The year in which the carbon removal is expected to be delivered. If the year is in the past, this represents spot inventory with guaranteed delivery.
       sig { returns(T.nilable(Integer)) }
       def delivery_year; end
       # Unique identifier for the object. For convenience, Climate product IDs are human-readable strings

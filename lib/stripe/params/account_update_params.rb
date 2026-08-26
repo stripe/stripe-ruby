@@ -1345,7 +1345,7 @@ module Stripe
       attr_accessor :address_kana
       # The Kanji variation of the company's primary address (Japan only).
       attr_accessor :address_kanji
-      # Attribute for param field administrative_address
+      # The location where the business is administered.
       attr_accessor :administrative_address
       # Whether the company's directors have been provided. Set this Boolean to `true` after creating all the company's directors with [the Persons API](/api/persons) for accounts with a `relationship.director` requirement. This value is not automatically set to `true` after creating directors, so it needs to be updated to indicate all directors have been provided.
       attr_accessor :directors_provided
@@ -1371,7 +1371,7 @@ module Stripe
       attr_accessor :ownership_exemption_reason
       # The company's phone number (used for verification).
       attr_accessor :phone
-      # Attribute for param field principal_place_of_business
+      # The primary location where the business conducts operations.
       attr_accessor :principal_place_of_business
       # Attribute for param field registration_date
       attr_accessor :registration_date

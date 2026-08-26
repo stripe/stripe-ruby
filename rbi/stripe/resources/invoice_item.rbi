@@ -85,7 +85,7 @@ module Stripe
         @field_remappings = {}
       end
       def self.field_encodings
-        @field_encodings = {unit_amount_decimal: :decimal_string}
+        @field_encodings = {unit_amount_decimal: {kind: :nullable, inner: :decimal_string}}
       end
     end
     class ProrationDetails < ::Stripe::StripeObject
@@ -174,6 +174,9 @@ module Stripe
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Discount)])) }
     def discounts; end
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    sig { returns(T.nilable(T::Array[String])) }
+    def frozen_fields; end
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end

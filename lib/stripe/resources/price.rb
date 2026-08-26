@@ -59,8 +59,8 @@ module Stripe
 
         def self.field_encodings
           @field_encodings = {
-            flat_amount_decimal: :decimal_string,
-            unit_amount_decimal: :decimal_string,
+            flat_amount_decimal: { kind: :nullable, inner: :decimal_string },
+            unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
           }
         end
       end
@@ -89,10 +89,13 @@ module Stripe
             kind: :array,
             element: {
               kind: :object,
-              fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+              fields: {
+                flat_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
+              },
             },
           },
-          unit_amount_decimal: :decimal_string,
+          unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
         }
       end
     end
@@ -157,8 +160,8 @@ module Stripe
 
       def self.field_encodings
         @field_encodings = {
-          flat_amount_decimal: :decimal_string,
-          unit_amount_decimal: :decimal_string,
+          flat_amount_decimal: { kind: :nullable, inner: :decimal_string },
+          unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
         }
       end
     end
@@ -266,14 +269,36 @@ module Stripe
 
     def self.field_encodings
       @field_encodings = {
+        currency_options: {
+          kind: :array,
+          element: {
+            kind: :object,
+            fields: {
+              tiers: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    flat_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                    unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
+                  },
+                },
+              },
+              unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
+            },
+          },
+        },
         tiers: {
           kind: :array,
           element: {
             kind: :object,
-            fields: { flat_amount_decimal: :decimal_string, unit_amount_decimal: :decimal_string },
+            fields: {
+              flat_amount_decimal: { kind: :nullable, inner: :decimal_string },
+              unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
+            },
           },
         },
-        unit_amount_decimal: :decimal_string,
+        unit_amount_decimal: { kind: :nullable, inner: :decimal_string },
       }
     end
   end

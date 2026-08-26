@@ -3,23 +3,23 @@
 
 module Stripe
   class PaymentRecordService < StripeService
-    # Report that the most recent payment attempt on the specified Payment Record
-    #  was disputed.
-    def create(id, params = {}, opts = {})
+    # List all the Payment Records for a given merchant.
+    def list(params = {}, opts = {})
       request(
-        method: :post,
-        path: format("/v1/payment_records/%<id>s/report_dispute", { id: CGI.escape(id) }),
+        method: :get,
+        path: "/v1/payment_records",
         params: params,
         opts: opts,
         base_address: :api
       )
     end
 
-    # List all the Payment Records for a given merchant.
-    def list(params = {}, opts = {})
+    # Report that the most recent payment attempt on the specified Payment Record
+    #  was disputed.
+    def report_dispute(id, params = {}, opts = {})
       request(
-        method: :get,
-        path: "/v1/payment_records",
+        method: :post,
+        path: format("/v1/payment_records/%<id>s/report_dispute", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

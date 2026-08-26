@@ -512,8 +512,63 @@ module Stripe
           end
         end
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (for example, street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            sig { returns(T.nilable(RegisteredAddress)) }
+            def registered_address; end
+            # Company or entity name.
+            sig { returns(T.nilable(String)) }
+            def registered_name; end
+            # The official registration number for the given registration type.
+            sig { returns(T.nilable(String)) }
+            def registration_number; end
+            # Type of registration the company or entity holds in their registered country.
+            sig { returns(T.nilable(String)) }
+            def registration_type; end
+            # VAT ID number.
+            sig { returns(T.nilable(String)) }
+            def vat; end
+            def self.inner_class_types
+              @inner_class_types = {registered_address: RegisteredAddress}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          sig { returns(T.nilable(CompanyDetails)) }
+          def company_details; end
+          # An identifier or reference that this payment corresponds to.
+          sig { returns(T.nilable(String)) }
+          def reference; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {company_details: CompanyDetails}
           end
           def self.field_remappings
             @field_remappings = {}

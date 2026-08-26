@@ -3215,15 +3215,77 @@ module Stripe
       end
 
       class Billie < ::Stripe::RequestParams
+        class CompanyDetails < ::Stripe::RequestParams
+          class RegisteredAddress < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code.
+            attr_accessor :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_accessor :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region.
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # The address the company or entity is registered with.
+          attr_accessor :registered_address
+          # Company or entity name.
+          attr_accessor :registered_name
+          # The official registration number for the given registration type.
+          attr_accessor :registration_number
+          # Type of registration the company or entity holds in their registered country.
+          attr_accessor :registration_type
+          # VAT id number
+          attr_accessor :vat
+
+          def initialize(
+            registered_address: nil,
+            registered_name: nil,
+            registration_number: nil,
+            registration_type: nil,
+            vat: nil
+          )
+            @registered_address = registered_address
+            @registered_name = registered_name
+            @registration_number = registration_number
+            @registration_type = registration_type
+            @vat = vat
+          end
+        end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Registration details about the buyer's organization.
+        attr_accessor :company_details
+        # An identifier or reference that this payment corresponds to.
+        attr_accessor :reference
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, company_details: nil, reference: nil)
           @capture_method = capture_method
+          @company_details = company_details
+          @reference = reference
         end
       end
 
@@ -3616,6 +3678,33 @@ module Stripe
       end
 
       class CardPresent < ::Stripe::RequestParams
+        class AadeData < ::Stripe::RequestParams
+          # The canonical string that was signed by the e-invoicing provider to produce `signed_mark`, formatted per Appendix A of A.1155/2023. Required when `mode` is `standard`.
+          attr_accessor :mark_data
+          # The e-invoicing mode under which the mark was generated.
+          attr_accessor :mode
+          # The AADE-assigned approval number of the e-invoicing provider that generated the mark. Required when `mode` is `standard`.
+          attr_accessor :provider_id
+          # The cryptographic signature returned by the e-invoicing provider for this transaction, hex-encoded. Required when `mode` is `standard`.
+          attr_accessor :signed_mark
+          # The reason for entering autonomous mode. Required when `mode` is `autonomous`.
+          attr_accessor :unbound_pos
+
+          def initialize(
+            mark_data: nil,
+            mode: nil,
+            provider_id: nil,
+            signed_mark: nil,
+            unbound_pos: nil
+          )
+            @mark_data = mark_data
+            @mode = mode
+            @provider_id = provider_id
+            @signed_mark = signed_mark
+            @unbound_pos = unbound_pos
+          end
+        end
+
         class CaptureDelay < ::Stripe::RequestParams
           # Attribute for param field days
           attr_accessor :days
@@ -3661,6 +3750,8 @@ module Stripe
             @requested_priority = requested_priority
           end
         end
+        # Greek e-invoicing data required for card-present transactions processed by merchants subject to AADE's myDATA POS compliance mandate (Governor's Decision A.1155/2023).
+        attr_accessor :aade_data
         # Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
         #
         # If omitted, funds are captured before the authorization expires.
@@ -3689,6 +3780,7 @@ module Stripe
         attr_accessor :routing
 
         def initialize(
+          aade_data: nil,
           capture_by: nil,
           capture_delay: nil,
           capture_method: nil,
@@ -3699,6 +3791,7 @@ module Stripe
           request_reauthorization: nil,
           routing: nil
         )
+          @aade_data = aade_data
           @capture_by = capture_by
           @capture_delay = capture_delay
           @capture_method = capture_method

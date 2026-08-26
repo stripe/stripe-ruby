@@ -6,6 +6,26 @@ module Stripe
   module Issuing
     # You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     class Card < APIResource
+      class CryptoWallet < ::Stripe::StripeObject
+        # The public address of the wallet.
+        sig { returns(T.nilable(String)) }
+        def address; end
+        # The blockchain network the wallet is on.
+        sig { returns(String) }
+        def chain; end
+        # The cryptocurrency held in the wallet.
+        sig { returns(String) }
+        def currency; end
+        # The type of wallet (standard or bridge_wallet).
+        sig { returns(T.nilable(String)) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class LatestFraudWarning < ::Stripe::StripeObject
         # Timestamp of the most recent fraud warning.
         sig { returns(T.nilable(Integer)) }
@@ -315,6 +335,9 @@ module Stripe
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       sig { returns(Integer) }
       def created; end
+      # Attribute for field crypto_wallet
+      sig { returns(T.nilable(CryptoWallet)) }
+      def crypto_wallet; end
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
       sig { returns(String) }
       def currency; end

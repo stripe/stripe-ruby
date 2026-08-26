@@ -5,6 +5,32 @@
 module Stripe
   module Issuing
     class CardCreateParams < ::Stripe::RequestParams
+      class CryptoWallet < ::Stripe::RequestParams
+        # The public address of the crypto wallet.
+        sig { returns(T.nilable(String)) }
+        def address; end
+        sig { params(_address: T.nilable(String)).returns(T.nilable(String)) }
+        def address=(_address); end
+        # The blockchain network the wallet is on.
+        sig { returns(String) }
+        def chain; end
+        sig { params(_chain: String).returns(String) }
+        def chain=(_chain); end
+        # The cryptocurrency held in the wallet.
+        sig { returns(String) }
+        def currency; end
+        sig { params(_currency: String).returns(String) }
+        def currency=(_currency); end
+        # The type of wallet (standard or bridge_wallet).
+        sig { returns(T.nilable(String)) }
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
+        sig {
+          params(address: T.nilable(String), chain: String, currency: String, type: T.nilable(String)).void
+         }
+        def initialize(address: nil, chain: nil, currency: nil, type: nil); end
+      end
       class LifecycleControls < ::Stripe::RequestParams
         class CancelAfter < ::Stripe::RequestParams
           # The card is automatically cancelled when it makes this number of non-zero payment authorizations and transactions. The count includes penny authorizations, but doesn't include non-payment actions, such as authorization advice.
@@ -257,6 +283,13 @@ module Stripe
       def cardholder; end
       sig { params(_cardholder: T.nilable(String)).returns(T.nilable(String)) }
       def cardholder=(_cardholder); end
+      # The crypto wallet to attach this card to for Bridge integration.
+      sig { returns(T.nilable(::Stripe::Issuing::CardCreateParams::CryptoWallet)) }
+      def crypto_wallet; end
+      sig {
+        params(_crypto_wallet: T.nilable(::Stripe::Issuing::CardCreateParams::CryptoWallet)).returns(T.nilable(::Stripe::Issuing::CardCreateParams::CryptoWallet))
+       }
+      def crypto_wallet=(_crypto_wallet); end
       # The currency for the card.
       sig { returns(String) }
       def currency; end
@@ -353,10 +386,11 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(cardholder: T.nilable(String), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), product_code: T.nilable(String), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
+        params(cardholder: T.nilable(String), crypto_wallet: T.nilable(::Stripe::Issuing::CardCreateParams::CryptoWallet), currency: String, exp_month: T.nilable(Integer), exp_year: T.nilable(Integer), expand: T.nilable(T::Array[String]), financial_account: T.nilable(String), lifecycle_controls: T.nilable(::Stripe::Issuing::CardCreateParams::LifecycleControls), metadata: T.nilable(T::Hash[String, String]), personalization_design: T.nilable(String), pin: T.nilable(::Stripe::Issuing::CardCreateParams::Pin), product_code: T.nilable(String), replacement_for: T.nilable(String), replacement_reason: T.nilable(String), second_line: T.nilable(String), shipping: T.nilable(::Stripe::Issuing::CardCreateParams::Shipping), spending_controls: T.nilable(::Stripe::Issuing::CardCreateParams::SpendingControls), status: T.nilable(String), type: String).void
        }
       def initialize(
         cardholder: nil,
+        crypto_wallet: nil,
         currency: nil,
         exp_month: nil,
         exp_year: nil,

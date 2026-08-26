@@ -1887,7 +1887,7 @@ module Stripe
           params(_applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::AppliesTo]))
          }
         def applies_to=(_applies_to); end
-        # The end date for the billing schedule.
+        # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
         sig {
           returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails::BillingSchedule::BillUntil))
          }
@@ -3330,7 +3330,7 @@ module Stripe
           params(_applies_to: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::AppliesTo]))
          }
         def applies_to=(_applies_to); end
-        # The end date for the billing schedule.
+        # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
         sig {
           returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule::BillUntil))
          }

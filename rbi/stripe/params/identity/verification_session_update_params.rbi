@@ -71,6 +71,25 @@ module Stripe
         sig { params(email: T.nilable(String), phone: T.nilable(String)).void }
         def initialize(email: nil, phone: nil); end
       end
+      class UserConsent < ::Stripe::RequestParams
+        # The time at which the user gave consent, as a Unix timestamp.
+        sig { returns(Integer) }
+        def date; end
+        sig { params(_date: Integer).returns(Integer) }
+        def date=(_date); end
+        # The IP address of the user when they gave consent.
+        sig { returns(String) }
+        def ip; end
+        sig { params(_ip: String).returns(String) }
+        def ip=(_ip); end
+        # The user agent of the browser or device the user used to give consent.
+        sig { returns(T.nilable(String)) }
+        def user_agent; end
+        sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+        def user_agent=(_user_agent); end
+        sig { params(date: Integer, ip: String, user_agent: T.nilable(String)).void }
+        def initialize(date: nil, ip: nil, user_agent: nil); end
+      end
       # Confirm and submit the provided details for verification.
       sig { returns(T.nilable(T::Boolean)) }
       def confirm; end
@@ -109,8 +128,15 @@ module Stripe
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
+      # Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+      sig { returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::UserConsent)) }
+      def user_consent; end
       sig {
-        params(confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String)).void
+        params(_user_consent: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::UserConsent)).returns(T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::UserConsent))
+       }
+      def user_consent=(_user_consent); end
+      sig {
+        params(confirm: T.nilable(T::Boolean), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), options: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::Options), provided_details: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::ProvidedDetails), type: T.nilable(String), user_consent: T.nilable(::Stripe::Identity::VerificationSessionUpdateParams::UserConsent)).void
        }
       def initialize(
         confirm: nil,
@@ -118,7 +144,8 @@ module Stripe
         metadata: nil,
         options: nil,
         provided_details: nil,
-        type: nil
+        type: nil,
+        user_consent: nil
       ); end
     end
   end

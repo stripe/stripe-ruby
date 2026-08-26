@@ -40,6 +40,7 @@ module Stripe
   autoload :CustomerPaymentSourceService, "stripe/services/customer_payment_source_service"
   autoload :CustomerService, "stripe/services/customer_service"
   autoload :CustomerSessionService, "stripe/services/customer_session_service"
+  autoload :CustomerTaxExemptionService, "stripe/services/customer_tax_exemption_service"
   autoload :CustomerTaxIdService, "stripe/services/customer_tax_id_service"
   autoload :DelegatedCheckoutService, "stripe/services/delegated_checkout_service"
   autoload :DisputeService, "stripe/services/dispute_service"
@@ -631,6 +632,7 @@ module Stripe
     stripe/services/customer_payment_source_service
     stripe/services/customer_service
     stripe/services/customer_session_service
+    stripe/services/customer_tax_exemption_service
     stripe/services/customer_tax_id_service
     stripe/services/delegated_checkout/order_service
     stripe/services/delegated_checkout/requested_session_order_service

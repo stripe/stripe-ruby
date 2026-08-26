@@ -545,7 +545,7 @@ module Stripe
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
-        # An empty list, because this embedded component has no features.
+        # The list of features enabled in the embedded component.
         attr_accessor :features
 
         def initialize(enabled: nil, features: nil)

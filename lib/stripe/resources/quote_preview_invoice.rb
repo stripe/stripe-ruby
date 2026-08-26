@@ -513,8 +513,55 @@ module Stripe
         end
 
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code.
+              attr_reader :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            attr_reader :registered_address
+            # Company or entity name.
+            attr_reader :registered_name
+            # The official registration number for the given registration type.
+            attr_reader :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_reader :registration_type
+            # VAT ID number.
+            attr_reader :vat
+
+            def self.inner_class_types
+              @inner_class_types = { registered_address: RegisteredAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          attr_reader :company_details
+          # An identifier or reference that this payment corresponds to.
+          attr_reader :reference
+
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { company_details: CompanyDetails }
           end
 
           def self.field_remappings

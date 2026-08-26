@@ -3,7 +3,7 @@
 
 # typed: true
 module Stripe
-  class PaymentRecordCreateParams < ::Stripe::RequestParams
+  class PaymentRecordReportDisputeParams < ::Stripe::RequestParams
     class Amount < ::Stripe::RequestParams
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
@@ -43,10 +43,10 @@ module Stripe
         def initialize(currency: nil, value: nil); end
       end
       # The amount that has been lost to the customer due to disputes on this payment.
-      sig { returns(::Stripe::PaymentRecordCreateParams::Funded::Amount) }
+      sig { returns(::Stripe::PaymentRecordReportDisputeParams::Funded::Amount) }
       def amount; end
       sig {
-        params(_amount: ::Stripe::PaymentRecordCreateParams::Funded::Amount).returns(::Stripe::PaymentRecordCreateParams::Funded::Amount)
+        params(_amount: ::Stripe::PaymentRecordReportDisputeParams::Funded::Amount).returns(::Stripe::PaymentRecordReportDisputeParams::Funded::Amount)
        }
       def amount=(_amount); end
       # When the dispute funding event occurred. Measured in seconds since the Unix epoch.
@@ -60,7 +60,7 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(amount: ::Stripe::PaymentRecordCreateParams::Funded::Amount, funded_at: Integer, type: String).void
+        params(amount: ::Stripe::PaymentRecordReportDisputeParams::Funded::Amount, funded_at: Integer, type: String).void
        }
       def initialize(amount: nil, funded_at: nil, type: nil); end
     end
@@ -75,10 +75,12 @@ module Stripe
         def initialize(dispute_reference: nil); end
       end
       # Information about the custom processor used to make this payment.
-      sig { returns(T.nilable(::Stripe::PaymentRecordCreateParams::ProcessorDetails::Custom)) }
+      sig {
+        returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails::Custom))
+       }
       def custom; end
       sig {
-        params(_custom: T.nilable(::Stripe::PaymentRecordCreateParams::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordCreateParams::ProcessorDetails::Custom))
+        params(_custom: T.nilable(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails::Custom)).returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails::Custom))
        }
       def custom=(_custom); end
       # The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
@@ -87,22 +89,22 @@ module Stripe
       sig { params(_type: String).returns(String) }
       def type=(_type); end
       sig {
-        params(custom: T.nilable(::Stripe::PaymentRecordCreateParams::ProcessorDetails::Custom), type: String).void
+        params(custom: T.nilable(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails::Custom), type: String).void
        }
       def initialize(custom: nil, type: nil); end
     end
     # The amount that has been lost to the customer due to disputes on this payment.
-    sig { returns(::Stripe::PaymentRecordCreateParams::Amount) }
+    sig { returns(::Stripe::PaymentRecordReportDisputeParams::Amount) }
     def amount; end
     sig {
-      params(_amount: ::Stripe::PaymentRecordCreateParams::Amount).returns(::Stripe::PaymentRecordCreateParams::Amount)
+      params(_amount: ::Stripe::PaymentRecordReportDisputeParams::Amount).returns(::Stripe::PaymentRecordReportDisputeParams::Amount)
      }
     def amount=(_amount); end
     # Information about the dispute closing.
-    sig { returns(T.nilable(::Stripe::PaymentRecordCreateParams::Closed)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::Closed)) }
     def closed; end
     sig {
-      params(_closed: T.nilable(::Stripe::PaymentRecordCreateParams::Closed)).returns(T.nilable(::Stripe::PaymentRecordCreateParams::Closed))
+      params(_closed: T.nilable(::Stripe::PaymentRecordReportDisputeParams::Closed)).returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::Closed))
      }
     def closed=(_closed); end
     # Specifies which fields in the response should be expanded.
@@ -111,10 +113,10 @@ module Stripe
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
     # Information about the dispute funding event.
-    sig { returns(T.nilable(::Stripe::PaymentRecordCreateParams::Funded)) }
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::Funded)) }
     def funded; end
     sig {
-      params(_funded: T.nilable(::Stripe::PaymentRecordCreateParams::Funded)).returns(T.nilable(::Stripe::PaymentRecordCreateParams::Funded))
+      params(_funded: T.nilable(::Stripe::PaymentRecordReportDisputeParams::Funded)).returns(T.nilable(::Stripe::PaymentRecordReportDisputeParams::Funded))
      }
     def funded=(_funded); end
     # When the reported payment was initiated. Measured in seconds since the Unix epoch.
@@ -130,10 +132,10 @@ module Stripe
      }
     def metadata=(_metadata); end
     # Processor information for this payment.
-    sig { returns(::Stripe::PaymentRecordCreateParams::ProcessorDetails) }
+    sig { returns(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails) }
     def processor_details; end
     sig {
-      params(_processor_details: ::Stripe::PaymentRecordCreateParams::ProcessorDetails).returns(::Stripe::PaymentRecordCreateParams::ProcessorDetails)
+      params(_processor_details: ::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails).returns(::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails)
      }
     def processor_details=(_processor_details); end
     # The reason the payment was disputed.
@@ -142,7 +144,7 @@ module Stripe
     sig { params(_reason: T.nilable(String)).returns(T.nilable(String)) }
     def reason=(_reason); end
     sig {
-      params(amount: ::Stripe::PaymentRecordCreateParams::Amount, closed: T.nilable(::Stripe::PaymentRecordCreateParams::Closed), expand: T.nilable(T::Array[String]), funded: T.nilable(::Stripe::PaymentRecordCreateParams::Funded), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: ::Stripe::PaymentRecordCreateParams::ProcessorDetails, reason: T.nilable(String)).void
+      params(amount: ::Stripe::PaymentRecordReportDisputeParams::Amount, closed: T.nilable(::Stripe::PaymentRecordReportDisputeParams::Closed), expand: T.nilable(T::Array[String]), funded: T.nilable(::Stripe::PaymentRecordReportDisputeParams::Funded), initiated_at: T.nilable(Integer), metadata: T.nilable(T.any(String, T::Hash[String, String])), processor_details: ::Stripe::PaymentRecordReportDisputeParams::ProcessorDetails, reason: T.nilable(String)).void
      }
     def initialize(
       amount: nil,

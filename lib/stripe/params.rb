@@ -100,6 +100,10 @@ module Stripe
   autoload :CustomerRetrievePaymentMethodParams, "stripe/params/customer_retrieve_payment_method_params"
   autoload :CustomerSearchParams, "stripe/params/customer_search_params"
   autoload :CustomerSessionCreateParams, "stripe/params/customer_session_create_params"
+  autoload :CustomerTaxExemptionCreateParams, "stripe/params/customer_tax_exemption_create_params"
+  autoload :CustomerTaxExemptionDeleteParams, "stripe/params/customer_tax_exemption_delete_params"
+  autoload :CustomerTaxExemptionListParams, "stripe/params/customer_tax_exemption_list_params"
+  autoload :CustomerTaxExemptionRetrieveParams, "stripe/params/customer_tax_exemption_retrieve_params"
   autoload :CustomerTaxIdCreateParams, "stripe/params/customer_tax_id_create_params"
   autoload :CustomerTaxIdDeleteParams, "stripe/params/customer_tax_id_delete_params"
   autoload :CustomerTaxIdListParams, "stripe/params/customer_tax_id_list_params"
@@ -245,8 +249,8 @@ module Stripe
   autoload :PaymentPlanListParams, "stripe/params/payment_plan_list_params"
   autoload :PaymentPlanRetrieveParams, "stripe/params/payment_plan_retrieve_params"
   autoload :PaymentPlanUpdateParams, "stripe/params/payment_plan_update_params"
-  autoload :PaymentRecordCreateParams, "stripe/params/payment_record_create_params"
   autoload :PaymentRecordListParams, "stripe/params/payment_record_list_params"
+  autoload :PaymentRecordReportDisputeParams, "stripe/params/payment_record_report_dispute_params"
   autoload :PaymentRecordReportPaymentAttemptCanceledParams,
            "stripe/params/payment_record_report_payment_attempt_canceled_params"
   autoload :PaymentRecordReportPaymentAttemptFailedParams,
@@ -1507,6 +1511,10 @@ module Stripe
     stripe/params/customer_retrieve_payment_method_params
     stripe/params/customer_search_params
     stripe/params/customer_session_create_params
+    stripe/params/customer_tax_exemption_create_params
+    stripe/params/customer_tax_exemption_delete_params
+    stripe/params/customer_tax_exemption_list_params
+    stripe/params/customer_tax_exemption_retrieve_params
     stripe/params/customer_tax_id_create_params
     stripe/params/customer_tax_id_delete_params
     stripe/params/customer_tax_id_list_params
@@ -1762,8 +1770,8 @@ module Stripe
     stripe/params/payment_plan_list_params
     stripe/params/payment_plan_retrieve_params
     stripe/params/payment_plan_update_params
-    stripe/params/payment_record_create_params
     stripe/params/payment_record_list_params
+    stripe/params/payment_record_report_dispute_params
     stripe/params/payment_record_report_payment_attempt_canceled_params
     stripe/params/payment_record_report_payment_attempt_failed_params
     stripe/params/payment_record_report_payment_attempt_guaranteed_params

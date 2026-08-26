@@ -70,6 +70,7 @@ module Stripe
         CustomerBalanceTransaction.object_name => CustomerBalanceTransaction,
         CustomerCashBalanceTransaction.object_name => CustomerCashBalanceTransaction,
         CustomerSession.object_name => CustomerSession,
+        CustomerTaxExemption.object_name => CustomerTaxExemption,
         DelegatedCheckout::Order.object_name => DelegatedCheckout::Order,
         DelegatedCheckout::OrderEvent.object_name => DelegatedCheckout::OrderEvent,
         DelegatedCheckout::RequestedSession.object_name => DelegatedCheckout::RequestedSession,

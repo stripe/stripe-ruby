@@ -14,6 +14,25 @@ module Stripe
         "issuing.card"
       end
 
+      class CryptoWallet < ::Stripe::StripeObject
+        # The public address of the wallet.
+        attr_reader :address
+        # The blockchain network the wallet is on.
+        attr_reader :chain
+        # The cryptocurrency held in the wallet.
+        attr_reader :currency
+        # The type of wallet (standard or bridge_wallet).
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class LatestFraudWarning < ::Stripe::StripeObject
         # Timestamp of the most recent fraud warning.
         attr_reader :started_at
@@ -301,6 +320,8 @@ module Stripe
       attr_reader :cardholder
       # Time at which the object was created. Measured in seconds since the Unix epoch.
       attr_reader :created
+      # Attribute for field crypto_wallet
+      attr_reader :crypto_wallet
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Supported currencies are `usd` in the US, `eur` in the EU, and `gbp` in the UK.
       attr_reader :currency
       # The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://docs.stripe.com/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://docs.stripe.com/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
@@ -489,6 +510,7 @@ module Stripe
 
       def self.inner_class_types
         @inner_class_types = {
+          crypto_wallet: CryptoWallet,
           latest_fraud_warning: LatestFraudWarning,
           lifecycle_controls: LifecycleControls,
           product_graduation_state: ProductGraduationState,

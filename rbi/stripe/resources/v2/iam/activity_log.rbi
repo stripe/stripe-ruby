@@ -107,6 +107,164 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class UserAccess < ::Stripe::StripeObject
+            class Authentication < ::Stripe::StripeObject
+              class PrimaryFactor < ::Stripe::StripeObject
+                # SSO provider for the authentication factor.
+                sig { returns(T.nilable(String)) }
+                def sso_provider; end
+                # Type of authentication factor.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class SecondaryFactor < ::Stripe::StripeObject
+                # SSO provider for the authentication factor.
+                sig { returns(T.nilable(String)) }
+                def sso_provider; end
+                # Type of authentication factor.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Primary authentication factor.
+              sig { returns(PrimaryFactor) }
+              def primary_factor; end
+              # Secondary authentication factors.
+              sig { returns(T::Array[SecondaryFactor]) }
+              def secondary_factors; end
+              def self.inner_class_types
+                @inner_class_types = {
+                  primary_factor: PrimaryFactor,
+                  secondary_factors: SecondaryFactor,
+                }
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class DashboardClient < ::Stripe::StripeObject
+              # Browser used for the user access action.
+              sig { returns(String) }
+              def browser; end
+              # Browser version used for the user access action.
+              sig { returns(String) }
+              def browser_version; end
+              # Device type used for the user access action.
+              sig { returns(String) }
+              def device_type; end
+              # Operating system used for the user access action.
+              sig { returns(String) }
+              def os; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Network < ::Stripe::StripeObject
+              # City for the user access action.
+              sig { returns(String) }
+              def city; end
+              # Country for the user access action.
+              sig { returns(String) }
+              def country; end
+              # IP address for the user access action.
+              sig { returns(String) }
+              def ip_address; end
+              # Region for the user access action.
+              sig { returns(String) }
+              def region; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class Risk < ::Stripe::StripeObject
+              class Signal < ::Stripe::StripeObject
+                class NovelDevice < ::Stripe::StripeObject
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The user access action used a novel device.
+                sig { returns(T.nilable(NovelDevice)) }
+                def novel_device; end
+                # Type of risk signal.
+                sig { returns(String) }
+                def type; end
+                def self.inner_class_types
+                  @inner_class_types = {novel_device: NovelDevice}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Risk level for the user access action.
+              sig { returns(String) }
+              def level; end
+              # Risk signals for the user access action.
+              sig { returns(T::Array[Signal]) }
+              def signals; end
+              def self.inner_class_types
+                @inner_class_types = {signals: Signal}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Authentication details for the user access action.
+            sig { returns(Authentication) }
+            def authentication; end
+            # Dashboard client details for the user access action.
+            sig { returns(T.nilable(DashboardClient)) }
+            def dashboard_client; end
+            # Timestamp when the user access expires.
+            sig { returns(String) }
+            def expires_at; end
+            # Network details for the user access action.
+            sig { returns(Network) }
+            def network; end
+            # Risk details for the user access action.
+            sig { returns(Risk) }
+            def risk; end
+            # Roles associated with the user access action.
+            sig { returns(T::Array[String]) }
+            def roles; end
+            # Session fingerprint for the user access action.
+            sig { returns(String) }
+            def session_fingerprint; end
+            # Surface where the user access action started.
+            sig { returns(String) }
+            def surface; end
+            def self.inner_class_types
+              @inner_class_types = {
+                authentication: Authentication,
+                dashboard_client: DashboardClient,
+                network: Network,
+                risk: Risk,
+              }
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UserInvite < ::Stripe::StripeObject
             # Email address of the invited user.
             sig { returns(String) }
@@ -147,6 +305,9 @@ module Stripe
           # The action group type of the activity log entry.
           sig { returns(String) }
           def type; end
+          # Details of a user access action.
+          sig { returns(T.nilable(UserAccess)) }
+          def user_access; end
           # Details of a user invite action.
           sig { returns(T.nilable(UserInvite)) }
           def user_invite; end
@@ -154,7 +315,12 @@ module Stripe
           sig { returns(T.nilable(UserRoles)) }
           def user_roles; end
           def self.inner_class_types
-            @inner_class_types = {api_key: ApiKey, user_invite: UserInvite, user_roles: UserRoles}
+            @inner_class_types = {
+              api_key: ApiKey,
+              user_access: UserAccess,
+              user_invite: UserInvite,
+              user_roles: UserRoles,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

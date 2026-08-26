@@ -219,7 +219,7 @@ module Stripe
       end
       # Configure billing schedule differently for individual subscription items.
       attr_accessor :applies_to
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       attr_accessor :bill_until
       # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
       attr_accessor :key
@@ -665,6 +665,71 @@ module Stripe
           end
         end
 
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code.
+              attr_accessor :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # The address the company or entity is registered with.
+            attr_accessor :registered_address
+            # Company or entity name.
+            attr_accessor :registered_name
+            # The official registration number for the given registration type.
+            attr_accessor :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_accessor :registration_type
+            # VAT ID number.
+            attr_accessor :vat
+
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            )
+              @registered_address = registered_address
+              @registered_name = registered_name
+              @registration_number = registration_number
+              @registration_type = registration_type
+              @vat = vat
+            end
+          end
+          # Registration details about the buyer's organization.
+          attr_accessor :company_details
+
+          def initialize(company_details: nil)
+            @company_details = company_details
+          end
+        end
+
         class Bizum < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments. Required when `amount_type=fixed`.
@@ -901,6 +966,8 @@ module Stripe
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :billie
         # This sub-hash contains details about the Bizum payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bizum
         # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
@@ -931,6 +998,7 @@ module Stripe
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          billie: nil,
           bizum: nil,
           blik: nil,
           card: nil,
@@ -947,6 +1015,7 @@ module Stripe
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @billie = billie
           @bizum = bizum
           @blik = blik
           @card = card
@@ -1045,7 +1114,7 @@ module Stripe
     attr_accessor :billing_cadence
     # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
-    # Sets the billing schedules for the subscription.
+    # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds

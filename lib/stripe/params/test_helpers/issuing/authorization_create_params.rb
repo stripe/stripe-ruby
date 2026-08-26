@@ -428,6 +428,8 @@ module Stripe
         attr_accessor :merchant_data
         # Details about the authorization, such as identifiers, set by the card network.
         attr_accessor :network_data
+        # The point-of-sale initiation condition for this test authorization.
+        attr_accessor :pos_condition
         # Stripe’s assessment of the fraud risk for this authorization.
         attr_accessor :risk_assessment
         # Verifications that Stripe performed on information that the cardholder provided to the merchant.
@@ -451,6 +453,7 @@ module Stripe
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
+          pos_condition: nil,
           risk_assessment: nil,
           verification_data: nil,
           wallet: nil
@@ -470,6 +473,7 @@ module Stripe
           @merchant_currency = merchant_currency
           @merchant_data = merchant_data
           @network_data = network_data
+          @pos_condition = pos_condition
           @risk_assessment = risk_assessment
           @verification_data = verification_data
           @wallet = wallet

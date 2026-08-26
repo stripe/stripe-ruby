@@ -1046,6 +1046,34 @@ module Stripe
                 end
               end
 
+              class BlikRecurringPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class BoletoPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -2045,6 +2073,8 @@ module Stripe
               attr_accessor :bancontact_payments
               # Allow the merchant to process BLIK payments.
               attr_accessor :blik_payments
+              # Allow the merchant to process recurring BLIK payments.
+              attr_accessor :blik_recurring_payments
               # Allow the merchant to process Boleto payments.
               attr_accessor :boleto_payments
               # Allow the merchant to collect card payments.
@@ -2127,6 +2157,7 @@ module Stripe
                 bacs_debit_payments: nil,
                 bancontact_payments: nil,
                 blik_payments: nil,
+                blik_recurring_payments: nil,
                 boleto_payments: nil,
                 card_payments: nil,
                 cartes_bancaires_payments: nil,
@@ -2173,6 +2204,7 @@ module Stripe
                 @bacs_debit_payments = bacs_debit_payments
                 @bancontact_payments = bancontact_payments
                 @blik_payments = blik_payments
+                @blik_recurring_payments = blik_recurring_payments
                 @boleto_payments = boleto_payments
                 @card_payments = card_payments
                 @cartes_bancaires_payments = cartes_bancaires_payments

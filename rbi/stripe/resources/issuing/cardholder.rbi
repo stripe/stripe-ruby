@@ -75,7 +75,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
+          # Information about cardholder acceptance of Celtic [Authorized User Terms](https://docs.stripe.com/issuing/compliance-us#issuing-terms). Required for cards backed by a Celtic program.
           sig { returns(T.nilable(UserTermsAcceptance)) }
           def user_terms_acceptance; end
           def self.inner_class_types
@@ -256,7 +256,7 @@ module Stripe
       # The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure#when-is-3d-secure-applied) for more details.
       sig { returns(T.nilable(String)) }
       def phone_number; end
-      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
+      # The cardholder’s preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
       #  This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
       sig { returns(T.nilable(T::Array[String])) }
       def preferred_locales; end

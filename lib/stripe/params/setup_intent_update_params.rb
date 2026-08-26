@@ -1308,8 +1308,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this SetupIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
 
     def initialize(
       allowed_payment_method_types: nil,
@@ -1324,8 +1322,7 @@ module Stripe
       payment_method: nil,
       payment_method_configuration: nil,
       payment_method_data: nil,
-      payment_method_options: nil,
-      payment_method_types: nil
+      payment_method_options: nil
     )
       @allowed_payment_method_types = allowed_payment_method_types
       @attach_to_self = attach_to_self
@@ -1340,7 +1337,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
     end
   end
 end

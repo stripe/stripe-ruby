@@ -5848,8 +5848,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     attr_accessor :radar_options
     # Email address to send the receipt to. If you specify `receipt_email` for a payment in live mode, you send a receipt regardless of your [email settings](https://dashboard.stripe.com/account/emails).
@@ -5911,7 +5909,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       radar_options: nil,
       receipt_email: nil,
       return_url: nil,
@@ -5952,7 +5949,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @radar_options = radar_options
       @receipt_email = receipt_email
       @return_url = return_url

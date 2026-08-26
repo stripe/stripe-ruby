@@ -445,6 +445,16 @@ module Stripe
           end
         end
 
+        class Billie < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Blik < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
@@ -676,6 +686,8 @@ module Stripe
         attr_reader :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :bancontact
+        # If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        attr_reader :billie
         # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
         attr_reader :blik
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
@@ -701,6 +713,7 @@ module Stripe
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            billie: Billie,
             blik: Blik,
             card: Card,
             customer_balance: CustomerBalance,

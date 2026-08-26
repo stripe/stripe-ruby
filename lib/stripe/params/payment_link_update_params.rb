@@ -100,7 +100,7 @@ module Stripe
             @value = value
           end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         attr_accessor :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_accessor :options
@@ -601,12 +601,31 @@ module Stripe
         @required = required
       end
     end
+
+    class TransferData < ::Stripe::RequestParams
+      # The amount that will be transferred automatically when a charge succeeds.
+      attr_accessor :amount
+      # If specified, successful charges will be attributed to the destination
+      #  account for tax reporting, and the funds from charges will be transferred
+      #  to the destination account. The ID of the resulting transfer will be
+      #  returned on the successful charge's `transfer` field.
+      attr_accessor :destination
+
+      def initialize(amount: nil, destination: nil)
+        @amount = amount
+        @destination = destination
+      end
+    end
     # Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     attr_accessor :active
     # Behavior after the purchase is complete.
     attr_accessor :after_completion
     # Enables user redeemable promotion codes.
     attr_accessor :allow_promotion_codes
+    # The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
+    attr_accessor :application_fee_amount
+    # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
+    attr_accessor :application_fee_percent
     # Configuration for automatic tax collection.
     attr_accessor :automatic_tax
     # Configuration for collecting the customer's billing address. Defaults to `auto`.
@@ -631,6 +650,8 @@ module Stripe
     attr_accessor :metadata
     # Controls settings applied for collecting the customer's name.
     attr_accessor :name_collection
+    # The account on behalf of which to charge.
+    attr_accessor :on_behalf_of
     # A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
     # There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
     # There is a maximum of 20 combined line items and optional items.
@@ -663,11 +684,15 @@ module Stripe
     attr_accessor :subscription_data
     # Controls tax ID collection during checkout.
     attr_accessor :tax_id_collection
+    # The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
+    attr_accessor :transfer_data
 
     def initialize(
       active: nil,
       after_completion: nil,
       allow_promotion_codes: nil,
+      application_fee_amount: nil,
+      application_fee_percent: nil,
       automatic_tax: nil,
       billing_address_collection: nil,
       consent_collection: nil,
@@ -680,6 +705,7 @@ module Stripe
       line_items: nil,
       metadata: nil,
       name_collection: nil,
+      on_behalf_of: nil,
       optional_items: nil,
       payment_intent_data: nil,
       payment_method_collection: nil,
@@ -691,11 +717,14 @@ module Stripe
       shipping_options: nil,
       submit_type: nil,
       subscription_data: nil,
-      tax_id_collection: nil
+      tax_id_collection: nil,
+      transfer_data: nil
     )
       @active = active
       @after_completion = after_completion
       @allow_promotion_codes = allow_promotion_codes
+      @application_fee_amount = application_fee_amount
+      @application_fee_percent = application_fee_percent
       @automatic_tax = automatic_tax
       @billing_address_collection = billing_address_collection
       @consent_collection = consent_collection
@@ -708,6 +737,7 @@ module Stripe
       @line_items = line_items
       @metadata = metadata
       @name_collection = name_collection
+      @on_behalf_of = on_behalf_of
       @optional_items = optional_items
       @payment_intent_data = payment_intent_data
       @payment_method_collection = payment_method_collection
@@ -720,6 +750,7 @@ module Stripe
       @submit_type = submit_type
       @subscription_data = subscription_data
       @tax_id_collection = tax_id_collection
+      @transfer_data = transfer_data
     end
   end
 end

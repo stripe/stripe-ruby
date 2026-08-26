@@ -141,7 +141,7 @@ module Stripe
     end
 
     def self.field_encodings
-      @field_encodings = { unit_amount_decimal: :decimal_string }
+      @field_encodings = { unit_amount_decimal: { kind: :nullable, inner: :decimal_string } }
     end
   end
 end

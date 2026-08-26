@@ -114,6 +114,8 @@ module Stripe
           attr_reader :livemode
           # String representing the object's type. Objects of the same type share the same value of the object field.
           attr_reader :object
+          # Whether the GB Bank Account is currently unusable for money movement, despite potentially being correctly set up. Please reach out to Stripe Support for more information.
+          attr_reader :restricted
           # The Sort Code of the bank account.
           attr_reader :sort_code
           # The list of currencies supported by this bank account.

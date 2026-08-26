@@ -33,6 +33,9 @@ module Stripe
         # List of countries from which to filter accounts.
         sig { returns(T.nilable(T::Array[String])) }
         def countries; end
+        # Country from which to filter accounts.
+        sig { returns(T.nilable(String)) }
+        def country; end
         # Stripe ID of the institution with which the customer should be directed to log in.
         sig { returns(T.nilable(String)) }
         def institution; end

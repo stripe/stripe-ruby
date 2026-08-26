@@ -40,7 +40,7 @@ module Stripe
           # The country code of the bank account.
           attr_reader :country
           # List of enabled flows for this bank account (wire or local).
-          attr_reader :enabled_delivery_options
+          attr_reader :enabled_delivery_schemes
           # The ID of the Financial Connections Account used to create the bank account.
           attr_reader :financial_connections_account
           # The last 4 digits of the account number.
@@ -89,8 +89,10 @@ module Stripe
 
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
           attr_reader :payments
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
           attr_reader :transfers
 
           def self.inner_class_types
@@ -122,7 +124,7 @@ module Stripe
         # Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
         # Please reach out to Stripe Support for more information.
         attr_reader :restricted
-        # Closed Enum. The type of payout method.
+        # Open Enum. The type of payout method.
         attr_reader :type
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.
         attr_reader :usage_status

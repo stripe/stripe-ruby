@@ -94,7 +94,7 @@ module Stripe
     attr_reader :script
     # Number of times this coupon has been applied to a customer.
     attr_reader :times_redeemed
-    # One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
+    # The type of coupon logic used to calculate the discount.
     attr_reader :type
     # Taking account of the above properties, whether this coupon can still be applied to a customer.
     attr_reader :valid

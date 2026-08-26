@@ -1029,6 +1029,9 @@ module Stripe
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             sig { returns(T.nilable(T::Array[String])) }
             def brands_blocked; end
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def funding_types_blocked; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -2113,7 +2116,7 @@ module Stripe
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
           #
-          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          # This parameter is only supported when `ui_mode=elements`.
           sig { returns(T.nilable(String)) }
           def shipping_details; end
           def self.inner_class_types
@@ -2137,7 +2140,7 @@ module Stripe
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
         #
-        # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        # This parameter is only supported when `ui_mode=elements`.
         sig { returns(T.nilable(String)) }
         def update_shipping_details; end
         def self.inner_class_types
@@ -2520,7 +2523,7 @@ module Stripe
       # The ID of the Payment Link that created this Session.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentLink))) }
       def payment_link; end
-      # Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
       sig { returns(T.nilable(String)) }
       def payment_method_collection; end
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.

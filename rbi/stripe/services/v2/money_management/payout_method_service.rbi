@@ -18,6 +18,16 @@ module Stripe
          }
         def archive(id, params = {}, opts = {}); end
 
+        # Disable a PayoutMethod object. The payout method will not be available for use in outbound money movement.
+        # To re-enable the payout method, create an OutboundSetupIntent
+        # using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+        #
+        # ** raises CannotProceedError
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutMethodDisableParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutMethod)
+         }
+        def disable(id, params = {}, opts = {}); end
+
         # List objects that adhere to the PayoutMethod interface.
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::PayoutMethodListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::ListObject)

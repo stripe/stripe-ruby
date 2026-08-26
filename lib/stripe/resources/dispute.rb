@@ -409,7 +409,7 @@ module Stripe
     end
 
     class SmartDisputes < ::Stripe::StripeObject
-      # Evidence that could be provided to improve the SmartDisputes packet
+      # Evidence that could be provided to improve the Smart Disputes packet
       attr_reader :recommended_evidence
       # Smart Disputes auto representment packet availability status.
       attr_reader :status

@@ -63,7 +63,7 @@ module Stripe
       # fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
       # repayment start date, and advance payout date.
       #
-      # Only present for financing offers with the `paid_out` status.
+      # Only present for financing offers with a `status` other than `none`.
       attr_reader :details
       # The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
       attr_reader :financing_offer

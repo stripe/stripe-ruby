@@ -5774,8 +5774,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment-method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     attr_accessor :receipt_email
     # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -5822,7 +5820,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       receipt_email: nil,
       setup_future_usage: nil,
       shipping: nil,
@@ -5851,7 +5848,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @receipt_email = receipt_email
       @setup_future_usage = setup_future_usage
       @shipping = shipping

@@ -96,7 +96,7 @@ module Stripe
       end
 
       def self.field_encodings
-        @field_encodings = { unit_amount_decimal: :decimal_string }
+        @field_encodings = { unit_amount_decimal: { kind: :nullable, inner: :decimal_string } }
       end
     end
 
@@ -177,6 +177,8 @@ module Stripe
     attr_reader :discountable
     # The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     attr_reader :discounts
+    # Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    attr_reader :frozen_fields
     # Unique identifier for the object.
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
@@ -265,7 +267,13 @@ module Stripe
 
     def self.field_encodings
       @field_encodings = {
-        pricing: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
+        pricing: {
+          kind: :nullable,
+          inner: {
+            kind: :object,
+            fields: { unit_amount_decimal: { kind: :nullable, inner: :decimal_string } },
+          },
+        },
         quantity_decimal: :decimal_string,
       }
     end

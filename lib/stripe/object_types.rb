@@ -32,6 +32,7 @@ module Stripe
         Billing::CreditBalanceSummary.object_name => Billing::CreditBalanceSummary,
         Billing::CreditBalanceTransaction.object_name => Billing::CreditBalanceTransaction,
         Billing::CreditGrant.object_name => Billing::CreditGrant,
+        Billing::FeedbackOption.object_name => Billing::FeedbackOption,
         Billing::Meter.object_name => Billing::Meter,
         Billing::MeterEvent.object_name => Billing::MeterEvent,
         Billing::MeterEventAdjustment.object_name => Billing::MeterEventAdjustment,
@@ -211,6 +212,7 @@ module Stripe
         V2::Core::AccountPerson.object_name => V2::Core::AccountPerson,
         V2::Core::AccountPersonToken.object_name => V2::Core::AccountPersonToken,
         V2::Core::AccountToken.object_name => V2::Core::AccountToken,
+        V2::Core::ApprovalRequest.object_name => V2::Core::ApprovalRequest,
         V2::Core::BatchJob.object_name => V2::Core::BatchJob,
         V2::Core::Event.object_name => V2::Core::Event,
         V2::Core::EventDestination.object_name => V2::Core::EventDestination,
@@ -240,6 +242,9 @@ module Stripe
         V2::MoneyManagement::TransactionEntry.object_name => V2::MoneyManagement::TransactionEntry,
         V2::Network::BusinessProfile.object_name => V2::Network::BusinessProfile,
         V2::OrchestratedCommerce::Agreement.object_name => V2::OrchestratedCommerce::Agreement,
+        V2::Signals::AccountActivity.object_name => V2::Signals::AccountActivity,
+        V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,
+        V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,
         # v2 object classes: The end of the section generated from our OpenAPI spec
       }
     end

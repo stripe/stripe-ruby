@@ -3,7 +3,7 @@
 
 module Stripe
   class V2Services < StripeService
-    attr_reader :billing, :commerce, :core, :data, :extend, :iam, :money_management, :network, :orchestrated_commerce, :test_helpers
+    attr_reader :billing, :commerce, :core, :data, :extend, :iam, :money_management, :network, :orchestrated_commerce, :signals, :test_helpers
 
     def initialize(requestor)
       super
@@ -16,6 +16,7 @@ module Stripe
       @money_management = Stripe::V2::MoneyManagementService.new(@requestor)
       @network = Stripe::V2::NetworkService.new(@requestor)
       @orchestrated_commerce = Stripe::V2::OrchestratedCommerceService.new(@requestor)
+      @signals = Stripe::V2::SignalsService.new(@requestor)
       @test_helpers = Stripe::V2::TestHelperService.new(@requestor)
     end
   end

@@ -164,7 +164,7 @@ module Stripe
               @value = value
             end
           end
-          # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+          # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
           attr_accessor :default_value
           # The options available for the customer to select. Up to 200 options allowed.
           attr_accessor :options
@@ -751,26 +751,17 @@ module Stripe
         attr_accessor :on_behalf_of
         # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
         attr_accessor :receipt_email
-        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
-        # method collected by this Checkout Session.
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
         #
-        # When setting this to `on_session`, Checkout will show a notice to the
-        # customer that their payment details will be saved.
+        # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
         #
-        # When setting this to `off_session`, Checkout will show a notice to the
-        # customer that their payment details will be saved and used for future
-        # payments.
+        # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
         #
-        # If a Customer has been provided or Checkout creates a new Customer,
-        # Checkout will attach the payment method to the Customer.
+        # If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
         #
-        # If Checkout does not create a Customer, the payment method is not attached
-        # to a Customer. To reuse the payment method, you can retrieve it from the
-        # Checkout Session's PaymentIntent.
+        # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
         #
-        # When processing card payments, Checkout also uses `setup_future_usage`
-        # to dynamically optimize your payment flow and comply with regional
-        # legislation and network rules, such as SCA.
+        # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         attr_accessor :setup_future_usage
         # Shipping information for this payment.
         attr_accessor :shipping
@@ -1087,9 +1078,12 @@ module Stripe
           class Restrictions < ::Stripe::RequestParams
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_accessor :brands_blocked
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            attr_accessor :funding_types_blocked
 
-            def initialize(brands_blocked: nil)
+            def initialize(brands_blocked: nil, funding_types_blocked: nil)
               @brands_blocked = brands_blocked
+              @funding_types_blocked = funding_types_blocked
             end
           end
           # Controls when the funds will be captured from the customer's account.
@@ -2181,7 +2175,7 @@ module Stripe
           #
           # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
           #
-          # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+          # This parameter is only supported when `ui_mode=elements`.
           attr_accessor :shipping_details
 
           def initialize(line_items: nil, shipping_details: nil)
@@ -2205,7 +2199,7 @@ module Stripe
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
         #
-        # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        # This parameter is only supported when `ui_mode=elements`.
         attr_accessor :update_shipping_details
 
         def initialize(

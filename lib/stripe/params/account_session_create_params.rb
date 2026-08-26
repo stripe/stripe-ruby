@@ -509,10 +509,17 @@ module Stripe
       end
 
       class PaymentMethodSettings < ::Stripe::RequestParams
-        class Features < ::Stripe::RequestParams; end
+        class Features < ::Stripe::RequestParams
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_accessor :disable_stripe_user_authentication
+
+          def initialize(disable_stripe_user_authentication: nil)
+            @disable_stripe_user_authentication = disable_stripe_user_authentication
+          end
+        end
         # Whether the embedded component is enabled.
         attr_accessor :enabled
-        # An empty list, because this embedded component has no features.
+        # The list of features enabled in the embedded component.
         attr_accessor :features
 
         def initialize(enabled: nil, features: nil)

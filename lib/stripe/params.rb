@@ -373,6 +373,11 @@ module Stripe
     autoload :CreditGrantRetrieveParams, "stripe/params/billing/credit_grant_retrieve_params"
     autoload :CreditGrantUpdateParams, "stripe/params/billing/credit_grant_update_params"
     autoload :CreditGrantVoidGrantParams, "stripe/params/billing/credit_grant_void_grant_params"
+    autoload :FeedbackOptionCreateParams, "stripe/params/billing/feedback_option_create_params"
+    autoload :FeedbackOptionDeactivateParams, "stripe/params/billing/feedback_option_deactivate_params"
+    autoload :FeedbackOptionListParams, "stripe/params/billing/feedback_option_list_params"
+    autoload :FeedbackOptionRetrieveParams, "stripe/params/billing/feedback_option_retrieve_params"
+    autoload :FeedbackOptionUpdateParams, "stripe/params/billing/feedback_option_update_params"
     autoload :MeterCreateParams, "stripe/params/billing/meter_create_params"
     autoload :MeterDeactivateParams, "stripe/params/billing/meter_deactivate_params"
     autoload :MeterEventAdjustmentCreateParams, "stripe/params/billing/meter_event_adjustment_create_params"
@@ -836,6 +841,10 @@ module Stripe
       autoload :AccountTokenCreateParams, "stripe/params/v2/core/account_token_create_params"
       autoload :AccountTokenRetrieveParams, "stripe/params/v2/core/account_token_retrieve_params"
       autoload :AccountUpdateParams, "stripe/params/v2/core/account_update_params"
+      autoload :ApprovalRequestCancelParams, "stripe/params/v2/core/approval_request_cancel_params"
+      autoload :ApprovalRequestListParams, "stripe/params/v2/core/approval_request_list_params"
+      autoload :ApprovalRequestRetrieveParams, "stripe/params/v2/core/approval_request_retrieve_params"
+      autoload :ApprovalRequestUpdateParams, "stripe/params/v2/core/approval_request_update_params"
       autoload :BatchJobCancelParams, "stripe/params/v2/core/batch_job_cancel_params"
       autoload :BatchJobCreateParams, "stripe/params/v2/core/batch_job_create_params"
       autoload :BatchJobRetrieveParams, "stripe/params/v2/core/batch_job_retrieve_params"
@@ -934,6 +943,7 @@ module Stripe
       autoload :OutboundTransferListParams, "stripe/params/v2/money_management/outbound_transfer_list_params"
       autoload :OutboundTransferRetrieveParams, "stripe/params/v2/money_management/outbound_transfer_retrieve_params"
       autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
+      autoload :PayoutMethodDisableParams, "stripe/params/v2/money_management/payout_method_disable_params"
       autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
       autoload :PayoutMethodRetrieveParams, "stripe/params/v2/money_management/payout_method_retrieve_params"
       autoload :PayoutMethodsBankAccountSpecRetrieveParams,
@@ -960,6 +970,16 @@ module Stripe
       autoload :AgreementListParams, "stripe/params/v2/orchestrated_commerce/agreement_list_params"
       autoload :AgreementRetrieveParams, "stripe/params/v2/orchestrated_commerce/agreement_retrieve_params"
       autoload :AgreementTerminateParams, "stripe/params/v2/orchestrated_commerce/agreement_terminate_params"
+    end
+
+    module Signals
+      autoload :AccountActivityCreateParams, "stripe/params/v2/signals/account_activity_create_params"
+      autoload :AccountActivityDeleteParams, "stripe/params/v2/signals/account_activity_delete_params"
+      autoload :AccountActivityRetrieveParams, "stripe/params/v2/signals/account_activity_retrieve_params"
+      autoload :AccountEvaluationCreateParams, "stripe/params/v2/signals/account_evaluation_create_params"
+      autoload :AccountEvaluationRetrieveParams, "stripe/params/v2/signals/account_evaluation_retrieve_params"
+      autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
+      autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
     end
 
     module TestHelpers
@@ -1036,6 +1056,11 @@ module Stripe
     stripe/params/billing/credit_grant_retrieve_params
     stripe/params/billing/credit_grant_update_params
     stripe/params/billing/credit_grant_void_grant_params
+    stripe/params/billing/feedback_option_create_params
+    stripe/params/billing/feedback_option_deactivate_params
+    stripe/params/billing/feedback_option_list_params
+    stripe/params/billing/feedback_option_retrieve_params
+    stripe/params/billing/feedback_option_update_params
     stripe/params/billing/meter_create_params
     stripe/params/billing/meter_deactivate_params
     stripe/params/billing/meter_event_adjustment_create_params
@@ -1684,6 +1709,10 @@ module Stripe
     stripe/params/v2/core/accounts/person_token_create_params
     stripe/params/v2/core/accounts/person_token_retrieve_params
     stripe/params/v2/core/accounts/person_update_params
+    stripe/params/v2/core/approval_request_cancel_params
+    stripe/params/v2/core/approval_request_list_params
+    stripe/params/v2/core/approval_request_retrieve_params
+    stripe/params/v2/core/approval_request_update_params
     stripe/params/v2/core/batch_job_cancel_params
     stripe/params/v2/core/batch_job_create_params
     stripe/params/v2/core/batch_job_retrieve_params
@@ -1748,6 +1777,7 @@ module Stripe
     stripe/params/v2/money_management/outbound_transfer_list_params
     stripe/params/v2/money_management/outbound_transfer_retrieve_params
     stripe/params/v2/money_management/payout_method_archive_params
+    stripe/params/v2/money_management/payout_method_disable_params
     stripe/params/v2/money_management/payout_method_list_params
     stripe/params/v2/money_management/payout_method_retrieve_params
     stripe/params/v2/money_management/payout_method_unarchive_params
@@ -1767,6 +1797,13 @@ module Stripe
     stripe/params/v2/orchestrated_commerce/agreement_list_params
     stripe/params/v2/orchestrated_commerce/agreement_retrieve_params
     stripe/params/v2/orchestrated_commerce/agreement_terminate_params
+    stripe/params/v2/signals/account_activity_create_params
+    stripe/params/v2/signals/account_activity_delete_params
+    stripe/params/v2/signals/account_activity_retrieve_params
+    stripe/params/v2/signals/account_evaluation_create_params
+    stripe/params/v2/signals/account_evaluation_retrieve_params
+    stripe/params/v2/signals/account_signal_list_params
+    stripe/params/v2/signals/account_signal_retrieve_params
     stripe/params/v2/test_helpers/financial_address_credit_params
     stripe/params/v2/test_helpers/financial_address_generate_microdeposits_params
     stripe/params/webhook_endpoint_create_params

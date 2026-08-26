@@ -36,6 +36,8 @@ module Stripe
         attr_reader :account_subcategories
         # List of countries from which to filter accounts.
         attr_reader :countries
+        # Country from which to filter accounts.
+        attr_reader :country
         # Stripe ID of the institution with which the customer should be directed to log in.
         attr_reader :institution
         # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.

@@ -1,0 +1,292 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+# typed: true
+module Stripe
+  module V2
+    module Signals
+      class AccountEvaluationCreateParams < ::Stripe::RequestParams
+        class AccountActivityDetails < ::Stripe::RequestParams
+          class Data < ::Stripe::RequestParams
+            class LoginAttempt < ::Stripe::RequestParams
+              class ClientDetails < ::Stripe::RequestParams
+                class Data < ::Stripe::RequestParams
+                  # The IP address associated with the activity.
+                  sig { returns(String) }
+                  def ip; end
+                  sig { params(_ip: String).returns(String) }
+                  def ip=(_ip); end
+                  # The referrer associated with the activity.
+                  sig { returns(T.nilable(String)) }
+                  def referrer; end
+                  sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+                  def referrer=(_referrer); end
+                  # The user agent associated with the activity.
+                  sig { returns(T.nilable(String)) }
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
+                  sig {
+                    params(ip: String, referrer: T.nilable(String), user_agent: T.nilable(String)).void
+                   }
+                  def initialize(ip: nil, referrer: nil, user_agent: nil); end
+                end
+                # Raw client details for the activity, when a Radar session is not available.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails::Data))
+                 }
+                def data; end
+                sig {
+                  params(_data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails::Data)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails::Data))
+                 }
+                def data=(_data); end
+                # The Radar session ID capturing client details for the activity.
+                sig { returns(T.nilable(String)) }
+                def radar_session; end
+                sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
+                def radar_session=(_radar_session); end
+                sig {
+                  params(data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails::Data), radar_session: T.nilable(String)).void
+                 }
+                def initialize(data: nil, radar_session: nil); end
+              end
+              # Client details captured for the attempt.
+              sig {
+                returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails)
+               }
+              def client_details; end
+              sig {
+                params(_client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails).returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails)
+               }
+              def client_details=(_client_details); end
+              sig {
+                params(client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt::ClientDetails).void
+               }
+              def initialize(client_details: nil); end
+            end
+            class RegistrationAttempt < ::Stripe::RequestParams
+              class ClientDetails < ::Stripe::RequestParams
+                class Data < ::Stripe::RequestParams
+                  # The IP address associated with the activity.
+                  sig { returns(String) }
+                  def ip; end
+                  sig { params(_ip: String).returns(String) }
+                  def ip=(_ip); end
+                  # The referrer associated with the activity.
+                  sig { returns(T.nilable(String)) }
+                  def referrer; end
+                  sig { params(_referrer: T.nilable(String)).returns(T.nilable(String)) }
+                  def referrer=(_referrer); end
+                  # The user agent associated with the activity.
+                  sig { returns(T.nilable(String)) }
+                  def user_agent; end
+                  sig { params(_user_agent: T.nilable(String)).returns(T.nilable(String)) }
+                  def user_agent=(_user_agent); end
+                  sig {
+                    params(ip: String, referrer: T.nilable(String), user_agent: T.nilable(String)).void
+                   }
+                  def initialize(ip: nil, referrer: nil, user_agent: nil); end
+                end
+                # Raw client details for the activity, when a Radar session is not available.
+                sig {
+                  returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails::Data))
+                 }
+                def data; end
+                sig {
+                  params(_data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails::Data)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails::Data))
+                 }
+                def data=(_data); end
+                # The Radar session ID capturing client details for the activity.
+                sig { returns(T.nilable(String)) }
+                def radar_session; end
+                sig { params(_radar_session: T.nilable(String)).returns(T.nilable(String)) }
+                def radar_session=(_radar_session); end
+                sig {
+                  params(data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails::Data), radar_session: T.nilable(String)).void
+                 }
+                def initialize(data: nil, radar_session: nil); end
+              end
+              # Client details captured for the attempt.
+              sig {
+                returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails)
+               }
+              def client_details; end
+              sig {
+                params(_client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails).returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails)
+               }
+              def client_details=(_client_details); end
+              sig {
+                params(client_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt::ClientDetails).void
+               }
+              def initialize(client_details: nil); end
+            end
+            # Details for the login attempt. Provide only when type is login_attempt.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
+             }
+            def login_attempt; end
+            sig {
+              params(_login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt))
+             }
+            def login_attempt=(_login_attempt); end
+            # Timestamp at which the activity occurred. Defaults to the created time if not provided.
+            sig { returns(T.nilable(String)) }
+            def occurred_at; end
+            sig { params(_occurred_at: T.nilable(String)).returns(T.nilable(String)) }
+            def occurred_at=(_occurred_at); end
+            # Details for the registration attempt. Provide only when type is registration_attempt.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt))
+             }
+            def registration_attempt; end
+            sig {
+              params(_registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt))
+             }
+            def registration_attempt=(_registration_attempt); end
+            # The type of activity. Must be registration_attempt or login_attempt.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig {
+              params(login_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::LoginAttempt), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data::RegistrationAttempt), type: String).void
+             }
+            def initialize(
+              login_attempt: nil,
+              occurred_at: nil,
+              registration_attempt: nil,
+              type: nil
+            ); end
+          end
+          # The ID of an existing account activity to associate with the evaluation.
+          sig { returns(T.nilable(String)) }
+          def account_activity; end
+          sig { params(_account_activity: T.nilable(String)).returns(T.nilable(String)) }
+          def account_activity=(_account_activity); end
+          # Inline activity data used to create a new account activity for the evaluation.
+          sig {
+            returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data))
+           }
+          def data; end
+          sig {
+            params(_data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data))
+           }
+          def data=(_data); end
+          sig {
+            params(account_activity: T.nilable(String), data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails::Data)).void
+           }
+          def initialize(account_activity: nil, data: nil); end
+        end
+        class AccountDetails < ::Stripe::RequestParams
+          class Data < ::Stripe::RequestParams
+            class Defaults < ::Stripe::RequestParams
+              class Profile < ::Stripe::RequestParams
+                # The business URL.
+                sig { returns(String) }
+                def business_url; end
+                sig { params(_business_url: String).returns(String) }
+                def business_url=(_business_url); end
+                # Doing business as (DBA) name.
+                sig { returns(T.nilable(String)) }
+                def doing_business_as; end
+                sig { params(_doing_business_as: T.nilable(String)).returns(T.nilable(String)) }
+                def doing_business_as=(_doing_business_as); end
+                # Description of the account's product or service.
+                sig { returns(T.nilable(String)) }
+                def product_description; end
+                sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
+                def product_description=(_product_description); end
+                sig {
+                  params(business_url: String, doing_business_as: T.nilable(String), product_description: T.nilable(String)).void
+                 }
+                def initialize(
+                  business_url: nil,
+                  doing_business_as: nil,
+                  product_description: nil
+                ); end
+              end
+              # Account profile data.
+              sig {
+                returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults::Profile)
+               }
+              def profile; end
+              sig {
+                params(_profile: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults::Profile).returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults::Profile)
+               }
+              def profile=(_profile); end
+              sig {
+                params(profile: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults::Profile).void
+               }
+              def initialize(profile: nil); end
+            end
+            # Default account settings.
+            sig {
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults))
+             }
+            def defaults; end
+            sig {
+              params(_defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults))
+             }
+            def defaults=(_defaults); end
+            sig {
+              params(defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults)).void
+             }
+            def initialize(defaults: nil); end
+          end
+          # The v2 account ID of the account.
+          sig { returns(T.nilable(String)) }
+          def account; end
+          sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+          def account=(_account); end
+          # The v1 customer ID of the account, for users not yet migrated to v2/accounts.
+          sig { returns(T.nilable(String)) }
+          def customer; end
+          sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
+          def customer=(_customer); end
+          # Inline account data to evaluate without creating a v2 account.
+          sig {
+            returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data))
+           }
+          def data; end
+          sig {
+            params(_data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data))
+           }
+          def data=(_data); end
+          sig {
+            params(account: T.nilable(String), customer: T.nilable(String), data: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data)).void
+           }
+          def initialize(account: nil, customer: nil, data: nil); end
+        end
+        # Account activity to record alongside this evaluation.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails))
+         }
+        def account_activity_details; end
+        sig {
+          params(_account_activity_details: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails))
+         }
+        def account_activity_details=(_account_activity_details); end
+        # The account, customer, or inline account data to evaluate.
+        sig { returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails) }
+        def account_details; end
+        sig {
+          params(_account_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails).returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails)
+         }
+        def account_details=(_account_details); end
+        # List of signals to evaluate.
+        sig { returns(T::Array[String]) }
+        def requested_signals; end
+        sig { params(_requested_signals: T::Array[String]).returns(T::Array[String]) }
+        def requested_signals=(_requested_signals); end
+        sig {
+          params(account_activity_details: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountActivityDetails), account_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails, requested_signals: T::Array[String]).void
+         }
+        def initialize(
+          account_activity_details: nil,
+          account_details: nil,
+          requested_signals: nil
+        ); end
+      end
+    end
+  end
+end

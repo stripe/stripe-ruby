@@ -4469,14 +4469,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
     end
     should "Test setup intents post" do
-      setup_intent = Stripe::SetupIntent.create({ payment_method_types: ["card"] })
+      setup_intent = Stripe::SetupIntent.create({ allowed_payment_method_types: ["card"] })
       assert_requested :post, "#{Stripe.api_base}/v1/setup_intents"
     end
     should "Test setup intents post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents").to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      setup_intent = client.v1.setup_intents.create({ payment_method_types: ["card"] })
+      setup_intent = client.v1.setup_intents.create({ allowed_payment_method_types: ["card"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents"
     end
     should "Test setup intents post 2" do
@@ -8118,6 +8118,49 @@ module Stripe
       account_token = client.v2.core.account_tokens.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/account_tokens/id_123"
     end
+    should "Test v2 core approval request get (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests").to_return(
+        body: '{"data":[{"object":"v2.core.approval_request","action":"refund.create","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"requested_by":{"type":"api_key"},"status":"failed"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      approval_requests = client.v2.core.approval_requests.list
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests"
+    end
+    should "Test v2 core approval request get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123").to_return(
+        body: '{"object":"v2.core.approval_request","action":"refund.create","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"requested_by":{"type":"api_key"},"status":"failed"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      approval_request = client.v2.core.approval_requests.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123"
+    end
+    should "Test v2 core approval request post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123").to_return(
+        body: '{"object":"v2.core.approval_request","action":"refund.create","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"requested_by":{"type":"api_key"},"status":"failed"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      approval_request = client.v2.core.approval_requests.update("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123"
+    end
+    should "Test v2 core approval request post 2 (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123/cancel"
+      ).to_return(
+        body: '{"object":"v2.core.approval_request","action":"refund.create","created":"1970-01-12T21:42:34.472Z","expires_at":"1970-01-10T15:36:51.170Z","id":"obj_123","livemode":true,"requested_by":{"type":"api_key"},"status":"failed"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      approval_request = client.v2.core.approval_requests.cancel("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/core/approval_requests/id_123/cancel"
+    end
     should "Test v2 core batch job post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/batch_jobs").to_return(
         body: '{"object":"v2.core.batch_job","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"metadata":{"key":"metadata"},"skip_validation":true,"status":"batch_failed"}',
@@ -8273,7 +8316,7 @@ module Stripe
     end
     should "Test v2 core vault gb bank account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts").to_return(
-        body: '{"data":[{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8283,7 +8326,7 @@ module Stripe
     end
     should "Test v2 core vault gb bank account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts").to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}',
+        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8296,7 +8339,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123"
       ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}',
+        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8309,7 +8352,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/acknowledge_confirmation_of_payee"
       ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}',
+        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8322,7 +8365,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/archive"
       ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}',
+        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8335,7 +8378,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/gb_bank_accounts/id_123/initiate_confirmation_of_payee"
       ).to_return(
-        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"]}',
+        body: '{"object":"v2.core.vault.gb_bank_account","archived":true,"bank_account_type":"toza","bank_name":"bank_name","confirmation_of_payee":{"result":{"created":"1970-01-12T21:42:34.472Z","match_result":"unavailable","matched":{},"message":"message","provided":{"business_type":"personal","name":"name"}},"status":"awaiting_acknowledgement"},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"]}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8345,7 +8388,7 @@ module Stripe
     end
     should "Test v2 core vault us bank account get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"data":[{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8355,7 +8398,7 @@ module Stripe
     end
     should "Test v2 core vault us bank account post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts").to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8371,7 +8414,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
       ).to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8384,7 +8427,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123"
       ).to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8397,7 +8440,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/archive"
       ).to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8410,7 +8453,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits"
       ).to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8423,7 +8466,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/core/vault/us_bank_accounts/id_123/send_microdeposits"
       ).to_return(
-        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
+        body: '{"object":"v2.core.vault.us_bank_account","archived":true,"bank_account_type":"savings","bank_name":"bank_name","created":"1970-01-12T21:42:34.472Z","id":"obj_123","last4":"last4","livemode":true,"restricted":true,"supported_currencies":["supported_currencies"],"verification":{"status":"verification_failed"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8835,7 +8878,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
       ).to_return(
-        body: '{"data":[{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}},"status":"requires_payout_method","usage_intent":"payment"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}},"status":"requires_payout_method","usage_intent":"payment"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8848,7 +8891,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents"
       ).to_return(
-        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}},"status":"requires_payout_method","usage_intent":"payment"}',
+        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8861,7 +8904,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
       ).to_return(
-        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}},"status":"requires_payout_method","usage_intent":"payment"}',
+        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8874,7 +8917,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123"
       ).to_return(
-        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}},"status":"requires_payout_method","usage_intent":"payment"}',
+        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8887,7 +8930,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/outbound_setup_intents/id_123/cancel"
       ).to_return(
-        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}},"status":"requires_payout_method","usage_intent":"payment"}',
+        body: '{"object":"v2.money_management.outbound_setup_intent","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"payout_method":{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}},"status":"requires_payout_method","usage_intent":"payment"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8965,7 +9008,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods"
       ).to_return(
-        body: '{"data":[{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8978,7 +9021,7 @@ module Stripe
         :get,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -8991,7 +9034,7 @@ module Stripe
         :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/archive"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9002,9 +9045,22 @@ module Stripe
     should "Test v2 money management payout method post 2 (service)" do
       stub_request(
         :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/disable"
+      ).to_return(
+        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      payout_method = client.v2.money_management.payout_methods.disable("id_123")
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/disable"
+    end
+    should "Test v2 money management payout method post 3 (service)" do
+      stub_request(
+        :post,
         "#{Stripe::DEFAULT_API_BASE}/v2/money_management/payout_methods/id_123/unarchive"
       ).to_return(
-        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"requires_action","transfers":"invalid"}}',
+        body: '{"object":"v2.money_management.payout_method","available_payout_speeds":["standard"],"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"restricted":true,"type":"bank_account","usage_status":{"payments":"eligible","transfers":"disabled"}}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9213,6 +9269,100 @@ module Stripe
 
       agreement = client.v2.orchestrated_commerce.agreements.terminate("id_123")
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/orchestrated_commerce/agreements/id_123/terminate"
+    end
+    should "Test v2 signals account activity post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity").to_return(
+        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"registration_attempt"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_activity = client.v2.signals.account_activity.create({ type: "registration_attempt" })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity"
+    end
+    should "Test v2 signals account activity delete (service)" do
+      stub_request(
+        :delete,
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity/id_123"
+      ).to_return(body: '{"id":"abc_123","object":"some.object.tag"}', status: 200)
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      deleted = client.v2.signals.account_activity.delete("id_123")
+      assert_requested :delete, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity/id_123"
+    end
+    should "Test v2 signals account activity get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity/id_123"
+      ).to_return(
+        body: '{"object":"v2.signals.account_activity","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"occurred_at":"1970-01-10T01:49:44.717Z","type":"registration_attempt"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_activity = client.v2.signals.account_activity.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_activity/id_123"
+    end
+    should "Test v2 signals account evaluation post (service)" do
+      stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations").to_return(
+        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_multi_accounting"],"requested_signals":["user_account_sharing"]}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_evaluation = client.v2.signals.account_evaluations.create({
+        account_details: {
+          account: "account",
+          customer: "customer",
+          data: {
+            defaults: {
+              profile: {
+                business_url: "business_url",
+                doing_business_as: "doing_business_as",
+                product_description: "product_description",
+              },
+            },
+          },
+        },
+        requested_signals: ["user_account_sharing"],
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations"
+    end
+    should "Test v2 signals account evaluation get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations/id_123"
+      ).to_return(
+        body: '{"object":"v2.signals.account_evaluation","account_details":{},"created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"pending_signals":["user_multi_accounting"],"requested_signals":["user_account_sharing"]}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_evaluation = client.v2.signals.account_evaluations.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_evaluations/id_123"
+    end
+    should "Test v2 signals account signal get (service)" do
+      stub_request(
+        :get,
+        "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=user_account_sharing"
+      ).to_return(
+        body: '{"data":[{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"user_account_sharing"}],"next_page_url":null,"previous_page_url":null}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_signals = client.v2.signals.account_signals.list({ type: ["user_account_sharing"] })
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals?type[0]=user_account_sharing"
+    end
+    should "Test v2 signals account signal get 2 (service)" do
+      stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals/id_123").to_return(
+        body: '{"object":"v2.signals.account_signal","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"type":"user_account_sharing"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      account_signal = client.v2.signals.account_signals.retrieve("id_123")
+      assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/signals/account_signals/id_123"
     end
     should "Test v2 test helpers financial address post (service)" do
       stub_request(

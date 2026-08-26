@@ -28,10 +28,12 @@ jobs:
       contents: read
 
     steps:
-    - uses: extractions/setup-just@v2
-    - uses: actions/checkout@v3
+    - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
+      with:
+        persist-credentials: false
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
       with:
         ruby-version:  3.1
     - name: Lint
@@ -39,7 +41,7 @@ jobs:
     - name: Build
       run: gem build stripe.gemspec
     - name: 'Upload Artifact'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
       with:
         name: gems
         path: '*.gem'
@@ -62,10 +64,12 @@ jobs:
             # use any modern-ish version
             ruby-version: '3.4'
     steps:
-    - uses: extractions/setup-just@v2
-    - uses: actions/checkout@v3
+    - uses: extractions/setup-just@dd310ad5a97d8e7b41793f8ef055398d51ad4de6 # v2.0.0
+    - uses: actions/checkout@a37ce9120846195fa4ece8f58b268e6043cb2f26 # v3.7.0
+      with:
+        persist-credentials: false
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
       with:
         ruby-version: ${{ matrix.ruby-version }}
     - uses: stripe/openapi/actions/stripe-mock@master
@@ -93,12 +97,12 @@ jobs:
       contents: read
     steps:
     - name: Download all workflow run artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
       with:
         name: gems
         path: gems
     - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
       with:
         ruby-version:  3.1
     - name: Publish gems to Rubygems

@@ -82,7 +82,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Information about cardholder acceptance of Celtic [Authorized User Terms](https://stripe.com/docs/issuing/cards#accept-authorized-user-terms). Required for cards backed by a Celtic program.
+          # Information about cardholder acceptance of Celtic [Authorized User Terms](https://docs.stripe.com/issuing/compliance-us#issuing-terms). Required for cards backed by a Celtic program.
           attr_reader :user_terms_acceptance
 
           def self.inner_class_types

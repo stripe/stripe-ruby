@@ -4,6 +4,24 @@
 module Stripe
   module Issuing
     class CardCreateParams < ::Stripe::RequestParams
+      class CryptoWallet < ::Stripe::RequestParams
+        # The public address of the crypto wallet.
+        attr_accessor :address
+        # The blockchain network the wallet is on.
+        attr_accessor :chain
+        # The cryptocurrency held in the wallet.
+        attr_accessor :currency
+        # The type of wallet (standard or bridge_wallet).
+        attr_accessor :type
+
+        def initialize(address: nil, chain: nil, currency: nil, type: nil)
+          @address = address
+          @chain = chain
+          @currency = currency
+          @type = type
+        end
+      end
+
       class LifecycleControls < ::Stripe::RequestParams
         class CancelAfter < ::Stripe::RequestParams
           # The card is automatically cancelled when it makes this number of non-zero payment authorizations and transactions. The count includes penny authorizations, but doesn't include non-payment actions, such as authorization advice.
@@ -171,6 +189,8 @@ module Stripe
       end
       # The [Cardholder](https://docs.stripe.com/api#issuing_cardholder_object) object with which the card will be associated.
       attr_accessor :cardholder
+      # The crypto wallet to attach this card to for Bridge integration.
+      attr_accessor :crypto_wallet
       # The currency for the card.
       attr_accessor :currency
       # The desired expiration month (1-12) for this card if [specifying a custom expiration date](/issuing/cards/virtual/issue-cards?testing-method=with-code#exp-dates).
@@ -208,6 +228,7 @@ module Stripe
 
       def initialize(
         cardholder: nil,
+        crypto_wallet: nil,
         currency: nil,
         exp_month: nil,
         exp_year: nil,
@@ -227,6 +248,7 @@ module Stripe
         type: nil
       )
         @cardholder = cardholder
+        @crypto_wallet = crypto_wallet
         @currency = currency
         @exp_month = exp_month
         @exp_year = exp_year

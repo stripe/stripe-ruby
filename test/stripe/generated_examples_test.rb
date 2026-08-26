@@ -4455,14 +4455,14 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents/seti_xxxxxxxxxxxxx"
     end
     should "Test setup intents post" do
-      setup_intent = Stripe::SetupIntent.create({ payment_method_types: ["card"] })
+      setup_intent = Stripe::SetupIntent.create({ allowed_payment_method_types: ["card"] })
       assert_requested :post, "#{Stripe.api_base}/v1/setup_intents"
     end
     should "Test setup intents post (service)" do
       stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents").to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      setup_intent = client.v1.setup_intents.create({ payment_method_types: ["card"] })
+      setup_intent = client.v1.setup_intents.create({ allowed_payment_method_types: ["card"] })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/setup_intents"
     end
     should "Test setup intents post 2" do
@@ -9901,7 +9901,7 @@ module Stripe
     end
     should "Test v2 iam activity log get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs").to_return(
-        body: '{"data":[{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"api_key"},"id":"obj_123","livemode":true,"type":"api_key_created"}],"next_page_url":null,"previous_page_url":null}',
+        body: '{"data":[{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"user_invite"},"id":"obj_123","livemode":true,"type":"api_key_created"}],"next_page_url":null,"previous_page_url":null}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")
@@ -9911,7 +9911,7 @@ module Stripe
     end
     should "Test v2 iam activity log get 2 (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/iam/activity_logs/id_123").to_return(
-        body: '{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"api_key"},"id":"obj_123","livemode":true,"type":"api_key_created"}',
+        body: '{"object":"v2.iam.activity_log","actor":{"type":"api_key"},"context":"context","created":"1970-01-12T21:42:34.472Z","details":{"type":"user_invite"},"id":"obj_123","livemode":true,"type":"api_key_created"}',
         status: 200
       )
       client = Stripe::StripeClient.new("sk_test_123")

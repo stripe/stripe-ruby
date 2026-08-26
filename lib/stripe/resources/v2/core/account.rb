@@ -3747,6 +3747,93 @@ module Stripe
                 end
               end
 
+              class BlikRecurringPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    attr_reader :expires_at
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    attr_reader :requested_at
+                    # The current status of the protection.
+                    attr_reader :status
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = { expires_at: :int64_string, requested_at: :int64_string }
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  attr_reader :psp_migration
+
+                  def self.inner_class_types
+                    @inner_class_types = { psp_migration: PspMigration }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: { expires_at: :int64_string, requested_at: :int64_string },
+                      },
+                    }
+                  end
+                end
+
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                attr_reader :protections
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: { expires_at: :int64_string, requested_at: :int64_string },
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+
               class BoletoPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
@@ -6929,6 +7016,8 @@ module Stripe
               attr_reader :bancontact_payments
               # Allow the merchant to process BLIK payments.
               attr_reader :blik_payments
+              # Allow the merchant to process recurring BLIK payments.
+              attr_reader :blik_recurring_payments
               # Allow the merchant to process Boleto payments.
               attr_reader :boleto_payments
               # Allow the merchant to collect card payments.
@@ -7014,6 +7103,7 @@ module Stripe
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   blik_payments: BlikPayments,
+                  blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
                   card_payments: CardPayments,
                   cartes_bancaires_payments: CartesBancairesPayments,
@@ -7186,6 +7276,20 @@ module Stripe
                     },
                   },
                   blik_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  blik_recurring_payments: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -8117,6 +8221,20 @@ module Stripe
                       },
                     },
                     blik_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    blik_recurring_payments: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -16054,6 +16172,20 @@ module Stripe
                           },
                         },
                       },
+                      blik_recurring_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
                       boleto_payments: {
                         kind: :object,
                         fields: {
@@ -20638,6 +20770,20 @@ module Stripe
                           },
                         },
                         blik_payments: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        blik_recurring_payments: {
                           kind: :object,
                           fields: {
                             protections: {

@@ -46,6 +46,21 @@ module Stripe
           @phone = phone
         end
       end
+
+      class UserConsent < ::Stripe::RequestParams
+        # The time at which the user gave consent, as a Unix timestamp.
+        attr_accessor :date
+        # The IP address of the user when they gave consent.
+        attr_accessor :ip
+        # The user agent of the browser or device the user used to give consent.
+        attr_accessor :user_agent
+
+        def initialize(date: nil, ip: nil, user_agent: nil)
+          @date = date
+          @ip = ip
+          @user_agent = user_agent
+        end
+      end
       # Confirm and submit the provided details for verification.
       attr_accessor :confirm
       # Specifies which fields in the response should be expanded.
@@ -58,6 +73,8 @@ module Stripe
       attr_accessor :provided_details
       # The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
       attr_accessor :type
+      # Details on the user's consent to Stripe Terms of Service and Privacy Policy.
+      attr_accessor :user_consent
 
       def initialize(
         confirm: nil,
@@ -65,7 +82,8 @@ module Stripe
         metadata: nil,
         options: nil,
         provided_details: nil,
-        type: nil
+        type: nil,
+        user_consent: nil
       )
         @confirm = confirm
         @expand = expand
@@ -73,6 +91,7 @@ module Stripe
         @options = options
         @provided_details = provided_details
         @type = type
+        @user_consent = user_consent
       end
     end
   end

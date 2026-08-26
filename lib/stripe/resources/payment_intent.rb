@@ -3389,11 +3389,57 @@ module Stripe
       end
 
       class Billie < ::Stripe::StripeObject
+        class CompanyDetails < ::Stripe::StripeObject
+          class RegisteredAddress < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code.
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field registered_address
+          attr_reader :registered_address
+          # Company or entity name.
+          attr_reader :registered_name
+          # The official registration number for the given registration type.
+          attr_reader :registration_number
+          # Type of registration the company or entity holds in their registered country.
+          attr_reader :registration_type
+          # VAT id number
+          attr_reader :vat
+
+          def self.inner_class_types
+            @inner_class_types = { registered_address: RegisteredAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Attribute for field company_details
+        attr_reader :company_details
+        # An identifier or reference that this payment corresponds to.
+        attr_reader :reference
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { company_details: CompanyDetails }
         end
 
         def self.field_remappings
@@ -4696,27 +4742,6 @@ module Stripe
         end
       end
 
-      class Sequra < ::Stripe::StripeObject
-        # Controls when the funds will be captured from the customer's account.
-        attr_reader :capture_method
-        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
-        #
-        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
-        #
-        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
-        #
-        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        attr_reader :setup_future_usage
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class Shopeepay < ::Stripe::StripeObject
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -5172,8 +5197,6 @@ module Stripe
       attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
-      # Attribute for field sequra
-      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -5253,7 +5276,6 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
-          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,

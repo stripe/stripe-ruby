@@ -68,6 +68,15 @@ module Stripe
           end
         end
 
+        class SubscriptionPause < ::Stripe::RequestParams
+          # The ID of the subscription to be paused.
+          attr_accessor :subscription
+
+          def initialize(subscription: nil)
+            @subscription = subscription
+          end
+        end
+
         class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           attr_accessor :subscription
@@ -121,6 +130,8 @@ module Stripe
         attr_accessor :after_completion
         # Configuration when `flow_data.type=subscription_cancel`.
         attr_accessor :subscription_cancel
+        # Configuration when `flow_data.type=subscription_pause`.
+        attr_accessor :subscription_pause
         # Configuration when `flow_data.type=subscription_update`.
         attr_accessor :subscription_update
         # Configuration when `flow_data.type=subscription_update_confirm`.
@@ -131,12 +142,14 @@ module Stripe
         def initialize(
           after_completion: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil,
           subscription_update_confirm: nil,
           type: nil
         )
           @after_completion = after_completion
           @subscription_cancel = subscription_cancel
+          @subscription_pause = subscription_pause
           @subscription_update = subscription_update
           @subscription_update_confirm = subscription_update_confirm
           @type = type

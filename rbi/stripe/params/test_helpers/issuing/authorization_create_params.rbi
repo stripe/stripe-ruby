@@ -661,6 +661,11 @@ module Stripe
           params(_network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData)).returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData))
          }
         def network_data=(_network_data); end
+        # The point-of-sale initiation condition for this test authorization.
+        sig { returns(T.nilable(String)) }
+        def pos_condition; end
+        sig { params(_pos_condition: T.nilable(String)).returns(T.nilable(String)) }
+        def pos_condition=(_pos_condition); end
         # Stripe’s assessment of the fraud risk for this authorization.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment))
@@ -685,7 +690,7 @@ module Stripe
         sig { params(_wallet: T.nilable(String)).returns(T.nilable(String)) }
         def wallet=(_wallet); end
         sig {
-          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
+          params(amount: T.nilable(Integer), amount_details: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::AmountDetails), authorization_method: T.nilable(String), card: String, currency: T.nilable(String), expand: T.nilable(T::Array[String]), fleet: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fleet), fraud_disputability_likelihood: T.nilable(String), fuel: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Fuel), healthcare: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::Healthcare), is_amount_controllable: T.nilable(T::Boolean), merchant_amount: T.nilable(Integer), merchant_currency: T.nilable(String), merchant_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::MerchantData), network_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::NetworkData), pos_condition: T.nilable(String), risk_assessment: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::RiskAssessment), verification_data: T.nilable(::Stripe::TestHelpers::Issuing::AuthorizationCreateParams::VerificationData), wallet: T.nilable(String)).void
          }
         def initialize(
           amount: nil,
@@ -703,6 +708,7 @@ module Stripe
           merchant_currency: nil,
           merchant_data: nil,
           network_data: nil,
+          pos_condition: nil,
           risk_assessment: nil,
           verification_data: nil,
           wallet: nil

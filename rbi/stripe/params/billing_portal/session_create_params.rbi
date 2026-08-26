@@ -102,6 +102,15 @@ module Stripe
            }
           def initialize(retention: nil, subscription: nil); end
         end
+        class SubscriptionPause < ::Stripe::RequestParams
+          # The ID of the subscription to be paused.
+          sig { returns(String) }
+          def subscription; end
+          sig { params(_subscription: String).returns(String) }
+          def subscription=(_subscription); end
+          sig { params(subscription: String).void }
+          def initialize(subscription: nil); end
+        end
         class SubscriptionUpdate < ::Stripe::RequestParams
           # The ID of the subscription to be updated.
           sig { returns(String) }
@@ -191,6 +200,15 @@ module Stripe
           params(_subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel))
          }
         def subscription_cancel=(_subscription_cancel); end
+        # Configuration when `flow_data.type=subscription_pause`.
+        sig {
+          returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause))
+         }
+        def subscription_pause; end
+        sig {
+          params(_subscription_pause: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause)).returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause))
+         }
+        def subscription_pause=(_subscription_pause); end
         # Configuration when `flow_data.type=subscription_update`.
         sig {
           returns(T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate))
@@ -215,11 +233,12 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(after_completion: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::AfterCompletion), subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel), subscription_update: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate), subscription_update_confirm: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm), type: String).void
+          params(after_completion: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::AfterCompletion), subscription_cancel: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionCancel), subscription_pause: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionPause), subscription_update: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdate), subscription_update_confirm: T.nilable(::Stripe::BillingPortal::SessionCreateParams::FlowData::SubscriptionUpdateConfirm), type: String).void
          }
         def initialize(
           after_completion: nil,
           subscription_cancel: nil,
+          subscription_pause: nil,
           subscription_update: nil,
           subscription_update_confirm: nil,
           type: nil

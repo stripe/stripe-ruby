@@ -464,6 +464,136 @@ module Stripe
         encoding = { kind: :unknown }
         assert_equal 42, Stripe::RequestParams.coerce_value(42, encoding)
       end
+
+      should "return nil as-is for nullable encoding" do
+        encoding = { kind: :nullable, inner: :int64_string }
+        assert_nil Stripe::RequestParams.coerce_value(nil, encoding)
+      end
+
+      should "coerce non-nil value using inner schema for nullable encoding" do
+        encoding = { kind: :nullable, inner: :int64_string }
+        assert_equal "42", Stripe::RequestParams.coerce_value(42, encoding)
+        assert_equal "0", Stripe::RequestParams.coerce_value(0, encoding)
+      end
+
+      should "coerce non-nil object using inner schema for nullable encoding" do
+        encoding = {
+          kind: :nullable,
+          inner: { kind: :object, fields: { amount: :int64_string } },
+        }
+        input = { amount: 100, name: "test" }
+        expected = { amount: "100", name: "test" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "return non-Hash as-is for discriminated_union encoding" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: { card: { kind: :object, fields: { number: :int64_string } } },
+        }
+        assert_equal "not a hash", Stripe::RequestParams.coerce_value("not a hash", encoding)
+        assert_equal 42, Stripe::RequestParams.coerce_value(42, encoding)
+      end
+
+      should "coerce hash using matching variant schema for discriminated_union" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: {
+            card: { kind: :object, fields: { exp_year: :int64_string } },
+            bank_account: { kind: :object, fields: { routing_number: :int64_string } },
+          },
+        }
+        card_input = { type: "card", exp_year: 2025, name: "Jane" }
+        card_expected = { type: "card", exp_year: "2025", name: "Jane" }
+        assert_equal card_expected, Stripe::RequestParams.coerce_value(card_input, encoding)
+
+        bank_input = { type: "bank_account", routing_number: 110_000_000, name: "Jane" }
+        bank_expected = { type: "bank_account", routing_number: "110000000", name: "Jane" }
+        assert_equal bank_expected, Stripe::RequestParams.coerce_value(bank_input, encoding)
+      end
+
+      should "coerce hash with string keys for discriminated_union" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: {
+            card: { kind: :object, fields: { exp_year: :int64_string } },
+          },
+        }
+        input = { "type" => "card", "exp_year" => 2025, "name" => "Jane" }
+        expected = { "type" => "card", "exp_year" => "2025", "name" => "Jane" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "raise when discriminator field is absent for discriminated_union" do
+        # coerce_value is the encode path, where an unusable discriminator means
+        # int64_string fields silently go out as raw JSON numbers.
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: { card: { kind: :object, fields: { exp_year: :int64_string } } },
+        }
+        assert_raises ArgumentError do
+          Stripe::RequestParams.coerce_value({ exp_year: 2025, name: "Jane" }, encoding)
+        end
+      end
+
+      should "raise when discriminator field is not name-like for discriminated_union" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: { card: { kind: :object, fields: { exp_year: :int64_string } } },
+        }
+        assert_raises ArgumentError do
+          Stripe::RequestParams.coerce_value({ type: 123, exp_year: 2025 }, encoding)
+        end
+      end
+
+      should "return hash as-is when discriminator value has no matching variant" do
+        encoding = {
+          kind: :discriminated_union,
+          discriminator: "type",
+          variants: { card: { kind: :object, fields: { exp_year: :int64_string } } },
+        }
+        input = { type: "unknown_type", exp_year: 2025 }
+        assert_equal input, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "coerce discriminated_union nested inside an array" do
+        encoding = {
+          kind: :array,
+          element: {
+            kind: :discriminated_union,
+            discriminator: "type",
+            variants: {
+              card: { kind: :object, fields: { exp_year: :int64_string } },
+            },
+          },
+        }
+        input = [{ type: "card", exp_year: 2025 }, { type: "other", exp_year: 2026 }]
+        expected = [{ type: "card", exp_year: "2025" }, { type: "other", exp_year: 2026 }]
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
+
+      should "coerce nullable wrapping a discriminated_union" do
+        encoding = {
+          kind: :nullable,
+          inner: {
+            kind: :discriminated_union,
+            discriminator: "type",
+            variants: {
+              card: { kind: :object, fields: { exp_year: :int64_string } },
+            },
+          },
+        }
+        assert_nil Stripe::RequestParams.coerce_value(nil, encoding)
+
+        input = { type: "card", exp_year: 2025 }
+        expected = { type: "card", exp_year: "2025" }
+        assert_equal expected, Stripe::RequestParams.coerce_value(input, encoding)
+      end
     end
 
     context ".coerce_params" do

@@ -905,7 +905,7 @@ module Stripe
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
         def enabled=(_enabled); end
-        # An empty list, because this embedded component has no features.
+        # The list of features enabled in the embedded component.
         sig {
           returns(T.nilable(::Stripe::AccountSessionCreateParams::Components::PaymentMethodSettings::Features))
          }

@@ -745,6 +745,33 @@ module Stripe
         end
       end
 
+      class PaymentMethodSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_reader :disable_stripe_user_authentication
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payments < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -1061,6 +1088,8 @@ module Stripe
       attr_reader :payment_details
       # Attribute for field payment_disputes
       attr_reader :payment_disputes
+      # Attribute for field payment_method_settings
+      attr_reader :payment_method_settings
       # Attribute for field payments
       attr_reader :payments
       # Attribute for field payout_details
@@ -1109,6 +1138,7 @@ module Stripe
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
           payment_disputes: PaymentDisputes,
+          payment_method_settings: PaymentMethodSettings,
           payments: Payments,
           payout_details: PayoutDetails,
           payout_reconciliation_report: PayoutReconciliationReport,

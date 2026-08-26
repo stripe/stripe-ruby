@@ -100,7 +100,7 @@ module Stripe
             @value = value
           end
         end
-        # The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
+        # The value that pre-fills the field on the payment page. Must match a `value` in the `options` array.
         attr_accessor :default_value
         # The options available for the customer to select. Up to 200 options allowed.
         attr_accessor :options

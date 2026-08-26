@@ -47,6 +47,17 @@ module Stripe
         Events::V2CoreAccountPersonDeletedEvent.lookup_type => Events::V2CoreAccountPersonDeletedEvent,
         Events::V2CoreAccountPersonUpdatedEvent.lookup_type => Events::V2CoreAccountPersonUpdatedEvent,
         Events::V2CoreAccountUpdatedEvent.lookup_type => Events::V2CoreAccountUpdatedEvent,
+        Events::V2CoreApprovalRequestApprovedEvent.lookup_type =>
+        Events::V2CoreApprovalRequestApprovedEvent,
+        Events::V2CoreApprovalRequestCanceledEvent.lookup_type =>
+        Events::V2CoreApprovalRequestCanceledEvent,
+        Events::V2CoreApprovalRequestCreatedEvent.lookup_type => Events::V2CoreApprovalRequestCreatedEvent,
+        Events::V2CoreApprovalRequestExpiredEvent.lookup_type => Events::V2CoreApprovalRequestExpiredEvent,
+        Events::V2CoreApprovalRequestFailedEvent.lookup_type => Events::V2CoreApprovalRequestFailedEvent,
+        Events::V2CoreApprovalRequestRejectedEvent.lookup_type =>
+        Events::V2CoreApprovalRequestRejectedEvent,
+        Events::V2CoreApprovalRequestSucceededEvent.lookup_type =>
+        Events::V2CoreApprovalRequestSucceededEvent,
         Events::V2CoreBatchJobBatchFailedEvent.lookup_type => Events::V2CoreBatchJobBatchFailedEvent,
         Events::V2CoreBatchJobCanceledEvent.lookup_type => Events::V2CoreBatchJobCanceledEvent,
         Events::V2CoreBatchJobCompletedEvent.lookup_type => Events::V2CoreBatchJobCompletedEvent,
@@ -156,6 +167,8 @@ module Stripe
         Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEvent,
         Events::V2OrchestratedCommerceAgreementTerminatedEvent.lookup_type =>
         Events::V2OrchestratedCommerceAgreementTerminatedEvent,
+        Events::V2SignalsAccountEvaluationCompleteEvent.lookup_type =>
+        Events::V2SignalsAccountEvaluationCompleteEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -213,6 +226,20 @@ module Stripe
         Events::V2CoreAccountPersonUpdatedEventNotification,
         Events::V2CoreAccountUpdatedEventNotification.lookup_type =>
         Events::V2CoreAccountUpdatedEventNotification,
+        Events::V2CoreApprovalRequestApprovedEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestApprovedEventNotification,
+        Events::V2CoreApprovalRequestCanceledEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestCanceledEventNotification,
+        Events::V2CoreApprovalRequestCreatedEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestCreatedEventNotification,
+        Events::V2CoreApprovalRequestExpiredEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestExpiredEventNotification,
+        Events::V2CoreApprovalRequestFailedEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestFailedEventNotification,
+        Events::V2CoreApprovalRequestRejectedEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestRejectedEventNotification,
+        Events::V2CoreApprovalRequestSucceededEventNotification.lookup_type =>
+        Events::V2CoreApprovalRequestSucceededEventNotification,
         Events::V2CoreBatchJobBatchFailedEventNotification.lookup_type =>
         Events::V2CoreBatchJobBatchFailedEventNotification,
         Events::V2CoreBatchJobCanceledEventNotification.lookup_type =>
@@ -335,6 +362,8 @@ module Stripe
         Events::V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
         Events::V2OrchestratedCommerceAgreementTerminatedEventNotification.lookup_type =>
         Events::V2OrchestratedCommerceAgreementTerminatedEventNotification,
+        Events::V2SignalsAccountEvaluationCompleteEventNotification.lookup_type =>
+        Events::V2SignalsAccountEvaluationCompleteEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

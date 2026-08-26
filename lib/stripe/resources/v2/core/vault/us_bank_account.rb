@@ -81,6 +81,8 @@ module Stripe
           attr_reader :livemode
           # String representing the object's type. Objects of the same type share the same value of the object field.
           attr_reader :object
+          # Whether the US Bank Account is currently unusable for money movement, despite potentially being correctly set up. Please reach out to Stripe Support for more information.
+          attr_reader :restricted
           # The ACH routing number of the bank account.
           attr_reader :routing_number
           # The list of currencies supported by this bank account.

@@ -233,13 +233,13 @@ module Stripe
           end
           # One or more documents that demonstrate proof that this person is authorized to represent the company.
           attr_reader :company_authorization
-          # One or more documents showing the person’s passport page with photo and personal data.
+          # One or more documents showing the person's passport page with photo and personal data.
           attr_reader :passport
           # An identifying document showing the person's name, either a passport or local ID card.
           attr_reader :primary_verification
           # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
           attr_reader :secondary_verification
-          # One or more documents showing the person’s visa required for living in the country where they are residing.
+          # One or more documents showing the person's visa required for living in the country where they are residing.
           attr_reader :visa
 
           def self.inner_class_types

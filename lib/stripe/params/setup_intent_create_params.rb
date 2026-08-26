@@ -1385,8 +1385,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this SetupIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/setup_intents/create#create_setup_intent-confirm).
     attr_accessor :return_url
     # If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
@@ -1417,7 +1415,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       return_url: nil,
       single_use: nil,
       usage: nil,
@@ -1441,7 +1438,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @return_url = return_url
       @single_use = single_use
       @usage = usage

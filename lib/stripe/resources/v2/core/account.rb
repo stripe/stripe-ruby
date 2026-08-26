@@ -2982,6 +2982,8 @@ module Stripe
           attr_reader :currency
           # The Account's preferred locales (languages), ordered by preference.
           attr_reader :locales
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          attr_reader :payout_methods
           # Account profile information.
           attr_reader :profile
           # Default responsibilities held by either Stripe or the platform.
@@ -3576,23 +3578,23 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
+              # One or more documents that support the Bank account ownership verification requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               attr_reader :bank_account_ownership_verification
-              # One or more documents that demonstrate proof of a company’s license to operate.
+              # One or more documents that demonstrate proof of a company's license to operate.
               attr_reader :company_license
-              # One or more documents showing the company’s Memorandum of Association.
+              # One or more documents showing the company's Memorandum of Association.
               attr_reader :company_memorandum_of_association
-              # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
+              # Certain countries only: One or more documents showing the ministerial decree legalizing the company's establishment.
               attr_reader :company_ministerial_decree
-              # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
+              # One or more documents that demonstrate proof of a company's registration with the appropriate local authorities.
               attr_reader :company_registration_verification
-              # One or more documents that demonstrate proof of a company’s tax ID.
+              # One or more documents that demonstrate proof of a company's tax ID.
               attr_reader :company_tax_id_verification
               # A document verifying the business.
               attr_reader :primary_verification
               # One or more documents that demonstrate proof of address.
               attr_reader :proof_of_address
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents showing the company's proof of registration with the national business registry.
               attr_reader :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_reader :proof_of_ultimate_beneficial_ownership
@@ -3767,7 +3769,7 @@ module Stripe
             end
             # Additional addresses associated with the business.
             attr_reader :additional_addresses
-            # The company’s primary address.
+            # The company's primary address.
             attr_reader :address
             # The business gross annual revenue for its preceding fiscal year.
             attr_reader :annual_revenue
@@ -3779,7 +3781,7 @@ module Stripe
             attr_reader :id_numbers
             # An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
             attr_reader :monthly_estimated_revenue
-            # The company’s phone number (used for verification).
+            # The company's phone number (used for verification).
             attr_reader :phone
             # The business legal name.
             attr_reader :registered_name
@@ -4034,13 +4036,13 @@ module Stripe
               end
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               attr_reader :company_authorization
-              # One or more documents showing the person’s passport page with photo and personal data.
+              # One or more documents showing the person's passport page with photo and personal data.
               attr_reader :passport
               # An identifying document showing the person's name, either a passport or local ID card.
               attr_reader :primary_verification
               # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
               attr_reader :secondary_verification
-              # One or more documents showing the person’s visa required for living in the country where they are residing.
+              # One or more documents showing the person's visa required for living in the country where they are residing.
               attr_reader :visa
 
               def self.inner_class_types
@@ -4233,7 +4235,7 @@ module Stripe
             attr_reader :id
             # The identification numbers (e.g., SSN) associated with the individual.
             attr_reader :id_numbers
-            # The individual's gender (International regulations require either "male” or "female").
+            # The individual's gender (International regulations require either "male" or "female").
             attr_reader :legal_gender
             # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             attr_reader :metadata

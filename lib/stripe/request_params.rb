@@ -28,11 +28,35 @@ module Stripe
           end
         end
       end
+
+      # Declares this class a discriminated-union variant with a fixed tag.
+      #
+      # The tag is deliberately kept outside the explicit-set tracking used by
+      # attr_accessor: the wire format requires it in order to route the union,
+      # so it is always serialized whether or not the caller mentioned it, but
+      # there should be no reason to change it after a variant instance is
+      # created.
+      def discriminator(name, value)
+        fields = { name.to_sym => value }
+        define_singleton_method(:discriminator_fields) { fields }
+        define_method(name) { value }
+      end
+
+      # The fields contributed by a `discriminator` declaration, or an empty
+      # hash for a class that is not a union variant.
+      #
+      # `discriminator` overrides this on the declaring class's singleton rather
+      # than storing a class-level instance variable, because singleton methods
+      # are inherited and class-level instance variables are not — otherwise a
+      # subclass of a variant would silently serialize without its tag.
+      def discriminator_fields
+        {}
+      end
     end
 
     def to_h
       encodings = self.class.field_encodings
-      instance_variables.each_with_object({}) do |var, hash|
+      hash = instance_variables.each_with_object({}) do |var, hash|
         # _explicitly_set_keys is set as an instance variable.
         # Ignore the var if it is _explicitly_set_keys itself.
         next if var == :@_explicitly_set_keys
@@ -56,6 +80,11 @@ module Stripe
         encoding = encodings[key]
         hash[key] = self.class.coerce_value(hash[key], encoding) if encoding
       end
+
+      # Merged last so the declared tag wins over any same-named instance
+      # variable. Ordering the tag last is cosmetic: Hash equality is
+      # order-independent and JSON has no ordering semantics.
+      hash.merge(self.class.discriminator_fields)
     end
 
     def self.field_encodings

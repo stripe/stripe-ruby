@@ -119,7 +119,7 @@ module Stripe
                 @field_remappings = {}
               end
               def self.field_encodings
-                @field_encodings = {gross_amount_decimal: :decimal_string}
+                @field_encodings = {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}}
               end
             end
             class NonFuel < ::Stripe::StripeObject
@@ -133,7 +133,7 @@ module Stripe
                 @field_remappings = {}
               end
               def self.field_encodings
-                @field_encodings = {gross_amount_decimal: :decimal_string}
+                @field_encodings = {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}}
               end
             end
             class Tax < ::Stripe::StripeObject
@@ -151,8 +151,8 @@ module Stripe
               end
               def self.field_encodings
                 @field_encodings = {
-                  local_amount_decimal: :decimal_string,
-                  national_amount_decimal: :decimal_string,
+                  local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                  national_amount_decimal: {kind: :nullable, inner: :decimal_string},
                 }
               end
             end
@@ -173,13 +173,28 @@ module Stripe
             end
             def self.field_encodings
               @field_encodings = {
-                fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
+                fuel: {
+                  kind: :nullable,
+                  inner: {
+                    kind: :object,
+                    fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                  },
+                },
+                non_fuel: {
+                  kind: :nullable,
+                  inner: {
+                    kind: :object,
+                    fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                  },
+                },
                 tax: {
-                  kind: :object,
-                  fields: {
-                    local_amount_decimal: :decimal_string,
-                    national_amount_decimal: :decimal_string,
+                  kind: :nullable,
+                  inner: {
+                    kind: :object,
+                    fields: {
+                      local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                      national_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                    },
                   },
                 },
               }
@@ -209,15 +224,33 @@ module Stripe
           def self.field_encodings
             @field_encodings = {
               reported_breakdown: {
-                kind: :object,
-                fields: {
-                  fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                  non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                  tax: {
-                    kind: :object,
-                    fields: {
-                      local_amount_decimal: :decimal_string,
-                      national_amount_decimal: :decimal_string,
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {
+                    fuel: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                      },
+                    },
+                    non_fuel: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: {gross_amount_decimal: {kind: :nullable, inner: :decimal_string}},
+                      },
+                    },
+                    tax: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: {
+                          local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                          national_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                        },
+                      },
                     },
                   },
                 },
@@ -298,7 +331,7 @@ module Stripe
           end
           def self.field_encodings
             @field_encodings = {
-              quantity_decimal: :decimal_string,
+              quantity_decimal: {kind: :nullable, inner: :decimal_string},
               unit_cost_decimal: :decimal_string,
             }
           end
@@ -370,18 +403,43 @@ module Stripe
         def self.field_encodings
           @field_encodings = {
             fleet: {
-              kind: :object,
-              fields: {
-                reported_breakdown: {
-                  kind: :object,
-                  fields: {
-                    fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                    non_fuel: {kind: :object, fields: {gross_amount_decimal: :decimal_string}},
-                    tax: {
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  reported_breakdown: {
+                    kind: :nullable,
+                    inner: {
                       kind: :object,
                       fields: {
-                        local_amount_decimal: :decimal_string,
-                        national_amount_decimal: :decimal_string,
+                        fuel: {
+                          kind: :nullable,
+                          inner: {
+                            kind: :object,
+                            fields: {
+                              gross_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                            },
+                          },
+                        },
+                        non_fuel: {
+                          kind: :nullable,
+                          inner: {
+                            kind: :object,
+                            fields: {
+                              gross_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                            },
+                          },
+                        },
+                        tax: {
+                          kind: :nullable,
+                          inner: {
+                            kind: :object,
+                            fields: {
+                              local_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                              national_amount_decimal: {kind: :nullable, inner: :decimal_string},
+                            },
+                          },
+                        },
                       },
                     },
                   },
@@ -389,8 +447,14 @@ module Stripe
               },
             },
             fuel: {
-              kind: :object,
-              fields: {quantity_decimal: :decimal_string, unit_cost_decimal: :decimal_string},
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  quantity_decimal: {kind: :nullable, inner: :decimal_string},
+                  unit_cost_decimal: :decimal_string,
+                },
+              },
             },
           }
         end

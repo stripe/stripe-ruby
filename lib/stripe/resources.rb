@@ -98,6 +98,7 @@ module Stripe
     autoload :CreditBalanceSummary, "stripe/resources/billing/credit_balance_summary"
     autoload :CreditBalanceTransaction, "stripe/resources/billing/credit_balance_transaction"
     autoload :CreditGrant, "stripe/resources/billing/credit_grant"
+    autoload :FeedbackOption, "stripe/resources/billing/feedback_option"
     autoload :Meter, "stripe/resources/billing/meter"
     autoload :MeterEvent, "stripe/resources/billing/meter_event"
     autoload :MeterEventAdjustment, "stripe/resources/billing/meter_event_adjustment"
@@ -220,6 +221,20 @@ module Stripe
     autoload :V2CoreAccountPersonUpdatedEventNotification, "stripe/events/v2_core_account_person_updated_event"
     autoload :V2CoreAccountUpdatedEvent, "stripe/events/v2_core_account_updated_event"
     autoload :V2CoreAccountUpdatedEventNotification, "stripe/events/v2_core_account_updated_event"
+    autoload :V2CoreApprovalRequestApprovedEvent, "stripe/events/v2_core_approval_request_approved_event"
+    autoload :V2CoreApprovalRequestApprovedEventNotification, "stripe/events/v2_core_approval_request_approved_event"
+    autoload :V2CoreApprovalRequestCanceledEvent, "stripe/events/v2_core_approval_request_canceled_event"
+    autoload :V2CoreApprovalRequestCanceledEventNotification, "stripe/events/v2_core_approval_request_canceled_event"
+    autoload :V2CoreApprovalRequestCreatedEvent, "stripe/events/v2_core_approval_request_created_event"
+    autoload :V2CoreApprovalRequestCreatedEventNotification, "stripe/events/v2_core_approval_request_created_event"
+    autoload :V2CoreApprovalRequestExpiredEvent, "stripe/events/v2_core_approval_request_expired_event"
+    autoload :V2CoreApprovalRequestExpiredEventNotification, "stripe/events/v2_core_approval_request_expired_event"
+    autoload :V2CoreApprovalRequestFailedEvent, "stripe/events/v2_core_approval_request_failed_event"
+    autoload :V2CoreApprovalRequestFailedEventNotification, "stripe/events/v2_core_approval_request_failed_event"
+    autoload :V2CoreApprovalRequestRejectedEvent, "stripe/events/v2_core_approval_request_rejected_event"
+    autoload :V2CoreApprovalRequestRejectedEventNotification, "stripe/events/v2_core_approval_request_rejected_event"
+    autoload :V2CoreApprovalRequestSucceededEvent, "stripe/events/v2_core_approval_request_succeeded_event"
+    autoload :V2CoreApprovalRequestSucceededEventNotification, "stripe/events/v2_core_approval_request_succeeded_event"
     autoload :V2CoreBatchJobBatchFailedEvent, "stripe/events/v2_core_batch_job_batch_failed_event"
     autoload :V2CoreBatchJobBatchFailedEventNotification, "stripe/events/v2_core_batch_job_batch_failed_event"
     autoload :V2CoreBatchJobCanceledEvent, "stripe/events/v2_core_batch_job_canceled_event"
@@ -423,6 +438,9 @@ module Stripe
              "stripe/events/v2_orchestrated_commerce_agreement_terminated_event"
     autoload :V2OrchestratedCommerceAgreementTerminatedEventNotification,
              "stripe/events/v2_orchestrated_commerce_agreement_terminated_event"
+    autoload :V2SignalsAccountEvaluationCompleteEvent, "stripe/events/v2_signals_account_evaluation_complete_event"
+    autoload :V2SignalsAccountEvaluationCompleteEventNotification,
+             "stripe/events/v2_signals_account_evaluation_complete_event"
   end
 
   module FinancialConnections
@@ -562,6 +580,7 @@ module Stripe
       autoload :AccountPerson, "stripe/resources/v2/core/account_person"
       autoload :AccountPersonToken, "stripe/resources/v2/core/account_person_token"
       autoload :AccountToken, "stripe/resources/v2/core/account_token"
+      autoload :ApprovalRequest, "stripe/resources/v2/core/approval_request"
       autoload :BatchJob, "stripe/resources/v2/core/batch_job"
       autoload :Event, "stripe/resources/v2/core/event"
       autoload :EventDestination, "stripe/resources/v2/core/event_destination"
@@ -615,6 +634,12 @@ module Stripe
     module OrchestratedCommerce
       autoload :Agreement, "stripe/resources/v2/orchestrated_commerce/agreement"
     end
+
+    module Signals
+      autoload :AccountActivity, "stripe/resources/v2/signals/account_activity"
+      autoload :AccountEvaluation, "stripe/resources/v2/signals/account_evaluation"
+      autoload :AccountSignal, "stripe/resources/v2/signals/account_signal"
+    end
   end
 end
 
@@ -642,6 +667,7 @@ module Stripe
     stripe/resources/billing/credit_balance_summary
     stripe/resources/billing/credit_balance_transaction
     stripe/resources/billing/credit_grant
+    stripe/resources/billing/feedback_option
     stripe/resources/billing/meter
     stripe/resources/billing/meter_event
     stripe/resources/billing/meter_event_adjustment
@@ -810,6 +836,7 @@ module Stripe
     stripe/resources/v2/core/account_person
     stripe/resources/v2/core/account_person_token
     stripe/resources/v2/core/account_token
+    stripe/resources/v2/core/approval_request
     stripe/resources/v2/core/batch_job
     stripe/resources/v2/core/event
     stripe/resources/v2/core/event_destination
@@ -838,6 +865,9 @@ module Stripe
     stripe/resources/v2/money_management/transaction_entry
     stripe/resources/v2/network/business_profile
     stripe/resources/v2/orchestrated_commerce/agreement
+    stripe/resources/v2/signals/account_activity
+    stripe/resources/v2/signals/account_evaluation
+    stripe/resources/v2/signals/account_signal
     stripe/resources/webhook_endpoint
     stripe/events/v1_billing_meter_error_report_triggered_event
     stripe/events/v1_billing_meter_no_meter_found_event
@@ -864,6 +894,13 @@ module Stripe
     stripe/events/v2_core_account_person_deleted_event
     stripe/events/v2_core_account_person_updated_event
     stripe/events/v2_core_account_updated_event
+    stripe/events/v2_core_approval_request_approved_event
+    stripe/events/v2_core_approval_request_canceled_event
+    stripe/events/v2_core_approval_request_created_event
+    stripe/events/v2_core_approval_request_expired_event
+    stripe/events/v2_core_approval_request_failed_event
+    stripe/events/v2_core_approval_request_rejected_event
+    stripe/events/v2_core_approval_request_succeeded_event
     stripe/events/v2_core_batch_job_batch_failed_event
     stripe/events/v2_core_batch_job_canceled_event
     stripe/events/v2_core_batch_job_completed_event
@@ -925,6 +962,7 @@ module Stripe
     stripe/events/v2_orchestrated_commerce_agreement_created_event
     stripe/events/v2_orchestrated_commerce_agreement_partially_confirmed_event
     stripe/events/v2_orchestrated_commerce_agreement_terminated_event
+    stripe/events/v2_signals_account_evaluation_complete_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

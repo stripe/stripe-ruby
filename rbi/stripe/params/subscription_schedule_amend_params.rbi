@@ -680,7 +680,7 @@ module Stripe
         params(_amendment_start: ::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart).returns(::Stripe::SubscriptionScheduleAmendParams::Amendment::AmendmentStart)
        }
       def amendment_start=(_amendment_start); end
-      # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
+      # For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp. For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
       sig { returns(T.nilable(String)) }
       def billing_cycle_anchor; end
       sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }

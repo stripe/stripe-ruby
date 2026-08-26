@@ -386,7 +386,7 @@ module Stripe
         params(_applies_to: T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule::AppliesTo])).returns(T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule::AppliesTo]))
        }
       def applies_to=(_applies_to); end
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       sig { returns(::Stripe::SubscriptionCreateParams::BillingSchedule::BillUntil) }
       def bill_until; end
       sig {
@@ -859,6 +859,7 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
+        class Billie < ::Stripe::RequestParams; end
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
@@ -1187,6 +1188,15 @@ module Stripe
           params(_bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
          }
         def bancontact=(_bancontact); end
+        # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)))
+         }
+        def billie; end
+        sig {
+          params(_billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)))
+         }
+        def billie=(_billie); end
         # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)))
@@ -1278,11 +1288,12 @@ module Stripe
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           card: nil,
           customer_balance: nil,
@@ -1439,7 +1450,7 @@ module Stripe
       params(_billing_mode: T.nilable(::Stripe::SubscriptionCreateParams::BillingMode)).returns(T.nilable(::Stripe::SubscriptionCreateParams::BillingMode))
      }
     def billing_mode=(_billing_mode); end
-    # Sets the billing schedules for the subscription.
+    # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     sig { returns(T.nilable(T::Array[::Stripe::SubscriptionCreateParams::BillingSchedule])) }
     def billing_schedules; end
     sig {

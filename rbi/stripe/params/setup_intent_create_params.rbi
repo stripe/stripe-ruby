@@ -2205,13 +2205,6 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    sig { returns(T.nilable(T::Array[String])) }
-    def payment_method_types; end
-    sig {
-      params(_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-     }
-    def payment_method_types=(_payment_method_types); end
     # The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/setup_intents/create#create_setup_intent-confirm).
     sig { returns(T.nilable(String)) }
     def return_url; end
@@ -2237,7 +2230,7 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(allowed_payment_method_types: T.nilable(T::Array[String]), attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), attach_to_self: T.nilable(T::Boolean), automatic_payment_methods: T.nilable(::Stripe::SetupIntentCreateParams::AutomaticPaymentMethods), confirm: T.nilable(T::Boolean), confirmation_token: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentCreateParams::MandateData)), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions), return_url: T.nilable(String), single_use: T.nilable(::Stripe::SetupIntentCreateParams::SingleUse), usage: T.nilable(String), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       allowed_payment_method_types: nil,
@@ -2258,7 +2251,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       return_url: nil,
       single_use: nil,
       usage: nil,

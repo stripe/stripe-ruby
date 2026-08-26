@@ -122,6 +122,7 @@ module Stripe
     autoload :CreditBalanceSummaryService, "stripe/services/billing/credit_balance_summary_service"
     autoload :CreditBalanceTransactionService, "stripe/services/billing/credit_balance_transaction_service"
     autoload :CreditGrantService, "stripe/services/billing/credit_grant_service"
+    autoload :FeedbackOptionService, "stripe/services/billing/feedback_option_service"
     autoload :MeterEventAdjustmentService, "stripe/services/billing/meter_event_adjustment_service"
     autoload :MeterEventService, "stripe/services/billing/meter_event_service"
     autoload :MeterEventSummaryService, "stripe/services/billing/meter_event_summary_service"
@@ -307,6 +308,7 @@ module Stripe
     autoload :MoneyManagementService, "stripe/services/v2/money_management_service"
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
+    autoload :SignalsService, "stripe/services/v2/signals_service"
     autoload :TestHelperService, "stripe/services/v2/test_helper_service"
 
     module Billing
@@ -340,6 +342,7 @@ module Stripe
       autoload :AccountLinkService, "stripe/services/v2/core/account_link_service"
       autoload :AccountService, "stripe/services/v2/core/account_service"
       autoload :AccountTokenService, "stripe/services/v2/core/account_token_service"
+      autoload :ApprovalRequestService, "stripe/services/v2/core/approval_request_service"
       autoload :BatchJobService, "stripe/services/v2/core/batch_job_service"
       autoload :EventDestinationService, "stripe/services/v2/core/event_destination_service"
       autoload :EventService, "stripe/services/v2/core/event_service"
@@ -399,6 +402,12 @@ module Stripe
       autoload :AgreementService, "stripe/services/v2/orchestrated_commerce/agreement_service"
     end
 
+    module Signals
+      autoload :AccountActivityService, "stripe/services/v2/signals/account_activity_service"
+      autoload :AccountEvaluationService, "stripe/services/v2/signals/account_evaluation_service"
+      autoload :AccountSignalService, "stripe/services/v2/signals/account_signal_service"
+    end
+
     module TestHelpers
       autoload :FinancialAddressService, "stripe/services/v2/test_helpers/financial_address_service"
     end
@@ -430,6 +439,7 @@ module Stripe
     stripe/services/billing/credit_balance_summary_service
     stripe/services/billing/credit_balance_transaction_service
     stripe/services/billing/credit_grant_service
+    stripe/services/billing/feedback_option_service
     stripe/services/billing/meter_event_adjustment_service
     stripe/services/billing/meter_event_service
     stripe/services/billing/meter_event_summary_service
@@ -638,6 +648,7 @@ module Stripe
     stripe/services/v2/core/account_token_service
     stripe/services/v2/core/accounts/person_service
     stripe/services/v2/core/accounts/person_token_service
+    stripe/services/v2/core/approval_request_service
     stripe/services/v2/core/batch_job_service
     stripe/services/v2/core/event_destination_service
     stripe/services/v2/core/event_service
@@ -672,6 +683,10 @@ module Stripe
     stripe/services/v2/network_service
     stripe/services/v2/orchestrated_commerce/agreement_service
     stripe/services/v2/orchestrated_commerce_service
+    stripe/services/v2/signals/account_activity_service
+    stripe/services/v2/signals/account_evaluation_service
+    stripe/services/v2/signals/account_signal_service
+    stripe/services/v2/signals_service
     stripe/services/v2/test_helper_service
     stripe/services/v2/test_helpers/financial_address_service
     stripe/services/v2_services

@@ -154,6 +154,7 @@ module Stripe
           end
         end
 
+        class Billie < ::Stripe::RequestParams; end
         class Blik < ::Stripe::RequestParams; end
 
         class Card < ::Stripe::RequestParams
@@ -331,6 +332,8 @@ module Stripe
         attr_accessor :acss_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :billie
         # If paying by `blik`, this sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :blik
         # If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
@@ -355,6 +358,7 @@ module Stripe
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          billie: nil,
           blik: nil,
           card: nil,
           customer_balance: nil,
@@ -368,6 +372,7 @@ module Stripe
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @billie = billie
           @blik = blik
           @card = card
           @customer_balance = customer_balance

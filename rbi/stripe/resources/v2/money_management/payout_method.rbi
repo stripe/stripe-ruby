@@ -41,7 +41,7 @@ module Stripe
           def country; end
           # List of enabled flows for this bank account (wire or local).
           sig { returns(T::Array[String]) }
-          def enabled_delivery_options; end
+          def enabled_delivery_schemes; end
           # The ID of the Financial Connections Account used to create the bank account.
           sig { returns(T.nilable(String)) }
           def financial_connections_account; end
@@ -95,9 +95,11 @@ module Stripe
         end
         class UsageStatus < ::Stripe::StripeObject
           # Payments status - used when sending OutboundPayments (sending funds to recipients).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
           sig { returns(String) }
           def payments; end
           # Transfers status - used when making an OutboundTransfer (sending funds to yourself).
+          # If disabled, enable the payout method by creating an OutboundSetupIntent using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
           sig { returns(String) }
           def transfers; end
           def self.inner_class_types
@@ -138,7 +140,7 @@ module Stripe
         # Please reach out to Stripe Support for more information.
         sig { returns(T::Boolean) }
         def restricted; end
-        # Closed Enum. The type of payout method.
+        # Open Enum. The type of payout method.
         sig { returns(String) }
         def type; end
         # Indicates whether the payout method has met the necessary requirements for outbound money movement.

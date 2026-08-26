@@ -22,6 +22,21 @@ module Stripe
           )
         end
 
+        # Disable a PayoutMethod object. The payout method will not be available for use in outbound money movement.
+        # To re-enable the payout method, create an OutboundSetupIntent
+        # using [`POST /v2/money_management/outbound_setup_intents`](https://docs.stripe.com/api/v2/money-management/outbound-setup-intents/create).
+        #
+        # ** raises CannotProceedError
+        def disable(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/money_management/payout_methods/%<id>s/disable", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # List objects that adhere to the PayoutMethod interface.
         def list(params = {}, opts = {})
           request(

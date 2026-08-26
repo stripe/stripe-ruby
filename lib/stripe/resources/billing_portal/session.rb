@@ -68,6 +68,16 @@ module Stripe
           end
         end
 
+        class CustomerUpdate < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class SubscriptionCancel < ::Stripe::StripeObject
           class Retention < ::Stripe::StripeObject
             class CouponOffer < ::Stripe::StripeObject
@@ -171,6 +181,8 @@ module Stripe
         end
         # Attribute for field after_completion
         attr_reader :after_completion
+        # Configuration when `flow.type=customer_update`.
+        attr_reader :customer_update
         # Configuration when `flow.type=subscription_cancel`.
         attr_reader :subscription_cancel
         # Configuration when `flow.type=subscription_update`.
@@ -183,6 +195,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             after_completion: AfterCompletion,
+            customer_update: CustomerUpdate,
             subscription_cancel: SubscriptionCancel,
             subscription_update: SubscriptionUpdate,
             subscription_update_confirm: SubscriptionUpdateConfirm,

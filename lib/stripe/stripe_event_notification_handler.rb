@@ -19,16 +19,50 @@ module Stripe
 
       @registered_handlers = {}
       @has_handled_events = false
+      @pre_handle_callback = nil
     end
 
     def registered_event_types
       @registered_handlers.keys.sort
     end
 
+    # Registers a function that will be run before any event-specific callbacks. A useful
+    # place to store event-agnostic logic, such as logging or checking for
+    # [duplicate event deliveries](https://docs.stripe.com/webhooks#handle-duplicate-events).
+    #
+    # Returning `true` causes handling to continue as normal; returning `false` returns from
+    # `.handle()` immediately, so neither the registered callback nor the fallback callback
+    # are called.
+    def pre_handle(&hook)
+      assert_callback_given(hook)
+      assert_hasnt_handled_events
+
+      raise ArgumentError, "A pre_handle callback is already registered" if @pre_handle_callback
+
+      @pre_handle_callback = hook
+    end
+
+    # callbacks are expected to be registered once on startup, so registering anything
+    # after handling has begun indicates a bug
+    private def assert_hasnt_handled_events
+      return unless @has_handled_events
+
+      raise "Cannot register new callbacks after an event has been handled. This is indicative of a bug."
+    end
+
+    # every registration path funnels its block through here so the error stays
+    # consistent across all of them
+    private def assert_callback_given(callback)
+      raise ArgumentError, "Block required to register a callback" if callback.nil?
+    end
+
     private def register(event_type, &handler)
-      raise "Cannot register new event handlers after handling events" if @has_handled_events
+      # checked before assert_can_register so a missing block reports as such even
+      # once handling has started
+      assert_callback_given(handler)
+      assert_hasnt_handled_events
       if @registered_handlers.key?(event_type)
-        raise ArgumentError, "Handler already registered for event type: #{event_type}"
+        raise ArgumentError, "Callback for event type \"#{event_type}\" is already registered"
       end
 
       @registered_handlers[event_type] = handler
@@ -36,6 +70,8 @@ module Stripe
 
     private def dispatch(notif)
       event_client = @client.with_stripe_context(notif.context)
+
+      return if @pre_handle_callback && !@pre_handle_callback.call(notif, event_client)
 
       handler = @registered_handlers[notif.type]
       if handler
@@ -47,520 +83,380 @@ module Stripe
     end
 
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec
-    def on_v1_billing_meter_error_report_triggered(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v1.billing.meter.error_report_triggered", &handler)
+    def on_v1_billing_meter_error_report_triggered(&callback)
+      register("v1.billing.meter.error_report_triggered", &callback)
     end
-
-    def on_v1_billing_meter_no_meter_found(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v1.billing.meter.no_meter_found", &handler)
+    def on_v1_billing_meter_no_meter_found(&callback)
+      register("v1.billing.meter.no_meter_found", &callback)
     end
 
-    def on_v2_commerce_product_catalog_imports_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.commerce.product_catalog.imports.failed", &handler)
+    def on_v2_commerce_product_catalog_imports_failed(&callback)
+      register("v2.commerce.product_catalog.imports.failed", &callback)
     end
 
-    def on_v2_commerce_product_catalog_imports_processing(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.commerce.product_catalog.imports.processing", &handler)
+    def on_v2_commerce_product_catalog_imports_processing(&callback)
+      register("v2.commerce.product_catalog.imports.processing", &callback)
     end
-
-    def on_v2_commerce_product_catalog_imports_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.commerce.product_catalog.imports.succeeded", &handler)
+    def on_v2_commerce_product_catalog_imports_succeeded(&callback)
+      register("v2.commerce.product_catalog.imports.succeeded", &callback)
     end
 
-    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.commerce.product_catalog.imports.succeeded_with_errors", &handler)
+    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(&callback)
+      register("v2.commerce.product_catalog.imports.succeeded_with_errors", &callback)
     end
-
-    def on_v2_core_account_closed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account.closed", &handler)
+    def on_v2_core_account_closed(&callback)
+      register("v2.core.account.closed", &callback)
     end
 
-    def on_v2_core_account_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account.created", &handler)
+    def on_v2_core_account_created(&callback)
+      register("v2.core.account.created", &callback)
     end
 
-    def on_v2_core_account_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account.updated", &handler)
+    def on_v2_core_account_updated(&callback)
+      register("v2.core.account.updated", &callback)
     end
-
-    def on_v2_core_account_including_configuration_customer_capability_status_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account[configuration.customer].capability_status_updated", &handler)
+    def on_v2_core_account_including_configuration_customer_capability_status_updated(&callback)
+      register("v2.core.account[configuration.customer].capability_status_updated", &callback)
     end
 
-    def on_v2_core_account_including_configuration_customer_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.customer].updated", &handler)
+    def on_v2_core_account_including_configuration_customer_updated(&callback)
+      register("v2.core.account[configuration.customer].updated", &callback)
     end
-
-    def on_v2_core_account_including_configuration_merchant_capability_status_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account[configuration.merchant].capability_status_updated", &handler)
+    def on_v2_core_account_including_configuration_merchant_capability_status_updated(&callback)
+      register("v2.core.account[configuration.merchant].capability_status_updated", &callback)
     end
 
-    def on_v2_core_account_including_configuration_merchant_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.merchant].updated", &handler)
+    def on_v2_core_account_including_configuration_merchant_updated(&callback)
+      register("v2.core.account[configuration.merchant].updated", &callback)
     end
 
-    def on_v2_core_account_including_configuration_money_manager_capability_status_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.money_manager].capability_status_updated", &handler)
+    def on_v2_core_account_including_configuration_money_manager_capability_status_updated(&callback)
+      register("v2.core.account[configuration.money_manager].capability_status_updated", &callback)
     end
-
-    def on_v2_core_account_including_configuration_money_manager_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account[configuration.money_manager].updated", &handler)
+    def on_v2_core_account_including_configuration_money_manager_updated(&callback)
+      register("v2.core.account[configuration.money_manager].updated", &callback)
     end
 
-    def on_v2_core_account_including_configuration_recipient_capability_status_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.recipient].capability_status_updated", &handler)
+    def on_v2_core_account_including_configuration_recipient_capability_status_updated(&callback)
+      register("v2.core.account[configuration.recipient].capability_status_updated", &callback)
     end
 
-    def on_v2_core_account_including_configuration_recipient_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[configuration.recipient].updated", &handler)
+    def on_v2_core_account_including_configuration_recipient_updated(&callback)
+      register("v2.core.account[configuration.recipient].updated", &callback)
     end
-
-    def on_v2_core_account_including_defaults_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account[defaults].updated", &handler)
+    def on_v2_core_account_including_defaults_updated(&callback)
+      register("v2.core.account[defaults].updated", &callback)
     end
 
-    def on_v2_core_account_including_future_requirements_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[future_requirements].updated", &handler)
+    def on_v2_core_account_including_future_requirements_updated(&callback)
+      register("v2.core.account[future_requirements].updated", &callback)
     end
 
-    def on_v2_core_account_including_identity_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account[identity].updated", &handler)
+    def on_v2_core_account_including_identity_updated(&callback)
+      register("v2.core.account[identity].updated", &callback)
     end
-
-    def on_v2_core_account_including_requirements_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account[requirements].updated", &handler)
+    def on_v2_core_account_including_requirements_updated(&callback)
+      register("v2.core.account[requirements].updated", &callback)
     end
 
-    def on_v2_core_account_link_returned(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account_link.returned", &handler)
+    def on_v2_core_account_link_returned(&callback)
+      register("v2.core.account_link.returned", &callback)
     end
-
-    def on_v2_core_account_person_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.account_person.created", &handler)
+    def on_v2_core_account_person_created(&callback)
+      register("v2.core.account_person.created", &callback)
     end
 
-    def on_v2_core_account_person_deleted(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account_person.deleted", &handler)
+    def on_v2_core_account_person_deleted(&callback)
+      register("v2.core.account_person.deleted", &callback)
     end
 
-    def on_v2_core_account_person_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.account_person.updated", &handler)
+    def on_v2_core_account_person_updated(&callback)
+      register("v2.core.account_person.updated", &callback)
     end
-
-    def on_v2_core_batch_job_batch_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.batch_job.batch_failed", &handler)
+    def on_v2_core_approval_request_approved(&callback)
+      register("v2.core.approval_request.approved", &callback)
     end
 
-    def on_v2_core_batch_job_canceled(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.canceled", &handler)
+    def on_v2_core_approval_request_canceled(&callback)
+      register("v2.core.approval_request.canceled", &callback)
     end
 
-    def on_v2_core_batch_job_completed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.completed", &handler)
+    def on_v2_core_approval_request_created(&callback)
+      register("v2.core.approval_request.created", &callback)
     end
-
-    def on_v2_core_batch_job_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.batch_job.created", &handler)
+    def on_v2_core_approval_request_expired(&callback)
+      register("v2.core.approval_request.expired", &callback)
     end
 
-    def on_v2_core_batch_job_ready_for_upload(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.ready_for_upload", &handler)
+    def on_v2_core_approval_request_failed(&callback)
+      register("v2.core.approval_request.failed", &callback)
     end
 
-    def on_v2_core_batch_job_timeout(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.timeout", &handler)
+    def on_v2_core_approval_request_rejected(&callback)
+      register("v2.core.approval_request.rejected", &callback)
     end
-
-    def on_v2_core_batch_job_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.batch_job.updated", &handler)
+    def on_v2_core_approval_request_succeeded(&callback)
+      register("v2.core.approval_request.succeeded", &callback)
     end
 
-    def on_v2_core_batch_job_upload_timeout(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.upload_timeout", &handler)
+    def on_v2_core_batch_job_batch_failed(&callback)
+      register("v2.core.batch_job.batch_failed", &callback)
     end
-
-    def on_v2_core_batch_job_validating(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.batch_job.validating", &handler)
+    def on_v2_core_batch_job_canceled(&callback)
+      register("v2.core.batch_job.canceled", &callback)
     end
 
-    def on_v2_core_batch_job_validation_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.batch_job.validation_failed", &handler)
+    def on_v2_core_batch_job_completed(&callback)
+      register("v2.core.batch_job.completed", &callback)
     end
 
-    def on_v2_core_event_destination_ping(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.core.event_destination.ping", &handler)
+    def on_v2_core_batch_job_created(&callback)
+      register("v2.core.batch_job.created", &callback)
     end
-
-    def on_v2_core_health_event_generation_failure_resolved(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.core.health.event_generation_failure.resolved", &handler)
+    def on_v2_core_batch_job_ready_for_upload(&callback)
+      register("v2.core.batch_job.ready_for_upload", &callback)
     end
 
-    def on_v2_data_reporting_query_run_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.data.reporting.query_run.created", &handler)
+    def on_v2_core_batch_job_timeout(&callback)
+      register("v2.core.batch_job.timeout", &callback)
     end
 
-    def on_v2_data_reporting_query_run_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.data.reporting.query_run.failed", &handler)
+    def on_v2_core_batch_job_updated(&callback)
+      register("v2.core.batch_job.updated", &callback)
     end
-
-    def on_v2_data_reporting_query_run_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.data.reporting.query_run.succeeded", &handler)
+    def on_v2_core_batch_job_upload_timeout(&callback)
+      register("v2.core.batch_job.upload_timeout", &callback)
     end
 
-    def on_v2_data_reporting_query_run_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.data.reporting.query_run.updated", &handler)
+    def on_v2_core_batch_job_validating(&callback)
+      register("v2.core.batch_job.validating", &callback)
     end
 
-    def on_v2_extend_workflow_run_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.extend.workflow_run.failed", &handler)
+    def on_v2_core_batch_job_validation_failed(&callback)
+      register("v2.core.batch_job.validation_failed", &callback)
     end
-
-    def on_v2_extend_workflow_run_started(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.extend.workflow_run.started", &handler)
+    def on_v2_core_event_destination_ping(&callback)
+      register("v2.core.event_destination.ping", &callback)
     end
 
-    def on_v2_extend_workflow_run_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.extend.workflow_run.succeeded", &handler)
+    def on_v2_core_health_event_generation_failure_resolved(&callback)
+      register("v2.core.health.event_generation_failure.resolved", &callback)
     end
-
-    def on_v2_money_management_adjustment_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.adjustment.created", &handler)
+    def on_v2_data_reporting_query_run_created(&callback)
+      register("v2.data.reporting.query_run.created", &callback)
     end
 
-    def on_v2_money_management_financial_account_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.financial_account.created", &handler)
+    def on_v2_data_reporting_query_run_failed(&callback)
+      register("v2.data.reporting.query_run.failed", &callback)
     end
 
-    def on_v2_money_management_financial_account_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.financial_account.updated", &handler)
+    def on_v2_data_reporting_query_run_succeeded(&callback)
+      register("v2.data.reporting.query_run.succeeded", &callback)
     end
-
-    def on_v2_money_management_financial_address_activated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.financial_address.activated", &handler)
+    def on_v2_data_reporting_query_run_updated(&callback)
+      register("v2.data.reporting.query_run.updated", &callback)
     end
 
-    def on_v2_money_management_financial_address_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.financial_address.failed", &handler)
+    def on_v2_extend_workflow_run_failed(&callback)
+      register("v2.extend.workflow_run.failed", &callback)
     end
-
-    def on_v2_money_management_inbound_transfer_available(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.inbound_transfer.available", &handler)
+    def on_v2_extend_workflow_run_started(&callback)
+      register("v2.extend.workflow_run.started", &callback)
     end
 
-    def on_v2_money_management_inbound_transfer_bank_debit_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.inbound_transfer.bank_debit_failed", &handler)
+    def on_v2_extend_workflow_run_succeeded(&callback)
+      register("v2.extend.workflow_run.succeeded", &callback)
     end
 
-    def on_v2_money_management_inbound_transfer_bank_debit_processing(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.inbound_transfer.bank_debit_processing", &handler)
+    def on_v2_money_management_adjustment_created(&callback)
+      register("v2.money_management.adjustment.created", &callback)
     end
-
-    def on_v2_money_management_inbound_transfer_bank_debit_queued(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.inbound_transfer.bank_debit_queued", &handler)
+    def on_v2_money_management_financial_account_created(&callback)
+      register("v2.money_management.financial_account.created", &callback)
     end
 
-    def on_v2_money_management_inbound_transfer_bank_debit_returned(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.inbound_transfer.bank_debit_returned", &handler)
+    def on_v2_money_management_financial_account_updated(&callback)
+      register("v2.money_management.financial_account.updated", &callback)
     end
-
-    def on_v2_money_management_inbound_transfer_bank_debit_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.inbound_transfer.bank_debit_succeeded", &handler)
+    def on_v2_money_management_financial_address_activated(&callback)
+      register("v2.money_management.financial_address.activated", &callback)
     end
 
-    def on_v2_money_management_outbound_payment_canceled(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_payment.canceled", &handler)
+    def on_v2_money_management_financial_address_failed(&callback)
+      register("v2.money_management.financial_address.failed", &callback)
     end
 
-    def on_v2_money_management_outbound_payment_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_payment.created", &handler)
+    def on_v2_money_management_inbound_transfer_available(&callback)
+      register("v2.money_management.inbound_transfer.available", &callback)
     end
-
-    def on_v2_money_management_outbound_payment_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.outbound_payment.failed", &handler)
+    def on_v2_money_management_inbound_transfer_bank_debit_failed(&callback)
+      register("v2.money_management.inbound_transfer.bank_debit_failed", &callback)
     end
 
-    def on_v2_money_management_outbound_payment_posted(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_payment.posted", &handler)
+    def on_v2_money_management_inbound_transfer_bank_debit_processing(&callback)
+      register("v2.money_management.inbound_transfer.bank_debit_processing", &callback)
     end
 
-    def on_v2_money_management_outbound_payment_returned(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_payment.returned", &handler)
+    def on_v2_money_management_inbound_transfer_bank_debit_queued(&callback)
+      register("v2.money_management.inbound_transfer.bank_debit_queued", &callback)
     end
-
-    def on_v2_money_management_outbound_payment_under_review(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.outbound_payment.under_review", &handler)
+    def on_v2_money_management_inbound_transfer_bank_debit_returned(&callback)
+      register("v2.money_management.inbound_transfer.bank_debit_returned", &callback)
     end
 
-    def on_v2_money_management_outbound_payment_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_payment.updated", &handler)
+    def on_v2_money_management_inbound_transfer_bank_debit_succeeded(&callback)
+      register("v2.money_management.inbound_transfer.bank_debit_succeeded", &callback)
     end
 
-    def on_v2_money_management_outbound_transfer_canceled(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_transfer.canceled", &handler)
+    def on_v2_money_management_outbound_payment_canceled(&callback)
+      register("v2.money_management.outbound_payment.canceled", &callback)
     end
-
-    def on_v2_money_management_outbound_transfer_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.outbound_transfer.created", &handler)
+    def on_v2_money_management_outbound_payment_created(&callback)
+      register("v2.money_management.outbound_payment.created", &callback)
     end
 
-    def on_v2_money_management_outbound_transfer_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_transfer.failed", &handler)
+    def on_v2_money_management_outbound_payment_failed(&callback)
+      register("v2.money_management.outbound_payment.failed", &callback)
     end
-
-    def on_v2_money_management_outbound_transfer_posted(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.outbound_transfer.posted", &handler)
+    def on_v2_money_management_outbound_payment_posted(&callback)
+      register("v2.money_management.outbound_payment.posted", &callback)
     end
 
-    def on_v2_money_management_outbound_transfer_returned(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_transfer.returned", &handler)
+    def on_v2_money_management_outbound_payment_returned(&callback)
+      register("v2.money_management.outbound_payment.returned", &callback)
     end
 
-    def on_v2_money_management_outbound_transfer_under_review(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.outbound_transfer.under_review", &handler)
+    def on_v2_money_management_outbound_payment_under_review(&callback)
+      register("v2.money_management.outbound_payment.under_review", &callback)
     end
-
-    def on_v2_money_management_outbound_transfer_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.outbound_transfer.updated", &handler)
+    def on_v2_money_management_outbound_payment_updated(&callback)
+      register("v2.money_management.outbound_payment.updated", &callback)
     end
 
-    def on_v2_money_management_payout_method_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.payout_method.created", &handler)
+    def on_v2_money_management_outbound_transfer_canceled(&callback)
+      register("v2.money_management.outbound_transfer.canceled", &callback)
     end
 
-    def on_v2_money_management_payout_method_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.payout_method.updated", &handler)
+    def on_v2_money_management_outbound_transfer_created(&callback)
+      register("v2.money_management.outbound_transfer.created", &callback)
     end
-
-    def on_v2_money_management_received_credit_available(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.received_credit.available", &handler)
+    def on_v2_money_management_outbound_transfer_failed(&callback)
+      register("v2.money_management.outbound_transfer.failed", &callback)
     end
 
-    def on_v2_money_management_received_credit_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.received_credit.failed", &handler)
+    def on_v2_money_management_outbound_transfer_posted(&callback)
+      register("v2.money_management.outbound_transfer.posted", &callback)
     end
 
-    def on_v2_money_management_received_credit_returned(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.received_credit.returned", &handler)
+    def on_v2_money_management_outbound_transfer_returned(&callback)
+      register("v2.money_management.outbound_transfer.returned", &callback)
     end
-
-    def on_v2_money_management_received_credit_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.received_credit.succeeded", &handler)
+    def on_v2_money_management_outbound_transfer_under_review(&callback)
+      register("v2.money_management.outbound_transfer.under_review", &callback)
     end
 
-    def on_v2_money_management_received_debit_canceled(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.received_debit.canceled", &handler)
+    def on_v2_money_management_outbound_transfer_updated(&callback)
+      register("v2.money_management.outbound_transfer.updated", &callback)
     end
-
-    def on_v2_money_management_received_debit_failed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
 
-      register("v2.money_management.received_debit.failed", &handler)
+    def on_v2_money_management_payout_method_created(&callback)
+      register("v2.money_management.payout_method.created", &callback)
     end
 
-    def on_v2_money_management_received_debit_pending(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
-
-      register("v2.money_management.received_debit.pending", &handler)
+    def on_v2_money_management_payout_method_updated(&callback)
+      register("v2.money_management.payout_method.updated", &callback)
     end
 
-    def on_v2_money_management_received_debit_succeeded(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_received_credit_available(&callback)
+      register("v2.money_management.received_credit.available", &callback)
+    end
 
-      register("v2.money_management.received_debit.succeeded", &handler)
+    def on_v2_money_management_received_credit_failed(&callback)
+      register("v2.money_management.received_credit.failed", &callback)
     end
 
-    def on_v2_money_management_received_debit_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_received_credit_returned(&callback)
+      register("v2.money_management.received_credit.returned", &callback)
+    end
 
-      register("v2.money_management.received_debit.updated", &handler)
+    def on_v2_money_management_received_credit_succeeded(&callback)
+      register("v2.money_management.received_credit.succeeded", &callback)
     end
 
-    def on_v2_money_management_transaction_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_received_debit_canceled(&callback)
+      register("v2.money_management.received_debit.canceled", &callback)
+    end
 
-      register("v2.money_management.transaction.created", &handler)
+    def on_v2_money_management_received_debit_failed(&callback)
+      register("v2.money_management.received_debit.failed", &callback)
     end
 
-    def on_v2_money_management_transaction_updated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_received_debit_pending(&callback)
+      register("v2.money_management.received_debit.pending", &callback)
+    end
 
-      register("v2.money_management.transaction.updated", &handler)
+    def on_v2_money_management_received_debit_succeeded(&callback)
+      register("v2.money_management.received_debit.succeeded", &callback)
     end
 
-    def on_v2_orchestrated_commerce_agreement_confirmed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_received_debit_updated(&callback)
+      register("v2.money_management.received_debit.updated", &callback)
+    end
 
-      register("v2.orchestrated_commerce.agreement.confirmed", &handler)
+    def on_v2_money_management_transaction_created(&callback)
+      register("v2.money_management.transaction.created", &callback)
     end
 
-    def on_v2_orchestrated_commerce_agreement_created(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_money_management_transaction_updated(&callback)
+      register("v2.money_management.transaction.updated", &callback)
+    end
 
-      register("v2.orchestrated_commerce.agreement.created", &handler)
+    def on_v2_orchestrated_commerce_agreement_confirmed(&callback)
+      register("v2.orchestrated_commerce.agreement.confirmed", &callback)
     end
 
-    def on_v2_orchestrated_commerce_agreement_partially_confirmed(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_orchestrated_commerce_agreement_created(&callback)
+      register("v2.orchestrated_commerce.agreement.created", &callback)
+    end
 
-      register("v2.orchestrated_commerce.agreement.partially_confirmed", &handler)
+    def on_v2_orchestrated_commerce_agreement_partially_confirmed(&callback)
+      register("v2.orchestrated_commerce.agreement.partially_confirmed", &callback)
     end
 
-    def on_v2_orchestrated_commerce_agreement_terminated(&handler)
-      raise ArgumentError, "Block required to register event handler" if handler.nil?
+    def on_v2_orchestrated_commerce_agreement_terminated(&callback)
+      register("v2.orchestrated_commerce.agreement.terminated", &callback)
+    end
 
-      register("v2.orchestrated_commerce.agreement.terminated", &handler)
+    def on_v2_signals_account_evaluation_complete(&callback)
+      register("v2.signals.account_evaluation.complete", &callback)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

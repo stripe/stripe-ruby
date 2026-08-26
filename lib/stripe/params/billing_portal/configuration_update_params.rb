@@ -57,11 +57,14 @@ module Stripe
           class CancellationReason < ::Stripe::RequestParams
             # Whether the feature is enabled.
             attr_accessor :enabled
+            # The IDs of custom feedback options to use for this cancellation reason.
+            attr_accessor :feedback_options
             # Which cancellation reasons will be given as options to the customer.
             attr_accessor :options
 
-            def initialize(enabled: nil, options: nil)
+            def initialize(enabled: nil, feedback_options: nil, options: nil)
               @enabled = enabled
+              @feedback_options = feedback_options
               @options = options
             end
           end

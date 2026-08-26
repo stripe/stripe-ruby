@@ -77,6 +77,13 @@ module Stripe
             def enabled; end
             sig { params(_enabled: T::Boolean).returns(T::Boolean) }
             def enabled=(_enabled); end
+            # The IDs of custom feedback options to use for this cancellation reason.
+            sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+            def feedback_options; end
+            sig {
+              params(_feedback_options: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+             }
+            def feedback_options=(_feedback_options); end
             # Which cancellation reasons will be given as options to the customer.
             sig { returns(T.nilable(T.any(String, T::Array[String]))) }
             def options; end
@@ -85,9 +92,9 @@ module Stripe
              }
             def options=(_options); end
             sig {
-              params(enabled: T::Boolean, options: T.nilable(T.any(String, T::Array[String]))).void
+              params(enabled: T::Boolean, feedback_options: T.nilable(T.any(String, T::Array[String])), options: T.nilable(T.any(String, T::Array[String]))).void
              }
-            def initialize(enabled: nil, options: nil); end
+            def initialize(enabled: nil, feedback_options: nil, options: nil); end
           end
           # Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
           sig {

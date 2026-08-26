@@ -17,8 +17,15 @@ module Stripe
         params(_feedback: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
        }
       def feedback=(_feedback); end
-      sig { params(comment: T.nilable(String), feedback: T.nilable(T.any(String, String))).void }
-      def initialize(comment: nil, feedback: nil); end
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      sig { returns(T.nilable(String)) }
+      def feedback_option; end
+      sig { params(_feedback_option: T.nilable(String)).returns(T.nilable(String)) }
+      def feedback_option=(_feedback_option); end
+      sig {
+        params(comment: T.nilable(String), feedback: T.nilable(T.any(String, String)), feedback_option: T.nilable(String)).void
+       }
+      def initialize(comment: nil, feedback: nil, feedback_option: nil); end
     end
     # Details about why this subscription was cancelled
     sig { returns(T.nilable(::Stripe::SubscriptionCancelParams::CancellationDetails)) }

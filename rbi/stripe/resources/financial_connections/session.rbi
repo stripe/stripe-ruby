@@ -33,6 +33,9 @@ module Stripe
         # List of countries from which to filter accounts.
         sig { returns(T.nilable(T::Array[String])) }
         def countries; end
+        # Country from which to filter accounts.
+        sig { returns(T.nilable(String)) }
+        def country; end
         # Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
         sig { returns(T.nilable(String)) }
         def require_payment_method_support; end

@@ -8,7 +8,7 @@ module Stripe
         class Configuration < ::Stripe::RequestParams
           class Customer < ::Stripe::RequestParams
             class AutomaticIndirectTax < ::Stripe::RequestParams
-              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: "Reverse charge".
               attr_accessor :exempt
               # A recent IP address of the customer used for tax reporting and tax location inference.
               attr_accessor :ip_address
@@ -1425,23 +1425,23 @@ module Stripe
                   @type = type
                 end
               end
-              # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
+              # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               attr_accessor :bank_account_ownership_verification
-              # One or more documents that demonstrate proof of a company’s license to operate.
+              # One or more documents that demonstrate proof of a company's license to operate.
               attr_accessor :company_license
-              # One or more documents showing the company’s Memorandum of Association.
+              # One or more documents showing the company's Memorandum of Association.
               attr_accessor :company_memorandum_of_association
-              # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
+              # Certain countries only: One or more documents showing the ministerial decree legalizing the company's establishment.
               attr_accessor :company_ministerial_decree
-              # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
+              # One or more documents that demonstrate proof of a company's registration with the appropriate local authorities.
               attr_accessor :company_registration_verification
-              # One or more documents that demonstrate proof of a company’s tax ID.
+              # One or more documents that demonstrate proof of a company's tax ID.
               attr_accessor :company_tax_id_verification
               # A document verifying the business.
               attr_accessor :primary_verification
               # One or more documents that demonstrate proof of address.
               attr_accessor :proof_of_address
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents showing the company's proof of registration with the national business registry.
               attr_accessor :proof_of_registration
               # One or more documents that demonstrate proof of ultimate beneficial ownership.
               attr_accessor :proof_of_ultimate_beneficial_ownership
@@ -1869,13 +1869,13 @@ module Stripe
               end
               # One or more documents that demonstrate proof that this person is authorized to represent the company.
               attr_accessor :company_authorization
-              # One or more documents showing the person’s passport page with photo and personal data.
+              # One or more documents showing the person's passport page with photo and personal data.
               attr_accessor :passport
               # An identifying document showing the person's name, either a passport or local ID card.
               attr_accessor :primary_verification
               # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
               attr_accessor :secondary_verification
-              # One or more documents showing the person’s visa required for living in the country where they are residing.
+              # One or more documents showing the person's visa required for living in the country where they are residing.
               attr_accessor :visa
 
               def initialize(
@@ -1910,7 +1910,7 @@ module Stripe
               attr_accessor :director
               # Whether the person has significant responsibility to control, manage, or direct the organization.
               attr_accessor :executive
-              # Whether the person is an owner of the account’s identity.
+              # Whether the person is an owner of the account's identity.
               attr_accessor :owner
               # The percent owned by the person of the account's legal entity.
               attr_accessor :percent_ownership

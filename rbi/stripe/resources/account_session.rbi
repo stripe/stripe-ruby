@@ -446,6 +446,31 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaymentMethodSettings < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          sig { returns(T::Boolean) }
+          def disable_stripe_user_authentication; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Payments < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -672,6 +697,9 @@ module Stripe
       # Attribute for field payment_disputes
       sig { returns(PaymentDisputes) }
       def payment_disputes; end
+      # Attribute for field payment_method_settings
+      sig { returns(PaymentMethodSettings) }
+      def payment_method_settings; end
       # Attribute for field payments
       sig { returns(Payments) }
       def payments; end
@@ -709,6 +737,7 @@ module Stripe
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
           payment_disputes: PaymentDisputes,
+          payment_method_settings: PaymentMethodSettings,
           payments: Payments,
           payout_details: PayoutDetails,
           payout_reconciliation_report: PayoutReconciliationReport,

@@ -181,6 +181,8 @@ module Stripe
       attr_reader :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
       attr_reader :feedback
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      attr_reader :feedback_option
       # Why this subscription was canceled.
       attr_reader :reason
 
@@ -304,6 +306,16 @@ module Stripe
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_reader :preferred_language
 
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Billie < ::Stripe::StripeObject
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -546,6 +558,8 @@ module Stripe
         attr_reader :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         attr_reader :bancontact
+        # This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
+        attr_reader :billie
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         attr_reader :card
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
@@ -567,6 +581,7 @@ module Stripe
           @inner_class_types = {
             acss_debit: AcssDebit,
             bancontact: Bancontact,
+            billie: Billie,
             card: Card,
             customer_balance: CustomerBalance,
             konbini: Konbini,
@@ -920,7 +935,7 @@ module Stripe
     # When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
     # To preview how the proration is calculated, use the [create preview](https://docs.stripe.com/docs/api/invoices/create_preview) endpoint.
     #
-    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes.
+    # By default, we prorate subscription changes. For example, if a customer signs up on May 1 for a 100 price, they'll be billed 100 immediately. If on May 15 they switch to a 200 price, then on June 1 they'll be billed 250 (200 for a renewal of her subscription, plus a 50 prorating adjustment for half of the previous month's 100 difference). Similarly, a downgrade generates a credit that is applied to the next invoice. We also prorate when you make quantity changes. You can also [use scripts to prorate your billing. To learn more, see <a href="/billing/subscriptions/prorations">Prorations](https://docs.stripe.com/billing/scripts/stripe-authored/proration).
     #
     # Switching prices does not normally change the billing date or generate an immediate charge unless:
     #

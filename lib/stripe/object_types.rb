@@ -29,6 +29,7 @@ module Stripe
         Billing::CreditBalanceSummary.object_name => Billing::CreditBalanceSummary,
         Billing::CreditBalanceTransaction.object_name => Billing::CreditBalanceTransaction,
         Billing::CreditGrant.object_name => Billing::CreditGrant,
+        Billing::FeedbackOption.object_name => Billing::FeedbackOption,
         Billing::Meter.object_name => Billing::Meter,
         Billing::MeterEvent.object_name => Billing::MeterEvent,
         Billing::MeterEventAdjustment.object_name => Billing::MeterEventAdjustment,

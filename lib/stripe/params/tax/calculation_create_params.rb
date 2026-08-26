@@ -173,7 +173,7 @@ module Stripe
       attr_accessor :customer_details
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # A list of items the customer is purchasing.
+      # A list of items the customer is purchasing. You can pass up to 100 line items, or 1,000 if your account has an increased limit.
       attr_accessor :line_items
       # Details about the address from which the goods are being shipped.
       attr_accessor :ship_from_details

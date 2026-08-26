@@ -79,6 +79,8 @@ module Stripe
           class CancellationReason < ::Stripe::StripeObject
             # Whether the feature is enabled.
             attr_reader :enabled
+            # The IDs of custom feedback options configured for this cancellation reason.
+            attr_reader :feedback_options
             # Which cancellation reasons will be given as options to the customer.
             attr_reader :options
 

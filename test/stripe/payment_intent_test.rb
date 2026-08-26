@@ -23,7 +23,7 @@ module Stripe
       payment_intent = Stripe::PaymentIntent.create(
         amount: 1234,
         currency: "usd",
-        payment_method_types: ["card"]
+        allowed_payment_method_types: ["card"]
       )
       assert_requested :post, "#{Stripe.api_base}/v1/payment_intents"
       assert payment_intent.is_a?(Stripe::PaymentIntent)

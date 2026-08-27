@@ -235,7 +235,7 @@ module Stripe
           # One or more documents that demonstrate proof that this person is authorized to represent the company.
           sig { returns(T.nilable(CompanyAuthorization)) }
           def company_authorization; end
-          # One or more documents showing the person’s passport page with photo and personal data.
+          # One or more documents showing the person's passport page with photo and personal data.
           sig { returns(T.nilable(Passport)) }
           def passport; end
           # An identifying document showing the person's name, either a passport or local ID card.
@@ -244,7 +244,7 @@ module Stripe
           # A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
           sig { returns(T.nilable(SecondaryVerification)) }
           def secondary_verification; end
-          # One or more documents showing the person’s visa required for living in the country where they are residing.
+          # One or more documents showing the person's visa required for living in the country where they are residing.
           sig { returns(T.nilable(Visa)) }
           def visa; end
           def self.inner_class_types

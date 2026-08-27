@@ -895,7 +895,7 @@ module Stripe
         end
         # Configure billing schedule differently for individual subscription items.
         attr_accessor :applies_to
-        # The end date for the billing schedule.
+        # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
         attr_accessor :bill_until
         # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
         attr_accessor :key

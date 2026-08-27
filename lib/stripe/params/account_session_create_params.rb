@@ -403,6 +403,26 @@ module Stripe
         end
       end
 
+      class PaymentMethodSettings < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          attr_accessor :disable_stripe_user_authentication
+
+          def initialize(disable_stripe_user_authentication: nil)
+            @disable_stripe_user_authentication = disable_stripe_user_authentication
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # The list of features enabled in the embedded component.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class Payments < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams
           # Whether to allow capturing and cancelling payment intents. This is `true` by default.
@@ -571,6 +591,8 @@ module Stripe
       attr_accessor :payment_details
       # Configuration for the [payment disputes](/connect/supported-embedded-components/payment-disputes/) embedded component.
       attr_accessor :payment_disputes
+      # Configuration for the [payment method settings](/connect/supported-embedded-components/payment-method-settings/) embedded component.
+      attr_accessor :payment_method_settings
       # Configuration for the [payments](/connect/supported-embedded-components/payments/) embedded component.
       attr_accessor :payments
       # Configuration for the [payout details](/connect/supported-embedded-components/payout-details/) embedded component.
@@ -601,6 +623,7 @@ module Stripe
         notification_banner: nil,
         payment_details: nil,
         payment_disputes: nil,
+        payment_method_settings: nil,
         payments: nil,
         payout_details: nil,
         payout_reconciliation_report: nil,
@@ -623,6 +646,7 @@ module Stripe
         @notification_banner = notification_banner
         @payment_details = payment_details
         @payment_disputes = payment_disputes
+        @payment_method_settings = payment_method_settings
         @payments = payments
         @payout_details = payout_details
         @payout_reconciliation_report = payout_reconciliation_report

@@ -191,7 +191,7 @@ module Stripe
       end
       # Configure billing schedule differently for individual subscription items.
       attr_accessor :applies_to
-      # The end date for the billing schedule.
+      # The end date for the billing schedule. You must not set this earlier than current period end for every applicable subscription item.
       attr_accessor :bill_until
       # Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
       attr_accessor :key
@@ -220,10 +220,13 @@ module Stripe
       attr_accessor :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
       attr_accessor :feedback
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      attr_accessor :feedback_option
 
-      def initialize(comment: nil, feedback: nil)
+      def initialize(comment: nil, feedback: nil, feedback_option: nil)
         @comment = comment
         @feedback = feedback
+        @feedback_option = feedback_option
       end
     end
 
@@ -461,6 +464,8 @@ module Stripe
           end
         end
 
+        class Billie < ::Stripe::RequestParams; end
+
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -642,6 +647,8 @@ module Stripe
         attr_accessor :acss_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
+        # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :billie
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
         # This sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -662,6 +669,7 @@ module Stripe
         def initialize(
           acss_debit: nil,
           bancontact: nil,
+          billie: nil,
           card: nil,
           customer_balance: nil,
           konbini: nil,
@@ -673,6 +681,7 @@ module Stripe
         )
           @acss_debit = acss_debit
           @bancontact = bancontact
+          @billie = billie
           @card = card
           @customer_balance = customer_balance
           @konbini = konbini
@@ -749,7 +758,7 @@ module Stripe
     attr_accessor :automatic_tax
     # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
-    # Sets the billing schedules for the subscription.
+    # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds

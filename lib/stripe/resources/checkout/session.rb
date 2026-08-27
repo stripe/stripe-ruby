@@ -1013,6 +1013,8 @@ module Stripe
           class Restrictions < ::Stripe::StripeObject
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_reader :brands_blocked
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            attr_reader :funding_types_blocked
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -2041,7 +2043,7 @@ module Stripe
         #
         # Default is `client_only`. Stripe Checkout client will automatically update the shipping details. If set to `server_only`, only your server is allowed to update the shipping details.
         #
-        # When set to `server_only`, you must add the onShippingDetailsChange event handler when initializing the Stripe Checkout client and manually update the shipping details from your server using the Stripe API.
+        # This parameter is only supported when `ui_mode=elements`.
         attr_reader :update_shipping_details
 
         def self.inner_class_types
@@ -2375,7 +2377,7 @@ module Stripe
       attr_reader :payment_intent
       # The ID of the Payment Link that created this Session.
       attr_reader :payment_link
-      # Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
+      # Configure whether a Checkout Session should collect a payment method for sessions with mode `payment`. Defaults to `always`.
       attr_reader :payment_method_collection
       # Information about the payment method configuration used for this Checkout session if using dynamic payment methods.
       attr_reader :payment_method_configuration_details
@@ -2549,7 +2551,10 @@ module Stripe
 
       def self.field_encodings
         @field_encodings = {
-          currency_conversion: { kind: :object, fields: { fx_rate: :decimal_string } },
+          currency_conversion: {
+            kind: :nullable,
+            inner: { kind: :object, fields: { fx_rate: :decimal_string } },
+          },
         }
       end
     end

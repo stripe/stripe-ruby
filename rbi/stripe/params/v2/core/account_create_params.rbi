@@ -9,7 +9,7 @@ module Stripe
         class Configuration < ::Stripe::RequestParams
           class Customer < ::Stripe::RequestParams
             class AutomaticIndirectTax < ::Stripe::RequestParams
-              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+              # Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: "Reverse charge".
               sig { returns(T.nilable(String)) }
               def exempt; end
               sig { params(_exempt: T.nilable(String)).returns(T.nilable(String)) }
@@ -2141,7 +2141,7 @@ module Stripe
                  }
                 def initialize(files: nil, signer: nil, type: nil); end
               end
-              # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account’s primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
+              # One or more documents that support the bank account ownership verification requirement. Must be a document associated with the account's primary active bank account that displays the last 4 digits of the account number, either a statement or a check.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
                }
@@ -2150,7 +2150,7 @@ module Stripe
                 params(_bank_account_ownership_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::BankAccountOwnershipVerification))
                }
               def bank_account_ownership_verification=(_bank_account_ownership_verification); end
-              # One or more documents that demonstrate proof of a company’s license to operate.
+              # One or more documents that demonstrate proof of a company's license to operate.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
                }
@@ -2159,7 +2159,7 @@ module Stripe
                 params(_company_license: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyLicense))
                }
               def company_license=(_company_license); end
-              # One or more documents showing the company’s Memorandum of Association.
+              # One or more documents showing the company's Memorandum of Association.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
                }
@@ -2168,7 +2168,7 @@ module Stripe
                 params(_company_memorandum_of_association: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMemorandumOfAssociation))
                }
               def company_memorandum_of_association=(_company_memorandum_of_association); end
-              # Certain countries only: One or more documents showing the ministerial decree legalizing the company’s establishment.
+              # Certain countries only: One or more documents showing the ministerial decree legalizing the company's establishment.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
                }
@@ -2177,7 +2177,7 @@ module Stripe
                 params(_company_ministerial_decree: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyMinisterialDecree))
                }
               def company_ministerial_decree=(_company_ministerial_decree); end
-              # One or more documents that demonstrate proof of a company’s registration with the appropriate local authorities.
+              # One or more documents that demonstrate proof of a company's registration with the appropriate local authorities.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
                }
@@ -2186,7 +2186,7 @@ module Stripe
                 params(_company_registration_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyRegistrationVerification))
                }
               def company_registration_verification=(_company_registration_verification); end
-              # One or more documents that demonstrate proof of a company’s tax ID.
+              # One or more documents that demonstrate proof of a company's tax ID.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::CompanyTaxIdVerification))
                }
@@ -2213,7 +2213,7 @@ module Stripe
                 params(_proof_of_address: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfAddress))
                }
               def proof_of_address=(_proof_of_address); end
-              # One or more documents showing the company’s proof of registration with the national business registry.
+              # One or more documents showing the company's proof of registration with the national business registry.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::BusinessDetails::Documents::ProofOfRegistration))
                }
@@ -2852,7 +2852,7 @@ module Stripe
                 params(_company_authorization: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::CompanyAuthorization))
                }
               def company_authorization=(_company_authorization); end
-              # One or more documents showing the person’s passport page with photo and personal data.
+              # One or more documents showing the person's passport page with photo and personal data.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Passport))
                }
@@ -2879,7 +2879,7 @@ module Stripe
                 params(_secondary_verification: T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::SecondaryVerification))
                }
               def secondary_verification=(_secondary_verification); end
-              # One or more documents showing the person’s visa required for living in the country where they are residing.
+              # One or more documents showing the person's visa required for living in the country where they are residing.
               sig {
                 returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Identity::Individual::Documents::Visa))
                }
@@ -2924,7 +2924,7 @@ module Stripe
               def executive; end
               sig { params(_executive: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
               def executive=(_executive); end
-              # Whether the person is an owner of the account’s identity.
+              # Whether the person is an owner of the account's identity.
               sig { returns(T.nilable(T::Boolean)) }
               def owner; end
               sig { params(_owner: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

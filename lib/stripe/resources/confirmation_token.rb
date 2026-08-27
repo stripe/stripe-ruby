@@ -1750,6 +1750,8 @@ module Stripe
     attr_reader :livemode
     # Data used for generating a Mandate.
     attr_reader :mandate_data
+    # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # ID of the PaymentIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.

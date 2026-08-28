@@ -462,13 +462,18 @@ module Stripe
     private def execute_request_internal(method, path,
                                          base_address, params, opts, usage,
                                          &read_body_chunk_block)
+      # The single place request paths are validated: every entry point funnels
+      # through here, and this runs before anything derives meaning from the path
+      # (api_mode is sniffed from its prefix, merge_query_params parses it as a
+      # URI). merge_query_params only strips the query, so the origin-relative
+      # property still holds by the time api_url concatenates the base address.
+      Util.validate_path!(path)
+
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
-      raise ArgumentError, "path should be a string" \
-      unless path.is_a?(String)
 
       base_url ||= config.base_addresses[base_address]
 

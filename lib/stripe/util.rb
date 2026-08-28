@@ -375,6 +375,38 @@ module Stripe
       res.zero?
     end
 
+    # Asserts that a request path is origin-relative: that it begins with a
+    # single "/" and carries no scheme, authority or userinfo.
+    #
+    # The absolute URL is built by concatenating a base address onto this path,
+    # and no base address ends in a slash. A path like "@evil.example/v1/x" or
+    # ".evil.example/v1/x" would therefore land inside the authority component
+    # and send the request -- Authorization header included -- to a host of the
+    # path's choosing. Some request paths originate in remote data (a webhook
+    # body's related_object.url, a list object's url, a response's
+    # next_page_url), so the path cannot be assumed to be well-formed.
+    #
+    # Stripe only ever issues plain paths, so anything else is tampering and is
+    # rejected rather than sanitized.
+    def self.validate_path!(path)
+      unless path.is_a?(String) && path.start_with?("/") && !path.start_with?("//")
+        raise ArgumentError,
+              "path must be a string beginning with a single \"/\", got: #{path.inspect}"
+      end
+
+      uri =
+        begin
+          URI.parse(path)
+        rescue URI::InvalidURIError
+          raise ArgumentError, "path is not a valid URI: #{path.inspect}"
+        end
+
+      return if uri.scheme.nil? && uri.host.nil? && uri.userinfo.nil?
+
+      raise ArgumentError,
+            "path may not contain a scheme or authority, got: #{path.inspect}"
+    end
+
     # Returns either v1 or v2 as api_mode based on the given path
     def self.get_api_mode(path)
       if path.start_with?("/v2/")

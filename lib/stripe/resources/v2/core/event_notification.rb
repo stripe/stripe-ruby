@@ -53,9 +53,12 @@ module Stripe
 
         # Retrieves the Event that generated this EventNotification.
         def fetch_event
-          resp = @client.raw_request(:get, "/v2/core/events/#{id}", opts: { stripe_context: context,
-                                                                            "Stripe-Request-Trigger" => "event=#{id}", },
-                                                                    usage: ["fetch_event"])
+          # `id` comes from the notification body, so escape it the way generated
+          # services do -- otherwise it can inject extra path or query segments.
+          path = "/v2/core/events/#{CGI.escape(id)}"
+          resp = @client.raw_request(:get, path, opts: { stripe_context: context,
+                                                         "Stripe-Request-Trigger" => "event=#{id}", },
+                                                 usage: ["fetch_event"])
           @client.deserialize(resp.http_body, api_mode: :v2)
         end
       end

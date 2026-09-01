@@ -30,9 +30,20 @@ module Stripe
         assert_equal %w[1 symbol string], context.segments
       end
 
-      should "freeze segments array" do
+      should "freeze segments and their strings" do
         context = StripeContext.new(%w[a b])
+
         assert context.segments.frozen?
+        assert context.segments.all?(&:frozen?)
+      end
+
+      should "copy strings provided by the caller" do
+        segment = String.new("workspace")
+        context = StripeContext.new([segment])
+
+        assert_not_same segment, context.segments.first
+        segment.replace("other")
+        assert_equal ["workspace"], context.segments
       end
     end
 
@@ -172,6 +183,17 @@ module Stripe
 
         assert_equal "stored", contexts[equivalent_context]
         assert_equal 2, contexts.size
+      end
+
+      should "keep hash keys stable when source strings are mutated" do
+        segment = String.new("workspace")
+        stored_context = StripeContext.new([segment])
+        contexts = { stored_context => "stored" }
+
+        segment.replace("other")
+
+        assert_equal "stored", contexts[stored_context]
+        assert_raises(FrozenError) { stored_context.segments.first.replace("other") }
       end
 
       should "deduplicate equivalent contexts in sets" do

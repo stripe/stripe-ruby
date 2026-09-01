@@ -54,6 +54,12 @@ module Stripe
     # Alias for == to support eql? method
     alias eql? ==
 
+    # As with equality in #== and #eql?, contexts with equivalent segments
+    # hash to the same value.
+    def hash
+      @segments.hash
+    end
+
     # Returns a human-readable representation for debugging.
     def inspect
       "#<#{self.class}:0x#{object_id.to_s(16)} segments=#{@segments.inspect}>"

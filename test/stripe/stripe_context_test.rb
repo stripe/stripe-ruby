@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "set"
 
 module Stripe
   class StripeContextTest < Test::Unit::TestCase
@@ -147,6 +148,40 @@ module Stripe
       should "return slash-separated segments" do
         context = StripeContext.new(%w[workspace account customer])
         assert_equal "workspace/account/customer", context.to_s
+      end
+    end
+
+    context "equality and hashing" do
+      should "hash equivalent contexts consistently" do
+        parsed_context = StripeContext.parse("workspace/account")
+        constructed_context = StripeContext.new(%w[workspace account])
+
+        assert_not_same parsed_context, constructed_context
+        assert parsed_context.eql?(constructed_context)
+        assert_equal parsed_context.hash, constructed_context.hash
+      end
+
+      should "use equivalent contexts interchangeably as hash keys" do
+        stored_context = StripeContext.parse("workspace/account")
+        equivalent_context = StripeContext.new(%w[workspace account])
+        different_context = StripeContext.parse("workspace/other")
+        contexts = {
+          stored_context => "stored",
+          different_context => "different",
+        }
+
+        assert_equal "stored", contexts[equivalent_context]
+        assert_equal 2, contexts.size
+      end
+
+      should "deduplicate equivalent contexts in sets" do
+        stored_context = StripeContext.parse("workspace/account")
+        equivalent_context = StripeContext.new(%w[workspace account])
+        different_context = StripeContext.parse("workspace/other")
+        contexts = Set.new([stored_context, equivalent_context, different_context])
+
+        assert contexts.include?(equivalent_context)
+        assert_equal 2, contexts.size
       end
     end
 

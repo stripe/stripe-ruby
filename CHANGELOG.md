@@ -1,5 +1,12 @@
 # Changelog
 
+## 19.6.1 - 2026-09-01
+* [#1955](https://github.com/stripe/stripe-ruby/pull/1955) Forward request options when fetching V2 list pages
+  - Fixes V2 `fetch_next_page` ignoring per-request API key and Stripe context overrides.
+* [#1956](https://github.com/stripe/stripe-ruby/pull/1956) Fix OAuth authorize response type defaulting
+  - Fixes `OAuthService#authorize_url` to default `response_type` to `code` without overwriting an explicit value.
+* [#1950](https://github.com/stripe/stripe-ruby/pull/1950) Harden API requestor code against malicious URLs
+
 ## 19.6.0 - 2026-08-26
 This release changes the pinned API version to 2026-08-26.dahlia.
 

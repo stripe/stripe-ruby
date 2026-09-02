@@ -191,12 +191,26 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Confidence that the provided address matches the email records.
+        attr_reader :address_match_confidence
         # Additional email verification details
         attr_reader :details
+        # Two-letter country code of the email domain's country.
+        attr_reader :domain_country
         # Email to be verified.
         attr_reader :email
+        # Confidence that the email address exists.
+        attr_reader :email_exists_confidence
         # Details on the verification error. Present when status is `unverified`.
         attr_reader :error
+        # Confidence that the provided name matches the email records.
+        attr_reader :name_match_confidence
+        # The observed number of days the email domain has existed.
+        attr_reader :observed_domain_tenure_days
+        # The observed number of days the email address has existed.
+        attr_reader :observed_email_tenure_days
+        # Confidence that the provided phone matches the email records.
+        attr_reader :phone_match_confidence
         # Status of this `email` check.
         attr_reader :status
 
@@ -323,8 +337,18 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Confidence that the provided address matches the phone records.
+        attr_reader :address_match_confidence
+        # The phone carrier.
+        attr_reader :carrier
         # Details on the verification error. Present when status is `unverified`.
         attr_reader :error
+        # The type of phone line.
+        attr_reader :line_type
+        # Confidence that the provided name matches the phone records.
+        attr_reader :name_match_confidence
+        # The observed number of days the person has owned the phone number.
+        attr_reader :observed_phone_tenure_days
         # Phone to be verified.
         attr_reader :phone
         # Status of this `phone` check.

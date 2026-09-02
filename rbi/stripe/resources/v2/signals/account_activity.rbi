@@ -88,6 +88,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AccountRestricted < ::Stripe::StripeObject
+          # The reason the account or customer was restricted.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class AccountSuspended < ::Stripe::StripeObject
+          # The reason the customer was suspended.
+          sig { returns(String) }
+          def reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -200,6 +222,14 @@ module Stripe
         # The account evaluation this activity is associated with, when applicable.
         sig { returns(T.nilable(String)) }
         def account_evaluation; end
+        # Details for the account restriction. Present only when type is account_restricted. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        sig { returns(T.nilable(AccountRestricted)) }
+        def account_restricted; end
+        # Details for the account suspension. Present only when type is account_suspended. The activity
+        # requires an existing account_details.customer; account_details.account and inline data are unsupported.
+        sig { returns(T.nilable(AccountSuspended)) }
+        def account_suspended; end
         # Timestamp at which the account activity was created.
         sig { returns(String) }
         def created; end
@@ -215,6 +245,9 @@ module Stripe
         # Details for the login decision. Present only when type is login_decision.
         sig { returns(T.nilable(LoginDecision)) }
         def login_decision; end
+        # Additional information about the activity.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

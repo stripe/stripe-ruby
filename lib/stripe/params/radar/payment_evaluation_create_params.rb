@@ -76,7 +76,7 @@ module Stripe
               @payment_type = payment_type
             end
           end
-          # Describes card money movement details for the payment evaluation.
+          # Describes card money movement details.
           attr_accessor :card
           # Describes the type of money movement. Currently only `card` is supported.
           attr_accessor :money_movement_type

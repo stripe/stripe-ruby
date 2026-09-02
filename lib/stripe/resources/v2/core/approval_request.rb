@@ -12,13 +12,42 @@ module Stripe
         end
 
         class RequestedBy < ::Stripe::StripeObject
-          # Stripe-defined identifier for the requester (e.g. a restricted API key token).
-          attr_reader :id
-          # Merchant-defined name for the requester.
-          attr_reader :name
+          class ApiKey < ::Stripe::StripeObject
+            # Stripe-defined identifier for the API key (e.g. a restricted API key token).
+            attr_reader :id
+            # Merchant-defined name for the API key.
+            attr_reader :name
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class User < ::Stripe::StripeObject
+            # Email address of the dashboard user.
+            attr_reader :email
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Present when `type` is `api_key`.
+          attr_reader :api_key
+          # The type of actor that made the request.
+          attr_reader :type
+          # Present when `type` is `user`.
+          attr_reader :user
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { api_key: ApiKey, user: User }
           end
 
           def self.field_remappings
@@ -28,13 +57,42 @@ module Stripe
 
         class Review < ::Stripe::StripeObject
           class ReviewedBy < ::Stripe::StripeObject
-            # Stripe-defined identifier for the reviewer (e.g. a restricted API key token).
-            attr_reader :id
-            # Merchant-defined name for the reviewer.
-            attr_reader :name
+            class ApiKey < ::Stripe::StripeObject
+              # Stripe-defined identifier for the API key (e.g. a restricted API key token).
+              attr_reader :id
+              # Merchant-defined name for the API key.
+              attr_reader :name
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class User < ::Stripe::StripeObject
+              # Email address of the dashboard user.
+              attr_reader :email
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Present when `type` is `api_key`.
+            attr_reader :api_key
+            # The type of actor that reviewed the request.
+            attr_reader :type
+            # Present when `type` is `user`.
+            attr_reader :user
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { api_key: ApiKey, user: User }
             end
 
             def self.field_remappings
@@ -268,6 +326,8 @@ module Stripe
         end
 
         class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp when the approval request was approved.
+          attr_reader :approved_at
           # Timestamp when the approval request was canceled.
           attr_reader :canceled_at
           # Timestamp when the approval request expired.
@@ -276,8 +336,6 @@ module Stripe
           attr_reader :failed_at
           # Timestamp when the approval request was rejected.
           attr_reader :rejected_at
-          # Timestamp when the approval request moved to requires_execution status.
-          attr_reader :requires_execution_at
           # Timestamp when the approval request succeeded.
           attr_reader :succeeded_at
 
@@ -295,8 +353,6 @@ module Stripe
         attr_reader :created
         # The URL to the dashboard for this ApprovalRequest.
         attr_reader :dashboard_url
-        # A description of the approval request.
-        attr_reader :description
         # The timestamp at which this ApprovalRequest will expire.
         attr_reader :expires_at
         # The unique identifier for this ApprovalRequest.
@@ -305,6 +361,8 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Context provided by the requester (e.g. an agent) to help reviewers evaluate the request.
+        attr_reader :reason
         # The requester of this ApprovalRequest.
         attr_reader :requested_by
         # The review of this ApprovalRequest if it has been reviewed.

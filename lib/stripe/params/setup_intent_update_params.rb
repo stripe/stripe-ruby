@@ -750,9 +750,12 @@ module Stripe
         end
         # Additional fields for Mandate creation
         attr_accessor :mandate_options
+        # Attribute for param field verification_method
+        attr_accessor :verification_method
 
-        def initialize(mandate_options: nil)
+        def initialize(mandate_options: nil, verification_method: nil)
           @mandate_options = mandate_options
+          @verification_method = verification_method
         end
       end
 
@@ -1383,8 +1386,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this SetupIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # Provides industry-specific information about the SetupIntent.
     attr_accessor :setup_details
 
@@ -1402,7 +1403,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       setup_details: nil
     )
       @allowed_payment_method_types = allowed_payment_method_types
@@ -1418,7 +1418,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @setup_details = setup_details
     end
   end

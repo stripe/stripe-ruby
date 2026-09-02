@@ -2135,8 +2135,17 @@ module Stripe
               params(_brands_blocked: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
              }
             def brands_blocked=(_brands_blocked); end
-            sig { params(brands_blocked: T.nilable(T::Array[String])).void }
-            def initialize(brands_blocked: nil); end
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            sig { returns(T.nilable(T::Array[String])) }
+            def funding_types_blocked; end
+            sig {
+              params(_funding_types_blocked: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+             }
+            def funding_types_blocked=(_funding_types_blocked); end
+            sig {
+              params(brands_blocked: T.nilable(T::Array[String]), funding_types_blocked: T.nilable(T::Array[String])).void
+             }
+            def initialize(brands_blocked: nil, funding_types_blocked: nil); end
           end
           # Controls when the funds will be captured from the customer's account.
           sig { returns(T.nilable(String)) }

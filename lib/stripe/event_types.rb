@@ -478,6 +478,10 @@ module Stripe
         Events::V2CoreHealthMeterEventSummariesDelayedFiringEvent,
         Events::V2CoreHealthMeterEventSummariesDelayedResolvedEvent.lookup_type =>
         Events::V2CoreHealthMeterEventSummariesDelayedResolvedEvent,
+        Events::V2CoreHealthMetronomeNotificationLatencyFiringEvent.lookup_type =>
+        Events::V2CoreHealthMetronomeNotificationLatencyFiringEvent,
+        Events::V2CoreHealthMetronomeNotificationLatencyResolvedEvent.lookup_type =>
+        Events::V2CoreHealthMetronomeNotificationLatencyResolvedEvent,
         Events::V2CoreHealthPaymentMethodErrorFiringEvent.lookup_type =>
         Events::V2CoreHealthPaymentMethodErrorFiringEvent,
         Events::V2CoreHealthPaymentMethodErrorResolvedEvent.lookup_type =>
@@ -585,6 +589,16 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferUnderReviewEvent,
         Events::V2MoneyManagementOutboundTransferUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEvent,
+        Events::V2MoneyManagementPayoutIntentCanceledEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentCanceledEvent,
+        Events::V2MoneyManagementPayoutIntentCreatedEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentCreatedEvent,
+        Events::V2MoneyManagementPayoutIntentPostedEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentPostedEvent,
+        Events::V2MoneyManagementPayoutIntentProcessingEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentProcessingEvent,
+        Events::V2MoneyManagementPayoutIntentRequiresActionEvent.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentRequiresActionEvent,
         Events::V2MoneyManagementPayoutMethodCreatedEvent.lookup_type =>
         Events::V2MoneyManagementPayoutMethodCreatedEvent,
         Events::V2MoneyManagementPayoutMethodUpdatedEvent.lookup_type =>
@@ -696,6 +710,8 @@ module Stripe
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent.lookup_type =>
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent,
+        Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent,
         # v2 event types: The end of the section generated from our OpenAPI spec
       }
     end
@@ -1301,6 +1317,10 @@ module Stripe
         Events::V2CoreHealthMeterEventSummariesDelayedFiringEventNotification,
         Events::V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification,
+        Events::V2CoreHealthMetronomeNotificationLatencyFiringEventNotification.lookup_type =>
+        Events::V2CoreHealthMetronomeNotificationLatencyFiringEventNotification,
+        Events::V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification.lookup_type =>
+        Events::V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification,
         Events::V2CoreHealthPaymentMethodErrorFiringEventNotification.lookup_type =>
         Events::V2CoreHealthPaymentMethodErrorFiringEventNotification,
         Events::V2CoreHealthPaymentMethodErrorResolvedEventNotification.lookup_type =>
@@ -1417,6 +1437,16 @@ module Stripe
         Events::V2MoneyManagementOutboundTransferUnderReviewEventNotification,
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementOutboundTransferUpdatedEventNotification,
+        Events::V2MoneyManagementPayoutIntentCanceledEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentCanceledEventNotification,
+        Events::V2MoneyManagementPayoutIntentCreatedEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentCreatedEventNotification,
+        Events::V2MoneyManagementPayoutIntentPostedEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentPostedEventNotification,
+        Events::V2MoneyManagementPayoutIntentProcessingEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentProcessingEventNotification,
+        Events::V2MoneyManagementPayoutIntentRequiresActionEventNotification.lookup_type =>
+        Events::V2MoneyManagementPayoutIntentRequiresActionEventNotification,
         Events::V2MoneyManagementPayoutMethodCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementPayoutMethodCreatedEventNotification,
         Events::V2MoneyManagementPayoutMethodUpdatedEventNotification.lookup_type =>
@@ -1531,6 +1561,8 @@ module Stripe
         Events::V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification.lookup_type =>
         Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
+        Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification.lookup_type =>
+        Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
         # event notification types: The end of the section generated from our OpenAPI spec
       }
     end

@@ -201,15 +201,36 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Confidence that the provided address matches the email records.
+        sig { returns(T.nilable(String)) }
+        def address_match_confidence; end
         # Additional email verification details
         sig { returns(T.nilable(Details)) }
         def details; end
+        # Two-letter country code of the email domain's country.
+        sig { returns(T.nilable(String)) }
+        def domain_country; end
         # Email to be verified.
         sig { returns(T.nilable(String)) }
         def email; end
+        # Confidence that the email address exists.
+        sig { returns(T.nilable(String)) }
+        def email_exists_confidence; end
         # Details on the verification error. Present when status is `unverified`.
         sig { returns(T.nilable(Error)) }
         def error; end
+        # Confidence that the provided name matches the email records.
+        sig { returns(T.nilable(String)) }
+        def name_match_confidence; end
+        # The observed number of days the email domain has existed.
+        sig { returns(T.nilable(Float)) }
+        def observed_domain_tenure_days; end
+        # The observed number of days the email address has existed.
+        sig { returns(T.nilable(Float)) }
+        def observed_email_tenure_days; end
+        # Confidence that the provided phone matches the email records.
+        sig { returns(T.nilable(String)) }
+        def phone_match_confidence; end
         # Status of this `email` check.
         sig { returns(String) }
         def status; end
@@ -337,9 +358,24 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # Confidence that the provided address matches the phone records.
+        sig { returns(T.nilable(String)) }
+        def address_match_confidence; end
+        # The phone carrier.
+        sig { returns(T.nilable(String)) }
+        def carrier; end
         # Details on the verification error. Present when status is `unverified`.
         sig { returns(T.nilable(Error)) }
         def error; end
+        # The type of phone line.
+        sig { returns(T.nilable(String)) }
+        def line_type; end
+        # Confidence that the provided name matches the phone records.
+        sig { returns(T.nilable(String)) }
+        def name_match_confidence; end
+        # The observed number of days the person has owned the phone number.
+        sig { returns(T.nilable(Float)) }
+        def observed_phone_tenure_days; end
         # Phone to be verified.
         sig { returns(T.nilable(String)) }
         def phone; end

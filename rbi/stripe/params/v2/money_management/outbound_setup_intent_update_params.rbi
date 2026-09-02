@@ -100,7 +100,7 @@ module Stripe
             params(_card: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentUpdateParams::PayoutMethodData::Card))
            }
           def card=(_card); end
-          # Closed Enum. The type of payout method to be created/updated.
+          # Open Enum. The type of payout method to be created/updated.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }

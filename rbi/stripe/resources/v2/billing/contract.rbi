@@ -128,6 +128,51 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class OneTimeFees < ::Stripe::StripeObject
+          class Data < ::Stripe::StripeObject
+            class BillAt < ::Stripe::StripeObject
+              # The timestamp at which the fee will be billed.
+              sig { returns(String) }
+              def timestamp; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount billed for this fee.
+            sig { returns(::Stripe::V2::Amount) }
+            def amount; end
+            # When this fee will be billed. Always contains a concrete timestamp.
+            sig { returns(BillAt) }
+            def bill_at; end
+            # The id of the one-time fee.
+            sig { returns(String) }
+            def id; end
+            # The user-provided lookup key.
+            sig { returns(T.nilable(String)) }
+            def lookup_key; end
+            # The id of the product for this fee.
+            sig { returns(String) }
+            def product; end
+            def self.inner_class_types
+              @inner_class_types = {bill_at: BillAt}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The one-time fees for this page.
+          sig { returns(T::Array[Data]) }
+          def data; end
+          def self.inner_class_types
+            @inner_class_types = {data: Data}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class PricingLines < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class EndsAt < ::Stripe::StripeObject
@@ -481,6 +526,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
+        sig { returns(T.nilable(OneTimeFees)) }
+        def one_time_fees; end
         # The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
         sig { returns(T.nilable(PricingLines)) }
         def pricing_lines; end

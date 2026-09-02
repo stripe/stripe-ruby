@@ -123,6 +123,8 @@ module Stripe
           attr_reader :balance_transaction
           # The ID of the associated credit transaction.
           attr_reader :credit_transaction
+          # The ID of the associated crypto transaction.
+          attr_reader :crypto_transaction
           # The ID of the associated v2 money management transaction.
           attr_reader :money_management_transaction
           # The ID of the associated accounts-receivable invoice.

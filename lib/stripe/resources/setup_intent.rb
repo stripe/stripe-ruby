@@ -397,6 +397,8 @@ module Stripe
         end
         # Attribute for field mandate_options
         attr_reader :mandate_options
+        # Attribute for field verification_method
+        attr_reader :verification_method
 
         def self.inner_class_types
           @inner_class_types = { mandate_options: MandateOptions }

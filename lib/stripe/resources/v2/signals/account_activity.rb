@@ -95,6 +95,32 @@ module Stripe
           end
         end
 
+        class AccountRestricted < ::Stripe::StripeObject
+          # The reason the account or customer was restricted.
+          attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class AccountSuspended < ::Stripe::StripeObject
+          # The reason the customer was suspended.
+          attr_reader :reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class LoginAttempt < ::Stripe::StripeObject
           class ClientDetails < ::Stripe::StripeObject
             class Data < ::Stripe::StripeObject
@@ -210,6 +236,12 @@ module Stripe
         attr_reader :account_details
         # The account evaluation this activity is associated with, when applicable.
         attr_reader :account_evaluation
+        # Details for the account restriction. Present only when type is account_restricted. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        attr_reader :account_restricted
+        # Details for the account suspension. Present only when type is account_suspended. The activity
+        # requires an existing account_details.customer; account_details.account and inline data are unsupported.
+        attr_reader :account_suspended
         # Timestamp at which the account activity was created.
         attr_reader :created
         # Unique identifier for the account activity.
@@ -220,6 +252,8 @@ module Stripe
         attr_reader :login_attempt
         # Details for the login decision. Present only when type is login_decision.
         attr_reader :login_decision
+        # Additional information about the activity.
+        attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # Timestamp at which the activity occurred. Defaults to the created time if not provided.
@@ -234,6 +268,8 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             account_details: AccountDetails,
+            account_restricted: AccountRestricted,
+            account_suspended: AccountSuspended,
             login_attempt: LoginAttempt,
             login_decision: LoginDecision,
             registration_attempt: RegistrationAttempt,

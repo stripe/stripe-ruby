@@ -4,8 +4,8 @@
 module Stripe
   module V2
     module Core
-      class ApprovalRequestSubmitParams < ::Stripe::RequestParams
-        # The reason for submitting the approval request.
+      class ApprovalRequestUpdateParams < ::Stripe::RequestParams
+        # The updated reason for the approval request.
         attr_accessor :reason
 
         def initialize(reason: nil)

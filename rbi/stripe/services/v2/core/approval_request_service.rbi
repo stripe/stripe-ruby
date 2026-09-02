@@ -13,13 +13,6 @@ module Stripe
          }
         def cancel(id, params = {}, opts = {}); end
 
-        # POST /v2/core/approval_requests/:id/execute
-        # Executes an approved approval request.
-        sig {
-          params(id: String, params: T.any(::Stripe::V2::Core::ApprovalRequestExecuteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::ApprovalRequest)
-         }
-        def execute(id, params = {}, opts = {}); end
-
         # GET /v2/core/approval_requests
         # Lists approval requests with optional filtering.
         sig {
@@ -34,12 +27,12 @@ module Stripe
          }
         def retrieve(id, params = {}, opts = {}); end
 
-        # POST /v2/core/approval_requests/:id/submit
-        # Moves a pending approval request into the reviewer queue for auto-execution upon approval.
+        # POST /v2/core/approval_requests/:id
+        # Updates a pending approval request's mutable fields.
         sig {
-          params(id: String, params: T.any(::Stripe::V2::Core::ApprovalRequestSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::ApprovalRequest)
+          params(id: String, params: T.any(::Stripe::V2::Core::ApprovalRequestUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::ApprovalRequest)
          }
-        def submit(id, params = {}, opts = {}); end
+        def update(id, params = {}, opts = {}); end
       end
     end
   end

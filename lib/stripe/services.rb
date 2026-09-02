@@ -135,6 +135,7 @@ module Stripe
     autoload :CreditBalanceSummaryService, "stripe/services/billing/credit_balance_summary_service"
     autoload :CreditBalanceTransactionService, "stripe/services/billing/credit_balance_transaction_service"
     autoload :CreditGrantService, "stripe/services/billing/credit_grant_service"
+    autoload :FeedbackOptionService, "stripe/services/billing/feedback_option_service"
     autoload :MeterEventAdjustmentService, "stripe/services/billing/meter_event_adjustment_service"
     autoload :MeterEventService, "stripe/services/billing/meter_event_service"
     autoload :MeterEventSummaryService, "stripe/services/billing/meter_event_summary_service"
@@ -237,6 +238,7 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluationService, "stripe/services/radar/account_evaluation_service"
+    autoload :BillingEvaluationService, "stripe/services/radar/billing_evaluation_service"
     autoload :CustomerEvaluationService, "stripe/services/radar/customer_evaluation_service"
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
     autoload :IssuingAuthorizationEvaluationService, "stripe/services/radar/issuing_authorization_evaluation_service"
@@ -549,9 +551,12 @@ module Stripe
       autoload :AccountActivityService, "stripe/services/v2/signals/account_activity_service"
       autoload :AccountEvaluationService, "stripe/services/v2/signals/account_evaluation_service"
       autoload :AccountSignalService, "stripe/services/v2/signals/account_signal_service"
+      autoload :PaymentRetryEvaluationService, "stripe/services/v2/signals/payment_retry_evaluation_service"
+      autoload :PaymentRetrySignalService, "stripe/services/v2/signals/payment_retry_signal_service"
     end
 
     module Tax
+      autoload :IntegrationConfigurationService, "stripe/services/v2/tax/integration_configuration_service"
       autoload :ManualRuleService, "stripe/services/v2/tax/manual_rule_service"
       autoload :OperationService, "stripe/services/v2/tax/operation_service"
     end
@@ -591,6 +596,7 @@ module Stripe
     stripe/services/billing/credit_balance_summary_service
     stripe/services/billing/credit_balance_transaction_service
     stripe/services/billing/credit_grant_service
+    stripe/services/billing/feedback_option_service
     stripe/services/billing/meter_event_adjustment_service
     stripe/services/billing/meter_event_service
     stripe/services/billing/meter_event_summary_service
@@ -718,6 +724,7 @@ module Stripe
     stripe/services/quote_preview_subscription_schedule_service
     stripe/services/quote_service
     stripe/services/radar/account_evaluation_service
+    stripe/services/radar/billing_evaluation_service
     stripe/services/radar/customer_evaluation_service
     stripe/services/radar/early_fraud_warning_service
     stripe/services/radar/issuing_authorization_evaluation_service
@@ -916,7 +923,10 @@ module Stripe
     stripe/services/v2/signals/account_activity_service
     stripe/services/v2/signals/account_evaluation_service
     stripe/services/v2/signals/account_signal_service
+    stripe/services/v2/signals/payment_retry_evaluation_service
+    stripe/services/v2/signals/payment_retry_signal_service
     stripe/services/v2/signals_service
+    stripe/services/v2/tax/integration_configuration_service
     stripe/services/v2/tax/manual_rule_service
     stripe/services/v2/tax/operation_service
     stripe/services/v2/tax_service

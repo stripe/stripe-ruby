@@ -8,6 +8,9 @@ module Stripe
       # ReceivedDebit resource
       class ReceivedDebit < APIResource
         class BalanceTransfer < ::Stripe::StripeObject
+          # The ID of the v1 account that received the balance transfer.
+          sig { returns(T.nilable(String)) }
+          def to_account; end
           # The ID of the topup object that originated the ReceivedDebit.
           sig { returns(T.nilable(String)) }
           def topup; end

@@ -1766,6 +1766,19 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::StripeObject
+        # The SeQura transaction ID associated with this payment.
+        attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -2086,6 +2099,8 @@ module Stripe
       attr_reader :sepa_credit_transfer
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field sequra
+      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -2178,6 +2193,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,

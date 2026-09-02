@@ -140,6 +140,51 @@ module Stripe
           end
         end
 
+        class OneTimeFees < ::Stripe::StripeObject
+          class Data < ::Stripe::StripeObject
+            class BillAt < ::Stripe::StripeObject
+              # The timestamp at which the fee will be billed.
+              attr_reader :timestamp
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The amount billed for this fee.
+            attr_reader :amount
+            # When this fee will be billed. Always contains a concrete timestamp.
+            attr_reader :bill_at
+            # The id of the one-time fee.
+            attr_reader :id
+            # The user-provided lookup key.
+            attr_reader :lookup_key
+            # The id of the product for this fee.
+            attr_reader :product
+
+            def self.inner_class_types
+              @inner_class_types = { bill_at: BillAt }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # The one-time fees for this page.
+          attr_reader :data
+
+          def self.inner_class_types
+            @inner_class_types = { data: Data }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class PricingLines < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class EndsAt < ::Stripe::StripeObject
@@ -486,6 +531,8 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
+        attr_reader :one_time_fees
         # The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
         attr_reader :pricing_lines
         # The pricing overrides. Only populated when `pricing_overrides` is passed in the `include` parameter.
@@ -499,6 +546,7 @@ module Stripe
           @inner_class_types = {
             billing_cycle_anchor: BillingCycleAnchor,
             billing_settings: BillingSettings,
+            one_time_fees: OneTimeFees,
             pricing_lines: PricingLines,
             pricing_overrides: PricingOverrides,
             status_transitions: StatusTransitions,

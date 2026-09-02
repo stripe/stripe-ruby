@@ -17,19 +17,39 @@ module Stripe
       end
 
       class UsageLimits < ::Stripe::RequestParams
+        class Recurring < ::Stripe::RequestParams
+          # The interval at which the shared payment token's amount usage restrictions reset.
+          attr_accessor :interval
+          # The number of intervals between each reset. Defaults to 1.
+          attr_accessor :interval_count
+
+          def initialize(interval: nil, interval_count: nil)
+            @interval = interval
+            @interval_count = interval_count
+          end
+        end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_accessor :currency
         # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
         attr_accessor :expires_at
         # Max amount that can be captured using this SharedPaymentToken
         attr_accessor :max_amount
+        # The recurring schedule for the shared payment token's amount usage restrictions.
+        attr_accessor :recurring
         # The recurring interval at which the shared payment token's amount usage restrictions reset.
         attr_accessor :recurring_interval
 
-        def initialize(currency: nil, expires_at: nil, max_amount: nil, recurring_interval: nil)
+        def initialize(
+          currency: nil,
+          expires_at: nil,
+          max_amount: nil,
+          recurring: nil,
+          recurring_interval: nil
+        )
           @currency = currency
           @expires_at = expires_at
           @max_amount = max_amount
+          @recurring = recurring
           @recurring_interval = recurring_interval
         end
       end

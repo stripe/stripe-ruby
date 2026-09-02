@@ -20,6 +20,8 @@ module Stripe
         def cancel(id, params = {}, opts = {}); end
 
         # Create a draft contract.
+        #
+        # ** raises AlreadyExistsError
         sig {
           params(params: T.any(::Stripe::V2::Billing::ContractCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
          }
@@ -44,6 +46,9 @@ module Stripe
         def retrieve(id, params = {}, opts = {}); end
 
         # Update a draft or active contract.
+        #
+        # ** raises AlreadyExistsError
+        # ** raises CannotProceedError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ContractUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
          }

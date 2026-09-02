@@ -1402,6 +1402,14 @@ module Stripe
       register("v2.core.health.meter_event_summaries_delayed.resolved", &callback)
     end
 
+    def on_v2_core_health_metronome_notification_latency_firing(&callback)
+      register("v2.core.health.metronome_notification_latency.firing", &callback)
+    end
+
+    def on_v2_core_health_metronome_notification_latency_resolved(&callback)
+      register("v2.core.health.metronome_notification_latency.resolved", &callback)
+    end
+
     def on_v2_core_health_payment_method_error_firing(&callback)
       register("v2.core.health.payment_method_error.firing", &callback)
     end
@@ -1634,6 +1642,26 @@ module Stripe
       register("v2.money_management.outbound_transfer.updated", &callback)
     end
 
+    def on_v2_money_management_payout_intent_canceled(&callback)
+      register("v2.money_management.payout_intent.canceled", &callback)
+    end
+
+    def on_v2_money_management_payout_intent_created(&callback)
+      register("v2.money_management.payout_intent.created", &callback)
+    end
+
+    def on_v2_money_management_payout_intent_posted(&callback)
+      register("v2.money_management.payout_intent.posted", &callback)
+    end
+
+    def on_v2_money_management_payout_intent_processing(&callback)
+      register("v2.money_management.payout_intent.processing", &callback)
+    end
+
+    def on_v2_money_management_payout_intent_requires_action(&callback)
+      register("v2.money_management.payout_intent.requires_action", &callback)
+    end
+
     def on_v2_money_management_payout_method_created(&callback)
       register("v2.money_management.payout_method.created", &callback)
     end
@@ -1860,6 +1888,10 @@ module Stripe
 
     def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&callback)
       register("v2.signals.account_signal.payment_delinquency_exposure_ready", &callback)
+    end
+
+    def on_v2_signals_payment_retry_evaluations_retry_recommended(&callback)
+      register("v2.signals.payment_retry_evaluations.retry_recommended", &callback)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

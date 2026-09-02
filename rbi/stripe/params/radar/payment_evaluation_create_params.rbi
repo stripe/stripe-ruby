@@ -113,7 +113,7 @@ module Stripe
              }
             def initialize(customer_presence: nil, payment_type: nil); end
           end
-          # Describes card money movement details for the payment evaluation.
+          # Describes card money movement details.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
            }

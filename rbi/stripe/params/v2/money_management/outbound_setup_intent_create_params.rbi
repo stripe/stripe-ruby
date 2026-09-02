@@ -128,7 +128,7 @@ module Stripe
             params(_crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData::CryptoWallet))
            }
           def crypto_wallet=(_crypto_wallet); end
-          # Closed Enum. The type of payout method to be created.
+          # Open Enum. The type of payout method to be created.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }

@@ -3194,11 +3194,19 @@ module Stripe
         attr_accessor :setup_future_usage
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         attr_accessor :target_date
+        # Attribute for param field verification_method
+        attr_accessor :verification_method
 
-        def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
+        def initialize(
+          mandate_options: nil,
+          setup_future_usage: nil,
+          target_date: nil,
+          verification_method: nil
+        )
           @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
           @target_date = target_date
+          @verification_method = verification_method
         end
       end
 
@@ -6532,8 +6540,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     attr_accessor :radar_options
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
@@ -6577,7 +6583,6 @@ module Stripe
       payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       radar_options: nil,
       receipt_email: nil,
       return_url: nil,
@@ -6604,7 +6609,6 @@ module Stripe
       @payment_method = payment_method
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @radar_options = radar_options
       @receipt_email = receipt_email
       @return_url = return_url

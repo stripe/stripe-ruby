@@ -899,7 +899,17 @@ module Stripe
         def initialize(enabled: nil, features: nil); end
       end
       class PaymentMethodSettings < ::Stripe::RequestParams
-        class Features < ::Stripe::RequestParams; end
+        class Features < ::Stripe::RequestParams
+          # Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+          sig { returns(T.nilable(T::Boolean)) }
+          def disable_stripe_user_authentication; end
+          sig {
+            params(_disable_stripe_user_authentication: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def disable_stripe_user_authentication=(_disable_stripe_user_authentication); end
+          sig { params(disable_stripe_user_authentication: T.nilable(T::Boolean)).void }
+          def initialize(disable_stripe_user_authentication: nil); end
+        end
         # Whether the embedded component is enabled.
         sig { returns(T::Boolean) }
         def enabled; end

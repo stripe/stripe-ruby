@@ -3,8 +3,16 @@
 
 module Stripe
   module Billing
-    # A resource for the feedback options model (for custom cancellation reasons)
+    # A feedback option is a reason you can present to customers when they cancel a
+    # subscription through the customer portal. Configure the set of options a customer
+    # can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+    #
+    # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class FeedbackOption < APIResource
+      extend Stripe::APIOperations::Create
+      extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
+
       OBJECT_NAME = "billing.feedback_option"
       def self.object_name
         "billing.feedback_option"
@@ -34,6 +42,56 @@ module Stripe
       attr_reader :status
       # Attribute for field status_transitions
       attr_reader :status_transitions
+
+      # Creates a new feedback option.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/billing/feedback_options",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
+      def deactivate(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/billing/feedback_options/%<id>s/deactivate", { id: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
+      def self.deactivate(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/billing/feedback_options/%<id>s/deactivate", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of your feedback options.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/billing/feedback_options",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Updates the description of an existing feedback option.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/billing/feedback_options/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       def self.inner_class_types
         @inner_class_types = { status_transitions: StatusTransitions }

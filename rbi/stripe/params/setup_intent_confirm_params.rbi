@@ -1226,10 +1226,15 @@ module Stripe
           params(_mandate_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions)).returns(T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions))
          }
         def mandate_options=(_mandate_options); end
+        # Attribute for param field verification_method
+        sig { returns(T.nilable(String)) }
+        def verification_method; end
+        sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+        def verification_method=(_verification_method); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions)).void
+          params(mandate_options: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions), verification_method: T.nilable(String)).void
          }
-        def initialize(mandate_options: nil); end
+        def initialize(mandate_options: nil, verification_method: nil); end
       end
       class Bizum < ::Stripe::RequestParams; end
       class Card < ::Stripe::RequestParams

@@ -198,6 +198,20 @@ module Stripe
         end
       end
       class UsageLimits < ::Stripe::StripeObject
+        class Recurring < ::Stripe::StripeObject
+          # The interval at which the shared payment token's amount usage restrictions reset.
+          sig { returns(String) }
+          def interval; end
+          # The number of intervals between each reset.
+          sig { returns(Integer) }
+          def interval_count; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         sig { returns(String) }
         def currency; end
@@ -207,11 +221,14 @@ module Stripe
         # Max amount that can be captured using this SharedPaymentToken.
         sig { returns(Integer) }
         def max_amount; end
+        # The recurring schedule for the shared payment token's amount usage restrictions.
+        sig { returns(T.nilable(Recurring)) }
+        def recurring; end
         # The recurring interval at which the shared payment token's amount usage restrictions reset.
         sig { returns(T.nilable(String)) }
         def recurring_interval; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {recurring: Recurring}
         end
         def self.field_remappings
           @field_remappings = {}

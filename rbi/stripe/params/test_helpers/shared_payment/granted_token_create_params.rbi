@@ -7,6 +7,20 @@ module Stripe
     module SharedPayment
       class GrantedTokenCreateParams < ::Stripe::RequestParams
         class UsageLimits < ::Stripe::RequestParams
+          class Recurring < ::Stripe::RequestParams
+            # The interval at which the shared payment token's amount usage restrictions reset.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals between each reset. Defaults to 1.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
           # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
           sig { returns(String) }
           def currency; end
@@ -22,18 +36,28 @@ module Stripe
           def max_amount; end
           sig { params(_max_amount: Integer).returns(Integer) }
           def max_amount=(_max_amount); end
+          # The recurring schedule for the shared payment token's amount usage restrictions.
+          sig {
+            returns(T.nilable(::Stripe::TestHelpers::SharedPayment::GrantedTokenCreateParams::UsageLimits::Recurring))
+           }
+          def recurring; end
+          sig {
+            params(_recurring: T.nilable(::Stripe::TestHelpers::SharedPayment::GrantedTokenCreateParams::UsageLimits::Recurring)).returns(T.nilable(::Stripe::TestHelpers::SharedPayment::GrantedTokenCreateParams::UsageLimits::Recurring))
+           }
+          def recurring=(_recurring); end
           # The recurring interval at which the shared payment token's amount usage restrictions reset.
           sig { returns(T.nilable(String)) }
           def recurring_interval; end
           sig { params(_recurring_interval: T.nilable(String)).returns(T.nilable(String)) }
           def recurring_interval=(_recurring_interval); end
           sig {
-            params(currency: String, expires_at: T.nilable(Integer), max_amount: Integer, recurring_interval: T.nilable(String)).void
+            params(currency: String, expires_at: T.nilable(Integer), max_amount: Integer, recurring: T.nilable(::Stripe::TestHelpers::SharedPayment::GrantedTokenCreateParams::UsageLimits::Recurring), recurring_interval: T.nilable(String)).void
            }
           def initialize(
             currency: nil,
             expires_at: nil,
             max_amount: nil,
+            recurring: nil,
             recurring_interval: nil
           ); end
         end

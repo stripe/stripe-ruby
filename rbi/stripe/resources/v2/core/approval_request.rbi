@@ -8,14 +8,42 @@ module Stripe
       # An approval request represents a pending action that requires review before execution.
       class ApprovalRequest < APIResource
         class RequestedBy < ::Stripe::StripeObject
-          # Stripe-defined identifier for the requester (e.g. a restricted API key token).
+          class ApiKey < ::Stripe::StripeObject
+            # Stripe-defined identifier for the API key (e.g. a restricted API key token).
+            sig { returns(String) }
+            def id; end
+            # Merchant-defined name for the API key.
+            sig { returns(T.nilable(String)) }
+            def name; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class User < ::Stripe::StripeObject
+            # Email address of the dashboard user.
+            sig { returns(String) }
+            def email; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Present when `type` is `api_key`.
+          sig { returns(T.nilable(ApiKey)) }
+          def api_key; end
+          # The type of actor that made the request.
           sig { returns(String) }
-          def id; end
-          # Merchant-defined name for the requester.
-          sig { returns(T.nilable(String)) }
-          def name; end
+          def type; end
+          # Present when `type` is `user`.
+          sig { returns(T.nilable(User)) }
+          def user; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {api_key: ApiKey, user: User}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -23,14 +51,42 @@ module Stripe
         end
         class Review < ::Stripe::StripeObject
           class ReviewedBy < ::Stripe::StripeObject
-            # Stripe-defined identifier for the reviewer (e.g. a restricted API key token).
+            class ApiKey < ::Stripe::StripeObject
+              # Stripe-defined identifier for the API key (e.g. a restricted API key token).
+              sig { returns(String) }
+              def id; end
+              # Merchant-defined name for the API key.
+              sig { returns(T.nilable(String)) }
+              def name; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            class User < ::Stripe::StripeObject
+              # Email address of the dashboard user.
+              sig { returns(String) }
+              def email; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Present when `type` is `api_key`.
+            sig { returns(T.nilable(ApiKey)) }
+            def api_key; end
+            # The type of actor that reviewed the request.
             sig { returns(String) }
-            def id; end
-            # Merchant-defined name for the reviewer.
-            sig { returns(String) }
-            def name; end
+            def type; end
+            # Present when `type` is `user`.
+            sig { returns(T.nilable(User)) }
+            def user; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {api_key: ApiKey, user: User}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -254,6 +310,9 @@ module Stripe
           end
         end
         class StatusTransitions < ::Stripe::StripeObject
+          # Timestamp when the approval request was approved.
+          sig { returns(T.nilable(String)) }
+          def approved_at; end
           # Timestamp when the approval request was canceled.
           sig { returns(T.nilable(String)) }
           def canceled_at; end
@@ -266,9 +325,6 @@ module Stripe
           # Timestamp when the approval request was rejected.
           sig { returns(T.nilable(String)) }
           def rejected_at; end
-          # Timestamp when the approval request moved to requires_execution status.
-          sig { returns(T.nilable(String)) }
-          def requires_execution_at; end
           # Timestamp when the approval request succeeded.
           sig { returns(T.nilable(String)) }
           def succeeded_at; end
@@ -288,9 +344,6 @@ module Stripe
         # The URL to the dashboard for this ApprovalRequest.
         sig { returns(T.nilable(String)) }
         def dashboard_url; end
-        # A description of the approval request.
-        sig { returns(T.nilable(String)) }
-        def description; end
         # The timestamp at which this ApprovalRequest will expire.
         sig { returns(String) }
         def expires_at; end
@@ -303,6 +356,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Context provided by the requester (e.g. an agent) to help reviewers evaluate the request.
+        sig { returns(T.nilable(String)) }
+        def reason; end
         # The requester of this ApprovalRequest.
         sig { returns(RequestedBy) }
         def requested_by; end

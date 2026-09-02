@@ -8,10 +8,13 @@ module Stripe
       attr_accessor :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
       attr_accessor :feedback
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      attr_accessor :feedback_option
 
-      def initialize(comment: nil, feedback: nil)
+      def initialize(comment: nil, feedback: nil, feedback_option: nil)
         @comment = comment
         @feedback = feedback
+        @feedback_option = feedback_option
       end
     end
     # Details about why this subscription was cancelled

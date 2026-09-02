@@ -1461,9 +1461,12 @@ module Stripe
           class Restrictions < ::Stripe::RequestParams
             # The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
             attr_accessor :brands_blocked
+            # Card funding types to block for this Checkout Session. Supported values are `credit`, `debit`, and `prepaid`.
+            attr_accessor :funding_types_blocked
 
-            def initialize(brands_blocked: nil)
+            def initialize(brands_blocked: nil, funding_types_blocked: nil)
               @brands_blocked = brands_blocked
+              @funding_types_blocked = funding_types_blocked
             end
           end
           # Controls when the funds will be captured from the customer's account.

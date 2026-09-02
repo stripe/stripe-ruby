@@ -238,6 +238,30 @@ module Stripe
         end
       end
 
+      class CapitalFinancingManualPayment < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        attr_reader :enabled
+        # Attribute for field features
+        attr_reader :features
+
+        def self.inner_class_types
+          @inner_class_types = { features: Features }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CapitalFinancingPromotion < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1054,6 +1078,8 @@ module Stripe
       attr_reader :capital_financing
       # Attribute for field capital_financing_application
       attr_reader :capital_financing_application
+      # Configuration for the [Capital financing manual payment](/connect/supported-embedded-components/capital-financing-manual-payment/) embedded component.
+      attr_reader :capital_financing_manual_payment
       # Attribute for field capital_financing_promotion
       attr_reader :capital_financing_promotion
       # Configuration for the [check scanning](/connect/supported-embedded-components/check-scanning/) embedded component.
@@ -1121,6 +1147,7 @@ module Stripe
           bills: Bills,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
+          capital_financing_manual_payment: CapitalFinancingManualPayment,
           capital_financing_promotion: CapitalFinancingPromotion,
           check_scanning: CheckScanning,
           disputes_list: DisputesList,

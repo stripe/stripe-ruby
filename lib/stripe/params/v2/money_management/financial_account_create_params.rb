@@ -5,6 +5,15 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
+        class Savings < ::Stripe::RequestParams
+          # The currencies that this savings FinancialAccount can hold. Three-letter ISO currency code, in lowercase.
+          attr_accessor :holds_currencies
+
+          def initialize(holds_currencies: nil)
+            @holds_currencies = holds_currencies
+          end
+        end
+
         class Storage < ::Stripe::RequestParams
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           attr_accessor :funds_usage_type
@@ -20,14 +29,17 @@ module Stripe
         attr_accessor :display_name
         # Metadata associated with the FinancialAccount.
         attr_accessor :metadata
+        # Parameters specific to creating `savings` type FinancialAccounts.
+        attr_accessor :savings
         # Parameters specific to creating `storage` type FinancialAccounts.
         attr_accessor :storage
         # The type of FinancialAccount to create.
         attr_accessor :type
 
-        def initialize(display_name: nil, metadata: nil, storage: nil, type: nil)
+        def initialize(display_name: nil, metadata: nil, savings: nil, storage: nil, type: nil)
           @display_name = display_name
           @metadata = metadata
+          @savings = savings
           @storage = storage
           @type = type
         end

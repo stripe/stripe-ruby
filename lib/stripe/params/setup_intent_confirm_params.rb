@@ -789,9 +789,12 @@ module Stripe
         end
         # Additional fields for Mandate creation
         attr_accessor :mandate_options
+        # Attribute for param field verification_method
+        attr_accessor :verification_method
 
-        def initialize(mandate_options: nil)
+        def initialize(mandate_options: nil, verification_method: nil)
           @mandate_options = mandate_options
+          @verification_method = verification_method
         end
       end
 

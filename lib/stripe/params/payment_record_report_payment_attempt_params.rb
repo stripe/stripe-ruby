@@ -3,6 +3,21 @@
 
 module Stripe
   class PaymentRecordReportPaymentAttemptParams < ::Stripe::RequestParams
+    class Canceled < ::Stripe::RequestParams
+      # When the reported payment was canceled. Measured in seconds since the Unix epoch.
+      attr_accessor :canceled_at
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
+      # The reason the payment attempt was canceled.
+      attr_accessor :reason
+
+      def initialize(canceled_at: nil, payment_evaluations: nil, reason: nil)
+        @canceled_at = canceled_at
+        @payment_evaluations = payment_evaluations
+        @reason = reason
+      end
+    end
+
     class Failed < ::Stripe::RequestParams
       class ProcessorDetails < ::Stripe::RequestParams
         class Custom < ::Stripe::RequestParams
@@ -226,6 +241,8 @@ module Stripe
         @phone = phone
       end
     end
+    # Information about the payment attempt cancelation.
+    attr_accessor :canceled
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_accessor :description
     # Specifies which fields in the response should be expanded.
@@ -246,6 +263,7 @@ module Stripe
     attr_accessor :shipping_details
 
     def initialize(
+      canceled: nil,
       description: nil,
       expand: nil,
       failed: nil,
@@ -256,6 +274,7 @@ module Stripe
       payment_method_details: nil,
       shipping_details: nil
     )
+      @canceled = canceled
       @description = description
       @expand = expand
       @failed = failed

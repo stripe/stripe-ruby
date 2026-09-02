@@ -33,13 +33,13 @@ module Stripe
     # Attribute for field ca
     sig { returns(T.nilable(Ca)) }
     def ca; end
-    # Attribute for field country
+    # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
     sig { returns(String) }
     def country; end
-    # Attribute for field created
+    # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
     def created; end
-    # Attribute for field customer
+    # ID of the customer this tax exemption belongs to.
     sig { returns(String) }
     def customer; end
     # Present and true when the exemption has been deleted.
@@ -51,13 +51,13 @@ module Stripe
     # ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     sig { returns(T.nilable(String)) }
     def expiration_date; end
-    # Attribute for field id
+    # Unique identifier for the object.
     sig { returns(String) }
     def id; end
-    # Attribute for field livemode
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end
-    # Attribute for field object
+    # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
     # Attribute for field us

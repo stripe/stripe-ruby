@@ -198,6 +198,64 @@ module Stripe
           end
         end
 
+        class Savings < ::Stripe::StripeObject
+          class Interest < ::Stripe::StripeObject
+            class Rate < ::Stripe::StripeObject
+              # Current variable rate, e.g. "3.00".
+              attr_reader :percentage
+              # The period over which interest accrues.
+              attr_reader :period
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+
+              def self.field_encodings
+                @field_encodings = { percentage: :decimal_string }
+              end
+            end
+            # The interest rate applied to this savings FinancialAccount.
+            attr_reader :rate
+
+            def self.inner_class_types
+              @inner_class_types = { rate: Rate }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { rate: { kind: :object, fields: { percentage: :decimal_string } } }
+            end
+          end
+          # The currencies that this savings FinancialAccount can hold.
+          attr_reader :holds_currencies
+          # Interest details for this savings FinancialAccount. Populated by the server.
+          attr_reader :interest
+
+          def self.inner_class_types
+            @inner_class_types = { interest: Interest }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              interest: {
+                kind: :object,
+                fields: { rate: { kind: :object, fields: { percentage: :decimal_string } } },
+              },
+            }
+          end
+        end
+
         class StatusDetails < ::Stripe::StripeObject
           class Closed < ::Stripe::StripeObject
             class ForwardingSettings < ::Stripe::StripeObject
@@ -279,6 +337,8 @@ module Stripe
         attr_reader :other
         # If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
         attr_reader :payments
+        # If this is a `savings` FinancialAccount, this hash includes details specific to `savings` FinancialAccounts.
+        attr_reader :savings
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         attr_reader :status
         # Additional details related to the status of the FinancialAccount.
@@ -297,6 +357,7 @@ module Stripe
             multiprocessor_settlement: MultiprocessorSettlement,
             other: Other,
             payments: Payments,
+            savings: Savings,
             status_details: StatusDetails,
             storage: Storage,
           }
@@ -304,6 +365,20 @@ module Stripe
 
         def self.field_remappings
           @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            savings: {
+              kind: :object,
+              fields: {
+                interest: {
+                  kind: :object,
+                  fields: { rate: { kind: :object, fields: { percentage: :decimal_string } } },
+                },
+              },
+            },
+          }
         end
       end
     end

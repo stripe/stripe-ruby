@@ -1533,6 +1533,16 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1839,6 +1849,8 @@ module Stripe
       attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field sequra
+      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -1923,6 +1935,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_balance: StripeBalance,
@@ -1991,6 +2004,8 @@ module Stripe
     attr_reader :livemode
     # Data used for generating a Mandate.
     attr_reader :mandate_data
+    # Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # ID of the PaymentIntent that this ConfirmationToken was used to confirm, or null if this ConfirmationToken has not yet been used.

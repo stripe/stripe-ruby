@@ -773,7 +773,7 @@ module Stripe
       # Serial number of the reader.
       sig { returns(String) }
       def serial_number; end
-      # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+      # The networking status of the reader. This value is `null` for mobile readers. We do not recommend using this field in flows that may block taking payments.
       sig { returns(T.nilable(String)) }
       def status; end
       # Initiates a gift card activation flow on a Reader and optionally sets its balance.

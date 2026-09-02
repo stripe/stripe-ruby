@@ -421,6 +421,11 @@ module Stripe
     autoload :CreditGrantRetrieveParams, "stripe/params/billing/credit_grant_retrieve_params"
     autoload :CreditGrantUpdateParams, "stripe/params/billing/credit_grant_update_params"
     autoload :CreditGrantVoidGrantParams, "stripe/params/billing/credit_grant_void_grant_params"
+    autoload :FeedbackOptionCreateParams, "stripe/params/billing/feedback_option_create_params"
+    autoload :FeedbackOptionDeactivateParams, "stripe/params/billing/feedback_option_deactivate_params"
+    autoload :FeedbackOptionListParams, "stripe/params/billing/feedback_option_list_params"
+    autoload :FeedbackOptionRetrieveParams, "stripe/params/billing/feedback_option_retrieve_params"
+    autoload :FeedbackOptionUpdateParams, "stripe/params/billing/feedback_option_update_params"
     autoload :MeterCreateParams, "stripe/params/billing/meter_create_params"
     autoload :MeterDeactivateParams, "stripe/params/billing/meter_deactivate_params"
     autoload :MeterEventAdjustmentCreateParams, "stripe/params/billing/meter_event_adjustment_create_params"
@@ -658,6 +663,7 @@ module Stripe
     autoload :AccountEvaluationCreateParams, "stripe/params/radar/account_evaluation_create_params"
     autoload :AccountEvaluationRetrieveParams, "stripe/params/radar/account_evaluation_retrieve_params"
     autoload :AccountEvaluationUpdateParams, "stripe/params/radar/account_evaluation_update_params"
+    autoload :BillingEvaluationCreateParams, "stripe/params/radar/billing_evaluation_create_params"
     autoload :CustomerEvaluationCreateParams, "stripe/params/radar/customer_evaluation_create_params"
     autoload :CustomerEvaluationRetrieveParams, "stripe/params/radar/customer_evaluation_retrieve_params"
     autoload :CustomerEvaluationUpdateParams, "stripe/params/radar/customer_evaluation_update_params"
@@ -1073,10 +1079,9 @@ module Stripe
       autoload :AccountTokenRetrieveParams, "stripe/params/v2/core/account_token_retrieve_params"
       autoload :AccountUpdateParams, "stripe/params/v2/core/account_update_params"
       autoload :ApprovalRequestCancelParams, "stripe/params/v2/core/approval_request_cancel_params"
-      autoload :ApprovalRequestExecuteParams, "stripe/params/v2/core/approval_request_execute_params"
       autoload :ApprovalRequestListParams, "stripe/params/v2/core/approval_request_list_params"
       autoload :ApprovalRequestRetrieveParams, "stripe/params/v2/core/approval_request_retrieve_params"
-      autoload :ApprovalRequestSubmitParams, "stripe/params/v2/core/approval_request_submit_params"
+      autoload :ApprovalRequestUpdateParams, "stripe/params/v2/core/approval_request_update_params"
       autoload :BatchJobCancelParams, "stripe/params/v2/core/batch_job_cancel_params"
       autoload :BatchJobCreateParams, "stripe/params/v2/core/batch_job_create_params"
       autoload :BatchJobRetrieveParams, "stripe/params/v2/core/batch_job_retrieve_params"
@@ -1218,6 +1223,7 @@ module Stripe
       autoload :PayoutIntentRetrieveParams, "stripe/params/v2/money_management/payout_intent_retrieve_params"
       autoload :PayoutIntentUpdateParams, "stripe/params/v2/money_management/payout_intent_update_params"
       autoload :PayoutMethodArchiveParams, "stripe/params/v2/money_management/payout_method_archive_params"
+      autoload :PayoutMethodDisableParams, "stripe/params/v2/money_management/payout_method_disable_params"
       autoload :PayoutMethodListParams, "stripe/params/v2/money_management/payout_method_list_params"
       autoload :PayoutMethodRetrieveParams, "stripe/params/v2/money_management/payout_method_retrieve_params"
       autoload :PayoutMethodsBankAccountSpecRetrieveParams,
@@ -1318,9 +1324,17 @@ module Stripe
       autoload :AccountEvaluationRetrieveParams, "stripe/params/v2/signals/account_evaluation_retrieve_params"
       autoload :AccountSignalListParams, "stripe/params/v2/signals/account_signal_list_params"
       autoload :AccountSignalRetrieveParams, "stripe/params/v2/signals/account_signal_retrieve_params"
+      autoload :PaymentRetryEvaluationCancelParams, "stripe/params/v2/signals/payment_retry_evaluation_cancel_params"
+      autoload :PaymentRetryEvaluationCreateParams, "stripe/params/v2/signals/payment_retry_evaluation_create_params"
+      autoload :PaymentRetryEvaluationRetrieveParams,
+               "stripe/params/v2/signals/payment_retry_evaluation_retrieve_params"
+      autoload :PaymentRetryEvaluationUpdateParams, "stripe/params/v2/signals/payment_retry_evaluation_update_params"
+      autoload :PaymentRetrySignalRetrieveParams, "stripe/params/v2/signals/payment_retry_signal_retrieve_params"
     end
 
     module Tax
+      autoload :IntegrationConfigurationRetrieveParams, "stripe/params/v2/tax/integration_configuration_retrieve_params"
+      autoload :IntegrationConfigurationUpdateParams, "stripe/params/v2/tax/integration_configuration_update_params"
       autoload :ManualRuleCreateParams, "stripe/params/v2/tax/manual_rule_create_params"
       autoload :ManualRuleDeactivateParams, "stripe/params/v2/tax/manual_rule_deactivate_params"
       autoload :ManualRuleListParams, "stripe/params/v2/tax/manual_rule_list_params"
@@ -1408,6 +1422,11 @@ module Stripe
     stripe/params/billing/credit_grant_retrieve_params
     stripe/params/billing/credit_grant_update_params
     stripe/params/billing/credit_grant_void_grant_params
+    stripe/params/billing/feedback_option_create_params
+    stripe/params/billing/feedback_option_deactivate_params
+    stripe/params/billing/feedback_option_list_params
+    stripe/params/billing/feedback_option_retrieve_params
+    stripe/params/billing/feedback_option_update_params
     stripe/params/billing/meter_create_params
     stripe/params/billing/meter_deactivate_params
     stripe/params/billing/meter_event_adjustment_create_params
@@ -1845,6 +1864,7 @@ module Stripe
     stripe/params/radar/account_evaluation_create_params
     stripe/params/radar/account_evaluation_retrieve_params
     stripe/params/radar/account_evaluation_update_params
+    stripe/params/radar/billing_evaluation_create_params
     stripe/params/radar/customer_evaluation_create_params
     stripe/params/radar/customer_evaluation_retrieve_params
     stripe/params/radar/customer_evaluation_update_params
@@ -2235,10 +2255,9 @@ module Stripe
     stripe/params/v2/core/accounts/person_token_retrieve_params
     stripe/params/v2/core/accounts/person_update_params
     stripe/params/v2/core/approval_request_cancel_params
-    stripe/params/v2/core/approval_request_execute_params
     stripe/params/v2/core/approval_request_list_params
     stripe/params/v2/core/approval_request_retrieve_params
-    stripe/params/v2/core/approval_request_submit_params
+    stripe/params/v2/core/approval_request_update_params
     stripe/params/v2/core/batch_job_cancel_params
     stripe/params/v2/core/batch_job_create_params
     stripe/params/v2/core/batch_job_retrieve_params
@@ -2337,6 +2356,7 @@ module Stripe
     stripe/params/v2/money_management/payout_intent_retrieve_params
     stripe/params/v2/money_management/payout_intent_update_params
     stripe/params/v2/money_management/payout_method_archive_params
+    stripe/params/v2/money_management/payout_method_disable_params
     stripe/params/v2/money_management/payout_method_list_params
     stripe/params/v2/money_management/payout_method_retrieve_params
     stripe/params/v2/money_management/payout_method_unarchive_params
@@ -2394,6 +2414,13 @@ module Stripe
     stripe/params/v2/signals/account_evaluation_retrieve_params
     stripe/params/v2/signals/account_signal_list_params
     stripe/params/v2/signals/account_signal_retrieve_params
+    stripe/params/v2/signals/payment_retry_evaluation_cancel_params
+    stripe/params/v2/signals/payment_retry_evaluation_create_params
+    stripe/params/v2/signals/payment_retry_evaluation_retrieve_params
+    stripe/params/v2/signals/payment_retry_evaluation_update_params
+    stripe/params/v2/signals/payment_retry_signal_retrieve_params
+    stripe/params/v2/tax/integration_configuration_retrieve_params
+    stripe/params/v2/tax/integration_configuration_update_params
     stripe/params/v2/tax/manual_rule_create_params
     stripe/params/v2/tax/manual_rule_deactivate_params
     stripe/params/v2/tax/manual_rule_list_params

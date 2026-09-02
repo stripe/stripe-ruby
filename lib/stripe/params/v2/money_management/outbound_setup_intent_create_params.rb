@@ -79,7 +79,7 @@ module Stripe
           attr_accessor :card
           # The type specific details of the crypto wallet payout method.
           attr_accessor :crypto_wallet
-          # Closed Enum. The type of payout method to be created.
+          # Open Enum. The type of payout method to be created.
           attr_accessor :type
 
           def initialize(bank_account: nil, card: nil, crypto_wallet: nil, type: nil)

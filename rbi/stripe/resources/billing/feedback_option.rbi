@@ -4,7 +4,11 @@
 # typed: true
 module Stripe
   module Billing
-    # A resource for the feedback options model (for custom cancellation reasons)
+    # A feedback option is a reason you can present to customers when they cancel a
+    # subscription through the customer portal. Configure the set of options a customer
+    # can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+    #
+    # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class FeedbackOption < APIResource
       class StatusTransitions < ::Stripe::StripeObject
         # The time the feedback option was deactivated, if any. Measured in seconds since Unix epoch.
@@ -35,6 +39,35 @@ module Stripe
       # Attribute for field status_transitions
       sig { returns(StatusTransitions) }
       def status_transitions; end
+      # Creates a new feedback option.
+      sig {
+        params(params: T.any(::Stripe::Billing::FeedbackOptionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::FeedbackOption)
+       }
+      def self.create(params = {}, opts = {}); end
+
+      # Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
+      sig {
+        params(params: T.any(::Stripe::Billing::FeedbackOptionDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::FeedbackOption)
+       }
+      def deactivate(params = {}, opts = {}); end
+
+      # Deactivates a feedback option. Deactivated feedback options cannot be used in portal configurations.
+      sig {
+        params(id: String, params: T.any(::Stripe::Billing::FeedbackOptionDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::FeedbackOption)
+       }
+      def self.deactivate(id, params = {}, opts = {}); end
+
+      # Returns a list of your feedback options.
+      sig {
+        params(params: T.any(::Stripe::Billing::FeedbackOptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
+
+      # Updates the description of an existing feedback option.
+      sig {
+        params(id: String, params: T.any(::Stripe::Billing::FeedbackOptionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::FeedbackOption)
+       }
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

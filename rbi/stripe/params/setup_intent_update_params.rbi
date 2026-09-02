@@ -1160,10 +1160,15 @@ module Stripe
           params(_mandate_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions)).returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions))
          }
         def mandate_options=(_mandate_options); end
+        # Attribute for param field verification_method
+        sig { returns(T.nilable(String)) }
+        def verification_method; end
+        sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+        def verification_method=(_verification_method); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions)).void
+          params(mandate_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions), verification_method: T.nilable(String)).void
          }
-        def initialize(mandate_options: nil); end
+        def initialize(mandate_options: nil, verification_method: nil); end
       end
       class Bizum < ::Stripe::RequestParams; end
       class Card < ::Stripe::RequestParams
@@ -2200,13 +2205,6 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    sig { returns(T.nilable(T::Array[String])) }
-    def payment_method_types; end
-    sig {
-      params(_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-     }
-    def payment_method_types=(_payment_method_types); end
     # Provides industry-specific information about the SetupIntent.
     sig { returns(T.nilable(::Stripe::SetupIntentUpdateParams::SetupDetails)) }
     def setup_details; end
@@ -2215,7 +2213,7 @@ module Stripe
      }
     def setup_details=(_setup_details); end
     sig {
-      params(allowed_payment_method_types: T.nilable(T.any(String, T::Array[String])), attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), setup_details: T.nilable(::Stripe::SetupIntentUpdateParams::SetupDetails)).void
+      params(allowed_payment_method_types: T.nilable(T.any(String, T::Array[String])), attach_to_self: T.nilable(T::Boolean), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), flow_directions: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodOptions), setup_details: T.nilable(::Stripe::SetupIntentUpdateParams::SetupDetails)).void
      }
     def initialize(
       allowed_payment_method_types: nil,
@@ -2231,7 +2229,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       setup_details: nil
     ); end
   end

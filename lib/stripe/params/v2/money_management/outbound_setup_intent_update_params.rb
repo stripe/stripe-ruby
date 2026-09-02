@@ -62,7 +62,7 @@ module Stripe
           attr_accessor :bank_account
           # The type specific details of the card payout method.
           attr_accessor :card
-          # Closed Enum. The type of payout method to be created/updated.
+          # Open Enum. The type of payout method to be created/updated.
           attr_accessor :type
 
           def initialize(bank_account: nil, card: nil, type: nil)

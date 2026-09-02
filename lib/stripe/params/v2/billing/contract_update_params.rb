@@ -5,6 +5,93 @@ module Stripe
   module V2
     module Billing
       class ContractUpdateParams < ::Stripe::RequestParams
+        class OneTimeFeeAction < ::Stripe::RequestParams
+          class Add < ::Stripe::RequestParams
+            class BillAt < ::Stripe::RequestParams
+              # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the bill_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+            # The amount to bill.
+            attr_accessor :amount
+            # When this fee should be billed.
+            attr_accessor :bill_at
+            # A user-provided lookup key.
+            attr_accessor :lookup_key
+            # The id of the product for this fee.
+            attr_accessor :product
+
+            def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
+              @amount = amount
+              @bill_at = bill_at
+              @lookup_key = lookup_key
+              @product = product
+            end
+          end
+
+          class Remove < ::Stripe::RequestParams
+            # The id of the one-time fee to remove.
+            attr_accessor :id
+            # The lookup key of the one-time fee to remove.
+            attr_accessor :lookup_key
+
+            def initialize(id: nil, lookup_key: nil)
+              @id = id
+              @lookup_key = lookup_key
+            end
+          end
+
+          class Update < ::Stripe::RequestParams
+            class BillAt < ::Stripe::RequestParams
+              # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+              attr_accessor :timestamp
+              # The type of the bill_at.
+              attr_accessor :type
+
+              def initialize(timestamp: nil, type: nil)
+                @timestamp = timestamp
+                @type = type
+              end
+            end
+            # The updated amount to bill.
+            attr_accessor :amount
+            # The updated bill_at schedule.
+            attr_accessor :bill_at
+            # The id of the one-time fee to update.
+            attr_accessor :id
+            # The lookup key of the one-time fee to update.
+            attr_accessor :lookup_key
+
+            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil)
+              @amount = amount
+              @bill_at = bill_at
+              @id = id
+              @lookup_key = lookup_key
+            end
+          end
+          # Parameters for adding a one-time fee.
+          attr_accessor :add
+          # Parameters for removing a one-time fee.
+          attr_accessor :remove
+          # The type of one-time fee action.
+          attr_accessor :type
+          # Parameters for updating a one-time fee.
+          attr_accessor :update
+
+          def initialize(add: nil, remove: nil, type: nil, update: nil)
+            @add = add
+            @remove = remove
+            @type = type
+            @update = update
+          end
+        end
+
         class PricingLineAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class EndsAt < ::Stripe::RequestParams
@@ -731,6 +818,8 @@ module Stripe
         attr_accessor :include
         # Set of key-value pairs.
         attr_accessor :metadata
+        # One-time fee actions to apply.
+        attr_accessor :one_time_fee_actions
         # Pricing line actions to apply.
         attr_accessor :pricing_line_actions
         # Pricing override actions to apply.
@@ -739,11 +828,13 @@ module Stripe
         def initialize(
           include: nil,
           metadata: nil,
+          one_time_fee_actions: nil,
           pricing_line_actions: nil,
           pricing_override_actions: nil
         )
           @include = include
           @metadata = metadata
+          @one_time_fee_actions = one_time_fee_actions
           @pricing_line_actions = pricing_line_actions
           @pricing_override_actions = pricing_override_actions
         end

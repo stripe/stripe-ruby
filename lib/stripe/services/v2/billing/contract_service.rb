@@ -35,6 +35,8 @@ module Stripe
         end
 
         # Create a draft contract.
+        #
+        # ** raises AlreadyExistsError
         def create(params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Billing::ContractCreateParams.coerce_params(params)
@@ -83,6 +85,9 @@ module Stripe
         end
 
         # Update a draft or active contract.
+        #
+        # ** raises AlreadyExistsError
+        # ** raises CannotProceedError
         def update(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::V2::Billing::ContractUpdateParams.coerce_params(params)

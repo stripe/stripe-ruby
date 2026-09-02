@@ -70,6 +70,24 @@ module Stripe
           end
         end
 
+        class AccountRestricted < ::Stripe::RequestParams
+          # The reason the account or customer was restricted.
+          attr_accessor :reason
+
+          def initialize(reason: nil)
+            @reason = reason
+          end
+        end
+
+        class AccountSuspended < ::Stripe::RequestParams
+          # The reason the customer was suspended.
+          attr_accessor :reason
+
+          def initialize(reason: nil)
+            @reason = reason
+          end
+        end
+
         class LoginAttempt < ::Stripe::RequestParams
           class ClientDetails < ::Stripe::RequestParams
             class Data < ::Stripe::RequestParams
@@ -159,10 +177,18 @@ module Stripe
         attr_accessor :account_details
         # The account evaluation this activity is associated with, when applicable.
         attr_accessor :account_evaluation
+        # Details for the account restriction. Provide only when type is account_restricted. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        attr_accessor :account_restricted
+        # Details for the account suspension. Provide only when type is account_suspended. The activity
+        # requires an existing account_details.customer; account_details.account and inline data are unsupported.
+        attr_accessor :account_suspended
         # Details for the login attempt. Provide only when type is login_attempt.
         attr_accessor :login_attempt
         # Details for the login decision. Provide only when type is login_decision.
         attr_accessor :login_decision
+        # Additional information about the activity.
+        attr_accessor :metadata
         # Timestamp at which the activity occurred. Defaults to the created time if not provided.
         attr_accessor :occurred_at
         # Details for the registration attempt. Provide only when type is registration_attempt.
@@ -175,8 +201,11 @@ module Stripe
         def initialize(
           account_details: nil,
           account_evaluation: nil,
+          account_restricted: nil,
+          account_suspended: nil,
           login_attempt: nil,
           login_decision: nil,
+          metadata: nil,
           occurred_at: nil,
           registration_attempt: nil,
           registration_decision: nil,
@@ -184,8 +213,11 @@ module Stripe
         )
           @account_details = account_details
           @account_evaluation = account_evaluation
+          @account_restricted = account_restricted
+          @account_suspended = account_suspended
           @login_attempt = login_attempt
           @login_decision = login_decision
+          @metadata = metadata
           @occurred_at = occurred_at
           @registration_attempt = registration_attempt
           @registration_decision = registration_decision

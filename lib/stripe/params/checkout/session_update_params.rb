@@ -295,6 +295,53 @@ module Stripe
         end
       end
 
+      class PaymentIntentData < ::Stripe::RequestParams
+        # An arbitrary string attached to the object. Often useful for displaying to users. Pass an empty string to clear a previously configured value.
+        attr_accessor :description
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails). Pass an empty string to clear a previously configured recipient.
+        attr_accessor :receipt_email
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
+        #
+        # When setting this to `on_session`, Checkout will show a notice to the customer that their payment details will be saved.
+        #
+        # When setting this to `off_session`, Checkout will show a notice to the customer that their payment details will be saved and used for future payments.
+        #
+        # If a Customer has been provided or Checkout creates a new Customer, Checkout will attach the payment method to the Customer.
+        #
+        # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
+        #
+        # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
+        #
+        # Pass an empty string to remove a previously supplied configuration.
+        attr_accessor :setup_future_usage
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+        #
+        # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+        #  Pass an empty string to clear a previously configured value.
+        attr_accessor :statement_descriptor
+        # Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement.
+        #  Pass an empty string to clear a previously configured value.
+        attr_accessor :statement_descriptor_suffix
+
+        def initialize(
+          description: nil,
+          metadata: nil,
+          receipt_email: nil,
+          setup_future_usage: nil,
+          statement_descriptor: nil,
+          statement_descriptor_suffix: nil
+        )
+          @description = description
+          @metadata = metadata
+          @receipt_email = receipt_email
+          @setup_future_usage = setup_future_usage
+          @statement_descriptor = statement_descriptor
+          @statement_descriptor_suffix = statement_descriptor_suffix
+        end
+      end
+
       class ShippingOption < ::Stripe::RequestParams
         class ShippingRateData < ::Stripe::RequestParams
           class DeliveryEstimate < ::Stripe::RequestParams
@@ -483,6 +530,10 @@ module Stripe
       attr_accessor :line_items
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+      #
+      # You can only update these parameters when `ui_mode` is `elements` and while the session is active.
+      attr_accessor :payment_intent_data
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       attr_accessor :shipping_options
       # A subset of parameters to be passed to subscription creation for Checkout Sessions in `subscription` mode.
@@ -496,6 +547,7 @@ module Stripe
         invoice_creation: nil,
         line_items: nil,
         metadata: nil,
+        payment_intent_data: nil,
         shipping_options: nil,
         subscription_data: nil
       )
@@ -506,6 +558,7 @@ module Stripe
         @invoice_creation = invoice_creation
         @line_items = line_items
         @metadata = metadata
+        @payment_intent_data = payment_intent_data
         @shipping_options = shipping_options
         @subscription_data = subscription_data
       end

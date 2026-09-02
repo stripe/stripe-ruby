@@ -214,6 +214,48 @@ module Stripe
             collection_settings_details: nil
           ); end
         end
+        class OneTimeFee < ::Stripe::RequestParams
+          class BillAt < ::Stripe::RequestParams
+            # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+            sig { returns(T.nilable(String)) }
+            def timestamp; end
+            sig { params(_timestamp: T.nilable(String)).returns(T.nilable(String)) }
+            def timestamp=(_timestamp); end
+            # The type of the bill_at.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(timestamp: T.nilable(String), type: String).void }
+            def initialize(timestamp: nil, type: nil); end
+          end
+          # The amount to bill.
+          sig { returns(::Stripe::V2::Amount) }
+          def amount; end
+          sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
+          def amount=(_amount); end
+          # When this fee should be billed.
+          sig { returns(::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt) }
+          def bill_at; end
+          sig {
+            params(_bill_at: ::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt).returns(::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt)
+           }
+          def bill_at=(_bill_at); end
+          # A user-provided lookup key.
+          sig { returns(T.nilable(String)) }
+          def lookup_key; end
+          sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
+          def lookup_key=(_lookup_key); end
+          # The id of the product for this fee.
+          sig { returns(String) }
+          def product; end
+          sig { params(_product: String).returns(String) }
+          def product=(_product); end
+          sig {
+            params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractCreateParams::OneTimeFee::BillAt, lookup_key: T.nilable(String), product: String).void
+           }
+          def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil); end
+        end
         class PricingLine < ::Stripe::RequestParams
           class EndsAt < ::Stripe::RequestParams
             # The timestamp when the item ends. Required if `type` is `timestamp`.
@@ -661,6 +703,7 @@ module Stripe
          }
         def billing_settings=(_billing_settings); end
         # A unique user-provided contract number e.g. C-2026-0001.
+        # Maximum length of 200 characters.
         sig { returns(String) }
         def contract_number; end
         sig { params(_contract_number: String).returns(String) }
@@ -682,6 +725,15 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
+        # A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
+        sig {
+          returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]))
+         }
+        def one_time_fees; end
+        sig {
+          params(_one_time_fees: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]))
+         }
+        def one_time_fees=(_one_time_fees); end
         # A list of pricing lines to create with the contract.
         sig {
           returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]))
@@ -701,7 +753,7 @@ module Stripe
          }
         def pricing_overrides=(_pricing_overrides); end
         sig {
-          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]), pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
+          params(billing_cycle_anchor: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingCycleAnchor), billing_settings: T.nilable(::Stripe::V2::Billing::ContractCreateParams::BillingSettings), contract_number: String, currency: String, include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), one_time_fees: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::OneTimeFee]), pricing_lines: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingLine]), pricing_overrides: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride])).void
          }
         def initialize(
           billing_cycle_anchor: nil,
@@ -710,6 +762,7 @@ module Stripe
           currency: nil,
           include: nil,
           metadata: nil,
+          one_time_fees: nil,
           pricing_lines: nil,
           pricing_overrides: nil
         ); end

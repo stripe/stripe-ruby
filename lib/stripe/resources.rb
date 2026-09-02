@@ -1006,6 +1006,14 @@ module Stripe
              "stripe/events/v2_core_health_meter_event_summaries_delayed_resolved_event"
     autoload :V2CoreHealthMeterEventSummariesDelayedResolvedEventNotification,
              "stripe/events/v2_core_health_meter_event_summaries_delayed_resolved_event"
+    autoload :V2CoreHealthMetronomeNotificationLatencyFiringEvent,
+             "stripe/events/v2_core_health_metronome_notification_latency_firing_event"
+    autoload :V2CoreHealthMetronomeNotificationLatencyFiringEventNotification,
+             "stripe/events/v2_core_health_metronome_notification_latency_firing_event"
+    autoload :V2CoreHealthMetronomeNotificationLatencyResolvedEvent,
+             "stripe/events/v2_core_health_metronome_notification_latency_resolved_event"
+    autoload :V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification,
+             "stripe/events/v2_core_health_metronome_notification_latency_resolved_event"
     autoload :V2CoreHealthPaymentMethodErrorFiringEvent,
              "stripe/events/v2_core_health_payment_method_error_firing_event"
     autoload :V2CoreHealthPaymentMethodErrorFiringEventNotification,
@@ -1195,6 +1203,24 @@ module Stripe
              "stripe/events/v2_money_management_outbound_transfer_updated_event"
     autoload :V2MoneyManagementOutboundTransferUpdatedEventNotification,
              "stripe/events/v2_money_management_outbound_transfer_updated_event"
+    autoload :V2MoneyManagementPayoutIntentCanceledEvent,
+             "stripe/events/v2_money_management_payout_intent_canceled_event"
+    autoload :V2MoneyManagementPayoutIntentCanceledEventNotification,
+             "stripe/events/v2_money_management_payout_intent_canceled_event"
+    autoload :V2MoneyManagementPayoutIntentCreatedEvent, "stripe/events/v2_money_management_payout_intent_created_event"
+    autoload :V2MoneyManagementPayoutIntentCreatedEventNotification,
+             "stripe/events/v2_money_management_payout_intent_created_event"
+    autoload :V2MoneyManagementPayoutIntentPostedEvent, "stripe/events/v2_money_management_payout_intent_posted_event"
+    autoload :V2MoneyManagementPayoutIntentPostedEventNotification,
+             "stripe/events/v2_money_management_payout_intent_posted_event"
+    autoload :V2MoneyManagementPayoutIntentProcessingEvent,
+             "stripe/events/v2_money_management_payout_intent_processing_event"
+    autoload :V2MoneyManagementPayoutIntentProcessingEventNotification,
+             "stripe/events/v2_money_management_payout_intent_processing_event"
+    autoload :V2MoneyManagementPayoutIntentRequiresActionEvent,
+             "stripe/events/v2_money_management_payout_intent_requires_action_event"
+    autoload :V2MoneyManagementPayoutIntentRequiresActionEventNotification,
+             "stripe/events/v2_money_management_payout_intent_requires_action_event"
     autoload :V2MoneyManagementPayoutMethodCreatedEvent, "stripe/events/v2_money_management_payout_method_created_event"
     autoload :V2MoneyManagementPayoutMethodCreatedEventNotification,
              "stripe/events/v2_money_management_payout_method_created_event"
@@ -1403,6 +1429,10 @@ module Stripe
              "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
     autoload :V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
              "stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event"
+    autoload :V2SignalsPaymentRetryEvaluationsRetryRecommendedEvent,
+             "stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event"
+    autoload :V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification,
+             "stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event"
   end
 
   module FinancialConnections
@@ -1457,6 +1487,7 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluation, "stripe/resources/radar/account_evaluation"
+    autoload :BillingEvaluation, "stripe/resources/radar/billing_evaluation"
     autoload :CustomerEvaluation, "stripe/resources/radar/customer_evaluation"
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
@@ -1670,9 +1701,12 @@ module Stripe
       autoload :AccountActivity, "stripe/resources/v2/signals/account_activity"
       autoload :AccountEvaluation, "stripe/resources/v2/signals/account_evaluation"
       autoload :AccountSignal, "stripe/resources/v2/signals/account_signal"
+      autoload :PaymentRetryEvaluation, "stripe/resources/v2/signals/payment_retry_evaluation"
+      autoload :PaymentRetrySignal, "stripe/resources/v2/signals/payment_retry_signal"
     end
 
     module Tax
+      autoload :IntegrationConfiguration, "stripe/resources/v2/tax/integration_configuration"
       autoload :ManualRule, "stripe/resources/v2/tax/manual_rule"
       autoload :OperationsResolveAddressResult, "stripe/resources/v2/tax/operations_resolve_address_result"
     end
@@ -1823,6 +1857,7 @@ module Stripe
     stripe/resources/quote_preview_invoice
     stripe/resources/quote_preview_subscription_schedule
     stripe/resources/radar/account_evaluation
+    stripe/resources/radar/billing_evaluation
     stripe/resources/radar/customer_evaluation
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
@@ -1977,6 +2012,9 @@ module Stripe
     stripe/resources/v2/signals/account_activity
     stripe/resources/v2/signals/account_evaluation
     stripe/resources/v2/signals/account_signal
+    stripe/resources/v2/signals/payment_retry_evaluation
+    stripe/resources/v2/signals/payment_retry_signal
+    stripe/resources/v2/tax/integration_configuration
     stripe/resources/v2/tax/manual_rule
     stripe/resources/v2/tax/operations_resolve_address_result
     stripe/resources/webhook_endpoint
@@ -2306,6 +2344,8 @@ module Stripe
     stripe/events/v2_core_health_issuing_authorization_request_timeout_resolved_event
     stripe/events/v2_core_health_meter_event_summaries_delayed_firing_event
     stripe/events/v2_core_health_meter_event_summaries_delayed_resolved_event
+    stripe/events/v2_core_health_metronome_notification_latency_firing_event
+    stripe/events/v2_core_health_metronome_notification_latency_resolved_event
     stripe/events/v2_core_health_payment_method_error_firing_event
     stripe/events/v2_core_health_payment_method_error_resolved_event
     stripe/events/v2_core_health_sepa_debit_delayed_firing_event
@@ -2364,6 +2404,11 @@ module Stripe
     stripe/events/v2_money_management_outbound_transfer_returned_event
     stripe/events/v2_money_management_outbound_transfer_under_review_event
     stripe/events/v2_money_management_outbound_transfer_updated_event
+    stripe/events/v2_money_management_payout_intent_canceled_event
+    stripe/events/v2_money_management_payout_intent_created_event
+    stripe/events/v2_money_management_payout_intent_posted_event
+    stripe/events/v2_money_management_payout_intent_processing_event
+    stripe/events/v2_money_management_payout_intent_requires_action_event
     stripe/events/v2_money_management_payout_method_created_event
     stripe/events/v2_money_management_payout_method_updated_event
     stripe/events/v2_money_management_received_credit_available_event
@@ -2421,6 +2466,7 @@ module Stripe
     stripe/events/v2_signals_account_signal_fraudulent_website_ready_event
     stripe/events/v2_signals_account_signal_merchant_delinquency_ready_event
     stripe/events/v2_signals_account_signal_payment_delinquency_exposure_ready_event
+    stripe/events/v2_signals_payment_retry_evaluations_retry_recommended_event
   ].freeze
   # rubocop:enable Metrics/CollectionLiteralLength
 end

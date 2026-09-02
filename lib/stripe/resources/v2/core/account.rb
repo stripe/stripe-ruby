@@ -7846,8 +7846,6 @@ module Stripe
             class GrossSettlement < ::Stripe::StripeObject
               # The ID of the payment method to use for gross settlement payouts.
               attr_reader :payment_method
-              # Whether to collect a payment method for gross settlement.
-              attr_reader :payment_method_collection
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -17602,6 +17600,8 @@ module Stripe
           attr_reader :currency
           # The Account's preferred locales (languages), ordered by preference.
           attr_reader :locales
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          attr_reader :payout_methods
           # Account profile information.
           attr_reader :profile
           # Default responsibilities held by either Stripe or the platform.

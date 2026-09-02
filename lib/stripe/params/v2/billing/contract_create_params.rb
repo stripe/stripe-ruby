@@ -136,6 +136,35 @@ module Stripe
           end
         end
 
+        class OneTimeFee < ::Stripe::RequestParams
+          class BillAt < ::Stripe::RequestParams
+            # The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+            attr_accessor :timestamp
+            # The type of the bill_at.
+            attr_accessor :type
+
+            def initialize(timestamp: nil, type: nil)
+              @timestamp = timestamp
+              @type = type
+            end
+          end
+          # The amount to bill.
+          attr_accessor :amount
+          # When this fee should be billed.
+          attr_accessor :bill_at
+          # A user-provided lookup key.
+          attr_accessor :lookup_key
+          # The id of the product for this fee.
+          attr_accessor :product
+
+          def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
+            @amount = amount
+            @bill_at = bill_at
+            @lookup_key = lookup_key
+            @product = product
+          end
+        end
+
         class PricingLine < ::Stripe::RequestParams
           class EndsAt < ::Stripe::RequestParams
             # The timestamp when the item ends. Required if `type` is `timestamp`.
@@ -431,6 +460,7 @@ module Stripe
         # The billing settings for the contract.
         attr_accessor :billing_settings
         # A unique user-provided contract number e.g. C-2026-0001.
+        # Maximum length of 200 characters.
         attr_accessor :contract_number
         # Currency of the contract.
         attr_accessor :currency
@@ -438,6 +468,8 @@ module Stripe
         attr_accessor :include
         # Set of key-value pairs that you can attach to an object.
         attr_accessor :metadata
+        # A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
+        attr_accessor :one_time_fees
         # A list of pricing lines to create with the contract.
         attr_accessor :pricing_lines
         # A list of pricing overrides to create with the contract.
@@ -450,6 +482,7 @@ module Stripe
           currency: nil,
           include: nil,
           metadata: nil,
+          one_time_fees: nil,
           pricing_lines: nil,
           pricing_overrides: nil
         )
@@ -459,6 +492,7 @@ module Stripe
           @currency = currency
           @include = include
           @metadata = metadata
+          @one_time_fees = one_time_fees
           @pricing_lines = pricing_lines
           @pricing_overrides = pricing_overrides
         end

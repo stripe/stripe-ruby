@@ -582,17 +582,33 @@ module Stripe
       end
 
       class UsageLimits < ::Stripe::StripeObject
+        class Recurring < ::Stripe::StripeObject
+          # The interval at which the shared payment token's amount usage restrictions reset.
+          attr_reader :interval
+          # The number of intervals between each reset.
+          attr_reader :interval_count
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         attr_reader :currency
         # Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
         attr_reader :expires_at
         # Max amount that can be captured using this SharedPaymentToken.
         attr_reader :max_amount
+        # The recurring schedule for the shared payment token's amount usage restrictions.
+        attr_reader :recurring
         # The recurring interval at which the shared payment token's amount usage restrictions reset.
         attr_reader :recurring_interval
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { recurring: Recurring }
         end
 
         def self.field_remappings

@@ -188,6 +188,59 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Savings < ::Stripe::StripeObject
+          class Interest < ::Stripe::StripeObject
+            class Rate < ::Stripe::StripeObject
+              # Current variable rate, e.g. "3.00".
+              sig { returns(BigDecimal) }
+              def percentage; end
+              # The period over which interest accrues.
+              sig { returns(String) }
+              def period; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+              def self.field_encodings
+                @field_encodings = {percentage: :decimal_string}
+              end
+            end
+            # The interest rate applied to this savings FinancialAccount.
+            sig { returns(Rate) }
+            def rate; end
+            def self.inner_class_types
+              @inner_class_types = {rate: Rate}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+            def self.field_encodings
+              @field_encodings = {rate: {kind: :object, fields: {percentage: :decimal_string}}}
+            end
+          end
+          # The currencies that this savings FinancialAccount can hold.
+          sig { returns(T::Array[String]) }
+          def holds_currencies; end
+          # Interest details for this savings FinancialAccount. Populated by the server.
+          sig { returns(T.nilable(Interest)) }
+          def interest; end
+          def self.inner_class_types
+            @inner_class_types = {interest: Interest}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              interest: {
+                kind: :object,
+                fields: {rate: {kind: :object, fields: {percentage: :decimal_string}}},
+              },
+            }
+          end
+        end
         class StatusDetails < ::Stripe::StripeObject
           class Closed < ::Stripe::StripeObject
             class ForwardingSettings < ::Stripe::StripeObject
@@ -280,6 +333,9 @@ module Stripe
         # If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
         sig { returns(T.nilable(Payments)) }
         def payments; end
+        # If this is a `savings` FinancialAccount, this hash includes details specific to `savings` FinancialAccounts.
+        sig { returns(T.nilable(Savings)) }
+        def savings; end
         # Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
         sig { returns(String) }
         def status; end

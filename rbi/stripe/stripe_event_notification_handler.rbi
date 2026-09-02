@@ -1984,6 +1984,18 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthMetronomeNotificationLatencyFiringEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_metronome_notification_latency_firing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthMetronomeNotificationLatencyResolvedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_health_metronome_notification_latency_resolved(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreHealthPaymentMethodErrorFiringEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_core_health_payment_method_error_firing(&blk);
@@ -2332,6 +2344,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutIntentCanceledEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_intent_canceled(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutIntentCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_intent_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutIntentPostedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_intent_posted(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutIntentProcessingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_intent_processing(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutIntentRequiresActionEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_payout_intent_requires_action(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementPayoutMethodCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_payout_method_created(&blk);
@@ -2671,6 +2713,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_signals_account_signal_payment_delinquency_exposure_ready(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2SignalsPaymentRetryEvaluationsRetryRecommendedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_signals_payment_retry_evaluations_retry_recommended(&blk);
     end
     
     

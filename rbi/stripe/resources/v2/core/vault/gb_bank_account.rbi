@@ -121,6 +121,9 @@ module Stripe
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
           def object; end
+          # Whether the GB Bank Account is currently unusable for money movement, despite potentially being correctly set up. Please reach out to Stripe Support for more information.
+          sig { returns(T::Boolean) }
+          def restricted; end
           # The Sort Code of the bank account.
           sig { returns(T.nilable(String)) }
           def sort_code; end

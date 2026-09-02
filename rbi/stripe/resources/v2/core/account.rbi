@@ -7632,9 +7632,6 @@ module Stripe
               # The ID of the payment method to use for gross settlement payouts.
               sig { returns(T.nilable(String)) }
               def payment_method; end
-              # Whether to collect a payment method for gross settlement.
-              sig { returns(T.nilable(String)) }
-              def payment_method_collection; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -17238,6 +17235,9 @@ module Stripe
           # The Account's preferred locales (languages), ordered by preference.
           sig { returns(T.nilable(T::Array[String])) }
           def locales; end
+          # Default payout methods per currency. Keys are three-letter [ISO currency codes](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Values are v2 Payout Method IDs.
+          sig { returns(T.nilable(T::Hash[String, String])) }
+          def payout_methods; end
           # Account profile information.
           sig { returns(T.nilable(Profile)) }
           def profile; end

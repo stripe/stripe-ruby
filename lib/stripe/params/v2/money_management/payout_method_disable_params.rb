@@ -3,8 +3,8 @@
 
 module Stripe
   module V2
-    module Core
-      class ApprovalRequestExecuteParams < ::Stripe::RequestParams; end
+    module MoneyManagement
+      class PayoutMethodDisableParams < ::Stripe::RequestParams; end
     end
   end
 end

@@ -4,8 +4,26 @@
 module Stripe
   class CustomerSessionCreateParams < ::Stripe::RequestParams
     class Components < ::Stripe::RequestParams
+      class ActiveEntitlements < ::Stripe::RequestParams
+        # Whether the active entitlements is enabled.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
+        end
+      end
+
       class BuyButton < ::Stripe::RequestParams
         # Whether the buy button is enabled.
+        attr_accessor :enabled
+
+        def initialize(enabled: nil)
+          @enabled = enabled
+        end
+      end
+
+      class CustomerPortal < ::Stripe::RequestParams
+        # Whether the customer portal is enabled.
         attr_accessor :enabled
 
         def initialize(enabled: nil)
@@ -171,8 +189,12 @@ module Stripe
           @features = features
         end
       end
+      # Configuration for active entitlements.
+      attr_accessor :active_entitlements
       # Configuration for buy button.
       attr_accessor :buy_button
+      # Configuration for customer portal.
+      attr_accessor :customer_portal
       # Configuration for the customer sheet.
       attr_accessor :customer_sheet
       # Configuration for the mobile payment element.
@@ -185,14 +207,18 @@ module Stripe
       attr_accessor :tax_id_element
 
       def initialize(
+        active_entitlements: nil,
         buy_button: nil,
+        customer_portal: nil,
         customer_sheet: nil,
         mobile_payment_element: nil,
         payment_element: nil,
         pricing_table: nil,
         tax_id_element: nil
       )
+        @active_entitlements = active_entitlements
         @buy_button = buy_button
+        @customer_portal = customer_portal
         @customer_sheet = customer_sheet
         @mobile_payment_element = mobile_payment_element
         @payment_element = payment_element

@@ -224,6 +224,28 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class CapitalFinancingManualPayment < ::Stripe::StripeObject
+        class Features < ::Stripe::StripeObject
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Whether the embedded component is enabled.
+        sig { returns(T::Boolean) }
+        def enabled; end
+        # Attribute for field features
+        sig { returns(Features) }
+        def features; end
+        def self.inner_class_types
+          @inner_class_types = {features: Features}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CapitalFinancingPromotion < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1035,6 +1057,9 @@ module Stripe
       # Attribute for field capital_financing_application
       sig { returns(T.nilable(CapitalFinancingApplication)) }
       def capital_financing_application; end
+      # Configuration for the [Capital financing manual payment](/connect/supported-embedded-components/capital-financing-manual-payment/) embedded component.
+      sig { returns(T.nilable(CapitalFinancingManualPayment)) }
+      def capital_financing_manual_payment; end
       # Attribute for field capital_financing_promotion
       sig { returns(T.nilable(CapitalFinancingPromotion)) }
       def capital_financing_promotion; end
@@ -1129,6 +1154,7 @@ module Stripe
           bills: Bills,
           capital_financing: CapitalFinancing,
           capital_financing_application: CapitalFinancingApplication,
+          capital_financing_manual_payment: CapitalFinancingManualPayment,
           capital_financing_promotion: CapitalFinancingPromotion,
           check_scanning: CheckScanning,
           disputes_list: DisputesList,

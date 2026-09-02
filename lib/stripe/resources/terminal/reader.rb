@@ -730,7 +730,7 @@ module Stripe
       attr_reader :object
       # Serial number of the reader.
       attr_reader :serial_number
-      # The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
+      # The networking status of the reader. This value is `null` for mobile readers. We do not recommend using this field in flows that may block taking payments.
       attr_reader :status
 
       # Initiates a gift card activation flow on a Reader and optionally sets its balance.

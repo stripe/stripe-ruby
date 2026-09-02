@@ -6,6 +6,15 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
+        class Savings < ::Stripe::RequestParams
+          # The currencies that this savings FinancialAccount can hold. Three-letter ISO currency code, in lowercase.
+          sig { returns(T::Array[String]) }
+          def holds_currencies; end
+          sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
+          def holds_currencies=(_holds_currencies); end
+          sig { params(holds_currencies: T::Array[String]).void }
+          def initialize(holds_currencies: nil); end
+        end
         class Storage < ::Stripe::RequestParams
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
@@ -34,6 +43,15 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
+        # Parameters specific to creating `savings` type FinancialAccounts.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Savings))
+         }
+        def savings; end
+        sig {
+          params(_savings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Savings)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Savings))
+         }
+        def savings=(_savings); end
         # Parameters specific to creating `storage` type FinancialAccounts.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage))
@@ -49,9 +67,9 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage), type: String).void
+          params(display_name: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), savings: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Savings), storage: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage), type: String).void
          }
-        def initialize(display_name: nil, metadata: nil, storage: nil, type: nil); end
+        def initialize(display_name: nil, metadata: nil, savings: nil, storage: nil, type: nil); end
       end
     end
   end

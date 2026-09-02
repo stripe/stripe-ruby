@@ -12,6 +12,8 @@ module Stripe
         end
 
         class BalanceTransfer < ::Stripe::StripeObject
+          # The ID of the v1 account that received the balance transfer.
+          attr_reader :to_account
           # The ID of the topup object that originated the ReceivedDebit.
           attr_reader :topup
           # Open Enum. The type of balance transfer that originated the ReceivedDebit.

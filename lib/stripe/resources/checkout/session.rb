@@ -2178,6 +2178,19 @@ module Stripe
           end
         end
 
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2463,6 +2476,8 @@ module Stripe
         attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
+        # Attribute for field sequra
+        attr_reader :sequra
         # Attribute for field sofort
         attr_reader :sofort
         # Attribute for field sunbit
@@ -2520,6 +2535,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,

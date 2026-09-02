@@ -15,6 +15,21 @@ module Stripe
       end
     end
 
+    class Canceled < ::Stripe::RequestParams
+      # When the reported payment was canceled. Measured in seconds since the Unix epoch.
+      attr_accessor :canceled_at
+      # Payment evaluations associated with this reported payment.
+      attr_accessor :payment_evaluations
+      # The reason the payment attempt was canceled.
+      attr_accessor :reason
+
+      def initialize(canceled_at: nil, payment_evaluations: nil, reason: nil)
+        @canceled_at = canceled_at
+        @payment_evaluations = payment_evaluations
+        @reason = reason
+      end
+    end
+
     class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       attr_accessor :customer
@@ -278,6 +293,8 @@ module Stripe
     end
     # The amount you initially requested for this payment.
     attr_accessor :amount_requested
+    # Information about the payment attempt cancelation.
+    attr_accessor :canceled
     # Customer information for this payment.
     attr_accessor :customer_details
     # Indicates whether the customer was present in your checkout flow during this payment.
@@ -305,6 +322,7 @@ module Stripe
 
     def initialize(
       amount_requested: nil,
+      canceled: nil,
       customer_details: nil,
       customer_presence: nil,
       description: nil,
@@ -319,6 +337,7 @@ module Stripe
       shipping_details: nil
     )
       @amount_requested = amount_requested
+      @canceled = canceled
       @customer_details = customer_details
       @customer_presence = customer_presence
       @description = description

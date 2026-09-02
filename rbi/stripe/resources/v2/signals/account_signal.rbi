@@ -25,28 +25,39 @@ module Stripe
           end
         end
         class FraudulentMerchant < ::Stripe::StripeObject
-          class Indicator < ::Stripe::StripeObject
-            # A brief explanation of how this indicator contributed to the fraudulent merchant probability.
-            sig { returns(String) }
-            def explanation; end
-            # The effect this indicator had on the overall risk level.
-            sig { returns(String) }
-            def impact; end
-            # The name of the specific indicator used in the risk assessment.
-            sig { returns(String) }
-            def indicator; end
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # A brief explanation of how this indicator contributed to the fraudulent merchant probability.
+              sig { returns(String) }
+              def explanation; end
+              # The effect this indicator had on the overall risk level.
+              sig { returns(String) }
+              def impact; end
+              # The name of the specific indicator used in the risk assessment.
+              sig { returns(String) }
+              def indicator; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is unknown,
+            # or when the user is not on a product tier that includes indicators.
+            sig { returns(T::Array[Indicator]) }
+            def indicators; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {indicators: Indicator}
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is not_assessed or unknown,
-          # or when the user is not on a product tier that includes indicators.
-          sig { returns(T::Array[Indicator]) }
-          def indicators; end
-          # The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+          # Supplementary contextual data for the signal, including indicators.
+          sig { returns(T.nilable(AdditionalDetails)) }
+          def additional_details; end
+          # The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is unknown,
           # or when the user is not on a product tier that includes numeric scores.
           sig { returns(T.nilable(BigDecimal)) }
           def probability; end
@@ -54,7 +65,7 @@ module Stripe
           sig { returns(String) }
           def risk_level; end
           def self.inner_class_types
-            @inner_class_types = {indicators: Indicator}
+            @inner_class_types = {additional_details: AdditionalDetails}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -78,28 +89,39 @@ module Stripe
           end
         end
         class MerchantDelinquency < ::Stripe::StripeObject
-          class Indicator < ::Stripe::StripeObject
-            # A brief explanation of how this indicator contributed to the delinquency probability.
-            sig { returns(String) }
-            def explanation; end
-            # The effect this indicator had on the overall risk level.
-            sig { returns(String) }
-            def impact; end
-            # The name of the specific indicator used in the risk assessment.
-            sig { returns(String) }
-            def indicator; end
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # A brief explanation of how this indicator contributed to the delinquency probability.
+              sig { returns(String) }
+              def explanation; end
+              # The effect this indicator had on the overall risk level.
+              sig { returns(String) }
+              def impact; end
+              # The name of the specific indicator used in the risk assessment.
+              sig { returns(String) }
+              def indicator; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is unknown,
+            # or when the user is not on a product tier that includes indicators.
+            sig { returns(T::Array[Indicator]) }
+            def indicators; end
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = {indicators: Indicator}
             end
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is not_assessed or unknown,
-          # or when the user is not on a product tier that includes indicators.
-          sig { returns(T::Array[Indicator]) }
-          def indicators; end
-          # The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+          # Supplementary contextual data for the signal, including indicators.
+          sig { returns(T.nilable(AdditionalDetails)) }
+          def additional_details; end
+          # The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is unknown,
           # or when the user is not on a product tier that includes numeric scores.
           sig { returns(T.nilable(BigDecimal)) }
           def probability; end
@@ -107,7 +129,7 @@ module Stripe
           sig { returns(String) }
           def risk_level; end
           def self.inner_class_types
-            @inner_class_types = {indicators: Indicator}
+            @inner_class_types = {additional_details: AdditionalDetails}
           end
           def self.field_remappings
             @field_remappings = {}

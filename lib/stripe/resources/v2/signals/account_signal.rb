@@ -30,33 +30,45 @@ module Stripe
         end
 
         class FraudulentMerchant < ::Stripe::StripeObject
-          class Indicator < ::Stripe::StripeObject
-            # A brief explanation of how this indicator contributed to the fraudulent merchant probability.
-            attr_reader :explanation
-            # The effect this indicator had on the overall risk level.
-            attr_reader :impact
-            # The name of the specific indicator used in the risk assessment.
-            attr_reader :indicator
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # A brief explanation of how this indicator contributed to the fraudulent merchant probability.
+              attr_reader :explanation
+              # The effect this indicator had on the overall risk level.
+              attr_reader :impact
+              # The name of the specific indicator used in the risk assessment.
+              attr_reader :indicator
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is unknown,
+            # or when the user is not on a product tier that includes indicators.
+            attr_reader :indicators
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { indicators: Indicator }
             end
 
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is not_assessed or unknown,
-          # or when the user is not on a product tier that includes indicators.
-          attr_reader :indicators
-          # The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+          # Supplementary contextual data for the signal, including indicators.
+          attr_reader :additional_details
+          # The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is unknown,
           # or when the user is not on a product tier that includes numeric scores.
           attr_reader :probability
           # Categorical assessment of the fraudulent merchant risk based on probability.
           attr_reader :risk_level
 
           def self.inner_class_types
-            @inner_class_types = { indicators: Indicator }
+            @inner_class_types = { additional_details: AdditionalDetails }
           end
 
           def self.field_remappings
@@ -84,33 +96,45 @@ module Stripe
         end
 
         class MerchantDelinquency < ::Stripe::StripeObject
-          class Indicator < ::Stripe::StripeObject
-            # A brief explanation of how this indicator contributed to the delinquency probability.
-            attr_reader :explanation
-            # The effect this indicator had on the overall risk level.
-            attr_reader :impact
-            # The name of the specific indicator used in the risk assessment.
-            attr_reader :indicator
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # A brief explanation of how this indicator contributed to the delinquency probability.
+              attr_reader :explanation
+              # The effect this indicator had on the overall risk level.
+              attr_reader :impact
+              # The name of the specific indicator used in the risk assessment.
+              attr_reader :indicator
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is unknown,
+            # or when the user is not on a product tier that includes indicators.
+            attr_reader :indicators
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { indicators: Indicator }
             end
 
             def self.field_remappings
               @field_remappings = {}
             end
           end
-          # Array of objects representing individual factors that contributed to the calculated probability of delinquency. Absent when risk level is not_assessed or unknown,
-          # or when the user is not on a product tier that includes indicators.
-          attr_reader :indicators
-          # The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is not_assessed or unknown,
+          # Supplementary contextual data for the signal, including indicators.
+          attr_reader :additional_details
+          # The probability of delinquency. Can be between 0.00 and 100.00. Absent when risk level is unknown,
           # or when the user is not on a product tier that includes numeric scores.
           attr_reader :probability
           # Categorical assessment of the delinquency risk based on probability.
           attr_reader :risk_level
 
           def self.inner_class_types
-            @inner_class_types = { indicators: Indicator }
+            @inner_class_types = { additional_details: AdditionalDetails }
           end
 
           def self.field_remappings

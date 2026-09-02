@@ -153,6 +153,7 @@ module Stripe
         QuotePreviewInvoice.object_name => QuotePreviewInvoice,
         QuotePreviewSubscriptionSchedule.object_name => QuotePreviewSubscriptionSchedule,
         Radar::AccountEvaluation.object_name => Radar::AccountEvaluation,
+        Radar::BillingEvaluation.object_name => Radar::BillingEvaluation,
         Radar::CustomerEvaluation.object_name => Radar::CustomerEvaluation,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
         Radar::IssuingAuthorizationEvaluation.object_name => Radar::IssuingAuthorizationEvaluation,
@@ -324,6 +325,9 @@ module Stripe
         V2::Signals::AccountActivity.object_name => V2::Signals::AccountActivity,
         V2::Signals::AccountEvaluation.object_name => V2::Signals::AccountEvaluation,
         V2::Signals::AccountSignal.object_name => V2::Signals::AccountSignal,
+        V2::Signals::PaymentRetryEvaluation.object_name => V2::Signals::PaymentRetryEvaluation,
+        V2::Signals::PaymentRetrySignal.object_name => V2::Signals::PaymentRetrySignal,
+        V2::Tax::IntegrationConfiguration.object_name => V2::Tax::IntegrationConfiguration,
         V2::Tax::ManualRule.object_name => V2::Tax::ManualRule,
         V2::Tax::OperationsResolveAddressResult.object_name => V2::Tax::OperationsResolveAddressResult,
         # v2 object classes: The end of the section generated from our OpenAPI spec

@@ -115,6 +115,9 @@ module Stripe
           # The ID of the associated credit transaction.
           sig { returns(T.nilable(String)) }
           def credit_transaction; end
+          # The ID of the associated crypto transaction.
+          sig { returns(T.nilable(String)) }
+          def crypto_transaction; end
           # The ID of the associated v2 money management transaction.
           sig { returns(T.nilable(String)) }
           def money_management_transaction; end

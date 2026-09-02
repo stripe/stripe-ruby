@@ -407,6 +407,9 @@ module Stripe
         # Attribute for field mandate_options
         sig { returns(T.nilable(MandateOptions)) }
         def mandate_options; end
+        # Attribute for field verification_method
+        sig { returns(T.nilable(String)) }
+        def verification_method; end
         def self.inner_class_types
           @inner_class_types = {mandate_options: MandateOptions}
         end

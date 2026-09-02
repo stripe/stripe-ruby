@@ -4910,10 +4910,20 @@ module Stripe
         def target_date; end
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
+        # Attribute for param field verification_method
+        sig { returns(T.nilable(String)) }
+        def verification_method; end
+        sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+        def verification_method=(_verification_method); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
          }
-        def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
+        def initialize(
+          mandate_options: nil,
+          setup_future_usage: nil,
+          target_date: nil,
+          verification_method: nil
+        ); end
       end
       class Bancontact < ::Stripe::RequestParams
         # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -10106,13 +10116,6 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    sig { returns(T.nilable(T::Array[String])) }
-    def payment_method_types; end
-    sig {
-      params(_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-     }
-    def payment_method_types=(_payment_method_types); end
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     sig { returns(T.nilable(String)) }
     def receipt_email; end
@@ -10165,7 +10168,7 @@ module Stripe
     sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
     def transfer_group=(_transfer_group); end
     sig {
-      params(allocated_funds: T.nilable(::Stripe::PaymentIntentUpdateParams::AllocatedFunds), allowed_payment_method_types: T.nilable(T::Array[String]), amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
+      params(allocated_funds: T.nilable(::Stripe::PaymentIntentUpdateParams::AllocatedFunds), allowed_payment_method_types: T.nilable(T::Array[String]), amount: T.nilable(Integer), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::AmountDetails)), application_fee_amount: T.nilable(T.any(String, Integer)), capture_method: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), description: T.nilable(String), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), fx_quote: T.nilable(String), hooks: T.nilable(::Stripe::PaymentIntentUpdateParams::Hooks), mandate_data: T.nilable(::Stripe::PaymentIntentUpdateParams::MandateData), metadata: T.nilable(T.any(String, T::Hash[String, String])), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodOptions), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentUpdateParams::Shipping)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_data: T.nilable(::Stripe::PaymentIntentUpdateParams::TransferData), transfer_group: T.nilable(String)).void
      }
     def initialize(
       allocated_funds: nil,
@@ -10189,7 +10192,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       receipt_email: nil,
       setup_future_usage: nil,
       shipping: nil,

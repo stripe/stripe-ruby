@@ -5,6 +5,7 @@
 module Stripe
   module V2
     class TaxService < StripeService
+      attr_reader :integration_configurations
       attr_reader :manual_rules
       attr_reader :operations
     end

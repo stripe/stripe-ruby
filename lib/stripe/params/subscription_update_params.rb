@@ -248,10 +248,13 @@ module Stripe
       attr_accessor :comment
       # The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
       attr_accessor :feedback
+      # Customized feedback options that provide deeper insight into why the subscription was canceled, if the subscription was canceled explicitly by the user.
+      attr_accessor :feedback_option
 
-      def initialize(comment: nil, feedback: nil)
+      def initialize(comment: nil, feedback: nil, feedback_option: nil)
         @comment = comment
         @feedback = feedback
+        @feedback_option = feedback_option
       end
     end
 
@@ -1160,6 +1163,8 @@ module Stripe
     attr_accessor :pending_invoice_item_interval
     # If specified, the invoicing for the given billing cycle iterations will be processed now.
     attr_accessor :prebilling
+    # Token used to resolve the presentment currency and FX rate applied to this subscription's adaptive pricing.
+    attr_accessor :pricing_token
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
     attr_accessor :proration_behavior
     # If set, prorations will be calculated as though the subscription was updated at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint. `proration_date` can also be used to implement custom proration logic, such as prorating by day instead of by second, by providing the time that you wish to use for proration calculations.
@@ -1202,6 +1207,7 @@ module Stripe
       payment_settings: nil,
       pending_invoice_item_interval: nil,
       prebilling: nil,
+      pricing_token: nil,
       proration_behavior: nil,
       proration_date: nil,
       transfer_data: nil,
@@ -1237,6 +1243,7 @@ module Stripe
       @payment_settings = payment_settings
       @pending_invoice_item_interval = pending_invoice_item_interval
       @prebilling = prebilling
+      @pricing_token = pricing_token
       @proration_behavior = proration_behavior
       @proration_date = proration_date
       @transfer_data = transfer_data

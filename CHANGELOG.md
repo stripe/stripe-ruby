@@ -28,6 +28,49 @@ This release changes the pinned API version to 2026-08-26.preview.
   * Add support for `user_access` on `V2::Iam::ActivityLog::Detail`
 * [#1936](https://github.com/stripe/stripe-ruby/pull/1936) Add non-verified manged handlers
 
+## 19.6.1 - 2026-09-01
+* [#1955](https://github.com/stripe/stripe-ruby/pull/1955) Forward request options when fetching V2 list pages
+  - Fixes V2 `fetch_next_page` ignoring per-request API key and Stripe context overrides.
+* [#1956](https://github.com/stripe/stripe-ruby/pull/1956) Fix OAuth authorize response type defaulting
+  - Fixes `OAuthService#authorize_url` to default `response_type` to `code` without overwriting an explicit value.
+* [#1950](https://github.com/stripe/stripe-ruby/pull/1950) Harden API requestor code against malicious URLs
+
+## 19.6.0 - 2026-08-26
+This release changes the pinned API version to 2026-08-26.dahlia.
+
+* [#1923](https://github.com/stripe/stripe-ruby/pull/1923) Support discriminated unions in the V2 runtime
+  
+  - Adds support for discriminated union (polymorphic) parameters and response fields in the V2 runtime. 
+  - Serializing a discriminated union parameter whose discriminator is missing, or not a String or Symbol, raises `ArgumentError` rather than sending the value uncoerced. Callers building a union parameter as a plain Hash must include the discriminator.
+  - Adds `nullable` field encoding support, so `int64_string` and `decimal_string` fields wrapped in a nullable coerce correctly.
+* [#1937](https://github.com/stripe/stripe-ruby/pull/1937) Add new `EventNotificationHandler` class for better thin event management
+  
+  - We've been putting a lot of time into rethinking the event handling experience in the SDKs. This new class is the culmination [of that effort](https://stripe.dev/blog/event-notification-handlers-thin-events).
+  - They're designed for a tight coupling with both `StripeClient` and the fully-typed nature of [thin events](https://docs.stripe.com/event-destinations#thin-events). This delivers painless event destination upgrades, in-editor checks for common mistakes, and better code modularity.
+  - Now that we've released [thin event notifications for v1 objects](https://docs.stripe.com/changelog#2026-08-26.dahlia), these new handlers are our recommended path for all integrations using thin event notifications.
+  - See more detailed docs here: https://docs.stripe.com/webhooks/event-notification-handlers
+* [#1926](https://github.com/stripe/stripe-ruby/pull/1926) Extract V2TypeCoercion module for bidirectional field encoding
+  
+  - Fixes V2 `int64_string` response fields so they return `Integer` (to match the field's Sorbet type) instead of `String`
+* [#1934](https://github.com/stripe/stripe-ruby/pull/1934) Update generated code
+  * Add support for new resource `Billing::FeedbackOption`
+  * Add support for `create`, `deactivate`, `list`, `retrieve`, and `update` methods on resource `Billing::FeedbackOption`
+  * Add support for `payment_method_settings` on `AccountSession::Component` and `AccountSessionCreateParams::Component`
+  * Add support for `feedback_options` on `BillingPortal::Configuration::Feature::SubscriptionCancel::CancellationReason`, `BillingPortal::ConfigurationCreateParams::Feature::SubscriptionCancel::CancellationReason`, and `BillingPortal::ConfigurationUpdateParams::Feature::SubscriptionCancel::CancellationReason`
+  * Add support for `customer_update` on `BillingPortal::Session::Flow`
+  * Add support for `funding_source_group` on `Charge::PaymentMethodDetail::Card::Wallet::Link` and `Charge::PaymentMethodDetail::Link`
+  * Add support for `funding_types_blocked` on `Checkout::Session::PaymentMethodOption::Card::Restriction` and `Checkout::SessionCreateParams::PaymentMethodOption::Card::Restriction`
+  * Add support for `metadata` on `ConfirmationToken`
+  * Add support for `active_entitlements` and `customer_portal` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
+  * Add support for `country` on `FinancialConnections::Session::Filter`
+  * Add support for `frozen_fields` on `InvoiceItem`
+  * Add support for `billie` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * ⚠️ Remove support for `cryptogram` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
+  * Change `PaymentIntent.allowed_payment_method_types` and `SetupIntent.allowed_payment_method_types` to be required
+  * Add support for `application_fee_amount`, `application_fee_percent`, `on_behalf_of`, and `transfer_data` on `PaymentLinkUpdateParams`
+  * Add support for `feedback_option` on `Subscription::CancellationDetail`, `SubscriptionCancelParams::CancellationDetail`, and `SubscriptionUpdateParams::CancellationDetail`
+  * Add support for `igic` on `Tax::Registration::CountryOption::At`, `Tax::Registration::CountryOption::Be`, `Tax::Registration::CountryOption::Bg`, `Tax::Registration::CountryOption::Cy`, `Tax::Registration::CountryOption::Cz`, `Tax::Registration::CountryOption::De`, `Tax::Registration::CountryOption::Dk`, `Tax::Registration::CountryOption::E`, `Tax::Registration::CountryOption::Ee`, `Tax::Registration::CountryOption::Fi`, `Tax::Registration::CountryOption::Fr`, `Tax::Registration::CountryOption::Gr`, `Tax::Registration::CountryOption::Hr`, `Tax::Registration::CountryOption::Hu`, `Tax::Registration::CountryOption::Ie`, `Tax::Registration::CountryOption::It`, `Tax::Registration::CountryOption::Lt`, `Tax::Registration::CountryOption::Lu`, `Tax::Registration::CountryOption::Lv`, `Tax::Registration::CountryOption::Mt`, `Tax::Registration::CountryOption::Nl`, `Tax::Registration::CountryOption::Pl`, `Tax::Registration::CountryOption::Pt`, `Tax::Registration::CountryOption::Ro`, `Tax::Registration::CountryOption::Se`, `Tax::Registration::CountryOption::Si`, `Tax::Registration::CountryOption::Sk`, `Tax::RegistrationCreateParams::CountryOption::At`, `Tax::RegistrationCreateParams::CountryOption::Be`, `Tax::RegistrationCreateParams::CountryOption::Bg`, `Tax::RegistrationCreateParams::CountryOption::Cy`, `Tax::RegistrationCreateParams::CountryOption::Cz`, `Tax::RegistrationCreateParams::CountryOption::De`, `Tax::RegistrationCreateParams::CountryOption::Dk`, `Tax::RegistrationCreateParams::CountryOption::E`, `Tax::RegistrationCreateParams::CountryOption::Ee`, `Tax::RegistrationCreateParams::CountryOption::Fi`, `Tax::RegistrationCreateParams::CountryOption::Fr`, `Tax::RegistrationCreateParams::CountryOption::Gr`, `Tax::RegistrationCreateParams::CountryOption::Hr`, `Tax::RegistrationCreateParams::CountryOption::Hu`, `Tax::RegistrationCreateParams::CountryOption::Ie`, `Tax::RegistrationCreateParams::CountryOption::It`, `Tax::RegistrationCreateParams::CountryOption::Lt`, `Tax::RegistrationCreateParams::CountryOption::Lu`, `Tax::RegistrationCreateParams::CountryOption::Lv`, `Tax::RegistrationCreateParams::CountryOption::Mt`, `Tax::RegistrationCreateParams::CountryOption::Nl`, `Tax::RegistrationCreateParams::CountryOption::Pl`, `Tax::RegistrationCreateParams::CountryOption::Pt`, `Tax::RegistrationCreateParams::CountryOption::Ro`, `Tax::RegistrationCreateParams::CountryOption::Se`, `Tax::RegistrationCreateParams::CountryOption::Si`, and `Tax::RegistrationCreateParams::CountryOption::Sk`
+
 ## 19.6.0-alpha.2 - 2026-08-19
 * [#1933](https://github.com/stripe/stripe-ruby/pull/1933) Update generated code for private-preview
   * Add support for new resources `Billing::FeedbackOption` and `PaymentPlan`

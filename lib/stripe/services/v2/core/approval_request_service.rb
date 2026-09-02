@@ -17,18 +17,6 @@ module Stripe
           )
         end
 
-        # POST /v2/core/approval_requests/:id/execute
-        # Executes an approved approval request.
-        def execute(id, params = {}, opts = {})
-          request(
-            method: :post,
-            path: format("/v2/core/approval_requests/%<id>s/execute", { id: CGI.escape(id) }),
-            params: params,
-            opts: opts,
-            base_address: :api
-          )
-        end
-
         # GET /v2/core/approval_requests
         # Lists approval requests with optional filtering.
         def list(params = {}, opts = {})
@@ -53,12 +41,12 @@ module Stripe
           )
         end
 
-        # POST /v2/core/approval_requests/:id/submit
-        # Moves a pending approval request into the reviewer queue for auto-execution upon approval.
-        def submit(id, params = {}, opts = {})
+        # POST /v2/core/approval_requests/:id
+        # Updates a pending approval request's mutable fields.
+        def update(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v2/core/approval_requests/%<id>s/submit", { id: CGI.escape(id) }),
+            path: format("/v2/core/approval_requests/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

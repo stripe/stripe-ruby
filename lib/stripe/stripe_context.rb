@@ -13,7 +13,7 @@ module Stripe
 
     # Creates a new StripeContext with the given segments.
     def initialize(segments = nil)
-      @segments = (segments || []).map { |segment| segment.to_s.dup.freeze }.freeze
+@segments = (segments || []).map { |segment| (segment.is_a?(String) ? segment.dup : segment.to_s).freeze }.freeze
     end
 
     # Parses a context string into a StripeContext instance.

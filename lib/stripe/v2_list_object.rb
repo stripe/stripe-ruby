@@ -80,7 +80,8 @@ module Stripe
         _request(
           method: :get,
           path: next_page_url,
-          base_address: :api
+          base_address: :api,
+          opts: opts
         )
       end
     end

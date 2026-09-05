@@ -735,6 +735,8 @@ module Stripe
               @end_behavior = end_behavior
             end
           end
+          # A past timestamp to backdate the subscription's start date to.
+          attr_accessor :backdate_start_date
           # Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
           attr_accessor :billing_cycle_anchor_config
           # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -757,6 +759,7 @@ module Stripe
           attr_accessor :trial_settings
 
           def initialize(
+            backdate_start_date: nil,
             billing_cycle_anchor_config: nil,
             billing_mode: nil,
             description: nil,
@@ -768,6 +771,7 @@ module Stripe
             trial_period_days: nil,
             trial_settings: nil
           )
+            @backdate_start_date = backdate_start_date
             @billing_cycle_anchor_config = billing_cycle_anchor_config
             @billing_mode = billing_mode
             @description = description
@@ -3080,7 +3084,7 @@ module Stripe
       #
       # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
       #
-      # You can't set this parameter if `ui_mode` is `custom`.
+      # You can't set this parameter if `ui_mode` is `elements` or `form`.
       attr_accessor :optional_items
       # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :origin_context

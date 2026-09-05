@@ -1647,11 +1647,9 @@ module Stripe
            }
           def amount=(_amount); end
           # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def amount_type; end
-          sig {
-            params(_amount_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
           def amount_type=(_amount_type); end
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           sig { returns(T.nilable(String)) }
@@ -1659,11 +1657,9 @@ module Stripe
           sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
           def end_date=(_end_date); end
           # The periodicity at which payments will be collected. Defaults to `adhoc`.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def payment_schedule; end
-          sig {
-            params(_payment_schedule: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
           def payment_schedule=(_payment_schedule); end
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           sig { returns(T.nilable(T.any(String, Integer))) }
@@ -1673,11 +1669,9 @@ module Stripe
            }
           def payments_per_period=(_payments_per_period); end
           # The purpose for which payments are made. Has a default value based on your merchant category code.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def purpose; end
-          sig {
-            params(_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
           def purpose=(_purpose); end
           # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
           sig { returns(T.nilable(String)) }
@@ -1685,7 +1679,7 @@ module Stripe
           sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
           def start_date=(_start_date); end
           sig {
-            params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(T.any(String, String)), end_date: T.nilable(String), payment_schedule: T.nilable(T.any(String, String)), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(T.any(String, String)), start_date: T.nilable(String)).void
+            params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(String), start_date: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -1868,14 +1862,12 @@ module Stripe
          }
         def mandate_options=(_mandate_options); end
         # Attribute for param field setup_future_usage
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(mandate_options: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(String)).void
          }
         def initialize(mandate_options: nil, setup_future_usage: nil); end
       end

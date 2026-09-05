@@ -1059,6 +1059,9 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The Unix timestamp marking the subscription's backdated start date.
+          sig { returns(T.nilable(Integer)) }
+          def backdate_start_date; end
           # The description for the subscription.
           sig { returns(T.nilable(String)) }
           def description; end

@@ -397,6 +397,119 @@ module Stripe
           @field_remappings = {}
         end
       end
+
+      class Signals < ::Stripe::StripeObject
+        class FraudulentEmail < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            attr_reader :explanation
+            # The effect this indicator had on the overall risk level.
+            attr_reader :impact
+            # The name of the specific indicator used in the risk assessment.
+            attr_reader :indicator
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          attr_reader :indicators
+          # Categorical assessment of the email risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = { indicators: Indicator }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FraudulentPerson < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            attr_reader :explanation
+            # The effect this indicator had on the overall risk level.
+            attr_reader :impact
+            # The name of the specific indicator used in the risk assessment.
+            attr_reader :indicator
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          attr_reader :indicators
+          # Categorical assessment of the fraudulent person risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = { indicators: Indicator }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FraudulentPhone < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            attr_reader :explanation
+            # The effect this indicator had on the overall risk level.
+            attr_reader :impact
+            # The name of the specific indicator used in the risk assessment.
+            attr_reader :indicator
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          attr_reader :indicators
+          # Categorical assessment of the phone risk.
+          attr_reader :risk_level
+
+          def self.inner_class_types
+            @inner_class_types = { indicators: Indicator }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fraudulent_email
+        attr_reader :fraudulent_email
+        # Attribute for field fraudulent_person
+        attr_reader :fraudulent_person
+        # Attribute for field fraudulent_phone
+        attr_reader :fraudulent_phone
+
+        def self.inner_class_types
+          @inner_class_types = {
+            fraudulent_email: FraudulentEmail,
+            fraudulent_person: FraudulentPerson,
+            fraudulent_phone: FraudulentPhone,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       attr_reader :client_reference_id
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -419,6 +532,8 @@ module Stripe
       attr_reader :phone
       # Result from a selfie check
       attr_reader :selfie
+      # Attribute for field signals
+      attr_reader :signals
       # Type of report.
       attr_reader :type
       # The configuration token of a verification flow from the dashboard.
@@ -444,6 +559,7 @@ module Stripe
           options: Options,
           phone: Phone,
           selfie: Selfie,
+          signals: Signals,
         }
       end
 

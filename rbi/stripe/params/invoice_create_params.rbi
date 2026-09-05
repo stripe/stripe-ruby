@@ -561,11 +561,9 @@ module Stripe
         def initialize(page_size: nil); end
       end
       # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def amount_tax_display; end
-      sig {
-        params(_amount_tax_display: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
       def amount_tax_display=(_amount_tax_display); end
       # Invoice pdf rendering options
       sig { returns(T.nilable(::Stripe::InvoiceCreateParams::Rendering::Pdf)) }
@@ -587,7 +585,7 @@ module Stripe
        }
       def template_version=(_template_version); end
       sig {
-        params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(::Stripe::InvoiceCreateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
+        params(amount_tax_display: T.nilable(String), pdf: T.nilable(::Stripe::InvoiceCreateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
        }
       def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
     end

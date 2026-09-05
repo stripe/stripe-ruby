@@ -426,6 +426,120 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Signals < ::Stripe::StripeObject
+        class FraudulentEmail < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            sig { returns(String) }
+            def explanation; end
+            # The effect this indicator had on the overall risk level.
+            sig { returns(String) }
+            def impact; end
+            # The name of the specific indicator used in the risk assessment.
+            sig { returns(String) }
+            def indicator; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          sig { returns(T::Array[Indicator]) }
+          def indicators; end
+          # Categorical assessment of the email risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {indicators: Indicator}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FraudulentPerson < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            sig { returns(String) }
+            def explanation; end
+            # The effect this indicator had on the overall risk level.
+            sig { returns(String) }
+            def impact; end
+            # The name of the specific indicator used in the risk assessment.
+            sig { returns(String) }
+            def indicator; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          sig { returns(T::Array[Indicator]) }
+          def indicators; end
+          # Categorical assessment of the fraudulent person risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {indicators: Indicator}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FraudulentPhone < ::Stripe::StripeObject
+          class Indicator < ::Stripe::StripeObject
+            # A brief explanation of how this indicator contributed to the risk level
+            sig { returns(String) }
+            def explanation; end
+            # The effect this indicator had on the overall risk level.
+            sig { returns(String) }
+            def impact; end
+            # The name of the specific indicator used in the risk assessment.
+            sig { returns(String) }
+            def indicator; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of objects representing individual factors that contributed to the calculated risk level.
+          sig { returns(T::Array[Indicator]) }
+          def indicators; end
+          # Categorical assessment of the phone risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {indicators: Indicator}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field fraudulent_email
+        sig { returns(T.nilable(FraudulentEmail)) }
+        def fraudulent_email; end
+        # Attribute for field fraudulent_person
+        sig { returns(T.nilable(FraudulentPerson)) }
+        def fraudulent_person; end
+        # Attribute for field fraudulent_phone
+        sig { returns(T.nilable(FraudulentPhone)) }
+        def fraudulent_phone; end
+        def self.inner_class_types
+          @inner_class_types = {
+            fraudulent_email: FraudulentEmail,
+            fraudulent_person: FraudulentPerson,
+            fraudulent_phone: FraudulentPhone,
+          }
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       # A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
       sig { returns(T.nilable(String)) }
       def client_reference_id; end
@@ -459,6 +573,9 @@ module Stripe
       # Result from a selfie check
       sig { returns(T.nilable(Selfie)) }
       def selfie; end
+      # Attribute for field signals
+      sig { returns(T.nilable(Signals)) }
+      def signals; end
       # Type of report.
       sig { returns(String) }
       def type; end

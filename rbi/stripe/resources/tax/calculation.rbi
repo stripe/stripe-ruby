@@ -150,6 +150,9 @@ module Stripe
           # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           sig { returns(Integer) }
           def amount; end
+          # The ID of the [customer tax exemption](/api/tax/exemptions) that was applied to this tax breakdown.
+          sig { returns(T.nilable(String)) }
+          def customer_tax_exemption; end
           # Attribute for field jurisdiction
           sig { returns(Jurisdiction) }
           def jurisdiction; end

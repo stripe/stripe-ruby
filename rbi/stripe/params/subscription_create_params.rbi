@@ -1098,11 +1098,9 @@ module Stripe
             sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
             def registration_number=(_registration_number); end
             # Type of registration the company or entity holds in their registered country.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def registration_type; end
-            sig {
-              params(_registration_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_registration_type: T.nilable(String)).returns(T.nilable(String)) }
             def registration_type=(_registration_type); end
             # VAT ID number.
             sig { returns(T.nilable(String)) }
@@ -1110,7 +1108,7 @@ module Stripe
             sig { params(_vat: T.nilable(String)).returns(T.nilable(String)) }
             def vat=(_vat); end
             sig {
-              params(registered_address: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)), registered_name: T.nilable(String), registration_number: T.nilable(String), registration_type: T.nilable(T.any(String, String)), vat: T.nilable(String)).void
+              params(registered_address: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)), registered_name: T.nilable(String), registration_number: T.nilable(String), registration_type: T.nilable(String), vat: T.nilable(String)).void
              }
             def initialize(
               registered_address: nil,

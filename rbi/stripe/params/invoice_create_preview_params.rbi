@@ -195,11 +195,9 @@ module Stripe
        }
       def tax=(_tax); end
       # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def tax_exempt; end
-      sig {
-        params(_tax_exempt: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_tax_exempt: T.nilable(String)).returns(T.nilable(String)) }
       def tax_exempt=(_tax_exempt); end
       # The customer's tax IDs.
       sig {
@@ -211,7 +209,7 @@ module Stripe
        }
       def tax_ids=(_tax_ids); end
       sig {
-        params(address: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Address)), shipping: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Shipping)), tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::CustomerDetails::TaxId])).void
+        params(address: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Address)), shipping: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Shipping)), tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(String), tax_ids: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::CustomerDetails::TaxId])).void
        }
       def initialize(address: nil, shipping: nil, tax: nil, tax_exempt: nil, tax_ids: nil); end
     end

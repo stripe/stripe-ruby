@@ -156,6 +156,28 @@ module Stripe
         assert_equal(next_list.data[0].id, 2)
       end
 
+      should "respect per-request options" do
+        requestor = APIRequestor.new("sk_test_default")
+        list = TestV2ListObject.construct_from({
+          data: [{ id: 1 }],
+          next_page_url: "/v2/things?page=page_2",
+        }, { api_key: "sk_test_inherited" }, nil, :v2, requestor)
+
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/things?page=page_2")
+          .with(headers: {
+            "Authorization" => "Bearer sk_test_override",
+            "Stripe-Context" => "ctx_override",
+          })
+          .to_return(body: JSON.generate(data: [{ id: 2 }], next_page_url: nil))
+
+        next_list = list.fetch_next_page(
+          api_key: "sk_test_override",
+          stripe_context: "ctx_override"
+        )
+
+        assert_equal 2, next_list.data[0].id
+      end
+
       should "fetch an empty page through #next_page" do
         list = TestV2ListObject.construct_from({
           data: [{ id: 1 }],

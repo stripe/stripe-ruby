@@ -126,11 +126,9 @@ module Stripe
         sig { params(_background_color: T.nilable(String)).returns(T.nilable(String)) }
         def background_color=(_background_color); end
         # The border style for the Checkout Session.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def border_style; end
-        sig {
-          params(_border_style: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_border_style: T.nilable(String)).returns(T.nilable(String)) }
         def border_style=(_border_style); end
         # A hex color value starting with `#` representing the button color for the Checkout Session.
         sig { returns(T.nilable(String)) }
@@ -143,11 +141,9 @@ module Stripe
         sig { params(_display_name: T.nilable(String)).returns(T.nilable(String)) }
         def display_name=(_display_name); end
         # The font family for the Checkout Session corresponding to one of the [supported font families](https://docs.stripe.com/payments/checkout/customization/appearance?payment-ui=stripe-hosted#font-compatibility).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def font_family; end
-        sig {
-          params(_font_family: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_font_family: T.nilable(String)).returns(T.nilable(String)) }
         def font_family=(_font_family); end
         # The icon for the Checkout Session. For best results, use a square image.
         sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings::Icon)) }
@@ -164,7 +160,7 @@ module Stripe
          }
         def logo=(_logo); end
         sig {
-          params(background_color: T.nilable(String), border_style: T.nilable(T.any(String, String)), button_color: T.nilable(String), display_name: T.nilable(String), font_family: T.nilable(T.any(String, String)), icon: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings::Icon), logo: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings::Logo)).void
+          params(background_color: T.nilable(String), border_style: T.nilable(String), button_color: T.nilable(String), display_name: T.nilable(String), font_family: T.nilable(String), icon: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings::Icon), logo: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings::Logo)).void
          }
         def initialize(
           background_color: nil,
@@ -571,20 +567,16 @@ module Stripe
           end
           class RenderingOptions < ::Stripe::RequestParams
             # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def amount_tax_display; end
-            sig {
-              params(_amount_tax_display: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
             def amount_tax_display=(_amount_tax_display); end
             # ID of the invoice rendering template to use for this invoice.
             sig { returns(T.nilable(String)) }
             def template; end
             sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
             def template=(_template); end
-            sig {
-              params(amount_tax_display: T.nilable(T.any(String, String)), template: T.nilable(String)).void
-             }
+            sig { params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void }
             def initialize(amount_tax_display: nil, template: nil); end
           end
           # The account tax IDs associated with the invoice.
@@ -1498,14 +1490,12 @@ module Stripe
            }
           def mandate_options=(_mandate_options); end
           # Attribute for param field setup_future_usage
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
-          sig {
-            params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
           def setup_future_usage=(_setup_future_usage); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Blik::MandateOptions), setup_future_usage: T.nilable(String)).void
            }
           def initialize(mandate_options: nil, setup_future_usage: nil); end
         end
@@ -2212,11 +2202,9 @@ module Stripe
           # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
           #
           # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
-          sig {
-            params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
           def setup_future_usage=(_setup_future_usage); end
           # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
           sig { returns(T.nilable(T::Array[String])) }
@@ -2226,7 +2214,7 @@ module Stripe
            }
           def subsellers=(_subsellers); end
           sig {
-            params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
+            params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(String), subsellers: T.nilable(T::Array[String])).void
            }
           def initialize(
             capture_method: nil,
@@ -2248,11 +2236,9 @@ module Stripe
              }
             def amount=(_amount); end
             # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def amount_type; end
-            sig {
-              params(_amount_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
             def amount_type=(_amount_type); end
             # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
             sig { returns(T.nilable(String)) }
@@ -2260,11 +2246,9 @@ module Stripe
             sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
             def end_date=(_end_date); end
             # The periodicity at which payments will be collected. Defaults to `adhoc`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def payment_schedule; end
-            sig {
-              params(_payment_schedule: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
             def payment_schedule=(_payment_schedule); end
             # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
             sig { returns(T.nilable(T.any(String, Integer))) }
@@ -2274,11 +2258,9 @@ module Stripe
              }
             def payments_per_period=(_payments_per_period); end
             # The purpose for which payments are made. Has a default value based on your merchant category code.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def purpose; end
-            sig {
-              params(_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
             def purpose=(_purpose); end
             # Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
             sig { returns(T.nilable(String)) }
@@ -2286,7 +2268,7 @@ module Stripe
             sig { params(_start_date: T.nilable(String)).returns(T.nilable(String)) }
             def start_date=(_start_date); end
             sig {
-              params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(T.any(String, String)), end_date: T.nilable(String), payment_schedule: T.nilable(T.any(String, String)), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(T.any(String, String)), start_date: T.nilable(String)).void
+              params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(String), start_date: T.nilable(String)).void
              }
             def initialize(
               amount: nil,
@@ -2619,14 +2601,12 @@ module Stripe
            }
           def mandate_options=(_mandate_options); end
           # Attribute for param field setup_future_usage
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def setup_future_usage; end
-          sig {
-            params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
           def setup_future_usage=(_setup_future_usage); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(String)).void
            }
           def initialize(mandate_options: nil, setup_future_usage: nil); end
         end

@@ -480,11 +480,9 @@ module Stripe
         # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         #
         # Pass an empty string to remove a previously supplied configuration.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
         #
@@ -501,7 +499,7 @@ module Stripe
         sig { params(_statement_descriptor_suffix: T.nilable(String)).returns(T.nilable(String)) }
         def statement_descriptor_suffix=(_statement_descriptor_suffix); end
         sig {
-          params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), receipt_email: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String)).void
+          params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), receipt_email: T.nilable(String), setup_future_usage: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String)).void
          }
         def initialize(
           description: nil,

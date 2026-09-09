@@ -272,13 +272,18 @@ module Stripe
         def unit_cost; end
         sig { params(_unit_cost: Integer).returns(Integer) }
         def unit_cost=(_unit_cost); end
+        # The number of decimal places implied in the unit_cost. For example, if unit_cost is 10000 and unit_cost_precision is 1, the actual unit cost is 1000.0. Defaults to 0 if not provided.
+        sig { returns(T.nilable(Integer)) }
+        def unit_cost_precision; end
+        sig { params(_unit_cost_precision: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def unit_cost_precision=(_unit_cost_precision); end
         # A unit of measure for the line item, such as gallons, feet, meters, etc.
         sig { returns(T.nilable(String)) }
         def unit_of_measure; end
         sig { params(_unit_of_measure: T.nilable(String)).returns(T.nilable(String)) }
         def unit_of_measure=(_unit_of_measure); end
         sig {
-          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, quantity_precision: T.nilable(Integer), tax: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_of_measure: T.nilable(String)).void
+          params(discount_amount: T.nilable(Integer), payment_method_options: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::PaymentMethodOptions), product_code: T.nilable(String), product_name: String, quantity: Integer, quantity_precision: T.nilable(Integer), tax: T.nilable(::Stripe::PaymentIntentCaptureParams::AmountDetails::LineItem::Tax), unit_cost: Integer, unit_cost_precision: T.nilable(Integer), unit_of_measure: T.nilable(String)).void
          }
         def initialize(
           discount_amount: nil,
@@ -289,6 +294,7 @@ module Stripe
           quantity_precision: nil,
           tax: nil,
           unit_cost: nil,
+          unit_cost_precision: nil,
           unit_of_measure: nil
         ); end
       end
@@ -324,14 +330,12 @@ module Stripe
          }
         def amount=(_amount); end
         # Indicate whether to enforce validations on the surcharge amount.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def enforce_validation; end
-        sig {
-          params(_enforce_validation: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_enforce_validation: T.nilable(String)).returns(T.nilable(String)) }
         def enforce_validation=(_enforce_validation); end
         sig {
-          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(T.any(String, String))).void
+          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(String)).void
          }
         def initialize(amount: nil, enforce_validation: nil); end
       end

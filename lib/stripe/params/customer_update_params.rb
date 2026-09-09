@@ -169,7 +169,7 @@ module Stripe
     attr_accessor :expand
     # The customer's full name. This may be up to *150 characters*.
     attr_accessor :individual_name
-    # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+    # The prefix for the customer used to generate unique invoice numbers. Must be 1–12 uppercase letters or numbers.
     attr_accessor :invoice_prefix
     # Default invoice settings for this customer.
     attr_accessor :invoice_settings

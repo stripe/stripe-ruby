@@ -206,7 +206,7 @@ module Stripe
     #
     # You can retrieve a PaymentIntent client-side using a publishable key when the client_secret is in the query string.
     #
-    # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api#payment_intent_object) object reference for more details.
+    # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api/payment_intents/object) object reference for more details.
     def retrieve(intent, params = {}, opts = {})
       request(
         method: :get,

@@ -1,5 +1,11 @@
 # Changelog
 
+## 19.6.2 - 2026-09-09
+* [#1960](https://github.com/stripe/stripe-ruby/pull/1960) Validate that webhook secrets are non-empty
+* [#1962](https://github.com/stripe/stripe-ruby/pull/1962) Fix webhook tolerance reference
+* [#1959](https://github.com/stripe/stripe-ruby/pull/1959) Fix `StripeContext` hash key behavior
+  - Fixes `StripeContext` value hashing so equivalent contexts work interchangeably as `Hash` and `Set` keys.
+
 ## 19.6.1 - 2026-09-01
 * [#1955](https://github.com/stripe/stripe-ruby/pull/1955) Forward request options when fetching V2 list pages
   - Fixes V2 `fetch_next_page` ignoring per-request API key and Stripe context overrides.

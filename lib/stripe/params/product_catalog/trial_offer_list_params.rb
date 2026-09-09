@@ -21,6 +21,8 @@ module Stripe
           @lte = lte
         end
       end
+      # Only return trial offers that are active (`true`) or archived (`false`). If omitted, both active and archived trial offers are returned.
+      attr_accessor :active
       # Only return trial offers that were created during the given date interval.
       attr_accessor :created
       # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -35,6 +37,7 @@ module Stripe
       attr_accessor :starting_after
 
       def initialize(
+        active: nil,
         created: nil,
         ending_before: nil,
         expand: nil,
@@ -42,6 +45,7 @@ module Stripe
         prices: nil,
         starting_after: nil
       )
+        @active = active
         @created = created
         @ending_before = ending_before
         @expand = expand

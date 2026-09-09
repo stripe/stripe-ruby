@@ -146,6 +146,8 @@ module Stripe
           end
           # The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
           attr_reader :amount
+          # The ID of the [customer tax exemption](/api/tax/exemptions) that was applied to this tax breakdown.
+          attr_reader :customer_tax_exemption
           # Attribute for field jurisdiction
           attr_reader :jurisdiction
           # Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).

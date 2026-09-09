@@ -456,11 +456,9 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             sig { returns(T.nilable(String)) }
@@ -473,7 +471,7 @@ module Stripe
             sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
             def verification_method=(_verification_method); end
             sig {
-              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String), verification_method: T.nilable(String)).void
              }
             def initialize(
               mandate_options: nil,
@@ -523,13 +521,11 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
+            sig { params(setup_future_usage: T.nilable(String)).void }
             def initialize(setup_future_usage: nil); end
           end
           class Bancontact < ::Stripe::RequestParams
@@ -547,14 +543,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             sig {
-              params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+              params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(String)).void
              }
             def initialize(preferred_language: nil, setup_future_usage: nil); end
           end
@@ -661,13 +655,11 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
-            sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
+            sig { params(setup_future_usage: T.nilable(String)).void }
             def initialize(setup_future_usage: nil); end
           end
           class Klarna < ::Stripe::RequestParams
@@ -2333,14 +2325,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             sig {
-              params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+              params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(String)).void
              }
             def initialize(capture_method: nil, persistent_token: nil, setup_future_usage: nil); end
           end
@@ -2511,11 +2501,9 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             # The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             sig { returns(T.nilable(T::Array[String])) }
@@ -2525,7 +2513,7 @@ module Stripe
              }
             def subsellers=(_subsellers); end
             sig {
-              params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), subsellers: T.nilable(T::Array[String])).void
+              params(capture_method: T.nilable(String), line_items: T.nilable(T::Array[::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::Paypal::LineItem]), preferred_locale: T.nilable(String), reference: T.nilable(String), reference_id: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(String), subsellers: T.nilable(T::Array[String])).void
              }
             def initialize(
               capture_method: nil,
@@ -2566,11 +2554,9 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             sig { returns(T.nilable(String)) }
@@ -2578,17 +2564,15 @@ module Stripe
             sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
             def target_date=(_target_date); end
             sig {
-              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
+              params(mandate_options: T.nilable(::Stripe::OrderUpdateParams::Payment::Settings::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
              }
             def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
           end
           class Sofort < ::Stripe::RequestParams
             # Language shown to the payer on redirect.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def preferred_language; end
-            sig {
-              params(_preferred_language: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_preferred_language: T.nilable(String)).returns(T.nilable(String)) }
             def preferred_language=(_preferred_language); end
             # Indicates that you intend to make future payments with this PaymentIntent's payment method.
             #
@@ -2599,14 +2583,12 @@ module Stripe
             # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
             #
             # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-            sig { returns(T.nilable(T.any(String, String))) }
+            sig { returns(T.nilable(String)) }
             def setup_future_usage; end
-            sig {
-              params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-             }
+            sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
             def setup_future_usage=(_setup_future_usage); end
             sig {
-              params(preferred_language: T.nilable(T.any(String, String)), setup_future_usage: T.nilable(T.any(String, String))).void
+              params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(String)).void
              }
             def initialize(preferred_language: nil, setup_future_usage: nil); end
           end
@@ -3134,11 +3116,9 @@ module Stripe
         def initialize(type: nil, value: nil); end
       end
       # The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def tax_exempt; end
-      sig {
-        params(_tax_exempt: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_tax_exempt: T.nilable(String)).returns(T.nilable(String)) }
       def tax_exempt=(_tax_exempt); end
       # The purchaser's tax IDs to be used for this order.
       sig { returns(T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])) }
@@ -3148,7 +3128,7 @@ module Stripe
        }
       def tax_ids=(_tax_ids); end
       sig {
-        params(tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])).void
+        params(tax_exempt: T.nilable(String), tax_ids: T.nilable(T::Array[::Stripe::OrderUpdateParams::TaxDetails::TaxId])).void
        }
       def initialize(tax_exempt: nil, tax_ids: nil); end
     end

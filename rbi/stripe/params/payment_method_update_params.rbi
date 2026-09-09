@@ -85,13 +85,11 @@ module Stripe
     class Card < ::Stripe::RequestParams
       class Networks < ::Stripe::RequestParams
         # The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def preferred; end
-        sig {
-          params(_preferred: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_preferred: T.nilable(String)).returns(T.nilable(String)) }
         def preferred=(_preferred); end
-        sig { params(preferred: T.nilable(T.any(String, String))).void }
+        sig { params(preferred: T.nilable(String)).void }
         def initialize(preferred: nil); end
       end
       # Two-digit number representing the card's expiration month.

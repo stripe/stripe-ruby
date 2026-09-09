@@ -171,6 +171,8 @@ module Stripe
     attr_reader :tax
     # The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     attr_reader :unit_cost
+    # The number of decimal places implied in the unit_cost. For example, if unit_cost is 10000 and unit_cost_precision is 1, the actual unit cost is 1000.0. Defaults to 0 if not provided.
+    attr_reader :unit_cost_precision
     # A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     attr_reader :unit_of_measure
 

@@ -1043,6 +1043,8 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # The Unix timestamp marking the subscription's backdated start date.
+          attr_reader :backdate_start_date
           # The description for the subscription.
           attr_reader :description
           # The items in the subscription.

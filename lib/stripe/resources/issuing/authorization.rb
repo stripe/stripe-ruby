@@ -1042,6 +1042,8 @@ module Stripe
         attr_reader :merchant_currency
         # Details about the authorization request, such as identifiers, set by the card network.
         attr_reader :network_data
+        # The network-specific response code associated with Stripe's decision for this authorization request. The value is a Visa or Mastercard response code depending on the network over which the authorization was routed.
+        attr_reader :network_response_code
         # The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         attr_reader :network_risk_score
         # When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.

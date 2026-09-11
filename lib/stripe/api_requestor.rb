@@ -462,13 +462,13 @@ module Stripe
     private def execute_request_internal(method, path,
                                          base_address, params, opts, usage,
                                          &read_body_chunk_block)
+      Util.validate_path!(path)
+
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
-      raise ArgumentError, "path should be a string" \
-      unless path.is_a?(String)
 
       base_url ||= config.base_addresses[base_address]
 

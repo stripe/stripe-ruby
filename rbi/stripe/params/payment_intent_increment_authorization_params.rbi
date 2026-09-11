@@ -227,14 +227,12 @@ module Stripe
          }
         def amount=(_amount); end
         # Indicate whether to enforce validations on the surcharge amount.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def enforce_validation; end
-        sig {
-          params(_enforce_validation: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_enforce_validation: T.nilable(String)).returns(T.nilable(String)) }
         def enforce_validation=(_enforce_validation); end
         sig {
-          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(T.any(String, String))).void
+          params(amount: T.nilable(T.any(String, Integer)), enforce_validation: T.nilable(String)).void
          }
         def initialize(amount: nil, enforce_validation: nil); end
       end

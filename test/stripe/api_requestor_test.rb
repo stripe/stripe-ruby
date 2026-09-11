@@ -1844,5 +1844,101 @@ module Stripe
         assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "" })
       end
     end
+
+    ORIGIN_RELATIVE_PATHS = [
+      "/v1/customers/cus_123",
+      "/v1/customers",
+      "/v2/core/accounts?page=page_123&limit=2",
+      # "@" is legal inside a path or query string -- it only opens an authority
+      # when it precedes the first "/".
+      "/v1/customers?email=user%40example.com",
+      "/v1/%5Cevil.example",
+    ].freeze
+
+    HOSTILE_PATHS = [
+      # Concatenated onto a base address with no trailing slash, each of these
+      # moves the request's authority off api.stripe.com.
+      "@evil.example/v1/leak",
+      ":pw@evil.example/v1/leak",
+      ":80@evil.example/v1/leak",
+      # Extends the host into an attacker-owned subdomain
+      # (api.stripe.com.evil.example), which has a valid certificate.
+      ".evil.example/v1/leak",
+      "-evil.example/v1/leak",
+      "https://evil.example/v1/leak",
+      "//evil.example/v1/leak",
+      "",
+      "v1/customers",
+      nil,
+      42,
+    ].freeze
+
+    context "request path validation" do
+      should "accept origin-relative paths" do
+        ORIGIN_RELATIVE_PATHS.each do |path|
+          Util.validate_path!(path)
+        end
+      end
+
+      should "reject paths that could move the request's authority" do
+        HOSTILE_PATHS.each do |path|
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Util.validate_path!(path)
+          end
+        end
+      end
+
+      should "reject a hostile path without issuing a request" do
+        # WebMock blocks any unstubbed connection, so no stub plus no WebMock
+        # error is the assertion that nothing left the process.
+        HOSTILE_PATHS.each do |path|
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
+          end
+        end
+      end
+
+      should "reject a hostile related_object.url without issuing a request" do
+        payload = JSON.generate(
+          id: "evt_123",
+          object: "v2.core.event",
+          type: "v2.core.account.created",
+          created: "2026-01-01T00:00:00Z",
+          related_object: {
+            id: "acct_123",
+            type: "account",
+            url: "@evil.example/v1/leak",
+          }
+        )
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+
+        client = Stripe::StripeClient.new("sk_test_123")
+        notification = client.parse_event_notification(
+          payload, header, Test::WebhookHelpers::SECRET
+        )
+
+        assert_raises(ArgumentError) do
+          notification.fetch_related_object
+        end
+      end
+
+      should "reject a hostile list object url without issuing a request" do
+        # A signature-verified v1 webhook body is attacker-shaped, and nested
+        # collections in it become ListObjects whose `url` is used as a path.
+        list = Util.convert_to_stripe_object(
+          {
+            object: "list",
+            data: [{ id: "il_123" }],
+            has_more: true,
+            url: "@evil.example/v1/leak",
+          },
+          {}
+        )
+
+        assert_raises(ArgumentError) do
+          list.next_page
+        end
+      end
+    end
   end
 end

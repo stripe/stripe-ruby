@@ -2277,9 +2277,9 @@ module Stripe
         attr_accessor :metadata
         # Plan ID for this item, as a string.
         attr_accessor :plan
-        # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
         attr_accessor :price_data
         # Quantity for this item.
         attr_accessor :quantity
@@ -2481,6 +2481,8 @@ module Stripe
     attr_accessor :on_behalf_of
     # Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
     attr_accessor :preview_mode
+    # A pricing token whose presentment currency and exchange rate are used to convert the amounts on the previewed invoice into the customer-facing presentment currency. When omitted, amounts are returned in the settlement currency.
+    attr_accessor :pricing_token
     # The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
     attr_accessor :schedule
     # The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
@@ -2503,6 +2505,7 @@ module Stripe
       issuer: nil,
       on_behalf_of: nil,
       preview_mode: nil,
+      pricing_token: nil,
       schedule: nil,
       schedule_details: nil,
       subscription: nil,
@@ -2520,6 +2523,7 @@ module Stripe
       @issuer = issuer
       @on_behalf_of = on_behalf_of
       @preview_mode = preview_mode
+      @pricing_token = pricing_token
       @schedule = schedule
       @schedule_details = schedule_details
       @subscription = subscription

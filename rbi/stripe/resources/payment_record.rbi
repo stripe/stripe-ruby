@@ -1349,6 +1349,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end

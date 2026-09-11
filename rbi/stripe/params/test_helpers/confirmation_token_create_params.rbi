@@ -543,7 +543,7 @@ module Stripe
         def allow_redisplay; end
         sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
         def allow_redisplay=(_allow_redisplay); end
-        # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
          }
@@ -552,7 +552,7 @@ module Stripe
           params(_alma: T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
          }
         def alma=(_alma); end
-        # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay))
          }

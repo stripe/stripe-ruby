@@ -677,6 +677,18 @@ module Stripe
           end
         end
 
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :debit_behavior
+          # Attribute for param field verification_method
+          attr_accessor :verification_method
+
+          def initialize(debit_behavior: nil, verification_method: nil)
+            @debit_behavior = debit_behavior
+            @verification_method = verification_method
+          end
+        end
+
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_accessor :preferred_language
@@ -985,6 +997,8 @@ module Stripe
         end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bacs_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
         # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
@@ -1018,6 +1032,7 @@ module Stripe
 
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -1035,6 +1050,7 @@ module Stripe
           wechat_pay: nil
         )
           @acss_debit = acss_debit
+          @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
           @bizum = bizum

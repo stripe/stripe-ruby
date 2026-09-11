@@ -4235,28 +4235,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NestingDemo < ::Stripe::StripeObject
-        class Features < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the embedded component is enabled.
-        sig { returns(T::Boolean) }
-        def enabled; end
-        # Attribute for field features
-        sig { returns(Features) }
-        def features; end
-        def self.inner_class_types
-          @inner_class_types = {features: Features}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class NetworkCostPassthroughReport < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -4722,9 +4700,6 @@ module Stripe
       # Attribute for field issuing_cards_list
       sig { returns(IssuingCardsList) }
       def issuing_cards_list; end
-      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
-      sig { returns(T.nilable(NestingDemo)) }
-      def nesting_demo; end
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       sig { returns(T.nilable(NetworkCostPassthroughReport)) }
       def network_cost_passthrough_report; end
@@ -4793,7 +4768,6 @@ module Stripe
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
-          nesting_demo: NestingDemo,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
@@ -4837,7 +4811,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     sig {
       params(params: T.any(::Stripe::AccountSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountSession)
      }
@@ -14765,7 +14739,7 @@ module Stripe
           end
         end
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(T.nilable(String)) }
           def custom; end
           # The type of the label.
@@ -15489,6 +15463,9 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
           def self.inner_class_types
             @inner_class_types = {mandate_options: MandateOptions}
           end
@@ -23065,6 +23042,31 @@ module Stripe
   # Related guide: [Disputes and fraud](https://docs.stripe.com/disputes)
   class Dispute < APIResource
     class Evidence < ::Stripe::StripeObject
+      class Appeal < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The reason for filing the appeal.
+          sig { returns(T.nilable(String)) }
+          def reason_for_filing; end
+          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          sig { returns(T.nilable(T::Array[String])) }
+          def supporting_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        def self.inner_class_types
+          @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class EnhancedEvidence < ::Stripe::StripeObject
         class MastercardCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -23244,6 +23246,9 @@ module Stripe
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
       def access_activity_log; end
+      # Attribute for field appeal
+      sig { returns(T.nilable(Appeal)) }
+      def appeal; end
       # The billing address provided by the customer.
       sig { returns(T.nilable(String)) }
       def billing_address; end
@@ -23326,7 +23331,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def uncategorized_text; end
       def self.inner_class_types
-        @inner_class_types = {enhanced_evidence: EnhancedEvidence}
+        @inner_class_types = {appeal: Appeal, enhanced_evidence: EnhancedEvidence}
       end
       def self.field_remappings
         @field_remappings = {}
@@ -27202,7 +27207,7 @@ module Stripe
       # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
       sig { returns(T.nilable(CreditedItems)) }
       def credited_items; end
-      # Discount amounts applied when the proration was created.
+      # Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
       sig { returns(T::Array[DiscountAmount]) }
       def discount_amounts; end
       def self.inner_class_types
@@ -27823,6 +27828,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BacsDebit < ::Stripe::StripeObject
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
@@ -28144,6 +28163,9 @@ module Stripe
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(BacsDebit)) }
+        def bacs_debit; end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
@@ -28192,6 +28214,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
+            bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
             bizum: Bizum,
@@ -28922,7 +28945,8 @@ module Stripe
     def self.send_invoice(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-    # monetary values, as well as collection_method, become uneditable.
+    # you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+    # this also includes description.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
@@ -36585,6 +36609,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -44518,7 +44545,7 @@ module Stripe
         end
       end
       class Label < ::Stripe::StripeObject
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(T.nilable(String)) }
         def custom; end
         # The type of the label.
@@ -51444,6 +51471,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -53590,7 +53620,7 @@ module Stripe
           end
         end
         # Attribute for field transition
-        sig { returns(Transition) }
+        sig { returns(T.nilable(Transition)) }
         def transition; end
         # The type of behavior when the trial offer ends.
         sig { returns(String) }
@@ -55958,6 +55988,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BacsDebit < ::Stripe::StripeObject
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
@@ -56279,6 +56323,9 @@ module Stripe
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(BacsDebit)) }
+        def bacs_debit; end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
@@ -56327,6 +56374,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
+            bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
             bizum: Bizum,
@@ -66793,6 +66841,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BacsDebit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(String) }
+          def debit_behavior; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
@@ -67171,6 +67233,9 @@ module Stripe
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(BacsDebit)) }
+        def bacs_debit; end
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
@@ -67219,6 +67284,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
+            bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
             bizum: Bizum,
@@ -68162,7 +68228,7 @@ module Stripe
         # The external reference to this payee.
         sig { returns(T.nilable(String)) }
         def external_reference; end
-        # Either `account` or `external_reference`.
+        # Specifies the payee type.
         sig { returns(String) }
         def type; end
         def self.inner_class_types
@@ -68409,17 +68475,6 @@ module Stripe
           end
         end
         class At < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68431,9 +68486,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68441,7 +68493,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -68528,17 +68580,6 @@ module Stripe
           end
         end
         class Be < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68550,9 +68591,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68560,7 +68598,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -68578,17 +68616,6 @@ module Stripe
           end
         end
         class Bg < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68600,9 +68627,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68610,7 +68634,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -68777,17 +68801,6 @@ module Stripe
           end
         end
         class Cy < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68799,9 +68812,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68809,24 +68819,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Cz < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68838,9 +68837,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68848,24 +68844,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class De < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68877,9 +68862,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68887,24 +68869,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Dk < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68916,9 +68887,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68926,7 +68894,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -68944,17 +68912,6 @@ module Stripe
           end
         end
         class Ee < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -68966,9 +68923,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -68976,7 +68930,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69022,7 +68976,7 @@ module Stripe
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
-          # Type of registration in an EU country.
+          # Type of registration in ES.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -69044,17 +68998,6 @@ module Stripe
           end
         end
         class Fi < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69066,9 +69009,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69076,24 +69016,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Fr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69105,9 +69034,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69115,7 +69041,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69169,17 +69095,6 @@ module Stripe
           end
         end
         class Gr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69191,9 +69106,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69201,24 +69113,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Hr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69230,9 +69131,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69240,24 +69138,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Hu < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69269,9 +69156,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69279,7 +69163,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69297,17 +69181,6 @@ module Stripe
           end
         end
         class Ie < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69319,9 +69192,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69329,7 +69199,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69358,17 +69228,6 @@ module Stripe
           end
         end
         class It < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69380,9 +69239,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69390,7 +69246,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69499,17 +69355,6 @@ module Stripe
           end
         end
         class Lt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69521,9 +69366,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69531,24 +69373,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Lu < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69560,9 +69391,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69570,24 +69398,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Lv < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69599,9 +69416,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69609,7 +69423,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69671,17 +69485,6 @@ module Stripe
           end
         end
         class Mt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69693,9 +69496,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69703,7 +69503,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69743,17 +69543,6 @@ module Stripe
           end
         end
         class Nl < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69765,9 +69554,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69775,7 +69561,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -69876,17 +69662,6 @@ module Stripe
           end
         end
         class Pl < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69898,9 +69673,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69908,24 +69680,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Pt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69937,9 +69698,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69947,24 +69705,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Ro < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -69976,9 +69723,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -69986,7 +69730,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -70026,17 +69770,6 @@ module Stripe
           end
         end
         class Se < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -70048,9 +69781,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -70058,7 +69788,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -70090,17 +69820,6 @@ module Stripe
           end
         end
         class Si < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -70112,9 +69831,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -70122,24 +69838,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Sk < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -70151,9 +69856,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -70161,7 +69863,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -112632,7 +112334,7 @@ end
 # typed: true
 module Stripe
   class AccountSessionService < StripeService
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     sig {
       params(params: T.any(::Stripe::AccountSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountSession)
      }
@@ -114375,7 +114077,7 @@ module Stripe
        }
       def refresh(account, params = {}, opts = {}); end
 
-      # Retrieves the details of an Financial Connections Account.
+      # Retrieves the details of a Financial Connections Account.
       sig {
         params(account: String, params: T.any(::Stripe::FinancialConnections::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Account)
        }
@@ -114423,7 +114125,7 @@ end
 module Stripe
   module FinancialConnections
     class AuthorizationService < StripeService
-      # Retrieves the details of an Financial Connections Authorization.
+      # Retrieves the details of a Financial Connections Authorization.
       sig {
         params(authorization: String, params: T.any(::Stripe::FinancialConnections::AuthorizationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Authorization)
        }
@@ -114921,7 +114623,8 @@ module Stripe
     def serialize_batch_void_invoice(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-    # monetary values, as well as collection_method, become uneditable.
+    # you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+    # this also includes description.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
@@ -141856,7 +141559,7 @@ module Stripe
           def initialize(default_value: nil, options: nil); end
         end
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(String) }
           def custom; end
           sig { params(_custom: String).returns(String) }
@@ -143470,10 +143173,20 @@ module Stripe
           def target_date; end
           sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
           def target_date=(_target_date); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String), verification_method: T.nilable(String)).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          ); end
         end
         class Bancontact < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -148145,14 +147858,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig {
         returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay))
        }
@@ -156898,6 +156611,22 @@ module Stripe
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
+          def target_date=(_target_date); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
+          sig {
+            params(target_date: T.nilable(String), verification_method: T.nilable(String)).void
+           }
+          def initialize(target_date: nil, verification_method: nil); end
+        end
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
@@ -157307,6 +157036,15 @@ module Stripe
           params(_acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit=(_acss_debit); end
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit; end
+        sig {
+          params(_bacs_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit=(_bacs_debit); end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
@@ -157443,10 +157181,11 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
          }
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -158340,6 +158079,22 @@ module Stripe
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
+          def target_date=(_target_date); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
+          sig {
+            params(target_date: T.nilable(String), verification_method: T.nilable(String)).void
+           }
+          def initialize(target_date: nil, verification_method: nil); end
+        end
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
@@ -158749,6 +158504,15 @@ module Stripe
           params(_acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit=(_acss_debit); end
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit; end
+        sig {
+          params(_bacs_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit))).returns(T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit=(_bacs_debit); end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
@@ -158885,10 +158649,11 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::InvoiceCreateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
          }
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -164339,12 +164104,12 @@ module Stripe
         def plan; end
         sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
         def plan=(_plan); end
-        # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         sig { returns(T.nilable(String)) }
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
         sig {
           returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData))
          }
@@ -164681,6 +164446,11 @@ module Stripe
     def preview_mode; end
     sig { params(_preview_mode: T.nilable(String)).returns(T.nilable(String)) }
     def preview_mode=(_preview_mode); end
+    # A pricing token whose presentment currency and exchange rate are used to convert the amounts on the previewed invoice into the customer-facing presentment currency. When omitted, amounts are returned in the settlement currency.
+    sig { returns(T.nilable(String)) }
+    def pricing_token; end
+    sig { params(_pricing_token: T.nilable(String)).returns(T.nilable(String)) }
+    def pricing_token=(_pricing_token); end
     # The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
     sig { returns(T.nilable(String)) }
     def schedule; end
@@ -164706,7 +164476,7 @@ module Stripe
      }
     def subscription_details=(_subscription_details); end
     sig {
-      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
+      params(automatic_tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::AutomaticTax), billing_cadence: T.nilable(String), currency: T.nilable(String), customer: T.nilable(String), customer_account: T.nilable(String), customer_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::Discount])), expand: T.nilable(T::Array[String]), invoice_items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::InvoiceItem]), issuer: T.nilable(::Stripe::InvoiceCreatePreviewParams::Issuer), on_behalf_of: T.nilable(String), preview_mode: T.nilable(String), pricing_token: T.nilable(String), schedule: T.nilable(String), schedule_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::ScheduleDetails), subscription: T.nilable(String), subscription_details: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails)).void
      }
     def initialize(
       automatic_tax: nil,
@@ -164721,6 +164491,7 @@ module Stripe
       issuer: nil,
       on_behalf_of: nil,
       preview_mode: nil,
+      pricing_token: nil,
       schedule: nil,
       schedule_details: nil,
       subscription: nil,
@@ -184703,14 +184474,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -194973,14 +194744,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentUpdateParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -208482,14 +208253,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -216027,7 +215798,7 @@ module Stripe
         def initialize(default_value: nil, options: nil); end
       end
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(String) }
         def custom; end
         sig { params(_custom: String).returns(String) }
@@ -217357,7 +217128,7 @@ module Stripe
         def initialize(default_value: nil, options: nil); end
       end
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(String) }
         def custom; end
         sig { params(_custom: String).returns(String) }
@@ -223702,14 +223473,14 @@ module Stripe
     def allow_redisplay; end
     sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
     def allow_redisplay=(_allow_redisplay); end
-    # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+    # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
     sig { returns(T.nilable(::Stripe::PaymentMethodCreateParams::Alma)) }
     def alma; end
     sig {
       params(_alma: T.nilable(::Stripe::PaymentMethodCreateParams::Alma)).returns(T.nilable(::Stripe::PaymentMethodCreateParams::Alma))
      }
     def alma=(_alma); end
-    # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+    # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
     sig { returns(T.nilable(::Stripe::PaymentMethodCreateParams::AmazonPay)) }
     def amazon_pay; end
     sig {
@@ -226966,6 +226737,30 @@ end
 # typed: true
 module Stripe
   class PayoutCreateParams < ::Stripe::RequestParams
+    class PayoutMethodOptions < ::Stripe::RequestParams
+      class FinancialAccount < ::Stripe::RequestParams
+        # Identifies the currency to credit in the destination Financial Account. Must be a currency supported by the target Financial Account. When omitted, the payout uses the currency parameter.
+        sig { returns(T.nilable(String)) }
+        def destination_currency; end
+        sig { params(_destination_currency: T.nilable(String)).returns(T.nilable(String)) }
+        def destination_currency=(_destination_currency); end
+        sig { params(destination_currency: T.nilable(String)).void }
+        def initialize(destination_currency: nil); end
+      end
+      # Additional options for a Financial Account payout method. Only valid when payout_method is a Financial Account ID.
+      sig {
+        returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount))
+       }
+      def financial_account; end
+      sig {
+        params(_financial_account: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount)).returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount))
+       }
+      def financial_account=(_financial_account); end
+      sig {
+        params(financial_account: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount)).void
+       }
+      def initialize(financial_account: nil); end
+    end
     # A positive integer in cents representing how much to payout.
     sig { returns(Integer) }
     def amount; end
@@ -227008,6 +226803,13 @@ module Stripe
     def payout_method; end
     sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
     def payout_method=(_payout_method); end
+    # Additional options that complement the payout_method. The keys in this dictionary identify the type of payout method the options apply to.
+    sig { returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions)) }
+    def payout_method_options; end
+    sig {
+      params(_payout_method_options: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions)).returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions))
+     }
+    def payout_method_options=(_payout_method_options); end
     # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
     sig { returns(T.nilable(String)) }
     def source_type; end
@@ -227019,7 +226821,7 @@ module Stripe
     sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor=(_statement_descriptor); end
     sig {
-      params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), payout_method: T.nilable(String), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
+      params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), payout_method: T.nilable(String), payout_method_options: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
@@ -227030,6 +226832,7 @@ module Stripe
       metadata: nil,
       method: nil,
       payout_method: nil,
+      payout_method_options: nil,
       source_type: nil,
       statement_descriptor: nil
     ); end
@@ -238389,14 +238192,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentCreateParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -240691,14 +240494,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentUpdateParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -242996,14 +242799,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::SetupIntentConfirmParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -246492,12 +246295,12 @@ module Stripe
     def plan; end
     sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
     def plan=(_plan); end
-    # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     sig { returns(T.nilable(String)) }
     def price; end
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
-    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
@@ -253157,12 +252960,12 @@ module Stripe
       def plan; end
       sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
       def plan=(_plan); end
-      # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+      # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
       sig { returns(T.nilable(String)) }
       def price; end
       sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
       def price=(_price); end
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
       sig { returns(T.nilable(::Stripe::SubscriptionUpdateParams::Item::PriceData)) }
       def price_data; end
       sig {
@@ -253248,6 +253051,22 @@ module Stripe
             params(mandate_options: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit::MandateOptions), verification_method: T.nilable(String)).void
            }
           def initialize(mandate_options: nil, verification_method: nil); end
+        end
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
+          sig { params(_debit_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def debit_behavior=(_debit_behavior); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
+          sig {
+            params(debit_behavior: T.nilable(String), verification_method: T.nilable(String)).void
+           }
+          def initialize(debit_behavior: nil, verification_method: nil); end
         end
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -253720,6 +253539,15 @@ module Stripe
           params(_acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit=(_acss_debit); end
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit; end
+        sig {
+          params(_bacs_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit=(_bacs_debit); end
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
@@ -253856,10 +253684,11 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
          }
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -255483,6 +255312,22 @@ module Stripe
            }
           def initialize(mandate_options: nil, verification_method: nil); end
         end
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def debit_behavior; end
+          sig { params(_debit_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def debit_behavior=(_debit_behavior); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
+          sig {
+            params(debit_behavior: T.nilable(String), verification_method: T.nilable(String)).void
+           }
+          def initialize(debit_behavior: nil, verification_method: nil); end
+        end
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(T.nilable(String)) }
@@ -255954,6 +255799,15 @@ module Stripe
           params(_acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)))
          }
         def acss_debit=(_acss_debit); end
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit; end
+        sig {
+          params(_bacs_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)))
+         }
+        def bacs_debit=(_bacs_debit); end
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)))
@@ -256090,10 +255944,11 @@ module Stripe
          }
         def wechat_pay=(_wechat_pay); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), check_scan: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CheckScan)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), id_bank_transfer: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::IdBankTransfer)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::WechatPay))).void
          }
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -257132,7 +256987,7 @@ module Stripe
         def external_reference; end
         sig { params(_external_reference: T.nilable(String)).returns(T.nilable(String)) }
         def external_reference=(_external_reference); end
-        # Specifies the payee type. Either `account` or `external_reference`.
+        # Specifies the payee type.
         sig { returns(T.nilable(String)) }
         def type; end
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -278568,7 +278423,7 @@ module Stripe
         def allow_redisplay; end
         sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
         def allow_redisplay=(_allow_redisplay); end
-        # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+        # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
          }
@@ -278577,7 +278432,7 @@ module Stripe
           params(_alma: T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
          }
         def alma=(_alma); end
-        # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+        # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
         sig {
           returns(T.nilable(::Stripe::TestHelpers::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay))
          }

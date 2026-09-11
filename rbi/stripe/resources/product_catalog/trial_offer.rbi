@@ -48,7 +48,7 @@ module Stripe
           end
         end
         # Attribute for field transition
-        sig { returns(Transition) }
+        sig { returns(T.nilable(Transition)) }
         def transition; end
         # The type of behavior when the trial offer ends.
         sig { returns(String) }

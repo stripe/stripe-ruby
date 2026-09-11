@@ -609,28 +609,6 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class NestingDemo < ::Stripe::StripeObject
-        class Features < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the embedded component is enabled.
-        sig { returns(T::Boolean) }
-        def enabled; end
-        # Attribute for field features
-        sig { returns(Features) }
-        def features; end
-        def self.inner_class_types
-          @inner_class_types = {features: Features}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class NetworkCostPassthroughReport < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1096,9 +1074,6 @@ module Stripe
       # Attribute for field issuing_cards_list
       sig { returns(IssuingCardsList) }
       def issuing_cards_list; end
-      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
-      sig { returns(T.nilable(NestingDemo)) }
-      def nesting_demo; end
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       sig { returns(T.nilable(NetworkCostPassthroughReport)) }
       def network_cost_passthrough_report; end
@@ -1167,7 +1142,6 @@ module Stripe
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
-          nesting_demo: NestingDemo,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
@@ -1211,7 +1185,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
     def object; end
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     sig {
       params(params: T.any(::Stripe::AccountSessionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountSession)
      }

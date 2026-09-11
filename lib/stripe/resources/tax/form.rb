@@ -127,7 +127,7 @@ module Stripe
         attr_reader :account
         # The external reference to this payee.
         attr_reader :external_reference
-        # Either `account` or `external_reference`.
+        # Specifies the payee type.
         attr_reader :type
 
         def self.inner_class_types

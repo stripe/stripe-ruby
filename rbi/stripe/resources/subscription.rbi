@@ -322,6 +322,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BacsDebit < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(String) }
+          def debit_behavior; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
@@ -700,6 +714,9 @@ module Stripe
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to invoices created by the subscription.
+        sig { returns(T.nilable(BacsDebit)) }
+        def bacs_debit; end
         # This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
@@ -748,6 +765,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
+            bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
             bizum: Bizum,

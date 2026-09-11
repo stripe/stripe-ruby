@@ -1268,6 +1268,8 @@ module Stripe
       class Link < ::Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         attr_reader :country
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        attr_reader :funding_source_group
 
         def self.inner_class_types
           @inner_class_types = {}

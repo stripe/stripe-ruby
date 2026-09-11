@@ -581,9 +581,9 @@ module Stripe
       attr_accessor :metadata
       # Plan ID for this item, as a string.
       attr_accessor :plan
-      # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+      # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
       attr_accessor :price
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
       attr_accessor :price_data
       # Quantity for this item.
       attr_accessor :quantity
@@ -655,6 +655,18 @@ module Stripe
 
           def initialize(mandate_options: nil, verification_method: nil)
             @mandate_options = mandate_options
+            @verification_method = verification_method
+          end
+        end
+
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :debit_behavior
+          # Attribute for param field verification_method
+          attr_accessor :verification_method
+
+          def initialize(debit_behavior: nil, verification_method: nil)
+            @debit_behavior = debit_behavior
             @verification_method = verification_method
           end
         end
@@ -967,6 +979,8 @@ module Stripe
         end
         # This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
+        # This sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bacs_debit
         # This sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
         # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
@@ -1000,6 +1014,7 @@ module Stripe
 
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -1017,6 +1032,7 @@ module Stripe
           wechat_pay: nil
         )
           @acss_debit = acss_debit
+          @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
           @bizum = bizum

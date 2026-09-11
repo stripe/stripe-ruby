@@ -154,6 +154,18 @@ module Stripe
           end
         end
 
+        class BacsDebit < ::Stripe::RequestParams
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          attr_accessor :target_date
+          # Attribute for param field verification_method
+          attr_accessor :verification_method
+
+          def initialize(target_date: nil, verification_method: nil)
+            @target_date = target_date
+            @verification_method = verification_method
+          end
+        end
+
         class Bancontact < ::Stripe::RequestParams
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           attr_accessor :preferred_language
@@ -421,6 +433,8 @@ module Stripe
         end
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :acss_debit
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :bacs_debit
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :bancontact
         # If paying by `billie`, this sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
@@ -454,6 +468,7 @@ module Stripe
 
         def initialize(
           acss_debit: nil,
+          bacs_debit: nil,
           bancontact: nil,
           billie: nil,
           bizum: nil,
@@ -471,6 +486,7 @@ module Stripe
           wechat_pay: nil
         )
           @acss_debit = acss_debit
+          @bacs_debit = bacs_debit
           @bancontact = bancontact
           @billie = billie
           @bizum = bizum

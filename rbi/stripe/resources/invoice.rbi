@@ -500,6 +500,20 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class BacsDebit < ::Stripe::StripeObject
+          # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+          sig { returns(T.nilable(String)) }
+          def target_date; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Bancontact < ::Stripe::StripeObject
           # Preferred language of the Bancontact authorization page that the customer is redirected to.
           sig { returns(String) }
@@ -821,6 +835,9 @@ module Stripe
         # If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(AcssDebit)) }
         def acss_debit; end
+        # If paying by `bacs_debit`, this sub-hash contains details about the Bacs Direct Debit payment method options to pass to the invoice’s PaymentIntent.
+        sig { returns(T.nilable(BacsDebit)) }
+        def bacs_debit; end
         # If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice’s PaymentIntent.
         sig { returns(T.nilable(Bancontact)) }
         def bancontact; end
@@ -869,6 +886,7 @@ module Stripe
         def self.inner_class_types
           @inner_class_types = {
             acss_debit: AcssDebit,
+            bacs_debit: BacsDebit,
             bancontact: Bancontact,
             billie: Billie,
             bizum: Bizum,
@@ -1599,7 +1617,8 @@ module Stripe
     def self.send_invoice(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-    # monetary values, as well as collection_method, become uneditable.
+    # you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+    # this also includes description.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass

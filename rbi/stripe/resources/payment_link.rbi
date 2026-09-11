@@ -156,7 +156,7 @@ module Stripe
         end
       end
       class Label < ::Stripe::StripeObject
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(T.nilable(String)) }
         def custom; end
         # The type of the label.

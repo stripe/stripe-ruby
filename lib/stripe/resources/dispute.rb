@@ -17,6 +17,33 @@ module Stripe
     end
 
     class Evidence < ::Stripe::StripeObject
+      class Appeal < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The reason for filing the appeal.
+          attr_reader :reason_for_filing
+          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          attr_reader :supporting_files
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card
+        attr_reader :card
+
+        def self.inner_class_types
+          @inner_class_types = { card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class EnhancedEvidence < ::Stripe::StripeObject
         class MastercardCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -179,6 +206,8 @@ module Stripe
       end
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       attr_reader :access_activity_log
+      # Attribute for field appeal
+      attr_reader :appeal
       # The billing address provided by the customer.
       attr_reader :billing_address
       # (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
@@ -235,7 +264,7 @@ module Stripe
       attr_reader :uncategorized_text
 
       def self.inner_class_types
-        @inner_class_types = { enhanced_evidence: EnhancedEvidence }
+        @inner_class_types = { appeal: Appeal, enhanced_evidence: EnhancedEvidence }
       end
 
       def self.field_remappings

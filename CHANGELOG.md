@@ -1,9 +1,17 @@
+<!--
+THIS IS A GENERATED FILE. Any changes you make to it directly will be blown away.
+Instead, edit a corresponding `.change.md` file and run `hark build`.
+-->
+
 # Changelog
 
-## 19.7.0-beta.1 - 2026-08-26
-This release changes the pinned API version to 2026-08-26.preview.
+> This changelog only covers the **public preview** releases. Each release builds on the most recent GA release; see those notes in [the GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md).
 
-* [#1919](https://github.com/stripe/stripe-ruby/pull/1919) Update generated code for beta
+## 19.7.0-beta.1 - 2026-08-26
+This release changes the pinned API version to `2026-08-26.preview`.
+
+* [#1935](https://github.com/stripe/stripe-ruby/pull/1935) Add non-verified methods to managed handlers
+* ⚠️ [#1919](https://github.com/stripe/stripe-ruby/pull/1919) Update generated code for beta
   * Add support for new resources `V2::Core::ApprovalRequest`, `V2::Signals::AccountActivity`, `V2::Signals::AccountEvaluation`, and `V2::Signals::AccountSignal`
   * Add support for `list` and `retrieve` methods on resource `V2::Signals::AccountSignal`
   * Add support for `create` and `retrieve` methods on resource `V2::Signals::AccountEvaluation`
@@ -20,60 +28,11 @@ This release changes the pinned API version to 2026-08-26.preview.
   * ⚠️ Remove support for `enabled_delivery_options` on `V2::MoneyManagement::PayoutMethod::BankAccount`
   * Add support for event notifications `V2CoreApprovalRequestApprovedEvent`, `V2CoreApprovalRequestCanceledEvent`, `V2CoreApprovalRequestCreatedEvent`, `V2CoreApprovalRequestExpiredEvent`, `V2CoreApprovalRequestFailedEvent`, `V2CoreApprovalRequestRejectedEvent`, and `V2CoreApprovalRequestSucceededEvent` with related object `V2::Core::ApprovalRequest`
   * Add support for event notification `V2SignalsAccountEvaluationCompleteEvent` with related object `V2::Signals::AccountEvaluation`
-* [#1935](https://github.com/stripe/stripe-ruby/pull/1935) Add non-verified methods to managed handlers
-
-## 19.6.0 - 2026-08-26
-This release changes the pinned API version to 2026-08-26.dahlia.
-
-* [#1923](https://github.com/stripe/stripe-ruby/pull/1923) Support discriminated unions in the V2 runtime
-  
-  - Adds support for discriminated union (polymorphic) parameters and response fields in the V2 runtime. 
-  - Serializing a discriminated union parameter whose discriminator is missing, or not a String or Symbol, raises `ArgumentError` rather than sending the value uncoerced. Callers building a union parameter as a plain Hash must include the discriminator.
-  - Adds `nullable` field encoding support, so `int64_string` and `decimal_string` fields wrapped in a nullable coerce correctly.
-* [#1937](https://github.com/stripe/stripe-ruby/pull/1937) Add new `EventNotificationHandler` class for better thin event management
-  
-  - We've been putting a lot of time into rethinking the event handling experience in the SDKs. This new class is the culmination [of that effort](https://stripe.dev/blog/event-notification-handlers-thin-events).
-  - They're designed for a tight coupling with both `StripeClient` and the fully-typed nature of [thin events](https://docs.stripe.com/event-destinations#thin-events). This delivers painless event destination upgrades, in-editor checks for common mistakes, and better code modularity.
-  - Now that we've released [thin event notifications for v1 objects](https://docs.stripe.com/changelog#2026-08-26.dahlia), these new handlers are our recommended path for all integrations using thin event notifications.
-  - See more detailed docs here: https://docs.stripe.com/webhooks/event-notification-handlers
-* [#1926](https://github.com/stripe/stripe-ruby/pull/1926) Extract V2TypeCoercion module for bidirectional field encoding
-  
-  - Fixes V2 `int64_string` response fields so they return `Integer` (to match the field's Sorbet type) instead of `String`
-* [#1934](https://github.com/stripe/stripe-ruby/pull/1934) Update generated code
-  * Add support for new resource `Billing::FeedbackOption`
-  * Add support for `create`, `deactivate`, `list`, `retrieve`, and `update` methods on resource `Billing::FeedbackOption`
-  * Add support for `payment_method_settings` on `AccountSession::Component` and `AccountSessionCreateParams::Component`
-  * Add support for `feedback_options` on `BillingPortal::Configuration::Feature::SubscriptionCancel::CancellationReason`, `BillingPortal::ConfigurationCreateParams::Feature::SubscriptionCancel::CancellationReason`, and `BillingPortal::ConfigurationUpdateParams::Feature::SubscriptionCancel::CancellationReason`
-  * Add support for `customer_update` on `BillingPortal::Session::Flow`
-  * Add support for `funding_source_group` on `Charge::PaymentMethodDetail::Card::Wallet::Link` and `Charge::PaymentMethodDetail::Link`
-  * Add support for `funding_types_blocked` on `Checkout::Session::PaymentMethodOption::Card::Restriction` and `Checkout::SessionCreateParams::PaymentMethodOption::Card::Restriction`
-  * Add support for `metadata` on `ConfirmationToken`
-  * Add support for `active_entitlements` and `customer_portal` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
-  * Add support for `country` on `FinancialConnections::Session::Filter`
-  * Add support for `frozen_fields` on `InvoiceItem`
-  * Add support for `billie` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
-  * ⚠️ Remove support for `cryptogram` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
-  * Change `PaymentIntent.allowed_payment_method_types` and `SetupIntent.allowed_payment_method_types` to be required
-  * Add support for `application_fee_amount`, `application_fee_percent`, `on_behalf_of`, and `transfer_data` on `PaymentLinkUpdateParams`
-  * Add support for `feedback_option` on `Subscription::CancellationDetail`, `SubscriptionCancelParams::CancellationDetail`, and `SubscriptionUpdateParams::CancellationDetail`
-  * Add support for `igic` on `Tax::Registration::CountryOption::At`, `Tax::Registration::CountryOption::Be`, `Tax::Registration::CountryOption::Bg`, `Tax::Registration::CountryOption::Cy`, `Tax::Registration::CountryOption::Cz`, `Tax::Registration::CountryOption::De`, `Tax::Registration::CountryOption::Dk`, `Tax::Registration::CountryOption::E`, `Tax::Registration::CountryOption::Ee`, `Tax::Registration::CountryOption::Fi`, `Tax::Registration::CountryOption::Fr`, `Tax::Registration::CountryOption::Gr`, `Tax::Registration::CountryOption::Hr`, `Tax::Registration::CountryOption::Hu`, `Tax::Registration::CountryOption::Ie`, `Tax::Registration::CountryOption::It`, `Tax::Registration::CountryOption::Lt`, `Tax::Registration::CountryOption::Lu`, `Tax::Registration::CountryOption::Lv`, `Tax::Registration::CountryOption::Mt`, `Tax::Registration::CountryOption::Nl`, `Tax::Registration::CountryOption::Pl`, `Tax::Registration::CountryOption::Pt`, `Tax::Registration::CountryOption::Ro`, `Tax::Registration::CountryOption::Se`, `Tax::Registration::CountryOption::Si`, `Tax::Registration::CountryOption::Sk`, `Tax::RegistrationCreateParams::CountryOption::At`, `Tax::RegistrationCreateParams::CountryOption::Be`, `Tax::RegistrationCreateParams::CountryOption::Bg`, `Tax::RegistrationCreateParams::CountryOption::Cy`, `Tax::RegistrationCreateParams::CountryOption::Cz`, `Tax::RegistrationCreateParams::CountryOption::De`, `Tax::RegistrationCreateParams::CountryOption::Dk`, `Tax::RegistrationCreateParams::CountryOption::E`, `Tax::RegistrationCreateParams::CountryOption::Ee`, `Tax::RegistrationCreateParams::CountryOption::Fi`, `Tax::RegistrationCreateParams::CountryOption::Fr`, `Tax::RegistrationCreateParams::CountryOption::Gr`, `Tax::RegistrationCreateParams::CountryOption::Hr`, `Tax::RegistrationCreateParams::CountryOption::Hu`, `Tax::RegistrationCreateParams::CountryOption::Ie`, `Tax::RegistrationCreateParams::CountryOption::It`, `Tax::RegistrationCreateParams::CountryOption::Lt`, `Tax::RegistrationCreateParams::CountryOption::Lu`, `Tax::RegistrationCreateParams::CountryOption::Lv`, `Tax::RegistrationCreateParams::CountryOption::Mt`, `Tax::RegistrationCreateParams::CountryOption::Nl`, `Tax::RegistrationCreateParams::CountryOption::Pl`, `Tax::RegistrationCreateParams::CountryOption::Pt`, `Tax::RegistrationCreateParams::CountryOption::Ro`, `Tax::RegistrationCreateParams::CountryOption::Se`, `Tax::RegistrationCreateParams::CountryOption::Si`, and `Tax::RegistrationCreateParams::CountryOption::Sk`
-
-## 19.5.0 - 2026-08-10
-* [#1932](https://github.com/stripe/stripe-ruby/pull/1932) Handle break in auto-paging blocks
-  - Rescues `LocalJumpError` to prevent crash when calling `break` inside an `auto_paging_each`
-* [#1927](https://github.com/stripe/stripe-ruby/pull/1927) Surface `object` property on `EventNotification`
-* [#1918](https://github.com/stripe/stripe-ruby/pull/1918) add/adjust event parsing helpers
-  
-  - Added methods that return their respective `Event`/`EventNotification` class instances without verifying authenticity. Use them when you've previously verified an event (e.g. you verified, put the event in a queue, and are now processing). Supports events from [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) and [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) natively.
-    - `Webhook#construct_event_without_verification(payload)`
-    - `StripeClient#parse_event_notification_without_verification(payload)`
-* [#1924](https://github.com/stripe/stripe-ruby/pull/1924) Discard the connection when a request is interrupted
-  - Fix connection reuse after a request is interrupted by a non-StandardError exception (e.g. from rack-timeout), which could cause subsequent requests to receive a previous request's response
 
 ## 19.5.0-beta.1 - 2026-07-29
-This release changes the pinned API version to 2026-07-29.preview.
+This release changes the pinned API version to `2026-07-29.preview`.
 
-* [#1899](https://github.com/stripe/stripe-ruby/pull/1899) Update generated code for beta
+* ⚠️ [#1899](https://github.com/stripe/stripe-ruby/pull/1899) Update generated code for beta
   * Add support for `list` and `retrieve` methods on resource `ProductCatalog::TrialOffer`
   * Add support for `tax_items` on `ChargeCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntent::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntent::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntent::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, and `PaymentIntentUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`
   * ⚠️ Remove support for `taxes` on `ChargeCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, `ChargeUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntent::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntent::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntent::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCaptureParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentConfirmParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::FlightDatum::Total::Tax`, `PaymentIntentCreateParams::PaymentDetail::LodgingDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::CarRentalDatum::Total::Tax`, `PaymentIntentUpdateParams::PaymentDetail::FlightDatum::Total::Tax`, and `PaymentIntentUpdateParams::PaymentDetail::LodgingDatum::Total::Tax`
@@ -93,42 +52,10 @@ This release changes the pinned API version to 2026-07-29.preview.
   * ⚠️ Remove support for `payout_v1` on `V2::MoneyManagement::ReceivedCredit::BalanceTransfer`
   * ⚠️ Change `V2::MoneyManagement::ReceivedDebit::BankTransfer.us_bank_account` to be optional
 
-## 19.4.0 - 2026-07-29
-This release changes the pinned API version to 2026-07-29.dahlia.
-
-* [#1913](https://github.com/stripe/stripe-ruby/pull/1913) Update generated code
-  * Add support for new resource `FinancialConnections::Authorization`
-  * Add support for `unreject` method on resource `Account`
-  * Add support for `list` method on resource `PaymentRecord`
-  * Add support for `smart_disputes_management` on `AccountSession::Component::DisputesList::Feature`, `AccountSession::Component::Payment::Feature`, `AccountSession::Component::PaymentDetail::Feature`, `AccountSession::Component::PaymentDispute::Feature`, `AccountSessionCreateParams::Component::DisputesList::Feature`, `AccountSessionCreateParams::Component::Payment::Feature`, `AccountSessionCreateParams::Component::PaymentDetail::Feature`, and `AccountSessionCreateParams::Component::PaymentDispute::Feature`
-  * Add support for `administrative_address` and `principal_place_of_business` on `Account::Company`, `AccountCreateParams::Company`, `AccountUpdateParams::Company`, and `TokenCreateParams::Account::Company`
-  * Add support for `sepa_debit_payments` on `AccountUpdateParams::Setting`
-  * Remove support for `proof_of_registration` on `AccountCreateParams::Document`.  This field was limited-use and is being deprecated.
-  * Add support for `payouts_action` on `AccountRejectParams`
-  * Remove support for `dynamic_tax_rates` on `Checkout::SessionCreateParams::LineItem`.  This field was limited-use and is being deprecated.
-  * Add support for `setup_future_usage` on `Checkout::Session::PaymentMethodOption::Payco`, `Checkout::Session::PaymentMethodOption::SamsungPay`, `Checkout::SessionCreateParams::PaymentMethodOption::Payco`, `Checkout::SessionCreateParams::PaymentMethodOption::SamsungPay`, `PaymentIntent::PaymentMethodOption::Payco`, `PaymentIntent::PaymentMethodOption::SamsungPay`, `PaymentIntentConfirmParams::PaymentMethodOption::Payco`, `PaymentIntentConfirmParams::PaymentMethodOption::SamsungPay`, `PaymentIntentCreateParams::PaymentMethodOption::Payco`, `PaymentIntentCreateParams::PaymentMethodOption::SamsungPay`, `PaymentIntentUpdateParams::PaymentMethodOption::Payco`, `PaymentIntentUpdateParams::PaymentMethodOption::SamsungPay`, and `PaymentLinkUpdateParams::PaymentIntentDatum`
-  * Add support for `network` on `Dispute::PaymentMethodDetail::Card`
-  * Add support for `limits` and `manual_entry` on `FinancialConnections::SessionCreateParams` and `FinancialConnections::Session`
-  * Add support for `require_payment_method_support` on `FinancialConnections::Session::Filter` and `FinancialConnections::SessionCreateParams::Filter`
-  * Add support for `bank_account_token` on `FinancialConnections::Session`
-  * Add support for `metadata` on `InvoiceCreatePreviewParams::SubscriptionDetail`
-  * Add support for `business_name` on `Issuing::Card::Shipping`, `Issuing::CardCreateParams::Shipping`, and `Issuing::CardUpdateParams::Shipping`
-  * Add support for `allowed_payment_method_types` on `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentUpdateParams`, `PaymentIntent`, `SetupIntentConfirmParams`, `SetupIntentCreateParams`, `SetupIntentUpdateParams`, and `SetupIntent`
-  * Add support for `referrer` on `PaymentIntentConfirmParams::RadarOption` and `PaymentIntentCreateParams::RadarOption`
-  * Add support for `consent_collection` and `shipping_options` on `PaymentLinkUpdateParams`
-  * Add support for `custom_fields`, `description`, and `footer` on `Quote::InvoiceSetting`, `QuoteCreateParams::InvoiceSetting`, `QuoteUpdateParams::InvoiceSetting`, `SubscriptionSchedule::DefaultSetting::InvoiceSetting`, `SubscriptionSchedule::Phase::InvoiceSetting`, `SubscriptionScheduleCreateParams::DefaultSetting::InvoiceSetting`, `SubscriptionScheduleCreateParams::Phase::InvoiceSetting`, `SubscriptionScheduleUpdateParams::DefaultSetting::InvoiceSetting`, and `SubscriptionScheduleUpdateParams::Phase::InvoiceSetting`
-  * Add support for `customer_account` and `customer` on `Refund`
-  * Add support for `payment_method` on `Refund` and `Topup`
-  * Add support for `trial` on `SubscriptionSchedule::Phase`
-  * Add support for `mass_transit_parking_tax` and `parking_tax` on `Tax::Registration::CountryOption::Me` and `Tax::RegistrationCreateParams::CountryOption::Me`
-  * Add support for `initiated_by` and `payment_method_options` on `Topup`
-  * Add support for `additional_addresses` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
-* [#1906](https://github.com/stripe/stripe-ruby/pull/1906) Adds `error_object.rbi` file, allowing users to get full typing for API Error Objects
-
 ## 19.4.0-beta.1 - 2026-06-24
-This release changes the pinned API version to 2026-06-24.preview.
+This release changes the pinned API version to `2026-06-24.preview`.
 
-* [#1869](https://github.com/stripe/stripe-ruby/pull/1869) Update generated code for beta
+* ⚠️ [#1869](https://github.com/stripe/stripe-ruby/pull/1869) Update generated code for beta
   * Add support for `redaction` on `Card`, `Charge`, `Checkout::Session`, `Customer`, `Issuing::Authorization`, `Issuing::Card`, `Issuing::Cardholder`, `Issuing::Dispute`, `Issuing::Transaction`, `PaymentIntent`, `PaymentMethod`, `SetupIntent`, `Source`, and `Token`
   * Add support for `disclaimer_variant` on `Capital::FinancingOffer` and `Capital::FinancingSummary::Detail`
   * Add support for `active` on `FinancialConnections::Account::StatusDetail` and `FinancialConnections::Authorization::StatusDetail`
@@ -152,42 +79,10 @@ This release changes the pinned API version to 2026-06-24.preview.
   * Add support for event notification `V2MoneyManagementOutboundTransferUnderReviewEvent` with related object `V2::MoneyManagement::OutboundTransfer`
   * ⚠️ Remove support for event notifications `V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationStorerUpdatedEvent` with related object `V2::Core::Account`
 
-## 19.3.1 - 2026-07-15
-* [#1902](https://github.com/stripe/stripe-ruby/pull/1902) Replace source hash with Telemetry UUID
-* [#1901](https://github.com/stripe/stripe-ruby/pull/1901) Make Error fields generated
-
-## 19.3.0 - 2026-06-24
-This release changes the pinned API version to 2026-06-24.dahlia.
-
-* [#1896](https://github.com/stripe/stripe-ruby/pull/1896) Update generated code
-  * Add support for `release_details` on `Reserve::Hold`
-  * Change `Billing::CreditGrant.priority` to be required
-  * Add support for `buyer_id` on `Charge::PaymentMethodDetail::Bizum`, `ConfirmationToken::PaymentMethodPreview::Bizum`, `ConfirmationToken::PaymentMethodPreview::Blik`, `PaymentAttemptRecord::PaymentMethodDetail::Bizum`, `PaymentMethod::Bizum`, `PaymentMethod::Blik`, and `PaymentRecord::PaymentMethodDetail::Bizum`
-  * Add support for `transaction_link_id` on `Charge::PaymentMethodDetail::Card`
-  * Add support for `fingerprint` on `Charge::PaymentMethodDetail::Pix`, `ConfirmationToken::PaymentMethodPreview::Pix`, `PaymentMethod::Pix`, and `SetupAttempt::PaymentMethodDetail::Pix`
-  * Add support for `sunbit` on `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodOption`, and `PaymentIntentUpdateParams::PaymentMethodOption`
-  * Add support for `billing_cycle_anchor_config` on `Checkout::SessionCreateParams::SubscriptionDatum`
-  * Add support for `wechat_pay` on `Checkout::Session::PaymentMethodOption`
-  * Add support for `mastercard_compliance` on `Dispute::Evidence::EnhancedEvidence`, `Dispute::EvidenceDetail::EnhancedEligibility`, and `DisputeUpdateParams::Evidence::EnhancedEvidence`
-  * Add support for `status_details` on `FinancialConnections::Account`
-  * ⚠️ Remove support for `stored_credential_usage` on `PaymentAttemptRecord::PaymentMethodDetail::Card` and `PaymentRecord::PaymentMethodDetail::Card`
-  * ⚠️ Change `PaymentAttemptRecord::PaymentMethodDetail::Card.description` and `PaymentRecord::PaymentMethodDetail::Card.description` to be optional
-  * ⚠️ Change `PaymentAttemptRecord::PaymentMethodDetail::Card.iin` and `PaymentRecord::PaymentMethodDetail::Card.iin` to be optional
-  * ⚠️ Change `PaymentAttemptRecord::PaymentMethodDetail::Card.issuer` and `PaymentRecord::PaymentMethodDetail::Card.issuer` to be optional
-  * Add support for `setup_future_usage` on `PaymentIntent::PaymentMethodOption::Satispay`, `PaymentIntentConfirmParams::PaymentMethodOption::Satispay`, `PaymentIntentCreateParams::PaymentMethodOption::Satispay`, and `PaymentIntentUpdateParams::PaymentMethodOption::Satispay`
-  * Change `PaymentRecordReportRefundParams.refunded` to be optional
-  * Add support for `satispay` on `SetupAttempt::PaymentMethodDetail`
-  * Add support for `custom_fields`, `description`, and `footer` on `Subscription::InvoiceSetting`, `SubscriptionCreateParams::InvoiceSetting`, and `SubscriptionUpdateParams::InvoiceSetting`
-  * Add support for `payment_method_options` and `payment_method` on `TopupCreateParams`
-  * Add support for `mode` on `V2::Commerce::ProductCatalogImport`
-  * Add support for `sunbit_payments` on `V2::Core::Account::Configuration::Merchant::Capability`, `V2::Core::AccountCreateParams::Configuration::Merchant::Capability`, and `V2::Core::AccountUpdateParams::Configuration::Merchant::Capability`
-  * Add support for `crypto_money_manager` and `money_manager` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
-  * ⚠️ Remove support for `crypto_storer` and `storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
-
 ## 19.3.0-beta.1 - 2026-05-27
-This release changes the pinned API version to 2026-05-27.private.
+This release changes the pinned API version to `2026-05-27.preview`.
 
-* [#1857](https://github.com/stripe/stripe-ruby/pull/1857) Update generated code for beta
+* ⚠️ [#1857](https://github.com/stripe/stripe-ruby/pull/1857) Update generated code for beta
   * Add support for `pause` method on resource `Subscription`
   * Add support for `retrieve` method on resource `V2::Iam::ActivityLog`
   * Change type of `ProductCatalog::TrialOffer::EndBehavior::Transition.price` from `string` to `expandable($Price)`
@@ -201,47 +96,8 @@ This release changes the pinned API version to 2026-05-27.private.
   * Change `Subscription.billing_schedules` to be required
   * ⚠️ Change type of `V2::MoneyManagement::ReceivedCredit::BankTransfer::GbBankAccount.network` from `literal('fps')` to `enum('chaps'|'fps')`
 
-## 19.2.1 - 2026-06-12
-* [#1874](https://github.com/stripe/stripe-ruby/pull/1874) Add "source" field to user-agent header
-
-## 19.2.0 - 2026-05-27
-This release changes the pinned API version to 2026-05-27.dahlia.
-
-* [#1864](https://github.com/stripe/stripe-ruby/pull/1864) Update generated code
-  * Add support for new resource `V2::Commerce::ProductCatalogImport`
-  * Add support for `create` and `retrieve` methods on resource `V2::Commerce::ProductCatalogImport`
-  * Add support for `bizum_payments` and `scalapay_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
-  * Add support for `automatic_transfer_rules_by_currency` on `BalanceSettings::Payment::Payout` and `BalanceSettingsUpdateParams::Payment::Payout`
-  * Add support for `start_of_day` on `BalanceSettings::Payment::SettlementTiming` and `BalanceSettingsUpdateParams::Payment::SettlementTiming`
-  * Add support for `description` on `ChargeCreateParams::TransferDatum`, `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, and `PaymentIntentUpdateParams::TransferDatum`
-  * Add support for `bizum` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
-  * Add support for `scalapay` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `Refund::DestinationDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
-  * Add support for `mandate` on `Charge::PaymentMethodDetail::Twint`, `PaymentAttemptRecord::PaymentMethodDetail::Twint`, and `PaymentRecord::PaymentMethodDetail::Twint`
-  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Twint.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Twint.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Twint.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Twint.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
-  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Twint.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Twint.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
-  * Add support for `credited_items` on `InvoiceItem::ProrationDetail`
-  * Add support for `discountable` on `InvoiceCreatePreviewParams::ScheduleDetail::Phase::AddInvoiceItem`, `SubscriptionCreateParams::AddInvoiceItem`, `SubscriptionSchedule::Phase::AddInvoiceItem`, `SubscriptionScheduleCreateParams::Phase::AddInvoiceItem`, `SubscriptionScheduleUpdateParams::Phase::AddInvoiceItem`, and `SubscriptionUpdateParams::AddInvoiceItem`
-  * Add support for `billing_schedules` on `InvoiceCreatePreviewParams::SubscriptionDetail`, `SubscriptionCreateParams`, `SubscriptionUpdateParams`, and `Subscription`
-  * Add support for `amount_paid_off_stripe` on `Invoice`
-  * Add support for `twint` on `Mandate::PaymentMethodDetail` and `SetupAttempt::PaymentMethodDetail`
-  * Add support for `metadata` on `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, `PaymentIntentUpdateParams::TransferDatum`, and `Subscription::PendingUpdate`
-  * Add support for `payment_data` on `PaymentIntent::TransferDatum`, `PaymentIntentCreateParams::TransferDatum`, and `PaymentIntentUpdateParams::TransferDatum`
-  * Add support for `blik_authorize` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
-  * Add support for `payment_method_options` on `PaymentLinkCreateParams`, `PaymentLinkUpdateParams`, and `PaymentLink`
-  * Add support for `active` on `PaymentMethodConfigurationListParams`
-  * Add support for `billed_until` on `SubscriptionItem`
-  * Add support for `discount` and `discounts` on `Subscription::PendingUpdate`
-  * Add support for `verifone_m425`, `verifone_p630`, `verifone_ux700`, and `verifone_v660p` on `Terminal::ConfigurationCreateParams`, `Terminal::ConfigurationUpdateParams`, and `Terminal::Configuration`
-  * Add support for `api_error` and `print_content` on `Terminal::Reader::Action`
-  * Add support for `customer` on `TestHelpers::TestClockCreateParams`
-  * Add support for `signer` on `V2::Core::Account::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::Account::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountCreateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::AccountCreateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`, `V2::Core::AccountUpdateParams::Identity::BusinessDetail::Document::ProofOfRegistration`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail::Document::ProofOfUltimateBeneficialOwnership`
-  * Add support for `azure_event_grid` on `V2::Core::EventDestinationCreateParams` and `V2::Core::EventDestination`
-  * Add support for event notifications `V2CommerceProductCatalogImportsFailedEvent`, `V2CommerceProductCatalogImportsProcessingEvent`, `V2CommerceProductCatalogImportsSucceededEvent`, and `V2CommerceProductCatalogImportsSucceededWithErrorsEvent` with related object `V2::Commerce::ProductCatalogImport`
-* [#1866](https://github.com/stripe/stripe-ruby/pull/1866) Emit warning when `stripe-notify` header is present in response
-* [#1855](https://github.com/stripe/stripe-ruby/pull/1855) Use autoload instead of eager require for generated resource, service, and param files
-
 ## 19.2.0-beta.2 - 2026-04-24
-* [#1854](https://github.com/stripe/stripe-ruby/pull/1854) Update generated code for beta
+* ⚠️ [#1854](https://github.com/stripe/stripe-ruby/pull/1854) Update generated code for beta
   * Add support for new resources `V2::Commerce::ProductCatalogImport`, `V2::Data::Reporting::QueryRun`, `V2::Extend::WorkflowRun`, `V2::Extend::Workflow`, `V2::Iam::ActivityLog`, `V2::Network::BusinessProfile`, and `V2::OrchestratedCommerce::Agreement`
   * Add support for `confirm`, `create`, `list`, `retrieve`, and `terminate` methods on resource `V2::OrchestratedCommerce::Agreement`
   * Add support for `me` and `retrieve` methods on resource `V2::Network::BusinessProfile`
@@ -263,9 +119,9 @@ This release changes the pinned API version to 2026-05-27.dahlia.
   * Add support for error type `CannotProceedError`
 
 ## 19.2.0-beta.1 - 2026-04-23
-This release changes the pinned API version to 2026-04-22.private.
+This release changes the pinned API version to `2026-04-22.preview`.
 
-* [#1847](https://github.com/stripe/stripe-ruby/pull/1847) Update generated code for beta
+* ⚠️ [#1847](https://github.com/stripe/stripe-ruby/pull/1847) Update generated code for beta
   * Add support for new resources `SharedPayment::GrantedToken` and `SharedPayment::IssuedToken`
   * Add support for `retrieve` method on resource `SharedPayment::GrantedToken`
   * Add support for `create` and `revoke` test helper methods on resource `SharedPayment::GrantedToken`
@@ -287,44 +143,16 @@ This release changes the pinned API version to 2026-04-22.private.
   * Add support for `admissions_tax`, `attendance_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `resort_tax`, and `tourism_tax` on `Tax::RegistrationCreateParams::CountryOption::Me`
   * Add support for `purpose` on `Treasury::OutboundPaymentCreateParams` and `Treasury::OutboundPayment`
 
-## 19.1.0 - 2026-04-23
-This release changes the pinned API version to 2026-04-22.dahlia.
-
-* [#1842](https://github.com/stripe/stripe-ruby/pull/1842) Update generated code
-  * Add support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSessionCreateParams::Component`
-  * Add support for `app_distribution` and `sunbit_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
-  * Add support for `sunbit` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
-  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Klarna`, `PaymentAttemptRecord::PaymentMethodDetail::Klarna`, and `PaymentRecord::PaymentMethodDetail::Klarna`
-  * Add support for `mandate` on `Charge::PaymentMethodDetail::Pix`, `PaymentAttemptRecord::PaymentMethodDetail::Pix`, and `PaymentRecord::PaymentMethodDetail::Pix`
-  * Add support for `managed_payments` on `Checkout::SessionCreateParams`, `Checkout::Session`, `PaymentIntent`, `PaymentLinkCreateParams`, `PaymentLink`, `SetupIntent`, and `Subscription`
-  * Add support for `mandate_options` on `Checkout::Session::PaymentMethodOption::Pix`, `Checkout::SessionCreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix`, `PaymentIntentCreateParams::PaymentMethodOption::Pix`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix`
-  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Pix.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Pix.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
-  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Pix.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Pix.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
-  * Add support for `pix` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
-  * Add support for `upi` on `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
-  * Add support for `card_presence` on `Issuing::Authorization`
-  * Add support for `allowed_card_presences` and `blocked_card_presences` on `Issuing::Card::SpendingControl`, `Issuing::CardCreateParams::SpendingControl`, `Issuing::CardUpdateParams::SpendingControl`, `Issuing::Cardholder::SpendingControl`, `Issuing::CardholderCreateParams::SpendingControl`, and `Issuing::CardholderUpdateParams::SpendingControl`
-  * Add support for `amount` and `currency` on `Mandate::MultiUse`
-  * Add support for `amount_to_confirm` on `PaymentIntentConfirmParams`
-  * Add support for `klarna_display_qr_code` on `PaymentIntent::NextAction`
-  * Add support for `moto` on `SetupAttempt::PaymentMethodDetail::Card`
-  * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
-* [#1846](https://github.com/stripe/stripe-ruby/pull/1846) Fix 2D array parameter encoding
-  - Fixes an issue encoding two-dimensional array request params where the SDK incorrectly flattens the array.
-* [#1841](https://github.com/stripe/stripe-ruby/pull/1841) Replace other require cgi with require cgi/escape
-
 ## 19.1.0-beta.2 - 2026-03-27
 * [#1840](https://github.com/stripe/stripe-ruby/pull/1840) Update generated code for beta
   * Fix "Unable to resolve constant" sorbet errors for Params classes
 
 ## 19.1.0-beta.1 - 2026-03-25
+This release changes the pinned API version to `2026-03-25.preview`.
 
-This release changes the pinned API version to `2026-03-25.preview`. It is built on top of SDK version 19.0.0 which contains breaking changes. Please review the [changelog for 19.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) if upgrading from older SDK versions.
+It is built on top of SDK version 19.0.0 which contains breaking changes. Please review the [changelog for 19.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) if upgrading from older SDK versions.
 
-* [#1833](https://github.com/stripe/stripe-ruby/pull/1833) Update generated code for beta
-* [#1832](https://github.com/stripe/stripe-ruby/pull/1832) Update generated code for beta
-  * Release specs are identical.
-* [#1801](https://github.com/stripe/stripe-ruby/pull/1801) Update generated code for beta
+* ⚠️ [#1801](https://github.com/stripe/stripe-ruby/pull/1801) Update generated code for beta
   * Add support for new resources `ProductCatalog::TrialOffer`, `Tax::Location`, and `V2::Core::BatchJob`
   * Add support for `create` method on resource `ProductCatalog::TrialOffer`
   * Add support for `create`, `list`, and `retrieve` methods on resource `Tax::Location`
@@ -359,60 +187,9 @@ This release changes the pinned API version to `2026-03-25.preview`. It is built
   * Add support for `iban` on `V2::Core::Vault::GbBankAccountCreateParams`
   * Change `V2::Core::Vault::GbBankAccountCreateParams.account_number` to be optional
   * Add support for event notifications `V2CoreBatchJobBatchFailedEvent`, `V2CoreBatchJobCanceledEvent`, `V2CoreBatchJobCompletedEvent`, `V2CoreBatchJobCreatedEvent`, `V2CoreBatchJobReadyForUploadEvent`, `V2CoreBatchJobTimeoutEvent`, `V2CoreBatchJobUpdatedEvent`, `V2CoreBatchJobUploadTimeoutEvent`, `V2CoreBatchJobValidatingEvent`, and `V2CoreBatchJobValidationFailedEvent` with related object `V2::Core::BatchJob`
-* [#1826](https://github.com/stripe/stripe-ruby/pull/1826) Merge to beta
-* [#1809](https://github.com/stripe/stripe-ruby/pull/1809) Merge to beta
-
-## 19.0.0 - 2026-03-25
-
-This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v19) to simplify your upgrade process.
-
-Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/dahlia) before upgrading.
-
-* ⚠️ **Breaking change:** [#1829](https://github.com/stripe/stripe-ruby/pull/1829) Add decimal_string coercion for v1 and v2 API fields
-  - All `decimal_string` fields changed type from `String` to `BigDecimal` in both request params and response objects. Code that reads or writes these fields as `String` will need to use `BigDecimal` instead. Affected fields across v1 and v2 APIs:
-    - **Checkout::Session**: `fx_rate`
-    - **Climate::Order**: `metric_tons`; **Climate::Product**: `metric_tons_available`
-    - **CreditNoteLineItem**: `unit_amount_decimal`
-    - **InvoiceItem**: `quantity_decimal`, `unit_amount_decimal`
-    - **InvoiceLineItem**: `quantity_decimal`, `unit_amount_decimal`
-    - **Issuing::Authorization** / **Issuing::Transaction** (and TestHelpers): `quantity_decimal`, `unit_cost_decimal`, `gross_amount_decimal`, `local_amount_decimal`, `national_amount_decimal`
-    - **Plan**: `amount_decimal`, `flat_amount_decimal`, `unit_amount_decimal`
-    - **Price**: `unit_amount_decimal`, `flat_amount_decimal` (including `currency_options` and `tiers`)
-    - **V2::Core::Account** / **V2::Core::AccountPerson**: `percent_ownership`
-    - Request params on **Invoice**, **Product**, **Quote**, **Subscription**, **SubscriptionItem**, **SubscriptionSchedule**, **PaymentLink**: `unit_amount_decimal`, `flat_amount_decimal`, `quantity_decimal` (where applicable)
-* ⚠️ **Breaking change:** [#1828](https://github.com/stripe/stripe-ruby/pull/1828) ⚠️ Throw an error when using the wrong webhook parsing method
-* ⚠️ **Breaking change:** [#1823](https://github.com/stripe/stripe-ruby/pull/1823) ⚠️ Drop support for Ruby 2.6
-* [#1825](https://github.com/stripe/stripe-ruby/pull/1825) Require cgi/escape instead of cgi
-* [#1814](https://github.com/stripe/stripe-ruby/pull/1814) Add runtime support for V2 int64 string-encoded fields
-* [#1817](https://github.com/stripe/stripe-ruby/pull/1817) Remove AlipayAccount and RecipientTransfer resource files
-  - ⚠️ Removes `Stripe::AlipayAccount` and `Stripe::RecipientTransfer` resource classes (dead code since v7.0.0)
-* [#1816](https://github.com/stripe/stripe-ruby/pull/1816) remove v2-specific guards for removing nils from request params
-* [#1824](https://github.com/stripe/stripe-ruby/pull/1824) Add gem dependency on logger
-
-### ⚠️ Breaking changes due to changes in the Stripe API
-
-* Generated changes from [#1804](https://github.com/stripe/stripe-ruby/pull/1804), [#1834](https://github.com/stripe/stripe-ruby/pull/1834), [#1831](https://github.com/stripe/stripe-ruby/pull/1831), [#1830](https://github.com/stripe/stripe-ruby/pull/1830)
-  * Add support for `upi_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
-  * Add support for `upi` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodOption`
-  * Add support for `integration_identifier` on `Checkout::SessionCreateParams` and `Checkout::Session`
-  * Add support for `crypto` on `Checkout::SessionCreateParams::PaymentMethodOption`
-  * Add support for `pending_invoice_item_interval` on `Checkout::SessionCreateParams::SubscriptionDatum`
-  * Add support for `metadata` on `CreditNoteCreateParams::Line`, `CreditNoteLineItem`, `CreditNoteListPreviewLineItemsParams::Line`, and `CreditNotePreviewParams::Line`
-  * Add support for `quantity_decimal` on `InvoiceAddLinesParams::Line`, `InvoiceCreatePreviewParams::InvoiceItem`, `InvoiceItemCreateParams`, `InvoiceItemUpdateParams`, `InvoiceItem`, `InvoiceLineItemUpdateParams`, `InvoiceLineItem`, and `InvoiceUpdateLinesParams::Line`
-  * ⚠️ Add support for `level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
-  * ⚠️ Remove support for `risk_level` on `Issuing::AuthorizationCreateParams::RiskAssessment::CardTestingRisk` and `Issuing::AuthorizationCreateParams::RiskAssessment::MerchantDisputeRisk`
-  * Add support for `lifecycle_controls` on `Issuing::CardCreateParams` and `Issuing::Card`
-  * ⚠️ Change type of `Issuing::Token::NetworkDatum::Visa.card_reference_id` from `string` to `nullable(string)`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.brand` and `PaymentRecord::PaymentMethodDetail::Card.brand` from `enum` to `nullable(enum)`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_month` and `PaymentRecord::PaymentMethodDetail::Card.exp_month` from `longInteger` to `nullable(longInteger)`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.exp_year` and `PaymentRecord::PaymentMethodDetail::Card.exp_year` from `longInteger` to `nullable(longInteger)`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.funding` and `PaymentRecord::PaymentMethodDetail::Card.funding` from `enum('credit'|'debit'|'prepaid'|'unknown')` to `nullable(enum('credit'|'debit'|'prepaid'|'unknown'))`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.last4` and `PaymentRecord::PaymentMethodDetail::Card.last4` from `string` to `nullable(string)`
-  * ⚠️ Change type of `PaymentAttemptRecord::PaymentMethodDetail::Card.moto` and `PaymentRecord::PaymentMethodDetail::Card.moto` from `boolean` to `nullable(boolean)`
-  * Add support for `cryptogram`, `electronic_commerce_indicator`, `exemption_indicator_applied`, and `exemption_indicator` on `PaymentAttemptRecord::PaymentMethodDetail::Card::ThreeDSecure` and `PaymentRecord::PaymentMethodDetail::Card::ThreeDSecure`
-  * Add support for `upi_handle_redirect_or_display_qr_code` on `PaymentIntent::NextAction` and `SetupIntent::NextAction`
-  * Add support for `recommended_action` and `signals` on `Radar::PaymentEvaluation`
-  * ⚠️ Remove support for `insights` on `Radar::PaymentEvaluation`
+* [#1832](https://github.com/stripe/stripe-ruby/pull/1832) Update generated code for beta
+  * Release specs are identical.
+* [#1833](https://github.com/stripe/stripe-ruby/pull/1833) Update generated code for beta
 
 ## 18.5.0-beta.1 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.preview`.
@@ -425,44 +202,20 @@ This release changes the pinned API version to `2026-02-25.preview`.
   * Add support for `branch_number` and `swift_code` on `V2::MoneyManagement::PayoutMethod::BankAccount`
   * Change `V2::MoneyManagement::Transaction.flow` and `V2::MoneyManagement::TransactionEntry::TransactionDetail.flow` to be optional
 
-## 18.4.2 - 2026-03-10
-* [#1811](https://github.com/stripe/stripe-ruby/pull/1811) Retry on Net::HTTPFatalError
-  - Fixes a bug where `Net::HTTPFatalError` errors were being thrown and not retried (unlike other 5xx responses from the Stripe API)
-
-## 18.4.1 - 2026-03-06
-* [#1805](https://github.com/stripe/stripe-ruby/pull/1805) Add Stripe-Request-Trigger header
-* [#1803](https://github.com/stripe/stripe-ruby/pull/1803) Add agent information to UserAgent
-
-## 18.4.0 - 2026-02-25
-This release changes the pinned API version to `2026-02-25.clover`.
-
-* [#1797](https://github.com/stripe/stripe-ruby/pull/1797) Update generated code
-  * Add support for new resources `Reserve::Hold`, `Reserve::Plan`, and `Reserve::Release`
-  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::CardPresent`, `Charge::PaymentMethodDetail::InteracPresent`, `ConfirmationToken::PaymentMethodPreview::Card::GeneratedFrom::PaymentMethodDetail::CardPresent`, `PaymentAttemptRecord::PaymentMethodDetail::CardPresent`, `PaymentAttemptRecord::PaymentMethodDetail::InteracPresent`, `PaymentMethod::Card::GeneratedFrom::PaymentMethodDetail::CardPresent`, `PaymentRecord::PaymentMethodDetail::CardPresent`, and `PaymentRecord::PaymentMethodDetail::InteracPresent`
-  * Add support for `display_name` and `service_user_number` on `Mandate::PaymentMethodDetail::BacsDebit`
-  * Change type of `PaymentAttemptRecord::PaymentMethodDetail::Boleto.tax_id` and `PaymentRecord::PaymentMethodDetail::Boleto.tax_id` from `string` to `nullable(string)`
-  * Change type of `PaymentAttemptRecord::PaymentMethodDetail::UsBankAccount.expected_debit_date` and `PaymentRecord::PaymentMethodDetail::UsBankAccount.expected_debit_date` from `nullable(string)` to `string`
-  * Add support for `transaction_purpose` on `PaymentIntent::PaymentMethodOption::UsBankAccount`, `PaymentIntentConfirmParams::PaymentMethodOption::UsBankAccount`, `PaymentIntentCreateParams::PaymentMethodOption::UsBankAccount`, and `PaymentIntentUpdateParams::PaymentMethodOption::UsBankAccount`
-  * Add support for `optional_items` on `PaymentLinkUpdateParams`
-  * Remove support for unused `card_issuer_decline` on `Radar::PaymentEvaluation::Insight`
-  * Add support for `payment_behavior` on `SubscriptionItemDeleteParams`
-  * Add support for `lk` on `Tax::Registration::CountryOption` and `Tax::RegistrationCreateParams::CountryOption`
-  * Add support for `cellular` and `stripe_s710` on `Terminal::ConfigurationCreateParams`, `Terminal::ConfigurationUpdateParams`, and `Terminal::Configuration`
-* [#1796](https://github.com/stripe/stripe-ruby/pull/1796) Ignore unset properties of V2 Request param classes when making requests
-* [#1786](https://github.com/stripe/stripe-ruby/pull/1786) Properly serialize null values in V2
-  - Fixes a bug where V2 POST requests were not serializing `null` values.
-
 ## 18.4.0-beta.3 - 2026-02-17
 * [#1787](https://github.com/stripe/stripe-ruby/pull/1787) Fix v2 typed params sending nil values on GET requests
   - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'`
 
 ## 18.4.0-beta.2 - 2026-02-03
-* [#1775](https://github.com/stripe/stripe-ruby/pull/1775)
+* [#1775](https://github.com/stripe/stripe-ruby/pull/1775) Update generated code
   * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
 
 ## 18.4.0-beta.1 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.preview`.
 
+* [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
+* [#1758](https://github.com/stripe/stripe-ruby/pull/1758) Fix preserving null param values when calling v2 APIs
+  - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
 * [#1762](https://github.com/stripe/stripe-ruby/pull/1762) Update generated code for beta
   * Add support for new resource `FinancialConnections::Authorization`
   * Add support for `retrieve` method on resource `FinancialConnections::Authorization`
@@ -483,35 +236,6 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for `alternative_reference` on `V2::Core::Vault::GbBankAccount`, `V2::Core::Vault::UsBankAccount`, and `V2::MoneyManagement::PayoutMethod`
   * Add support for `account_holder_address` and `account_holder_name` on `V2::MoneyManagement::FinancialAddress::Credential::UsBankAccount`
   * Add support for `fingerprint` on `V2::MoneyManagement::PayoutMethod::Card`
-* [#1758](https://github.com/stripe/stripe-ruby/pull/1758) Fix preserving null param values when calling v2 APIs
-  - Nil input params are now preserved when calling V2 APIs.  Add additional tests for nil when calling V2 services you do not accidentally include an unintentional nil value.  V1 API calls are not affected (nil values are stripped from params hashes in V1).
-* [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
-
-## 18.3.1 - 2026-02-03
-* [#1777](https://github.com/stripe/stripe-ruby/pull/1777)
-  * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
-
-## 18.3.0 - 2026-01-28
-This release changes the pinned API version to `2026-01-28.clover`.
-
-* [#1771](https://github.com/stripe/stripe-ruby/pull/1771) Update generated code
-  * Add support for new resource `Radar::PaymentEvaluation`
-  * Add support for `create` method on resource `Radar::PaymentEvaluation`
-  * Add support for `adjustable_quantity` on `LineItem`
-  * Change `Invoice::PaymentSetting::PaymentMethodOption.payto` and `Subscription::PaymentSetting::PaymentMethodOption.payto` to be required
-  * Add support for `enforce_arithmetic_validation` on `PaymentIntentCaptureParams::AmountDetail`, `PaymentIntentConfirmParams::AmountDetail`, `PaymentIntentCreateParams::AmountDetail`, `PaymentIntentIncrementAuthorizationParams::AmountDetail`, and `PaymentIntentUpdateParams::AmountDetail`
-  * Add support for `error` on `PaymentIntent::AmountDetail`
-  * Remove support for `bgn` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
-  * Add support for `topup` on `Treasury::ReceivedDebit::LinkedFlow`
-  * Add support for `contact_phone` on `V2::Core::AccountCreateParams`, `V2::Core::AccountTokenCreateParams`, `V2::Core::AccountUpdateParams`, and `V2::Core::Account`
-  * Add support for `registration_date` on `V2::Core::Account::Identity::BusinessDetail`, `V2::Core::AccountCreateParams::Identity::BusinessDetail`, `V2::Core::AccountTokenCreateParams::Identity::BusinessDetail`, and `V2::Core::AccountUpdateParams::Identity::BusinessDetail`
-* [#1769](https://github.com/stripe/stripe-ruby/pull/1769) Document usage of undocumented API parameters
-
-## 18.2.0 - 2026-01-16
-* [#1767](https://github.com/stripe/stripe-ruby/pull/1767) Update generated code
-  * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `V2::Core::Account`
-  * Add support for event notification `V2CoreAccountLinkReturnedEvent`
-  * Add support for event notifications `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2::Core::AccountPerson`
 
 ## 18.2.0-beta.1 - 2025-12-16
 This release changes the pinned API version to `2025-12-15.preview`.
@@ -551,37 +275,6 @@ This release changes the pinned API version to `2025-12-15.preview`.
   * Add support for error type `ControlledByAlternateResourceError`
   * Remove support for error type `RateLimitError`
 
-## 18.1.0 - 2025-12-16
-This release changes the pinned API version to `2025-12-15.clover`.
-
-* [#1744](https://github.com/stripe/stripe-ruby/pull/1744) Update generated code
-  * Add support for new resources `V2::Core::AccountLink`, `V2::Core::AccountPersonToken`, `V2::Core::AccountPerson`, `V2::Core::AccountToken`, and `V2::Core::Account`
-  * Add support for `create` and `retrieve` methods on resources `V2::Core::AccountPersonToken` and `V2::Core::AccountToken`
-  * Add support for `create` method on resource `V2::Core::AccountLink`
-  * Add support for `close`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Core::Account`
-  * Add support for `create`, `delete`, `list`, `retrieve`, and `update` methods on resource `V2::Core::AccountPerson`
-  * Add support for `customer_account` on `Billing::CreditBalanceSummaryRetrieveParams`, `Billing::CreditBalanceSummary`, `Billing::CreditBalanceTransactionListParams`, `Billing::CreditGrantCreateParams`, `Billing::CreditGrantListParams`, `Billing::CreditGrant`, `BillingPortal::SessionCreateParams`, `BillingPortal::Session`, `CashBalance`, `Checkout::SessionCreateParams`, `Checkout::SessionListParams`, `Checkout::Session`, `ConfirmationToken::PaymentMethodPreview`, `CreditNoteListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerSessionCreateParams`, `CustomerSession`, `Customer`, `Discount`, `FinancialConnections::Account::AccountHolder`, `FinancialConnections::AccountListParams::AccountHolder`, `FinancialConnections::Session::AccountHolder`, `FinancialConnections::SessionCreateParams::AccountHolder`, `InvoiceCreateParams`, `InvoiceCreatePreviewParams`, `InvoiceItemCreateParams`, `InvoiceItemListParams`, `InvoiceItem`, `InvoiceListParams`, `Invoice`, `PaymentIntentCreateParams`, `PaymentIntentListParams`, `PaymentIntentUpdateParams`, `PaymentIntent`, `PaymentMethodAttachParams`, `PaymentMethodListParams`, `PaymentMethod`, `PromotionCodeCreateParams`, `PromotionCodeListParams`, `PromotionCode`, `QuoteCreateParams`, `QuoteListParams`, `QuoteUpdateParams`, `Quote`, `SetupAttempt`, `SetupIntentCreateParams`, `SetupIntentListParams`, `SetupIntentUpdateParams`, `SetupIntent`, `SubscriptionCreateParams`, `SubscriptionListParams`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId::Owner`, `TaxIdCreateParams::Owner`, `TaxIdListParams::Owner`, and `TaxId`
-  * Add support for `metadata` on `Checkout::SessionCreateParams::LineItem` and `LineItem`
-  * Add support for `payto_payments` on `Account::Capability`, `AccountCreateParams::Capability`, and `AccountUpdateParams::Capability`
-  * Add support for `signer` on `AccountCreateParams::Document::ProofOfRegistration`, `AccountCreateParams::Document::ProofOfUltimateBeneficialOwnership`, `AccountUpdateParams::Document::ProofOfRegistration`, and `AccountUpdateParams::Document::ProofOfUltimateBeneficialOwnership`
-  * Change `Billing::CreditBalanceSummaryRetrieveParams.customer`, `Billing::CreditBalanceTransactionListParams.customer`, `Billing::CreditGrantCreateParams.customer`, `BillingPortal::SessionCreateParams.customer`, `CustomerSessionCreateParams.customer`, `InvoiceItemCreateParams.customer`, `PaymentMethodAttachParams.customer`, and `SubscriptionCreateParams.customer` to be optional
-  * Add support for `billing_cycle_anchor` on `BillingPortal::Configuration::Feature::SubscriptionUpdate`, `BillingPortal::ConfigurationCreateParams::Feature::SubscriptionUpdate`, and `BillingPortal::ConfigurationUpdateParams::Feature::SubscriptionUpdate`
-  * Add support for `payto` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethodUpdateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodDatum`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
-  * Add support for `expected_debit_date` on `Charge::PaymentMethodDetail::AcssDebit`, `Charge::PaymentMethodDetail::AuBecsDebit`, `Charge::PaymentMethodDetail::BacsDebit`, `Charge::PaymentMethodDetail::NzBankAccount`, `Charge::PaymentMethodDetail::SepaDebit`, `Charge::PaymentMethodDetail::UsBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::AcssDebit`, `PaymentAttemptRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::BacsDebit`, `PaymentAttemptRecord::PaymentMethodDetail::NzBankAccount`, `PaymentAttemptRecord::PaymentMethodDetail::SepaDebit`, `PaymentAttemptRecord::PaymentMethodDetail::UsBankAccount`, `PaymentRecord::PaymentMethodDetail::AcssDebit`, `PaymentRecord::PaymentMethodDetail::AuBecsDebit`, `PaymentRecord::PaymentMethodDetail::BacsDebit`, `PaymentRecord::PaymentMethodDetail::NzBankAccount`, `PaymentRecord::PaymentMethodDetail::SepaDebit`, and `PaymentRecord::PaymentMethodDetail::UsBankAccount`
-  * Add support for `line_items` on `Checkout::SessionUpdateParams`
-  * Add support for `invoice` on `CustomerCustomerBalanceTransactionListParams`
-  * Add support for `related_customer_account` on `Identity::VerificationSessionCreateParams`, `Identity::VerificationSessionListParams`, and `Identity::VerificationSession`
-  * Change type of `InvoiceItem::Pricing::PriceDetail.price` and `InvoiceLineItem::Pricing::PriceDetail.price` from `string` to `expandable($Price)`
-  * Add support for `subtotal` on `InvoiceLineItem`
-  * Add support for `authorization_code`, `description`, `iin`, `installments`, `issuer`, `network_advice_code`, `network_decline_code`, and `stored_credential_usage` on `PaymentAttemptRecord::PaymentMethodDetail::Card` and `PaymentRecord::PaymentMethodDetail::Card`
-  * Change `PaymentIntent.transfer_data` to be optional
-  * Add support for `allow_redisplay` on `PaymentMethodListParams`
-  * Add support for `reported_by` on `PaymentRecord`
-  * Change `Product.tax_code` to be optional
-  * Add support for `changes` on `V2::Core::Event`
-* [#1741](https://github.com/stripe/stripe-ruby/pull/1741) Format breaking change warning to improve discoverability
-* [#1742](https://github.com/stripe/stripe-ruby/pull/1742) Updated bundled CA certs
-
 ## 18.1.0-beta.1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
 
@@ -610,40 +303,9 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Add support for thin event `V2CoreHealthEventGenerationFailureResolvedEvent`
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `V2::Payments::OffSessionPayment`
 
-## 18.0.1 - 2025-11-21
-* [#1736](https://github.com/stripe/stripe-ruby/pull/1736) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging.
-
-## 18.0.0 - 2025-11-18
-This release changes the pinned API version to `2025-11-17.clover`.
-
-* [#1729](https://github.com/stripe/stripe-ruby/pull/1729) Update generated code
-  * ⚠️ Remove support for `gt`, `gte`, `lt`, and `lte` on `V2::Core::EventListParams` in favor of `created`.
-* [#1727](https://github.com/stripe/stripe-ruby/pull/1727) Update v2 array parameter serialization to use indexed format
-  - `Retrieve` and `List` calls for `/v2` endpoints now use indexed format (e.g., `?include[0]=foo&include[1]=bar`) instead of repeated parameter format (e.g., `?include=foo&include=bar`) when communicating with the Stripe API. This may break any unit tests that expect the latter behavior when setting up a mock server. Instead, they should now expect the former.
-* [#1725](https://github.com/stripe/stripe-ruby/pull/1725) Update generated code
-  * Add support for new resources `Tax::Association` and `Terminal::OnboardingLink`
-  * Add support for `find` method on resource `Tax::Association`
-  * Add support for `create` method on resource `Terminal::OnboardingLink`
-  * Add support for `payment_method_configuration` on `BillingPortal::Configuration::Feature::PaymentMethodUpdate`
-  * Add support for `transaction_id` on `Charge::PaymentMethodDetail::Ideal`, `PaymentAttemptRecord::PaymentMethodDetail::Ideal`, and `PaymentRecord::PaymentMethodDetail::Ideal`
-  * Add support for `created` on `CustomerCustomerBalanceTransactionListParams` and `InvoicePaymentListParams`
-  * Add support for `account_numbers` on `FinancialConnections::Account`
-  * Change type of `FinancialConnections::Session.client_secret` from `string` to `nullable(string)`
-  * Add support for `fraud_risk` on `Issuing::AuthorizationCreateParams::RiskAssessment`
-  * Add support for `latest_fraud_warning` on `Issuing::Card`
-  * Add support for `hooks` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, `PaymentIntentUpdateParams`, and `PaymentIntent`
-  * Add support for `mb_way` and `twint` on `Refund::DestinationDetail`
-
-## 17.2.0 - 2025-11-05
-* [#1721](https://github.com/stripe/stripe-ruby/pull/1721) Update generated code
-  * Add support for `capture_method` on `PaymentIntent::PaymentMethodOption::CardPresent`, `PaymentIntentConfirmParams::PaymentMethodOption::CardPresent`, `PaymentIntentCreateParams::PaymentMethodOption::CardPresent`, and `PaymentIntentUpdateParams::PaymentMethodOption::CardPresent`
-
 ## 17.2.0-beta.1 - 2025-10-29
-
 This release changes the pinned API version to `2025-10-29.preview`.
 
-* [#1714](https://github.com/stripe/stripe-ruby/pull/1714) Update generated code for beta
-  * Add support for `crypto_storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
 * [#1696](https://github.com/stripe/stripe-ruby/pull/1696) Update generated code for beta
   * Add support for `update` method on resource `V2::MoneyManagement::FinancialAccount`
   * Add support for `confirm_microdeposits`, `list`, and `send_microdeposits` methods on resource `V2::Core::Vault::UsBankAccount`
@@ -661,96 +323,19 @@ This release changes the pinned API version to `2025-10-29.preview`.
   * Add support for `verification` on `V2::Core::Vault::UsBankAccount`
   * Add support for `v1_id` on `EventsV2MoneyManagementTransactionCreatedEvent`
   * Remove support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
+* [#1714](https://github.com/stripe/stripe-ruby/pull/1714) Update generated code for beta
+  * Add support for `crypto_storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
 
-## 17.1.0 - 2025-10-29
-
-This release changes the pinned API version to `2025-10-29.clover`.
-
-* [#1715](https://github.com/stripe/stripe-ruby/pull/1715) Update generated code
-  * Improve docs for PaymentIntent related endpoints
-* [#1700](https://github.com/stripe/stripe-ruby/pull/1700) Update generated code
-  * Add support for new resources `PaymentAttemptRecord`, `PaymentIntentAmountDetailsLineItem`, and `PaymentRecord`
-  * Add support for `list` and `retrieve` methods on resource `PaymentAttemptRecord`
-  * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt_informational`, `report_payment_attempt`, `report_payment`, `report_refund`, and `retrieve` methods on resource `PaymentRecord`
-  * Add support for `list` method on resource `PaymentIntentAmountDetailsLineItem`
-  * Add support for `representative_declaration` on `Account::Company`, `AccountCreateParams::Company`, `AccountUpdateParams::Company`, and `TokenCreateParams::Account::Company`
-  * Change `Billing::CreditGrantCreateParams.category` to be optional
-  * Add support for `payment_method_configuration` on `BillingPortal::ConfigurationCreateParams::Feature::PaymentMethodUpdate` and `BillingPortal::ConfigurationUpdateParams::Feature::PaymentMethodUpdate`
-  * Add support for `twint` on `Checkout::Session::PaymentMethodOption` and `Checkout::SessionCreateParams::PaymentMethodOption`
-  * Add support for `payment_record_refund` and `type` on `CreditNote::Refund`, `CreditNoteCreateParams::Refund`, `CreditNoteListPreviewLineItemsParams::Refund`, and `CreditNotePreviewParams::Refund`
-  * Add support for `customer_sheet` and `mobile_payment_element` on `CustomerSession::Component` and `CustomerSessionCreateParams::Component`
-  * Add support for `provider` on `Customer::Tax`
-  * Add support for `payment_record` on `InvoiceAttachPaymentParams`, `InvoicePayment::Payment`, and `InvoicePaymentListParams::Payment`
-  * Change type of `InvoicePaymentListParams::Payment.type` from `literal('payment_intent')` to `enum('payment_intent'|'payment_record')`
-  * Add support for `amount_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, and `PaymentIntentUpdateParams`
-  * Add support for `payment_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, `PaymentIntentUpdateParams`, and `PaymentIntent`
-  * Add support for `discount_amount`, `line_items`, `shipping`, and `tax` on `PaymentIntent::AmountDetail`
-  * Add support for `name_collection` on `PaymentLinkCreateParams`, `PaymentLinkUpdateParams`, and `PaymentLink`
-  * Add support for `crypto` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, and `Refund::DestinationDetail`
-  * Add support for `mb_way` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, and `PaymentMethodConfiguration`
-  * Add support for `custom` on `PaymentMethodCreateParams` and `PaymentMethod`
-  * Add support for `excluded_payment_method_types` on `SetupIntentCreateParams`, `SetupIntentUpdateParams`, and `SetupIntent`
-  * Change `SetupIntent.flow_directions` to be optional
-  * Add support for `tw` on `Tax::Registration::CountryOption` and `Tax::RegistrationCreateParams::CountryOption`
-  * Add support for `gip` on `Terminal::Configuration::Tipping`, `Terminal::ConfigurationCreateParams::Tipping`, and `Terminal::ConfigurationUpdateParams::Tipping`
-  * Add support for `last_seen_at` on `Terminal::Reader`
-  * Add support for `gt`, `gte`, `lt`, `lte`, and `types` on `V2::Core::EventListParams`
-  * Change `V2::Core::EventListParams.object_id` to be optional
+## 17.1.0-beta.2 - 2025-10-16
 
 ## 17.1.0-beta.1 - 2025-10-09
 * Contains a breaking bug fix and other improvements from [v17.0.0](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.0).
 
-## 17.0.1 - 2025-10-16
-* [#1705](https://github.com/stripe/stripe-ruby/pull/1705) Require `V2::Amount` and `V2::DeletedObject` in gem
-
-## 17.0.0 - 2025-10-09
-* [#1698](https://github.com/stripe/stripe-ruby/pull/1698) Remove expanded instance variables after a resource has been updated
-  - ⚠️ Removes dynamically added instance variables on subsequent non-expanded updates to a resource that had previously been expanded. For example,
-  ```ruby
-  # expand `payments` field on an invoice
-  invoice = Stripe::Invoice.retrieve(id: 'in_123', expand: ['payments'])
-  
-  # `pay` invoice without expanding `payments`, so that field would have stale data
-  # Use `expand` to keep `payments` like this: `invoice.pay(expand: ['payments'])`
-  invoice.pay
-  
-  # This is now nil instead of a stale Hash
-  invoice.payments
-  ```
-* [#1699](https://github.com/stripe/stripe-ruby/pull/1699) Improve event notification example
-* [#1693](https://github.com/stripe/stripe-ruby/pull/1693) Improve event notification example
-* [#1691](https://github.com/stripe/stripe-ruby/pull/1691) Remove manual promotion code test
-* [#1690](https://github.com/stripe/stripe-ruby/pull/1690) Update param in deprecation docs link
-* [#1687](https://github.com/stripe/stripe-ruby/pull/1687) Update CHANGELOG.md to point to right API version
-
 ## 16.1.0-beta.1 - 2025-09-30
-This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 18.0.0 which contains breaking changes. Please review the [changelog for 16.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1600---2025-09-30) if upgrading from older SDK versions.
-* [#1671](https://github.com/stripe/stripe-ruby/pull/1671) Update generated code for beta
-  * Add support for `attach_cadence` method on resource `Subscription`
-  * Add support for `billing_cadence` on `Invoice::CreatePreviewParams`, `Subscription::CreateParams`, `Subscription::UpdateParams`, and `Subscription`
-  * Add support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
-* [#1662](https://github.com/stripe/stripe-ruby/pull/1662) Update generated code for beta
-  * Add support for new resources `V2::Billing::BillSettingVersion`, `V2::Billing::BillSetting`, `V2::Billing::Cadence`, `V2::Billing::CollectionSettingVersion`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
-  * Add support for `create`, `list`, `retrieve`, and `update` methods on resources `V2::Billing::BillSetting`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
-  * Add support for `list` and `retrieve` methods on resources `V2::Billing::BillSettingVersion` and `V2::Billing::CollectionSettingVersion`
-  * Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Billing::Cadence`
-  * Add support for `profile` on `V2::Core::Account::CreateParams::Default`, `V2::Core::Account::Default`, and `V2::Core::Account::UpdateParams::Default`
-  * Add support for `i_p` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
-  * Remove support for `ip` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
-  * Remove support for `doing_business_as`, `product_description`, and `url` on `V2::Core::Account::CreateParams::Identity::BusinessDetail`, `V2::Core::Account::Identity::BusinessDetail`, and `V2::Core::Account::UpdateParams::Identity::BusinessDetail`
-  * Add support for `settlement_currency` on `V2::MoneyManagement::FinancialAddress`
-  * Add support for `sepa_bank_account` on `V2::MoneyManagement::FinancialAddress::Credential` and `V2::MoneyManagement::ReceivedCredit::BankTransfer`
-  * Add support for `amount_details` and `payments_orchestration` on `V2::Payments::OffSessionPayment::CreateParams` and `V2::Payments::OffSessionPayment`
-  * Add support for `retry_policy` on `V2::Payments::OffSessionPayment::CreateParams::RetryDetail` and `V2::Payments::OffSessionPayment::RetryDetail`
-  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_duration` from `literal('five_minutes')` to `enum('five_minutes'|'none')`
-  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_expires_at` from `DateTime` to `nullable(DateTime)`
-  * Add support for `origin_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
-  * Remove support for `payment_method_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
-  * Add support for `mandate_data` and `payment_method_options` on `V2::Payments::OffSessionPayment::CreateParams`
-  * Add support for `type` on `V2::MoneyManagement::FinancialAddress::CreateParams`
-  * Remove support for `currency` on `V2::MoneyManagement::FinancialAddress::CreateParams`
-  * Add support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
-  * Add support for error type `RateLimitError`
+This release changes the pinned API version to `2025-09-30.preview`.
+
+It is built on top of SDK version 18.0.0 which contains breaking changes. Please review the [changelog for 16.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1600---2025-09-30) if upgrading from older SDK versions.
+
 * [#1639](https://github.com/stripe/stripe-ruby/pull/1639) Update generated code for beta
   * Add support for new resources `Billing::Analytics::MeterUsageRow` and `Billing::Analytics::MeterUsage`
   * Remove support for resources `Billing::MeterUsageRow` and `Billing::MeterUsage`
@@ -774,77 +359,32 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
   * Change type of `PaymentAttemptRecord::ProcessorDetail::Custom.payment_reference` and `PaymentRecord::ProcessorDetail::Custom.payment_reference` from `string` to `nullable(string)`
   * Add support for `flexible` on `QuotePreviewSubscriptionSchedule::BillingMode`
   * Add support for `billed_until` on `SubscriptionItem`
-
-## 16.0.0 - 2025-09-30
-This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
-
-* [#1652](https://github.com/stripe/stripe-ruby/pull/1652) ⚠️  Deserialize inner types in resources for more detailed types
-  * ⚠️ Deserialize inner classes, so inner class types will now reflect generated inner classes
-    * For example, `Stripe::Customer.address` is deserialized to specific a `Stripe::Customer::Address` class instead of the generic `Stripe::StripeObject`, as is suggested by the static type annotations
-    * This should not affect any normal use cases of the SDK, as inner types remain children of `Stripe::StripeObject`
-* [#1649](https://github.com/stripe/stripe-ruby/pull/1649) Explicitly define methods for RBIs and ship combined RBI for Tapioca
-  * Improvements for Tapioca
-       * Explicitly define methods for attributes in RBIs to allow Tapioca to reflect them
-       * Ship combined RBI for shorter Tapioca time
-* [#1677](https://github.com/stripe/stripe-ruby/pull/1677) Move `V2.Event` API resources to `V2.Core.Events`
-  - ⚠️ Move `Stripe::V2::Event` and `Stripe::V2::EventDestination` to `Stripe::V2::Core::Event` and `Stripe::V2::Core::EventDestination` respectively. They now correctly match their API path 
-* [#1664](https://github.com/stripe/stripe-ruby/pull/1664) Add `StripeContext` object
-  - Add the `StripeContext` class. Previously you could set the stripe_context to only a string value. Now you can use the new class as well
-  - ⚠️ Change `EventNotification` (formerly known as `ThinEvent`)'s `context` property from `string` to `StripeContext`
-* [#1684](https://github.com/stripe/stripe-ruby/pull/1684) ⚠️ Drop support for Ruby < 2.6 & clarify version policy
-  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=ruby#stripe-sdk-language-version-support-policy)
-      - ⚠️ In this release, we drop support for Ruby 2.3, 2.4, and 2.5
-      -  Ruby 2.6 support is deprecated and will be removed in the next scheduled major release (March 2026)
-* [#1651](https://github.com/stripe/stripe-ruby/pull/1651) ⚠️ Build SDK w/ V2 OpenAPI spec
-  - ⚠️ The delete methods for v2 APIs (the ones in the `StripeClient.v2` namespace) now return a `V2DeletedObject` which has the id of the object that has been deleted and a string representing the type of the object that has been deleted.
-  - ⚠️ Deeply nested param hashes with no properties no longer have classes generated for them. Instead, they're typed as `T::Hash[String, T.untyped]`. Because there were no params, it's unlikely you were using these classes.
-* [#1650](https://github.com/stripe/stripe-ruby/pull/1650) ⚠️ Add strongly typed EventNotifications
-  We've overhauled how V2 Events are handled in the SDK! This approach should provide a lot more information at authoring and compile time, leading to more robust integrations. As part of this process, there are a number of changes to be aware of.
-  - Added matching `EventNotification` classes to every v2 `Event`
-    - For example, there's now a `V1BillingMeterErrorReportTriggeredEventNotification` to match the existing `V1BillingMeterErrorReportTriggeredEvent`
-    - Each notification class defines a `fetch_event()` method to retrieve its corresponding event
-    - For events with related objects, there's a `fetch_related_object()` method that performs the API call and casts the response to the correct type on both the `EventNotification` and `Event`.
-  - ⚠️ Rename function `StripeClient.parse_thin_event` to `StripeClient.parse_event_notification` and remove the `Stripe::ThinEvent` class.
-      - This function now returns a `Stripe::V2::Core::EventNotification` (which is the shared base class that all of the more specific `Stripe::Event::*EventNotification` classes  share) instead of `Stripe::ThinEvent`. When applicable, these event notifications will have the `relatedObject` property and a `fetch_related_object()` function. They also have a `fetch_event()` method to retrieve their corresponding `Stripe::Events::*Event` instance.
-      - If you parse an event the SDK doesn't have types for (e.g. it's newer than the SDK you're using), you'll get an instance of `Stripe::Events::UnknownEventNotification` instead of a more specific type. It has both the `related_object` property and the `fetch_related_object()` function (but they may be/return `nil`)
-  - ⚠️ Move all Event Classes into the `Events` module
-    - For example, `Stripe::V1BillingMeterErrorReportTriggeredEvent` is now `Stripe::Events::V1BillingMeterErrorReportTriggeredEvent`
-* [#1670](https://github.com/stripe/stripe-ruby/pull/1670) ⚠️ Unify resource and service method parameters into one class
-  * ⚠️ Resource and service request parameter types have been moved to the top-level and are shared.
-    * For example, `Stripe::Account::CreateParams` and `Stripe::AccountService::CreateParams` have moved to `Stripe::AccountCreateParams`
-    * This change only affects users who use Sorbet types for parameters
-    
-* [#1643](https://github.com/stripe/stripe-ruby/pull/1643), [#1667](https://github.com/stripe/stripe-ruby/pull/1667), [#1680](https://github.com/stripe/stripe-ruby/pull/1680), [#1678](https://github.com/stripe/stripe-ruby/pull/1678) Update generated code based on incoming API changes in the `2025-09-30.clover` API version.
-  * ⚠️ Remove support for `balance_report` and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
-  * Change `Invoice.id` to be required (i.e. not nilable).
-  * Add support for new resource `BalanceSettings`
-  * Add support for `retrieve` and `update` methods on resource `BalanceSettings`
-  * Add support for `source` on `Discount`
-  * Remove support for `coupon` on `Discount`, `PromotionCode::CreateParams`, and `PromotionCode`
-  * Add support for `mb_way_payments`on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
-  * Add support for `trial_update_behavior` on `BillingPortal::Configuration::CreateParams::Feature::SubscriptionUpdate`, `BillingPortal::Configuration::Feature::SubscriptionUpdate`, and `BillingPortal::Configuration::UpdateParams::Feature::SubscriptionUpdate`
-  * Add support for `mb_way` on `Charge::PaymentMethodDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum`, `ConfirmationToken::PaymentMethodPreview`, `PaymentIntent::ConfirmParams::PaymentMethodDatum`, `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodDatum`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntent::UpdateParams::PaymentMethodDatum`, `PaymentIntent::UpdateParams::PaymentMethodOption`, `PaymentMethod::CreateParams`, `PaymentMethod`, `SetupIntent::ConfirmParams::PaymentMethodDatum`, `SetupIntent::CreateParams::PaymentMethodDatum`, and `SetupIntent::UpdateParams::PaymentMethodDatum`
-  * Add support for `branding_settings` and `name_collection` on `Checkout::Session::CreateParams` and `Checkout::Session`
-  * Add support for `excluded_payment_method_types` on `Checkout::Session::CreateParams`, `Checkout::Session`, `PaymentIntent::ConfirmParams`, and `PaymentIntent::UpdateParams`
-  * Add support for `unit_label` on `Checkout::Session::CreateParams::LineItem::PriceDatum::ProductDatum`, `Invoice::AddLinesParams::Line::PriceDatum::ProductDatum`, `Invoice::UpdateLinesParams::Line::PriceDatum::ProductDatum`, `InvoiceLineItem::UpdateParams::PriceDatum::ProductDatum`, and `PaymentLink::CreateParams::LineItem::PriceDatum::ProductDatum`
-  * Add support for `alma`, `billie`, and `satispay` on `Checkout::Session::CreateParams::PaymentMethodOption` and `Checkout::Session::PaymentMethodOption`
-  * Add support for `demo_pay` on `Checkout::Session::CreateParams::PaymentMethodOption`
-  * Add support for `capture_method` on `Checkout::Session::CreateParams::PaymentMethodOption::Affirm`, `Checkout::Session::CreateParams::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::CreateParams::PaymentMethodOption::AmazonPay`, `Checkout::Session::CreateParams::PaymentMethodOption::Card`, `Checkout::Session::CreateParams::PaymentMethodOption::Cashapp`, `Checkout::Session::CreateParams::PaymentMethodOption::Klarna`, `Checkout::Session::CreateParams::PaymentMethodOption::Link`, `Checkout::Session::CreateParams::PaymentMethodOption::Mobilepay`, `Checkout::Session::CreateParams::PaymentMethodOption::RevolutPay`, `Checkout::Session::PaymentMethodOption::Affirm`, `Checkout::Session::PaymentMethodOption::AfterpayClearpay`, `Checkout::Session::PaymentMethodOption::AmazonPay`, `Checkout::Session::PaymentMethodOption::Card`, `Checkout::Session::PaymentMethodOption::Cashapp`, `Checkout::Session::PaymentMethodOption::Klarna`, `Checkout::Session::PaymentMethodOption::Link`, `Checkout::Session::PaymentMethodOption::Mobilepay`, and `Checkout::Session::PaymentMethodOption::RevolutPay`
-  * Add support for `flexible` on `Checkout::Session::CreateParams::SubscriptionDatum::BillingMode`, `Invoice::CreatePreviewParams::ScheduleDetail::BillingMode`, `Invoice::CreatePreviewParams::SubscriptionDetail::BillingMode`, `Quote::CreateParams::SubscriptionDatum::BillingMode`, `Quote::SubscriptionDatum::BillingMode`, `Subscription::BillingMode`, `Subscription::CreateParams::BillingMode`, `Subscription::MigrateParams::BillingMode`, `SubscriptionSchedule::BillingMode`, and `SubscriptionSchedule::CreateParams::BillingMode`
-  * Add support for `business_name` and `individual_name` on `Checkout::Session::CollectedInformation`, `Checkout::Session::CustomerDetail`, `Customer::CreateParams`, `Customer::UpdateParams`, and `Customer`
-  * Add support for `chargeback_loss_reason_code` on `Dispute::PaymentMethodDetail::Klarna`
-  * Add support for `net_amount` and `proration_details` on `InvoiceItem`
-  * Remove support for `iterations` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase`, `SubscriptionSchedule::CreateParams::Phase`, and `SubscriptionSchedule::UpdateParams::Phase`
-  * Add support for `fraud_disputability_likelihood` and `risk_assessment` on `Issuing::Authorization::CreateParams`
-  * Add support for `second_line` on `Issuing::Card`
-  * Add support for `fr_meal_voucher_conecs` on `PaymentMethodConfiguration::CreateParams` and `PaymentMethodConfiguration::UpdateParams`
-  * Remove support for `link` and `pay_by_bank` on `PaymentMethod::UpdateParams`
-  * Add support for `promotion` on `PromotionCode::CreateParams` and `PromotionCode`
-  * Add support for `provider` on `Tax::Settings::Default`
-  * Add support for `bbpos_wisepad3` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
-  * Add support for `address_kana`, `address_kanji`, `display_name_kana`, `display_name_kanji`, and `phone` on `Terminal::Location::CreateParams`, `Terminal::Location::UpdateParams`, and `Terminal::Location`
-  * Change `Terminal::Location::CreateParams.address` to be optional
-  * Change `Terminal::Location::CreateParams.display_name` to be optional
+* [#1662](https://github.com/stripe/stripe-ruby/pull/1662) Update generated code for beta
+  * Add support for new resources `V2::Billing::BillSettingVersion`, `V2::Billing::BillSetting`, `V2::Billing::Cadence`, `V2::Billing::CollectionSettingVersion`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resources `V2::Billing::BillSetting`, `V2::Billing::CollectionSetting`, and `V2::Billing::Profile`
+  * Add support for `list` and `retrieve` methods on resources `V2::Billing::BillSettingVersion` and `V2::Billing::CollectionSettingVersion`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resource `V2::Billing::Cadence`
+  * Add support for `profile` on `V2::Core::Account::CreateParams::Default`, `V2::Core::Account::Default`, and `V2::Core::Account::UpdateParams::Default`
+  * Add support for `i_p` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
+  * Remove support for `ip` on `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::CreateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Attestation::DirectorshipDeclaration`, `V2::Core::Account::Identity::Attestation::OwnershipDeclaration`, `V2::Core::Account::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Account::Identity::Individual::AdditionalTermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Account`, `V2::Core::Account::UpdateParams::Identity::Attestation::TermsOfService::Storer`, `V2::Core::Person::AdditionalTermsOfService::Account`, `V2::Core::Person::CreateParams::AdditionalTermsOfService::Account`, and `V2::Core::Person::UpdateParams::AdditionalTermsOfService::Account`
+  * Remove support for `doing_business_as`, `product_description`, and `url` on `V2::Core::Account::CreateParams::Identity::BusinessDetail`, `V2::Core::Account::Identity::BusinessDetail`, and `V2::Core::Account::UpdateParams::Identity::BusinessDetail`
+  * Add support for `settlement_currency` on `V2::MoneyManagement::FinancialAddress`
+  * Add support for `sepa_bank_account` on `V2::MoneyManagement::FinancialAddress::Credential` and `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Add support for `amount_details` and `payments_orchestration` on `V2::Payments::OffSessionPayment::CreateParams` and `V2::Payments::OffSessionPayment`
+  * Add support for `retry_policy` on `V2::Payments::OffSessionPayment::CreateParams::RetryDetail` and `V2::Payments::OffSessionPayment::RetryDetail`
+  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_duration` from `literal('five_minutes')` to `enum('five_minutes'|'none')`
+  * Change type of `V2::MoneyManagement::OutboundPaymentQuote::FxQuote.lock_expires_at` from `DateTime` to `nullable(DateTime)`
+  * Add support for `origin_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Remove support for `payment_method_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Add support for `mandate_data` and `payment_method_options` on `V2::Payments::OffSessionPayment::CreateParams`
+  * Add support for `type` on `V2::MoneyManagement::FinancialAddress::CreateParams`
+  * Remove support for `currency` on `V2::MoneyManagement::FinancialAddress::CreateParams`
+  * Add support for thin event `V2BillingBillSettingUpdatedEvent` with related object `V2::Billing::BillSetting`
+  * Add support for error type `RateLimitError`
+* [#1671](https://github.com/stripe/stripe-ruby/pull/1671) Update generated code for beta
+  * Add support for `attach_cadence` method on resource `Subscription`
+  * Add support for `billing_cadence` on `Invoice::CreatePreviewParams`, `Subscription::CreateParams`, `Subscription::UpdateParams`, and `Subscription`
+  * Add support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
 
 ## 15.6.0-beta.1 - 2025-08-27
 This release changes the pinned API version to `2025-08-27.preview`.
@@ -878,28 +418,10 @@ This release changes the pinned API version to `2025-08-27.preview`.
   * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
   * Add support for `reader_security` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
 
-## 15.5.0 - 2025-08-27
-* [#1638](https://github.com/stripe/stripe-ruby/pull/1638) Add section on private preview SDKs in readme
-* [#1631](https://github.com/stripe/stripe-ruby/pull/1631) Update generated code. This release changes the pinned API version to `2025-08-27.basil`.
-  * Add support for `balance_report`, `payout_details`, and `payout_reconciliation_report` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
-  * Add support for `name` on `BillingPortal::Configuration::CreateParams`, `BillingPortal::Configuration::UpdateParams`, and `BillingPortal::Configuration`
-  * Add support for `installments` on `Charge::PaymentMethodDetail::Alma`
-  * Add support for `transaction_id` on `Charge::PaymentMethodDetail::Alma`, `Charge::PaymentMethodDetail::AmazonPay`, `Charge::PaymentMethodDetail::Billie`, `Charge::PaymentMethodDetail::KakaoPay`, `Charge::PaymentMethodDetail::KrCard`, `Charge::PaymentMethodDetail::NaverPay`, `Charge::PaymentMethodDetail::Payco`, `Charge::PaymentMethodDetail::RevolutPay`, `Charge::PaymentMethodDetail::SamsungPay`, and `Charge::PaymentMethodDetail::Satispay`
-  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Paynow`
-  * Add support for `amount_includes_iof` on `Checkout::Session::CreateParams::PaymentMethodOption::Pix`, `Checkout::Session::PaymentMethodOption::Pix`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Pix`, `PaymentIntent::CreateParams::PaymentMethodOption::Pix`, `PaymentIntent::PaymentMethodOption::Pix`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Pix`
-  * Add support for `metadata` and `period` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase::AddInvoiceItem`, `Subscription::CreateParams::AddInvoiceItem`, `Subscription::UpdateParams::AddInvoiceItem`, `SubscriptionSchedule::CreateParams::Phase::AddInvoiceItem`, `SubscriptionSchedule::Phase::AddInvoiceItem`, and `SubscriptionSchedule::UpdateParams::Phase::AddInvoiceItem`
-  * Add support for `exp_month` and `exp_year` on `Issuing::Card::CreateParams`
-  * Add support for `excluded_payment_method_types` on `PaymentIntent::CreateParams` and `PaymentIntent`
-  * Add support for `payout_method` on `Payout::CreateParams` and `Payout`
-  * Add support for `mxn` on `Terminal::Configuration::CreateParams::Tipping`, `Terminal::Configuration::Tipping`, and `Terminal::Configuration::UpdateParams::Tipping`
-  * Add support for `card` on `Terminal::Reader::PresentPaymentMethodParams`
-* [#1637](https://github.com/stripe/stripe-ruby/pull/1637) Add `stripe_client` usage tracking for StripeClient
-* [#1633](https://github.com/stripe/stripe-ruby/pull/1633) Remove double `T.nilable` before every emptyable field in update methods
-
 ## 15.5.0-beta.2 - 2025-08-08
 * [#1632](https://github.com/stripe/stripe-ruby/pull/1632) Bring back invoice payments APIs that were missing in the public preview SDKs
-    * Add support for new resource `InvoicePayment`
-    * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
+  * Add support for new resource `InvoicePayment`
+  * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
 
 ## 15.5.0-beta.1 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.preview`.
@@ -927,25 +449,6 @@ This release changes the pinned API version to `2025-07-30.preview`.
   * Add support for thin event `V2MoneyManagementPayoutMethodUpdatedEvent` with related object `V2::MoneyManagement::PayoutMethod`
   * Remove support for thin event `V2CoreAccountLinkCompletedEvent`
   * Remove support for thin event `V2OffSessionPaymentRequiresCaptureEvent` with related object `V2::Payments::OffSessionPayment`
-
-## 15.4.0 - 2025-07-30
-This release changes the pinned API version to `2025-07-30.basil`.
-
-* [#1627](https://github.com/stripe/stripe-ruby/pull/1627) Update generated code
-  * Add support for `instant_payouts_promotion` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
-  * Add support for `adjustable_quantity` on `BillingPortal::Configuration::CreateParams::Feature::SubscriptionUpdate::Product`, `BillingPortal::Configuration::Feature::SubscriptionUpdate::Product`, and `BillingPortal::Configuration::UpdateParams::Feature::SubscriptionUpdate::Product`
-  * Add support for `transaction_id` on `Charge::PaymentMethodDetail::Cashapp`
-  * Add support for `origin_context` on `Checkout::Session::CreateParams` and `Checkout::Session`
-  * Add support for `template` on `Checkout::Session::CreateParams::InvoiceCreation::InvoiceDatum::RenderingOption`, `Checkout::Session::InvoiceCreation::InvoiceDatum::RenderingOption`, `PaymentLink::CreateParams::InvoiceCreation::InvoiceDatum::RenderingOption`, `PaymentLink::InvoiceCreation::InvoiceDatum::RenderingOption`, and `PaymentLink::UpdateParams::InvoiceCreation::InvoiceDatum::RenderingOption`
-  * Add support for `setup_future_usage` on `Checkout::Session::CreateParams::PaymentMethodOption::Pix` and `Checkout::Session::PaymentMethodOption::Pix`
-  * Change `Identity::VerificationSession::RelatedPerson.account` to be required
-  * Change `Identity::VerificationSession::RelatedPerson.person` to be required
-  * Add support for `duration` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase`, `SubscriptionSchedule::CreateParams::Phase`, and `SubscriptionSchedule::UpdateParams::Phase`
-  * Change type of `Invoice::CreatePreviewParams::SubscriptionDetail.cancel_at`, `Subscription::CreateParams.cancel_at`, and `Subscription::UpdateParams.cancel_at` from `DateTime` to `DateTime | enum('max_period_end'|'min_period_end')`
-  * Add support for `price_data` on `PaymentLink::CreateParams::LineItem`
-  * Change `PaymentLink::CreateParams::LineItem.price` to be optional
-  * Add support for `standard` on `Tax::Registration::CountryOption::Ae`, `Tax::Registration::CountryOption::Au`, `Tax::Registration::CountryOption::Ch`, `Tax::Registration::CountryOption::Gb`, `Tax::Registration::CountryOption::Jp`, `Tax::Registration::CountryOption::No`, `Tax::Registration::CountryOption::Nz`, `Tax::Registration::CountryOption::Sg`, `Tax::Registration::CreateParams::CountryOption::Ae`, `Tax::Registration::CreateParams::CountryOption::Al`, `Tax::Registration::CreateParams::CountryOption::Ao`, `Tax::Registration::CreateParams::CountryOption::Au`, `Tax::Registration::CreateParams::CountryOption::Aw`, `Tax::Registration::CreateParams::CountryOption::B`, `Tax::Registration::CreateParams::CountryOption::Ba`, `Tax::Registration::CreateParams::CountryOption::Bb`, `Tax::Registration::CreateParams::CountryOption::Bd`, `Tax::Registration::CreateParams::CountryOption::Bf`, `Tax::Registration::CreateParams::CountryOption::Bh`, `Tax::Registration::CreateParams::CountryOption::Cd`, `Tax::Registration::CreateParams::CountryOption::Ch`, `Tax::Registration::CreateParams::CountryOption::Et`, `Tax::Registration::CreateParams::CountryOption::Gb`, `Tax::Registration::CreateParams::CountryOption::Gn`, `Tax::Registration::CreateParams::CountryOption::Is`, `Tax::Registration::CreateParams::CountryOption::Jp`, `Tax::Registration::CreateParams::CountryOption::Me`, `Tax::Registration::CreateParams::CountryOption::Mk`, `Tax::Registration::CreateParams::CountryOption::Mr`, `Tax::Registration::CreateParams::CountryOption::No`, `Tax::Registration::CreateParams::CountryOption::Nz`, `Tax::Registration::CreateParams::CountryOption::Om`, `Tax::Registration::CreateParams::CountryOption::R`, `Tax::Registration::CreateParams::CountryOption::Sg`, `Tax::Registration::CreateParams::CountryOption::Sr`, `Tax::Registration::CreateParams::CountryOption::Uy`, `Tax::Registration::CreateParams::CountryOption::Za`, and `Tax::Registration::CreateParams::CountryOption::Zw`
-  * Add support for `aed`, `bgn`, `huf`, and `ron` on `Terminal::Configuration::CreateParams::Tipping`, `Terminal::Configuration::Tipping`, and `Terminal::Configuration::UpdateParams::Tipping`
 
 ## 15.4.0-beta.2 - 2025-07-09
 * [#1625](https://github.com/stripe/stripe-ruby/pull/1625) Pull in V2 FinancialAccount changes for June release
@@ -980,34 +483,6 @@ This release changes the pinned API version to `2025-06-30.preview`.
   * Change type of `V2::MoneyManagement::ReceivedCredit::BalanceTransfer.payout_v1` from `string` to `nullable(string)`
   * Change `V2::Payments::OffSessionPayment::CreateParams::TransferDatum.amount` to be optional
 
-## 15.3.0 - 2025-07-01
-This release changes the pinned API version to `2025-06-30.basil`.
-
-* [#1618](https://github.com/stripe/stripe-ruby/pull/1618) Update generated code
-  * Add support for `migrate` method on resource `Subscription`
-  * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal::Reader`
-  * Add support for `crypto_payments` on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
-  * Add support for `proof_of_address` on `Account::CreateParams::Document` and `Account::UpdateParams::Document`
-  * Add support for `monthly_payout_days` and `weekly_payout_days` on `Account::CreateParams::Setting::Payout::Schedule`, `Account::Setting::Payout::Schedule`, and `Account::UpdateParams::Setting::Payout::Schedule`
-  * Change `Account::Setting::Invoice.hosted_payment_method_save` to be required
-  * Add support for `crypto` on `Charge::PaymentMethodDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum`, `ConfirmationToken::PaymentMethodPreview`, `PaymentIntent::ConfirmParams::PaymentMethodDatum`, `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodDatum`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, `PaymentIntent::UpdateParams::PaymentMethodDatum`, `PaymentIntent::UpdateParams::PaymentMethodOption`, `PaymentMethod::CreateParams`, `PaymentMethod`, `SetupIntent::ConfirmParams::PaymentMethodDatum`, `SetupIntent::CreateParams::PaymentMethodDatum`, and `SetupIntent::UpdateParams::PaymentMethodDatum`
-  * Change type of `Charge::PaymentMethodDetail::Card::Installment::Plan.type`, `ConfirmationToken::CreateParams::PaymentMethodOption::Card::Installment::Plan.type`, `ConfirmationToken::PaymentMethodOption::Card::Installment::Plan.type`, `Invoice::CreateParams::PaymentSetting::PaymentMethodOption::Card::Installment::Plan.type`, `Invoice::UpdateParams::PaymentSetting::PaymentMethodOption::Card::Installment::Plan.type`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Card::Installment::Plan.type`, `PaymentIntent::CreateParams::PaymentMethodOption::Card::Installment::Plan.type`, `PaymentIntent::PaymentMethodOption::Card::Installment::AvailablePlan.type`, `PaymentIntent::PaymentMethodOption::Card::Installment::Plan.type`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Card::Installment::Plan.type` from `literal('fixed_count')` to `enum('bonus'|'fixed_count'|'revolving')`
-  * Add support for `subscriptions` on `Checkout::Session::CreateParams::PaymentMethodOption::Klarna`, `PaymentIntent::ConfirmParams::PaymentMethodOption::Klarna`, `PaymentIntent::CreateParams::PaymentMethodOption::Klarna`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Klarna`
-  * Add support for `billing_mode` on `Checkout::Session::CreateParams::SubscriptionDatum`, `Invoice::CreatePreviewParams::ScheduleDetail`, `Invoice::CreatePreviewParams::SubscriptionDetail`, `Quote::CreateParams::SubscriptionDatum`, `Quote::SubscriptionDatum`, `Subscription::CreateParams`, `SubscriptionSchedule::CreateParams`, `SubscriptionSchedule`, and `Subscription`
-  * Change type of `Dispute.enhanced_eligibility_types` from `literal('visa_compelling_evidence_3')` to `enum('visa_compelling_evidence_3'|'visa_compliance')`
-  * Add support for `related_person` on `Identity::VerificationSession::CreateParams` and `Identity::VerificationSession`
-  * Add support for `matching` on `Identity::VerificationSession::Option`
-  * Add support for `klarna` on `Mandate::PaymentMethodDetail`, `SetupIntent::ConfirmParams::PaymentMethodOption`, `SetupIntent::CreateParams::PaymentMethodOption`, `SetupIntent::PaymentMethodOption`, and `SetupIntent::UpdateParams::PaymentMethodOption`
-  * Add support for `on_demand` on `PaymentIntent::ConfirmParams::PaymentMethodOption::Klarna`, `PaymentIntent::CreateParams::PaymentMethodOption::Klarna`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Klarna`
-  * Change type of `PaymentIntent::ConfirmParams::PaymentMethodOption::Klarna.setup_future_usage`, `PaymentIntent::CreateParams::PaymentMethodOption::Klarna.setup_future_usage`, `PaymentIntent::PaymentMethodOption::Klarna.setup_future_usage`, and `PaymentIntent::UpdateParams::PaymentMethodOption::Klarna.setup_future_usage` from `literal('none')` to `enum('none'|'off_session'|'on_session')`
-  * Add support for `ua` on `Tax::Registration::CountryOption` and `Tax::Registration::CreateParams::CountryOption`
-  * Change type of `Terminal::Location::UpdateParams.display_name` from `string` to `emptyable(string)`
-  * Add support for `collect_payment_method` and `confirm_payment_intent` on `Terminal::Reader::Action`
-  * Add support for `status` on `Treasury::FinancialAccount::ListParams`
-* [#1615](https://github.com/stripe/stripe-ruby/pull/1615) Update README to mention that APIResource.request was removed
-* [#1619](https://github.com/stripe/stripe-ruby/pull/1619) Updated StripeClient snippets in README
-* [#1620](https://github.com/stripe/stripe-ruby/pull/1620) Fix `raw_request` example in README
-
 ## 15.3.0-beta.2 - 2025-06-26
 * [#1623](https://github.com/stripe/stripe-ruby/pull/1623) Pull in OffSessionPayment changes for the May release
 
@@ -1034,7 +509,7 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Change type of `Privacy::RedactionJobValidationError.erroring_object` from `map(string: string)` to `RedactionResourceErroringObject`
   * Remove support for `async_workflows` on `PaymentIntent::CaptureParams`, `PaymentIntent::ConfirmParams`, `PaymentIntent::CreateParams`, `PaymentIntent::DecrementAuthorizationParams`, `PaymentIntent::IncrementAuthorizationParams`, `PaymentIntent::UpdateParams`, and `PaymentIntent`
   * Remove support for `status_details` and `status` on `Tax::Association`
-  
+
   ### Other changes
   * Add support for `migrate` method on resource `Subscription`
   * Add support for `distance`, `pickup_location_name`, `return_location_name`, and `vehicle_identification_number` on `Charge::CaptureParams::PaymentDetail::CarRental`, `Charge::UpdateParams::PaymentDetail::CarRental`, `PaymentIntent::CaptureParams::PaymentDetail::CarRental`, `PaymentIntent::ConfirmParams::PaymentDetail::CarRental`, `PaymentIntent::CreateParams::PaymentDetail::CarRental`, `PaymentIntent::PaymentDetail::CarRental`, and `PaymentIntent::UpdateParams::PaymentDetail::CarRental`
@@ -1050,40 +525,9 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `tax_transaction_attempts` on `Tax::Association`
   * Add support for `confirm_config` on `Terminal::Reader::Action::ConfirmPaymentIntent` and `Terminal::Reader::ConfirmPaymentIntentParams`
 
-## 15.2.1 - 2025-06-04
-* [#1617](https://github.com/stripe/stripe-ruby/pull/1617) Fix `nil` requestor in `Webhook.construct_event` to allow for event data refresh
-  * Fix bug where `Event` constructed from `Webhook.construct_event` could not be refreshed due to a `nil` APIRequestor
-    * Raised in https://github.com/stripe/stripe-ruby/issues/1616
-
-## 15.2.0 - 2025-05-29
- This release changes the pinned API version to `2025-05-28.basil`.
-
-* [#1605](https://github.com/stripe/stripe-ruby/pull/1605) Update generated code
-  * Add support for `attach_payment` method on resource `Invoice`
-  * Add support for `collect_inputs` method on resource `Terminal::Reader`
-  * Add support for `succeed_input_collection` and `timeout_input_collection` test helper methods on resource `Terminal::Reader`
-  * Add support for `pix_payments` on `Account::Capability`, `Account::CreateParams::Capability`, and `Account::UpdateParams::Capability`
-  * Add support for `disputes_list` and `payment_disputes` on `AccountSession::Component` and `AccountSession::CreateParams::Component`
-  * Add support for `refund_and_dispute_prefunding` on `Balance`
-  * Add support for `balance_type` on `BalanceTransaction`
-  * Change `Billing::Alert::CreateParams::UsageThreshold.meter` to be required
-  * Add support for `location` and `reader` on `Charge::PaymentMethodDetail::Affirm` and `Charge::PaymentMethodDetail::WechatPay`
-  * Add support for `payment_method_remove` on `Checkout::Session::CreateParams::SavedPaymentMethodOption`
-  * Add support for `setup_future_usage` on `Checkout::Session::PaymentMethodOption::NaverPay`
-  * Change `ConfirmationToken::PaymentMethodPreview::NaverPay.buyer_id` and `PaymentMethod::NaverPay.buyer_id` to be required
-  * Add support for `post_payment_amount` and `pre_payment_amount` on `CreditNote`
-  * Add support for `sex`, `unparsed_place_of_birth`, and `unparsed_sex` on `Identity::VerificationReport::Document` and `Identity::VerificationSession::VerifiedOutput`
-  * Add support for `billing_thresholds` on `Invoice::CreatePreviewParams::ScheduleDetail::Phase::Item`, `Invoice::CreatePreviewParams::ScheduleDetail::Phase`, `Invoice::CreatePreviewParams::SubscriptionDetail::Item`, `Subscription::CreateParams::Item`, `Subscription::CreateParams`, `Subscription::UpdateParams::Item`, `Subscription::UpdateParams`, `SubscriptionItem::CreateParams`, `SubscriptionItem::UpdateParams`, `SubscriptionItem`, `SubscriptionSchedule::CreateParams::DefaultSetting`, `SubscriptionSchedule::CreateParams::Phase::Item`, `SubscriptionSchedule::CreateParams::Phase`, `SubscriptionSchedule::DefaultSetting`, `SubscriptionSchedule::Phase::Item`, `SubscriptionSchedule::Phase`, `SubscriptionSchedule::UpdateParams::DefaultSetting`, `SubscriptionSchedule::UpdateParams::Phase::Item`, `SubscriptionSchedule::UpdateParams::Phase`, and `Subscription`
-  * Add support for `satispay` on `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, and `PaymentIntent::UpdateParams::PaymentMethodOption`
-  * Add support for `capture_method` on `PaymentIntent::PaymentMethodOption::Billie`
-  * Add support for `kakao_pay`, `kr_card`, `naver_pay`, `payco`, and `samsung_pay` on `PaymentMethodConfiguration::CreateParams`, `PaymentMethodConfiguration::UpdateParams`, and `PaymentMethodConfiguration`
-  * Add support for `network_decline_code` on `Refund::DestinationDetail::Paypal`
-  * Add support for `metadata` on `Tax::Calculation::CreateParams::LineItem` and `Tax::CalculationLineItem`
-  * Add support for `return_url` on `Terminal::Reader::Action::ProcessPaymentIntent::ProcessConfig` and `Terminal::Reader::ProcessPaymentIntentParams::ProcessConfig`
-  * Add support for `collect_inputs` on `Terminal::Reader::Action`
-* [#1601](https://github.com/stripe/stripe-ruby/pull/1601) Adds CONTRIBUTING.md
-
 ## 15.2.0-beta.1 - 2025-04-30
+This release changes the pinned API version to `2025-04-30.preview`.
+
 * [#1589](https://github.com/stripe/stripe-ruby/pull/1589) Update generated code for beta
   This release changes the pinned API version to `2025-04-30.preview`.
 
@@ -1091,32 +535,9 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Change `Checkout::Session::AutomaticTax.provider`, `Invoice::AutomaticTax.provider`, `Quote::AutomaticTax.provider`, and `QuotePreviewInvoice::AutomaticTax.provider` to be required
   * Add support for `account_number` on `ConfirmationToken::PaymentMethodPreview::AcssDebit` and `PaymentMethod::AcssDebit`
 
-## 15.1.0 - 2025-04-30
-
-  This release changes the pinned API version to `2025-04-30.basil`.
-
-* [#1566](https://github.com/stripe/stripe-ruby/pull/1566) Update generated code
-  * Add support for `minority_owned_business_designation` on `Account::BusinessProfile`, `Account::CreateParams::BusinessProfile`, and `Account::UpdateParams::BusinessProfile`
-  * Add support for `registration_date` on `Account::Company`, `Account::CreateParams::Company`, `Account::UpdateParams::Company`, and `Token::CreateParams::Account::Company`
-  * Add support for `us_cfpb_data` on `Account::CreateParams`, `Account::UpdateParams`, `AccountPerson::CreateParams`, `AccountPerson::UpdateParams`, `Person`, and `Token::CreateParams::Person`
-  * Add support for `tax_id` on `Charge::BillingDetail`, `ConfirmationToken::CreateParams::PaymentMethodDatum::BillingDetail`, `ConfirmationToken::PaymentMethodPreview::BillingDetail`, `PaymentIntent::ConfirmParams::PaymentMethodDatum::BillingDetail`, `PaymentIntent::CreateParams::PaymentMethodDatum::BillingDetail`, `PaymentIntent::UpdateParams::PaymentMethodDatum::BillingDetail`, `PaymentMethod::BillingDetail`, `PaymentMethod::CreateParams::BillingDetail`, `PaymentMethod::UpdateParams::BillingDetail`, `SetupIntent::ConfirmParams::PaymentMethodDatum::BillingDetail`, `SetupIntent::CreateParams::PaymentMethodDatum::BillingDetail`, `SetupIntent::UpdateParams::PaymentMethodDatum::BillingDetail`, `TestHelpers::ConfirmationToken::CreateParams::PaymentMethodDatum::BillingDetail`, and `Treasury::OutboundPayment::CreateParams::DestinationPaymentMethodDatum::BillingDetail`
-  * Add support for `wallet_options` on `Checkout::Session::CreateParams` and `Checkout::Session`
-  * Add support for `provider` on `Checkout::Session::AutomaticTax`, `Invoice::AutomaticTax`, and `Quote::AutomaticTax`
-  * Add support for `payment_method_options` on `ConfirmationToken::CreateParams` and `TestHelpers::ConfirmationToken::CreateParams`
-  * Add support for `installments` on `ConfirmationToken::PaymentMethodOption::Card`
-  * Add support for `context` on `Event`
-  * Change type of `InvoiceLineItem::Parent::SubscriptionItemDetail.subscription` from `string` to `nullable(string)`
-  * Add support for `billie` on `PaymentIntent::ConfirmParams::PaymentMethodOption`, `PaymentIntent::CreateParams::PaymentMethodOption`, `PaymentIntent::PaymentMethodOption`, and `PaymentIntent::UpdateParams::PaymentMethodOption`
-  * Add support for `pix` on `PaymentMethodConfiguration::CreateParams`, `PaymentMethodConfiguration::UpdateParams`, and `PaymentMethodConfiguration`
-  * Add support for `klarna` on `PaymentMethodDomain`
-  * Add support for `pending_reason` on `Refund`
-  * Change type of `Tax::CalculationLineItem.reference` from `nullable(string)` to `string`
-  * Add support for `aw`, `az`, `bd`, `bf`, `bj`, `cm`, `cv`, `et`, `in`, `kg`, `la`, and `ph` on `Tax::Registration::CountryOption` and `Tax::Registration::CreateParams::CountryOption`
-* [#1585](https://github.com/stripe/stripe-ruby/pull/1585) Updated rubocop from 1.57.2 to 1.75.2
-* [#1583](https://github.com/stripe/stripe-ruby/pull/1583) Include new Ruby 3.4 in CI
-* [#1581](https://github.com/stripe/stripe-ruby/pull/1581) Added rubocop exclusion for generated tests
-
 ## 15.1.0-beta.2 - 2025-04-17
+* [#1588](https://github.com/stripe/stripe-ruby/pull/1588) Removed Request signing authenticator
+  - Removed `RequestSigningAuthenticator` class as request signing is not supported by Stripe APIs yet. This allows us to remove the dependency on base64
 * [#1578](https://github.com/stripe/stripe-ruby/pull/1578) Update generated code for beta
   * Add support for new resources `FxQuote` and `PaymentIntentAmountDetailsLineItem`
   * Add support for `create`, `list`, and `retrieve` methods on resource `FxQuote`
@@ -1134,16 +555,14 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `us_cfpb_data` on `Person` and `Token::CreateParams::Person`
   * Add support for `pending_reason` on `Refund`
   * Add support for `aw`, `az`, `bd`, `bj`, `et`, `kg`, `la`, and `ph` on `TaxRegistration::CountryOption` and `TaxRegistration::CreateParams::CountryOption`
-* [#1588](https://github.com/stripe/stripe-ruby/pull/1588) Removed Request signing authenticator
-  - Removed `RequestSigningAuthenticator` class as request signing is not supported by Stripe APIs yet. This allows us to remove the dependency on base64
-* [#1582](https://github.com/stripe/stripe-ruby/pull/1582) Prathmesh/merge ruby beta
 
 ## 15.1.0-beta.1 - 2025-04-10
+* [#1572](https://github.com/stripe/stripe-ruby/pull/1572) Handle external_account field
+  - Changes `external_account` field in `external_accounts.create` from a `string` to a union type.
 * [#1569](https://github.com/stripe/stripe-ruby/pull/1569) Update generated code for beta
-  
   ### Breaking changes
   * Change type of `V2MoneyManagementReceivedDebit.status_transitions` from `an object` to `nullable(an object)`
-  
+
   ### Additions
   * Add support for new resources `Privacy::RedactionJobRootObjects`, `Privacy::RedactionJobValidationError`, and `Privacy::RedactionJob`
   * Add support for `cancel`, `create`, `list`, `retrieve`, `run`, `update`, and `validate` methods on resource `RedactionJob`
@@ -1154,38 +573,19 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `klarna` on `PaymentMethodDomain`
   * Change type of `TaxCalculationLineItem.reference` from `nullable(string)` to `string`
   * Add support for `in` on `TaxRegistration::CountryOption` and `TaxRegistration::CreateParams::CountryOption`
-* [#1572](https://github.com/stripe/stripe-ruby/pull/1572) Handle external_account field
-  - Changes `external_account` field in `external_accounts.create` from a `string` to a union type.
-
-## 15.0.0 - 2025-04-09
-
-### Breaking change
-* [#1574](https://github.com/stripe/stripe-ruby/pull/1574) Rename `object_id` in V2::Core::EventService::ListParams to `object_id_`
-  * ⚠️ Change name of parameter from `object_id` to `object_id_` on `Stripe::V2::Core::EventService::ListParams` to avoid conflict with Ruby native attribute, as found in https://github.com/stripe/stripe-ruby/issues/1567
-  * This is a no-op unless you are using this specific parameter that was introduced in `v14.0.0`
-
-* [#1576](https://github.com/stripe/stripe-ruby/pull/1576) Explicitly pass through custom headers in retrieve
-  * Fix custom options passing for resource-based retrieve
-* [#1571](https://github.com/stripe/stripe-ruby/pull/1571) Validate all instance variable keys returned from the API
-  * Validate all keys returned from the API, including custom response fields, to make sure they can be set in an instance variable, as brought up in https://github.com/stripe/stripe-ruby/issues/1564
-    * We do not set instance variables for invalid field names (as defined by the [Ruby spec](https://ruby-doc.org/docs/ruby-doc-bundle/Manual/man-1.4/syntax.html#ident)). We recommend for custom hash map response fields, use the `[]` accessor.
-       ```ruby
-       c = client.v1.customers.retrieve("cus_123")
-       c.metadata["invalid-variable-name!"]
-       c.metadata["valid_key_name_works_too"]
-      ```
-* [#1575](https://github.com/stripe/stripe-ruby/pull/1575) Remove unused youtube playlist link
-* [#1573](https://github.com/stripe/stripe-ruby/pull/1573) Remove link for stale youtube video playlist
 
 ## 14.1.0-beta.1 - 2025-04-02
-* [#1563](https://github.com/stripe/stripe-ruby/pull/1563), [#1558](https://github.com/stripe/stripe-ruby/pull/1558), [#1547](https://github.com/stripe/stripe-ruby/pull/1547) Update generated code for beta
+This release changes the pinned API version to `2025-03-31.preview`.
 
+* [#1557](https://github.com/stripe/stripe-ruby/pull/1557) Update Stripe.add_beta_version
+  * `stripe.add_beta_version` will use the highest version number used for a beta feature instead of raising an `Error` on a conflict as it had done previously.
+* [#1563](https://github.com/stripe/stripe-ruby/pull/1563) , [#1558](https://github.com/stripe/stripe-ruby/pull/1558), [#1547](https://github.com/stripe/stripe-ruby/pull/1547) Update generated code for beta
   This release changes the pinned API version to `2025-03-31.preview`
 
   ### Breaking changes
     * Change type of `QuotePreviewInvoice::Parent::SubscriptionDetail.subscription` from `string` to `expandable($Subscription)`
     * Remove support for `value` on `TerminalReader::Action::CollectInput::Input::Selection::Choice`, `TerminalReader::Action::CollectInput::Input::Selection`, and `TerminalReader::CollectInputsParams::Input::Selection::Choice`
-    
+
   ### Additions
     * Add support for `payment_method_options` on `ConfirmationToken::CreateParams`
     * Add support for `installments` on `ConfirmationToken::PaymentMethodOption::Card`
@@ -1229,72 +629,22 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for new thin event `V2CoreAccountLinkCompletedEvent` with related object `V2::Core::AccountLink`
   * Add support for new thin events `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2::Core::Person`
 
-* [#1557](https://github.com/stripe/stripe-ruby/pull/1557) Update Stripe.add_beta_version
-  * `stripe.add_beta_version` will use the highest version number used for a beta feature instead of raising an `Error` on a conflict as it had done previously.
-
-## 14.0.0 - 2025-04-01
-* [#1559](https://github.com/stripe/stripe-ruby/pull/1559) Add RBI annotations for fields and params
-  * Adds explicit field types for resources and parameters for methods, and add RBI static annotations for all resources and services
-  ![image](https://github.com/user-attachments/assets/1b6cd994-d3ea-4f47-8487-f5c7b9ebf885)
-  * See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations) for more details
-
-* [#1543](https://github.com/stripe/stripe-ruby/pull/1543) Support for APIs in the new API version 2025-03-31.basil
-
-  This release changes the pinned API version to `2025-03-31.basil`.
-
-  ### ⚠️ Breaking changes  due to changes in the Stripe API
-
-  Please review details for the breaking changes and alternatives in the [Stripe API changelog](https://docs.stripe.com/changelog/basil) before upgrading.
-
-  * Remove support for resources `SubscriptionItemUsageRecordSummary` and `SubscriptionItemUsageRecord`
-  * Remove support for `create` method on resource `SubscriptionItemUsageRecord`
-  * Remove support for `list` method on resource `SubscriptionItemUsageRecordSummary`
-  * Remove support for `upcomingLines` and `upcoming` methods on resource `Invoice`
-
-  ### ⚠️ Other breaking changes in the SDK
-  * [#1553](https://github.com/stripe/stripe-ruby/pull/1553) Remove public idempotent_replayed? method
-    * ⚠️ Remove the `idempotent_replayed?` method on `StripeError`
-      * The information is accessible indirectly via the raw response headers, `StripeResponse.http_headers`. For example, use `resource.last_response.http_headers['Idempotent-Replayed']`
-
-  ### Additions to the Stripe API
-
-  * Add support for new resource `InvoicePayment`
-  * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
-
 ## 13.6.0-beta.1 - 2025-03-18
-* [#1550](https://github.com/stripe/stripe-ruby/pull/1550) Merge from stripe-ruby master
-* [#1546](https://github.com/stripe/stripe-ruby/pull/1546) Beta SDK updates between Open API versions 1473 and 1505
-  
-  * Add support for `succeed_input_collection` and `timeout_input_collection` test helper methods on resource `Terminal.Reader`
-* [#1545](https://github.com/stripe/stripe-ruby/pull/1545) fix ruby merge conflict for beta
+This release changes the pinned API version to `2025-02-24.acacia`.
 
-## 13.5.0 - 2025-02-24
-* [#1534](https://github.com/stripe/stripe-ruby/pull/1534) Update generated code
-  * Fixed `Stripe::InvoiceLineItem.update` method.
-* [#1536](https://github.com/stripe/stripe-ruby/pull/1536) Fix InvoiceLineItem parent class
-  * Fix bug where `Stripe::InvoiceLineItem` had the incorrect parent class, making it error when `update` was called
-* [#1533](https://github.com/stripe/stripe-ruby/pull/1533) add codeowners file
+* [#1546](https://github.com/stripe/stripe-ruby/pull/1546) Beta SDK updates between Open API versions 1473 and 1505
+  * Add support for `succeed_input_collection` and `timeout_input_collection` test helper methods on resource `Terminal.Reader`
 
 ## 13.5.0-beta.1 - 2025-02-07
 * [#1527](https://github.com/stripe/stripe-ruby/pull/1527) Update generated code for beta
-
-## 13.4.1 - 2025-01-28
-* [#1528](https://github.com/stripe/stripe-ruby/pull/1528) Update generated code
-  * ⚠️ Bugfix: `invoice` and `line_item_id` can be passed to `update` method in `InvoiceLineItem`.
-
-## 13.4.0 - 2025-01-27
-* [#1510](https://github.com/stripe/stripe-ruby/pull/1510) Update generated code
-  * Add support for `close` method on resource `Treasury.FinancialAccount`
-* [#1521](https://github.com/stripe/stripe-ruby/pull/1521) pipe rubocop output to devnull
-* [#1519](https://github.com/stripe/stripe-ruby/pull/1519) Fixed typos in CONTRIBUTING.MD
-* [#1513](https://github.com/stripe/stripe-ruby/pull/1513) add justfile
-* [#1515](https://github.com/stripe/stripe-ruby/pull/1515) Added CONTRIBUTING.md file
 
 ## 13.4.0-beta.4 - 2025-01-23
 * [#1523](https://github.com/stripe/stripe-ruby/pull/1523) Update generated code for beta
   * Removed support for `stripe_account` from `Stripe::Terminal::Reader`. Use `account` instead.
 
 ## 13.4.0-beta.3 - 2025-01-17
+This release changes the pinned API version to `2025-01-27.acacia`.
+
 * [#1514](https://github.com/stripe/stripe-ruby/pull/1514) Update generated code for beta
 
 ## 13.4.0-beta.2 - 2025-01-09
@@ -1303,28 +653,15 @@ This release changes the pinned API version to `2025-05-28.preview`.
 
 ## 13.4.0-beta.1 - 2024-12-20
 * Support parameter and resource fields with typed RBIs
-    * [#1509](https://github.com/stripe/stripe-ruby/pull/1509) (beta) Publish RBIs with gem
-    * [#1505](https://github.com/stripe/stripe-ruby/pull/1505) Add method parameter type classes to all resources and services
+  * [#1509](https://github.com/stripe/stripe-ruby/pull/1509) (beta) Publish RBIs with gem
+  * [#1505](https://github.com/stripe/stripe-ruby/pull/1505) Add method parameter type classes to all resources and services
 
-    * Add method parameter classes for all resources and service methods.
-    * These changes are NOT breaking and are purely additive. The method parameter classes are not required, we still accept hashes as well as the new `RequestParams` classes. Any additional gated parameters are still available to pass via hash. Resource fields define publicly documented fields and other deserialized fields are still accessible.
-
-## 13.3.1 - 2025-01-13
-* [#1512](https://github.com/stripe/stripe-ruby/pull/1512) Import global configuration for options not available on StripeClient options
-  * Fixes bug where `StripeClient` was not falling back to global options for options that are not available to be set per-client
-* [#1516](https://github.com/stripe/stripe-ruby/pull/1516) ThinEvent reason and livemode
-  - Add `livemode` and optional `reason` fields to ThinEvent
-* [#1518](https://github.com/stripe/stripe-ruby/pull/1518) Pin ubuntu version in Test action
-* [#1508](https://github.com/stripe/stripe-ruby/pull/1508) Added pull request template
-
-## 13.3.0 - 2024-12-18
-* [#1500](https://github.com/stripe/stripe-ruby/pull/1500) This release changes the pinned API version to `2024-12-18.acacia`.
-
-* [#1507](https://github.com/stripe/stripe-ruby/pull/1507) Pass requestor to all deserialized objects including lists
-
-  * Fixes bug where `StripeObject` retrieved from lists could not be used to make requests, such as `refresh`
+  * Add method parameter classes for all resources and service methods.
+  * These changes are NOT breaking and are purely additive. The method parameter classes are not required, we still accept hashes as well as the new `RequestParams` classes. Any additional gated parameters are still available to pass via hash. Resource fields define publicly documented fields and other deserialized fields are still accessible.
 
 ## 13.3.0-beta.3 - 2024-12-12
+This release changes the pinned API version to `2024-12-18.acacia`.
+
 * [#1499](https://github.com/stripe/stripe-ruby/pull/1499) Update generated code for beta
   * Add support for `AllowRedisplay` on `Card` and `Source`
   * Add support for new values `am_tin`, `ao_tin`, `ba_tin`, `bb_tin`, `bs_tin`, `cd_nif`, `gn_nif`, `kh_tin`, `me_pib`, `mk_vat`, `mr_nif`, `np_pan`, `sn_ninea`, `sr_fin`, `tj_tin`, `ug_tin`, `zm_tin`, and `zw_tin` on enums `CheckoutSessionCollectedInformationTaxIdsType` and `OrderTaxDetailsTaxIdsType`
@@ -1333,18 +670,15 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `Account` on `TerminalReaderActionCollectPaymentMethod`, `TerminalReaderActionConfirmPaymentIntent`, `TerminalReaderActionProcessPaymentIntent`, and `TerminalReaderActionRefundPayment`
 
 ## 13.3.0-beta.2 - 2024-12-05
-* [#1492](https://github.com/stripe/stripe-ruby/pull/1492) Update generated code for beta
-
 * [#1490](https://github.com/stripe/stripe-ruby/pull/1490) Add explicit attributes for fields in resources, and rbis for resources
+* [#1492](https://github.com/stripe/stripe-ruby/pull/1492) Update generated code for beta
 
 ## 13.3.0-beta.1 - 2024-11-21
 * [#1489](https://github.com/stripe/stripe-ruby/pull/1489) Merging code from master to get the latest bug fixes.
 
-## 13.2.0 - 2024-11-20
-* [#1486](https://github.com/stripe/stripe-ruby/pull/1486) This release changes the pinned API version to `2024-11-20.acacia`.
-  * Add support for `respond` test helper method on resource `Issuing.Authorization`
-
 ## 13.2.0-beta.3 - 2024-11-14
+This release changes the pinned API version to `2024-11-20.acacia`.
+
 * [#1484](https://github.com/stripe/stripe-ruby/pull/1484) Update generated code for beta
 
 ## 13.2.0-beta.2 - 2024-11-07
@@ -1354,22 +688,10 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt`, `report_payment`, and `retrieve` methods on resource `PaymentRecord`
 
 ## 13.2.0-beta.1 - 2024-10-29
+This release changes the pinned API version to `2024-10-28.acacia`.
+
 * [#1477](https://github.com/stripe/stripe-ruby/pull/1477) Update generated code for beta
   * Add support for `trigger_action` method on resource `PaymentIntent`
-
-## 13.1.2 - 2024-11-15
-* [#1488](https://github.com/stripe/stripe-ruby/pull/1488) Fix incorrect key in param encoding
-
-## 13.1.1 - 2024-11-06
-* [#1483](https://github.com/stripe/stripe-ruby/pull/1483) Fix APIResource#retrieve not sending `stripe_version`
-
-## 13.1.0 - 2024-10-29
-* [#1472](https://github.com/stripe/stripe-ruby/pull/1472) This release changes the pinned API version to `2024-10-28.acacia`.
-  * Add support for `submit_card` test helper method on resource `Issuing.Card`
-  * Add support for new resource `V2.EventDestinations`
-  * Add support for `create`, `retrieve`, `update`, `list`, `delete`, `disable`, `enable` and `ping` methods on resource `V2.EventDestinations`
-* [#1476](https://github.com/stripe/stripe-ruby/pull/1476) Fix APIResource#retrieve bug not returning instance of custom resources
-  * Fix bug in APIResource#refresh and APIResource#retrieve where they returned an instance of `StripeObject` for custom resources. They should now return the instance of the custom resource.
 
 ## 13.1.0-beta.3 - 2024-10-18
 * [#1469](https://github.com/stripe/stripe-ruby/pull/1469) Update generated code for beta
@@ -1379,6 +701,8 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `submit_card` test helper method on resource `Issuing.Card`
 
 ## 13.1.0-beta.1 - 2024-10-03
+This release changes the pinned API version to `2024-09-30.acacia`.
+
 * [#1465](https://github.com/stripe/stripe-ruby/pull/1465) Updates to the `Preview` class
   * Remove `Stripe::Preview`. Use `StripeClient#raw_request` instead (see below).
   * Marked `Stripe.raw_request` and `Stripe.deserialize` as deprecated. Use `StripeClient#raw_request` and `StripeClient#deserialize` instead. In StripeClient, the params and opts parameters are passed as keyword arguments:
@@ -1393,85 +717,6 @@ This release changes the pinned API version to `2025-05-28.preview`.
     charge = client.deserialize(resp.data)
     ```
 
-## 13.0.2 - 2024-10-23
-* [#1473](https://github.com/stripe/stripe-ruby/pull/1473) Always return the result of APIResource#refresh in APIResource.retrieve
-
-  * Fix bug where we would not return the mutated `self` object when calling `APIResource.retrieve`
-
-## 13.0.1 - 2024-10-18
-* [#1471](https://github.com/stripe/stripe-ruby/pull/1471) update object tags for meter-related classes
-
-  - fixes a bug where the `object` property of the `MeterEvent`, `MeterEventAdjustment`, and `MeterEventSession` didn't match the server.
-* [#1470](https://github.com/stripe/stripe-ruby/pull/1470) Cleaned up examples and added documentation
-
-## 13.0.0 - 2024-10-01
-* [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia
-
-  This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
-
-  ### ⚠️ Breaking changes
-
-  Please refer to our [migration guide for v13](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v13) for more information about the backwards incompatible changes.
-
-  #### ❗ `StripeClient` and related changes
-  * Move `StripeClient` and requestor logic to `APIRequestor`.
-    * `StripeClient#request` is still available, but is deprecated and will be removed. We encourage `StripeClient#raw_request` as a replacement (see other breaking changes for more detail).
-  * Repurpose and introduce `StripeClient` as the the entry-point to the service-based pattern, a new interface for calling the Stripe API with many benefits over the existing resource-based paradigm. Services are available under the `v1` and `v2` accessors.
-      * No global config: you can simultaneously use multiple clients with different configuration options (such as API keys)
-      * No extra API calls. All API endpoints can be accessed with a single method call. You don't have to call `retrieve` before doing an `update`.
-      * No static methods. Much easier mocking.
-
-  #### Other breaking changes
-
-  * Adjust default values around retries for HTTP requests. You can use the old defaults by setting them explicitly. New values are:
-    - max retries: `0` -> `2`
-    - max retry delay (seconds) `2` -> `5`
-  * Remove `StripeClient#connection_manager`. This was a legacy method from years ago.
-  * Singleton `retrieve` method now requires `params` to be passed as the first argument. Existing calls to singleton `retrieve` method with only `opts` argument will have to be updated to account for the addition of `params` argument.
-      ```ruby
-      params = { expand: ["available"] }
-      opts = { stripe_account: "acct_123" }
-
-      # ❌ No longer works
-      Stripe::Balance.retrieve(opts)
-
-      # ✅ Correct way to call retrieve method
-      Stripe::Balance.retrieve(params, opts)
-      ```
-  * Moved the `Stripe.raw_request()` method that was recently added to `StripeClient`. This will use the configuration set on the StripeClient instead of the global configuration used before.
-  * Remove `APIResource.request`. Instead, use `StripeClient#raw_request` now.
-      ```ruby
-      # Instead of
-      Stripe::APIResource.request(:get, "/v1/endpoint", params, opts)
-
-      # do
-      client = Stripe::StripeClient.new(...)
-      resp = client.raw_request(:get, "/v1/endpoint", params: params, opts: opts)
-      ```
-  * Add an additional parameter to `APIResource.execute_resource_request`. However, we discourage use of this in favor of `StripeClient#raw_request`.
-      ```ruby
-      APIResource.execute_resource_request(method, url, params = {}, opts = {}, usage = [])
-      # is now, with base_address being one of [:api, :files, :connect, :meter_events]
-      APIResource.execute_resource_request(method, url, base_address = :api, params = {}, opts = {}, usage = [])
-      ```
-  * Change parameters to `APIRequestor.execute_request` (previously `StripeClient.execute_request`). It now returns all request options from our internal request framework as the second value in the returned tuple, instead of only the API key used:
-    ```ruby
-    # Before
-    obj, api_key = StripeClient.execute_request(method, path, api_base: nil,
-                                                api_key: nil, headers: {}, params: {}, usage: [])
-
-    # is now, with base_address being one of [:api, :files, :connect, :meter_events]
-
-    obj, opts = APIRequestor.execute_request(method, path, base_address,
-                                            params: {}, opts: {}, usage: [])
-    puts(opts) # will output {api_key: "sk_test_123", stripe_account: "acct_123"}
-    ```
-
-
-  ### Additions
-  * Add support for new Usage Billing APIs `Billing.MeterEvent`, `Billing.MeterEventAdjustments`, `Billing.MeterEventSession`, `Billing.MeterEventStream` and the new Events API `Core.Events` in the [v2 namespace ](https://docs.corp.stripe.com/api-v2-overview)
-  * Add method `parse_thin_event()` on the `StripeClient` class to parse [thin events](https://docs.corp.stripe.com/event-destinations#events-overview).
-
 ## 12.7.0-beta.2 - 2024-09-18
 * [#1449](https://github.com/stripe/stripe-ruby/pull/1449) Update generated code for beta
   * Remove support for resource `QuotePhase`
@@ -1483,22 +728,10 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `list` and `retrieve` methods on resource `DisputeSettlementDetail`
   * Remove support for `list` method on resource `QuotePhase`
 
-## 12.6.0 - 2024-09-12
-* [#1442](https://github.com/stripe/stripe-ruby/pull/1442) Update generated code
-  * Add support for new resource `InvoiceRenderingTemplate`
-  * Add support for `archive`, `list`, `retrieve`, and `unarchive` methods on resource `InvoiceRenderingTemplate`
-* [#1443](https://github.com/stripe/stripe-ruby/pull/1443) Removed v1/files override
-
 ## 12.6.0-beta.1 - 2024-09-05
 * [#1441](https://github.com/stripe/stripe-ruby/pull/1441) Update generated code for beta
   * Add support for new resources `Billing.MeterErrorReport` and `Terminal.ReaderCollectedData`
   * Add support for `retrieve` method on resource `ReaderCollectedData`
-
-## 12.5.0 - 2024-08-08
-* [#1440](https://github.com/stripe/stripe-ruby/pull/1440) Update generated code
-  * Add support for new resources `Billing.AlertTriggered` and `Billing.Alert`
-  * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
-  * Add support for `retrieve` method on resource `Tax.Calculation`
 
 ## 12.5.0-beta.2 - 2024-08-01
 * [#1439](https://github.com/stripe/stripe-ruby/pull/1439) Update generated code for beta
@@ -1509,2136 +742,348 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for new resources `Billing.AlertTriggered`, `Billing.Alert`, and `Tax.Association`
   * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
   * Add support for `find` method on resource `Association`
-* [#1434](https://github.com/stripe/stripe-ruby/pull/1434) Merge changes from stripe/stripe-ruby master
-
-## 12.4.0 - 2024-07-25
-* [#1437](https://github.com/stripe/stripe-ruby/pull/1437) Update generated code
-  * Add support for `update` method on resource `Checkout.Session`
-
-## 12.3.0 - 2024-07-18
-* [#1436](https://github.com/stripe/stripe-ruby/pull/1436) Fixed changelog for major release 12.0.0
-* [#1435](https://github.com/stripe/stripe-ruby/pull/1435) Add deprecation warning for `APIResource.request`
-
-## 12.2.0 - 2024-07-12
-* [#1430](https://github.com/stripe/stripe-ruby/pull/1430) Update generated code
-
-* [#1433](https://github.com/stripe/stripe-ruby/pull/1433) Add usage to raw_request call
-* [#1431](https://github.com/stripe/stripe-ruby/pull/1431) Add `raw_request`
-
-  - Adds the ability to make raw requests to the Stripe API, by providing an HTTP method and url. This is an alternative to using `Stripe::APIResource.request(...)` to make custom requests, which is discouraged and will be broken in a future major version.
 
 ## 12.2.0-beta.1 - 2024-07-05
+This release changes the pinned API version to `2024-06-20`.
+
+* [#1409](https://github.com/stripe/stripe-ruby/pull/1409) Update generated code for beta
 * [#1428](https://github.com/stripe/stripe-ruby/pull/1428) Update generated code for beta
   * Add support for new resource `FinancialConnections.Institution`
   * Add support for `list` and `retrieve` methods on resource `Institution`
-* [#1409](https://github.com/stripe/stripe-ruby/pull/1409) Update generated code for beta
-
-## 12.1.0 - 2024-07-05
-* [#1425](https://github.com/stripe/stripe-ruby/pull/1425) Update generated code
-  * Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
-* [#1420](https://github.com/stripe/stripe-ruby/pull/1420) Update static methods for delete/list on BankAccount/Card to throw NotImplementedError
-  * The below methods have been throwing `InvalidRequestError` because the urls used to make the requests have been buggy. Updating them to throw `NotImplementedError` instead just like their counterparts for update & retrieve because they cannot be implemented without the parent id.
-
-  Methods affected | Use these instead in the context of payment method | Use these in the context of external accounts
-  ------ | ------ | ----
-  Stripe:: BankAccount.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
-  Stripe:: BankAccount.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
-  Stripe:: Card.delete | Stripe::Customer.delete_source | Stripe::Account.delete_external_account
-  Stripe:: Card.list | Stripe::Customer.list_sources | Stripe::Customer.list_external_accounts
-* [#1427](https://github.com/stripe/stripe-ruby/pull/1427) Regenerate rbis
-* [#1426](https://github.com/stripe/stripe-ruby/pull/1426) Remove coveralls and re-added JRuby
-
-## 12.0.0 - 2024-06-24
-* [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
-* [#1419](https://github.com/stripe/stripe-ruby/pull/1419)
-
-  This release changes the pinned API version to 2024-06-20. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
-
-  ### Additions
-
-  * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`
-
-## 11.7.0 - 2024-06-13
-* [#1415](https://github.com/stripe/stripe-ruby/pull/1415) Deprecate StripeClient#request
-  * Add deprecation warning for `StripeClient#request`. This helper method will be removed in a future major version. To access response objects, use the `last_response` property on the returned resource instead. Refer to [Accessing a response object](https://github.com/stripe/stripe-ruby?tab=readme-ov-file#accessing-a-response-object) in the README for usage details.
 
 ## 11.7.0-beta.1 - 2024-05-30
 * [#1400](https://github.com/stripe/stripe-ruby/pull/1400) Update generated code for beta
   * Keeping up with the changes from version 11.6.0
 
-## 11.6.0 - 2024-05-30
-* [#1404](https://github.com/stripe/stripe-ruby/pull/1404) Add method to list invoice line items
-  * Add methods `list_lines()` on the class `Invoice` to list the invoice line items
-
-## 11.5.0 - 2024-05-23
-* This release has no changes.
-
 ## 11.5.0-beta.1 - 2024-05-09
 * [#1395](https://github.com/stripe/stripe-ruby/pull/1395) Update generated code for beta
   * No new beta features. Merging changes from the main branch.
 
-## 11.4.0 - 2024-05-09
-* [#1397](https://github.com/stripe/stripe-ruby/pull/1397) Update generated code
-  * Add support for `update` test helper method on resources `Treasury.OutboundPayment` and `Treasury.OutboundTransfer`
-* [#1399](https://github.com/stripe/stripe-ruby/pull/1399) Pass params to transfer reversal
-  * Allow `Stripe::Transfer.retrieve_reversal()` to accept a params hash as the third argument, followed by opts. No changes to existing calls are necessary, but in a future major version this method will be updated to only accept params as the first argument. Fixes [#1393](https://github.com/stripe/stripe-ruby/issues/1393)
-* [#1389](https://github.com/stripe/stripe-ruby/pull/1389) Removed jaro_winkler as a dependency
-* [#1396](https://github.com/stripe/stripe-ruby/pull/1396) Start tracking `StripeClient#request` usage
-
 ## 11.4.0-beta.1 - 2024-05-02
 * [#1386](https://github.com/stripe/stripe-ruby/pull/1386) Update generated code for beta
-
-## 11.3.0 - 2024-05-02
-* [#1387](https://github.com/stripe/stripe-ruby/pull/1387) Update generated code
-
-* [#1392](https://github.com/stripe/stripe-ruby/pull/1392) Deprecate Ruby methods based on OpenAPI spec
-  - Mark as deprecated the `approve` and `decline` methods in `lib/stripe/resources/issuing/authorization.rb`. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-* [#1391](https://github.com/stripe/stripe-ruby/pull/1391) Add Ruby 3.3 to CI test matrix
 
 ## 11.3.0-beta.1 - 2024-04-18
 * [#1383](https://github.com/stripe/stripe-ruby/pull/1383) Update generated code for beta
 
-## 11.2.0 - 2024-04-18
-* [#1385](https://github.com/stripe/stripe-ruby/pull/1385) Update generated code
-  * Add support for `create_preview` method on resource `Invoice`
-
-## 11.1.0 - 2024-04-16
-* [#1379](https://github.com/stripe/stripe-ruby/pull/1379) Update generated code
-  * Add support for new resource `Entitlements.ActiveEntitlementSummary`
-
 ## 11.1.0-beta.1 - 2024-04-11
+This release changes the pinned API version to `2024-04-10`.
+
 * [#1376](https://github.com/stripe/stripe-ruby/pull/1376) Update generated code for beta
   * Add support for `retrieve` method on resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
 
-## 11.0.0 - 2024-04-10
-* [#1374](https://github.com/stripe/stripe-ruby/pull/1374)
-
-  * This release changes the pinned API version to `2024-04-10`. Please read the [API Changelog](https://docs.stripe.com/changelog/2024-04-10) and carefully review the API changes before upgrading.
-
-  ### ⚠️ Breaking changes
-
-  * When no `x-stripe-should-retry` header is set in the response, the library now retries all requests with `status >= 500`, not just non-POST methods.
-
-## 10.15.0 - 2024-04-09
-
-- [#1377](https://github.com/stripe/stripe-ruby/pull/1377) Add last_response to StripeObject
-  - Users can now retrieve raw response from the returned resource, using the `last_response` property. See [README](https://github.com/stripe/stripe-ruby/blob/master/README.md) for an example.
-- [#1372](https://github.com/stripe/stripe-ruby/pull/1372) Update generated code
-  - Add support for new resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
-  - Add support for `list` and `retrieve` methods on resource `ActiveEntitlement`
-  - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Feature`
-- [#1366](https://github.com/stripe/stripe-ruby/pull/1366) Move executables to `exe` folder
-
 ## 10.15.0-beta.1 - 2024-04-04
-
-- [#1373](https://github.com/stripe/stripe-ruby/pull/1373) Update generated code for beta
+* [#1370](https://github.com/stripe/stripe-ruby/pull/1370) Update generated code for beta
+* [#1373](https://github.com/stripe/stripe-ruby/pull/1373) Update generated code for beta
   - Add support for `update` method on resource `Entitlements.Feature`
-- [#1370](https://github.com/stripe/stripe-ruby/pull/1370) Update generated code for beta
-
-## 10.14.0 - 2024-03-28
-
-- [#1369](https://github.com/stripe/stripe-ruby/pull/1369) Update generated code
-  - Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
-  - Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
-  - Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
 
 ## 10.14.0-beta.1 - 2024-03-21
-
-- [#1363](https://github.com/stripe/stripe-ruby/pull/1363) Update generated code for beta
+* [#1363](https://github.com/stripe/stripe-ruby/pull/1363) Update generated code for beta
   - Add support for new resources `Entitlements.ActiveEntitlementSummary` and `Entitlements.ActiveEntitlement`
   - Add support for `list` method on resource `ActiveEntitlement`
 
-## 10.13.0 - 2024-03-21
-
-- [#1367](https://github.com/stripe/stripe-ruby/pull/1367) Update generated code
-  - Add support for new resources `ConfirmationToken` and `Forwarding.Request`
-  - Add support for `retrieve` method on resource `ConfirmationToken`
-  - Add support for `create`, `list`, and `retrieve` methods on resource `Request`
-- [#1362](https://github.com/stripe/stripe-ruby/pull/1362) Exclude sorbet directory and tapioca script when packing gem
-
 ## 10.13.0-beta.1 - 2024-03-14
-
-- [#1360](https://github.com/stripe/stripe-ruby/pull/1360) Update generated code for beta
+* [#1360](https://github.com/stripe/stripe-ruby/pull/1360) Update generated code for beta
   - Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
   - Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
   - Add support for `create` method on resources `MeterEventAdjustment` and `MeterEvent`
   - Add support for `create` test helper method on resource `ConfirmationToken`
   - Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
 
-## 10.12.0 - 2024-03-14
-
-- [#1359](https://github.com/stripe/stripe-ruby/pull/1359) Update generated code
-  - Add support for new resources `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
-  - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PersonalizationDesign`
-  - Add support for `list` and `retrieve` methods on resource `PhysicalBundle`
-- [#1354](https://github.com/stripe/stripe-ruby/pull/1354) Refactor after SDK based generation pattern
-- [#1347](https://github.com/stripe/stripe-ruby/pull/1347) Reorder methods with lexographical sort
-- [#1355](https://github.com/stripe/stripe-ruby/pull/1355) Disable Metrics/ClassLength
-- [#1351](https://github.com/stripe/stripe-ruby/pull/1351) Update CHANGELOG.md
-
 ## 10.12.0-beta.1 - 2024-02-29
-
-- [#1352](https://github.com/stripe/stripe-ruby/pull/1352) Update generated code for beta
+* [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version
+* [#1352](https://github.com/stripe/stripe-ruby/pull/1352) Update generated code for beta
   Release specs are identical.
-- [#1350](https://github.com/stripe/stripe-ruby/pull/1350) Update generated code for beta
-
-- [#1341](https://github.com/stripe/stripe-ruby/pull/1341) Update generated code for beta
+* [#1350](https://github.com/stripe/stripe-ruby/pull/1350) Update generated code for beta
+* [#1341](https://github.com/stripe/stripe-ruby/pull/1341) Update generated code for beta
   - Remove support for resource `Entitlements.Event`
-- [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version
-
-## 10.11.0 - 2024-02-29
-
-- [#1348](https://github.com/stripe/stripe-ruby/pull/1348) Use sorbet gem instead of sorbet-static
-- [#1342](https://github.com/stripe/stripe-ruby/pull/1342) Update generated code
-  - Add `list_refunds` and `retrieve_refund` methods on resource `Charge`.
-- [#1345](https://github.com/stripe/stripe-ruby/pull/1345) Update README to use add_beta_version
 
 ## 10.11.0-beta.1 - 2024-02-22
-
-- [#1335](https://github.com/stripe/stripe-ruby/pull/1335) Update generated code for beta
-
-## 10.10.0 - 2024-02-22
-
-- [#1336](https://github.com/stripe/stripe-ruby/pull/1336) Update generated code
-  - Add `InvoiceLineItem.update` method.
-- [#1334](https://github.com/stripe/stripe-ruby/pull/1334) Add TaxIds API
-  - Add support for `all`, `create`, and `retrieve` methods on resource `TaxId`
-  - The `delete` method now sends a DELETE request to `/v1/tax_ids/{id}` instead of `/v1/customers/{customer}/tax_ids/{id}`. The endpoints are functionally the same when operating on a Customer Tax ID.
-  - The `resource_url` method on `TaxId` now returns the top-level `/v1/tax_ids/{id}` path instead of the `/v1/customers/{customer}/tax_ids/{id}` path.
+* [#1335](https://github.com/stripe/stripe-ruby/pull/1335) Update generated code for beta
 
 ## 10.10.0-beta.1 - 2024-02-16
-
-- [#1332](https://github.com/stripe/stripe-ruby/pull/1332) Update generated code for beta
+* [#1328](https://github.com/stripe/stripe-ruby/pull/1328) Update generated code for beta
+* [#1332](https://github.com/stripe/stripe-ruby/pull/1332) Update generated code for beta
   - Add support for `decrement_authorization` method on resource `PaymentIntent`
-- [#1328](https://github.com/stripe/stripe-ruby/pull/1328) Update generated code for beta
-
-## 10.9.0 - 2024-02-15
-
-- [#1329](https://github.com/stripe/stripe-ruby/pull/1329) Update generated code
-  - Fixed bug where `TaxId` resource `delete` method sent request to wrong URL (https://github.com/stripe/stripe-ruby/issues/1333)
-- [#1324](https://github.com/stripe/stripe-ruby/pull/1324) Start running Sorbet in CI
-- [#1327](https://github.com/stripe/stripe-ruby/pull/1327) Add methods for dynamically referenced constants
 
 ## 10.9.0-beta.1 - 2024-02-08
-
-- [#1321](https://github.com/stripe/stripe-ruby/pull/1321) Update generated code for beta
+* [#1321](https://github.com/stripe/stripe-ruby/pull/1321) Update generated code for beta
   - Release specs are identical.
 
-## 10.8.0 - 2024-02-08
-
-- [#1322](https://github.com/stripe/stripe-ruby/pull/1322) Update generated code
-- [#1323](https://github.com/stripe/stripe-ruby/pull/1323) Extract other CRUDL api operations from mixins
-  - Extract more CRUDL operations, namely `create`, `delete`, `update`, and `list` into the resources. These methods will no longer rely on the APIOperation mixins.
-- [#1314](https://github.com/stripe/stripe-ruby/pull/1314) Update mocha gem to 1.16
-
 ## 10.8.0-beta.1 - 2024-02-01
-
-- [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
+* [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
   - Add support for new resources `Entitlements.Event` and `Entitlements.Feature`
   - Add support for `create` method on resource `Event`
   - Add support for `create` and `list` methods on resource `Feature`
 
-## 10.7.1 - 2024-02-05
-
-- [#1320](https://github.com/stripe/stripe-ruby/pull/1320) Remove spurious \_search deprecation messages (https://github.com/stripe/stripe-ruby/issues/1319)
-
-## 10.7.0 - 2024-02-01
-
-- [#1317](https://github.com/stripe/stripe-ruby/pull/1317) Remove list method in child resources
-  - Removes list method mixin from child resources, as these methods always return `InvalidRequestError` and never succeed
-- [#1311](https://github.com/stripe/stripe-ruby/pull/1311) Use the deprecation gem in search and clean up usage of the gem
-
 ## 10.7.0-beta.3 - 2024-01-25
-
-- [#1313](https://github.com/stripe/stripe-ruby/pull/1313) Update generated code for beta
+* [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
+* [#1313](https://github.com/stripe/stripe-ruby/pull/1313) Update generated code for beta
   - Add support for `create_preview` method on resource `Invoice`
-- [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
 
 ## 10.7.0-beta.2 - 2024-01-19
-
-- [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
+* [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
 
 ## 10.7.0-beta.1 - 2024-01-12
-
-- [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta
-- [#1305](https://github.com/stripe/stripe-ruby/pull/1305) Update generated code for beta
-
-## 10.6.0 - 2024-01-12
-
-- [#1310](https://github.com/stripe/stripe-ruby/pull/1310) Update generated code
-  - Add support for new resource `CustomerSession`
-  - Add support for `create` method on resource `CustomerSession`
+* [#1305](https://github.com/stripe/stripe-ruby/pull/1305) Update generated code for beta
+* [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta
 
 ## 10.6.0-beta.1 - 2024-01-04
-
-- [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
+* [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
   - Updated stable APIs to the latest version
 
-## 10.5.0 - 2024-01-04
-
-- [#1306](https://github.com/stripe/stripe-ruby/pull/1306) Update generated code
-  - Add support for `retrieve` method on resource `Tax.Registration`
-
 ## 10.5.0-beta.1 - 2023-12-22
-
-- [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
-
-## 10.4.0 - 2023-12-22
-
-- [#1303](https://github.com/stripe/stripe-ruby/pull/1303) Update generated code
-  - Add support for new resource `FinancialConnections.Transaction`
-  - Add support for `list` and `retrieve` methods on resource `Transaction`
-  - Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
-- [#1304](https://github.com/stripe/stripe-ruby/pull/1304) Add support for updatable singleton resources
+* [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
 
 ## 10.4.0-beta.1 - 2023-12-14
-
 Updated stable APIs to the latest version
 
-## 10.3.0 - 2023-12-14
-
-- [#1294](https://github.com/stripe/stripe-ruby/pull/1294) Support sending parameters inside singleton retrieve
-
 ## 10.3.0-beta.1 - 2023-11-30
-
-- [#1298](https://github.com/stripe/stripe-ruby/pull/1298) Update generated code for beta
-- [#1296](https://github.com/stripe/stripe-ruby/pull/1296) Merge master into beta
-
-## 10.2.0 - 2023-11-30
-
-- [#1292](https://github.com/stripe/stripe-ruby/pull/1292) Update generated code
-  - Add support for new resources `Climate.Order`, `Climate.Product`, and `Climate.Supplier`
-  - Add support for `cancel`, `create`, `list`, `retrieve`, and `update` methods on resource `Order`
-  - Add support for `list` and `retrieve` methods on resources `Product` and `Supplier`
-- [#1295](https://github.com/stripe/stripe-ruby/pull/1295) Upgrade rubocop
-- [#1291](https://github.com/stripe/stripe-ruby/pull/1291) Update generated code
-
-- [#1290](https://github.com/stripe/stripe-ruby/pull/1290) Update generated code
-
-- [#1288](https://github.com/stripe/stripe-ruby/pull/1288) Update generated code
+* [#1298](https://github.com/stripe/stripe-ruby/pull/1298) Update generated code for beta
 
 ## 10.2.0-beta.1 - 2023-11-02
-
-- [#1287](https://github.com/stripe/stripe-ruby/pull/1287) Update generated code for beta
+* [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
+* [#1287](https://github.com/stripe/stripe-ruby/pull/1287) Update generated code for beta
   - Add support for `attach_payment_intent` method on resource `Invoice`
-- [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
-
-## 10.1.0 - 2023-11-02
-
-- [#1286](https://github.com/stripe/stripe-ruby/pull/1286) Update generated code
-  - Add support for new resource `Tax.Registration`
-  - Add support for `create`, `list`, and `update` methods on resource `Registration`
 
 ## 10.1.0-beta.2 - 2023-10-26
-
-- [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
+* [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
   - Add support for new resource `Margin`
   - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Margin`
 
 ## 10.1.0-beta.1 - 2023-10-17
+This release changes the pinned API version to `2023-10-16`.
 
-- [#1284](https://github.com/stripe/stripe-ruby/pull/1284) Update generated code for beta
+* [#1282](https://github.com/stripe/stripe-ruby/pull/1282) Update generated code for beta
+* [#1284](https://github.com/stripe/stripe-ruby/pull/1284) Update generated code for beta
   - Update pinned API version to `2023-10-16`
-- [#1282](https://github.com/stripe/stripe-ruby/pull/1282) Update generated code for beta
-
-## 10.0.0 - 2023-10-16
-* This release changes the pinned API version to `2023-10-16`. Please read the [API Changelog](https://docs.stripe.com/changelog/2023-10-16) and carefully review the API changes before upgrading `stripe-ruby`.
-* [#1283](https://github.com/stripe/stripe-ruby/pull/1283) Update generated code
-  - Updated pinned API version
-- [#1281](https://github.com/stripe/stripe-ruby/pull/1281) Update generated code
-  - Documentation only changes
 
 ## 9.5.0-beta.2 - 2023-10-12
-
-- [#1280](https://github.com/stripe/stripe-ruby/pull/1280) Update generated code for beta
+* [#1280](https://github.com/stripe/stripe-ruby/pull/1280) Update generated code for beta
   - Add support for new resources `AccountNotice` and `Issuing.CreditUnderwritingRecord`
   - Add support for `list`, `retrieve`, and `update` methods on resource `AccountNotice`
   - Add support for `correct`, `create_from_application`, `create_from_proactive_review`, `list`, `report_decision`, and `retrieve` methods on resource `CreditUnderwritingRecord`
 
 ## 9.5.0-beta.1 - 2023-10-05
-
-- [#1278](https://github.com/stripe/stripe-ruby/pull/1278) Update generated code for beta
+* [#1278](https://github.com/stripe/stripe-ruby/pull/1278) Update generated code for beta
   - Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
   - Remove support for `draft_quote` and `mark_stale_quote` methods on resource `Quote`
   - Rename `preview_invoice_lines` to `list_preview_invoice_lines` on resource `Quote`
 
-## 9.4.0 - 2023-10-05
-
-- [#1277](https://github.com/stripe/stripe-ruby/pull/1277) Update generated code
-  - Add support for new resources `Issuing.Token`
-  - Add support for `list`, `retrieve`, and `update` methods on resource `Token`
-
 ## 9.4.0-beta.3 - 2023-09-28
-
-- [#1276](https://github.com/stripe/stripe-ruby/pull/1276) Update generated code for beta
+* [#1276](https://github.com/stripe/stripe-ruby/pull/1276) Update generated code for beta
   - Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 
 ## 9.4.0-beta.2 - 2023-09-21
-
-- [#1273](https://github.com/stripe/stripe-ruby/pull/1273) Update generated code for beta
+* [#1273](https://github.com/stripe/stripe-ruby/pull/1273) Update generated code for beta
 
 ## 9.4.0-beta.1 - 2023-09-14
-
-- Updated stable APIs to the latest version
-
-## 9.3.0 - 2023-09-14
-
-- [#1272](https://github.com/stripe/stripe-ruby/pull/1272) Update generated code
-  - Add support for new resource `PaymentMethodConfiguration`
-  - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
-- [#1271](https://github.com/stripe/stripe-ruby/pull/1271) Update generated code
-  - Add support for `capture`, `create`, `expire`, `increment`, and `reverse` test helper methods on resource `Issuing.Authorization`
-  - Add support for `create_force_capture`, `create_unlinked_refund`, and `refund` test helper methods on resource `Issuing.Transaction`
+* Updated stable APIs to the latest version
 
 ## 9.3.0-beta.1 - 2023-09-07
-
-- [#1269](https://github.com/stripe/stripe-ruby/pull/1269) Update generated code for beta
-  - Release specs are identical.
-- [#1268](https://github.com/stripe/stripe-ruby/pull/1268) Update generated code for beta
-  - Remove support for `submit_card` test helper method on resource `Issuing.Card`
-- [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
-  - Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
-- [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
-  - Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
-- [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
-
-- [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
-
-- [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
+* [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
+* [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   - Add support for `submit_card` test helper method on resource `Issuing.Card`
-- [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
-
-## 9.2.0 - 2023-09-07
-
-- [#1267](https://github.com/stripe/stripe-ruby/pull/1267) Update generated code
-  - Add support for new resource `PaymentMethodDomain`
-  - Add support for `create`, `list`, `retrieve`, `update`, and `validate` methods on resource `PaymentMethodDomain`
+* [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
+* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
+* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
+  - Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
+* [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
+  - Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
+* [#1269](https://github.com/stripe/stripe-ruby/pull/1269) Update generated code for beta
+  - Release specs are identical.
+* [#1268](https://github.com/stripe/stripe-ruby/pull/1268) Update generated code for beta
+  - Remove support for `submit_card` test helper method on resource `Issuing.Card`
 
 ## 9.2.0-beta.1 - 2023-08-31
-
-- [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
+* [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
   - Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
 
-## 9.1.0 - 2023-08-31
-
-- [#1266](https://github.com/stripe/stripe-ruby/pull/1266) Update generated code
-  - Add support for new resource `AccountSession`
-  - Add support for `create` method on resource `AccountSession`
-- [#1262](https://github.com/stripe/stripe-ruby/pull/1262) Explicitly format timestamp in SignatureVerificationError message
-
-## 9.0.0 - 2023-08-16
-
-**⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
-
-- [#1253](https://github.com/stripe/stripe-ruby/pull/1253) [#1260](https://github.com/stripe/stripe-ruby/pull/1260) Pin latest API version as the default
-
-  In this release, Stripe API Version `2023-08-16` (the latest at time of release) will be sent by default on all requests. This is a significant change with wide ramifications. The API version affects the properties you see on responses, the parameters you are allowed to send on requests, and so on. The previous default was to use your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version).
-
-  To successfully upgrade to stripe-ruby v9, you must either
-
-  1. **(Recommended) Upgrade your integration to be compatible with API Version `2023-08-16`.**
-
-     Please read the API Changelog carefully for each API Version from `2023-08-16` back to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). Determine if you are using any of the APIs that have changed in a breaking way, and adjust your integration accordingly. Carefully test your changes with Stripe [Test Mode](https://stripe.com/docs/keys#test-live-modes) before deploying them to production.
-
-     You can read the [v9 migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v9) for more detailed instructions.
-
-  2. **(Alternative option) Specify a version other than `2023-08-16` when initializing `stripe-ruby`.**
-
-     If you were previously initializing stripe-ruby without an explicit API Version, you can postpone modifying your integration by specifying a version equal to your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version). For example:
-
-     ```diff
-       require 'stripe'
-       Stripe.api_key = "sk_test_..."
-     + Stripe.api_version = '2020-08-27'
-     ```
-
-     If you were already initializing stripe-ruby with an explicit API Version, upgrading to v9 will not affect your integration.
-
-     Read the [v9 migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v9) for more details.
-
-  Going forward, each major release of this library will be _pinned_ by default to the latest Stripe API Version at the time of release.
-
-  That is, instead of upgrading stripe-ruby and separately upgrading your Stripe API Version through the Stripe Dashboard. whenever you upgrade major versions of stripe-ruby, you should also upgrade your integration to be compatible with the latest Stripe API version.
-
 ## 9.0.0-beta.1 - 2023-08-24
+This release changes the pinned API version to `2023-08-16`.
 
-- [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
+* [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
+* [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
   - Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
-- [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
 
 ## 8.8.0-beta.1 - 2023-08-10
-
-- [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
+* [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
   - Updated stable APIs to the latest version
 
-## 8.7.0 - 2023-08-10
-
-- [#1256](https://github.com/stripe/stripe-ruby/pull/1256) Update generated code
-  Add resources `Tax::CalculationLineItem`, `Tax::TransactionLineItem`, and `Treasury::FinancialAccountFeatures`. These resources have no methods on them, but do represent the return type of methods elsewhere.
-
 ## 8.7.0-beta.3 - 2023-08-03
-
-- [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
+* [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
+* [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   - Add support for `submit_card` test helper method on resource `Issuing.Card`
-- [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
 
 ## 8.7.0-beta.2 - 2023-07-28
-
-- [#1251](https://github.com/stripe/stripe-ruby/pull/1251) Update generated code for beta
+* [#1246](https://github.com/stripe/stripe-ruby/pull/1246) Update generated code for beta
+* [#1249](https://github.com/stripe/stripe-ruby/pull/1249) Update generated code for beta
+* [#1251](https://github.com/stripe/stripe-ruby/pull/1251) Update generated code for beta
   - Add support for new resource `Tax.Form`
   - Add support for `list`, `pdf`, and `retrieve` methods on resource `Form`
-- [#1249](https://github.com/stripe/stripe-ruby/pull/1249) Update generated code for beta
-- [#1246](https://github.com/stripe/stripe-ruby/pull/1246) Update generated code for beta
 
 ## 8.7.0-beta.1 - 2023-07-13
-
-- [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
+* [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
+* [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
   Release specs are identical.
-- [#1243](https://github.com/stripe/stripe-ruby/pull/1243) Update generated code for beta
+* [#1243](https://github.com/stripe/stripe-ruby/pull/1243) Update generated code for beta
   - Add support for new resource `PaymentMethodConfiguration`
   - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
-- [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
-
-## 8.6.0 - 2023-07-13
-
-- [#1244](https://github.com/stripe/stripe-ruby/pull/1244) Update generated code
-  - Add support for new resource `Tax.Settings`
-  - Add support for `retrieve` and `update` methods on resource `Settings`
-- [#1241](https://github.com/stripe/stripe-ruby/pull/1241) Update generated code
-
-- [#1209](https://github.com/stripe/stripe-ruby/pull/1209) Update shoulda-context version
-- [#1235](https://github.com/stripe/stripe-ruby/pull/1235) Allow "error" string as log level
-- [#1238](https://github.com/stripe/stripe-ruby/pull/1238) Update log level error message to include `error`
-- [#1231](https://github.com/stripe/stripe-ruby/pull/1231) fix: variable typo in README for instrumentation
-- [#1234](https://github.com/stripe/stripe-ruby/pull/1234) Update generated code
-
-- [#1230](https://github.com/stripe/stripe-ruby/pull/1230) Update generated code
-  - Release specs are identical.
-- [#1226](https://github.com/stripe/stripe-ruby/pull/1226) Update generated code
-
-- [#1223](https://github.com/stripe/stripe-ruby/pull/1223) Update generated code
-
-- [#1225](https://github.com/stripe/stripe-ruby/pull/1225) Downgrade jaro_winkler
-- [#1219](https://github.com/stripe/stripe-ruby/pull/1219) Update generated code
-
-  Documentation updates.
-
-- [#1215](https://github.com/stripe/stripe-ruby/pull/1215) Update generated code
-
-- [#1208](https://github.com/stripe/stripe-ruby/pull/1208) Update generated code
-
-- [#1204](https://github.com/stripe/stripe-ruby/pull/1204) Update generated code
 
 ## 8.6.0-beta.6 - 2023-06-22
-
-- [#1237](https://github.com/stripe/stripe-ruby/pull/1237) Update generated code for beta
+* [#1229](https://github.com/stripe/stripe-ruby/pull/1229) Update generated code for beta
+* [#1233](https://github.com/stripe/stripe-ruby/pull/1233) Update generated code for beta
+* [#1237](https://github.com/stripe/stripe-ruby/pull/1237) Update generated code for beta
   - Add support for new resource `CustomerSession`
   - Add support for `create` method on resource `CustomerSession`
-- [#1233](https://github.com/stripe/stripe-ruby/pull/1233) Update generated code for beta
-- [#1229](https://github.com/stripe/stripe-ruby/pull/1229) Update generated code for beta
 
 ## 8.6.0-beta.5 - 2023-06-01
-
-- [#1227](https://github.com/stripe/stripe-ruby/pull/1227) Update generated code for beta
-- [#1228](https://github.com/stripe/stripe-ruby/pull/1228) Document raw_request
-- [#1222](https://github.com/stripe/stripe-ruby/pull/1222) Update generated code for beta
-- [#1224](https://github.com/stripe/stripe-ruby/pull/1224) Handle developer message in preview error responses
+* [#1224](https://github.com/stripe/stripe-ruby/pull/1224) Handle developer message in preview error responses
+* [#1228](https://github.com/stripe/stripe-ruby/pull/1228) Document raw_request
+* [#1222](https://github.com/stripe/stripe-ruby/pull/1222) Update generated code for beta
+* [#1227](https://github.com/stripe/stripe-ruby/pull/1227) Update generated code for beta
 
 ## 8.6.0-beta.4 - 2023-05-19
-
-- [#1220](https://github.com/stripe/stripe-ruby/pull/1220) Update generated code for beta
+* [#1217](https://github.com/stripe/stripe-ruby/pull/1217) Add raw_request
+* [#1214](https://github.com/stripe/stripe-ruby/pull/1214) Update generated code for beta
+* [#1216](https://github.com/stripe/stripe-ruby/pull/1216) Update generated code for beta
+* [#1220](https://github.com/stripe/stripe-ruby/pull/1220) Update generated code for beta
   - Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
-- [#1217](https://github.com/stripe/stripe-ruby/pull/1217) Add raw_request
-- [#1216](https://github.com/stripe/stripe-ruby/pull/1216) Update generated code for beta
-- [#1214](https://github.com/stripe/stripe-ruby/pull/1214) Update generated code for beta
 
 ## 8.6.0-beta.3 - 2023-04-17
-
-- [#1211](https://github.com/stripe/stripe-ruby/pull/1211) Update generated code for beta
-- [#1210](https://github.com/stripe/stripe-ruby/pull/1210), [#1212](https://github.com/stripe/stripe-ruby/pull/1212), [#1213](https://github.com/stripe/stripe-ruby/pull/1213) Add support for request signing
+* [#1210](https://github.com/stripe/stripe-ruby/pull/1210) , [#1212](https://github.com/stripe/stripe-ruby/pull/1212), [#1213](https://github.com/stripe/stripe-ruby/pull/1213) Add support for request signing
+* [#1211](https://github.com/stripe/stripe-ruby/pull/1211) Update generated code for beta
 
 ## 8.6.0-beta.2 - 2023-04-13
-
-- [#1206](https://github.com/stripe/stripe-ruby/pull/1206) Update generated code for beta
+* [#1205](https://github.com/stripe/stripe-ruby/pull/1205) Update generated code for beta
+* [#1206](https://github.com/stripe/stripe-ruby/pull/1206) Update generated code for beta
   - Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
-- [#1205](https://github.com/stripe/stripe-ruby/pull/1205) Update generated code for beta
 
 ## 8.6.0-beta.1 - 2023-03-30
-
-- [#1202](https://github.com/stripe/stripe-ruby/pull/1202) Update generated code for beta
-
-## 8.5.0 - 2023-03-30
-
-- [#1203](https://github.com/stripe/stripe-ruby/pull/1203) Update generated code
-  - Remove support for `create` method on resource `Tax.Transaction`
-    - This is not a breaking change, as this method was deprecated before the Tax Transactions API was released in favor of the `create_from_calculation` method.
-- [#1201](https://github.com/stripe/stripe-ruby/pull/1201) Update save deprecation message
+* [#1202](https://github.com/stripe/stripe-ruby/pull/1202) Update generated code for beta
 
 ## 8.5.0-beta.1 - 2023-03-23
-
-- [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
+* [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
   - Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`
   - Add support for `collect_inputs` method on resource `Terminal.Reader`
 
-## 8.4.0 - 2023-03-23
-
-- [#1197](https://github.com/stripe/stripe-ruby/pull/1197) Update generated code (new)
-  - Add support for new resources `Tax.CalculationLineItem`, `Tax.Calculation`, `Tax.TransactionLineItem`, and `Tax.Transaction`
-  - Add support for `create` and `list_line_items` methods on resource `Calculation`
-  - Add support for `create_from_calculation`, `create_reversal`, `create`, `list_line_items`, and `retrieve` methods on resource `Transaction`
-- [#1152](https://github.com/stripe/stripe-ruby/pull/1152) Symbolize hash keys inside `convert_to_stripe_object_with_params`
-
 ## 8.4.0-beta.4 - 2023-03-16
-
-- [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)
-  - Add support for `create_from_calculation` method on resource `Tax.Transaction`
-- [#1188](https://github.com/stripe/stripe-ruby/pull/1188) Update generated code for beta (new)
+* [#1188](https://github.com/stripe/stripe-ruby/pull/1188) Update generated code for beta (new)
   - Remove support for resources `Capital.FinancingOffer` and `Capital.FinancingSummary`
   - Remove support for `list`, `mark_delivered`, and `retrieve` methods on resource `FinancingOffer`
   - Remove support for `retrieve` method on resource `FinancingSummary`
-- [#1187](https://github.com/stripe/stripe-ruby/pull/1187) Merge upstream master
+* [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)
+  - Add support for `create_from_calculation` method on resource `Tax.Transaction`
 
 ## 8.4.0-beta.3 - 2023-03-09
-
-- [#1184](https://github.com/stripe/stripe-ruby/pull/1184) API Updates for beta branch
+* [#1184](https://github.com/stripe/stripe-ruby/pull/1184) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Remove support for `list_transactions` method on resource `Tax.Transaction`
 
 ## 8.4.0-beta.2 - 2023-03-03
-
-- [#1183](https://github.com/stripe/stripe-ruby/pull/1183) API Updates for beta branch
+* [#1183](https://github.com/stripe/stripe-ruby/pull/1183) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resources `Issuing.CardBundle` and `Issuing.CardDesign`
   - Add support for `list` and `retrieve` methods on resource `CardBundle`
   - Add support for `list`, `retrieve`, and `update` methods on resource `CardDesign`
 
 ## 8.4.0-beta.1 - 2023-02-23
-
-- [#1182](https://github.com/stripe/stripe-ruby/pull/1182) API Updates for beta branch
+* [#1182](https://github.com/stripe/stripe-ruby/pull/1182) API Updates for beta branch
   - Updated stable APIs to the latest version
 
-## 8.3.0 - 2023-02-16
-
-- [#1175](https://github.com/stripe/stripe-ruby/pull/1175) API Updates
-  - Add support for `refund_payment` method on resource `Terminal.Reader`
-
 ## 8.3.0-beta.1 - 2023-02-02
-
-- [#1174](https://github.com/stripe/stripe-ruby/pull/1174) API Updates for beta branch
+* [#1174](https://github.com/stripe/stripe-ruby/pull/1174) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resource `FinancialConnections.Transaction`
   - Add support for `list` method on resource `Transaction`
 
-## 8.2.0 - 2023-02-02
-
-- [#1173](https://github.com/stripe/stripe-ruby/pull/1173) API Updates
-  - Add support for `resume` method on resource `Subscription`
-- [#1171](https://github.com/stripe/stripe-ruby/pull/1171) Remove unused `partial` param from `initialize_from`
-
 ## 8.2.0-beta.3 - 2023-01-26
-
-- [#1172](https://github.com/stripe/stripe-ruby/pull/1172) API Updates for beta branch
+* [#1172](https://github.com/stripe/stripe-ruby/pull/1172) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `list_transactions` method on resource `Tax.Transaction`
 
 ## 8.2.0-beta.2 - 2023-01-19
-
-- [#1170](https://github.com/stripe/stripe-ruby/pull/1170) API Updates for beta branch
+* [#1170](https://github.com/stripe/stripe-ruby/pull/1170) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `Tax.Settings` resource.
 
 ## 8.2.0-beta.1 - 2023-01-12
-
-- [#1167](https://github.com/stripe/stripe-ruby/pull/1167) API Updates for beta branch
+* [#1167](https://github.com/stripe/stripe-ruby/pull/1167) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Change `quote.draft_quote` implementation to from calling `POST /v1/quotes/{quote}/draft` to `POST /v1/quotes/{quote}/mark_draft`
   - Add support for `Tax::Register` resource
 
-## 8.1.0 - 2023-01-12
-
-- [#1162](https://github.com/stripe/stripe-ruby/pull/1162) Improve request events instrumentation
-
 ## 8.1.0-beta.4 - 2023-01-05
-
-- [#1164](https://github.com/stripe/stripe-ruby/pull/1164) API Updates for beta branch
+* [#1164](https://github.com/stripe/stripe-ruby/pull/1164) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `mark_stale_quote` method on resource `Quote`
 
 ## 8.1.0-beta.3 - 2022-12-22
-
-- [#1158](https://github.com/stripe/stripe-ruby/pull/1158) API Updates for beta branch
+* [#1158](https://github.com/stripe/stripe-ruby/pull/1158) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Move `TaxCalculation` and `TaxTransaction` to `Tax::Calculation` and `Tax::Transaction`.
 
 ## 8.1.0-beta.2 - 2022-12-15
-
-- [#1156](https://github.com/stripe/stripe-ruby/pull/1156) API Updates for beta branch
+* [#1156](https://github.com/stripe/stripe-ruby/pull/1156) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resources `TaxCalculation`, and `TaxTransaction`
   - Add support for `create` and `list_line_items` methods on resource `TaxCalculation`
   - Add support for `create_reversal`, `create`, and `retrieve` methods on resource `TaxTransaction`
-- [#1155](https://github.com/stripe/stripe-ruby/pull/1155) API Updates for beta branch
+* [#1155](https://github.com/stripe/stripe-ruby/pull/1155) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resource `QuoteLine`.
 
 ## 8.1.0-beta.1 - 2022-12-08
+This release changes the pinned API version to `2022-11-15`.
 
-- [#1153](https://github.com/stripe/stripe-ruby/pull/1153) API Updates for beta branch
+* [#1146](https://github.com/stripe/stripe-ruby/pull/1146) API Updates for beta branch
   - Updated stable APIs to the latest version
-- [#1146](https://github.com/stripe/stripe-ruby/pull/1146) API Updates for beta branch
+* [#1153](https://github.com/stripe/stripe-ruby/pull/1153) API Updates for beta branch
   - Updated stable APIs to the latest version
-
-## 8.0.0 - 2022-11-16
-
-- [#1144](https://github.com/stripe/stripe-ruby/pull/1144) Next major release changes
-
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-11-15.
-
-"⚠️" symbol highlights breaking changes.
 
 ## 7.2.0-beta.5 - 2022-11-02
-
-- [#1139](https://github.com/stripe/stripe-ruby/pull/1139) API Updates for beta branch
-  - Updated beta APIs to the latest stable version
-- [#1135](https://github.com/stripe/stripe-ruby/pull/1135) API Updates for beta branch
+* [#1135](https://github.com/stripe/stripe-ruby/pull/1135) API Updates for beta branch
   - Updated stable APIs to the latest version
+* [#1139](https://github.com/stripe/stripe-ruby/pull/1139) API Updates for beta branch
+  - Updated beta APIs to the latest stable version
 
 ## 7.2.0-beta.4 - 2022-10-07
-
-- [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+* [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
 
 ## 7.2.0-beta.3 - 2022-09-26
-
-- [#1129](https://github.com/stripe/stripe-ruby/pull/1129) API Updates for beta branch
+* [#1129](https://github.com/stripe/stripe-ruby/pull/1129) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add `FinancingOffer`, `FinancingSummary` and `FinancingTransaction` resources.
 
 ## 7.2.0-beta.2 - 2022-08-26
-
-- [#1127](https://github.com/stripe/stripe-ruby/pull/1127) API Updates for beta branch
+* [#1127](https://github.com/stripe/stripe-ruby/pull/1127) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for the beta [Gift Card API](https://stripe.com/docs/gift-cards).
 
 ## 7.2.0-beta.1 - 2022-08-23
-
-- [#1122](https://github.com/stripe/stripe-ruby/pull/1122) API Updates for beta branch
+* [#1122](https://github.com/stripe/stripe-ruby/pull/1122) API Updates for beta branch
   - Updated stable APIs to the latest version
   - `Stripe-Version` beta headers are not pinned by-default and need to be manually specified, please refer to [beta SDKs README section](https://github.com/stripe/stripe-ruby/blob/master/README.md#beta-sdks)
 
-## 7.1.0 - 2022-08-19
-
-- [#1116](https://github.com/stripe/stripe-ruby/pull/1116) API Updates
-  - Add support for new resource `CustomerCashBalanceTransaction`
-- [#1118](https://github.com/stripe/stripe-ruby/pull/1118) Update AllowedChars in rubocop config
-- [#1117](https://github.com/stripe/stripe-ruby/pull/1117) Refresh rubocop config.
-- [#1115](https://github.com/stripe/stripe-ruby/pull/1115) Add a support section to the readme
-
 ## 7.1.0-beta.2 - 2022-08-11
-
-- [#1113](https://github.com/stripe/stripe-ruby/pull/1113) API Updates for beta branch
+* [#1113](https://github.com/stripe/stripe-ruby/pull/1113) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add `refund_payment` method to Terminal resource
 
 ## 7.1.0-beta.1 - 2022-08-03
-
-- [#1107](https://github.com/stripe/stripe-ruby/pull/1107) API Updates for beta branch
+* [#1107](https://github.com/stripe/stripe-ruby/pull/1107) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Added the `Order` resource support
 
-## 7.0.0 - 2022-08-02
-
-Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v7. For changes to the Stripe products, read more at https://docs.stripe.com/changelog/2022-08-01.
-
-"⚠️" symbol highlights breaking changes.
-
-- [#1106](https://github.com/stripe/stripe-ruby/pull/1106) API Updates
-- [#1092](https://github.com/stripe/stripe-ruby/pull/1092) API Updates
-- [#1090](https://github.com/stripe/stripe-ruby/pull/1090) Use auto-generation for `Invoice` methods
-- [#1103](https://github.com/stripe/stripe-ruby/pull/1103) Next major release changes
-
 ## 6.6.0-beta.1 - 2022-07-22
-
-- [#1100](https://github.com/stripe/stripe-ruby/pull/1100) API Updates for beta branch
+* [#1075](https://github.com/stripe/stripe-ruby/pull/1075) Use the generated API version
+* [#1085](https://github.com/stripe/stripe-ruby/pull/1085) API Updates for beta branch
   - Updated stable APIs to the latest version
-  - Add `QuotePhase` resource
-- [#1097](https://github.com/stripe/stripe-ruby/pull/1097) API Updates for beta branch
-  - Updated stable APIs to the latest version
-  - Add `SubscriptionSchedule.amend` method.
-- [#1093](https://github.com/stripe/stripe-ruby/pull/1093) API Updates for beta branch
+* [#1093](https://github.com/stripe/stripe-ruby/pull/1093) API Updates for beta branch
   - Include `server_side_confirmation_beta=v1` beta
   - Add `secretKeyConfirmation` to `PaymentIntent`
-- [#1085](https://github.com/stripe/stripe-ruby/pull/1085) API Updates for beta branch
+* [#1097](https://github.com/stripe/stripe-ruby/pull/1097) API Updates for beta branch
   - Updated stable APIs to the latest version
-- [#1075](https://github.com/stripe/stripe-ruby/pull/1075) Use the generated API version
-
-## 6.5.0 - 2022-06-29
-
-- [#1084](https://github.com/stripe/stripe-ruby/pull/1084) API Updates
-  - Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`
-- [#1076](https://github.com/stripe/stripe-ruby/pull/1076) fix: Update logging to coerce ASCII-8BIT into UTF-8.
-
-## 6.4.0 - 2022-06-17
-
-- [#1073](https://github.com/stripe/stripe-ruby/pull/1073) API Updates
-  - Add support for `fund_cash_balance` test helper method on resource `Customer`
-- [#1074](https://github.com/stripe/stripe-ruby/pull/1074) Support updating pre-release versions
-- [#1072](https://github.com/stripe/stripe-ruby/pull/1072) Trigger workflows on beta branches
-- [#1071](https://github.com/stripe/stripe-ruby/pull/1071) Use request_stripe_object for all requests
-- [#1070](https://github.com/stripe/stripe-ruby/pull/1070) API Updates
-
-  Switch from using meta-programing to generating explicit methods for custom methods.
-
-- [#1069](https://github.com/stripe/stripe-ruby/pull/1069) chore: Stop special implementation of Account.persons method.
-
-## 6.3.0 - 2022-06-08
-
-- [#1063](https://github.com/stripe/stripe-ruby/pull/1063) fix: Update cash balance methods to no longer require nested ID.
-
-## 6.2.0 - 2022-05-23
-
-- [#1060](https://github.com/stripe/stripe-ruby/pull/1060) API Updates
-  - Add support for new resource `Apps.Secret`
-
-## 6.1.0 - 2022-05-19
-
-- [#1057](https://github.com/stripe/stripe-ruby/pull/1057) API Updates
-  - Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
-  - Add support for `retrieve_payment_method` method on resource `Customer`
-  - Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
-
-## 6.0.0 - 2022-05-09
-
-- [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
-  Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.
-
-  (⚠️ = breaking changes):
-
-  - ⚠️ Replace the legacy `Order` API with the new `Order` API.
-    - New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
-    - Removed methods: `pay` and `return_order`
-    - Removed resources: `OrderItem` and `OrderReturn`
-  - ⚠️ Rename `FinancialConnections::Account.refresh` to `FinancialConnections::Account.refresh_account
-
-## 5.55.0 - 2022-05-05
-
-- [#1055](https://github.com/stripe/stripe-ruby/pull/1055) API Updates
-  - Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
-
-## 5.54.0 - 2022-05-03
-
-- [#1053](https://github.com/stripe/stripe-ruby/pull/1053) API Updates
-  - Add support for new resource `CashBalance`
-
-## 5.53.0 - 2022-04-21
-
-- [#1050](https://github.com/stripe/stripe-ruby/pull/1050) API Updates
-  - Add support for `expire` test helper method on resource `Refund`
-
-## 5.52.0 - 2022-04-18
-
-- [#1046](https://github.com/stripe/stripe-ruby/pull/1046) [#1047](https://github.com/stripe/stripe-ruby/pull/1047) API Updates
-  - Add support for new resources `FundingInstructions` and `Terminal.Configuration`
-
-## 5.51.0 - 2022-04-15
-
-- [#1046](https://github.com/stripe/stripe-ruby/pull/1046) This release was incomplete and was yanked from RubyGems immediately after it was published.
-
-## 5.50.0 - 2022-04-13
-
-- [#1045](https://github.com/stripe/stripe-ruby/pull/1045) API Updates
-  - Add support for `increment_authorization` method on resource `PaymentIntent`
-
-## 5.49.0 - 2022-04-08
-
-- [#1043](https://github.com/stripe/stripe-ruby/pull/1043) API Updates
-  - Add support for `apply_customer_balance` method on resource `PaymentIntent`
-
-## 5.48.0 - 2022-03-30
-
-- [#1041](https://github.com/stripe/stripe-ruby/pull/1041) API Updates
-  - Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`
-
-## 5.47.0 - 2022-03-29
-
-- [#1040](https://github.com/stripe/stripe-ruby/pull/1040) API Updates
-
-  - Add support for Search API
-    - Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
-
-- [#1034](https://github.com/stripe/stripe-ruby/pull/1034) Add supporting classes for test helper generation
-
-## 5.46.0 - 2022-03-23
-
-- [#1039](https://github.com/stripe/stripe-ruby/pull/1039) API Updates
-  - Add support for `cancel` method on resource `Refund`
-- [#992](https://github.com/stripe/stripe-ruby/pull/992) Add support for Search API
-
-## 5.45.0 - 2022-03-01
-
-- [#1035](https://github.com/stripe/stripe-ruby/pull/1035) API Updates
-  - Add support for new resource `TestHelpers.TestClock`
-
-## 5.44.0 - 2022-02-16
-
-- [#1032](https://github.com/stripe/stripe-ruby/pull/1032) API Updates
-  - Add support for `verify_microdeposits` method on resources `PaymentIntent` and `SetupIntent`
-
-## 5.43.0 - 2022-01-20
-
-- [#1031](https://github.com/stripe/stripe-ruby/pull/1031) API Updates
-  - Add support for new resource `PaymentLink`
-
-## 5.42.0 - 2021-12-13
-
-- [#1022](https://github.com/stripe/stripe-ruby/pull/1022) Add connection manager logging and include object IDs in logging.
-
-## 5.41.0 - 2021-11-16
-
-- [#1017](https://github.com/stripe/stripe-ruby/pull/1017) API Updates
-  - Add support for new resource `ShippingRate`
-
-## 5.40.0 - 2021-11-11
-
-- [#1015](https://github.com/stripe/stripe-ruby/pull/1015) API Updates
-  - Add support for `expire` method on resource `Checkout.Session`
-- [#1013](https://github.com/stripe/stripe-ruby/pull/1013) Add tests for child resources.
-- [#1012](https://github.com/stripe/stripe-ruby/pull/1012) Add tests for namespaced resources.
-- [#1011](https://github.com/stripe/stripe-ruby/pull/1011) codegen: 3 more files
-
-## 5.39.0 - 2021-10-11
-
-- [#1010](https://github.com/stripe/stripe-ruby/pull/1010) API Updates
-  - Add support for `list_payment_methods` method on resource `Customer`
-
-## 5.38.0 - 2021-08-10
-
-- [#993](https://github.com/stripe/stripe-ruby/pull/993) Add `request_id` to RequestEndEvent
-- [#991](https://github.com/stripe/stripe-ruby/pull/991) Codegen more files
-- [#989](https://github.com/stripe/stripe-ruby/pull/989) Remove unused API error types from docs.
-
-## 5.37.0 - 2021-07-14
-
-- [#988](https://github.com/stripe/stripe-ruby/pull/988) API Updates
-  - Add support for `list_computed_upfront_line_items` method on resource `Quote`
-
-## 5.36.0 - 2021-07-09
-
-- [#987](https://github.com/stripe/stripe-ruby/pull/987) Add support for `Quote` API
-
-## 5.35.0 - 2021-06-30
-
-- [#985](https://github.com/stripe/stripe-ruby/pull/985) Update normalize_opts to use dup instead of clone.
-- [#982](https://github.com/stripe/stripe-ruby/pull/982) Deprecate travis
-- [#983](https://github.com/stripe/stripe-ruby/pull/983) Add support for making a request and receiving the response as a stream.
-
-## 5.34.0 - 2021-06-04
-
-- [#981](https://github.com/stripe/stripe-ruby/pull/981) API Updates
-  - Add support for `TaxCode` API.
-
-## 5.33.0 - 2021-05-19
-
-- [#979](https://github.com/stripe/stripe-ruby/pull/979) Add support for the Identify VerificationSession and VerificationReport APIs
-
-## 5.32.1 - 2021-04-05
-
-- Correct use of regexp `match` in gemspec for old versions of Ruby
-
-## 5.32.0 - 2021-04-05
-
-- [#973](https://github.com/stripe/stripe-ruby/pull/973) Reduce packed gem size
-
-## 5.31.0 - 2021-04-02
-
-- [#968](https://github.com/stripe/stripe-ruby/pull/968) Allow StripeClient to be configured per instance
-- [#971](https://github.com/stripe/stripe-ruby/pull/971) On config change, only clear connection managers for changed config
-- [#972](https://github.com/stripe/stripe-ruby/pull/972) Rename `Stripe.configuration` to `Stripe.config`
-- [#970](https://github.com/stripe/stripe-ruby/pull/970) Reserve some critical field names when adding `StripeObject` accessors
-- [#967](https://github.com/stripe/stripe-ruby/pull/967) CI: github actions
-
-## 5.30.0 - 2021-02-22
-
-- [#965](https://github.com/stripe/stripe-ruby/pull/965) Add support for the Billing Portal Configuration API
-
-## 5.29.1 - 2021-02-09
-
-- [#964](https://github.com/stripe/stripe-ruby/pull/964) Fix return value of `Customer#delete_discount`
-
-## 5.29.0 - 2021-01-05
-
-- [#952](https://github.com/stripe/stripe-ruby/pull/952) Allow client_id configuration on instance config
-
-## 5.28.0 - 2020-10-14
-
-- [#950](https://github.com/stripe/stripe-ruby/pull/950) Add configuration option for `write_timeout` for connections on Ruby 2.6+
-
-## 5.27.0 - 2020-10-14
-
-- [#951](https://github.com/stripe/stripe-ruby/pull/951) Add support for the Payout Reverse API
-
-## 5.26.0 - 2020-09-29
-
-- [#949](https://github.com/stripe/stripe-ruby/pull/949) Add support for the `SetupAttempt` resource and List API
-
-## 5.25.0 - 2020-09-02
-
-- [#944](https://github.com/stripe/stripe-ruby/pull/944) Add support for the Issuing Dispute Submit API
-
-## 5.24.0 - 2020-08-26
-
-- [#939](https://github.com/stripe/stripe-ruby/pull/939) Extract configurations into separate object
-- [#940](https://github.com/stripe/stripe-ruby/pull/940) Fix typo in documentation of `stripe_object.rb`
-
-## 5.23.1 - 2020-08-05
-
-- [#936](https://github.com/stripe/stripe-ruby/pull/936) Rename API resource's `request` method
-
-## 5.23.0 - 2020-08-05
-
-- [#937](https://github.com/stripe/stripe-ruby/pull/937) Add support for the `PromotionCode` resource and APIs
-
-## 5.22.0 - 2020-05-11
-
-- [#918](https://github.com/stripe/stripe-ruby/pull/918) Add support for the `LineItem` resource and APIs
-
-## 5.21.0 - 2020-04-29
-
-- [#917](https://github.com/stripe/stripe-ruby/pull/917) Add support for the `Price` resource and APIs
-
-## 5.20.0 - 2020-04-27
-
-- [#916](https://github.com/stripe/stripe-ruby/pull/916) Add new `.generate_header` method for webhooks
-
-## 5.19.0 - 2020-04-24
-
-- [#915](https://github.com/stripe/stripe-ruby/pull/915) Expose `Stripe::Webhook.compute_signature` publicly
-
-## 5.18.0 - 2020-04-22
-
-- [#911](https://github.com/stripe/stripe-ruby/pull/911) Add support for `BillingPortal` namespace and `Session` resource and APIs
-
-## 5.17.0 - 2020-02-26
-
-- [#907](https://github.com/stripe/stripe-ruby/pull/907) Add `StripeError#idempotent_replayed?`
-
-## 5.16.0 - 2020-02-26
-
-- [#906](https://github.com/stripe/stripe-ruby/pull/906) Add support for listing Checkout sessions
-- [#903](https://github.com/stripe/stripe-ruby/pull/903) Upgrade to Rubocop 0.80
-
-## 5.15.0 - 2020-02-10
-
-- [#902](https://github.com/stripe/stripe-ruby/pull/902) Add `request_begin` instrumentation callback
-
-## 5.14.0 - 2020-01-14
-
-- [#896](https://github.com/stripe/stripe-ruby/pull/896) Add support for `CreditNoteLineItem`
-- [#894](https://github.com/stripe/stripe-ruby/pull/894) Clean up test output by capturing `$stderr` when we expect warnings
-- [#892](https://github.com/stripe/stripe-ruby/pull/892) Explicitly pass a parameter as hash to be more ruby 2.7 friendly
-- [#893](https://github.com/stripe/stripe-ruby/pull/893) Upgrade Rubocop to 0.79
-
-## 5.13.0 - 2020-01-08
-
-- [#891](https://github.com/stripe/stripe-ruby/pull/891) Fix most Ruby 2.7 warnings
-
-## 5.12.1 - 2020-01-06
-
-- [#890](https://github.com/stripe/stripe-ruby/pull/890) Override API key with `client_secret` in `OAuth.token`
-
-## 5.12.0 - 2020-01-02
-
-- [#889](https://github.com/stripe/stripe-ruby/pull/889) Add support for retrieve source transaction API method
-
-## 5.11.0 - 2019-11-26
-
-- [#885](https://github.com/stripe/stripe-ruby/pull/885) Add support for `CreditNote` preview
-
-## 5.10.0 - 2019-11-08
-
-- [#882](https://github.com/stripe/stripe-ruby/pull/882) Add list_usage_record_summaries and list_source_transactions
-
-## 5.9.0 - 2019-11-07
-
-- [#870](https://github.com/stripe/stripe-ruby/pull/870) Add request instrumentation callback (see `README.md` for usage example)
-
-## 5.8.0 - 2019-11-05
-
-- [#879](https://github.com/stripe/stripe-ruby/pull/879) Add support for `Mandate`
-- [#876](https://github.com/stripe/stripe-ruby/pull/876) Add additional per-request configuration documentation
-- [#874](https://github.com/stripe/stripe-ruby/pull/874) Raise an error when requests params are invalid
-- [#873](https://github.com/stripe/stripe-ruby/pull/873) Contributor Covenant
-
-## 5.7.1 - 2019-10-15
-
-- [#869](https://github.com/stripe/stripe-ruby/pull/869) Fixes the misnamed `connection_base=` setter to be named `connect_base=`
-
-## 5.7.0 - 2019-10-10
-
-- [#865](https://github.com/stripe/stripe-ruby/pull/865) Support backwards pagination with list's `#auto_paging_each`
-
-## 5.6.0 - 2019-10-04
-
-- [#861](https://github.com/stripe/stripe-ruby/pull/861) Nicer error when specifying non-nil non-string opt value
-
-## 5.5.0 - 2019-10-03
-
-- [#859](https://github.com/stripe/stripe-ruby/pull/859) User-friendly messages and retries for `EOFError`, `Errno::ECONNRESET`, `Errno::ETIMEDOUT`, and `Errno::EHOSTUNREACH` network errors
-
-## 5.4.1 - 2019-10-01
-
-- [#858](https://github.com/stripe/stripe-ruby/pull/858) Drop Timecop dependency
-
-## 5.4.0 - 2019-10-01
-
-- [#857](https://github.com/stripe/stripe-ruby/pull/857) Move to monotonic time for duration calculations
-
-## 5.3.0 - 2019-10-01
-
-- [#853](https://github.com/stripe/stripe-ruby/pull/853) Support `Stripe-Should-Retry` header
-
-## 5.2.0 - 2019-09-19
-
-- [#851](https://github.com/stripe/stripe-ruby/pull/851) Introduce system for garbage collecting connection managers
-
-## 5.1.1 - 2019-09-04
-
-- [#845](https://github.com/stripe/stripe-ruby/pull/845) Transfer the request_id from the http_headers to error.
-
-## 5.1.0 - 2019-08-27
-
-- [#841](https://github.com/stripe/stripe-ruby/pull/841) Retry requests on a 429 that's a lock timeout
-
-## 5.0.1 - 2019-08-20
-
-- [#836](https://github.com/stripe/stripe-ruby/pull/836) Increase connection keep alive timeout to 30 seconds
-
-## 5.0.0 - 2019-08-20
-
-Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-guide-for-v5) contains a detailed list of backwards-incompatible changes with upgrade instructions.
-
-Pull requests included in this release (cf. [#815](https://github.com/stripe/stripe-ruby/pull/815)) (⚠️ = breaking changes):
-
-- ⚠️ [#813](https://github.com/stripe/stripe-ruby/pull/813): Convert library to use built-in `Net::HTTP`
-- ⚠️ [#816](https://github.com/stripe/stripe-ruby/pull/816): Make `code` argument in `CardError` named instead of positional.
-- ⚠️ [#817](https://github.com/stripe/stripe-ruby/pull/817): Drop support for very old Ruby versions.
-- [#818](https://github.com/stripe/stripe-ruby/pull/818): Bump Rubocop to latest version
-- [#819](https://github.com/stripe/stripe-ruby/pull/819): Ruby minimum version increase followup
-- ⚠️ [#820](https://github.com/stripe/stripe-ruby/pull/820): Remove old deprecated methods
-- ⚠️ [#823](https://github.com/stripe/stripe-ruby/pull/823): Remove all alias for list methods
-- ⚠️ [#826](https://github.com/stripe/stripe-ruby/pull/826): Remove `UsageRecord.create` method
-- ⚠️ [#827](https://github.com/stripe/stripe-ruby/pull/827): Remove `IssuerFraudRecord`
-- [#811](https://github.com/stripe/stripe-ruby/pull/811): Add `ErrorObject` to `StripeError` exceptions
-- [#828](https://github.com/stripe/stripe-ruby/pull/828): Tweak retry logic to be a little more like stripe-node
-- [#829](https://github.com/stripe/stripe-ruby/pull/829): Reset connections when connection-changing configuration changes (optional)
-- [#830](https://github.com/stripe/stripe-ruby/pull/830): Fix inverted sign for 500 retries
-- ⚠️[#831](https://github.com/stripe/stripe-ruby/pull/831): Remove a few more very old deprecated methods
-- [#832](https://github.com/stripe/stripe-ruby/pull/832): Minor cleanup in `StripeClient`
-- [#833](https://github.com/stripe/stripe-ruby/pull/833): Do better bookkeeping when tracking state in `Thread.current`
-- [#834](https://github.com/stripe/stripe-ruby/pull/834): Add `Invoice.list_upcoming_line_items` method
-
-## 4.24.0 - 2019-08-12
-
-- [#825](https://github.com/stripe/stripe-ruby/pull/825) Add `SubscriptionItem.create_usage_record` method
-  - This release also removed the `SubscriptionSchedule.revisions` method. This should have been included in the previous release (4.23.0)
-
-## 4.23.0 - 2019-08-09
-
-- [#824](https://github.com/stripe/stripe-ruby/pull/824) Remove SubscriptionScheduleRevision
-  - This is technically a breaking change. We've chosen to release it as a minor vesion bump because the associated API is unused.
-
-## 4.22.1 - 2019-08-09
-
-- [#808](https://github.com/stripe/stripe-ruby/pull/808) Unify request/response handling
-
-## 4.22.0 - 2019-07-30
-
-- [#821](https://github.com/stripe/stripe-ruby/pull/821) Listing `BalanceTransaction` objects now uses `/v1/balance_transactions` instead of `/v1/balance/history`
-
-## 4.21.3 - 2019-07-15
-
-- [#810](https://github.com/stripe/stripe-ruby/pull/810) Better error message when passing non-string to custom method
-
-## 4.21.2 - 2019-07-05
-
-- [#806](https://github.com/stripe/stripe-ruby/pull/806) Revert back to `initialize_from` from `Util.convert_to_stripe_object`
-
-## 4.21.1 - 2019-07-04
-
-- [#807](https://github.com/stripe/stripe-ruby/pull/807) Add gem metadata
-
-## 4.21.0 - 2019-06-28
-
-- [#803](https://github.com/stripe/stripe-ruby/pull/803) Add support for the `SetupIntent` resource and APIs
-
-## 4.20.1 - 2019-06-28
-
-- [#805](https://github.com/stripe/stripe-ruby/pull/805) Fix formatting in `ConnectionFailed` error message
-
-## 4.20.0 - 2019-06-24
-
-- [#800](https://github.com/stripe/stripe-ruby/pull/800) Enable request latency telemetry by default
-
-## 4.19.0 - 2019-06-17
-
-- [#770](https://github.com/stripe/stripe-ruby/pull/770) Add support for `CustomerBalanceTransaction` resource and APIs
-
-## 4.18.1 - 2019-05-27
-
-- [#789](https://github.com/stripe/stripe-ruby/pull/789) Allow `Order#pay` to be called without arguments
-
-## 4.18.0 - 2019-05-23
-
-- [#783](https://github.com/stripe/stripe-ruby/pull/783) Add support for `radar.early_fraud_warning` resource
-
-## 4.17.0 - 2019-05-14
-
-- [#779](https://github.com/stripe/stripe-ruby/pull/779) Add support for the Capability resource and APIs
-
-## 4.16.0 - 2019-04-24
-
-- [#760](https://github.com/stripe/stripe-ruby/pull/760) Add support for the `TaxRate` resource and APIs
-
-## 4.15.0 - 2019-04-22
-
-- [#762](https://github.com/stripe/stripe-ruby/pull/762) Add support for the `TaxId` resource and APIs
-
-## 4.14.0 - 2019-04-18
-
-- [#758](https://github.com/stripe/stripe-ruby/pull/758) Add support for the `CreditNote` resource and APIs
-
-## 4.13.0 - 2019-04-16
-
-- [#766](https://github.com/stripe/stripe-ruby/pull/766) Relax constraints on objects that we'll accept as a file (now they just need to respond to `#read`)
-
-## 4.12.0 - 2019-04-02
-
-- [#752](https://github.com/stripe/stripe-ruby/pull/752) Add `.delete` class method on deletable API resources
-- [#754](https://github.com/stripe/stripe-ruby/pull/754) Add class methods for all custom API requests (e.g. `Charge.capture`)
-
-## 4.11.0 - 2019-03-26
-
-- [#753](https://github.com/stripe/stripe-ruby/pull/753) Add a global proxy configuration parameter
-
-## 4.10.0 - 2019-03-18
-
-- [#745](https://github.com/stripe/stripe-ruby/pull/745) Add support for the `PaymentMethod` resource and APIs
-- [#747](https://github.com/stripe/stripe-ruby/pull/747) Add support for retrieving a Checkout `Session`
-- [#748](https://github.com/stripe/stripe-ruby/pull/748) Add support for deleting a Terminal `Location` and `Reader`
-
-## 4.9.1 - 2019-03-18
-
-- [#750](https://github.com/stripe/stripe-ruby/pull/750) Catch error and warn if unable to remove a method
-
-## 4.9.0 - 2019-02-12
-
-- [#739](https://github.com/stripe/stripe-ruby/pull/739) Add support for `SubscriptionSchedule` and `SubscriptionScheduleRevision`
-
-## 4.8.1 - 2019-02-11
-
-- [#743](https://github.com/stripe/stripe-ruby/pull/743) Fix bug in file uploading introduced in #741
-
-## 4.8.0 - 2019-02-03
-
-- [#741](https://github.com/stripe/stripe-ruby/pull/741) Use `FaradayStripeEncoder` to encode all parameter styles
-
-## 4.7.1 - 2019-02-01
-
-- [#740](https://github.com/stripe/stripe-ruby/pull/740) Fix query encoding for integer-indexed maps
-
-## 4.7.0 - 2019-01-23
-
-- [#735](https://github.com/stripe/stripe-ruby/pull/735) Rename `CheckoutSession` to `Session` and move it under the `Checkout` namespace. This is a breaking change, but we've reached out to affected merchants and all new merchants would use the new approach.
-
-## 4.6.0 - 2019-01-21
-
-- [#736](https://github.com/stripe/stripe-ruby/pull/736) Properly serialize `individual` on `Account` objects
-
-## 4.5.0 - 2019-01-02
-
-- [#719](https://github.com/stripe/stripe-ruby/pull/719) Generate OAuth authorize URLs for Express accounts as well as standard
-
-## 4.4.1 - 2018-12-31
-
-- [#718](https://github.com/stripe/stripe-ruby/pull/718) Fix an error message typo
-
-## 4.4.0 - 2018-12-21
-
-- [#716](https://github.com/stripe/stripe-ruby/pull/716) Add support for the `CheckoutSession` resource
-
-## 4.3.0 - 2018-12-10
-
-- [#711](https://github.com/stripe/stripe-ruby/pull/711) Add support for account links
-
-## 4.2.0 - 2018-11-28
-
-- [#705](https://github.com/stripe/stripe-ruby/pull/705) Add support for the `Review` APIs
-
-## 4.1.0 - 2018-11-27
-
-- [#695](https://github.com/stripe/stripe-ruby/pull/695) Add support for `ValueList` and `ValueListItem` for Radar
-
-## 4.0.3 - 2018-11-19
-
-- [#703](https://github.com/stripe/stripe-ruby/pull/703) Don't use `Net::HTTP::Persistent` on Windows where it's not well supported
-
-## 4.0.2 - 2018-11-16
-
-- [#701](https://github.com/stripe/stripe-ruby/pull/701) Require minimum Faraday 0.13 for proper support of persistent connections
-
-## 4.0.1 - 2018-11-15
-
-- [#699](https://github.com/stripe/stripe-ruby/pull/699) Only send telemetry if `Request-Id` was present in the response
-
-## 4.0.0 - 2018-11-15
-
-- [#698](https://github.com/stripe/stripe-ruby/pull/698) Use persistent connections by default through `Net::HTTP::Persistent`
-- [#698](https://github.com/stripe/stripe-ruby/pull/698) Drop support for Ruby 2.0 (which we consider a breaking change here)
-
-## 3.31.1 - 2018-11-12
-
-- [#697](https://github.com/stripe/stripe-ruby/pull/697) Send telemetry in milliseconds specifically
-
-## 3.31.0 - 2018-11-12
-
-- [#696](https://github.com/stripe/stripe-ruby/pull/696) Add configurable telemetry to gather information on client-side request latency
-
-## 3.30.0 - 2018-11-08
-
-- [#693](https://github.com/stripe/stripe-ruby/pull/693) Add new API endpoints for the `Invoice` resource.
-
-## 3.29.0 - 2018-10-30
-
-- [#692](https://github.com/stripe/stripe-ruby/pull/692) Add support for the `Person` resource
-- [#694](https://github.com/stripe/stripe-ruby/pull/694) Add support for the `WebhookEndpoint` resource
-
-## 3.28.0 - 2018-09-24
-
-- [#690](https://github.com/stripe/stripe-ruby/pull/690) Add support for Stripe Terminal
-
-## 3.27.0 - 2018-09-24
-
-- [#689](https://github.com/stripe/stripe-ruby/pull/689) Rename `FileUpload` to `File`
-
-## 3.26.1 - 2018-09-14
-
-- [#688](https://github.com/stripe/stripe-ruby/pull/688) Fix hash equality on `StripeObject`
-
-## 3.26.0 - 2018-09-05
-
-- [#681](https://github.com/stripe/stripe-ruby/pull/681) Add support for reporting resources
-
-## 3.25.0 - 2018-08-28
-
-- [#678](https://github.com/stripe/stripe-ruby/pull/678) Allow payment intent `#cancel`, `#capture`, and `#confirm` to take their own parameters
-
-## 3.24.0 - 2018-08-27
-
-- [#675](https://github.com/stripe/stripe-ruby/pull/675) Remove support for `BitcoinReceiver` write-actions
-
-## 3.23.0 - 2018-08-23
-
-- [#676](https://github.com/stripe/stripe-ruby/pull/676) Add support for usage record summaries
-
-## 3.22.0 - 2018-08-15
-
-- [#674](https://github.com/stripe/stripe-ruby/pull/674) Use integer-indexed encoding for all arrays
-
-## 3.21.0 - 2018-08-03
-
-- [#671](https://github.com/stripe/stripe-ruby/pull/671) Add cancel support for topups
-
-## 3.20.0 - 2018-08-03
-
-- [#669](https://github.com/stripe/stripe-ruby/pull/669) Add support for file links
-
-## 3.19.0 - 2018-07-27
-
-- [#666](https://github.com/stripe/stripe-ruby/pull/666) Add support for scheduled query runs (`Stripe::Sigma::ScheduledQueryRun`) for Sigma
-
-## 3.18.0 - 2018-07-26
-
-- [#665](https://github.com/stripe/stripe-ruby/pull/665) Add support for Stripe Issuing
-
-## 3.17.2 - 2018-07-19
-
-- [#664](https://github.com/stripe/stripe-ruby/pull/664) Don't colorize log output being sent to a configured logger
-
-## 3.17.1 - 2018-07-19
-
-- [#663](https://github.com/stripe/stripe-ruby/pull/663) Internal improvements to `ApiResource.class_url`
-
-## 3.17.0 - 2018-06-28
-
-- [#658](https://github.com/stripe/stripe-ruby/pull/658) Add support for `partner_id` from `Stripe.set_app_info`
-
-## 3.16.0 - 2018-06-28
-
-- [#657](https://github.com/stripe/stripe-ruby/pull/657) Add support for payment intents
-
-## 3.15.0 - 2018-05-10
-
-- [#649](https://github.com/stripe/stripe-ruby/pull/649) Freeze all string literals
-
-## 3.14.0 - 2018-05-09
-
-- [#645](https://github.com/stripe/stripe-ruby/pull/645) Add support for issuer fraud records
-
-## 3.13.1 - 2018-05-07
-
-- [#647](https://github.com/stripe/stripe-ruby/pull/647) Merge query parameters coming from path with `params` argument
-
-## 3.13.0 - 2018-04-11
-
-- [#498](https://github.com/stripe/stripe-ruby/pull/498) Add support for flexible billing primitives
-
-## 3.12.1 - 2018-04-05
-
-- [#636](https://github.com/stripe/stripe-ruby/pull/636) Fix a warning for uninitialized instance variable `@additive_params`
-
-## 3.12.0 - 2018-04-05
-
-- [#632](https://github.com/stripe/stripe-ruby/pull/632) Introduce `additive_object_param` so that non-`metadata` subobjects don't zero their keys as they're being replaced
-
-## 3.11.0 - 2018-02-26
-
-- [#628](https://github.com/stripe/stripe-ruby/pull/628) Add support for `code` attribute on all Stripe exceptions
-
-## 3.10.0 - 2018-02-21
-
-- [#627](https://github.com/stripe/stripe-ruby/pull/627) Add support for topups
-
-## 3.9.2 - 2018-02-12
-
-- [#625](https://github.com/stripe/stripe-ruby/pull/625) Skip calling `to_hash` for `nil`
-
-## 3.9.1 - 2017-12-15
-
-- [#616](https://github.com/stripe/stripe-ruby/pull/616) Support all file-like objects for uploads with duck typed checks on `path` and `read` (we previously whitelisted only certain classes)
-
-## 3.9.0 - 2017-12-08
-
-- [#613](https://github.com/stripe/stripe-ruby/pull/613) Introduce new `IdempotencyError` type for idempotency-specific failures
-
-## 3.8.2 - 2017-12-07
-
-- [#612](https://github.com/stripe/stripe-ruby/pull/612) Fix integer-indexed array encoding when sent as query parameter (subscription items can now be used when fetching an upcoming invoice)
-
-## 3.8.1 - 2017-12-06
-
-- [#611](https://github.com/stripe/stripe-ruby/pull/611) Support `Tempfile` (as well as `File`) in file uploads
-
-## 3.8.0 - 2017-10-31
-
-- [#606](https://github.com/stripe/stripe-ruby/pull/606) Support for exchange rates APIs
-
-## 3.7.0 - 2017-10-26
-
-- [#603](https://github.com/stripe/stripe-ruby/pull/603) Support for listing source transactions
-
-## 3.6.0 - 2017-10-17
-
-- [#597](https://github.com/stripe/stripe-ruby/pull/597) Add static methods to manipulate resources from parent
-  - `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
-  - `ApplicationFee` gains methods for refunds
-  - `Customer` gains methods for sources
-  - `Transfer` gains methods for reversals
-
-## 3.5.3 - 2017-10-16
-
-- [#594](https://github.com/stripe/stripe-ruby/pull/594) Make sure that `StripeObject`'s `#deep_copy` maintains original class
-- [#595](https://github.com/stripe/stripe-ruby/pull/595) Allow `Object#method` to be called on `StripeObject` even if it conflicts with an accessor
-- [#596](https://github.com/stripe/stripe-ruby/pull/596) Encode arrays as integer-indexed hashes where appropriate
-- [#598](https://github.com/stripe/stripe-ruby/pull/598) Don't persist `idempotency_key` opt between requests
-
-## 3.5.2 - 2017-10-13
-
-- [#592](https://github.com/stripe/stripe-ruby/pull/592) Bring back `Marshal.dump/load` support with custom marshal encoder/decoder
-
-## 3.5.1 - 2017-10-12
-
-- [#591](https://github.com/stripe/stripe-ruby/pull/591) Use thread-local `StripeClient` instances for thread safety
-
-## 3.5.0 - 2017-10-11
-
-- [#589](https://github.com/stripe/stripe-ruby/pull/589) Rename source `delete` to `detach` (and deprecate the former)
-
-## 3.4.1 - 2017-10-05
-
-- [#586](https://github.com/stripe/stripe-ruby/pull/586) Log query strings as well as form bodies with STRIPE_LOG
-- [#588](https://github.com/stripe/stripe-ruby/pull/588) Require minimum Faraday 0.10 for bug fix in parameter encoding
-
-## 3.4.0 - 2017-09-20
-
-- Mark legacy Bitcoin API as deprecated, and remove corresponding tests
-- Mark recipients API as deprecated, and remove recipient card tests
-
-## 3.3.2 - 2017-09-20
-
-- Correct minimum required Ruby version in gemspec (it's 2.0.0)
-
-## 3.3.1 - 2017-08-18
-
-- Only parse webhook payload after verification to decrease likelihood of
-  attack
-
-## 3.3.0 - 2017-08-11
-
-- Add support for standard library logger interface with `Stripe.logger`
-- Error logs now go to stderr if using `Stripe.log_level`/`STRIPE_LOG`
-- `Stripe.log_level`/`STRIPE_LOG` now support `Stipe::LEVEL_ERROR`
-
-## 3.2.0 - 2017-08-03
-
-- Add logging for request retry account and `Stripe-Account` header
-
-## 3.1.0 - 2017-08-03
-
-- Implement request logging with `Stripe.log_level` and `STRIPE_LOG`
-
-## 3.0.3 - 2017-07-28
-
-- Revert `nil` to empty string coercion from 3.0.2
-- Handle `invalid_client` OAuth error code
-- Improve safety of error handling logic safer for unrecognized OAuth error codes
-
-## 3.0.2 - 2017-07-12
-
-**Important:** This version is non-functional and has been yanked in favor of 3.0.3.
-
-- Convert `nil` to empty string when serializing parameters (instead of opaquely dropping it) -- NOTE: this change has since been reverted
-
-## 3.0.1 - 2017-07-11
-
-- Properties set with an API resource will now serialize that resource's ID if possible
-- API resources will throw an ArgumentError on save if a property has been with an API resource that cannot be serialized
-
-## 3.0.0 - 2017-06-27
-
-- `#pay` on invoice now takes params as well as opts
-
-## 2.12.0 - 2017-06-20
-
-- Add support for ephemeral keys
-
-## 2.11.0 - 2017-05-26
-
-- Warn when keys that look like opts are included as parameters
-
-## 2.10.0 - 2017-05-25
-
-- Add support for account login links
-
-## 2.9.0 - 2017-05-18
-
-- Support for OAuth operations in `Stripe::OAuth`
-
-## 2.8.0 - 2017-04-28
-
-- Support for checking webhook signatures
-
-## 2.7.0 - 2017-04-26
-
-- Add model `InvoiceLineItem`
-
-## 2.6.0 - 2017-04-26
-
-- Add `OBJECT_NAME` constants to all API resources
-
-## 2.5.0 - 2017-04-24
-
-- Make `opts` argument in `Util.convert_to_stripe_object` optional
-
-## 2.4.0 - 2017-04-18
-
-- Add `Stripe.set_app_info` for use by plugin creators
-
-## 2.3.0 - 2017-04-14
-
-- Add question mark accessor when assigning boolean value to undefined field
-
-## 2.2.1 - 2017-04-07
-
-- Declare minimum required Faraday as 0.9
-
-## 2.2.0 - 2017-04-06
-
-- Add support for payouts and recipient transfers
-
-## 2.1.0 - 2017-03-17
-
-- Support for detaching sources from customers
-
-## 2.0.3 - 2017-03-16
-
-- Fix marshalling of `StripeObjects` that have an embedded client
-
-## 2.0.2 - 2017-03-16
-
-- Fix bad field reference when recovering from a JSON parsing problem
-
-## 2.0.1 - 2017-02-22
-
-- Fix multipart parameter encoding to repair broken file uploads
-
-## 2.0.0 - 2017-02-14
-
-- Drop support for Ruby 1.9
-- Allow HTTP client that makes Stripe calls to be configured via Faraday
-- Drop RestClient
-- Switch to OpenAPI 2.0 spec and generated fixtures in test suite
-- Switch to Webmock in test suite
-
-## 1.58.0 - 2017-01-19
-
-- Remove erroneously added list methods for `Source` model
-
-## 1.57.1 - 2016-11-28
-
-- Disallow sending protected fields along with API resource `.update`
-
-## 1.57.0 - 2016-11-21
-
-- Add retrieve method for 3-D Secure resources
-
-## 1.56.2 - 2016-11-17
-
-- Improve `StripeObject`'s `#to_s` to better handle how embedded objects are displayed
-
-## 1.56.1 - 2016-11-09
-
-- Fix (fairly serious) memory like in `StripeObject`
-
-## 1.56.0 - 2016-10-24
-
-- Add accessors for new fields added in `#update_attributes`
-- Handle multi-plan subscriptions through new subscription items
-- Handle 403 status codes from the API
-
-## 1.55.1 - 2016-10-24
-
-Identical to 1.56.0 above. I incorrectly cut a patch-level release.
-
-## 1.55.0 - 2016-09-15
-
-- Add support for Apple Pay domains
-
-## 1.54.0 - 2016-09-01
-
-- Whitelist errors that should be retried; scope to known socket and HTTP errors
-
-## 1.53.0 - 2016-08-31
-
-- Relax version constraint on rest-client (and by extension mime-types) for users on Ruby 2+
-
-## 1.52.0 - 2016-08-30
-
-- Make sure `Subscription`'s `source` is saved with its parent
-
-## 1.51.1 - 2016-08-30
-
-- Make sure `Account`'s `external_account` is saved with its parent
-
-## 1.51.0 - 2016-08-26
-
-- Error when an array of maps is detected that cannot be accurately encoded
-- Start using strings for header names instead of symbols for better clarity
-
-## 1.50.1 - 2016-08-25
-
-- Fix encoding of arrays of maps where maps unequal sets of keys
-
-## 1.50.0 - 2016-08-15
-
-- Allow sources to be created
-
-## 1.49.0 - 2016-07-28
-
-- Add top-level `Source` model
-
-## 1.48.0 - 2016-07-12
-
-- Add `ThreeDSecure` model for 3-D secure payments
-
-## 1.47.0 - 2016-07-11
-
-- Allow rest-client version 2.0+ to be used with the gem
-
-## 1.46.0 - 2016-07-07
-
-- Allow retry when a 409 conflict is encountered
-
-## 1.45.0 - 2016-07-07
-
-- Do not send subresources when updating except when explicitly told to do so (see #433)
-
-## 1.44.0 - 2016-06-29
-
-- Add `update` class method to all resources that can be updated
-
-## 1.43.1 - 2016-06-17
-
-- Fix type of resource returned from `Order#return_order`
-
-## 1.43.0 - 2016-05-20
-
-- Allow Relay orders to be returned and add associated types
-- Support Alipay account retrieval and deletion
-
-## 1.42.0 - 2016-05-04
-
-- Add support for the new /v1/subscriptions endpoint (retrieve, list, create, update, and delete)
-
-## 1.41.0 - 2016-04-13
-
-- Add global `stripe_account` option that adds a `Stripe-Account` header to all requests
-
-## 1.40.0 - 2016-04-06
-
-- Fix bug that omitted subresources from serialization
-
-## 1.39.0 - 2016-03-31
-
-- Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1
-
-## 1.38.0 - 2016-03-18
-
-- Allow `opts` to be passed to an API resource's `#save` method
-
-## 1.37.0 - 2016-03-14
-
-- Add `Account#reject` to support the new API feature
-
-## 1.36.2 - 2016-03-14
-
-- Fix reference to non-existent `#url` in `ListObject`
-
-## 1.36.1 - 2016-03-04
-
-- Fix serialization when subhash given to `#save` or `#update_attributes`
-
-## 1.36.0 - 2016-02-08
-
-- Add `CountrySpec` model for looking up country payment information
-
-## 1.35.1 - 2016-02-03
-
-- Add compatibility layer for old API versions on `Charge#refund`
-
-## 1.35.0 - 2016-02-01
-
-- Allow CA cert bundle location to be configured
-- Updated bundled CA certs
-
-## 1.34.0 - 2016-01-25
-
-- Add support for deleting products and SKUs
-
-## 1.33.1 - 2016-01-21
-
-- Pass through arguments of `Charge#refund`
-
-## 1.33.0 - 2016-01-19
-
-- Re-implement `Charge#refund` helper to use the modern endpoint suggested by docs
-
-## 1.32.1 - 2016-01-07
-
-- Fix bug where ivar left uninitialized in StripeObject could error on serialization
-- Fix bug where a nil customer from API could error Bitcoin model on refresh
-
-## 1.32.0 - 2016-01-05
-
-- Add configuration to optionally retry network failures
-- Use modern API endpoint for producing application fee refunds
-
-## 1.31.0 - 2015-10-29
-
-- Add BankAccount#verify convenience method
-
-## 1.30.3 - 2015-10-28
-
-- Fix bug where arrays that were not `additional_owners` were not properly encoded for requests
-
-## 1.30.2 - 2015-10-12
-
-- Fix bug where `opts` didn't properly propagate to descendant `StripeObjects`
-
-## 1.30.1 - 2015-10-10
-
-- Fix bug that prevent lists of hashes from being URI-encoded properly
-- Fix bug where filter conditions were not making it past the first instantiated `ListObject`
-
-## 1.30.0 - 2015-10-09
-
-- Add `StripeObject#deleted?` for a reliable way to check whether an object is alive
-- Deprecate `StripeObject#refresh_from`
-- New parameter encoding scheme that doesn't use `URI.escape`
-
-## 1.29.1 - 2015-10-06
-
-- Fix bug where ampersands were not being properly encoded
-
-## 1.29.0 - 2015-10-05
-
-- Add pagination helpers `#auto_paging_each`, `#previous_page`, and `#next_page`
-
-## 1.28.1 - 2015-10-05
-
-- Fix URI being referenced by file upload resources
-
-## 1.28.0 - 2015-10-05
-
-- Make StripeObject's #save "upsert"-like; creates an object if new
-- Add #update_attributes to StripeObject for safe mass assignment
-- Properly mass assign attributes on calls to #save
-- Add question mark helpers for boolean fields (e.g. #paid? as well as old #paid)
-- Fix a bug that broke the API for StripeObject initialization
-- Remove use of deprecated URI.escape
-
-## 1.27.2 - 2015-09-25
-
-- Correct the URLs used to fetch Bitcoin transactions.
-
-## 1.27.1 - 2015-09-20
-
-- Use hash rockets for backwards compatibility.
-
-## 1.27.0 - 2015-09-14
-
-- Add Orders, Products, and SKUs for Relay
-
-## 1.26.0 - 2015-09-11
-
-- Add support for 429 Rate Limited response
-
-## 1.25.0 - 2015-08-17
-
-- Added support for refund listing and retrieval without an associated charge
-
-## 1.24.0 - 2015-08-03
-
-- Added support for deleting managed accounts
-- Added support for dispute listing and retrieval
-- Bugfix: token objects now are the correct class
-
-## 1.23.0 - 2015-07-06
-
-- Added request IDs and HTTP headers to errors
-
-## 1.22.0 - 2015-06-10
-
-- Added support for bank accounts and debit cards in managed accounts (via the `external_accounts` param)
-
-## 1.21.0 - 2015-04-14
-
-- Remove TLS cert revocation check (all pre-heartbleed certs have expired)
-- Bugfix: don't unset keys when they don't exist on StripeObject
-
-## 1.20.4 - 2015-03-26
-
-- Raise an error when explicitly passing nil as the API key on resource methods
-- Fix error when passing an API key to Balance.retrieve (github issue #232)
-
-## 1.20.3 - 2015-03-13
-
-- Fixed error when updating certain resources (github issue #224)
-
-## 1.20.2 - 2015-03-10
-
-- Added support for updating nested hashes besides `metadata` (which was already supported)
-- Fixed bug in balance retrieval
-
-## 1.20.1 - 2015-02-26
-
-- Updated Card to point to customer sources endpoint when customer property is set
-
-## 1.20.0 - 2015-02-19
-
-- Added Update & Delete operations to Bitcoin Receivers
-
-## 1.19.1 - 2015-02-18
-
-- Fixed fetching upcoming invoice/paying invoice methods
-
-## 1.19.0 - 2015-02-15
-
-- Support for new Transfers /reversals endpoint
-- Account retrieval now optionally accepts an account ID
-- Better support for passing custom headers, like Stripe-Account, through requests
-
-## 1.18.0 - 2015-01-21
-
-- 1 major enhancement:
-  - Added support for making bitcoin charges through BitcoinReceiver source object
-
-## 1.17.3 - 2015-01-12
-
-- 1 bugfix:
-  - Fixed API key propagation for ApplicationFee#refund
-
-## 1.17.2 - 2015-01-08
-
-- 1 bugfix:
-  - Fixed API key propagation for child resources
-
-## 1.17.1 - 2015-01-07
-
-- 2 minor enhacements:
-  - Fixed dependencies for Ruby versions less than 1.9.3
-  - Added deauthorize method to Account object
-
-## 1.17.0 - 2014-12-15
-
-- 1 major enhacement:
-  - File uploads resource was added (for uploading pdf or image documents for disputes)
-
-## 1.16.1 - 2014-12-19
-
-- 2 minor enhancements:
-  - Ability to send idempotent requests
-  - Ability to specify stripe account as a header
-
-## 1.16.0 - 2014-10-08
-
-- 1 minor enhacement:
-  - Coupons now support update operations - useful for manipulating metadata
-
-## 1.15.0 - 2014-07-26
-
-- 1 major enhacement:
-  - Application Fee refunds now a list instead of array
-
-## 1.14.0 - 2014-06-17
-
-- 1 major enhancement:
-  - Add metadata for refunds and disputes
-
-## 1.13.0 - 2014-05-28
-
-- 1 major enhancement:
-  - Support for canceling transfers
-
-## 1.12.0 - 2014-05-21
-
-- 1 major enhancement:
-  - Support for cards for recipients
-
-## 1.11.0 - 2014-04-09
-
-- 2 minor enhancements:
-  - Update included ca bundles
-  - Implement certificate blacklisting
-
-## 1.10.2 - 2014-02-18
-
-- 1 minor enhancement:
-  - Add create_subscription on Customer resources, so you can create
-    subscriptions without needing to retrieve the customer first (github
-    issue #120)
-
-## 1.10.1 - 2014-02-03
-
-- 1 bugfix:
-  - Fix marshaling of StripeObjects
-
-## 1.10.0 - 2014-01-29
-
-- 2 major enhancements
-
-  - Support for multiple subscriptions per customer
-  - Testing ruby 2.1.0
-
-- 2 minor enhancements
-
-  - Replace multi_json with json
-  - Allow #save to take opts (for :expand)
-
-- 1 bugfix
-  - Fix #try and #respond_to? on StripeObjects
-
-## 1.9.9 - 2013-12-02
-
-- 1 major enhancement
-  - Add ApplicationFee resource
-
-## 1.8.9 - 2013-11-14
-
-- 2 bugfixes:
-  - Fix gemspec dependencies so the gem doesn't break for Ruby 1.8 users
-  - Fix api_resource_test to not use returns as a way of testing rescue behavior
-
-## 1.8.8 - 2013-10-3
-
-- 1 major enhancement
-  - Add support for metadata on resources
-
-## 1.8.7 - 2013-08-18
-
-- 1 minor enhancement
-  - Add support for closing disputes.
-
-## 1.8.6 - 2013-08-13
-
-- 1 major enhancement
-  - Add Balance and BalanceTransaction resources
-
-## 1.8.5 - 2013-08-12
-
-- 1 major enhancement
-  - Add support for unsetting attributes by setting to nil. This permits unsetting email and description on customers and description on charges. Setting properties to a blank string is now an error.
-  - Attempting to set an object's id is now an error
-
-## 1.8.4 - 2013-07-11
-
-- 1 major enhancement
-  - Add support for new cards API (Stripe API version - 2013-07-05)
-
-## 1.8.3 - 2013-05-06
-
-- 1 bugfix:
-  - Fix handling of per-call API keys (github issue #67)
-
-## 1.8.2 - 2013-05-01
-
-- 3 minor enhancements:
-
-  - Use to_sym instead of type checking for minor performance improvement (github issue #59)
-  - Handle low-memory situations without throwing an exception (github issue #61)
-  - Add an Customer#upcoming_invoice convenience method (github issue #65)
-
-- 1 bugfix:
-  - Allow updating resources without first retrieving them (github issue #60)
-
-## 1.8.1 - 2013-04-19
-
-- 1 minor enhancement:
-  - Add support for specifying an API key when retrieving an upcoming invoice
-
-## 1.8.0 - 2013-04-11
-
-- 1 major enhancement:
-  - Add new Recipient resource
-  - Allow Transfers to be createable
-
-## 1.7.11 - 2013-02-21
-
-- 1 minor enhancement
-  - Add 'id' to the list of permanent attributes
-
-## 1.7.10 - 2013-02-01
-
-- 1 major enhancement
-  - Add support for passing options when retrieving Stripe objects e.g., Stripe::Charge.retrieve({id:"foo", expand:["customer"]}) Stripe::Charge("foo") is still supported as well
-
-## 1.7.9 - 2013-01-15
-
-- 1 major enhancement
-  - Add support for setting a Stripe API version override.
-
-## 1.7.8 - 2012-11-21
-
-- 1 bugfix
-  - Relax the version constraint on multi_json (github issue #44)
-
-## 1.7.7 - 2012-11-07
-
-- 1 minor enhancement:
-
-  - Add support for updating charge disputes
-
-- 1 bugfix
-  - Fix Account API resource bug
-
-## 1.7.6 - 2012-10-30
-
-- 1 major enhancement
-  - Add support for creating invoices
-
-## 1.7.5 - 2012-10-25
-
-- 1 major enhancement
-  - Add support for new API lists
-
-## 1.7.4 - 2012-10-08
-
-- 1 bugfix
-  - Fix bug introduced in 1.7.3 calling API methods that take no
-    arguments, like Stripe::Invoice#pay (github issue #42)
-
-## 1.7.3 - 2012-09-14
-
-- 2 bugfixes
-  - Make sure that both keys and values of GET params are URL-encoded. NOTE: If you were previously URL-encoding values yourself, you may need to adjust your code.
-  - URL-encode POST params directly, instead of allowing rest-client to do it to work around an unfortunate interaction with the hashery gem (github issue #38)
-
-## 1.7.2 - 2012-08-31
-
-- 1 major enhancement
-  - Add support for new pay and update methods for Invoice objects
-
-## 1.7.1 - 2012-08-15
-
-- 1 major enhancement
-  - Add new Account API resource
-
-## 1.7.0 - 2012-05-17
-
-- 3 major enhancements:
-
-  - Switch from vendored stripe-json to multi_json for all JSON parsing and rendering. This should not impact programmatic usage of the library, but may cause small rendering differences from, e.g., StripeObject#inspect (github issue #22)
-  - Add new delete_discount method to Customer objects
-  - Add new Transfer API resource
-
-- 2 minor enhancements:
-  - Switch from HTTP Basic auth to Bearer auth (Note: Stripe will support Basic auth for the indefinite future, but recommends Bearer auth when possible going forward)
-  - Numerous test suite improvements
-
-## 1.6.3 - 2012-03-22
-
-- 1 bugfix:
-  - Encode GET query strings ourselves instead of using rest-client to work around a bug
-
-## 1.6.2 - 2012-02-24
-
-- 1 bugfix:
-  - Correct argument handling in StripeObject#as_json
-
-## 1.6.1 - 2012-02-22
-
-- 1 bugfix:
-  - Fix StripeObject#inspect when ActiveSupport 3.0 is loaded
-
-## 1.6.0 - 2012-02-01
-
-- A whole bunch of releases between 1.5.0 and 1.6.0, but few changes, mainly the addition of plans, coupons, events, and tokens
-- 1.6.0 also contains a new inspect/to_string implementation
-
-## 1.5.0 - 2011-05-09
-
-- 1 major enhancement:
-  - Update for new RESTful API
-
-## 1.3.4 - 2011-01-07
-
-- 1 major enhancement:
-  - Rename to Stripe
-
-## 1.2 - 2010-06-06
-
-- 1 major enhancement:
-  - Support for the set_customer_subscription and delete_customer API methods
-
-## 1.1 - 2010-03-14
-
-- 1 major enhancement:
-  - Support for recurring billing
-
-## 1.0 - 2010-01-05
-
-- 1 major enhancement:
-  - Initial release
-
-<!--
-# vim: set tw=0:
--->
-
+  - Add `SubscriptionSchedule.amend` method.
+* [#1100](https://github.com/stripe/stripe-ruby/pull/1100) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `QuotePhase` resource

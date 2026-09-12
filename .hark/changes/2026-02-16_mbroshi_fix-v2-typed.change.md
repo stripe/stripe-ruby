@@ -1,6 +1,6 @@
 ---
 title: Fix v2 typed params sending nil values on GET requests
-pr_link: https://github.com/stripe/stripe-ruby/pull/1788
+pr_url: https://github.com/stripe/stripe-ruby/pull/1788
 released_in_version: 18.4.0-alpha.4
 ---
 

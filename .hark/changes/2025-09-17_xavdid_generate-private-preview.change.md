@@ -1,6 +1,6 @@
 ---
 title: generate private-preview SDK w/ mid Sept changes
-pr_link: https://github.com/stripe/stripe-ruby/pull/1654
+pr_url: https://github.com/stripe/stripe-ruby/pull/1654
 is_stripe_api_change: true
 released_in_version: 15.6.0-alpha.3
 ---

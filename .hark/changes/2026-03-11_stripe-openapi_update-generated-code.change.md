@@ -1,6 +1,6 @@
 ---
 title: Update generated code for private-preview
-pr_link: https://github.com/stripe/stripe-ruby/pull/1806
+pr_url: https://github.com/stripe/stripe-ruby/pull/1806
 is_breaking: true
 is_stripe_api_change: true
 released_in_version: 18.5.0-alpha.3

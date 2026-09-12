@@ -1,6 +1,6 @@
 ---
 title: Extract other CRUDL api operations from mixins
-pr_link: https://github.com/stripe/stripe-ruby/pull/1323
+pr_url: https://github.com/stripe/stripe-ruby/pull/1323
 released_in_version: 10.8.0
 ---
 

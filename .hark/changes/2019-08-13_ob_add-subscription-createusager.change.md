@@ -1,6 +1,6 @@
 ---
 title: Add `SubscriptionItem.create_usage_record` method
-pr_link: https://github.com/stripe/stripe-ruby/pull/825
+pr_url: https://github.com/stripe/stripe-ruby/pull/825
 released_in_version: 4.24.0
 ---
 

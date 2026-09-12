@@ -1,6 +1,6 @@
 ---
 title: Properly serialize null values in V2
-pr_link: https://github.com/stripe/stripe-ruby/pull/1786
+pr_url: https://github.com/stripe/stripe-ruby/pull/1786
 released_in_version: 18.4.0
 ---
 

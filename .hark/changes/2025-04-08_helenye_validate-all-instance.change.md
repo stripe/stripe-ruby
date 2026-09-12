@@ -1,6 +1,6 @@
 ---
 title: Validate all instance variable keys returned from the API
-pr_link: https://github.com/stripe/stripe-ruby/pull/1571
+pr_url: https://github.com/stripe/stripe-ruby/pull/1571
 section: Breaking change
 released_in_version: 15.0.0
 ---

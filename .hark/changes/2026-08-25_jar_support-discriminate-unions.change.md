@@ -1,6 +1,6 @@
 ---
 title: Support discriminated unions in the V2 runtime
-pr_link: https://github.com/stripe/stripe-ruby/pull/1923
+pr_url: https://github.com/stripe/stripe-ruby/pull/1923
 released_in_version: 19.6.0
 ---
 

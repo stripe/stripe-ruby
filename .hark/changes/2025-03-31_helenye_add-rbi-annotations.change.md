@@ -1,6 +1,6 @@
 ---
 title: Add RBI annotations for fields and params
-pr_link: https://github.com/stripe/stripe-ruby/pull/1559
+pr_url: https://github.com/stripe/stripe-ruby/pull/1559
 released_in_version: 14.0.0
 ---
 

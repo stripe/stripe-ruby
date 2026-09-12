@@ -1,6 +1,6 @@
 ---
 title: Remove list method in child resources
-pr_link: https://github.com/stripe/stripe-ruby/pull/1317
+pr_url: https://github.com/stripe/stripe-ruby/pull/1317
 released_in_version: 10.7.0
 ---
 

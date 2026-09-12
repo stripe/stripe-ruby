@@ -1,6 +1,6 @@
 ---
 title: Add new `EventNotificationHandler` class for better thin event management
-pr_link: https://github.com/stripe/stripe-ruby/pull/1937
+pr_url: https://github.com/stripe/stripe-ruby/pull/1937
 released_in_version: 19.6.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Rename `object_id` in V2::Core::EventService::ListParams to `object_id_`
-pr_link: https://github.com/stripe/stripe-ruby/pull/1574
+pr_url: https://github.com/stripe/stripe-ruby/pull/1574
 is_breaking: true
 section: Breaking change
 released_in_version: 15.0.0

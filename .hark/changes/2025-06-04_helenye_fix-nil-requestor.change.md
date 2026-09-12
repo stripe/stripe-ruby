@@ -1,6 +1,6 @@
 ---
 title: Fix `nil` requestor in `Webhook.construct_event` to allow for event data refresh
-pr_link: https://github.com/stripe/stripe-ruby/pull/1617
+pr_url: https://github.com/stripe/stripe-ruby/pull/1617
 released_in_version: 15.2.1
 ---
 

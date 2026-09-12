@@ -1,6 +1,6 @@
 ---
 title: Fix InvoiceLineItem parent class
-pr_link: https://github.com/stripe/stripe-ruby/pull/1536
+pr_url: https://github.com/stripe/stripe-ruby/pull/1536
 released_in_version: 13.5.0
 ---
 

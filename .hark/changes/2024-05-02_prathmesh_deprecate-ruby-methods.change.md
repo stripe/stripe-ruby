@@ -1,6 +1,6 @@
 ---
 title: Deprecate Ruby methods based on OpenAPI spec
-pr_link: https://github.com/stripe/stripe-ruby/pull/1392
+pr_url: https://github.com/stripe/stripe-ruby/pull/1392
 released_in_version: 11.3.0
 ---
 

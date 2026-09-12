@@ -1,6 +1,6 @@
 ---
 title: Add static methods to manipulate resources from parent
-pr_link: https://github.com/stripe/stripe-ruby/pull/597
+pr_url: https://github.com/stripe/stripe-ruby/pull/597
 released_in_version: 3.6.0
 ---
 

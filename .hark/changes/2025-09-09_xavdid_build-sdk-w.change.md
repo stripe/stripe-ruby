@@ -1,6 +1,6 @@
 ---
 title: Build SDK w/ V2 OpenAPI spec
-pr_link: https://github.com/stripe/stripe-ruby/pull/1651
+pr_url: https://github.com/stripe/stripe-ruby/pull/1651
 is_breaking: true
 released_in_version: 16.0.0
 ---

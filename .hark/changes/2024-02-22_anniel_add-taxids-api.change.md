@@ -1,6 +1,6 @@
 ---
 title: Add TaxIds API
-pr_link: https://github.com/stripe/stripe-ruby/pull/1334
+pr_url: https://github.com/stripe/stripe-ruby/pull/1334
 released_in_version: 10.10.0
 ---
 

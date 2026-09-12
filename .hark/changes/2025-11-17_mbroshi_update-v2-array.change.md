@@ -1,6 +1,6 @@
 ---
 title: Update v2 array parameter serialization to use indexed format
-pr_link: https://github.com/stripe/stripe-ruby/pull/1727
+pr_url: https://github.com/stripe/stripe-ruby/pull/1727
 released_in_version: 18.0.0
 ---
 

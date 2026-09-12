@@ -1,6 +1,6 @@
 ---
 title: Update static methods for delete/list on BankAccount/Card to throw NotImplementedError
-pr_link: https://github.com/stripe/stripe-ruby/pull/1420
+pr_url: https://github.com/stripe/stripe-ruby/pull/1420
 released_in_version: 12.1.0
 ---
 

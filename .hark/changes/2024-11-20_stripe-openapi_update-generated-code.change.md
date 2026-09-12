@@ -1,6 +1,6 @@
 ---
 title: Update generated code
-pr_link: https://github.com/stripe/stripe-ruby/pull/1486
+pr_url: https://github.com/stripe/stripe-ruby/pull/1486
 released_in_version: 13.2.0
 ---
 

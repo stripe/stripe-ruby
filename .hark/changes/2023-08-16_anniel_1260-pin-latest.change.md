@@ -1,6 +1,6 @@
 ---
 title: "[#1260](https://github.com/stripe/stripe-ruby/pull/1260) Pin latest API version as the default"
-pr_link: https://github.com/stripe/stripe-ruby/pull/1253
+pr_url: https://github.com/stripe/stripe-ruby/pull/1253
 released_in_version: 9.0.0
 ---
 

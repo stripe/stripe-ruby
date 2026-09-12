@@ -1,6 +1,6 @@
 ---
 title: Discard the connection when a request is interrupted
-pr_link: https://github.com/stripe/stripe-ruby/pull/1924
+pr_url: https://github.com/stripe/stripe-ruby/pull/1924
 released_in_version: 19.5.0
 ---
 

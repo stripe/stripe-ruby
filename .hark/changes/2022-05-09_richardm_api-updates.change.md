@@ -1,6 +1,6 @@
 ---
 title: API Updates
-pr_link: https://github.com/stripe/stripe-ruby/pull/1056
+pr_url: https://github.com/stripe/stripe-ruby/pull/1056
 is_breaking: true
 is_stripe_api_change: true
 released_in_version: 6.0.0

@@ -1,6 +1,6 @@
 ---
 title: Add method to list invoice line items
-pr_link: https://github.com/stripe/stripe-ruby/pull/1404
+pr_url: https://github.com/stripe/stripe-ruby/pull/1404
 released_in_version: 11.6.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Add strongly typed EventNotifications
-pr_link: https://github.com/stripe/stripe-ruby/pull/1650
+pr_url: https://github.com/stripe/stripe-ruby/pull/1650
 is_breaking: true
 released_in_version: 16.0.0
 ---

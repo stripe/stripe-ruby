@@ -1,6 +1,6 @@
 ---
 title: "Always return the result of APIResource#refresh in APIResource.retrieve"
-pr_link: https://github.com/stripe/stripe-ruby/pull/1473
+pr_url: https://github.com/stripe/stripe-ruby/pull/1473
 released_in_version: 13.0.2
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: "Fix APIResource#retrieve bug not returning instance of custom resources"
-pr_link: https://github.com/stripe/stripe-ruby/pull/1476
+pr_url: https://github.com/stripe/stripe-ruby/pull/1476
 released_in_version: 13.1.0
 ---
 

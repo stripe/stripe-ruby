@@ -1,6 +1,6 @@
 ---
 title: Import global configuration for options not available on StripeClient options
-pr_link: https://github.com/stripe/stripe-ruby/pull/1512
+pr_url: https://github.com/stripe/stripe-ruby/pull/1512
 released_in_version: 13.3.1
 ---
 

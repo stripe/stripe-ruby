@@ -1,6 +1,6 @@
 ---
 title: "Deprecate StripeClient#request"
-pr_link: https://github.com/stripe/stripe-ruby/pull/1415
+pr_url: https://github.com/stripe/stripe-ruby/pull/1415
 released_in_version: 11.7.0
 ---
 

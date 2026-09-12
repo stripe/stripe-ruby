@@ -1,6 +1,6 @@
 ---
 title: Deserialize inner types in resources for more detailed types
-pr_link: https://github.com/stripe/stripe-ruby/pull/1652
+pr_url: https://github.com/stripe/stripe-ruby/pull/1652
 is_breaking: true
 released_in_version: 16.0.0
 ---

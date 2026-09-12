@@ -1,6 +1,6 @@
 ---
 title: Pass params to transfer reversal
-pr_link: https://github.com/stripe/stripe-ruby/pull/1399
+pr_url: https://github.com/stripe/stripe-ruby/pull/1399
 released_in_version: 11.4.0
 ---
 

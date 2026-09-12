@@ -1,6 +1,6 @@
 ---
 title: Support for APIs in the new API version 2024-09-30.acacia
-pr_link: https://github.com/stripe/stripe-ruby/pull/1458
+pr_url: https://github.com/stripe/stripe-ruby/pull/1458
 is_stripe_api_change: true
 released_in_version: 13.0.0
 ---

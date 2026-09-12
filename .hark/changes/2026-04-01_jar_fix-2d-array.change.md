@@ -1,6 +1,6 @@
 ---
 title: Fix 2D array parameter encoding
-pr_link: https://github.com/stripe/stripe-ruby/pull/1846
+pr_url: https://github.com/stripe/stripe-ruby/pull/1846
 released_in_version: 19.1.0
 ---
 

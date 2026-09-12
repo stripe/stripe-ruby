@@ -1,6 +1,6 @@
 ---
 title: Explicitly define methods for RBIs and ship combined RBI for Tapioca
-pr_link: https://github.com/stripe/stripe-ruby/pull/1649
+pr_url: https://github.com/stripe/stripe-ruby/pull/1649
 released_in_version: 16.0.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Update generated code
-pr_link: https://github.com/stripe/stripe-ruby/pull/1771
+pr_url: https://github.com/stripe/stripe-ruby/pull/1771
 is_stripe_api_change: true
 released_in_version: 18.3.0
 ---

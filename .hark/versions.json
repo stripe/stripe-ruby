@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "language": "ruby",
+    "channel": "ga"
+  },
   "versions": [
     {
       "version": "19.6.2",

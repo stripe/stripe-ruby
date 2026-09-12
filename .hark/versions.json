@@ -1,4 +1,8 @@
 {
+  "metadata": {
+    "language": "ruby",
+    "channel": "private-preview"
+  },
   "versions": [
     {
       "version": "19.7.0-alpha.3",

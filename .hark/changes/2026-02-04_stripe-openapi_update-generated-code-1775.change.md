@@ -1,6 +1,6 @@
 ---
 title: Update generated code
-pr_link: https://github.com/stripe/stripe-ruby/pull/1775
+pr_url: https://github.com/stripe/stripe-ruby/pull/1775
 released_in_version: 18.4.0-beta.2
 ---
 

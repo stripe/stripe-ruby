@@ -1,6 +1,6 @@
 ---
 title: Fix preserving null param values when calling v2 APIs
-pr_link: https://github.com/stripe/stripe-ruby/pull/1758
+pr_url: https://github.com/stripe/stripe-ruby/pull/1758
 released_in_version: 18.4.0-beta.1
 ---
 

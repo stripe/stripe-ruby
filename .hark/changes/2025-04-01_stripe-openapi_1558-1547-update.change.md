@@ -1,6 +1,6 @@
 ---
 title: ", [#1558](https://github.com/stripe/stripe-ruby/pull/1558), [#1547](https://github.com/stripe/stripe-ruby/pull/1547) Update generated code for beta"
-pr_link: https://github.com/stripe/stripe-ruby/pull/1563
+pr_url: https://github.com/stripe/stripe-ruby/pull/1563
 is_stripe_api_change: true
 released_in_version: 14.1.0-beta.1
 ---

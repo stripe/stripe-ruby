@@ -1,6 +1,6 @@
 ---
 title: Update Stripe.add_beta_version
-pr_link: https://github.com/stripe/stripe-ruby/pull/1557
+pr_url: https://github.com/stripe/stripe-ruby/pull/1557
 released_in_version: 14.1.0-beta.1
 ---
 

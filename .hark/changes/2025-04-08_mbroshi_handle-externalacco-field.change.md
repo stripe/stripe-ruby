@@ -1,6 +1,6 @@
 ---
 title: Handle external_account field
-pr_link: https://github.com/stripe/stripe-ruby/pull/1572
+pr_url: https://github.com/stripe/stripe-ruby/pull/1572
 released_in_version: 15.1.0-beta.1
 ---
 

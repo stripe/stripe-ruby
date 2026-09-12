@@ -1,6 +1,6 @@
 ---
 title: Removed Request signing authenticator
-pr_link: https://github.com/stripe/stripe-ruby/pull/1588
+pr_url: https://github.com/stripe/stripe-ruby/pull/1588
 released_in_version: 15.1.0-beta.2
 ---
 

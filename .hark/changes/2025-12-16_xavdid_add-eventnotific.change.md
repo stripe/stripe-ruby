@@ -1,6 +1,6 @@
 ---
 title: Add EventNotificationHandler
-pr_link: https://github.com/stripe/stripe-ruby/pull/1724
+pr_url: https://github.com/stripe/stripe-ruby/pull/1724
 released_in_version: 18.2.0-beta.1
 ---
 

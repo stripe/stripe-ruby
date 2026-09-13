@@ -44,3 +44,7 @@ typecheck: install
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\-\w\d]+"|VERSION = "{{ version }}"|' lib/stripe/version.rb
+
+# the lowest Ruby this SDK supports, for the changelog
+minimum-runtime-version:
+    rg -N --color never -o 'required_ruby_version = ">= ([^"]+)"' --replace '$1' stripe.gemspec

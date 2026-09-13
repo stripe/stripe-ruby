@@ -7,7 +7,7 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 > This changelog only covers the **public preview** releases. Each release builds on the most recent GA release; see those notes in [the GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md).
 
-## 19.7.0-beta.1 - 2026-08-26
+## <a id="19-7-0-beta-1"></a>19.7.0-beta.1 - 2026-08-26
 This release changes the pinned API version to `2026-08-26.preview`.
 
 * [#1935](https://github.com/stripe/stripe-ruby/pull/1935) Add non-verified methods to managed handlers
@@ -29,7 +29,7 @@ This release changes the pinned API version to `2026-08-26.preview`.
   * Add support for event notifications `V2CoreApprovalRequestApprovedEvent`, `V2CoreApprovalRequestCanceledEvent`, `V2CoreApprovalRequestCreatedEvent`, `V2CoreApprovalRequestExpiredEvent`, `V2CoreApprovalRequestFailedEvent`, `V2CoreApprovalRequestRejectedEvent`, and `V2CoreApprovalRequestSucceededEvent` with related object `V2::Core::ApprovalRequest`
   * Add support for event notification `V2SignalsAccountEvaluationCompleteEvent` with related object `V2::Signals::AccountEvaluation`
 
-## 19.5.0-beta.1 - 2026-07-29
+## <a id="19-5-0-beta-1"></a>19.5.0-beta.1 - 2026-07-29
 This release changes the pinned API version to `2026-07-29.preview`.
 
 * ⚠️ [#1899](https://github.com/stripe/stripe-ruby/pull/1899) Update generated code for beta
@@ -52,7 +52,7 @@ This release changes the pinned API version to `2026-07-29.preview`.
   * ⚠️ Remove support for `payout_v1` on `V2::MoneyManagement::ReceivedCredit::BalanceTransfer`
   * ⚠️ Change `V2::MoneyManagement::ReceivedDebit::BankTransfer.us_bank_account` to be optional
 
-## 19.4.0-beta.1 - 2026-06-24
+## <a id="19-4-0-beta-1"></a>19.4.0-beta.1 - 2026-06-24
 This release changes the pinned API version to `2026-06-24.preview`.
 
 * ⚠️ [#1869](https://github.com/stripe/stripe-ruby/pull/1869) Update generated code for beta
@@ -79,7 +79,7 @@ This release changes the pinned API version to `2026-06-24.preview`.
   * Add support for event notification `V2MoneyManagementOutboundTransferUnderReviewEvent` with related object `V2::MoneyManagement::OutboundTransfer`
   * ⚠️ Remove support for event notifications `V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationStorerUpdatedEvent` with related object `V2::Core::Account`
 
-## 19.3.0-beta.1 - 2026-05-27
+## <a id="19-3-0-beta-1"></a>19.3.0-beta.1 - 2026-05-27
 This release changes the pinned API version to `2026-05-27.preview`.
 
 * ⚠️ [#1857](https://github.com/stripe/stripe-ruby/pull/1857) Update generated code for beta
@@ -96,7 +96,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * Change `Subscription.billing_schedules` to be required
   * ⚠️ Change type of `V2::MoneyManagement::ReceivedCredit::BankTransfer::GbBankAccount.network` from `literal('fps')` to `enum('chaps'|'fps')`
 
-## 19.2.0-beta.2 - 2026-04-24
+## <a id="19-2-0-beta-2"></a>19.2.0-beta.2 - 2026-04-24
 * ⚠️ [#1854](https://github.com/stripe/stripe-ruby/pull/1854) Update generated code for beta
   * Add support for new resources `V2::Commerce::ProductCatalogImport`, `V2::Data::Reporting::QueryRun`, `V2::Extend::WorkflowRun`, `V2::Extend::Workflow`, `V2::Iam::ActivityLog`, `V2::Network::BusinessProfile`, and `V2::OrchestratedCommerce::Agreement`
   * Add support for `confirm`, `create`, `list`, `retrieve`, and `terminate` methods on resource `V2::OrchestratedCommerce::Agreement`
@@ -118,7 +118,7 @@ This release changes the pinned API version to `2026-05-27.preview`.
   * Add support for event notifications `V2OrchestratedCommerceAgreementConfirmedEvent`, `V2OrchestratedCommerceAgreementCreatedEvent`, `V2OrchestratedCommerceAgreementPartiallyConfirmedEvent`, and `V2OrchestratedCommerceAgreementTerminatedEvent` with related object `V2::OrchestratedCommerce::Agreement`
   * Add support for error type `CannotProceedError`
 
-## 19.2.0-beta.1 - 2026-04-23
+## <a id="19-2-0-beta-1"></a>19.2.0-beta.1 - 2026-04-23
 This release changes the pinned API version to `2026-04-22.preview`.
 
 * ⚠️ [#1847](https://github.com/stripe/stripe-ruby/pull/1847) Update generated code for beta
@@ -143,11 +143,11 @@ This release changes the pinned API version to `2026-04-22.preview`.
   * Add support for `admissions_tax`, `attendance_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `resort_tax`, and `tourism_tax` on `Tax::RegistrationCreateParams::CountryOption::Me`
   * Add support for `purpose` on `Treasury::OutboundPaymentCreateParams` and `Treasury::OutboundPayment`
 
-## 19.1.0-beta.2 - 2026-03-27
+## <a id="19-1-0-beta-2"></a>19.1.0-beta.2 - 2026-03-27
 * [#1840](https://github.com/stripe/stripe-ruby/pull/1840) Update generated code for beta
   * Fix "Unable to resolve constant" sorbet errors for Params classes
 
-## 19.1.0-beta.1 - 2026-03-25
+## <a id="19-1-0-beta-1"></a>19.1.0-beta.1 - 2026-03-25
 This release changes the pinned API version to `2026-03-25.preview`.
 
 It is built on top of SDK version 19.0.0 which contains breaking changes. Please review the [changelog for 19.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) if upgrading from older SDK versions.
@@ -191,7 +191,7 @@ It is built on top of SDK version 19.0.0 which contains breaking changes. Please
   * Release specs are identical.
 * [#1833](https://github.com/stripe/stripe-ruby/pull/1833) Update generated code for beta
 
-## 18.5.0-beta.1 - 2026-02-25
+## <a id="18-5-0-beta-1"></a>18.5.0-beta.1 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.preview`.
 
 * [#1789](https://github.com/stripe/stripe-ruby/pull/1789) Update generated code for beta
@@ -202,15 +202,15 @@ This release changes the pinned API version to `2026-02-25.preview`.
   * Add support for `branch_number` and `swift_code` on `V2::MoneyManagement::PayoutMethod::BankAccount`
   * Change `V2::MoneyManagement::Transaction.flow` and `V2::MoneyManagement::TransactionEntry::TransactionDetail.flow` to be optional
 
-## 18.4.0-beta.3 - 2026-02-17
+## <a id="18-4-0-beta-3"></a>18.4.0-beta.3 - 2026-02-17
 * [#1787](https://github.com/stripe/stripe-ruby/pull/1787) Fix v2 typed params sending nil values on GET requests
   - Fixes a bug on V2 GET where we were serializing `nil` query parameters as empty strings. The server would return an error in such cases like `'limit: Expected an Integer value got: .'`
 
-## 18.4.0-beta.2 - 2026-02-03
+## <a id="18-4-0-beta-2"></a>18.4.0-beta.2 - 2026-02-03
 * [#1775](https://github.com/stripe/stripe-ruby/pull/1775) Update generated code
   * References to Stripe objects from *Param class fields are now fully qualified in `stripe.rbi`.  This ensures that the class fields in .rbi files generated with tapioca are able to refer to the correct type.
 
-## 18.4.0-beta.1 - 2026-01-28
+## <a id="18-4-0-beta-1"></a>18.4.0-beta.1 - 2026-01-28
 This release changes the pinned API version to `2026-01-28.preview`.
 
 * [#1747](https://github.com/stripe/stripe-ruby/pull/1747) Add EventNotificationHandler example
@@ -237,7 +237,7 @@ This release changes the pinned API version to `2026-01-28.preview`.
   * Add support for `account_holder_address` and `account_holder_name` on `V2::MoneyManagement::FinancialAddress::Credential::UsBankAccount`
   * Add support for `fingerprint` on `V2::MoneyManagement::PayoutMethod::Card`
 
-## 18.2.0-beta.1 - 2025-12-16
+## <a id="18-2-0-beta-1"></a>18.2.0-beta.1 - 2025-12-16
 This release changes the pinned API version to `2025-12-15.preview`.
 
 * [#1724](https://github.com/stripe/stripe-ruby/pull/1724) Add EventNotificationHandler
@@ -275,7 +275,7 @@ This release changes the pinned API version to `2025-12-15.preview`.
   * Add support for error type `ControlledByAlternateResourceError`
   * Remove support for error type `RateLimitError`
 
-## 18.1.0-beta.1 - 2025-11-18
+## <a id="18-1-0-beta-1"></a>18.1.0-beta.1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
 
 * [#1722](https://github.com/stripe/stripe-ruby/pull/1722) Update generated code for beta
@@ -303,7 +303,7 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Add support for thin event `V2CoreHealthEventGenerationFailureResolvedEvent`
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `V2::Payments::OffSessionPayment`
 
-## 17.2.0-beta.1 - 2025-10-29
+## <a id="17-2-0-beta-1"></a>17.2.0-beta.1 - 2025-10-29
 This release changes the pinned API version to `2025-10-29.preview`.
 
 * [#1696](https://github.com/stripe/stripe-ruby/pull/1696) Update generated code for beta
@@ -326,12 +326,12 @@ This release changes the pinned API version to `2025-10-29.preview`.
 * [#1714](https://github.com/stripe/stripe-ruby/pull/1714) Update generated code for beta
   * Add support for `crypto_storer` on `V2::Core::AccountUpdateParams::Identity::Attestation::TermsOfService`
 
-## 17.1.0-beta.2 - 2025-10-16
+## <a id="17-1-0-beta-2"></a>17.1.0-beta.2 - 2025-10-16
 
-## 17.1.0-beta.1 - 2025-10-09
+## <a id="17-1-0-beta-1"></a>17.1.0-beta.1 - 2025-10-09
 * Contains a breaking bug fix and other improvements from [v17.0.0](https://github.com/stripe/stripe-ruby/releases/tag/v17.0.0).
 
-## 16.1.0-beta.1 - 2025-09-30
+## <a id="16-1-0-beta-1"></a>16.1.0-beta.1 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.preview`.
 
 It is built on top of SDK version 18.0.0 which contains breaking changes. Please review the [changelog for 16.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1600---2025-09-30) if upgrading from older SDK versions.
@@ -386,7 +386,7 @@ It is built on top of SDK version 18.0.0 which contains breaking changes. Please
   * Add support for `billing_cadence` on `Invoice::CreatePreviewParams`, `Subscription::CreateParams`, `Subscription::UpdateParams`, and `Subscription`
   * Add support for `billing_cadence_details` on `Invoice::Parent` and `QuotePreviewInvoice::Parent`
 
-## 15.6.0-beta.1 - 2025-08-27
+## <a id="15-6-0-beta-1"></a>15.6.0-beta.1 - 2025-08-27
 This release changes the pinned API version to `2025-08-27.preview`.
 
 * [#1629](https://github.com/stripe/stripe-ruby/pull/1629) Update generated code for beta
@@ -418,12 +418,12 @@ This release changes the pinned API version to `2025-08-27.preview`.
   * Add support for `pix_display_qr_code` on `SetupIntent::NextAction`
   * Add support for `reader_security` on `Terminal::Configuration::CreateParams`, `Terminal::Configuration::UpdateParams`, and `Terminal::Configuration`
 
-## 15.5.0-beta.2 - 2025-08-08
+## <a id="15-5-0-beta-2"></a>15.5.0-beta.2 - 2025-08-08
 * [#1632](https://github.com/stripe/stripe-ruby/pull/1632) Bring back invoice payments APIs that were missing in the public preview SDKs
   * Add support for new resource `InvoicePayment`
   * Add support for `list` and `retrieve` methods on resource `InvoicePayment`
 
-## 15.5.0-beta.1 - 2025-07-30
+## <a id="15-5-0-beta-1"></a>15.5.0-beta.1 - 2025-07-30
 This release changes the pinned API version to `2025-07-30.preview`.
 
 * [#1624](https://github.com/stripe/stripe-ruby/pull/1624) Update generated code for beta
@@ -450,7 +450,7 @@ This release changes the pinned API version to `2025-07-30.preview`.
   * Remove support for thin event `V2CoreAccountLinkCompletedEvent`
   * Remove support for thin event `V2OffSessionPaymentRequiresCaptureEvent` with related object `V2::Payments::OffSessionPayment`
 
-## 15.4.0-beta.2 - 2025-07-09
+## <a id="15-4-0-beta-2"></a>15.4.0-beta.2 - 2025-07-09
 * [#1625](https://github.com/stripe/stripe-ruby/pull/1625) Pull in V2 FinancialAccount changes for June release
   * Add support for `close` and `create` methods on resource `V2::MoneyManagement::FinancialAccount`
   * Add support for `storer` on `V2::Core::Account::Configuration`, `V2::Core::Account::CreateParams::Configuration`, and `V2::Core::Account::UpdateParams::Configuration`
@@ -459,7 +459,7 @@ This release changes the pinned API version to `2025-07-30.preview`.
   * Add support for thin events `V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationStorerUpdatedEvent` with related object `V2::Core::Account`
   * Add support for error types `AlreadyExistsError` and `NonZeroBalanceError`
 
-## 15.4.0-beta.1 - 2025-07-01
+## <a id="15-4-0-beta-1"></a>15.4.0-beta.1 - 2025-07-01
 This release changes the pinned API version to `2025-06-30.preview`.
 
 * [#1607](https://github.com/stripe/stripe-ruby/pull/1607) Update generated code for beta
@@ -483,10 +483,10 @@ This release changes the pinned API version to `2025-06-30.preview`.
   * Change type of `V2::MoneyManagement::ReceivedCredit::BalanceTransfer.payout_v1` from `string` to `nullable(string)`
   * Change `V2::Payments::OffSessionPayment::CreateParams::TransferDatum.amount` to be optional
 
-## 15.3.0-beta.2 - 2025-06-26
+## <a id="15-3-0-beta-2"></a>15.3.0-beta.2 - 2025-06-26
 * [#1623](https://github.com/stripe/stripe-ruby/pull/1623) Pull in OffSessionPayment changes for the May release
 
-## 15.3.0-beta.1 - 2025-05-29
+## <a id="15-3-0-beta-1"></a>15.3.0-beta.1 - 2025-05-29
 This release changes the pinned API version to `2025-05-28.preview`.
 
 * [#1599](https://github.com/stripe/stripe-ruby/pull/1599) Update generated code for beta
@@ -525,7 +525,7 @@ This release changes the pinned API version to `2025-05-28.preview`.
   * Add support for `tax_transaction_attempts` on `Tax::Association`
   * Add support for `confirm_config` on `Terminal::Reader::Action::ConfirmPaymentIntent` and `Terminal::Reader::ConfirmPaymentIntentParams`
 
-## 15.2.0-beta.1 - 2025-04-30
+## <a id="15-2-0-beta-1"></a>15.2.0-beta.1 - 2025-04-30
 This release changes the pinned API version to `2025-04-30.preview`.
 
 * [#1589](https://github.com/stripe/stripe-ruby/pull/1589) Update generated code for beta
@@ -535,7 +535,7 @@ This release changes the pinned API version to `2025-04-30.preview`.
   * Change `Checkout::Session::AutomaticTax.provider`, `Invoice::AutomaticTax.provider`, `Quote::AutomaticTax.provider`, and `QuotePreviewInvoice::AutomaticTax.provider` to be required
   * Add support for `account_number` on `ConfirmationToken::PaymentMethodPreview::AcssDebit` and `PaymentMethod::AcssDebit`
 
-## 15.1.0-beta.2 - 2025-04-17
+## <a id="15-1-0-beta-2"></a>15.1.0-beta.2 - 2025-04-17
 * [#1588](https://github.com/stripe/stripe-ruby/pull/1588) Removed Request signing authenticator
   - Removed `RequestSigningAuthenticator` class as request signing is not supported by Stripe APIs yet. This allows us to remove the dependency on base64
 * [#1578](https://github.com/stripe/stripe-ruby/pull/1578) Update generated code for beta
@@ -556,7 +556,7 @@ This release changes the pinned API version to `2025-04-30.preview`.
   * Add support for `pending_reason` on `Refund`
   * Add support for `aw`, `az`, `bd`, `bj`, `et`, `kg`, `la`, and `ph` on `TaxRegistration::CountryOption` and `TaxRegistration::CreateParams::CountryOption`
 
-## 15.1.0-beta.1 - 2025-04-10
+## <a id="15-1-0-beta-1"></a>15.1.0-beta.1 - 2025-04-10
 * [#1572](https://github.com/stripe/stripe-ruby/pull/1572) Handle external_account field
   - Changes `external_account` field in `external_accounts.create` from a `string` to a union type.
 * [#1569](https://github.com/stripe/stripe-ruby/pull/1569) Update generated code for beta
@@ -574,7 +574,7 @@ This release changes the pinned API version to `2025-04-30.preview`.
   * Change type of `TaxCalculationLineItem.reference` from `nullable(string)` to `string`
   * Add support for `in` on `TaxRegistration::CountryOption` and `TaxRegistration::CreateParams::CountryOption`
 
-## 14.1.0-beta.1 - 2025-04-02
+## <a id="14-1-0-beta-1"></a>14.1.0-beta.1 - 2025-04-02
 This release changes the pinned API version to `2025-03-31.preview`.
 
 * [#1557](https://github.com/stripe/stripe-ruby/pull/1557) Update Stripe.add_beta_version
@@ -629,29 +629,29 @@ This release changes the pinned API version to `2025-03-31.preview`.
   * Add support for new thin event `V2CoreAccountLinkCompletedEvent` with related object `V2::Core::AccountLink`
   * Add support for new thin events `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `V2::Core::Person`
 
-## 13.6.0-beta.1 - 2025-03-18
+## <a id="13-6-0-beta-1"></a>13.6.0-beta.1 - 2025-03-18
 This release changes the pinned API version to `2025-02-24.acacia`.
 
 * [#1546](https://github.com/stripe/stripe-ruby/pull/1546) Beta SDK updates between Open API versions 1473 and 1505
   * Add support for `succeed_input_collection` and `timeout_input_collection` test helper methods on resource `Terminal.Reader`
 
-## 13.5.0-beta.1 - 2025-02-07
+## <a id="13-5-0-beta-1"></a>13.5.0-beta.1 - 2025-02-07
 * [#1527](https://github.com/stripe/stripe-ruby/pull/1527) Update generated code for beta
 
-## 13.4.0-beta.4 - 2025-01-23
+## <a id="13-4-0-beta-4"></a>13.4.0-beta.4 - 2025-01-23
 * [#1523](https://github.com/stripe/stripe-ruby/pull/1523) Update generated code for beta
   * Removed support for `stripe_account` from `Stripe::Terminal::Reader`. Use `account` instead.
 
-## 13.4.0-beta.3 - 2025-01-17
+## <a id="13-4-0-beta-3"></a>13.4.0-beta.3 - 2025-01-17
 This release changes the pinned API version to `2025-01-27.acacia`.
 
 * [#1514](https://github.com/stripe/stripe-ruby/pull/1514) Update generated code for beta
 
-## 13.4.0-beta.2 - 2025-01-09
+## <a id="13-4-0-beta-2"></a>13.4.0-beta.2 - 2025-01-09
 * [#1504](https://github.com/stripe/stripe-ruby/pull/1504) Update generated code for beta
   * Add support for `close` method on resource `Treasury.FinancialAccount`
 
-## 13.4.0-beta.1 - 2024-12-20
+## <a id="13-4-0-beta-1"></a>13.4.0-beta.1 - 2024-12-20
 * Support parameter and resource fields with typed RBIs
   * [#1509](https://github.com/stripe/stripe-ruby/pull/1509) (beta) Publish RBIs with gem
   * [#1505](https://github.com/stripe/stripe-ruby/pull/1505) Add method parameter type classes to all resources and services
@@ -659,7 +659,7 @@ This release changes the pinned API version to `2025-01-27.acacia`.
   * Add method parameter classes for all resources and service methods.
   * These changes are NOT breaking and are purely additive. The method parameter classes are not required, we still accept hashes as well as the new `RequestParams` classes. Any additional gated parameters are still available to pass via hash. Resource fields define publicly documented fields and other deserialized fields are still accessible.
 
-## 13.3.0-beta.3 - 2024-12-12
+## <a id="13-3-0-beta-3"></a>13.3.0-beta.3 - 2024-12-12
 This release changes the pinned API version to `2024-12-18.acacia`.
 
 * [#1499](https://github.com/stripe/stripe-ruby/pull/1499) Update generated code for beta
@@ -669,38 +669,38 @@ This release changes the pinned API version to `2024-12-18.acacia`.
   * Remove support for `AmountRefunded` on `PaymentRecord`
   * Add support for `Account` on `TerminalReaderActionCollectPaymentMethod`, `TerminalReaderActionConfirmPaymentIntent`, `TerminalReaderActionProcessPaymentIntent`, and `TerminalReaderActionRefundPayment`
 
-## 13.3.0-beta.2 - 2024-12-05
+## <a id="13-3-0-beta-2"></a>13.3.0-beta.2 - 2024-12-05
 * [#1490](https://github.com/stripe/stripe-ruby/pull/1490) Add explicit attributes for fields in resources, and rbis for resources
 * [#1492](https://github.com/stripe/stripe-ruby/pull/1492) Update generated code for beta
 
-## 13.3.0-beta.1 - 2024-11-21
+## <a id="13-3-0-beta-1"></a>13.3.0-beta.1 - 2024-11-21
 * [#1489](https://github.com/stripe/stripe-ruby/pull/1489) Merging code from master to get the latest bug fixes.
 
-## 13.2.0-beta.3 - 2024-11-14
+## <a id="13-2-0-beta-3"></a>13.2.0-beta.3 - 2024-11-14
 This release changes the pinned API version to `2024-11-20.acacia`.
 
 * [#1484](https://github.com/stripe/stripe-ruby/pull/1484) Update generated code for beta
 
-## 13.2.0-beta.2 - 2024-11-07
+## <a id="13-2-0-beta-2"></a>13.2.0-beta.2 - 2024-11-07
 * [#1480](https://github.com/stripe/stripe-ruby/pull/1480) Update generated code for beta
   * Add support for new resources `Issuing.FraudLiabilityDebit`, `PaymentAttemptRecord`, and `PaymentRecord`
   * Add support for `list` and `retrieve` methods on resources `FraudLiabilityDebit` and `PaymentAttemptRecord`
   * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt`, `report_payment`, and `retrieve` methods on resource `PaymentRecord`
 
-## 13.2.0-beta.1 - 2024-10-29
+## <a id="13-2-0-beta-1"></a>13.2.0-beta.1 - 2024-10-29
 This release changes the pinned API version to `2024-10-28.acacia`.
 
 * [#1477](https://github.com/stripe/stripe-ruby/pull/1477) Update generated code for beta
   * Add support for `trigger_action` method on resource `PaymentIntent`
 
-## 13.1.0-beta.3 - 2024-10-18
+## <a id="13-1-0-beta-3"></a>13.1.0-beta.3 - 2024-10-18
 * [#1469](https://github.com/stripe/stripe-ruby/pull/1469) Update generated code for beta
 
-## 13.1.0-beta.2 - 2024-10-08
+## <a id="13-1-0-beta-2"></a>13.1.0-beta.2 - 2024-10-08
 * [#1468](https://github.com/stripe/stripe-ruby/pull/1468) Update generated code for beta
   * Add support for `submit_card` test helper method on resource `Issuing.Card`
 
-## 13.1.0-beta.1 - 2024-10-03
+## <a id="13-1-0-beta-1"></a>13.1.0-beta.1 - 2024-10-03
 This release changes the pinned API version to `2024-09-30.acacia`.
 
 * [#1465](https://github.com/stripe/stripe-ruby/pull/1465) Updates to the `Preview` class
@@ -717,33 +717,33 @@ This release changes the pinned API version to `2024-09-30.acacia`.
     charge = client.deserialize(resp.data)
     ```
 
-## 12.7.0-beta.2 - 2024-09-18
+## <a id="12-7-0-beta-2"></a>12.7.0-beta.2 - 2024-09-18
 * [#1449](https://github.com/stripe/stripe-ruby/pull/1449) Update generated code for beta
   * Remove support for resource `QuotePhase`
   * Remove support for `list_line_items` and `retrieve` methods on resource `QuotePhase`
 
-## 12.7.0-beta.1 - 2024-09-13
+## <a id="12-7-0-beta-1"></a>12.7.0-beta.1 - 2024-09-13
 * [#1446](https://github.com/stripe/stripe-ruby/pull/1446) Update generated code for beta
   * Add support for new resources `Issuing.DisputeSettlementDetail` and `Issuing.Settlement`
   * Add support for `list` and `retrieve` methods on resource `DisputeSettlementDetail`
   * Remove support for `list` method on resource `QuotePhase`
 
-## 12.6.0-beta.1 - 2024-09-05
+## <a id="12-6-0-beta-1"></a>12.6.0-beta.1 - 2024-09-05
 * [#1441](https://github.com/stripe/stripe-ruby/pull/1441) Update generated code for beta
   * Add support for new resources `Billing.MeterErrorReport` and `Terminal.ReaderCollectedData`
   * Add support for `retrieve` method on resource `ReaderCollectedData`
 
-## 12.5.0-beta.2 - 2024-08-01
+## <a id="12-5-0-beta-2"></a>12.5.0-beta.2 - 2024-08-01
 * [#1439](https://github.com/stripe/stripe-ruby/pull/1439) Update generated code for beta
   * Add support for `attach_payment` method on resource `Invoice`
 
-## 12.5.0-beta.1 - 2024-07-25
+## <a id="12-5-0-beta-1"></a>12.5.0-beta.1 - 2024-07-25
 * [#1429](https://github.com/stripe/stripe-ruby/pull/1429) Update generated code for beta
   * Add support for new resources `Billing.AlertTriggered`, `Billing.Alert`, and `Tax.Association`
   * Add support for `activate`, `archive`, `create`, `deactivate`, `list`, and `retrieve` methods on resource `Alert`
   * Add support for `find` method on resource `Association`
 
-## 12.2.0-beta.1 - 2024-07-05
+## <a id="12-2-0-beta-1"></a>12.2.0-beta.1 - 2024-07-05
 This release changes the pinned API version to `2024-06-20`.
 
 * [#1409](https://github.com/stripe/stripe-ruby/pull/1409) Update generated code for beta
@@ -751,37 +751,37 @@ This release changes the pinned API version to `2024-06-20`.
   * Add support for new resource `FinancialConnections.Institution`
   * Add support for `list` and `retrieve` methods on resource `Institution`
 
-## 11.7.0-beta.1 - 2024-05-30
+## <a id="11-7-0-beta-1"></a>11.7.0-beta.1 - 2024-05-30
 * [#1400](https://github.com/stripe/stripe-ruby/pull/1400) Update generated code for beta
   * Keeping up with the changes from version 11.6.0
 
-## 11.5.0-beta.1 - 2024-05-09
+## <a id="11-5-0-beta-1"></a>11.5.0-beta.1 - 2024-05-09
 * [#1395](https://github.com/stripe/stripe-ruby/pull/1395) Update generated code for beta
   * No new beta features. Merging changes from the main branch.
 
-## 11.4.0-beta.1 - 2024-05-02
+## <a id="11-4-0-beta-1"></a>11.4.0-beta.1 - 2024-05-02
 * [#1386](https://github.com/stripe/stripe-ruby/pull/1386) Update generated code for beta
 
-## 11.3.0-beta.1 - 2024-04-18
+## <a id="11-3-0-beta-1"></a>11.3.0-beta.1 - 2024-04-18
 * [#1383](https://github.com/stripe/stripe-ruby/pull/1383) Update generated code for beta
 
-## 11.1.0-beta.1 - 2024-04-11
+## <a id="11-1-0-beta-1"></a>11.1.0-beta.1 - 2024-04-11
 This release changes the pinned API version to `2024-04-10`.
 
 * [#1376](https://github.com/stripe/stripe-ruby/pull/1376) Update generated code for beta
   * Add support for `retrieve` method on resources `Entitlements.ActiveEntitlement` and `Entitlements.Feature`
 
-## 10.15.0-beta.1 - 2024-04-04
+## <a id="10-15-0-beta-1"></a>10.15.0-beta.1 - 2024-04-04
 * [#1370](https://github.com/stripe/stripe-ruby/pull/1370) Update generated code for beta
 * [#1373](https://github.com/stripe/stripe-ruby/pull/1373) Update generated code for beta
   - Add support for `update` method on resource `Entitlements.Feature`
 
-## 10.14.0-beta.1 - 2024-03-21
+## <a id="10-14-0-beta-1"></a>10.14.0-beta.1 - 2024-03-21
 * [#1363](https://github.com/stripe/stripe-ruby/pull/1363) Update generated code for beta
   - Add support for new resources `Entitlements.ActiveEntitlementSummary` and `Entitlements.ActiveEntitlement`
   - Add support for `list` method on resource `ActiveEntitlement`
 
-## 10.13.0-beta.1 - 2024-03-14
+## <a id="10-13-0-beta-1"></a>10.13.0-beta.1 - 2024-03-14
 * [#1360](https://github.com/stripe/stripe-ruby/pull/1360) Update generated code for beta
   - Add support for new resources `Billing.MeterEventAdjustment`, `Billing.MeterEvent`, and `Billing.Meter`
   - Add support for `create`, `deactivate`, `list`, `reactivate`, `retrieve`, and `update` methods on resource `Meter`
@@ -789,7 +789,7 @@ This release changes the pinned API version to `2024-04-10`.
   - Add support for `create` test helper method on resource `ConfirmationToken`
   - Add support for `add_lines`, `remove_lines`, and `update_lines` methods on resource `Invoice`
 
-## 10.12.0-beta.1 - 2024-02-29
+## <a id="10-12-0-beta-1"></a>10.12.0-beta.1 - 2024-02-29
 * [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version
 * [#1352](https://github.com/stripe/stripe-ruby/pull/1352) Update generated code for beta
   Release specs are identical.
@@ -797,89 +797,89 @@ This release changes the pinned API version to `2024-04-10`.
 * [#1341](https://github.com/stripe/stripe-ruby/pull/1341) Update generated code for beta
   - Remove support for resource `Entitlements.Event`
 
-## 10.11.0-beta.1 - 2024-02-22
+## <a id="10-11-0-beta-1"></a>10.11.0-beta.1 - 2024-02-22
 * [#1335](https://github.com/stripe/stripe-ruby/pull/1335) Update generated code for beta
 
-## 10.10.0-beta.1 - 2024-02-16
+## <a id="10-10-0-beta-1"></a>10.10.0-beta.1 - 2024-02-16
 * [#1328](https://github.com/stripe/stripe-ruby/pull/1328) Update generated code for beta
 * [#1332](https://github.com/stripe/stripe-ruby/pull/1332) Update generated code for beta
   - Add support for `decrement_authorization` method on resource `PaymentIntent`
 
-## 10.9.0-beta.1 - 2024-02-08
+## <a id="10-9-0-beta-1"></a>10.9.0-beta.1 - 2024-02-08
 * [#1321](https://github.com/stripe/stripe-ruby/pull/1321) Update generated code for beta
   - Release specs are identical.
 
-## 10.8.0-beta.1 - 2024-02-01
+## <a id="10-8-0-beta-1"></a>10.8.0-beta.1 - 2024-02-01
 * [#1318](https://github.com/stripe/stripe-ruby/pull/1318) Update generated code for beta
   - Add support for new resources `Entitlements.Event` and `Entitlements.Feature`
   - Add support for `create` method on resource `Event`
   - Add support for `create` and `list` methods on resource `Feature`
 
-## 10.7.0-beta.3 - 2024-01-25
+## <a id="10-7-0-beta-3"></a>10.7.0-beta.3 - 2024-01-25
 * [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
 * [#1313](https://github.com/stripe/stripe-ruby/pull/1313) Update generated code for beta
   - Add support for `create_preview` method on resource `Invoice`
 
-## 10.7.0-beta.2 - 2024-01-19
+## <a id="10-7-0-beta-2"></a>10.7.0-beta.2 - 2024-01-19
 * [#1307](https://github.com/stripe/stripe-ruby/pull/1307) Beta: report raw request usage
 
-## 10.7.0-beta.1 - 2024-01-12
+## <a id="10-7-0-beta-1"></a>10.7.0-beta.1 - 2024-01-12
 * [#1305](https://github.com/stripe/stripe-ruby/pull/1305) Update generated code for beta
 * [#1309](https://github.com/stripe/stripe-ruby/pull/1309) Update generated code for beta
 
-## 10.6.0-beta.1 - 2024-01-04
+## <a id="10-6-0-beta-1"></a>10.6.0-beta.1 - 2024-01-04
 * [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
   - Updated stable APIs to the latest version
 
-## 10.5.0-beta.1 - 2023-12-22
+## <a id="10-5-0-beta-1"></a>10.5.0-beta.1 - 2023-12-22
 * [#1302](https://github.com/stripe/stripe-ruby/pull/1302) Update generated code for beta
 
-## 10.4.0-beta.1 - 2023-12-14
+## <a id="10-4-0-beta-1"></a>10.4.0-beta.1 - 2023-12-14
 Updated stable APIs to the latest version
 
-## 10.3.0-beta.1 - 2023-11-30
+## <a id="10-3-0-beta-1"></a>10.3.0-beta.1 - 2023-11-30
 * [#1298](https://github.com/stripe/stripe-ruby/pull/1298) Update generated code for beta
 
-## 10.2.0-beta.1 - 2023-11-02
+## <a id="10-2-0-beta-1"></a>10.2.0-beta.1 - 2023-11-02
 * [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
 * [#1287](https://github.com/stripe/stripe-ruby/pull/1287) Update generated code for beta
   - Add support for `attach_payment_intent` method on resource `Invoice`
 
-## 10.1.0-beta.2 - 2023-10-26
+## <a id="10-1-0-beta-2"></a>10.1.0-beta.2 - 2023-10-26
 * [#1285](https://github.com/stripe/stripe-ruby/pull/1285) Update generated code for beta
   - Add support for new resource `Margin`
   - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `Margin`
 
-## 10.1.0-beta.1 - 2023-10-17
+## <a id="10-1-0-beta-1"></a>10.1.0-beta.1 - 2023-10-17
 This release changes the pinned API version to `2023-10-16`.
 
 * [#1282](https://github.com/stripe/stripe-ruby/pull/1282) Update generated code for beta
 * [#1284](https://github.com/stripe/stripe-ruby/pull/1284) Update generated code for beta
   - Update pinned API version to `2023-10-16`
 
-## 9.5.0-beta.2 - 2023-10-12
+## <a id="9-5-0-beta-2"></a>9.5.0-beta.2 - 2023-10-12
 * [#1280](https://github.com/stripe/stripe-ruby/pull/1280) Update generated code for beta
   - Add support for new resources `AccountNotice` and `Issuing.CreditUnderwritingRecord`
   - Add support for `list`, `retrieve`, and `update` methods on resource `AccountNotice`
   - Add support for `correct`, `create_from_application`, `create_from_proactive_review`, `list`, `report_decision`, and `retrieve` methods on resource `CreditUnderwritingRecord`
 
-## 9.5.0-beta.1 - 2023-10-05
+## <a id="9-5-0-beta-1"></a>9.5.0-beta.1 - 2023-10-05
 * [#1278](https://github.com/stripe/stripe-ruby/pull/1278) Update generated code for beta
   - Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
   - Remove support for `draft_quote` and `mark_stale_quote` methods on resource `Quote`
   - Rename `preview_invoice_lines` to `list_preview_invoice_lines` on resource `Quote`
 
-## 9.4.0-beta.3 - 2023-09-28
+## <a id="9-4-0-beta-3"></a>9.4.0-beta.3 - 2023-09-28
 * [#1276](https://github.com/stripe/stripe-ruby/pull/1276) Update generated code for beta
   - Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 
-## 9.4.0-beta.2 - 2023-09-21
+## <a id="9-4-0-beta-2"></a>9.4.0-beta.2 - 2023-09-21
 * [#1273](https://github.com/stripe/stripe-ruby/pull/1273) Update generated code for beta
 
-## 9.4.0-beta.1 - 2023-09-14
+## <a id="9-4-0-beta-1"></a>9.4.0-beta.1 - 2023-09-14
 * Updated stable APIs to the latest version
 
-## 9.3.0-beta.1 - 2023-09-07
+## <a id="9-3-0-beta-1"></a>9.3.0-beta.1 - 2023-09-07
 * [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
 * [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   - Add support for `submit_card` test helper method on resource `Issuing.Card`
@@ -894,34 +894,34 @@ This release changes the pinned API version to `2023-10-16`.
 * [#1268](https://github.com/stripe/stripe-ruby/pull/1268) Update generated code for beta
   - Remove support for `submit_card` test helper method on resource `Issuing.Card`
 
-## 9.2.0-beta.1 - 2023-08-31
+## <a id="9-2-0-beta-1"></a>9.2.0-beta.1 - 2023-08-31
 * [#1265](https://github.com/stripe/stripe-ruby/pull/1265) Update generated code for beta
   - Rename `Quote.preview_invoices` to `QuotePreviewInvoice.list` and `Quote.preview_schedules` to `QuotePreviewSchedules.list`
 
-## 9.0.0-beta.1 - 2023-08-24
+## <a id="9-0-0-beta-1"></a>9.0.0-beta.1 - 2023-08-24
 This release changes the pinned API version to `2023-08-16`.
 
 * [#1259](https://github.com/stripe/stripe-ruby/pull/1259) Update generated code for beta
 * [#1264](https://github.com/stripe/stripe-ruby/pull/1264) Update generated code for beta
   - Add support for new resources `QuotePreviewInvoice` and `QuotePreviewSchedule`
 
-## 8.8.0-beta.1 - 2023-08-10
+## <a id="8-8-0-beta-1"></a>8.8.0-beta.1 - 2023-08-10
 * [#1257](https://github.com/stripe/stripe-ruby/pull/1257) Update generated code for beta
   - Updated stable APIs to the latest version
 
-## 8.7.0-beta.3 - 2023-08-03
+## <a id="8-7-0-beta-3"></a>8.7.0-beta.3 - 2023-08-03
 * [#1252](https://github.com/stripe/stripe-ruby/pull/1252) Remove developer_message support
 * [#1254](https://github.com/stripe/stripe-ruby/pull/1254) Update generated code for beta
   - Add support for `submit_card` test helper method on resource `Issuing.Card`
 
-## 8.7.0-beta.2 - 2023-07-28
+## <a id="8-7-0-beta-2"></a>8.7.0-beta.2 - 2023-07-28
 * [#1246](https://github.com/stripe/stripe-ruby/pull/1246) Update generated code for beta
 * [#1249](https://github.com/stripe/stripe-ruby/pull/1249) Update generated code for beta
 * [#1251](https://github.com/stripe/stripe-ruby/pull/1251) Update generated code for beta
   - Add support for new resource `Tax.Form`
   - Add support for `list`, `pdf`, and `retrieve` methods on resource `Form`
 
-## 8.7.0-beta.1 - 2023-07-13
+## <a id="8-7-0-beta-1"></a>8.7.0-beta.1 - 2023-07-13
 * [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
 * [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
   Release specs are identical.
@@ -929,44 +929,44 @@ This release changes the pinned API version to `2023-08-16`.
   - Add support for new resource `PaymentMethodConfiguration`
   - Add support for `create`, `list`, `retrieve`, and `update` methods on resource `PaymentMethodConfiguration`
 
-## 8.6.0-beta.6 - 2023-06-22
+## <a id="8-6-0-beta-6"></a>8.6.0-beta.6 - 2023-06-22
 * [#1229](https://github.com/stripe/stripe-ruby/pull/1229) Update generated code for beta
 * [#1233](https://github.com/stripe/stripe-ruby/pull/1233) Update generated code for beta
 * [#1237](https://github.com/stripe/stripe-ruby/pull/1237) Update generated code for beta
   - Add support for new resource `CustomerSession`
   - Add support for `create` method on resource `CustomerSession`
 
-## 8.6.0-beta.5 - 2023-06-01
+## <a id="8-6-0-beta-5"></a>8.6.0-beta.5 - 2023-06-01
 * [#1224](https://github.com/stripe/stripe-ruby/pull/1224) Handle developer message in preview error responses
 * [#1228](https://github.com/stripe/stripe-ruby/pull/1228) Document raw_request
 * [#1222](https://github.com/stripe/stripe-ruby/pull/1222) Update generated code for beta
 * [#1227](https://github.com/stripe/stripe-ruby/pull/1227) Update generated code for beta
 
-## 8.6.0-beta.4 - 2023-05-19
+## <a id="8-6-0-beta-4"></a>8.6.0-beta.4 - 2023-05-19
 * [#1217](https://github.com/stripe/stripe-ruby/pull/1217) Add raw_request
 * [#1214](https://github.com/stripe/stripe-ruby/pull/1214) Update generated code for beta
 * [#1216](https://github.com/stripe/stripe-ruby/pull/1216) Update generated code for beta
 * [#1220](https://github.com/stripe/stripe-ruby/pull/1220) Update generated code for beta
   - Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
 
-## 8.6.0-beta.3 - 2023-04-17
+## <a id="8-6-0-beta-3"></a>8.6.0-beta.3 - 2023-04-17
 * [#1210](https://github.com/stripe/stripe-ruby/pull/1210) , [#1212](https://github.com/stripe/stripe-ruby/pull/1212), [#1213](https://github.com/stripe/stripe-ruby/pull/1213) Add support for request signing
 * [#1211](https://github.com/stripe/stripe-ruby/pull/1211) Update generated code for beta
 
-## 8.6.0-beta.2 - 2023-04-13
+## <a id="8-6-0-beta-2"></a>8.6.0-beta.2 - 2023-04-13
 * [#1205](https://github.com/stripe/stripe-ruby/pull/1205) Update generated code for beta
 * [#1206](https://github.com/stripe/stripe-ruby/pull/1206) Update generated code for beta
   - Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
 
-## 8.6.0-beta.1 - 2023-03-30
+## <a id="8-6-0-beta-1"></a>8.6.0-beta.1 - 2023-03-30
 * [#1202](https://github.com/stripe/stripe-ruby/pull/1202) Update generated code for beta
 
-## 8.5.0-beta.1 - 2023-03-23
+## <a id="8-5-0-beta-1"></a>8.5.0-beta.1 - 2023-03-23
 * [#1194](https://github.com/stripe/stripe-ruby/pull/1194) Update generated code for beta (new)
   - Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`
   - Add support for `collect_inputs` method on resource `Terminal.Reader`
 
-## 8.4.0-beta.4 - 2023-03-16
+## <a id="8-4-0-beta-4"></a>8.4.0-beta.4 - 2023-03-16
 * [#1188](https://github.com/stripe/stripe-ruby/pull/1188) Update generated code for beta (new)
   - Remove support for resources `Capital.FinancingOffer` and `Capital.FinancingSummary`
   - Remove support for `list`, `mark_delivered`, and `retrieve` methods on resource `FinancingOffer`
@@ -974,55 +974,55 @@ This release changes the pinned API version to `2023-08-16`.
 * [#1189](https://github.com/stripe/stripe-ruby/pull/1189) Update generated code for beta (new)
   - Add support for `create_from_calculation` method on resource `Tax.Transaction`
 
-## 8.4.0-beta.3 - 2023-03-09
+## <a id="8-4-0-beta-3"></a>8.4.0-beta.3 - 2023-03-09
 * [#1184](https://github.com/stripe/stripe-ruby/pull/1184) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Remove support for `list_transactions` method on resource `Tax.Transaction`
 
-## 8.4.0-beta.2 - 2023-03-03
+## <a id="8-4-0-beta-2"></a>8.4.0-beta.2 - 2023-03-03
 * [#1183](https://github.com/stripe/stripe-ruby/pull/1183) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resources `Issuing.CardBundle` and `Issuing.CardDesign`
   - Add support for `list` and `retrieve` methods on resource `CardBundle`
   - Add support for `list`, `retrieve`, and `update` methods on resource `CardDesign`
 
-## 8.4.0-beta.1 - 2023-02-23
+## <a id="8-4-0-beta-1"></a>8.4.0-beta.1 - 2023-02-23
 * [#1182](https://github.com/stripe/stripe-ruby/pull/1182) API Updates for beta branch
   - Updated stable APIs to the latest version
 
-## 8.3.0-beta.1 - 2023-02-02
+## <a id="8-3-0-beta-1"></a>8.3.0-beta.1 - 2023-02-02
 * [#1174](https://github.com/stripe/stripe-ruby/pull/1174) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resource `FinancialConnections.Transaction`
   - Add support for `list` method on resource `Transaction`
 
-## 8.2.0-beta.3 - 2023-01-26
+## <a id="8-2-0-beta-3"></a>8.2.0-beta.3 - 2023-01-26
 * [#1172](https://github.com/stripe/stripe-ruby/pull/1172) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `list_transactions` method on resource `Tax.Transaction`
 
-## 8.2.0-beta.2 - 2023-01-19
+## <a id="8-2-0-beta-2"></a>8.2.0-beta.2 - 2023-01-19
 * [#1170](https://github.com/stripe/stripe-ruby/pull/1170) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `Tax.Settings` resource.
 
-## 8.2.0-beta.1 - 2023-01-12
+## <a id="8-2-0-beta-1"></a>8.2.0-beta.1 - 2023-01-12
 * [#1167](https://github.com/stripe/stripe-ruby/pull/1167) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Change `quote.draft_quote` implementation to from calling `POST /v1/quotes/{quote}/draft` to `POST /v1/quotes/{quote}/mark_draft`
   - Add support for `Tax::Register` resource
 
-## 8.1.0-beta.4 - 2023-01-05
+## <a id="8-1-0-beta-4"></a>8.1.0-beta.4 - 2023-01-05
 * [#1164](https://github.com/stripe/stripe-ruby/pull/1164) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for `mark_stale_quote` method on resource `Quote`
 
-## 8.1.0-beta.3 - 2022-12-22
+## <a id="8-1-0-beta-3"></a>8.1.0-beta.3 - 2022-12-22
 * [#1158](https://github.com/stripe/stripe-ruby/pull/1158) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Move `TaxCalculation` and `TaxTransaction` to `Tax::Calculation` and `Tax::Transaction`.
 
-## 8.1.0-beta.2 - 2022-12-15
+## <a id="8-1-0-beta-2"></a>8.1.0-beta.2 - 2022-12-15
 * [#1156](https://github.com/stripe/stripe-ruby/pull/1156) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for new resources `TaxCalculation`, and `TaxTransaction`
@@ -1032,7 +1032,7 @@ This release changes the pinned API version to `2023-08-16`.
   - Updated stable APIs to the latest version
   - Add support for new resource `QuoteLine`.
 
-## 8.1.0-beta.1 - 2022-12-08
+## <a id="8-1-0-beta-1"></a>8.1.0-beta.1 - 2022-12-08
 This release changes the pinned API version to `2022-11-15`.
 
 * [#1146](https://github.com/stripe/stripe-ruby/pull/1146) API Updates for beta branch
@@ -1040,41 +1040,41 @@ This release changes the pinned API version to `2022-11-15`.
 * [#1153](https://github.com/stripe/stripe-ruby/pull/1153) API Updates for beta branch
   - Updated stable APIs to the latest version
 
-## 7.2.0-beta.5 - 2022-11-02
+## <a id="7-2-0-beta-5"></a>7.2.0-beta.5 - 2022-11-02
 * [#1135](https://github.com/stripe/stripe-ruby/pull/1135) API Updates for beta branch
   - Updated stable APIs to the latest version
 * [#1139](https://github.com/stripe/stripe-ruby/pull/1139) API Updates for beta branch
   - Updated beta APIs to the latest stable version
 
-## 7.2.0-beta.4 - 2022-10-07
+## <a id="7-2-0-beta-4"></a>7.2.0-beta.4 - 2022-10-07
 * [#999](https://github.com/stripe/stripe-ruby/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
 
-## 7.2.0-beta.3 - 2022-09-26
+## <a id="7-2-0-beta-3"></a>7.2.0-beta.3 - 2022-09-26
 * [#1129](https://github.com/stripe/stripe-ruby/pull/1129) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add `FinancingOffer`, `FinancingSummary` and `FinancingTransaction` resources.
 
-## 7.2.0-beta.2 - 2022-08-26
+## <a id="7-2-0-beta-2"></a>7.2.0-beta.2 - 2022-08-26
 * [#1127](https://github.com/stripe/stripe-ruby/pull/1127) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add support for the beta [Gift Card API](https://stripe.com/docs/gift-cards).
 
-## 7.2.0-beta.1 - 2022-08-23
+## <a id="7-2-0-beta-1"></a>7.2.0-beta.1 - 2022-08-23
 * [#1122](https://github.com/stripe/stripe-ruby/pull/1122) API Updates for beta branch
   - Updated stable APIs to the latest version
   - `Stripe-Version` beta headers are not pinned by-default and need to be manually specified, please refer to [beta SDKs README section](https://github.com/stripe/stripe-ruby/blob/master/README.md#beta-sdks)
 
-## 7.1.0-beta.2 - 2022-08-11
+## <a id="7-1-0-beta-2"></a>7.1.0-beta.2 - 2022-08-11
 * [#1113](https://github.com/stripe/stripe-ruby/pull/1113) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Add `refund_payment` method to Terminal resource
 
-## 7.1.0-beta.1 - 2022-08-03
+## <a id="7-1-0-beta-1"></a>7.1.0-beta.1 - 2022-08-03
 * [#1107](https://github.com/stripe/stripe-ruby/pull/1107) API Updates for beta branch
   - Updated stable APIs to the latest version
   - Added the `Order` resource support
 
-## 6.6.0-beta.1 - 2022-07-22
+## <a id="6-6-0-beta-1"></a>6.6.0-beta.1 - 2022-07-22
 * [#1075](https://github.com/stripe/stripe-ruby/pull/1075) Use the generated API version
 * [#1085](https://github.com/stripe/stripe-ruby/pull/1085) API Updates for beta branch
   - Updated stable APIs to the latest version

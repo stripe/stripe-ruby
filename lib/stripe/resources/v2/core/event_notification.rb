@@ -31,8 +31,22 @@ module Stripe
         end
       end
 
+      class RelatedSingletonObject
+        attr_reader :type, :url
+
+        def initialize(related_object)
+          @type = related_object[:type]
+          @url = related_object[:url]
+        end
+      end
+
       class EventNotification
         attr_reader :id, :object, :type, :created, :context, :livemode, :reason
+
+        # Overridden by generated subclasses if their related object is a singleton
+        private def related_object_class
+          RelatedObject
+        end
 
         def initialize(event_payload, client)
           @id = event_payload[:id]
@@ -45,7 +59,7 @@ module Stripe
             @context = StripeContext.parse(event_payload[:context])
           end
           # private unless a child declares an attr_reader
-          @related_object = RelatedObject.new(event_payload[:related_object]) if event_payload[:related_object]
+          @related_object = related_object_class.new(event_payload[:related_object]) if event_payload[:related_object]
 
           # internal use
           @client = client

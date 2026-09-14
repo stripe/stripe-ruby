@@ -1,0 +1,1 @@
+It is built on top of SDK version 19.0.0 which contains breaking changes. Please review the [changelog for 19.0.0](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md#1900---2026-03-25) if upgrading from older SDK versions.

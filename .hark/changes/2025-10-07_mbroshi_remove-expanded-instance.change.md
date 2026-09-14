@@ -1,7 +1,7 @@
 ---
 title: Remove expanded instance variables after a resource has been updated
 pr_url: https://github.com/stripe/stripe-ruby/pull/1698
-is_breaking: true
+semver_level: major
 released_in_version: 17.0.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Remove `create` method from `ReportType` resource. The method was not supported.
-is_breaking: true
+semver_level: major
 section: ⚠️ Removed
 released_in_version: 7.0.0
 ---

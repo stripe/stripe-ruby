@@ -1,7 +1,7 @@
 ---
 title: Unify resource and service method parameters into one class
 pr_url: https://github.com/stripe/stripe-ruby/pull/1670
-is_breaking: true
+semver_level: major
 released_in_version: 16.0.0
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Removed deprecated `delete` method on `Subscription` resource. Please use `cancel` method instead.
-is_breaking: true
+semver_level: major
 section: ⚠️ Removed
 released_in_version: 8.0.0
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Generated changes from [#1804](https://github.com/stripe/stripe-ruby/pull/1804), [#1834](https://github.com/stripe/stripe-ruby/pull/1834), [#1831](https://github.com/stripe/stripe-ruby/pull/1831), [#1830](https://github.com/stripe/stripe-ruby/pull/1830)"
-is_breaking: true
+semver_level: major
 is_stripe_api_change: true
 section: ⚠️ Breaking changes due to changes in the Stripe API
 released_in_version: 19.0.0

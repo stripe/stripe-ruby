@@ -1,0 +1,5 @@
+---
+title: Improve event notification example
+pr_url: https://github.com/stripe/stripe-ruby/pull/1699
+released_in_version: 17.0.0
+---

@@ -44,3 +44,10 @@ typecheck: install
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\-\w\d]+"|VERSION = "{{ version }}"|' lib/stripe/version.rb
+
+# ⭐ print the API version this SDK pins and the lowest runtime it supports
+print-version-info:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "pinned-api-version: $(rg -N --color never -m1 -o '[0-9]{4}-[0-9]{2}-[0-9]{2}[.\w-]*' lib/stripe/api_version.rb)"
+    echo "minimum-runtime-version: $(rg -N --color never -o 'required_ruby_version = ">= ([^"]+)"' --replace '$1' stripe.gemspec)"

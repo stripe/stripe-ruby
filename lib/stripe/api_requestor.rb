@@ -226,7 +226,7 @@ module Stripe
 
       if ai_agent.empty?
         notice += "\nTo suppress Stripe notices in test and sandbox environments, " \
-                  "set STRIPE_SUPPRESS_NOTICES=true."
+                  "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
       end
 
       warn("WARNING: #{notice}")

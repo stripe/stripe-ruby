@@ -1331,7 +1331,7 @@ module Stripe
           requestor.expects(:warn).with(
             "WARNING: This is a notice\n" \
             "To suppress Stripe notices in test and sandbox environments, " \
-            "set STRIPE_SUPPRESS_NOTICES=true."
+            "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
           )
 
           requestor.send(:maybe_emit_stripe_notice, "This is a notice", {})

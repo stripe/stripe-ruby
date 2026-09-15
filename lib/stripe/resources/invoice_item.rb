@@ -281,7 +281,7 @@ module Stripe
       end
       # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
       attr_reader :credited_items
-      # Discount amounts applied when the proration was created.
+      # Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
       attr_reader :discount_amounts
 
       def self.inner_class_types

@@ -670,7 +670,7 @@ module Stripe
         end
 
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_reader :custom
           # The type of the label.
           attr_reader :type
@@ -1386,6 +1386,8 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
+          # Attribute for field verification_method
+          attr_reader :verification_method
 
           def self.inner_class_types
             @inner_class_types = { mandate_options: MandateOptions }

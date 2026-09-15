@@ -273,7 +273,7 @@ module Stripe
         end
 
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_accessor :custom
           # The type of the label.
           attr_accessor :type
@@ -1371,11 +1371,19 @@ module Stripe
           attr_accessor :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_accessor :target_date
+          # Attribute for param field verification_method
+          attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
             @target_date = target_date
+            @verification_method = verification_method
           end
         end
 

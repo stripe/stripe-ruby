@@ -127,7 +127,7 @@ module Stripe
       end
 
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         attr_accessor :custom
         # The type of the label.
         attr_accessor :type

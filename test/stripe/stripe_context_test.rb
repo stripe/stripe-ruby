@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require File.expand_path("../test_helper", __dir__)
+require "set"
 
 module Stripe
   class StripeContextTest < Test::Unit::TestCase
@@ -29,9 +30,20 @@ module Stripe
         assert_equal %w[1 symbol string], context.segments
       end
 
-      should "freeze segments array" do
+      should "freeze segments and their strings" do
         context = StripeContext.new(%w[a b])
+
         assert context.segments.frozen?
+        assert context.segments.all?(&:frozen?)
+      end
+
+      should "copy strings provided by the caller" do
+        segment = String.new("workspace")
+        context = StripeContext.new([segment])
+
+        assert_not_same segment, context.segments.first
+        segment.replace("other")
+        assert_equal ["workspace"], context.segments
       end
     end
 
@@ -147,6 +159,51 @@ module Stripe
       should "return slash-separated segments" do
         context = StripeContext.new(%w[workspace account customer])
         assert_equal "workspace/account/customer", context.to_s
+      end
+    end
+
+    context "equality and hashing" do
+      should "hash equivalent contexts consistently" do
+        parsed_context = StripeContext.parse("workspace/account")
+        constructed_context = StripeContext.new(%w[workspace account])
+
+        assert_not_same parsed_context, constructed_context
+        assert parsed_context.eql?(constructed_context)
+        assert_equal parsed_context.hash, constructed_context.hash
+      end
+
+      should "use equivalent contexts interchangeably as hash keys" do
+        stored_context = StripeContext.parse("workspace/account")
+        equivalent_context = StripeContext.new(%w[workspace account])
+        different_context = StripeContext.parse("workspace/other")
+        contexts = {
+          stored_context => "stored",
+          different_context => "different",
+        }
+
+        assert_equal "stored", contexts[equivalent_context]
+        assert_equal 2, contexts.size
+      end
+
+      should "keep hash keys stable when source strings are mutated" do
+        segment = String.new("workspace")
+        stored_context = StripeContext.new([segment])
+        contexts = { stored_context => "stored" }
+
+        segment.replace("other")
+
+        assert_equal "stored", contexts[stored_context]
+        assert_raises(FrozenError) { stored_context.segments.first.replace("other") }
+      end
+
+      should "deduplicate equivalent contexts in sets" do
+        stored_context = StripeContext.parse("workspace/account")
+        equivalent_context = StripeContext.new(%w[workspace account])
+        different_context = StripeContext.parse("workspace/other")
+        contexts = Set.new([stored_context, equivalent_context, different_context])
+
+        assert contexts.include?(equivalent_context)
+        assert_equal 2, contexts.size
       end
     end
 

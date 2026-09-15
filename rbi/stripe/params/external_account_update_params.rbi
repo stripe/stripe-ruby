@@ -34,11 +34,9 @@ module Stripe
     sig { params(_account_holder_name: T.nilable(String)).returns(T.nilable(String)) }
     def account_holder_name=(_account_holder_name); end
     # The type of entity that holds the account. This can be either `individual` or `company`.
-    sig { returns(T.nilable(T.any(String, String))) }
+    sig { returns(T.nilable(String)) }
     def account_holder_type; end
-    sig {
-      params(_account_holder_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-     }
+    sig { params(_account_holder_type: T.nilable(String)).returns(T.nilable(String)) }
     def account_holder_type=(_account_holder_type); end
     # The bank account type. This can only be `checking` or `savings` in most countries. In Japan, this can only be `futsu` or `toza`.
     sig { returns(T.nilable(String)) }
@@ -115,7 +113,7 @@ module Stripe
     sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
     def name=(_name); end
     sig {
-      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(T.any(String, String)), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(::Stripe::ExternalAccountUpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
+      params(account_holder_name: T.nilable(String), account_holder_type: T.nilable(String), account_type: T.nilable(String), address_city: T.nilable(String), address_country: T.nilable(String), address_line1: T.nilable(String), address_line2: T.nilable(String), address_state: T.nilable(String), address_zip: T.nilable(String), default_for_currency: T.nilable(T::Boolean), documents: T.nilable(::Stripe::ExternalAccountUpdateParams::Documents), exp_month: T.nilable(String), exp_year: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String)).void
      }
     def initialize(
       account_holder_name: nil,

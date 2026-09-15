@@ -10,6 +10,31 @@ module Stripe
   # Related guide: [Disputes and fraud](https://docs.stripe.com/disputes)
   class Dispute < APIResource
     class Evidence < ::Stripe::StripeObject
+      class Appeal < ::Stripe::StripeObject
+        class Card < ::Stripe::StripeObject
+          # The reason for filing the appeal.
+          sig { returns(T.nilable(String)) }
+          def reason_for_filing; end
+          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          sig { returns(T.nilable(T::Array[String])) }
+          def supporting_files; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card
+        sig { returns(T.nilable(Card)) }
+        def card; end
+        def self.inner_class_types
+          @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class EnhancedEvidence < ::Stripe::StripeObject
         class MastercardCompliance < ::Stripe::StripeObject
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -189,6 +214,9 @@ module Stripe
       # Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
       sig { returns(T.nilable(String)) }
       def access_activity_log; end
+      # Attribute for field appeal
+      sig { returns(T.nilable(Appeal)) }
+      def appeal; end
       # The billing address provided by the customer.
       sig { returns(T.nilable(String)) }
       def billing_address; end
@@ -271,7 +299,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def uncategorized_text; end
       def self.inner_class_types
-        @inner_class_types = {enhanced_evidence: EnhancedEvidence}
+        @inner_class_types = {appeal: Appeal, enhanced_evidence: EnhancedEvidence}
       end
       def self.field_remappings
         @field_remappings = {}

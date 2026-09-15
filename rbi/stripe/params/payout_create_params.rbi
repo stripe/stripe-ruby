@@ -4,6 +4,30 @@
 # typed: true
 module Stripe
   class PayoutCreateParams < ::Stripe::RequestParams
+    class PayoutMethodOptions < ::Stripe::RequestParams
+      class FinancialAccount < ::Stripe::RequestParams
+        # Identifies the currency to credit in the destination Financial Account. Must be a currency supported by the target Financial Account. When omitted, the payout uses the currency parameter.
+        sig { returns(T.nilable(String)) }
+        def destination_currency; end
+        sig { params(_destination_currency: T.nilable(String)).returns(T.nilable(String)) }
+        def destination_currency=(_destination_currency); end
+        sig { params(destination_currency: T.nilable(String)).void }
+        def initialize(destination_currency: nil); end
+      end
+      # Additional options for a Financial Account payout method. Only valid when payout_method is a Financial Account ID.
+      sig {
+        returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount))
+       }
+      def financial_account; end
+      sig {
+        params(_financial_account: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount)).returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount))
+       }
+      def financial_account=(_financial_account); end
+      sig {
+        params(financial_account: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions::FinancialAccount)).void
+       }
+      def initialize(financial_account: nil); end
+    end
     # A positive integer in cents representing how much to payout.
     sig { returns(Integer) }
     def amount; end
@@ -46,6 +70,13 @@ module Stripe
     def payout_method; end
     sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
     def payout_method=(_payout_method); end
+    # Additional options that complement the payout_method. The keys in this dictionary identify the type of payout method the options apply to.
+    sig { returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions)) }
+    def payout_method_options; end
+    sig {
+      params(_payout_method_options: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions)).returns(T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions))
+     }
+    def payout_method_options=(_payout_method_options); end
     # The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
     sig { returns(T.nilable(String)) }
     def source_type; end
@@ -57,7 +88,7 @@ module Stripe
     sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
     def statement_descriptor=(_statement_descriptor); end
     sig {
-      params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), payout_method: T.nilable(String), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
+      params(amount: Integer, currency: String, description: T.nilable(String), destination: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), method: T.nilable(String), payout_method: T.nilable(String), payout_method_options: T.nilable(::Stripe::PayoutCreateParams::PayoutMethodOptions), source_type: T.nilable(String), statement_descriptor: T.nilable(String)).void
      }
     def initialize(
       amount: nil,
@@ -68,6 +99,7 @@ module Stripe
       metadata: nil,
       method: nil,
       payout_method: nil,
+      payout_method_options: nil,
       source_type: nil,
       statement_descriptor: nil
     ); end

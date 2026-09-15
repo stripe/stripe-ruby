@@ -624,30 +624,6 @@ module Stripe
         end
       end
 
-      class NestingDemo < ::Stripe::StripeObject
-        class Features < ::Stripe::StripeObject
-          def self.inner_class_types
-            @inner_class_types = {}
-          end
-
-          def self.field_remappings
-            @field_remappings = {}
-          end
-        end
-        # Whether the embedded component is enabled.
-        attr_reader :enabled
-        # Attribute for field features
-        attr_reader :features
-
-        def self.inner_class_types
-          @inner_class_types = { features: Features }
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
-
       class NetworkCostPassthroughReport < ::Stripe::StripeObject
         class Features < ::Stripe::StripeObject
           def self.inner_class_types
@@ -1104,8 +1080,6 @@ module Stripe
       attr_reader :issuing_card
       # Attribute for field issuing_cards_list
       attr_reader :issuing_cards_list
-      # Configuration for the [Nestingdemo](/connect/supported-embedded-components/nesting-demo/) embedded component.
-      attr_reader :nesting_demo
       # Configuration for the [network cost passthrough report](/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
       attr_reader :network_cost_passthrough_report
       # Attribute for field notification_banner
@@ -1160,7 +1134,6 @@ module Stripe
           instant_payouts_promotion: InstantPayoutsPromotion,
           issuing_card: IssuingCard,
           issuing_cards_list: IssuingCardsList,
-          nesting_demo: NestingDemo,
           network_cost_passthrough_report: NetworkCostPassthroughReport,
           notification_banner: NotificationBanner,
           payment_details: PaymentDetails,
@@ -1200,7 +1173,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
 
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/account_sessions", params: params, opts: opts)
     end

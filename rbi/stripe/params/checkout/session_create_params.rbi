@@ -402,7 +402,7 @@ module Stripe
           def initialize(default_value: nil, options: nil); end
         end
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(String) }
           def custom; end
           sig { params(_custom: String).returns(String) }
@@ -2016,10 +2016,20 @@ module Stripe
           def target_date; end
           sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
           def target_date=(_target_date); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String), verification_method: T.nilable(String)).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          ); end
         end
         class Bancontact < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.

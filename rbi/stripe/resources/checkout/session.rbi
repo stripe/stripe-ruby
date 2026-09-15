@@ -681,7 +681,7 @@ module Stripe
           end
         end
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(T.nilable(String)) }
           def custom; end
           # The type of the label.
@@ -1405,6 +1405,9 @@ module Stripe
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           sig { returns(T.nilable(String)) }
           def target_date; end
+          # Attribute for field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
           def self.inner_class_types
             @inner_class_types = {mandate_options: MandateOptions}
           end

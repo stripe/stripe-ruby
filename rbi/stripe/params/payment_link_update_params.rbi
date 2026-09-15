@@ -159,7 +159,7 @@ module Stripe
         def initialize(default_value: nil, options: nil); end
       end
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(String) }
         def custom; end
         sig { params(_custom: String).returns(String) }

@@ -1321,8 +1321,57 @@ module Stripe
             )
 
           requestor = APIRequestor.new("sk_test_123")
+          APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("codex_cli")
           requestor.expects(:warn).with("WARNING: This is a notice")
           requestor.execute_request(:post, "/v1/charges", :api)
+        end
+
+        should "tell humans how to suppress notices" do
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).with(
+            "WARNING: This is a notice\n" \
+            "To suppress Stripe notices in test and sandbox environments, " \
+            "set STRIPE_SUPPRESS_NOTICES=true."
+          )
+
+          requestor.send(:maybe_emit_stripe_notice, "This is a notice", {})
+        end
+
+        %w[true TRUE].each do |suppression_value|
+          should "suppress notices for humans when STRIPE_SUPPRESS_NOTICES=#{suppression_value}" do
+            requestor = APIRequestor.new("sk_test_123")
+            requestor.expects(:warn).never
+
+            requestor.send(
+              :maybe_emit_stripe_notice,
+              "This is a notice",
+              { "STRIPE_SUPPRESS_NOTICES" => suppression_value }
+            )
+          end
+        end
+
+        ["", "false", "1", "invalid"].each do |suppression_value|
+          should "not suppress notices when STRIPE_SUPPRESS_NOTICES=#{suppression_value}" do
+            requestor = APIRequestor.new("sk_test_123")
+            requestor.expects(:warn).once
+
+            requestor.send(
+              :maybe_emit_stripe_notice,
+              "This is a notice",
+              { "STRIPE_SUPPRESS_NOTICES" => suppression_value }
+            )
+          end
+        end
+
+        should "not suppress notices for AI agents" do
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).with("WARNING: This is a notice")
+
+          requestor.send(
+            :maybe_emit_stripe_notice,
+            "This is a notice",
+            { "STRIPE_SUPPRESS_NOTICES" => "true", "CODEX_SANDBOX" => "1" }
+          )
         end
 
         should "not emit a warning when the header is absent" do

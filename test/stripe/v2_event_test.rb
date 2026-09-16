@@ -59,6 +59,29 @@ module Stripe
           },
         }.to_json
 
+        @v2_push_payload_null_related_object_id = {
+          "id" => "evt_234",
+          "object" => "v2.core.event",
+          "type" => "v1.billing.meter.error_report_triggered",
+          "created" => "2022-02-15T00:27:45.330Z",
+          "related_object" => {
+            "id" => nil,
+            "type" => "billing.meter",
+            "url" => "/v1/billing/meters/mtr_123",
+          },
+        }.to_json
+
+        @v2_push_payload_no_related_object_id = {
+          "id" => "evt_234",
+          "object" => "v2.core.event",
+          "type" => "v1.billing.meter.error_report_triggered",
+          "created" => "2022-02-15T00:27:45.330Z",
+          "related_object" => {
+            "type" => "billing.meter",
+            "url" => "/v1/billing/meters/mtr_123",
+          },
+        }.to_json
+
         @v2_pull_payload = {
           "id" => "evt_234",
           "object" => "v2.core.event",
@@ -185,6 +208,85 @@ module Stripe
 
           event = event_notif.fetch_event
           assert event.instance_of?(Stripe::V2::Core::Event)
+        end
+      end
+
+      context "Related objects" do
+        should "default related_object_class to RelatedObject, and keep it private" do
+          event_notif = parse_signed_event(@v2_push_payload)
+          assert_equal Stripe::V2::Core::RelatedObject,
+                       event_notif.send(:related_object_class)
+          # it's an internal hook, not part of the public surface
+          assert_false event_notif.respond_to?(:related_object_class)
+          assert_raises NoMethodError do
+            event_notif.related_object_class
+          end
+        end
+
+        should "deserialize a related object whose id is explicitly null" do
+          event_notif = parse_signed_event(@v2_push_payload_null_related_object_id)
+          assert event_notif.related_object.is_a?(Stripe::V2::Core::RelatedObject)
+          assert_nil event_notif.related_object.id
+          assert_equal "billing.meter", event_notif.related_object.type
+          assert_equal "/v1/billing/meters/mtr_123", event_notif.related_object.url
+
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123")
+            .to_return(body: JSON.generate({ "id" => "mtr_123", "object" => "billing.meter" }))
+
+          meter = event_notif.fetch_related_object
+          assert meter.instance_of?(Stripe::Billing::Meter)
+        end
+
+        should "deserialize a related object with no id key at all" do
+          # `Hash#[]` returns nil for a missing key, so an absent `id` is
+          # indistinguishable from a null one -- no error either way.
+          event_notif = parse_signed_event(@v2_push_payload_no_related_object_id)
+          assert event_notif.related_object.is_a?(Stripe::V2::Core::RelatedObject)
+          assert_nil event_notif.related_object.id
+          assert_equal "billing.meter", event_notif.related_object.type
+          assert_equal "/v1/billing/meters/mtr_123", event_notif.related_object.url
+
+          stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/billing/meters/mtr_123")
+            .to_return(body: JSON.generate({ "id" => "mtr_123", "object" => "billing.meter" }))
+
+          meter = event_notif.fetch_related_object
+          assert meter.instance_of?(Stripe::Billing::Meter)
+        end
+
+        should "expose only type and url on a RelatedSingletonObject" do
+          related_object = Stripe::V2::Core::RelatedSingletonObject.new(
+            { type: "v2.core.account", url: "/v2/core/accounts" }
+          )
+
+          assert_equal "v2.core.account", related_object.type
+          assert_equal "/v2/core/accounts", related_object.url
+          assert_false related_object.respond_to?(:id)
+        end
+
+        should "use the related_object_class override declared by a subclass" do
+          # No generated singleton event exists yet, so stand in for one.
+          singleton_notification_class = Class.new(Stripe::V2::Core::EventNotification) do
+            attr_reader :related_object
+
+            private def related_object_class
+              Stripe::V2::Core::RelatedSingletonObject
+            end
+          end
+
+          event_notif = singleton_notification_class.new(
+            {
+              id: "evt_234",
+              object: "v2.core.event",
+              type: "v2.core.account.deleted",
+              related_object: { type: "v2.core.account", url: "/v2/core/accounts" },
+            },
+            @client
+          )
+
+          assert event_notif.related_object.is_a?(Stripe::V2::Core::RelatedSingletonObject)
+          assert_equal "v2.core.account", event_notif.related_object.type
+          assert_equal "/v2/core/accounts", event_notif.related_object.url
+          assert_false event_notif.related_object.respond_to?(:id)
         end
       end
     end

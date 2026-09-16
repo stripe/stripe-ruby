@@ -384,7 +384,7 @@ module Stripe
           sig { params(amount: T.nilable(Integer), destination: String).void }
           def initialize(amount: nil, destination: nil); end
         end
-        # The "presentment amount" to be collected from the customer.
+        # Amount intended to be collected by this payment.
         sig { returns(::Stripe::V2::Amount) }
         def amount; end
         sig { params(_amount: ::Stripe::V2::Amount).returns(::Stripe::V2::Amount) }
@@ -428,6 +428,11 @@ module Stripe
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
+        # Additional fields to include in the response.
+        sig { returns(T.nilable(T::Array[String])) }
+        def include; end
+        sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
+        def include=(_include); end
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
@@ -528,7 +533,7 @@ module Stripe
          }
         def transfer_data=(_transfer_data); end
         sig {
-          params(amount: ::Stripe::V2::Amount, amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::AmountDetails), application_fee_amount: T.nilable(::Stripe::V2::Amount), cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, description: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), target_date: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
+          params(amount: ::Stripe::V2::Amount, amount_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::AmountDetails), application_fee_amount: T.nilable(::Stripe::V2::Amount), cadence: String, capture: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture), customer: String, description: T.nilable(String), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), on_behalf_of: T.nilable(String), payment_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentDetails), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentMethodOptions), payments_orchestration: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::PaymentsOrchestration), retry_details: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::RetryDetails), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), target_date: T.nilable(String), test_clock: T.nilable(String), transfer_data: T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::TransferData)).void
          }
         def initialize(
           amount: nil,
@@ -538,6 +543,7 @@ module Stripe
           capture: nil,
           customer: nil,
           description: nil,
+          include: nil,
           metadata: nil,
           on_behalf_of: nil,
           payment_details: nil,

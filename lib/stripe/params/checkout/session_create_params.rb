@@ -273,7 +273,7 @@ module Stripe
         end
 
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_accessor :custom
           # The type of the label.
           attr_accessor :type
@@ -592,6 +592,15 @@ module Stripe
           end
 
           class Item < ::Stripe::RequestParams
+            class CurrentTrial < ::Stripe::RequestParams
+              # The ID of the trial offer to apply to the subscription item.
+              attr_accessor :trial_offer
+
+              def initialize(trial_offer: nil)
+                @trial_offer = trial_offer
+              end
+            end
+
             class PriceData < ::Stripe::RequestParams
               class ProductData < ::Stripe::RequestParams
                 class TaxDetails < ::Stripe::RequestParams
@@ -687,6 +696,8 @@ module Stripe
                 @field_encodings = { unit_amount_decimal: :decimal_string }
               end
             end
+            # The trial offer to apply to this subscription item.
+            attr_accessor :current_trial
             # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
             attr_accessor :price
             # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
@@ -694,7 +705,8 @@ module Stripe
             # Quantity for this item.
             attr_accessor :quantity
 
-            def initialize(price: nil, price_data: nil, quantity: nil)
+            def initialize(current_trial: nil, price: nil, price_data: nil, quantity: nil)
+              @current_trial = current_trial
               @price = price
               @price_data = price_data
               @quantity = quantity
@@ -1371,11 +1383,19 @@ module Stripe
           attr_accessor :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_accessor :target_date
+          # Attribute for param field verification_method
+          attr_accessor :verification_method
 
-          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil)
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          )
             @mandate_options = mandate_options
             @setup_future_usage = setup_future_usage
             @target_date = target_date
+            @verification_method = verification_method
           end
         end
 

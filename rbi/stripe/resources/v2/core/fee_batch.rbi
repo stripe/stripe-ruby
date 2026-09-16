@@ -10,12 +10,10 @@ module Stripe
       class FeeBatch < APIResource
         class Adjustments < ::Stripe::StripeObject
           class TaxAdjustment < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             sig { returns(String) }
             def currency; end
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             sig { returns(String) }
             def value; end
             def self.inner_class_types
@@ -36,12 +34,10 @@ module Stripe
           end
         end
         class Amount < ::Stripe::StripeObject
-          # A lowercase alpha3 currency code like "usd"
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # A lowercase alpha3 currency code like "usd".
           sig { returns(String) }
           def currency; end
-          # In major units like "1.23" for 1.23 USD
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # In major units like "1.23" for 1.23 USD.
           sig { returns(String) }
           def value; end
           def self.inner_class_types
@@ -64,12 +60,10 @@ module Stripe
         end
         class CollectionRecord < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             sig { returns(String) }
             def currency; end
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             sig { returns(String) }
             def value; end
             def self.inner_class_types
@@ -81,12 +75,10 @@ module Stripe
           end
           class Tax < ::Stripe::StripeObject
             class Amount < ::Stripe::StripeObject
-              # A lowercase alpha3 currency code like "usd"
-              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              # A lowercase alpha3 currency code like "usd".
               sig { returns(String) }
               def currency; end
-              # In major units like "1.23" for 1.23 USD
-              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              # In major units like "1.23" for 1.23 USD.
               sig { returns(String) }
               def value; end
               def self.inner_class_types
@@ -150,12 +142,10 @@ module Stripe
         end
         class Tax < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             sig { returns(String) }
             def currency; end
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             sig { returns(String) }
             def value; end
             def self.inner_class_types

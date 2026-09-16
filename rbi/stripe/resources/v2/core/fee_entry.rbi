@@ -8,12 +8,10 @@ module Stripe
       # A FeeEntry is the atomic, append-only record of an assessed fee.
       class FeeEntry < APIResource
         class Amount < ::Stripe::StripeObject
-          # A lowercase alpha3 currency code like "usd"
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # A lowercase alpha3 currency code like "usd".
           sig { returns(String) }
           def currency; end
-          # In major units like "1.23" for 1.23 USD
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # In major units like "1.23" for 1.23 USD.
           sig { returns(String) }
           def value; end
           def self.inner_class_types
@@ -98,12 +96,10 @@ module Stripe
         end
         class Tax < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             sig { returns(String) }
             def currency; end
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             sig { returns(String) }
             def value; end
             def self.inner_class_types

@@ -99,6 +99,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class AccountReviewed < ::Stripe::StripeObject
+          # The outcome of the merchant review.
+          sig { returns(String) }
+          def outcome; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class AccountSuspended < ::Stripe::StripeObject
           # The reason the customer was suspended.
           sig { returns(String) }
@@ -226,6 +237,10 @@ module Stripe
         # requires an existing account_details.account or account_details.customer; inline data is unsupported.
         sig { returns(T.nilable(AccountRestricted)) }
         def account_restricted; end
+        # Details for the account review. Present only when type is account_reviewed. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        sig { returns(T.nilable(AccountReviewed)) }
+        def account_reviewed; end
         # Details for the account suspension. Present only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         sig { returns(T.nilable(AccountSuspended)) }

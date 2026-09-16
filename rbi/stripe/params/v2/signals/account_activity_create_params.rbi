@@ -128,6 +128,15 @@ module Stripe
           sig { params(reason: String).void }
           def initialize(reason: nil); end
         end
+        class AccountReviewed < ::Stripe::RequestParams
+          # The outcome of the merchant review.
+          sig { returns(String) }
+          def outcome; end
+          sig { params(_outcome: String).returns(String) }
+          def outcome=(_outcome); end
+          sig { params(outcome: String).void }
+          def initialize(outcome: nil); end
+        end
         class AccountSuspended < ::Stripe::RequestParams
           # The reason the customer was suspended.
           sig { returns(String) }
@@ -291,6 +300,16 @@ module Stripe
           params(_account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted))
          }
         def account_restricted=(_account_restricted); end
+        # Details for the account review. Provide only when type is account_reviewed. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        sig {
+          returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed))
+         }
+        def account_reviewed; end
+        sig {
+          params(_account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed)).returns(T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed))
+         }
+        def account_reviewed=(_account_reviewed); end
         # Details for the account suspension. Provide only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         sig {
@@ -353,12 +372,13 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), type: String).void
+          params(account_details: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountDetails), account_evaluation: T.nilable(String), account_restricted: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountRestricted), account_reviewed: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountReviewed), account_suspended: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::AccountSuspended), login_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginAttempt), login_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::LoginDecision), metadata: T.nilable(T::Hash[String, String]), occurred_at: T.nilable(String), registration_attempt: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationAttempt), registration_decision: T.nilable(::Stripe::V2::Signals::AccountActivityCreateParams::RegistrationDecision), type: String).void
          }
         def initialize(
           account_details: nil,
           account_evaluation: nil,
           account_restricted: nil,
+          account_reviewed: nil,
           account_suspended: nil,
           login_attempt: nil,
           login_decision: nil,

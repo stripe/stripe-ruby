@@ -292,12 +292,12 @@ module Stripe
     def plan; end
     sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
     def plan=(_plan); end
-    # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     sig { returns(T.nilable(String)) }
     def price; end
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
-    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)) }
     def price_data; end
     sig {

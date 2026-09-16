@@ -272,7 +272,7 @@ module Stripe
       # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
       sig { returns(T.nilable(CreditedItems)) }
       def credited_items; end
-      # Discount amounts applied when the proration was created.
+      # Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
       sig { returns(T::Array[DiscountAmount]) }
       def discount_amounts; end
       def self.inner_class_types

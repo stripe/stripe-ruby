@@ -647,7 +647,7 @@ module Stripe
         attr_reader :marketplace_seller_details
         # The network profile of the seller.
         attr_reader :network_profile
-        # The payment method types supported by the seller.
+        # The payment method types supported by the seller. Stripe sources these from a non-empty `allowed_payment_method_types` response from the seller's checkout customization hook when present. Otherwise, Stripe resolves them from the seller's active or default payment method configuration. Stripe might filter agent-facing displayable payment methods for compatibility.
         attr_reader :payment_method_types
         # The URL to the seller's privacy notice.
         attr_reader :privacy_notice_url

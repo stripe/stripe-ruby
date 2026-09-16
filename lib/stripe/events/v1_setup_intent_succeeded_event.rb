@@ -3,7 +3,7 @@
 
 module Stripe
   module Events
-    # Occurs when an SetupIntent has successfully setup a payment method.
+    # Occurs when a SetupIntent has successfully setup a payment method.
     class V1SetupIntentSucceededEvent < Stripe::V2::Core::Event
       def self.lookup_type
         "v1.setup_intent.succeeded"
@@ -21,7 +21,7 @@ module Stripe
       attr_reader :related_object
     end
 
-    # Occurs when an SetupIntent has successfully setup a payment method.
+    # Occurs when a SetupIntent has successfully setup a payment method.
     class V1SetupIntentSucceededEventNotification < Stripe::V2::Core::EventNotification
       def self.lookup_type
         "v1.setup_intent.succeeded"

@@ -530,9 +530,9 @@ module Stripe
       attr_accessor :line_items
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
-      # A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
+      # A subset of parameters to apply to the PaymentIntent for Checkout Sessions in `payment` mode.
       #
-      # You can only update these parameters when `ui_mode` is `elements` and while the session is active.
+      # You can only update these parameters when `ui_mode` is `elements` and while the session is active. If the PaymentIntent requires customer action or confirmation, updating these parameters abandons the current payment attempt and returns the PaymentIntent to `requires_payment_method`. You can't update these parameters after the PaymentIntent begins processing, requires capture, succeeds, or is canceled.
       attr_accessor :payment_intent_data
       # The shipping rate options to apply to this Session. Up to a maximum of 5.
       attr_accessor :shipping_options

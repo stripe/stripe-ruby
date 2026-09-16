@@ -97,19 +97,19 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The history entry for a failed InboundTransfer.
+          # The InboundTransfer failed. See `failure_reason` for more details.
           sig { returns(T.nilable(BankDebitFailed)) }
           def bank_debit_failed; end
-          # The history entry for a processing InboundTransfer.
+          # The InboundTransfer was submitted to the scheme for processing. The debit is still in progress and can later succeed or fail.
           sig { returns(T.nilable(BankDebitProcessing)) }
           def bank_debit_processing; end
-          # The history entry for a queued InboundTransfer.
+          # The InboundTransfer was created and is waiting to be submitted to the scheme for processing.
           sig { returns(T.nilable(BankDebitQueued)) }
           def bank_debit_queued; end
-          # The history entry for a returned InboundTransfer.
+          # The InboundTransfer was returned. The original transaction has been reversed.
           sig { returns(T.nilable(BankDebitReturned)) }
           def bank_debit_returned; end
-          # The history entry for a succeeded InboundTransfer.
+          # The InboundTransfer succeeded. Funds might not yet be available; check the associated Transaction for availability.
           sig { returns(T.nilable(BankDebitSucceeded)) }
           def bank_debit_succeeded; end
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.

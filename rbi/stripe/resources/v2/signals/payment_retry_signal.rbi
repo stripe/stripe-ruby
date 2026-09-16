@@ -41,7 +41,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def payment_intent; end
         # The payment record this signal relates to.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def payment_record; end
         # The retry recommendation.
         sig { returns(Recommendation) }

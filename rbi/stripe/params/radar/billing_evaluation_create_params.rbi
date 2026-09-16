@@ -46,7 +46,7 @@ module Stripe
         def customer_account; end
         sig { params(_customer_account: T.nilable(String)).returns(T.nilable(String)) }
         def customer_account=(_customer_account); end
-        # Attributes of the customer being evaluated. Supply these when the customer isn't represented by a Customer or an Account. If `customer` or `customer_account` is also supplied, the attributes on that object are used and these are ignored.
+        # Attributes of the customer being evaluated. Exactly one of `customer`, `customer_account`, and `data` must be supplied: use `data` when the customer isn't represented by a Customer or an Account.
         sig {
           returns(T.nilable(::Stripe::Radar::BillingEvaluationCreateParams::CustomerDetails::Data))
          }

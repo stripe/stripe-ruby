@@ -134,6 +134,97 @@ module Stripe
           end
         end
 
+        class LatestPaymentAttemptRecordDetails < ::Stripe::StripeObject
+          class FailureDetails < ::Stripe::StripeObject
+            # Code for the failure.
+            attr_reader :code
+            # Message describing the failure.
+            attr_reader :message
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class PaymentMethodDetails < ::Stripe::StripeObject
+            class Card < ::Stripe::StripeObject
+              # Authorization code returned by the card network.
+              attr_reader :authorization_code
+              # Stripe decline code for the latest payment attempt.
+              attr_reader :decline_code
+              # Advice code returned by the card network.
+              attr_reader :network_advice_code
+              # Decline code returned by the card network.
+              attr_reader :network_decline_code
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details about the card used for the latest payment attempt.
+            attr_reader :card
+
+            def self.inner_class_types
+              @inner_class_types = { card: Card }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class ProcessorDetails < ::Stripe::StripeObject
+            class Stripe < ::Stripe::StripeObject
+              # ID of the Charge created for the latest payment attempt.
+              attr_reader :charge
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details about Stripe as the processor.
+            attr_reader :stripe
+
+            def self.inner_class_types
+              @inner_class_types = { stripe: Stripe }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about the failure for the latest payment attempt.
+          attr_reader :failure_details
+          # Details about the payment method for the latest payment attempt.
+          attr_reader :payment_method_details
+          # Details about the processor for the latest payment attempt.
+          attr_reader :processor_details
+
+          def self.inner_class_types
+            @inner_class_types = {
+              failure_details: FailureDetails,
+              payment_method_details: PaymentMethodDetails,
+              processor_details: ProcessorDetails,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class PaymentDetails < ::Stripe::StripeObject
           # A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
           attr_reader :customer_reference
@@ -207,7 +298,7 @@ module Stripe
         attr_reader :amount_capturable
         # Provides industry-specific information about the amount.
         attr_reader :amount_details
-        # The "presentment amount" to be collected from the customer.
+        # Amount intended to be collected by this payment.
         attr_reader :amount_requested
         # The application associated with this OffSessionPayment.
         attr_reader :application
@@ -232,6 +323,8 @@ module Stripe
         attr_reader :last_authorization_attempt_error
         # Payment attempt record for the latest attempt, if one exists.
         attr_reader :latest_payment_attempt_record
+        # Details from the latest Payment Attempt Record, if one exists.
+        attr_reader :latest_payment_attempt_record_details
         # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         attr_reader :livemode
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
@@ -276,6 +369,7 @@ module Stripe
           @inner_class_types = {
             amount_details: AmountDetails,
             capture: Capture,
+            latest_payment_attempt_record_details: LatestPaymentAttemptRecordDetails,
             payment_details: PaymentDetails,
             payments_orchestration: PaymentsOrchestration,
             retry_details: RetryDetails,

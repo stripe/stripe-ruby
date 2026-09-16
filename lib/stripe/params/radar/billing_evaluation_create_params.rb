@@ -32,7 +32,7 @@ module Stripe
         attr_accessor :customer
         # The ID of the Account representing the customer whose upcoming payment is being evaluated.
         attr_accessor :customer_account
-        # Attributes of the customer being evaluated. Supply these when the customer isn't represented by a Customer or an Account. If `customer` or `customer_account` is also supplied, the attributes on that object are used and these are ignored.
+        # Attributes of the customer being evaluated. Exactly one of `customer`, `customer_account`, and `data` must be supplied: use `data` when the customer isn't represented by a Customer or an Account.
         attr_accessor :data
 
         def initialize(customer: nil, customer_account: nil, data: nil)

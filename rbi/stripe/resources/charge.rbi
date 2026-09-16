@@ -5,7 +5,7 @@
 module Stripe
   # The `Charge` object represents a single attempt to move money into your Stripe account.
   # PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://docs.stripe.com/connect/account-debits) may also create Charges.
-  # Some legacy payment flows create Charges directly, which is not recommended for new integrations.
+  # The create and capture methods are deprecated and will be deleted soon. If your integration uses either of them, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/payments/payment-intents).
   class Charge < APIResource
     class BillingDetails < ::Stripe::StripeObject
       class Address < ::Stripe::StripeObject
@@ -1028,7 +1028,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def last4; end
         # ID of the mandate used to make this payment or created by it.
-        sig { returns(T.nilable(String)) }
+        sig { returns(T.nilable(T.any(String, ::Stripe::Mandate))) }
         def mandate; end
         # True if this payment was marked as MOTO and out of scope for SCA.
         sig { returns(T.nilable(T::Boolean)) }
@@ -2614,6 +2614,9 @@ module Stripe
       # Attribute for field sequra
       sig { returns(T.nilable(Sequra)) }
       def sequra; end
+      # ID of the shared payment granted token used to make this payment.
+      sig { returns(T.nilable(String)) }
+      def shared_payment_granted_token; end
       # Attribute for field shopeepay
       sig { returns(T.nilable(Shopeepay)) }
       def shopeepay; end
@@ -2990,29 +2993,19 @@ module Stripe
     # A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     sig { returns(T.nilable(String)) }
     def transfer_group; end
-    # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-    #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-    #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+    # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     sig {
       params(params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def capture(params = {}, opts = {}); end
 
-    # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-    #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-    #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+    # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     sig {
       params(charge: String, params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
     def self.capture(charge, params = {}, opts = {}); end
 
-    # This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-    # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-    # object used to request payment.
+    # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     sig {
       params(params: T.any(::Stripe::ChargeCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }

@@ -153,6 +153,9 @@ module Stripe
             # The user-provided lookup key.
             sig { returns(T.nilable(String)) }
             def lookup_key; end
+            # Set of key-value pairs.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
             # The id of the product for this fee.
             sig { returns(String) }
             def product; end

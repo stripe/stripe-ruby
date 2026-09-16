@@ -1458,6 +1458,8 @@ module Stripe
         class QrCode < ::Stripe::StripeObject
           # The raw data string used to generate QR code, it should be used together with QR code library.
           attr_reader :data
+          # The timestamp at which the QR code expires.
+          attr_reader :expires_at
           # The image_url_png string used to render QR code
           attr_reader :image_url_png
           # The image_url_svg string used to render QR code

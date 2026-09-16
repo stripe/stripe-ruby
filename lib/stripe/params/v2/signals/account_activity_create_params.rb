@@ -79,6 +79,15 @@ module Stripe
           end
         end
 
+        class AccountReviewed < ::Stripe::RequestParams
+          # The outcome of the merchant review.
+          attr_accessor :outcome
+
+          def initialize(outcome: nil)
+            @outcome = outcome
+          end
+        end
+
         class AccountSuspended < ::Stripe::RequestParams
           # The reason the customer was suspended.
           attr_accessor :reason
@@ -180,6 +189,9 @@ module Stripe
         # Details for the account restriction. Provide only when type is account_restricted. The activity
         # requires an existing account_details.account or account_details.customer; inline data is unsupported.
         attr_accessor :account_restricted
+        # Details for the account review. Provide only when type is account_reviewed. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        attr_accessor :account_reviewed
         # Details for the account suspension. Provide only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         attr_accessor :account_suspended
@@ -202,6 +214,7 @@ module Stripe
           account_details: nil,
           account_evaluation: nil,
           account_restricted: nil,
+          account_reviewed: nil,
           account_suspended: nil,
           login_attempt: nil,
           login_decision: nil,
@@ -214,6 +227,7 @@ module Stripe
           @account_details = account_details
           @account_evaluation = account_evaluation
           @account_restricted = account_restricted
+          @account_reviewed = account_reviewed
           @account_suspended = account_suspended
           @login_attempt = login_attempt
           @login_decision = login_decision

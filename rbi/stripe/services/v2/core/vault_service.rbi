@@ -7,6 +7,7 @@ module Stripe
     module Core
       class VaultService < StripeService
         attr_reader :gb_bank_accounts
+        attr_reader :network_tokens
         attr_reader :us_bank_accounts
       end
     end

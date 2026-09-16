@@ -24,13 +24,16 @@ module Stripe
             attr_accessor :bill_at
             # A user-provided lookup key.
             attr_accessor :lookup_key
+            # Metadata for the one-time fee.
+            attr_accessor :metadata
             # The id of the product for this fee.
             attr_accessor :product
 
-            def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
+            def initialize(amount: nil, bill_at: nil, lookup_key: nil, metadata: nil, product: nil)
               @amount = amount
               @bill_at = bill_at
               @lookup_key = lookup_key
+              @metadata = metadata
               @product = product
             end
           end
@@ -67,12 +70,15 @@ module Stripe
             attr_accessor :id
             # The lookup key of the one-time fee to update.
             attr_accessor :lookup_key
+            # Metadata mutations to apply to the one-time fee.
+            attr_accessor :metadata
 
-            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil)
+            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil, metadata: nil)
               @amount = amount
               @bill_at = bill_at
               @id = id
               @lookup_key = lookup_key
+              @metadata = metadata
             end
           end
           # Parameters for adding a one-time fee.

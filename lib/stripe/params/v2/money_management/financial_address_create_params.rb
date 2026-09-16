@@ -5,7 +5,19 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAddressCreateParams < ::Stripe::RequestParams
-        class CryptoProperties < ::Stripe::RequestParams
+        class BankAccount < ::Stripe::RequestParams
+          # The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
+          attr_accessor :country
+          # The currency of the bank account to provision.
+          attr_accessor :currency
+
+          def initialize(country: nil, currency: nil)
+            @country = country
+            @currency = currency
+          end
+        end
+
+        class CryptoWallet < ::Stripe::RequestParams
           # The blockchain network of the crypto wallet.
           attr_accessor :network
 
@@ -13,36 +25,27 @@ module Stripe
             @network = network
           end
         end
-
-        class SepaBankAccount < ::Stripe::RequestParams
-          # The originating country of the SEPA Bank account.
-          attr_accessor :country
-
-          def initialize(country: nil)
-            @country = country
-          end
-        end
-        # Properties needed to create a FinancialAddress for an FA with USDC currency.
-        attr_accessor :crypto_properties
+        # Properties for creating a bank account FinancialAddress.
+        attr_accessor :bank_account
+        # Attribute for param field crypto_wallet
+        attr_accessor :crypto_wallet
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         attr_accessor :financial_account
-        # Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
-        attr_accessor :sepa_bank_account
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount. Currently, only the `usd`, `gbp` and `usdc` values are supported.
+        # Attribute for param field settlement_currency
         attr_accessor :settlement_currency
-        # The type of FinancialAddress details to provision.
+        # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
         attr_accessor :type
 
         def initialize(
-          crypto_properties: nil,
+          bank_account: nil,
+          crypto_wallet: nil,
           financial_account: nil,
-          sepa_bank_account: nil,
           settlement_currency: nil,
           type: nil
         )
-          @crypto_properties = crypto_properties
+          @bank_account = bank_account
+          @crypto_wallet = crypto_wallet
           @financial_account = financial_account
-          @sepa_bank_account = sepa_bank_account
           @settlement_currency = settlement_currency
           @type = type
         end

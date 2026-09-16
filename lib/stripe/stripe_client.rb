@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "json"
+require "stripe/events/unknown_event_notification"
 
 module Stripe
   class StripeClient
@@ -42,7 +43,7 @@ module Stripe
         connect_base: connect_base,
         meter_events_base: meter_events_base,
         client_id: client_id,
-      }.reject { |_k, v| v.nil? }
+      }.compact
 
       config = StripeConfiguration.client_init(config_opts)
       @requestor = APIRequestor.new(config)
@@ -59,23 +60,56 @@ module Stripe
     extend Gem::Deprecate
     deprecate :request, :raw_request, 2024, 9
 
-    def parse_thin_event(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook after verifying its authenticity. To work with a webhook that has already been
+    # verified (i.e. one from a cloud provider, an asynchronous queue, or during testing), see
+    # `parse_event_notification_without_verification`.
+    def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE)
       payload = payload.force_encoding("UTF-8") if payload.respond_to?(:force_encoding)
 
       # v2 events use the same signing mechanism as v1 events
       Webhook::Signature.verify_header(payload, sig_header, secret, tolerance: tolerance)
-
-      parsed = JSON.parse(payload, symbolize_names: true)
-
-      Stripe::ThinEvent.new(parsed)
+      build_event_notification(payload)
     end
 
-    def raw_request(method, url, base_address: :api, params: {}, opts: {})
+    # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
+    # an incoming webhook without first verifying its authenticity. Should be used after calling
+    # `Webhook::Signature.verify_header` or with input from a trusted source (such as
+    # [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge), or
+    # [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload). Or, to verify &
+    # parse in a single call, use `parse_event_notification` instead.
+    def parse_event_notification_without_verification(payload)
+      build_event_notification(Webhook.send(:_maybe_extract_from_cloud_provider_envelope, payload))
+    end
+
+    private def build_event_notification(payload)
+      parsed = if payload.is_a?(String)
+                 JSON.parse(payload, symbolize_names: true)
+               else
+                 payload
+               end
+
+      if parsed[:object] == "event"
+        raise ArgumentError,
+              "You passed a webhook payload to a method that expects a thin event notification. Use the corresponding construct_event* method instead."
+      end
+
+      if parsed[:object] != "v2.core.event"
+        raise ArgumentError,
+              "Unexpected object type '#{parsed[:object]}'. Expected 'v2.core.event' for an event notification."
+      end
+
+      cls = Util.event_notification_classes.fetch(parsed[:type], Stripe::Events::UnknownEventNotification)
+
+      cls.new(parsed, self)
+    end
+
+    def raw_request(method, url, base_address: :api, params: {}, opts: {}, usage: nil)
       opts = Util.normalize_opts(opts)
       req_opts = RequestOptions.extract_opts_from_hash(opts)
 
       params = params.to_h if params.is_a?(Stripe::RequestParams)
-      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: ["raw_request"])
+      resp, = @requestor.send(:execute_request_internal, method, url, base_address, params, req_opts, usage: usage || ["raw_request"])
 
       @requestor.interpret_response(resp)
     end
@@ -83,6 +117,32 @@ module Stripe
     def deserialize(data, api_mode: :v1)
       data = JSON.parse(data) if data.is_a?(String)
       Util.convert_to_stripe_object(data, {}, api_mode: api_mode, requestor: @requestor)
+    end
+
+    # Returns a new StripeClient with the same configuration as this one, but
+    # scoped to the given Stripe-Context. Useful when handling event
+    # notifications, where each event may carry its own context.
+    def with_stripe_context(context)
+      config = @requestor.config
+      StripeClient.new(
+        config.api_key,
+        stripe_account: config.stripe_account,
+        stripe_context: context,
+        stripe_version: config.api_version,
+        api_base: config.api_base,
+        uploads_base: config.uploads_base,
+        connect_base: config.connect_base,
+        meter_events_base: config.meter_events_base,
+        client_id: config.client_id
+      )
+    end
+
+    def notification_handler(webhook_secret, &fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.new(self, webhook_secret, &fallback_callback)
+    end
+
+    def notification_handler_without_verification(&fallback_callback)
+      ::Stripe::StripeEventNotificationHandler.without_verification(self, &fallback_callback)
     end
   end
 end

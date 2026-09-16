@@ -6,148 +6,108 @@ module Stripe
   # Reviews can be used to supplement automated fraud detection with human expertise.
   #
   # Learn more about [Radar](https://docs.stripe.com/radar) and reviewing payments
-  # [here](https://stripe.com/docs/radar/reviews).
+  # [here](https://docs.stripe.com/radar/reviews).
   class Review < APIResource
-    class IpAddressLocation < Stripe::StripeObject
+    class IpAddressLocation < ::Stripe::StripeObject
       # The city where the payment originated.
       sig { returns(T.nilable(String)) }
-      attr_reader :city
+      def city; end
       # Two-letter ISO code representing the country where the payment originated.
       sig { returns(T.nilable(String)) }
-      attr_reader :country
+      def country; end
       # The geographic latitude where the payment originated.
       sig { returns(T.nilable(Float)) }
-      attr_reader :latitude
+      def latitude; end
       # The geographic longitude where the payment originated.
       sig { returns(T.nilable(Float)) }
-      attr_reader :longitude
+      def longitude; end
       # The state/county/province/region where the payment originated.
       sig { returns(T.nilable(String)) }
-      attr_reader :region
+      def region; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
-    class Session < Stripe::StripeObject
+    class Session < ::Stripe::StripeObject
       # The browser used in this browser session (e.g., `Chrome`).
       sig { returns(T.nilable(String)) }
-      attr_reader :browser
+      def browser; end
       # Information about the device used for the browser session (e.g., `Samsung SM-G930T`).
       sig { returns(T.nilable(String)) }
-      attr_reader :device
+      def device; end
       # The platform for the browser session (e.g., `Macintosh`).
       sig { returns(T.nilable(String)) }
-      attr_reader :platform
+      def platform; end
       # The version for the browser session (e.g., `61.0.3163.100`).
       sig { returns(T.nilable(String)) }
-      attr_reader :version
+      def version; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
     # The ZIP or postal code of the card used, if applicable.
     sig { returns(T.nilable(String)) }
-    attr_reader :billing_zip
+    def billing_zip; end
     # The charge associated with this review.
-    sig { returns(T.nilable(T.any(String, Stripe::Charge))) }
-    attr_reader :charge
+    sig { returns(T.nilable(T.any(String, ::Stripe::Charge))) }
+    def charge; end
     # The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(T.nilable(String)) }
-    attr_reader :closed_reason
+    def closed_reason; end
     # Time at which the object was created. Measured in seconds since the Unix epoch.
     sig { returns(Integer) }
-    attr_reader :created
+    def created; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # The IP address where the payment originated.
     sig { returns(T.nilable(String)) }
-    attr_reader :ip_address
+    def ip_address; end
     # Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address.
     sig { returns(T.nilable(IpAddressLocation)) }
-    attr_reader :ip_address_location
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    def ip_address_location; end
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
-    attr_reader :livemode
+    def livemode; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
+    def object; end
     # If `true`, the review needs action.
     sig { returns(T::Boolean) }
-    attr_reader :open
+    def open; end
     # The reason the review was opened. One of `rule` or `manual`.
     sig { returns(String) }
-    attr_reader :opened_reason
+    def opened_reason; end
     # The PaymentIntent ID associated with this review, if one exists.
-    sig { returns(T.any(String, Stripe::PaymentIntent)) }
-    attr_reader :payment_intent
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntent))) }
+    def payment_intent; end
     # The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, `redacted`, `canceled`, `payment_never_settled`, or `acknowledged`.
     sig { returns(String) }
-    attr_reader :reason
+    def reason; end
     # Information related to the browsing session of the user who initiated the payment.
     sig { returns(T.nilable(Session)) }
-    attr_reader :session
-    class ListParams < Stripe::RequestParams
-      class Created < Stripe::RequestParams
-        # Minimum value to filter by (exclusive)
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :gt
-        # Minimum value to filter by (inclusive)
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :gte
-        # Maximum value to filter by (exclusive)
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :lt
-        # Maximum value to filter by (inclusive)
-        sig { returns(T.nilable(Integer)) }
-        attr_accessor :lte
-        sig {
-          params(gt: T.nilable(Integer), gte: T.nilable(Integer), lt: T.nilable(Integer), lte: T.nilable(Integer)).void
-         }
-        def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
-      end
-      # Only return reviews that were created during the given date interval.
-      sig { returns(T.nilable(T.any(::Stripe::Review::ListParams::Created, Integer))) }
-      attr_accessor :created
-      # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :ending_before
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-      sig { returns(T.nilable(Integer)) }
-      attr_accessor :limit
-      # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-      sig { returns(T.nilable(String)) }
-      attr_accessor :starting_after
-      sig {
-        params(created: T.nilable(T.any(::Stripe::Review::ListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), starting_after: T.nilable(String)).void
-       }
-      def initialize(
-        created: nil,
-        ending_before: nil,
-        expand: nil,
-        limit: nil,
-        starting_after: nil
-      ); end
-    end
-    class ApproveParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      sig { returns(T.nilable(T::Array[String])) }
-      attr_accessor :expand
-      sig { params(expand: T.nilable(T::Array[String])).void }
-      def initialize(expand: nil); end
-    end
+    def session; end
     # Approves a Review object, closing it and removing it from the list of reviews.
     sig {
-      params(params: T.any(::Stripe::Review::ApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Review)
+      params(params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Review)
      }
     def approve(params = {}, opts = {}); end
 
     # Approves a Review object, closing it and removing it from the list of reviews.
     sig {
-      params(review: String, params: T.any(::Stripe::Review::ApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::Review)
+      params(review: String, params: T.any(::Stripe::ReviewApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Review)
      }
     def self.approve(review, params = {}, opts = {}); end
 
     # Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
     sig {
-      params(params: T.any(::Stripe::Review::ListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(Stripe::ListObject)
+      params(params: T.any(::Stripe::ReviewListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
     def self.list(params = {}, opts = {}); end
   end

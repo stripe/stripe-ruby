@@ -4,17 +4,17 @@
 # typed: true
 module Stripe
   class Application < APIResource
+    # Always true for a deleted object
+    sig { returns(T.nilable(T::Boolean)) }
+    def deleted; end
     # Unique identifier for the object.
     sig { returns(String) }
-    attr_reader :id
+    def id; end
     # The name of the application.
     sig { returns(T.nilable(String)) }
-    attr_reader :name
+    def name; end
     # String representing the object's type. Objects of the same type share the same value.
     sig { returns(String) }
-    attr_reader :object
-    # Always true for a deleted object
-    sig { returns(T::Boolean) }
-    attr_reader :deleted
+    def object; end
   end
 end

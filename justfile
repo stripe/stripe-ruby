@@ -5,6 +5,9 @@ import? '../sdk-codegen/utils.just'
 _default:
     just --list --unsorted
 
+# ⭐ run lint, typecheck, and tests to prepare for CI
+prepare: lint typecheck test
+
 install *args:
     bundle install {{ if is_dependency() == "true" {"--quiet"} else {""} }} {{ args }}
 
@@ -20,10 +23,10 @@ alias lint-check := format-check
 # ⭐ check style & formatting for all files, fixing what we can
 lint: (format-check "--autocorrect")
 
-# NOTE: "-o /dev/null" is vital - rubocop has super noisy output and codegen will crash when formatting ruby if everything gets printed
-# so, we send all its output to the void
-# copy of `lint` with less output
-format: (format-check "-o /dev/null --autocorrect")
+# Quiet version of `lint` for use by codegen and CI.
+# --display-only-fail-level-offenses suppresses the ~1.5MB report of corrected
+# offenses and only shows uncorrectable ones.
+format: (format-check "--autocorrect --display-only-fail-level-offenses")
 
 update-certs: install
     bundle exec rake update_certs
@@ -41,3 +44,10 @@ typecheck: install
 update-version version:
     echo "{{ version }}" > VERSION
     perl -pi -e 's|VERSION = "[.\-\w\d]+"|VERSION = "{{ version }}"|' lib/stripe/version.rb
+
+# ⭐ print the API version this SDK pins and the lowest runtime it supports
+print-version-info:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    echo "pinned-api-version: $(rg -N --color never -m1 -o '[0-9]{4}-[0-9]{2}-[0-9]{2}[.\w-]*' lib/stripe/api_version.rb)"
+    echo "minimum-runtime-version: $(rg -N --color never -o 'required_ruby_version = ">= ([^"]+)"' --replace '$1' stripe.gemspec)"

@@ -317,6 +317,14 @@ module Stripe
                                           num_retries: 0)
       end
 
+      should "retry on Net::HTTPFatalError" do
+        response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+        error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+        assert APIRequestor.should_retry?(error,
+                                          num_retries: 0)
+      end
+
       should "retry on SocketError" do
         assert APIRequestor.should_retry?(SocketError.new,
                                           num_retries: 0)
@@ -728,18 +736,16 @@ module Stripe
 
         context "Stripe-Account header" do
           should "use a globally set header" do
-            begin
-              old = Stripe.stripe_account
-              Stripe.stripe_account = "acct_1234"
+            old = Stripe.stripe_account
+            Stripe.stripe_account = "acct_1234"
 
-              stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
-                .with(headers: { "Stripe-Account" => Stripe.stripe_account })
-                .to_return(body: JSON.generate(object: "account"))
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with(headers: { "Stripe-Account" => Stripe.stripe_account })
+              .to_return(body: JSON.generate(object: "account"))
 
-              Stripe::Account.create
-            ensure
-              Stripe.stripe_account = old
-            end
+            Stripe::Account.create
+          ensure
+            Stripe.stripe_account = old
           end
 
           should "use a local request set header" do
@@ -798,41 +804,62 @@ module Stripe
 
         context "app_info" do
           should "send app_info if set" do
-            begin
-              old = Stripe.app_info
-              Stripe.set_app_info(
-                "MyAwesomePlugin",
-                partner_id: "partner_1234",
-                url: "https://myawesomeplugin.info",
-                version: "1.2.34"
-              )
+            old = Stripe.app_info
 
-              stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
-                .with do |req|
-                  assert_equal \
-                    "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
-                    "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
-                    req.headers["User-Agent"]
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("")
 
-                  data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
-                                    symbolize_names: true)
+            Stripe.set_app_info(
+              "MyAwesomePlugin",
+              partner_id: "partner_1234",
+              url: "https://myawesomeplugin.info",
+              version: "1.2.34"
+            )
 
-                  assert_equal({
-                    name: "MyAwesomePlugin",
-                    partner_id: "partner_1234",
-                    url: "https://myawesomeplugin.info",
-                    version: "1.2.34",
-                  }, data[:application])
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                assert_equal \
+                  "Stripe/v1 RubyBindings/#{Stripe::VERSION} " \
+                  "MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)",
+                  req.headers["User-Agent"]
 
-                  true
-                end.to_return(body: JSON.generate(object: "account"))
+                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"],
+                                  symbolize_names: true)
 
-              client = APIRequestor.new("sk_test_123")
-              client.send(request_method, :post, "/v1/account", :api,
-                          &@read_body_chunk_block)
-            ensure
-              Stripe.app_info = old
-            end
+                assert_equal({
+                  name: "MyAwesomePlugin",
+                  partner_id: "partner_1234",
+                  url: "https://myawesomeplugin.info",
+                  version: "1.2.34",
+                }, data[:application])
+
+                true
+              end.to_return(body: JSON.generate(object: "account"))
+
+            client = APIRequestor.new("sk_test_123")
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
+          ensure
+            Stripe.app_info = old
+          end
+        end
+
+        context "ai_agent" do
+          should "include AI agent in request headers" do
+            APIRequestor::SystemProfiler.stubs(:detect_ai_agent).returns("cursor")
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/account")
+              .with do |req|
+                assert_match(%r{AIAgent/cursor$}, req.headers["User-Agent"])
+
+                data = JSON.parse(req.headers["X-Stripe-Client-User-Agent"])
+                assert_equal "cursor", data["ai_agent"]
+
+                true
+              end.to_return(body: JSON.generate(object: "account"))
+
+            client = APIRequestor.new("sk_test_123")
+            client.send(request_method, :post, "/v1/account", :api,
+                        &@read_body_chunk_block)
           end
         end
 
@@ -875,8 +902,8 @@ module Stripe
               client.send(request_method, :post, "/v1/charges", :api,
                           &@read_body_chunk_block)
             end
-            assert_equal "#{APIRequestor::ERROR_MESSAGE_CONNECTION % Stripe::DEFAULT_API_BASE} Request was retried 2 times.\n\n(Network error: Connection refused)",
-                         e.message
+            assert_match(/Request was retried 2 times\.\n\n\(Network error: .*refused/i,
+                         e.message)
           end
 
           should "handle error response with unknown value" do
@@ -1159,6 +1186,23 @@ module Stripe
             assert_match(/Request was retried 2 times/, err.message)
           end
 
+          should "retry Net::HTTPFatalError failures and raise APIConnectionError if error persists" do
+            APIRequestor.expects(:sleep_time).at_least_once.returns(0)
+
+            response = Net::HTTPResponse::CODE_TO_OBJ["503"].new("1.1", "503", "Service Unavailable")
+            error = Net::HTTPFatalError.new("503 \"Service Unavailable\"", response)
+
+            stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+              .to_raise(error)
+
+            client = APIRequestor.new("sk_test_123")
+            err = assert_raises Stripe::APIConnectionError do
+              client.send(request_method, :post, "/v1/charges", :api,
+                          &@read_body_chunk_block)
+            end
+            assert_match(/Request was retried 2 times/, err.message)
+          end
+
           should "retry failed requests and return successful response" do
             APIRequestor.expects(:sleep_time).at_least_once.returns(0)
 
@@ -1268,6 +1312,29 @@ module Stripe
     end
 
     context "#execute_request" do
+      context "Stripe-Notice header" do
+        should "emit a warning when the header is present" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(
+              body: JSON.generate(object: "charge"),
+              headers: { "Stripe-Notice" => "This is a notice" }
+            )
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).with("WARNING: This is a notice")
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+
+        should "not emit a warning when the header is absent" do
+          stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
+            .to_return(body: JSON.generate(object: "charge"))
+
+          requestor = APIRequestor.new("sk_test_123")
+          requestor.expects(:warn).never
+          requestor.execute_request(:post, "/v1/charges", :api)
+        end
+      end
+
       should "handle success response with empty body" do
         stub_request(:post, "#{Stripe::DEFAULT_API_BASE}/v1/charges")
           .to_return(body: "", status: 200)
@@ -1361,17 +1428,15 @@ module Stripe
       end
 
       should "reset local thread state after a call" do
-        begin
-          APIRequestor.current_thread_context.active_requestor = :api_requestor
+        APIRequestor.current_thread_context.active_requestor = :api_requestor
 
-          client = APIRequestor.new("sk_test_123")
-          client.request { 0 }
+        client = APIRequestor.new("sk_test_123")
+        client.request { 0 }
 
-          assert_equal :api_requestor,
-                       APIRequestor.current_thread_context.active_requestor
-        ensure
-          APIRequestor.current_thread_context.active_requestor = nil
-        end
+        assert_equal :api_requestor,
+                     APIRequestor.current_thread_context.active_requestor
+      ensure
+        APIRequestor.current_thread_context.active_requestor = nil
       end
 
       should "correctly return last responses despite multiple clients" do
@@ -1468,25 +1533,23 @@ module Stripe
 
     context "#proxy" do
       should "run the request through the proxy" do
-        begin
-          APIRequestor.clear_all_connection_managers
+        APIRequestor.clear_all_connection_managers
 
-          Stripe.proxy = "http://user:pass@localhost:8080"
+        Stripe.proxy = "http://user:pass@localhost:8080"
 
-          client = APIRequestor.new("sk_test_123")
-          client.request { 0 }
+        client = APIRequestor.new("sk_test_123")
+        client.request { 0 }
 
-          connection = Stripe::APIRequestor.default_connection_manager.connection_for(Stripe::DEFAULT_API_BASE)
+        connection = Stripe::APIRequestor.default_connection_manager.connection_for(Stripe::DEFAULT_API_BASE)
 
-          assert_equal "localhost", connection.proxy_address
-          assert_equal 8080, connection.proxy_port
-          assert_equal "user", connection.proxy_user
-          assert_equal "pass", connection.proxy_pass
-        ensure
-          Stripe.proxy = nil
+        assert_equal "localhost", connection.proxy_address
+        assert_equal 8080, connection.proxy_port
+        assert_equal "user", connection.proxy_user
+        assert_equal "pass", connection.proxy_pass
+      ensure
+        Stripe.proxy = nil
 
-          APIRequestor.clear_all_connection_managers
-        end
+        APIRequestor.clear_all_connection_managers
       end
     end
 
@@ -1720,26 +1783,161 @@ module Stripe
   end
 
   class SystemProfilerTest < Test::Unit::TestCase
-    context "#uname" do
-      should "run without failure" do
-        # Don't actually check the result because we try a variety of different
-        # strategies that will have different results depending on where this
-        # test and running. We're mostly making sure that no exception is thrown.
-        _ = APIRequestor::SystemProfiler.uname
+    context ".user_agent" do
+      should "omit platform when telemetry is disabled" do
+        Stripe.enable_telemetry = false
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_nil ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "include platform when telemetry is enabled" do
+        Stripe.enable_telemetry = true
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal RUBY_PLATFORM, ua[:platform]
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "include telemetry_id when telemetry is enabled" do
+        Stripe.enable_telemetry = true
+        TelemetryId.stubs(:get).returns("abc123def456")
+        ua = APIRequestor::SystemProfiler.user_agent
+        assert_equal "abc123def456", ua[:telemetry_id]
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "omit telemetry_id when telemetry is disabled" do
+        Stripe.enable_telemetry = false
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:telemetry_id)
+      ensure
+        Stripe.enable_telemetry = false
+      end
+
+      should "omit telemetry_id when TelemetryId.get returns nil" do
+        Stripe.enable_telemetry = true
+        TelemetryId.stubs(:get).returns(nil)
+        ua = APIRequestor::SystemProfiler.user_agent
+        refute ua.key?(:telemetry_id)
+      ensure
+        Stripe.enable_telemetry = false
       end
     end
 
-    context "#uname_from_system" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system
+    context ".detect_ai_agent" do
+      should "detect agent when env var is set" do
+        assert_equal "claude_code", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "1" })
+      end
+
+      should "return empty string when no agent env vars are set" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({})
+      end
+
+      should "return first matching agent when multiple env vars are set" do
+        assert_equal "cursor", APIRequestor::SystemProfiler.detect_ai_agent({ "CURSOR_AGENT" => "1", "OPENCODE" => "1" })
+      end
+
+      should "ignore empty string env vars" do
+        assert_equal "", APIRequestor::SystemProfiler.detect_ai_agent({ "CLAUDECODE" => "" })
       end
     end
 
-    context "#uname_from_system_ver" do
-      should "run without failure" do
-        # as above, just verify that an exception is not thrown
-        _ = APIRequestor::SystemProfiler.uname_from_system_ver
+    ORIGIN_RELATIVE_PATHS = [
+      "/v1/customers/cus_123",
+      "/v1/customers",
+      "/v2/core/accounts?page=page_123&limit=2",
+      # "@" is legal inside a path or query string -- it only opens an authority
+      # when it precedes the first "/".
+      "/v1/customers?email=user%40example.com",
+      "/v1/%5Cevil.example",
+    ].freeze
+
+    HOSTILE_PATHS = [
+      # Concatenated onto a base address with no trailing slash, each of these
+      # moves the request's authority off api.stripe.com.
+      "@evil.example/v1/leak",
+      ":pw@evil.example/v1/leak",
+      ":80@evil.example/v1/leak",
+      # Extends the host into an attacker-owned subdomain
+      # (api.stripe.com.evil.example), which has a valid certificate.
+      ".evil.example/v1/leak",
+      "-evil.example/v1/leak",
+      "https://evil.example/v1/leak",
+      "//evil.example/v1/leak",
+      "",
+      "v1/customers",
+      nil,
+      42,
+    ].freeze
+
+    context "request path validation" do
+      should "accept origin-relative paths" do
+        ORIGIN_RELATIVE_PATHS.each do |path|
+          Util.validate_path!(path)
+        end
+      end
+
+      should "reject paths that could move the request's authority" do
+        HOSTILE_PATHS.each do |path|
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Util.validate_path!(path)
+          end
+        end
+      end
+
+      should "reject a hostile path without issuing a request" do
+        # WebMock blocks any unstubbed connection, so no stub plus no WebMock
+        # error is the assertion that nothing left the process.
+        HOSTILE_PATHS.each do |path|
+          assert_raises(ArgumentError, "expected #{path.inspect} to be rejected") do
+            Stripe::StripeClient.new("sk_test_123").raw_request(:get, path)
+          end
+        end
+      end
+
+      should "reject a hostile related_object.url without issuing a request" do
+        payload = JSON.generate(
+          id: "evt_123",
+          object: "v2.core.event",
+          type: "v2.core.account.created",
+          created: "2026-01-01T00:00:00Z",
+          related_object: {
+            id: "acct_123",
+            type: "account",
+            url: "@evil.example/v1/leak",
+          }
+        )
+        header = Test::WebhookHelpers.generate_header(payload: payload)
+
+        client = Stripe::StripeClient.new("sk_test_123")
+        notification = client.parse_event_notification(
+          payload, header, Test::WebhookHelpers::SECRET
+        )
+
+        assert_raises(ArgumentError) do
+          notification.fetch_related_object
+        end
+      end
+
+      should "reject a hostile list object url without issuing a request" do
+        # A signature-verified v1 webhook body is attacker-shaped, and nested
+        # collections in it become ListObjects whose `url` is used as a path.
+        list = Util.convert_to_stripe_object(
+          {
+            object: "list",
+            data: [{ id: "il_123" }],
+            has_more: true,
+            url: "@evil.example/v1/leak",
+          },
+          {}
+        )
+
+        assert_raises(ArgumentError) do
+          list.next_page
+        end
       end
     end
   end

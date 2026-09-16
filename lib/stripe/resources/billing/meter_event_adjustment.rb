@@ -12,41 +12,23 @@ module Stripe
         "billing.meter_event_adjustment"
       end
 
-      class Cancel < Stripe::StripeObject
+      class Cancel < ::Stripe::StripeObject
         # Unique identifier for the event.
         attr_reader :identifier
-      end
 
-      class CreateParams < Stripe::RequestParams
-        class Cancel < Stripe::RequestParams
-          # Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
-          attr_accessor :identifier
-
-          def initialize(identifier: nil)
-            @identifier = identifier
-          end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
-        # Specifies which event to cancel.
-        attr_accessor :cancel
-        # The name of the meter event. Corresponds with the `event_name` field on a meter.
-        attr_accessor :event_name
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
-        attr_accessor :type
 
-        def initialize(cancel: nil, event_name: nil, expand: nil, type: nil)
-          @cancel = cancel
-          @event_name = event_name
-          @expand = expand
-          @type = type
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       # Specifies which event to cancel.
       attr_reader :cancel
       # The name of the meter event. Corresponds with the `event_name` field on a meter.
       attr_reader :event_name
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
@@ -63,6 +45,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { cancel: Cancel }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

@@ -5,7 +5,7 @@ From the examples folder, run:
 
 e.g.
 
-`RUBYLIB=../lib ruby thinevent_webhook_handler.rb`
+`RUBYLIB=../lib ruby event_notification_webhook_handler.rb`
 
 ## Adding a new example
 

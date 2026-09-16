@@ -1,8 +1,8 @@
 gem:
   # Add your `gem` command parameters here:
   #
-  # exclude:
-  # - gem_name
+  exclude:
+    - rexml
   # doc: true
   # workers: 5
 dsl:

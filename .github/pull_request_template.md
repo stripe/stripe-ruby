@@ -9,3 +9,7 @@ List out the key changes made in this PR, e.g.
 
 ### See Also
 <!-- Include any links or additional information that help explain this change. -->
+
+## Configuration
+
+- [ ] `skip-changefile`: This PR is not a user-facing change, so there's no changefile.

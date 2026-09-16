@@ -111,6 +111,9 @@ module Stripe
       )
     end
 
+    # Retrieve by passing id like `retrieve(id)`
+    # If passing parameters, pass a single map with parameters and the `id` as well.
+    # For example: retrieve({id: some_id, some_param: some_param_value})
     def self.retrieve(id, opts = {})
       if name.include?("Stripe::V2")
         raise NotImplementedError,

@@ -5,6 +5,7 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
+  gem "cgi"
   gem "mocha", "~> 1.16.0"
   gem "rack", ">= 2.0.6"
   gem "rake"
@@ -26,8 +27,10 @@ group :development do
   # The latest version of rubocop is only compatible with Ruby 2.7+
   gem "rubocop", "1.75.2" if RUBY_VERSION >= "2.7"
 
-  gem "sorbet"
-  gem "tapioca"
+  unless RUBY_PLATFORM =~ /mingw|mswin/
+    gem "sorbet"
+    gem "tapioca"
+  end
 
   platforms :mri do
     gem "byebug"

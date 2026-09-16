@@ -8,6 +8,7 @@ module Stripe
     attr_reader :credit_balance_summary
     attr_reader :credit_balance_transactions
     attr_reader :credit_grants
+    attr_reader :feedback_options
     attr_reader :meters
     attr_reader :meter_events
     attr_reader :meter_event_adjustments

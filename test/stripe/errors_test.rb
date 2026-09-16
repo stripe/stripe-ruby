@@ -14,6 +14,12 @@ module Stripe
         end
       end
 
+      should "expose network_advice_code from error body" do
+        e = StripeError.new("message", json_body: { error: { type: "card_error", network_advice_code: "02" } })
+        assert_not_nil e.error
+        assert_equal "02", e.error.network_advice_code
+      end
+
       context "#idempotent_replayed?" do
         should "initialize from header" do
           e = StripeError.new("message", http_headers: { "idempotent-replayed" => "true" })

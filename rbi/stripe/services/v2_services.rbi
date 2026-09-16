@@ -5,6 +5,7 @@
 module Stripe
   class V2Services < StripeService
     attr_reader :billing
+    attr_reader :commerce
     attr_reader :core
   end
 end

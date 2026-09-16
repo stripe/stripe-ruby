@@ -2,12 +2,13 @@
 
 # Stripe Ruby bindings
 # API spec at https://stripe.com/docs/api
-require "cgi"
+require "cgi/escape"
 require "json"
 require "logger"
 require "net/http"
 require "openssl"
 require "rbconfig"
+require "fileutils"
 require "securerandom"
 require "set"
 require "socket"
@@ -33,8 +34,11 @@ require "stripe/errors"
 require "stripe/object_types"
 require "stripe/event_types"
 require "stripe/request_options"
+require "stripe/v2_type_coercion"
 require "stripe/request_params"
+require "stripe/stripe_context"
 require "stripe/util"
+require "stripe/telemetry_id"
 require "stripe/connection_manager"
 require "stripe/multipart_encoder"
 require "stripe/api_requestor"
@@ -50,16 +54,24 @@ require "stripe/api_resource"
 require "stripe/api_resource_test_helpers"
 require "stripe/singleton_api_resource"
 require "stripe/webhook"
+require "stripe/stripe_event_notification_handler"
 require "stripe/stripe_configuration"
-require "stripe/thin_event"
 
-# Named API resources
+# Named API resources — autoloaded on first use to reduce boot time.
+# Call Stripe.eager_load! to load everything upfront (recommended
+# before forking in production). In Rails, this happens automatically
+# when config.eager_load is true.
 require "stripe/resources"
 require "stripe/services"
+require "stripe/params"
 
 # OAuth
 require "stripe/oauth"
 require "stripe/services/oauth_service"
+
+# Rails integration — registers Stripe in config.eager_load_namespaces
+# so Stripe.eager_load! is called automatically when config.eager_load is true.
+require "stripe/railtie" if defined?(Rails::Railtie)
 
 module Stripe
   DEFAULT_CA_BUNDLE_PATH = __dir__ + "/data/ca-certificates.crt"
@@ -130,6 +142,23 @@ module Stripe
     def_delegators :@config, :max_network_retry_delay
     def_delegators :@config, :initial_network_retry_delay
     def_delegators :@config, :ca_store
+  end
+
+  # Eagerly loads all autoloaded Stripe constants (resources, services,
+  # params) using the same file list and load order as previous versions
+  # of this gem that used eager require.
+  #
+  # Call this before forking in production (Puma, Unicorn, etc.) to
+  # avoid autoload in multi-threaded request handling. In Rails apps
+  # this is called automatically when config.eager_load is true.
+  #
+  #   # Non-Rails production / pre-fork hook:
+  #   Stripe.eager_load!
+  #
+  def self.eager_load!
+    (RESOURCE_FILES + SERVICE_FILES + PARAM_FILES).each do |path|
+      require path
+    end
   end
 
   # Gets the application for a plugin that's identified some. See

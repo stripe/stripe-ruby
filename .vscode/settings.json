@@ -2,10 +2,11 @@
   // Show the repo name in the top window bar.
   "window.title": "${rootName}${separator}${activeEditorMedium}",
 
-  "editor.formatOnSave": true,
+  // formatting on save is very slow in ruby
+  "editor.formatOnSave": false,
   "files.trimTrailingWhitespace": true,
 
   // Rubocop settings
   "ruby.rubocop.configFilePath": ".rubocop.yml",
-  "ruby.rubocop.onSave": true
+  "ruby.rubocop.onSave": false
 }

@@ -158,7 +158,7 @@ module Stripe
 
         assert_equal nil, req.headers["Content-Type"]
 
-        assert resp.is_a?(Stripe::V2::Event)
+        assert resp.is_a?(Stripe::V2::Core::Event)
         assert_equal "sk_test_123", resp.instance_variable_get(:@opts)[:api_key]
         assert_equal 200, resp.last_response.http_status
       end
@@ -380,7 +380,7 @@ module Stripe
 
         obj = @client.deserialize(expected_body, api_mode: :v2)
 
-        assert_equal obj.class, Stripe::V2::Event
+        assert_equal obj.class, Stripe::V2::Core::Event
         assert_equal obj.id, "evt_123"
       end
     end

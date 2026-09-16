@@ -7,11 +7,11 @@ module Stripe
   # just like a `Card` object: once chargeable, they can be charged, or can be
   # attached to customers.
   #
-  # Stripe doesn't recommend using the deprecated [Sources API](https://stripe.com/docs/api/sources).
-  # We recommend that you adopt the [PaymentMethods API](https://stripe.com/docs/api/payment_methods).
+  # Stripe doesn't recommend using the deprecated [Sources API](https://docs.stripe.com/api/sources).
+  # We recommend that you adopt the [PaymentMethods API](https://docs.stripe.com/api/payment_methods).
   # This newer API provides access to our latest features and payment method types.
   #
-  # Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
+  # Related guides: [Sources API](https://docs.stripe.com/sources) and [Sources & Customers](https://docs.stripe.com/sources/customers).
   class Source < APIResource
     extend Stripe::APIOperations::Create
     extend Stripe::APIOperations::NestedResource
@@ -24,7 +24,7 @@ module Stripe
 
     nested_resource_class_methods :source_transaction, operations: %i[retrieve list]
 
-    class AchCreditTransfer < Stripe::StripeObject
+    class AchCreditTransfer < ::Stripe::StripeObject
       # Attribute for field account_number
       attr_reader :account_number
       # Attribute for field bank_name
@@ -41,9 +41,17 @@ module Stripe
       attr_reader :routing_number
       # Attribute for field swift_code
       attr_reader :swift_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class AchDebit < Stripe::StripeObject
+    class AchDebit < ::Stripe::StripeObject
       # Attribute for field bank_name
       attr_reader :bank_name
       # Attribute for field country
@@ -56,9 +64,17 @@ module Stripe
       attr_reader :routing_number
       # Attribute for field type
       attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class AcssDebit < Stripe::StripeObject
+    class AcssDebit < ::Stripe::StripeObject
       # Attribute for field bank_address_city
       attr_reader :bank_address_city
       # Attribute for field bank_address_line_1
@@ -79,27 +95,51 @@ module Stripe
       attr_reader :last4
       # Attribute for field routing_number
       attr_reader :routing_number
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Alipay < Stripe::StripeObject
+    class Alipay < ::Stripe::StripeObject
       # Attribute for field data_string
       attr_reader :data_string
       # Attribute for field native_url
       attr_reader :native_url
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class AuBecsDebit < Stripe::StripeObject
+    class AuBecsDebit < ::Stripe::StripeObject
       # Attribute for field bsb_number
       attr_reader :bsb_number
       # Attribute for field fingerprint
       attr_reader :fingerprint
       # Attribute for field last4
       attr_reader :last4
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Bancontact < Stripe::StripeObject
+    class Bancontact < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -112,9 +152,17 @@ module Stripe
       attr_reader :preferred_language
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Card < Stripe::StripeObject
+    class Card < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       attr_reader :address_line1_check
       # Attribute for field address_zip_check
@@ -149,9 +197,17 @@ module Stripe
       attr_reader :three_d_secure
       # Attribute for field tokenization_method
       attr_reader :tokenization_method
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class CardPresent < Stripe::StripeObject
+    class CardPresent < ::Stripe::StripeObject
       # Attribute for field application_cryptogram
       attr_reader :application_cryptogram
       # Attribute for field application_preferred_name
@@ -204,23 +260,47 @@ module Stripe
       attr_reader :terminal_verification_results
       # Attribute for field transaction_status_information
       attr_reader :transaction_status_information
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class CodeVerification < Stripe::StripeObject
+    class CodeVerification < ::Stripe::StripeObject
       # The number of attempts remaining to authenticate the source object with a verification code.
       attr_reader :attempts_remaining
       # The status of the code verification, either `pending` (awaiting verification, `attempts_remaining` should be greater than 0), `succeeded` (successful verification) or `failed` (failed verification, cannot be verified anymore as `attempts_remaining` should be 0).
       attr_reader :status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Eps < Stripe::StripeObject
+    class Eps < ::Stripe::StripeObject
       # Attribute for field reference
       attr_reader :reference
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Giropay < Stripe::StripeObject
+    class Giropay < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -229,9 +309,17 @@ module Stripe
       attr_reader :bic
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Ideal < Stripe::StripeObject
+    class Ideal < ::Stripe::StripeObject
       # Attribute for field bank
       attr_reader :bank
       # Attribute for field bic
@@ -240,9 +328,17 @@ module Stripe
       attr_reader :iban_last4
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Klarna < Stripe::StripeObject
+    class Klarna < ::Stripe::StripeObject
       # Attribute for field background_image_url
       attr_reader :background_image_url
       # Attribute for field client_token
@@ -295,9 +391,17 @@ module Stripe
       attr_reader :shipping_first_name
       # Attribute for field shipping_last_name
       attr_reader :shipping_last_name
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Multibanco < Stripe::StripeObject
+    class Multibanco < ::Stripe::StripeObject
       # Attribute for field entity
       attr_reader :entity
       # Attribute for field reference
@@ -318,37 +422,61 @@ module Stripe
       attr_reader :refund_account_holder_name
       # Attribute for field refund_iban
       attr_reader :refund_iban
-    end
 
-    class Owner < Stripe::StripeObject
-      class Address < Stripe::StripeObject
-        # City, district, suburb, town, or village.
-        attr_reader :city
-        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
-        attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
-        attr_reader :line2
-        # ZIP or postal code.
-        attr_reader :postal_code
-        # State, county, province, or region.
-        attr_reader :state
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
-      class VerifiedAddress < Stripe::StripeObject
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Owner < ::Stripe::StripeObject
+      class Address < ::Stripe::StripeObject
         # City, district, suburb, town, or village.
         attr_reader :city
         # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
         attr_reader :country
-        # Address line 1 (e.g., street, PO Box, or company name).
+        # Address line 1, such as the street, PO Box, or company name.
         attr_reader :line1
-        # Address line 2 (e.g., apartment, suite, unit, or building).
+        # Address line 2, such as the apartment, suite, unit, or building.
         attr_reader :line2
         # ZIP or postal code.
         attr_reader :postal_code
-        # State, county, province, or region.
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class VerifiedAddress < ::Stripe::StripeObject
+        # City, district, suburb, town, or village.
+        attr_reader :city
+        # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        attr_reader :country
+        # Address line 1, such as the street, PO Box, or company name.
+        attr_reader :line1
+        # Address line 2, such as the apartment, suite, unit, or building.
+        attr_reader :line2
+        # ZIP or postal code.
+        attr_reader :postal_code
+        # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        attr_reader :state
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # Owner's address.
       attr_reader :address
@@ -366,14 +494,30 @@ module Stripe
       attr_reader :verified_name
       # Verified owner's phone number (including extension). Verified values are verified or provided by the payment method directly (and if supported) at the time of authorization or settlement. They cannot be set or mutated.
       attr_reader :verified_phone
+
+      def self.inner_class_types
+        @inner_class_types = { address: Address, verified_address: VerifiedAddress }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class P24 < Stripe::StripeObject
+    class P24 < ::Stripe::StripeObject
       # Attribute for field reference
       attr_reader :reference
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Receiver < Stripe::StripeObject
+    class Receiver < ::Stripe::StripeObject
       # The address of the receiver source. This is the value that should be communicated to the customer to send their funds to.
       attr_reader :address
       # The total amount that was moved to your balance. This is almost always equal to the amount charged. In rare cases when customers deposit excess funds and we are unable to refund those, those funds get moved to your balance and show up in amount_charged as well. The amount charged is expressed in the source's currency.
@@ -386,20 +530,36 @@ module Stripe
       attr_reader :refund_attributes_method
       # Type of refund attribute status, one of `missing`, `requested`, or `available`.
       attr_reader :refund_attributes_status
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Redirect < Stripe::StripeObject
+    class Redirect < ::Stripe::StripeObject
       # The failure reason for the redirect, either `user_abort` (the customer aborted or dropped out of the redirect flow), `declined` (the authentication failed or the transaction was declined), or `processing_error` (the redirect failed due to a technical error). Present only if the redirect status is `failed`.
       attr_reader :failure_reason
       # The URL you provide to redirect the customer to after they authenticated their payment.
       attr_reader :return_url
-      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (succesful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
+      # The status of the redirect, either `pending` (ready to be used by your customer to authenticate the transaction), `succeeded` (successful authentication, cannot be reused) or `not_required` (redirect should not be used) or `failed` (failed authentication, cannot be reused).
       attr_reader :status
       # The URL provided to you to redirect a customer to as part of a `redirect` authentication flow.
       attr_reader :url
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SepaCreditTransfer < Stripe::StripeObject
+    class SepaCreditTransfer < ::Stripe::StripeObject
       # Attribute for field bank_name
       attr_reader :bank_name
       # Attribute for field bic
@@ -422,9 +582,17 @@ module Stripe
       attr_reader :refund_account_holder_name
       # Attribute for field refund_iban
       attr_reader :refund_iban
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SepaDebit < Stripe::StripeObject
+    class SepaDebit < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field branch_code
@@ -439,9 +607,17 @@ module Stripe
       attr_reader :mandate_reference
       # Attribute for field mandate_url
       attr_reader :mandate_url
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Sofort < Stripe::StripeObject
+    class Sofort < ::Stripe::StripeObject
       # Attribute for field bank_code
       attr_reader :bank_code
       # Attribute for field bank_name
@@ -456,10 +632,18 @@ module Stripe
       attr_reader :preferred_language
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class SourceOrder < Stripe::StripeObject
-      class Item < Stripe::StripeObject
+    class SourceOrder < ::Stripe::StripeObject
+      class Item < ::Stripe::StripeObject
         # The amount (price) for this order item.
         attr_reader :amount
         # This currency of this order item. Required when `amount` is present.
@@ -472,22 +656,38 @@ module Stripe
         attr_reader :quantity
         # The type of this order item. Must be `sku`, `tax`, or `shipping`.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Shipping < Stripe::StripeObject
-        class Address < Stripe::StripeObject
+      class Shipping < ::Stripe::StripeObject
+        class Address < ::Stripe::StripeObject
           # City, district, suburb, town, or village.
           attr_reader :city
           # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
           attr_reader :country
-          # Address line 1 (e.g., street, PO Box, or company name).
+          # Address line 1, such as the street, PO Box, or company name.
           attr_reader :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
+          # Address line 2, such as the apartment, suite, unit, or building.
           attr_reader :line2
           # ZIP or postal code.
           attr_reader :postal_code
-          # State, county, province, or region.
+          # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_reader :state
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field address
         attr_reader :address
@@ -499,6 +699,14 @@ module Stripe
         attr_reader :phone
         # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
         attr_reader :tracking_number
+
+        def self.inner_class_types
+          @inner_class_types = { address: Address }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
       # A positive integer in the smallest currency unit (that is, 100 cents for $1.00, or 1 for ¥1, Japanese Yen being a zero-decimal currency) representing the total amount for the order.
       attr_reader :amount
@@ -510,9 +718,17 @@ module Stripe
       attr_reader :items
       # Attribute for field shipping
       attr_reader :shipping
+
+      def self.inner_class_types
+        @inner_class_types = { items: Item, shipping: Shipping }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class ThreeDSecure < Stripe::StripeObject
+    class ThreeDSecure < ::Stripe::StripeObject
       # Attribute for field address_line1_check
       attr_reader :address_line1_check
       # Attribute for field address_zip_check
@@ -553,594 +769,30 @@ module Stripe
       attr_reader :three_d_secure
       # Attribute for field tokenization_method
       attr_reader :tokenization_method
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Wechat < Stripe::StripeObject
+    class Wechat < ::Stripe::StripeObject
       # Attribute for field prepay_id
       attr_reader :prepay_id
       # Attribute for field qr_code_url
       attr_reader :qr_code_url
       # Attribute for field statement_descriptor
       attr_reader :statement_descriptor
-    end
 
-    class UpdateParams < Stripe::RequestParams
-      class Mandate < Stripe::RequestParams
-        class Acceptance < Stripe::RequestParams
-          class Offline < Stripe::RequestParams
-            # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
-            attr_accessor :contact_email
-
-            def initialize(contact_email: nil)
-              @contact_email = contact_email
-            end
-          end
-
-          class Online < Stripe::RequestParams
-            # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            attr_accessor :date
-            # The IP address from which the mandate was accepted or refused by the customer.
-            attr_accessor :ip
-            # The user agent of the browser from which the mandate was accepted or refused by the customer.
-            attr_accessor :user_agent
-
-            def initialize(date: nil, ip: nil, user_agent: nil)
-              @date = date
-              @ip = ip
-              @user_agent = user_agent
-            end
-          end
-          # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-          attr_accessor :date
-          # The IP address from which the mandate was accepted or refused by the customer.
-          attr_accessor :ip
-          # The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-          attr_accessor :offline
-          # The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-          attr_accessor :online
-          # The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
-          attr_accessor :status
-          # The type of acceptance information included with the mandate. Either `online` or `offline`
-          attr_accessor :type
-          # The user agent of the browser from which the mandate was accepted or refused by the customer.
-          attr_accessor :user_agent
-
-          def initialize(
-            date: nil,
-            ip: nil,
-            offline: nil,
-            online: nil,
-            status: nil,
-            type: nil,
-            user_agent: nil
-          )
-            @date = date
-            @ip = ip
-            @offline = offline
-            @online = online
-            @status = status
-            @type = type
-            @user_agent = user_agent
-          end
-        end
-        # The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-        attr_accessor :acceptance
-        # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        attr_accessor :amount
-        # The currency specified by the mandate. (Must match `currency` of the source)
-        attr_accessor :currency
-        # The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-        attr_accessor :interval
-        # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-        attr_accessor :notification_method
-
-        def initialize(
-          acceptance: nil,
-          amount: nil,
-          currency: nil,
-          interval: nil,
-          notification_method: nil
-        )
-          @acceptance = acceptance
-          @amount = amount
-          @currency = currency
-          @interval = interval
-          @notification_method = notification_method
-        end
+      def self.inner_class_types
+        @inner_class_types = {}
       end
 
-      class Owner < Stripe::RequestParams
-        class Address < Stripe::RequestParams
-          # City, district, suburb, town, or village.
-          attr_accessor :city
-          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
-          attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
-          attr_accessor :line2
-          # ZIP or postal code.
-          attr_accessor :postal_code
-          # State, county, province, or region.
-          attr_accessor :state
-
-          def initialize(
-            city: nil,
-            country: nil,
-            line1: nil,
-            line2: nil,
-            postal_code: nil,
-            state: nil
-          )
-            @city = city
-            @country = country
-            @line1 = line1
-            @line2 = line2
-            @postal_code = postal_code
-            @state = state
-          end
-        end
-        # Owner's address.
-        attr_accessor :address
-        # Owner's email address.
-        attr_accessor :email
-        # Owner's full name.
-        attr_accessor :name
-        # Owner's phone number.
-        attr_accessor :phone
-
-        def initialize(address: nil, email: nil, name: nil, phone: nil)
-          @address = address
-          @email = email
-          @name = name
-          @phone = phone
-        end
-      end
-
-      class SourceOrder < Stripe::RequestParams
-        class Item < Stripe::RequestParams
-          # Attribute for param field amount
-          attr_accessor :amount
-          # Attribute for param field currency
-          attr_accessor :currency
-          # Attribute for param field description
-          attr_accessor :description
-          # The ID of the SKU being ordered.
-          attr_accessor :parent
-          # The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-          attr_accessor :quantity
-          # Attribute for param field type
-          attr_accessor :type
-
-          def initialize(
-            amount: nil,
-            currency: nil,
-            description: nil,
-            parent: nil,
-            quantity: nil,
-            type: nil
-          )
-            @amount = amount
-            @currency = currency
-            @description = description
-            @parent = parent
-            @quantity = quantity
-            @type = type
-          end
-        end
-
-        class Shipping < Stripe::RequestParams
-          class Address < Stripe::RequestParams
-            # City, district, suburb, town, or village.
-            attr_accessor :city
-            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
-            attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
-            attr_accessor :line2
-            # ZIP or postal code.
-            attr_accessor :postal_code
-            # State, county, province, or region.
-            attr_accessor :state
-
-            def initialize(
-              city: nil,
-              country: nil,
-              line1: nil,
-              line2: nil,
-              postal_code: nil,
-              state: nil
-            )
-              @city = city
-              @country = country
-              @line1 = line1
-              @line2 = line2
-              @postal_code = postal_code
-              @state = state
-            end
-          end
-          # Shipping address.
-          attr_accessor :address
-          # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          attr_accessor :carrier
-          # Recipient name.
-          attr_accessor :name
-          # Recipient phone (including extension).
-          attr_accessor :phone
-          # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          attr_accessor :tracking_number
-
-          def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil)
-            @address = address
-            @carrier = carrier
-            @name = name
-            @phone = phone
-            @tracking_number = tracking_number
-          end
-        end
-        # List of items constituting the order.
-        attr_accessor :items
-        # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        attr_accessor :shipping
-
-        def initialize(items: nil, shipping: nil)
-          @items = items
-          @shipping = shipping
-        end
-      end
-      # Amount associated with the source.
-      attr_accessor :amount
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-      attr_accessor :mandate
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-      attr_accessor :metadata
-      # Information about the owner of the payment instrument that may be used or required by particular source types.
-      attr_accessor :owner
-      # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-      attr_accessor :source_order
-
-      def initialize(
-        amount: nil,
-        expand: nil,
-        mandate: nil,
-        metadata: nil,
-        owner: nil,
-        source_order: nil
-      )
-        @amount = amount
-        @expand = expand
-        @mandate = mandate
-        @metadata = metadata
-        @owner = owner
-        @source_order = source_order
-      end
-    end
-
-    class CreateParams < Stripe::RequestParams
-      class Mandate < Stripe::RequestParams
-        class Acceptance < Stripe::RequestParams
-          class Offline < Stripe::RequestParams
-            # An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
-            attr_accessor :contact_email
-
-            def initialize(contact_email: nil)
-              @contact_email = contact_email
-            end
-          end
-
-          class Online < Stripe::RequestParams
-            # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            attr_accessor :date
-            # The IP address from which the mandate was accepted or refused by the customer.
-            attr_accessor :ip
-            # The user agent of the browser from which the mandate was accepted or refused by the customer.
-            attr_accessor :user_agent
-
-            def initialize(date: nil, ip: nil, user_agent: nil)
-              @date = date
-              @ip = ip
-              @user_agent = user_agent
-            end
-          end
-          # The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-          attr_accessor :date
-          # The IP address from which the mandate was accepted or refused by the customer.
-          attr_accessor :ip
-          # The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-          attr_accessor :offline
-          # The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-          attr_accessor :online
-          # The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
-          attr_accessor :status
-          # The type of acceptance information included with the mandate. Either `online` or `offline`
-          attr_accessor :type
-          # The user agent of the browser from which the mandate was accepted or refused by the customer.
-          attr_accessor :user_agent
-
-          def initialize(
-            date: nil,
-            ip: nil,
-            offline: nil,
-            online: nil,
-            status: nil,
-            type: nil,
-            user_agent: nil
-          )
-            @date = date
-            @ip = ip
-            @offline = offline
-            @online = online
-            @status = status
-            @type = type
-            @user_agent = user_agent
-          end
-        end
-        # The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-        attr_accessor :acceptance
-        # The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-        attr_accessor :amount
-        # The currency specified by the mandate. (Must match `currency` of the source)
-        attr_accessor :currency
-        # The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-        attr_accessor :interval
-        # The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-        attr_accessor :notification_method
-
-        def initialize(
-          acceptance: nil,
-          amount: nil,
-          currency: nil,
-          interval: nil,
-          notification_method: nil
-        )
-          @acceptance = acceptance
-          @amount = amount
-          @currency = currency
-          @interval = interval
-          @notification_method = notification_method
-        end
-      end
-
-      class Owner < Stripe::RequestParams
-        class Address < Stripe::RequestParams
-          # City, district, suburb, town, or village.
-          attr_accessor :city
-          # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-          attr_accessor :country
-          # Address line 1 (e.g., street, PO Box, or company name).
-          attr_accessor :line1
-          # Address line 2 (e.g., apartment, suite, unit, or building).
-          attr_accessor :line2
-          # ZIP or postal code.
-          attr_accessor :postal_code
-          # State, county, province, or region.
-          attr_accessor :state
-
-          def initialize(
-            city: nil,
-            country: nil,
-            line1: nil,
-            line2: nil,
-            postal_code: nil,
-            state: nil
-          )
-            @city = city
-            @country = country
-            @line1 = line1
-            @line2 = line2
-            @postal_code = postal_code
-            @state = state
-          end
-        end
-        # Owner's address.
-        attr_accessor :address
-        # Owner's email address.
-        attr_accessor :email
-        # Owner's full name.
-        attr_accessor :name
-        # Owner's phone number.
-        attr_accessor :phone
-
-        def initialize(address: nil, email: nil, name: nil, phone: nil)
-          @address = address
-          @email = email
-          @name = name
-          @phone = phone
-        end
-      end
-
-      class Receiver < Stripe::RequestParams
-        # The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
-        attr_accessor :refund_attributes_method
-
-        def initialize(refund_attributes_method: nil)
-          @refund_attributes_method = refund_attributes_method
-        end
-      end
-
-      class Redirect < Stripe::RequestParams
-        # The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
-        attr_accessor :return_url
-
-        def initialize(return_url: nil)
-          @return_url = return_url
-        end
-      end
-
-      class SourceOrder < Stripe::RequestParams
-        class Item < Stripe::RequestParams
-          # Attribute for param field amount
-          attr_accessor :amount
-          # Attribute for param field currency
-          attr_accessor :currency
-          # Attribute for param field description
-          attr_accessor :description
-          # The ID of the SKU being ordered.
-          attr_accessor :parent
-          # The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-          attr_accessor :quantity
-          # Attribute for param field type
-          attr_accessor :type
-
-          def initialize(
-            amount: nil,
-            currency: nil,
-            description: nil,
-            parent: nil,
-            quantity: nil,
-            type: nil
-          )
-            @amount = amount
-            @currency = currency
-            @description = description
-            @parent = parent
-            @quantity = quantity
-            @type = type
-          end
-        end
-
-        class Shipping < Stripe::RequestParams
-          class Address < Stripe::RequestParams
-            # City, district, suburb, town, or village.
-            attr_accessor :city
-            # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            attr_accessor :country
-            # Address line 1 (e.g., street, PO Box, or company name).
-            attr_accessor :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
-            attr_accessor :line2
-            # ZIP or postal code.
-            attr_accessor :postal_code
-            # State, county, province, or region.
-            attr_accessor :state
-
-            def initialize(
-              city: nil,
-              country: nil,
-              line1: nil,
-              line2: nil,
-              postal_code: nil,
-              state: nil
-            )
-              @city = city
-              @country = country
-              @line1 = line1
-              @line2 = line2
-              @postal_code = postal_code
-              @state = state
-            end
-          end
-          # Shipping address.
-          attr_accessor :address
-          # The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-          attr_accessor :carrier
-          # Recipient name.
-          attr_accessor :name
-          # Recipient phone (including extension).
-          attr_accessor :phone
-          # The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-          attr_accessor :tracking_number
-
-          def initialize(address: nil, carrier: nil, name: nil, phone: nil, tracking_number: nil)
-            @address = address
-            @carrier = carrier
-            @name = name
-            @phone = phone
-            @tracking_number = tracking_number
-          end
-        end
-        # List of items constituting the order.
-        attr_accessor :items
-        # Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-        attr_accessor :shipping
-
-        def initialize(items: nil, shipping: nil)
-          @items = items
-          @shipping = shipping
-        end
-      end
-      # Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
-      attr_accessor :amount
-      # Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
-      attr_accessor :currency
-      # The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).
-      attr_accessor :customer
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
-      attr_accessor :flow
-      # Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-      attr_accessor :mandate
-      # Attribute for param field metadata
-      attr_accessor :metadata
-      # The source to share.
-      attr_accessor :original_source
-      # Information about the owner of the payment instrument that may be used or required by particular source types.
-      attr_accessor :owner
-      # Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
-      attr_accessor :receiver
-      # Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
-      attr_accessor :redirect
-      # Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-      attr_accessor :source_order
-      # An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
-      attr_accessor :statement_descriptor
-      # An optional token used to create the source. When passed, token properties will override source parameters.
-      attr_accessor :token
-      # The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
-      attr_accessor :type
-      # Attribute for param field usage
-      attr_accessor :usage
-
-      def initialize(
-        amount: nil,
-        currency: nil,
-        customer: nil,
-        expand: nil,
-        flow: nil,
-        mandate: nil,
-        metadata: nil,
-        original_source: nil,
-        owner: nil,
-        receiver: nil,
-        redirect: nil,
-        source_order: nil,
-        statement_descriptor: nil,
-        token: nil,
-        type: nil,
-        usage: nil
-      )
-        @amount = amount
-        @currency = currency
-        @customer = customer
-        @expand = expand
-        @flow = flow
-        @mandate = mandate
-        @metadata = metadata
-        @original_source = original_source
-        @owner = owner
-        @receiver = receiver
-        @redirect = redirect
-        @source_order = source_order
-        @statement_descriptor = statement_descriptor
-        @token = token
-        @type = type
-        @usage = usage
-      end
-    end
-
-    class VerifyParams < Stripe::RequestParams
-      # Specifies which fields in the response should be expanded.
-      attr_accessor :expand
-      # The values needed to verify the source.
-      attr_accessor :values
-
-      def initialize(expand: nil, values: nil)
-        @expand = expand
-        @values = values
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
     # Attribute for field ach_credit_transfer
@@ -1185,9 +837,9 @@ module Stripe
     attr_reader :ideal
     # Attribute for field klarna
     attr_reader :klarna
-    # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
-    # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     attr_reader :metadata
     # Attribute for field multibanco
     attr_reader :multibanco
@@ -1215,7 +867,7 @@ module Stripe
     attr_reader :status
     # Attribute for field three_d_secure
     attr_reader :three_d_secure
-    # The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://stripe.com/docs/sources) used.
+    # The `type` of the source. The `type` is a payment method, one of `ach_credit_transfer`, `ach_debit`, `alipay`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `multibanco`, `klarna`, `p24`, `sepa_debit`, `sofort`, `three_d_secure`, or `wechat`. An additional hash is included on the source with a name matching this value. It contains additional information specific to the [payment method](https://docs.stripe.com/sources) used.
     attr_reader :type
     # Either `reusable` or `single_use`. Whether this source should be reusable or not. Some source types may or may not be reusable by construction, while others may leave the option at creation. If an incompatible value is passed, an error will be returned.
     attr_reader :usage
@@ -1283,5 +935,38 @@ module Stripe
     end
     extend Gem::Deprecate
     deprecate :source_transactions, :"Source.list_source_transactions", 2020, 1
+
+    def self.inner_class_types
+      @inner_class_types = {
+        ach_credit_transfer: AchCreditTransfer,
+        ach_debit: AchDebit,
+        acss_debit: AcssDebit,
+        alipay: Alipay,
+        au_becs_debit: AuBecsDebit,
+        bancontact: Bancontact,
+        card: Card,
+        card_present: CardPresent,
+        code_verification: CodeVerification,
+        eps: Eps,
+        giropay: Giropay,
+        ideal: Ideal,
+        klarna: Klarna,
+        multibanco: Multibanco,
+        owner: Owner,
+        p24: P24,
+        receiver: Receiver,
+        redirect: Redirect,
+        sepa_credit_transfer: SepaCreditTransfer,
+        sepa_debit: SepaDebit,
+        sofort: Sofort,
+        source_order: SourceOrder,
+        three_d_secure: ThreeDSecure,
+        wechat: Wechat,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

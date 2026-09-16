@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class TaxService < StripeService
+    attr_reader :associations
     attr_reader :calculations
     attr_reader :registrations
     attr_reader :settings

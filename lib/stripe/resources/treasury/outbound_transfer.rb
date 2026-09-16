@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+    # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://api.stripe.com#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://api.stripe.com#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
     #
     # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
     #
@@ -17,21 +17,29 @@ module Stripe
         "treasury.outbound_transfer"
       end
 
-      class DestinationPaymentMethodDetails < Stripe::StripeObject
-        class BillingDetails < Stripe::StripeObject
-          class Address < Stripe::StripeObject
+      class DestinationPaymentMethodDetails < ::Stripe::StripeObject
+        class BillingDetails < ::Stripe::StripeObject
+          class Address < ::Stripe::StripeObject
             # City, district, suburb, town, or village.
             attr_reader :city
             # Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             attr_reader :country
-            # Address line 1 (e.g., street, PO Box, or company name).
+            # Address line 1, such as the street, PO Box, or company name.
             attr_reader :line1
-            # Address line 2 (e.g., apartment, suite, unit, or building).
+            # Address line 2, such as the apartment, suite, unit, or building.
             attr_reader :line2
             # ZIP or postal code.
             attr_reader :postal_code
-            # State, county, province, or region.
+            # State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # Attribute for field address
           attr_reader :address
@@ -39,16 +47,32 @@ module Stripe
           attr_reader :email
           # Full name.
           attr_reader :name
+
+          def self.inner_class_types
+            @inner_class_types = { address: Address }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class FinancialAccount < Stripe::StripeObject
+        class FinancialAccount < ::Stripe::StripeObject
           # Token of the FinancialAccount.
           attr_reader :id
           # The rails used to send funds.
           attr_reader :network
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class UsBankAccount < Stripe::StripeObject
+        class UsBankAccount < ::Stripe::StripeObject
           # Account holder type: individual or company.
           attr_reader :account_holder_type
           # Account type: checkings or savings. Defaults to checking if omitted.
@@ -61,10 +85,18 @@ module Stripe
           attr_reader :last4
           # ID of the mandate used to make this payment.
           attr_reader :mandate
-          # The network rails used. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+          # The network rails used. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
           attr_reader :network
           # Routing number of the bank account.
           attr_reader :routing_number
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field billing_details
         attr_reader :billing_details
@@ -74,16 +106,36 @@ module Stripe
         attr_reader :type
         # Attribute for field us_bank_account
         attr_reader :us_bank_account
+
+        def self.inner_class_types
+          @inner_class_types = {
+            billing_details: BillingDetails,
+            financial_account: FinancialAccount,
+            us_bank_account: UsBankAccount,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class ReturnedDetails < Stripe::StripeObject
+      class ReturnedDetails < ::Stripe::StripeObject
         # Reason for the return.
         attr_reader :code
         # The Transaction associated with this object.
         attr_reader :transaction
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class StatusTransitions < Stripe::StripeObject
+      class StatusTransitions < ::Stripe::StripeObject
         # Timestamp describing when an OutboundTransfer changed status to `canceled`
         attr_reader :canceled_at
         # Timestamp describing when an OutboundTransfer changed status to `failed`
@@ -92,21 +144,45 @@ module Stripe
         attr_reader :posted_at
         # Timestamp describing when an OutboundTransfer changed status to `returned`
         attr_reader :returned_at
-      end
 
-      class TrackingDetails < Stripe::StripeObject
-        class Ach < Stripe::StripeObject
-          # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
-          attr_reader :trace_id
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
-        class UsDomesticWire < Stripe::StripeObject
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class TrackingDetails < ::Stripe::StripeObject
+        class Ach < ::Stripe::StripeObject
+          # ACH trace ID of the OutboundTransfer for transfers sent over the `ach` network.
+          attr_reader :trace_id
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class UsDomesticWire < ::Stripe::StripeObject
           # CHIPS System Sequence Number (SSN) of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           attr_reader :chips
           # IMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           attr_reader :imad
           # OMAD of the OutboundTransfer for transfers sent over the `us_domestic_wire` network.
           attr_reader :omad
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field ach
         attr_reader :ach
@@ -114,207 +190,13 @@ module Stripe
         attr_reader :type
         # Attribute for field us_domestic_wire
         attr_reader :us_domestic_wire
-      end
 
-      class ListParams < Stripe::RequestParams
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # Returns objects associated with this FinancialAccount.
-        attr_accessor :financial_account
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
-        # Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
-        attr_accessor :status
-
-        def initialize(
-          ending_before: nil,
-          expand: nil,
-          financial_account: nil,
-          limit: nil,
-          starting_after: nil,
-          status: nil
-        )
-          @ending_before = ending_before
-          @expand = expand
-          @financial_account = financial_account
-          @limit = limit
-          @starting_after = starting_after
-          @status = status
-        end
-      end
-
-      class CreateParams < Stripe::RequestParams
-        class DestinationPaymentMethodData < Stripe::RequestParams
-          # Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
-          attr_accessor :financial_account
-          # The type of the destination.
-          attr_accessor :type
-
-          def initialize(financial_account: nil, type: nil)
-            @financial_account = financial_account
-            @type = type
-          end
+        def self.inner_class_types
+          @inner_class_types = { ach: Ach, us_domestic_wire: UsDomesticWire }
         end
 
-        class DestinationPaymentMethodOptions < Stripe::RequestParams
-          class UsBankAccount < Stripe::RequestParams
-            # Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
-            attr_accessor :network
-
-            def initialize(network: nil)
-              @network = network
-            end
-          end
-          # Optional fields for `us_bank_account`.
-          attr_accessor :us_bank_account
-
-          def initialize(us_bank_account: nil)
-            @us_bank_account = us_bank_account
-          end
-        end
-        # Amount (in cents) to be transferred.
-        attr_accessor :amount
-        # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        attr_accessor :currency
-        # An arbitrary string attached to the object. Often useful for displaying to users.
-        attr_accessor :description
-        # The PaymentMethod to use as the payment instrument for the OutboundTransfer.
-        attr_accessor :destination_payment_method
-        # Hash used to generate the PaymentMethod to be used for this OutboundTransfer. Exclusive with `destination_payment_method`.
-        attr_accessor :destination_payment_method_data
-        # Hash describing payment method configuration details.
-        attr_accessor :destination_payment_method_options
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # The FinancialAccount to pull funds from.
-        attr_accessor :financial_account
-        # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        attr_accessor :metadata
-        # Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `us_domestic_wire` transfers. The default value is "transfer".
-        attr_accessor :statement_descriptor
-
-        def initialize(
-          amount: nil,
-          currency: nil,
-          description: nil,
-          destination_payment_method: nil,
-          destination_payment_method_data: nil,
-          destination_payment_method_options: nil,
-          expand: nil,
-          financial_account: nil,
-          metadata: nil,
-          statement_descriptor: nil
-        )
-          @amount = amount
-          @currency = currency
-          @description = description
-          @destination_payment_method = destination_payment_method
-          @destination_payment_method_data = destination_payment_method_data
-          @destination_payment_method_options = destination_payment_method_options
-          @expand = expand
-          @financial_account = financial_account
-          @metadata = metadata
-          @statement_descriptor = statement_descriptor
-        end
-      end
-
-      class CancelParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
-      class UpdateParams < Stripe::RequestParams
-        class TrackingDetails < Stripe::RequestParams
-          class Ach < Stripe::RequestParams
-            # ACH trace ID for funds sent over the `ach` network.
-            attr_accessor :trace_id
-
-            def initialize(trace_id: nil)
-              @trace_id = trace_id
-            end
-          end
-
-          class UsDomesticWire < Stripe::RequestParams
-            # CHIPS System Sequence Number (SSN) for funds sent over the `us_domestic_wire` network.
-            attr_accessor :chips
-            # IMAD for funds sent over the `us_domestic_wire` network.
-            attr_accessor :imad
-            # OMAD for funds sent over the `us_domestic_wire` network.
-            attr_accessor :omad
-
-            def initialize(chips: nil, imad: nil, omad: nil)
-              @chips = chips
-              @imad = imad
-              @omad = omad
-            end
-          end
-          # ACH network tracking details.
-          attr_accessor :ach
-          # The US bank account network used to send funds.
-          attr_accessor :type
-          # US domestic wire network tracking details.
-          attr_accessor :us_domestic_wire
-
-          def initialize(ach: nil, type: nil, us_domestic_wire: nil)
-            @ach = ach
-            @type = type
-            @us_domestic_wire = us_domestic_wire
-          end
-        end
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # Details about network-specific tracking information.
-        attr_accessor :tracking_details
-
-        def initialize(expand: nil, tracking_details: nil)
-          @expand = expand
-          @tracking_details = tracking_details
-        end
-      end
-
-      class FailParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
-      class PostParams < Stripe::RequestParams
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-
-        def initialize(expand: nil)
-          @expand = expand
-        end
-      end
-
-      class ReturnOutboundTransferParams < Stripe::RequestParams
-        class ReturnedDetails < Stripe::RequestParams
-          # Reason for the return.
-          attr_accessor :code
-
-          def initialize(code: nil)
-            @code = code
-          end
-        end
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # Details about a returned OutboundTransfer.
-        attr_accessor :returned_details
-
-        def initialize(expand: nil, returned_details: nil)
-          @expand = expand
-          @returned_details = returned_details
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       # Amount (in cents) transferred.
@@ -335,13 +217,13 @@ module Stripe
       attr_reader :expected_arrival_date
       # The FinancialAccount that funds were pulled from.
       attr_reader :financial_account
-      # A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+      # A [hosted transaction receipt](https://docs.stripe.com/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
       attr_reader :hosted_regulatory_receipt_url
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
-      # Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+      # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
@@ -487,6 +369,19 @@ module Stripe
             opts: opts
           )
         end
+      end
+
+      def self.inner_class_types
+        @inner_class_types = {
+          destination_payment_method_details: DestinationPaymentMethodDetails,
+          returned_details: ReturnedDetails,
+          status_transitions: StatusTransitions,
+          tracking_details: TrackingDetails,
+        }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

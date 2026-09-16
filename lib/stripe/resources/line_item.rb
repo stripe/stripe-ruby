@@ -9,17 +9,42 @@ module Stripe
       "item"
     end
 
-    class Discount < Stripe::StripeObject
-      # The amount discounted.
-      attr_reader :amount
-      # A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
-      # It contains information about when the discount began, when it will end, and what it is applied to.
-      #
-      # Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
-      attr_reader :discount
+    class AdjustableQuantity < ::Stripe::StripeObject
+      # Attribute for field enabled
+      attr_reader :enabled
+      # Attribute for field maximum
+      attr_reader :maximum
+      # Attribute for field minimum
+      attr_reader :minimum
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
 
-    class Tax < Stripe::StripeObject
+    class Discount < ::Stripe::StripeObject
+      # The amount discounted.
+      attr_reader :amount
+      # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+      # It contains information about when the discount began, when it will end, and what it is applied to.
+      #
+      # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
+      attr_reader :discount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
+    class Tax < ::Stripe::StripeObject
       # Amount of tax applied for this rate.
       attr_reader :amount
       # Tax rates can be applied to [invoices](/invoicing/taxes/tax-rates), [subscriptions](/billing/taxes/tax-rates) and [Checkout Sessions](/payments/checkout/use-manual-tax-rates) to collect tax.
@@ -30,7 +55,17 @@ module Stripe
       attr_reader :taxability_reason
       # The amount on which tax is calculated, in cents (or local equivalent).
       attr_reader :taxable_amount
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
+    # Attribute for field adjustable_quantity
+    attr_reader :adjustable_quantity
     # Total discount amount applied. If no discounts were applied, defaults to 0.
     attr_reader :amount_discount
     # Total before any discounts or taxes are applied.
@@ -47,6 +82,8 @@ module Stripe
     attr_reader :discounts
     # Unique identifier for the object.
     attr_reader :id
+    # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
     # The price used to generate the line item.
@@ -55,5 +92,17 @@ module Stripe
     attr_reader :quantity
     # The taxes applied to the line item.
     attr_reader :taxes
+
+    def self.inner_class_types
+      @inner_class_types = {
+        adjustable_quantity: AdjustableQuantity,
+        discounts: Discount,
+        taxes: Tax,
+      }
+    end
+
+    def self.field_remappings
+      @field_remappings = {}
+    end
   end
 end

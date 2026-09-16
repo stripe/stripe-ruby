@@ -11,6 +11,7 @@ module Stripe
     attr_reader :application_fees
     attr_reader :apps
     attr_reader :balance
+    attr_reader :balance_settings
     attr_reader :balance_transactions
     attr_reader :billing
     attr_reader :billing_portal
@@ -18,7 +19,6 @@ module Stripe
     attr_reader :checkout
     attr_reader :climate
     attr_reader :confirmation_tokens
-    attr_reader :test_helpers
     attr_reader :country_specs
     attr_reader :coupons
     attr_reader :credit_notes
@@ -35,16 +35,18 @@ module Stripe
     attr_reader :forwarding
     attr_reader :identity
     attr_reader :invoices
+    attr_reader :invoice_items
     attr_reader :invoice_payments
     attr_reader :invoice_rendering_templates
-    attr_reader :invoice_items
     attr_reader :issuing
     attr_reader :mandates
+    attr_reader :payment_attempt_records
     attr_reader :payment_intents
     attr_reader :payment_links
     attr_reader :payment_methods
     attr_reader :payment_method_configurations
     attr_reader :payment_method_domains
+    attr_reader :payment_records
     attr_reader :payouts
     attr_reader :plans
     attr_reader :prices
@@ -55,10 +57,10 @@ module Stripe
     attr_reader :refunds
     attr_reader :reporting
     attr_reader :reviews
-    attr_reader :sigma
     attr_reader :setup_attempts
     attr_reader :setup_intents
     attr_reader :shipping_rates
+    attr_reader :sigma
     attr_reader :sources
     attr_reader :subscriptions
     attr_reader :subscription_items
@@ -68,6 +70,7 @@ module Stripe
     attr_reader :tax_ids
     attr_reader :tax_rates
     attr_reader :terminal
+    attr_reader :test_helpers
     attr_reader :tokens
     attr_reader :topups
     attr_reader :transfers

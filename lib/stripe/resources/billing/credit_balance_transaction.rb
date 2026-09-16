@@ -12,25 +12,49 @@ module Stripe
         "billing.credit_balance_transaction"
       end
 
-      class Credit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+      class Credit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class CreditsApplicationInvoiceVoided < Stripe::StripeObject
+        class CreditsApplicationInvoiceVoided < ::Stripe::StripeObject
           # The invoice to which the reinstated billing credits were originally applied.
           attr_reader :invoice
           # The invoice line item to which the reinstated billing credits were originally applied.
           attr_reader :invoice_line_item
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         attr_reader :amount
@@ -38,27 +62,62 @@ module Stripe
         attr_reader :credits_application_invoice_voided
         # The type of credit transaction.
         attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = {
+            amount: Amount,
+            credits_application_invoice_voided: CreditsApplicationInvoiceVoided,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
       end
 
-      class Debit < Stripe::StripeObject
-        class Amount < Stripe::StripeObject
-          class Monetary < Stripe::StripeObject
+      class Debit < ::Stripe::StripeObject
+        class Amount < ::Stripe::StripeObject
+          class Monetary < ::Stripe::StripeObject
             # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             attr_reader :currency
             # A positive integer representing the amount.
             attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
           end
           # The monetary amount.
           attr_reader :monetary
           # The type of this amount. We currently only support `monetary` billing credits.
           attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = { monetary: Monetary }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
 
-        class CreditsApplied < Stripe::StripeObject
+        class CreditsApplied < ::Stripe::StripeObject
           # The invoice to which the billing credits were applied.
           attr_reader :invoice
           # The invoice line item to which the billing credits were applied.
           attr_reader :invoice_line_item
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
         end
         # Attribute for field amount
         attr_reader :amount
@@ -66,36 +125,13 @@ module Stripe
         attr_reader :credits_applied
         # The type of debit transaction.
         attr_reader :type
-      end
 
-      class ListParams < Stripe::RequestParams
-        # The credit grant for which to fetch credit balance transactions.
-        attr_accessor :credit_grant
-        # The customer for which to fetch credit balance transactions.
-        attr_accessor :customer
-        # A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        attr_accessor :ending_before
-        # Specifies which fields in the response should be expanded.
-        attr_accessor :expand
-        # A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        attr_accessor :limit
-        # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        attr_accessor :starting_after
+        def self.inner_class_types
+          @inner_class_types = { amount: Amount, credits_applied: CreditsApplied }
+        end
 
-        def initialize(
-          credit_grant: nil,
-          customer: nil,
-          ending_before: nil,
-          expand: nil,
-          limit: nil,
-          starting_after: nil
-        )
-          @credit_grant = credit_grant
-          @customer = customer
-          @ending_before = ending_before
-          @expand = expand
-          @limit = limit
-          @starting_after = starting_after
+        def self.field_remappings
+          @field_remappings = {}
         end
       end
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -110,7 +146,7 @@ module Stripe
       attr_reader :effective_at
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
@@ -127,6 +163,14 @@ module Stripe
           params: params,
           opts: opts
         )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { credit: Credit, debit: Debit }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
       end
     end
   end

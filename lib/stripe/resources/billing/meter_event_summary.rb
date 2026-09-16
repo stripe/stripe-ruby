@@ -19,7 +19,7 @@ module Stripe
       attr_reader :end_time
       # Unique identifier for the object.
       attr_reader :id
-      # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
       # The meter associated with this event summary.
       attr_reader :meter
@@ -27,6 +27,14 @@ module Stripe
       attr_reader :object
       # Start timestamp for this event summary (inclusive). Must be aligned with minute boundaries.
       attr_reader :start_time
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
     end
   end
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "bigdecimal"
+
 module Stripe
   class StripeObject
     include Enumerable
@@ -154,14 +156,38 @@ module Stripe
     def update_attributes(values, opts = {}, dirty: true)
       values.each do |k, v|
         add_accessors([k], values) unless metaclass.method_defined?(k.to_sym)
-        @values[k] = Util.convert_to_stripe_object(v, opts, api_mode: @api_mode, requestor: @requestor)
+        @values[k] = convert_value_with_inner_types(k, v, opts)
+        encoding = self.class.field_encodings[k.to_sym]
+        @values[k] = V2TypeCoercion.coerce_value(@values[k], encoding, direction: :decode) if encoding
         dirty_value!(@values[k]) if dirty
         @unsaved_values.add(k)
       end
     end
 
+    private def convert_value_with_inner_types(key, value, opts)
+      inner_class = _get_union_variant_class(key, value) || _get_inner_class_type(key)
+
+      if inner_class
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor, klass: inner_class)
+      else
+        Util.convert_to_stripe_object(value, opts, api_mode: @api_mode, requestor: @requestor)
+      end
+    end
+
     def [](key)
-      @values[key.to_sym]
+      key_sym = key.to_sym
+      return @values[key_sym] if @values.key?(key_sym)
+
+      # super specific one-off case to help users debug this property disappearing
+      # see also: https://go/j/DEVSDK-2835
+      if is_a?(Invoice) && key_sym == :payment_intent
+        raise KeyError,
+              "The 'payment_intent' attribute is no longer available on Invoice objects. " \
+              "See the docs for more details: https://docs.stripe.com/changelog/basil/2025-03-31/" \
+              "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change"
+      end
+
+      nil
     end
 
     def []=(key, value)
@@ -192,13 +218,13 @@ module Stripe
         value.respond_to?(:to_hash) ? value.to_hash : value
       end
 
-      @values.each_with_object({}) do |(key, value), acc|
-        acc[key] = case value
-                   when Array
-                     value.map(&maybe_to_hash)
-                   else
-                     maybe_to_hash.call(value)
-                   end
+      @values.transform_values do |value|
+        case value
+        when Array
+          value.map(&maybe_to_hash)
+        else
+          maybe_to_hash.call(value)
+        end
       end
     end
 
@@ -263,7 +289,7 @@ module Stripe
 
       # a `nil` that makes it out of `#serialize_params_value` signals an empty
       # value that we shouldn't appear in the serialized form of the object
-      update_hash.reject! { |_, v| v.nil? }
+      update_hash.compact!
 
       update_hash
     end
@@ -303,6 +329,7 @@ module Stripe
     protected def remove_accessors(keys)
       # not available in the #instance_eval below
       protected_fields = self.class.protected_fields
+      obj = self # capture self to use inside instance_eval
 
       metaclass.instance_eval do
         keys.each do |k|
@@ -332,6 +359,11 @@ module Stripe
                    "collide with an API property name.")
             end
           end
+
+          # Also remove instance variables so that static attr_readers (if any exist)
+          # will return nil instead of stale data or data of the wrong type
+          ivar_name = :"@#{k}"
+          obj.remove_instance_variable(ivar_name) if obj.instance_variable_defined?(ivar_name)
         end
       end
     end
@@ -416,6 +448,23 @@ module Stripe
       begin
         super
       rescue NoMethodError => e
+        # super specific one-off case to help users debug this property disappearing
+        # see also: https://go/j/DEVSDK-2835
+        if is_a?(Invoice) && name == :payment_intent
+          raise NoMethodError,
+                "\n\n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
+                "-----------------\n" \
+                "The 'payment_intent' attribute is no longer available on Invoice objects.\n\n" \
+                "See the docs for more details:\n" \
+                "https://docs.stripe.com/changelog/basil/2025-03-31/" \
+                "add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change\n" \
+                "-----------------\n " \
+                "BREAKING CHANGE \n" \
+                "-----------------" \
+        end
+
         # If we notice the accessed name of our set of transient values we can
         # give the user a slightly more helpful error message. If not, just
         # raise right away.
@@ -619,6 +668,51 @@ module Stripe
       values.each_with_object({}) do |(k, _), update|
         update[k] = ""
       end
+    end
+
+    # Instance methods to get inner class types
+    def _get_inner_class_type(field_name)
+      self.class.inner_class_types[field_name.to_sym]
+    end
+
+    # Resolves a discriminated-union field to its variant class by reading the
+    # discriminator out of the incoming response.
+    #
+    # Returns nil rather than raising when the discriminator is absent, not
+    # name-like, or names a variant this version of the SDK does not know about.
+    # The caller then falls back to the union's base class, so a variant the API
+    # adds after this release still deserializes instead of blowing up.
+    def _get_union_variant_class(field_name, value)
+      return nil unless value.is_a?(Hash)
+
+      union = self.class.inner_class_union_variant_types[field_name.to_sym]
+      return nil unless union
+
+      discriminator, variants = union
+      disc_value = value[discriminator.to_sym] || value[discriminator.to_s]
+      return nil unless disc_value.is_a?(String) || disc_value.is_a?(Symbol)
+
+      variants[disc_value.to_sym]
+    end
+
+    # Class methods for inner class types, similar to Python's implementation
+    def self.inner_class_types
+      @inner_class_types ||= {}
+    end
+
+    # Maps a discriminated-union field to [discriminator, {value => class}].
+    # Generated subclasses override this; the default keeps the lookup in
+    # convert_value_with_inner_types cheap for every other object.
+    def self.inner_class_union_variant_types
+      @inner_class_union_variant_types ||= {}
+    end
+
+    def self.field_remappings
+      @field_remappings ||= {}
+    end
+
+    def self.field_encodings
+      @field_encodings ||= {}
     end
   end
 end

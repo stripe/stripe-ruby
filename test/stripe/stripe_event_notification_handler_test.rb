@@ -340,12 +340,18 @@ module Stripe
       end
 
       should "handler uses event stripe_context" do
-        client_with_context = StripeClient.new("sk_test_123", stripe_context: "original_context_123")
+        client_with_context = StripeClient.new(
+          "sk_test_123",
+          stripe_account: "acct_123",
+          stripe_context: "original_context_123"
+        )
         handler = StripeEventNotificationHandler.new(client_with_context, Test::WebhookHelpers::SECRET, &@on_unhandled_handler)
 
+        received_account = nil
         received_context = nil
 
         handler.on_v1_billing_meter_error_report_triggered do |_notif, client|
+          received_account = client.instance_variable_get(:@requestor).config.stripe_account
           received_context = client.instance_variable_get(:@requestor).config.stripe_context
         end
 
@@ -355,6 +361,7 @@ module Stripe
         handler.handle(V1_BILLING_METER_PAYLOAD, sig_header)
 
         assert_equal "event_context_456", received_context.to_s
+        assert_nil received_account
       end
 
       should "restore stripe_context after handler success" do

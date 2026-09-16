@@ -402,7 +402,7 @@ module Stripe
           def initialize(default_value: nil, options: nil); end
         end
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(String) }
           def custom; end
           sig { params(_custom: String).returns(String) }
@@ -877,6 +877,15 @@ module Stripe
             def initialize(flexible: nil, type: nil); end
           end
           class Item < ::Stripe::RequestParams
+            class CurrentTrial < ::Stripe::RequestParams
+              # The ID of the trial offer to apply to the subscription item.
+              sig { returns(String) }
+              def trial_offer; end
+              sig { params(_trial_offer: String).returns(String) }
+              def trial_offer=(_trial_offer); end
+              sig { params(trial_offer: String).void }
+              def initialize(trial_offer: nil); end
+            end
             class PriceData < ::Stripe::RequestParams
               class ProductData < ::Stripe::RequestParams
                 class TaxDetails < ::Stripe::RequestParams
@@ -1028,6 +1037,15 @@ module Stripe
                 @field_encodings = {unit_amount_decimal: :decimal_string}
               end
             end
+            # The trial offer to apply to this subscription item.
+            sig {
+              returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial))
+             }
+            def current_trial; end
+            sig {
+              params(_current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial))
+             }
+            def current_trial=(_current_trial); end
             # The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required.
             sig { returns(T.nilable(String)) }
             def price; end
@@ -1048,9 +1066,9 @@ module Stripe
             sig { params(_quantity: T.nilable(Integer)).returns(T.nilable(Integer)) }
             def quantity=(_quantity); end
             sig {
-              params(price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
+              params(current_trial: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::CurrentTrial), price: T.nilable(String), price_data: T.nilable(::Stripe::Checkout::SessionCreateParams::Item::Subscription::Item::PriceData), quantity: T.nilable(Integer)).void
              }
-            def initialize(price: nil, price_data: nil, quantity: nil); end
+            def initialize(current_trial: nil, price: nil, price_data: nil, quantity: nil); end
             def self.field_encodings
               @field_encodings = {
                 price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}},
@@ -2016,10 +2034,20 @@ module Stripe
           def target_date; end
           sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
           def target_date=(_target_date); end
+          # Attribute for param field verification_method
+          sig { returns(T.nilable(String)) }
+          def verification_method; end
+          sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
+          def verification_method=(_verification_method); end
           sig {
-            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
+            params(mandate_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String), verification_method: T.nilable(String)).void
            }
-          def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
+          def initialize(
+            mandate_options: nil,
+            setup_future_usage: nil,
+            target_date: nil,
+            verification_method: nil
+          ); end
         end
         class Bancontact < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.

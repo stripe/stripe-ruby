@@ -675,7 +675,7 @@ module Stripe
         # The network profile of the seller.
         sig { returns(T.any(String, ::Stripe::Profile)) }
         def network_profile; end
-        # The payment method types supported by the seller.
+        # The payment method types supported by the seller. Stripe sources these from a non-empty `allowed_payment_method_types` response from the seller's checkout customization hook when present. Otherwise, Stripe resolves them from the seller's active or default payment method configuration. Stripe might filter agent-facing displayable payment methods for compatibility.
         sig { returns(T.nilable(T::Array[String])) }
         def payment_method_types; end
         # The URL to the seller's privacy notice.

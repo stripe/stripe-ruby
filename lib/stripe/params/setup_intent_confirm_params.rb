@@ -456,9 +456,9 @@ module Stripe
       attr_accessor :alipay
       # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
       attr_accessor :allow_redisplay
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       attr_accessor :alma
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       attr_accessor :amazon_pay
       # If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
       attr_accessor :au_becs_debit

@@ -41,7 +41,7 @@ module Stripe
         # The ID of the Account representing the customer whose upcoming payment was evaluated.
         sig { returns(T.nilable(String)) }
         def customer_account; end
-        # Attributes of the customer being evaluated. These are populated from the `customer` or `customer_account` object when one was supplied, and from the request otherwise.
+        # Attributes of the customer being evaluated, as supplied on the request. Null when the customer was identified by `customer` or `customer_account`.
         sig { returns(T.nilable(Data)) }
         def data; end
         def self.inner_class_types

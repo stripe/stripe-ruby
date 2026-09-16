@@ -162,6 +162,8 @@ module Stripe
             attr_reader :id
             # The user-provided lookup key.
             attr_reader :lookup_key
+            # Set of key-value pairs.
+            attr_reader :metadata
             # The id of the product for this fee.
             attr_reader :product
 

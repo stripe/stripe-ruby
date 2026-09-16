@@ -609,6 +609,14 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Link < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field apple_pay
           sig { returns(T.nilable(ApplePay)) }
           def apple_pay; end
@@ -618,11 +626,14 @@ module Stripe
           # Attribute for field google_pay
           sig { returns(T.nilable(GooglePay)) }
           def google_pay; end
-          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          # Attribute for field link
+          sig { returns(T.nilable(Link)) }
+          def link; end
+          # The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay}
+            @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay, link: Link}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1349,6 +1360,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1393,6 +1407,20 @@ module Stripe
         def card; end
         def self.inner_class_types
           @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Momo < ::Stripe::StripeObject
+        # Uniquely identifies this particular MoMo account. You can use this attribute to check whether two MoMo accounts are the same.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
+        # ID of the multi-use Mandate created by, or used to make, this MoMo payment.
+        sig { returns(T.nilable(String)) }
+        def mandate; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2170,6 +2198,9 @@ module Stripe
       # Attribute for field mobilepay
       sig { returns(T.nilable(Mobilepay)) }
       def mobilepay; end
+      # Attribute for field momo
+      sig { returns(T.nilable(Momo)) }
+      def momo; end
       # Attribute for field multibanco
       sig { returns(T.nilable(Multibanco)) }
       def multibanco; end
@@ -2323,6 +2354,7 @@ module Stripe
           link: Link,
           mb_way: MbWay,
           mobilepay: Mobilepay,
+          momo: Momo,
           multibanco: Multibanco,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,

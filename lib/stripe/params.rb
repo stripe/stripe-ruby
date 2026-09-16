@@ -1134,6 +1134,12 @@ module Stripe
                  "stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params"
         autoload :GbBankAccountListParams, "stripe/params/v2/core/vault/gb_bank_account_list_params"
         autoload :GbBankAccountRetrieveParams, "stripe/params/v2/core/vault/gb_bank_account_retrieve_params"
+        autoload :NetworkTokenCreateFromCredentialParams,
+                 "stripe/params/v2/core/vault/network_token_create_from_credential_params"
+        autoload :NetworkTokenCreateParams, "stripe/params/v2/core/vault/network_token_create_params"
+        autoload :NetworkTokenGenerateCryptogramParams,
+                 "stripe/params/v2/core/vault/network_token_generate_cryptogram_params"
+        autoload :NetworkTokenRetrieveParams, "stripe/params/v2/core/vault/network_token_retrieve_params"
         autoload :UsBankAccountArchiveParams, "stripe/params/v2/core/vault/us_bank_account_archive_params"
         autoload :UsBankAccountConfirmMicrodepositsParams,
                  "stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params"
@@ -2289,6 +2295,10 @@ module Stripe
     stripe/params/v2/core/vault/gb_bank_account_initiate_confirmation_of_payee_params
     stripe/params/v2/core/vault/gb_bank_account_list_params
     stripe/params/v2/core/vault/gb_bank_account_retrieve_params
+    stripe/params/v2/core/vault/network_token_create_from_credential_params
+    stripe/params/v2/core/vault/network_token_create_params
+    stripe/params/v2/core/vault/network_token_generate_cryptogram_params
+    stripe/params/v2/core/vault/network_token_retrieve_params
     stripe/params/v2/core/vault/us_bank_account_archive_params
     stripe/params/v2/core/vault/us_bank_account_confirm_microdeposits_params
     stripe/params/v2/core/vault/us_bank_account_create_params

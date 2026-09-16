@@ -34,6 +34,7 @@ module Stripe
         # Creates a PayoutIntent.
         #
         # ** raises FeatureNotEnabledError
+        # ** raises RecipientNotNotifiableError
         def create(params = {}, opts = {})
           request(
             method: :post,
@@ -80,6 +81,7 @@ module Stripe
         # Updates a PayoutIntent. Only pending or requires_action PayoutIntents that are editable can be updated.
         #
         # ** raises FeatureNotEnabledError
+        # ** raises RecipientNotNotifiableError
         def update(id, params = {}, opts = {})
           request(
             method: :post,

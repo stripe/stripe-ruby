@@ -169,7 +169,7 @@ module Stripe
       end
 
       class Label < ::Stripe::StripeObject
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         attr_reader :custom
         # The type of the label.
         attr_reader :type

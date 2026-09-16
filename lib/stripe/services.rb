@@ -462,6 +462,7 @@ module Stripe
 
       module Vault
         autoload :GbBankAccountService, "stripe/services/v2/core/vault/gb_bank_account_service"
+        autoload :NetworkTokenService, "stripe/services/v2/core/vault/network_token_service"
         autoload :UsBankAccountService, "stripe/services/v2/core/vault/us_bank_account_service"
       end
     end
@@ -870,6 +871,7 @@ module Stripe
     stripe/services/v2/core/health/alerts/history_service
     stripe/services/v2/core/health_service
     stripe/services/v2/core/vault/gb_bank_account_service
+    stripe/services/v2/core/vault/network_token_service
     stripe/services/v2/core/vault/us_bank_account_service
     stripe/services/v2/core/vault_service
     stripe/services/v2/core_service

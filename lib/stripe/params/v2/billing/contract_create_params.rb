@@ -154,13 +154,16 @@ module Stripe
           attr_accessor :bill_at
           # A user-provided lookup key.
           attr_accessor :lookup_key
+          # Set of key-value pairs that you can attach to an object.
+          attr_accessor :metadata
           # The id of the product for this fee.
           attr_accessor :product
 
-          def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil)
+          def initialize(amount: nil, bill_at: nil, lookup_key: nil, metadata: nil, product: nil)
             @amount = amount
             @bill_at = bill_at
             @lookup_key = lookup_key
+            @metadata = metadata
             @product = product
           end
         end

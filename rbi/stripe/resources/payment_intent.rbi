@@ -1526,6 +1526,9 @@ module Stripe
           # The raw data string used to generate QR code, it should be used together with QR code library.
           sig { returns(String) }
           def data; end
+          # The timestamp at which the QR code expires.
+          sig { returns(Integer) }
+          def expires_at; end
           # The image_url_png string used to render QR code
           sig { returns(String) }
           def image_url_png; end

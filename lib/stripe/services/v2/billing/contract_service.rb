@@ -13,6 +13,8 @@ module Stripe
         end
 
         # Activate a draft contract.
+        #
+        # ** raises RateLimitError
         def activate(id, params = {}, opts = {})
           request(
             method: :post,
@@ -24,6 +26,8 @@ module Stripe
         end
 
         # Cancel an active contract.
+        #
+        # ** raises RateLimitError
         def cancel(id, params = {}, opts = {})
           request(
             method: :post,
@@ -52,6 +56,8 @@ module Stripe
         end
 
         # Delete a draft contract.
+        #
+        # ** raises RateLimitError
         def delete(id, params = {}, opts = {})
           request(
             method: :delete,
@@ -86,6 +92,7 @@ module Stripe
 
         # Update a draft or active contract.
         #
+        # ** raises RateLimitError
         # ** raises AlreadyExistsError
         # ** raises CannotProceedError
         def update(id, params = {}, opts = {})

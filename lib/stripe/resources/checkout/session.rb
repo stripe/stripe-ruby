@@ -670,7 +670,7 @@ module Stripe
         end
 
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_reader :custom
           # The type of the label.
           attr_reader :type
@@ -990,13 +990,27 @@ module Stripe
       class Item < ::Stripe::StripeObject
         class Subscription < ::Stripe::StripeObject
           class Item < ::Stripe::StripeObject
+            class CurrentTrial < ::Stripe::StripeObject
+              # The ID of the trial offer applied to this subscription item.
+              attr_reader :trial_offer
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The trial offer applied to this subscription item.
+            attr_reader :current_trial
             # The price for this subscription item.
             attr_reader :price
             # The quantity for this subscription item.
             attr_reader :quantity
 
             def self.inner_class_types
-              @inner_class_types = {}
+              @inner_class_types = { current_trial: CurrentTrial }
             end
 
             def self.field_remappings
@@ -1386,6 +1400,8 @@ module Stripe
           attr_reader :setup_future_usage
           # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
           attr_reader :target_date
+          # Attribute for field verification_method
+          attr_reader :verification_method
 
           def self.inner_class_types
             @inner_class_types = { mandate_options: MandateOptions }

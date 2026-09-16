@@ -112,15 +112,15 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The history entry for a failed InboundTransfer.
+          # The InboundTransfer failed. See `failure_reason` for more details.
           attr_reader :bank_debit_failed
-          # The history entry for a processing InboundTransfer.
+          # The InboundTransfer was submitted to the scheme for processing. The debit is still in progress and can later succeed or fail.
           attr_reader :bank_debit_processing
-          # The history entry for a queued InboundTransfer.
+          # The InboundTransfer was created and is waiting to be submitted to the scheme for processing.
           attr_reader :bank_debit_queued
-          # The history entry for a returned InboundTransfer.
+          # The InboundTransfer was returned. The original transaction has been reversed.
           attr_reader :bank_debit_returned
-          # The history entry for a succeeded InboundTransfer.
+          # The InboundTransfer succeeded. Funds might not yet be available; check the associated Transaction for availability.
           attr_reader :bank_debit_succeeded
           # Creation time of the HistoryEntry in RFC 3339 format and UTC.
           attr_reader :created

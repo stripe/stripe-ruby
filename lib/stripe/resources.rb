@@ -102,6 +102,7 @@ module Stripe
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
   module Apps
+    autoload :Install, "stripe/resources/apps/install"
     autoload :Secret, "stripe/resources/apps/secret"
   end
 
@@ -1617,6 +1618,7 @@ module Stripe
       autoload :FeeBatch, "stripe/resources/v2/core/fee_batch"
       autoload :FeeEntry, "stripe/resources/v2/core/fee_entry"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
+      autoload :RelatedSingletonObject, "stripe/resources/v2/core/event_notification"
 
       module Health
         autoload :Alert, "stripe/resources/v2/core/health/alert"
@@ -1625,6 +1627,7 @@ module Stripe
 
       module Vault
         autoload :GbBankAccount, "stripe/resources/v2/core/vault/gb_bank_account"
+        autoload :NetworkToken, "stripe/resources/v2/core/vault/network_token"
         autoload :UsBankAccount, "stripe/resources/v2/core/vault/us_bank_account"
       end
     end
@@ -1726,6 +1729,7 @@ module Stripe
     stripe/resources/application
     stripe/resources/application_fee
     stripe/resources/application_fee_refund
+    stripe/resources/apps/install
     stripe/resources/apps/secret
     stripe/resources/balance
     stripe/resources/balance_settings
@@ -1970,6 +1974,7 @@ module Stripe
     stripe/resources/v2/core/health/alert
     stripe/resources/v2/core/health/alert_history_entry
     stripe/resources/v2/core/vault/gb_bank_account
+    stripe/resources/v2/core/vault/network_token
     stripe/resources/v2/core/vault/us_bank_account
     stripe/resources/v2/data/analytics/metric_query_result
     stripe/resources/v2/data/reporting/query_run

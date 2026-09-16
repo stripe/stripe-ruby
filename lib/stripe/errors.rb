@@ -243,6 +243,9 @@ module Stripe
   class InvalidPayoutMethodError < StripeError
   end
 
+  class MerchantNotGatedError < StripeError
+  end
+
   class NonZeroBalanceError < StripeError
   end
 

@@ -267,7 +267,7 @@ module Stripe
             @destination = destination
           end
         end
-        # The "presentment amount" to be collected from the customer.
+        # Amount intended to be collected by this payment.
         attr_accessor :amount
         # Provides industry-specific information about the amount.
         attr_accessor :amount_details
@@ -282,6 +282,8 @@ module Stripe
         attr_accessor :customer
         # An arbitrary string attached to the object. Often useful for displaying to users.
         attr_accessor :description
+        # Additional fields to include in the response.
+        attr_accessor :include
         # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
         # attach to an object. This can be useful for storing additional information about
         # the object in a structured format. Learn more about
@@ -325,6 +327,7 @@ module Stripe
           capture: nil,
           customer: nil,
           description: nil,
+          include: nil,
           metadata: nil,
           on_behalf_of: nil,
           payment_details: nil,
@@ -346,6 +349,7 @@ module Stripe
           @capture = capture
           @customer = customer
           @description = description
+          @include = include
           @metadata = metadata
           @on_behalf_of = on_behalf_of
           @payment_details = payment_details

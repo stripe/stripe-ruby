@@ -5,136 +5,30 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+      # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
-        class Credentials < ::Stripe::StripeObject
-          class CaBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            sig { returns(String) }
-            def account_holder_name; end
-            # The account number of the Canadian Bank Account.
-            sig { returns(T.nilable(String)) }
-            def account_number; end
-            # The name of the Bank.
-            sig { returns(String) }
-            def bank_name; end
-            # The institution number of the Canadian Bank Account.
-            sig { returns(String) }
-            def institution_number; end
-            # The last four digits of the Canadian Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            sig { returns(String) }
-            def last4; end
-            # The transit number of the Canadian Bank Account.
-            sig { returns(String) }
-            def transit_number; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class CryptoWallet < ::Stripe::StripeObject
-            # The blockchain address of the crypto wallet.
-            sig { returns(String) }
-            def address; end
-            # Required if the network supports memos (e.g. Stellar).
-            sig { returns(T.nilable(String)) }
-            def memo; end
-            # The blockchain network of the crypto wallet.
-            sig { returns(String) }
-            def network; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class GbBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transference.
-            sig { returns(String) }
-            def account_holder_name; end
-            # The account number of the UK Bank Account.
-            sig { returns(T.nilable(String)) }
-            def account_number; end
-            # The last four digits of the UK Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            sig { returns(String) }
-            def last4; end
-            # The sort code of the UK Bank Account.
-            sig { returns(String) }
-            def sort_code; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class MxBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            sig { returns(String) }
-            def account_holder_name; end
-            # The CLABE (Clave Bancaria Estandarizada) of the Mexican Bank Account.
-            sig { returns(String) }
-            def clabe; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class SepaBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            sig { returns(String) }
-            def account_holder_name; end
-            # The name of the Bank.
-            sig { returns(String) }
-            def bank_name; end
-            # The BIC of the SEPA Bank Account.
-            sig { returns(String) }
-            def bic; end
-            # The originating country of the SEPA Bank account.
-            sig { returns(String) }
-            def country; end
-            # The IBAN of the SEPA Bank Account.
-            sig { returns(String) }
-            def iban; end
-            # The last four digits of the SEPA Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            sig { returns(String) }
-            def last4; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-          class UsBankAccount < ::Stripe::StripeObject
+        class BankAccount < ::Stripe::StripeObject
+          class Aba < ::Stripe::StripeObject
             class AccountHolderAddress < ::Stripe::StripeObject
-              # The city of the address.
+              # City.
               sig { returns(String) }
               def city; end
-              # The country of the address.
+              # Country.
               sig { returns(String) }
               def country; end
-              # The first line of the address.
+              # Address line 1.
               sig { returns(String) }
               def line1; end
-              # The second line of the address.
+              # Address line 2.
               sig { returns(String) }
               def line2; end
-              # The postal / zip code of the address.
+              # Postal code.
               sig { returns(String) }
               def postal_code; end
-              # The state of the address.
+              # State or province.
               sig { returns(String) }
               def state; end
-              # The town of the address.
+              # Town or suburb.
               sig { returns(String) }
               def town; end
               def self.inner_class_types
@@ -150,20 +44,16 @@ module Stripe
             # The name of the account holder.
             sig { returns(T.nilable(String)) }
             def account_holder_name; end
-            # The account number of the US Bank Account.
+            # The full account number.
             sig { returns(T.nilable(String)) }
             def account_number; end
-            # The name of the Bank.
+            # The name of the bank.
             sig { returns(T.nilable(String)) }
             def bank_name; end
-            # The BIC of the bank or financial institution.
-            sig { returns(T.nilable(String)) }
-            def bic; end
-            # The last four digits of the US Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            # The last four digits of the account number.
             sig { returns(String) }
             def last4; end
-            # The routing number of the US Bank Account.
+            # The ABA routing number.
             sig { returns(String) }
             def routing_number; end
             def self.inner_class_types
@@ -173,56 +63,150 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
-          sig { returns(T.nilable(CaBankAccount)) }
-          def ca_bank_account; end
-          # The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
-          sig { returns(T.nilable(CryptoWallet)) }
-          def crypto_wallet; end
-          # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
-          sig { returns(T.nilable(GbBankAccount)) }
-          def gb_bank_account; end
-          # The credentials of the Mexican Bank Account for the FinancialAddress. This contains unique banking details such as the CLABE and account holder name of a Mexican bank account.
-          sig { returns(T.nilable(MxBankAccount)) }
-          def mx_bank_account; end
-          # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
-          sig { returns(T.nilable(SepaBankAccount)) }
-          def sepa_bank_account; end
-          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
+          class Clabe < ::Stripe::StripeObject
+            # Attribute for field account_holder_name
+            sig { returns(String) }
+            def account_holder_name; end
+            # Attribute for field clabe
+            sig { returns(String) }
+            def clabe; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Cpa < ::Stripe::StripeObject
+            # Attribute for field account_holder_name
+            sig { returns(String) }
+            def account_holder_name; end
+            # Attribute for field account_number
+            sig { returns(T.nilable(String)) }
+            def account_number; end
+            # Attribute for field bank_name
+            sig { returns(String) }
+            def bank_name; end
+            # Attribute for field institution_number
+            sig { returns(String) }
+            def institution_number; end
+            # Attribute for field last4
+            sig { returns(String) }
+            def last4; end
+            # Attribute for field transit_number
+            sig { returns(String) }
+            def transit_number; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Iban < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The name of the bank.
+            sig { returns(String) }
+            def bank_name; end
+            # The country of the bank account.
+            sig { returns(String) }
+            def country; end
+            # The full IBAN.
+            sig { returns(T.nilable(String)) }
+            def iban; end
+            # The last four digits of the IBAN.
+            sig { returns(String) }
+            def last4; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class SortCode < ::Stripe::StripeObject
+            # The name of the account holder.
+            sig { returns(String) }
+            def account_holder_name; end
+            # The full account number.
+            sig { returns(T.nilable(String)) }
+            def account_number; end
+            # The last four digits of the account number.
+            sig { returns(String) }
+            def last4; end
+            # The sort code.
+            sig { returns(String) }
+            def sort_code; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ABA bank account details (US).
+          sig { returns(T.nilable(Aba)) }
+          def aba; end
+          # Attribute for field clabe
+          sig { returns(T.nilable(Clabe)) }
+          def clabe; end
+          # The country of the bank account.
+          sig { returns(T.nilable(String)) }
+          def country; end
+          # Attribute for field cpa
+          sig { returns(T.nilable(Cpa)) }
+          def cpa; end
+          # Open Enum. The currency of the bank account.
+          sig { returns(String) }
+          def currency; end
+          # IBAN bank account details.
+          sig { returns(T.nilable(Iban)) }
+          def iban; end
+          # Sort code bank account details (UK).
+          sig { returns(T.nilable(SortCode)) }
+          def sort_code; end
+          # Open Enum. The type of bank account details.
           sig { returns(String) }
           def type; end
-          # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
-          sig { returns(T.nilable(UsBankAccount)) }
-          def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {
-              ca_bank_account: CaBankAccount,
-              crypto_wallet: CryptoWallet,
-              gb_bank_account: GbBankAccount,
-              mx_bank_account: MxBankAccount,
-              sepa_bank_account: SepaBankAccount,
-              us_bank_account: UsBankAccount,
-            }
+            @inner_class_types = {aba: Aba, clabe: Clabe, cpa: Cpa, iban: Iban, sort_code: SortCode}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
+        class CryptoWallet < ::Stripe::StripeObject
+          # Attribute for field address
+          sig { returns(String) }
+          def address; end
+          # Attribute for field memo
+          sig { returns(T.nilable(String)) }
+          def memo; end
+          # Attribute for field network
+          sig { returns(String) }
+          def network; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Bank account details for this FinancialAddress.
+        sig { returns(T.nilable(BankAccount)) }
+        def bank_account; end
         # The creation timestamp of the FinancialAddress.
         sig { returns(String) }
         def created; end
-        # Object indicates the type of credentials that have been allocated and attached to the FinancialAddress.
-        # It contains all necessary banking details with which to perform money movements with the FinancialAddress.
-        # This field is only available for FinancialAddresses with an active status.
-        sig { returns(T.nilable(Credentials)) }
-        def credentials; end
-        # Open Enum. The currency the FinancialAddress supports.
-        sig { returns(String) }
-        def currency; end
-        # A ID of the FinancialAccount this FinancialAddress corresponds to.
+        # Attribute for field crypto_wallet
+        sig { returns(T.nilable(CryptoWallet)) }
+        def crypto_wallet; end
+        # The ID of the FinancialAccount this FinancialAddress corresponds to.
         sig { returns(String) }
         def financial_account; end
-        # The ID of a FinancialAddress.
+        # The ID of the FinancialAddress.
         sig { returns(String) }
         def id; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -231,12 +215,15 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for field settlement_currency
         sig { returns(T.nilable(String)) }
         def settlement_currency; end
-        # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
+        # Closed Enum. The status of the FinancialAddress.
         sig { returns(String) }
         def status; end
+        # Open Enum. The type of FinancialAddress.
+        sig { returns(String) }
+        def type; end
       end
     end
   end

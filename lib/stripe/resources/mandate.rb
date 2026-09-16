@@ -137,7 +137,7 @@ module Stripe
 
       class Blik < ::Stripe::StripeObject
         # Date at which the mandate expires.
-        attr_reader :expires_after
+        attr_reader :expires_at
         # Type of the mandate.
         attr_reader :type
 

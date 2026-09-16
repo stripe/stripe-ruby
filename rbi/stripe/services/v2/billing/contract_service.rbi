@@ -8,12 +8,16 @@ module Stripe
       class ContractService < StripeService
         attr_reader :pricing_lines
         # Activate a draft contract.
+        #
+        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ContractActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
          }
         def activate(id, params = {}, opts = {}); end
 
         # Cancel an active contract.
+        #
+        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ContractCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Billing::Contract)
          }
@@ -28,6 +32,8 @@ module Stripe
         def create(params = {}, opts = {}); end
 
         # Delete a draft contract.
+        #
+        # ** raises RateLimitError
         sig {
           params(id: String, params: T.any(::Stripe::V2::Billing::ContractDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::DeletedObject)
          }
@@ -47,6 +53,7 @@ module Stripe
 
         # Update a draft or active contract.
         #
+        # ** raises RateLimitError
         # ** raises AlreadyExistsError
         # ** raises CannotProceedError
         sig {

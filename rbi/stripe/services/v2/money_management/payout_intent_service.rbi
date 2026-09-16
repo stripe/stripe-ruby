@@ -25,6 +25,7 @@ module Stripe
         # Creates a PayoutIntent.
         #
         # ** raises FeatureNotEnabledError
+        # ** raises RecipientNotNotifiableError
         sig {
           params(params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
          }
@@ -51,6 +52,7 @@ module Stripe
         # Updates a PayoutIntent. Only pending or requires_action PayoutIntents that are editable can be updated.
         #
         # ** raises FeatureNotEnabledError
+        # ** raises RecipientNotNotifiableError
         sig {
           params(id: String, params: T.any(::Stripe::V2::MoneyManagement::PayoutIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::MoneyManagement::PayoutIntent)
          }

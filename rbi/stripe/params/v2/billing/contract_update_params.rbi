@@ -41,15 +41,28 @@ module Stripe
             def lookup_key; end
             sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
             def lookup_key=(_lookup_key); end
+            # Metadata for the one-time fee.
+            sig { returns(T.nilable(T::Hash[String, String])) }
+            def metadata; end
+            sig {
+              params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+             }
+            def metadata=(_metadata); end
             # The id of the product for this fee.
             sig { returns(String) }
             def product; end
             sig { params(_product: String).returns(String) }
             def product=(_product); end
             sig {
-              params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction::Add::BillAt, lookup_key: T.nilable(String), product: String).void
+              params(amount: ::Stripe::V2::Amount, bill_at: ::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction::Add::BillAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), product: String).void
              }
-            def initialize(amount: nil, bill_at: nil, lookup_key: nil, product: nil); end
+            def initialize(
+              amount: nil,
+              bill_at: nil,
+              lookup_key: nil,
+              metadata: nil,
+              product: nil
+            ); end
           end
           class Remove < ::Stripe::RequestParams
             # The id of the one-time fee to remove.
@@ -106,10 +119,17 @@ module Stripe
             def lookup_key; end
             sig { params(_lookup_key: T.nilable(String)).returns(T.nilable(String)) }
             def lookup_key=(_lookup_key); end
+            # Metadata mutations to apply to the one-time fee.
+            sig { returns(T.nilable(T::Hash[String, T.nilable(String)])) }
+            def metadata; end
             sig {
-              params(amount: T.nilable(::Stripe::V2::Amount), bill_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction::Update::BillAt), id: T.nilable(String), lookup_key: T.nilable(String)).void
+              params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
              }
-            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil); end
+            def metadata=(_metadata); end
+            sig {
+              params(amount: T.nilable(::Stripe::V2::Amount), bill_at: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction::Update::BillAt), id: T.nilable(String), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, T.nilable(String)])).void
+             }
+            def initialize(amount: nil, bill_at: nil, id: nil, lookup_key: nil, metadata: nil); end
           end
           # Parameters for adding a one-time fee.
           sig {

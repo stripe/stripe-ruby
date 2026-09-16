@@ -459,12 +459,12 @@ module Stripe
       end
 
       class Signals < ::Stripe::StripeObject
-        class FraudulentPayment < ::Stripe::StripeObject
+        class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           attr_reader :evaluated_at
           # Risk level of this signal, based on the score.
           attr_reader :risk_level
-          # Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
           attr_reader :score
 
           def self.inner_class_types
@@ -475,11 +475,53 @@ module Stripe
             @field_remappings = {}
           end
         end
+
+        class FraudulentDispute < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          attr_reader :evaluated_at
+          # Risk level of this signal, based on the score.
+          attr_reader :risk_level
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FraudulentPayment < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          attr_reader :evaluated_at
+          # Risk level of this signal, based on the score.
+          attr_reader :risk_level
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
+        attr_reader :early_fraud_warning
+        # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
+        attr_reader :fraudulent_dispute
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         attr_reader :fraudulent_payment
 
         def self.inner_class_types
-          @inner_class_types = { fraudulent_payment: FraudulentPayment }
+          @inner_class_types = {
+            early_fraud_warning: EarlyFraudWarning,
+            fraudulent_dispute: FraudulentDispute,
+            fraudulent_payment: FraudulentPayment,
+          }
         end
 
         def self.field_remappings

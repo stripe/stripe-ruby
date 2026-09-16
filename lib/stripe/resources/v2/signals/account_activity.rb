@@ -108,6 +108,19 @@ module Stripe
           end
         end
 
+        class AccountReviewed < ::Stripe::StripeObject
+          # The outcome of the merchant review.
+          attr_reader :outcome
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class AccountSuspended < ::Stripe::StripeObject
           # The reason the customer was suspended.
           attr_reader :reason
@@ -239,6 +252,9 @@ module Stripe
         # Details for the account restriction. Present only when type is account_restricted. The activity
         # requires an existing account_details.account or account_details.customer; inline data is unsupported.
         attr_reader :account_restricted
+        # Details for the account review. Present only when type is account_reviewed. The activity
+        # requires an existing account_details.account or account_details.customer; inline data is unsupported.
+        attr_reader :account_reviewed
         # Details for the account suspension. Present only when type is account_suspended. The activity
         # requires an existing account_details.customer; account_details.account and inline data are unsupported.
         attr_reader :account_suspended
@@ -269,6 +285,7 @@ module Stripe
           @inner_class_types = {
             account_details: AccountDetails,
             account_restricted: AccountRestricted,
+            account_reviewed: AccountReviewed,
             account_suspended: AccountSuspended,
             login_attempt: LoginAttempt,
             login_decision: LoginDecision,

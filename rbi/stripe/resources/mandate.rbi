@@ -130,7 +130,7 @@ module Stripe
       class Blik < ::Stripe::StripeObject
         # Date at which the mandate expires.
         sig { returns(T.nilable(Integer)) }
-        def expires_after; end
+        def expires_at; end
         # Type of the mandate.
         sig { returns(String) }
         def type; end

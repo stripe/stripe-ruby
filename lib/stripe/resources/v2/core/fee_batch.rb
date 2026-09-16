@@ -14,11 +14,9 @@ module Stripe
 
         class Adjustments < ::Stripe::StripeObject
           class TaxAdjustment < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             attr_reader :currency
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             attr_reader :value
 
             def self.inner_class_types
@@ -42,11 +40,9 @@ module Stripe
         end
 
         class Amount < ::Stripe::StripeObject
-          # A lowercase alpha3 currency code like "usd"
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # A lowercase alpha3 currency code like "usd".
           attr_reader :currency
-          # In major units like "1.23" for 1.23 USD
-          # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+          # In major units like "1.23" for 1.23 USD.
           attr_reader :value
 
           def self.inner_class_types
@@ -73,11 +69,9 @@ module Stripe
 
         class CollectionRecord < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             attr_reader :currency
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             attr_reader :value
 
             def self.inner_class_types
@@ -91,11 +85,9 @@ module Stripe
 
           class Tax < ::Stripe::StripeObject
             class Amount < ::Stripe::StripeObject
-              # A lowercase alpha3 currency code like "usd"
-              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              # A lowercase alpha3 currency code like "usd".
               attr_reader :currency
-              # In major units like "1.23" for 1.23 USD
-              # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+              # In major units like "1.23" for 1.23 USD.
               attr_reader :value
 
               def self.inner_class_types
@@ -158,11 +150,9 @@ module Stripe
 
         class Tax < ::Stripe::StripeObject
           class Amount < ::Stripe::StripeObject
-            # A lowercase alpha3 currency code like "usd"
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # A lowercase alpha3 currency code like "usd".
             attr_reader :currency
-            # In major units like "1.23" for 1.23 USD
-            # For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            # In major units like "1.23" for 1.23 USD.
             attr_reader :value
 
             def self.inner_class_types

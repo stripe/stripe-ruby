@@ -132,6 +132,94 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class LatestPaymentAttemptRecordDetails < ::Stripe::StripeObject
+          class FailureDetails < ::Stripe::StripeObject
+            # Code for the failure.
+            sig { returns(T.nilable(String)) }
+            def code; end
+            # Message describing the failure.
+            sig { returns(T.nilable(String)) }
+            def message; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class PaymentMethodDetails < ::Stripe::StripeObject
+            class Card < ::Stripe::StripeObject
+              # Authorization code returned by the card network.
+              sig { returns(T.nilable(String)) }
+              def authorization_code; end
+              # Stripe decline code for the latest payment attempt.
+              sig { returns(T.nilable(String)) }
+              def decline_code; end
+              # Advice code returned by the card network.
+              sig { returns(T.nilable(String)) }
+              def network_advice_code; end
+              # Decline code returned by the card network.
+              sig { returns(T.nilable(String)) }
+              def network_decline_code; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details about the card used for the latest payment attempt.
+            sig { returns(T.nilable(Card)) }
+            def card; end
+            def self.inner_class_types
+              @inner_class_types = {card: Card}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class ProcessorDetails < ::Stripe::StripeObject
+            class Stripe < ::Stripe::StripeObject
+              # ID of the Charge created for the latest payment attempt.
+              sig { returns(T.nilable(String)) }
+              def charge; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Details about Stripe as the processor.
+            sig { returns(T.nilable(Stripe)) }
+            def stripe; end
+            def self.inner_class_types
+              @inner_class_types = {stripe: Stripe}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Details about the failure for the latest payment attempt.
+          sig { returns(T.nilable(FailureDetails)) }
+          def failure_details; end
+          # Details about the payment method for the latest payment attempt.
+          sig { returns(T.nilable(PaymentMethodDetails)) }
+          def payment_method_details; end
+          # Details about the processor for the latest payment attempt.
+          sig { returns(T.nilable(ProcessorDetails)) }
+          def processor_details; end
+          def self.inner_class_types
+            @inner_class_types = {
+              failure_details: FailureDetails,
+              payment_method_details: PaymentMethodDetails,
+              processor_details: ProcessorDetails,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class PaymentDetails < ::Stripe::StripeObject
           # A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
           sig { returns(T.nilable(String)) }
@@ -205,7 +293,7 @@ module Stripe
         # Provides industry-specific information about the amount.
         sig { returns(T.nilable(AmountDetails)) }
         def amount_details; end
-        # The "presentment amount" to be collected from the customer.
+        # Amount intended to be collected by this payment.
         sig { returns(::Stripe::V2::Amount) }
         def amount_requested; end
         # The application associated with this OffSessionPayment.
@@ -242,6 +330,9 @@ module Stripe
         # Payment attempt record for the latest attempt, if one exists.
         sig { returns(T.nilable(String)) }
         def latest_payment_attempt_record; end
+        # Details from the latest Payment Attempt Record, if one exists.
+        sig { returns(T.nilable(LatestPaymentAttemptRecordDetails)) }
+        def latest_payment_attempt_record_details; end
         # Has the value true if the object exists in live mode or the value false if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

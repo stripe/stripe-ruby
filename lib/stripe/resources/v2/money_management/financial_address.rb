@@ -4,129 +4,29 @@
 module Stripe
   module V2
     module MoneyManagement
-      # A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+      # A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
       class FinancialAddress < APIResource
         OBJECT_NAME = "v2.money_management.financial_address"
         def self.object_name
           "v2.money_management.financial_address"
         end
 
-        class Credentials < ::Stripe::StripeObject
-          class CaBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            attr_reader :account_holder_name
-            # The account number of the Canadian Bank Account.
-            attr_reader :account_number
-            # The name of the Bank.
-            attr_reader :bank_name
-            # The institution number of the Canadian Bank Account.
-            attr_reader :institution_number
-            # The last four digits of the Canadian Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            attr_reader :last4
-            # The transit number of the Canadian Bank Account.
-            attr_reader :transit_number
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class CryptoWallet < ::Stripe::StripeObject
-            # The blockchain address of the crypto wallet.
-            attr_reader :address
-            # Required if the network supports memos (e.g. Stellar).
-            attr_reader :memo
-            # The blockchain network of the crypto wallet.
-            attr_reader :network
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class GbBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transference.
-            attr_reader :account_holder_name
-            # The account number of the UK Bank Account.
-            attr_reader :account_number
-            # The last four digits of the UK Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            attr_reader :last4
-            # The sort code of the UK Bank Account.
-            attr_reader :sort_code
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class MxBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            attr_reader :account_holder_name
-            # The CLABE (Clave Bancaria Estandarizada) of the Mexican Bank Account.
-            attr_reader :clabe
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class SepaBankAccount < ::Stripe::StripeObject
-            # The account holder name to be used during bank transfers.
-            attr_reader :account_holder_name
-            # The name of the Bank.
-            attr_reader :bank_name
-            # The BIC of the SEPA Bank Account.
-            attr_reader :bic
-            # The originating country of the SEPA Bank account.
-            attr_reader :country
-            # The IBAN of the SEPA Bank Account.
-            attr_reader :iban
-            # The last four digits of the SEPA Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
-            attr_reader :last4
-
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
-
-          class UsBankAccount < ::Stripe::StripeObject
+        class BankAccount < ::Stripe::StripeObject
+          class Aba < ::Stripe::StripeObject
             class AccountHolderAddress < ::Stripe::StripeObject
-              # The city of the address.
+              # City.
               attr_reader :city
-              # The country of the address.
+              # Country.
               attr_reader :country
-              # The first line of the address.
+              # Address line 1.
               attr_reader :line1
-              # The second line of the address.
+              # Address line 2.
               attr_reader :line2
-              # The postal / zip code of the address.
+              # Postal code.
               attr_reader :postal_code
-              # The state of the address.
+              # State or province.
               attr_reader :state
-              # The town of the address.
+              # Town or suburb.
               attr_reader :town
 
               def self.inner_class_types
@@ -141,16 +41,13 @@ module Stripe
             attr_reader :account_holder_address
             # The name of the account holder.
             attr_reader :account_holder_name
-            # The account number of the US Bank Account.
+            # The full account number.
             attr_reader :account_number
-            # The name of the Bank.
+            # The name of the bank.
             attr_reader :bank_name
-            # The BIC of the bank or financial institution.
-            attr_reader :bic
-            # The last four digits of the US Bank Account number. This will always be returned.
-            # To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            # The last four digits of the account number.
             attr_reader :last4
-            # The routing number of the US Bank Account.
+            # The ABA routing number.
             attr_reader :routing_number
 
             def self.inner_class_types
@@ -161,59 +58,149 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
-          attr_reader :ca_bank_account
-          # The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
-          attr_reader :crypto_wallet
-          # The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
-          attr_reader :gb_bank_account
-          # The credentials of the Mexican Bank Account for the FinancialAddress. This contains unique banking details such as the CLABE and account holder name of a Mexican bank account.
-          attr_reader :mx_bank_account
-          # The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
-          attr_reader :sepa_bank_account
-          # Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
+
+          class Clabe < ::Stripe::StripeObject
+            # Attribute for field account_holder_name
+            attr_reader :account_holder_name
+            # Attribute for field clabe
+            attr_reader :clabe
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Cpa < ::Stripe::StripeObject
+            # Attribute for field account_holder_name
+            attr_reader :account_holder_name
+            # Attribute for field account_number
+            attr_reader :account_number
+            # Attribute for field bank_name
+            attr_reader :bank_name
+            # Attribute for field institution_number
+            attr_reader :institution_number
+            # Attribute for field last4
+            attr_reader :last4
+            # Attribute for field transit_number
+            attr_reader :transit_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Iban < ::Stripe::StripeObject
+            # The name of the account holder.
+            attr_reader :account_holder_name
+            # The name of the bank.
+            attr_reader :bank_name
+            # The country of the bank account.
+            attr_reader :country
+            # The full IBAN.
+            attr_reader :iban
+            # The last four digits of the IBAN.
+            attr_reader :last4
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class SortCode < ::Stripe::StripeObject
+            # The name of the account holder.
+            attr_reader :account_holder_name
+            # The full account number.
+            attr_reader :account_number
+            # The last four digits of the account number.
+            attr_reader :last4
+            # The sort code.
+            attr_reader :sort_code
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ABA bank account details (US).
+          attr_reader :aba
+          # Attribute for field clabe
+          attr_reader :clabe
+          # The country of the bank account.
+          attr_reader :country
+          # Attribute for field cpa
+          attr_reader :cpa
+          # Open Enum. The currency of the bank account.
+          attr_reader :currency
+          # IBAN bank account details.
+          attr_reader :iban
+          # Sort code bank account details (UK).
+          attr_reader :sort_code
+          # Open Enum. The type of bank account details.
           attr_reader :type
-          # The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
-          attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = {
-              ca_bank_account: CaBankAccount,
-              crypto_wallet: CryptoWallet,
-              gb_bank_account: GbBankAccount,
-              mx_bank_account: MxBankAccount,
-              sepa_bank_account: SepaBankAccount,
-              us_bank_account: UsBankAccount,
-            }
+            @inner_class_types = { aba: Aba, clabe: Clabe, cpa: Cpa, iban: Iban, sort_code: SortCode }
           end
 
           def self.field_remappings
             @field_remappings = {}
           end
         end
+
+        class CryptoWallet < ::Stripe::StripeObject
+          # Attribute for field address
+          attr_reader :address
+          # Attribute for field memo
+          attr_reader :memo
+          # Attribute for field network
+          attr_reader :network
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Bank account details for this FinancialAddress.
+        attr_reader :bank_account
         # The creation timestamp of the FinancialAddress.
         attr_reader :created
-        # Object indicates the type of credentials that have been allocated and attached to the FinancialAddress.
-        # It contains all necessary banking details with which to perform money movements with the FinancialAddress.
-        # This field is only available for FinancialAddresses with an active status.
-        attr_reader :credentials
-        # Open Enum. The currency the FinancialAddress supports.
-        attr_reader :currency
-        # A ID of the FinancialAccount this FinancialAddress corresponds to.
+        # Attribute for field crypto_wallet
+        attr_reader :crypto_wallet
+        # The ID of the FinancialAccount this FinancialAddress corresponds to.
         attr_reader :financial_account
-        # The ID of a FinancialAddress.
+        # The ID of the FinancialAddress.
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for field settlement_currency
         attr_reader :settlement_currency
-        # Closed Enum. An enum representing the status of the FinancialAddress. This indicates whether or not the FinancialAddress can be used for any money movement flows.
+        # Closed Enum. The status of the FinancialAddress.
         attr_reader :status
+        # Open Enum. The type of FinancialAddress.
+        attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { credentials: Credentials }
+          @inner_class_types = { bank_account: BankAccount, crypto_wallet: CryptoWallet }
         end
 
         def self.field_remappings

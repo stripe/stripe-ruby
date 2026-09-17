@@ -61,7 +61,6 @@ module Stripe
   autoload :Quote, "stripe/resources/quote"
   autoload :Refund, "stripe/resources/refund"
   autoload :ReserveTransaction, "stripe/resources/reserve_transaction"
-  autoload :Reversal, "stripe/resources/reversal"
   autoload :Review, "stripe/resources/review"
   autoload :SetupAttempt, "stripe/resources/setup_attempt"
   autoload :SetupIntent, "stripe/resources/setup_intent"
@@ -79,6 +78,7 @@ module Stripe
   autoload :Token, "stripe/resources/token"
   autoload :Topup, "stripe/resources/topup"
   autoload :Transfer, "stripe/resources/transfer"
+  autoload :TransferReversal, "stripe/resources/transfer_reversal"
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
   module Apps
@@ -423,7 +423,6 @@ module Stripe
     stripe/resources/reserve/plan
     stripe/resources/reserve/release
     stripe/resources/reserve_transaction
-    stripe/resources/reversal
     stripe/resources/review
     stripe/resources/setup_attempt
     stripe/resources/setup_intent
@@ -455,6 +454,7 @@ module Stripe
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer
+    stripe/resources/transfer_reversal
     stripe/resources/treasury/credit_reversal
     stripe/resources/treasury/debit_reversal
     stripe/resources/treasury/financial_account

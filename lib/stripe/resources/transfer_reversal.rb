@@ -15,7 +15,7 @@ module Stripe
   # reversal.
   #
   # Related guide: [Reverse transfers](https://docs.stripe.com/connect/separate-charges-and-transfers#reverse-transfers)
-  class Reversal < APIResource
+  class TransferReversal < APIResource
     include Stripe::APIOperations::Save
 
     OBJECT_NAME = "transfer_reversal"

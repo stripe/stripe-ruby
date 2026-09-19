@@ -768,10 +768,10 @@ module Stripe
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Configuration options for setting up a mandate

@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves a physical bundle object.
       sig {
-        params(physical_bundle: String, params: T.any(::Stripe::Issuing::PhysicalBundleRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PhysicalBundle)
+        params(id: String, params: T.any(::Stripe::Issuing::PhysicalBundleRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PhysicalBundle)
        }
-      def retrieve(physical_bundle, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

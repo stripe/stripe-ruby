@@ -223,10 +223,10 @@ module Stripe
     end
 
     # Updates an existing payment method domain.
-    def self.update(payment_method_domain, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s", { payment_method_domain: CGI.escape(payment_method_domain) }),
+        path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -241,7 +241,7 @@ module Stripe
     def validate(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_method_domains/%<id>s/validate", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -253,10 +253,10 @@ module Stripe
     # To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
     #
     # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
-    def self.validate(payment_method_domain, params = {}, opts = {})
+    def self.validate(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(payment_method_domain) }),
+        path: format("/v1/payment_method_domains/%<id>s/validate", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

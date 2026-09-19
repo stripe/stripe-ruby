@@ -7,9 +7,9 @@ module Stripe
     class AccountInferredBalanceService < StripeService
       # Lists the recorded inferred balances for a Financial Connections Account.
       sig {
-        params(account: String, params: T.any(::Stripe::FinancialConnections::AccountInferredBalanceListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+        params(id: String, params: T.any(::Stripe::FinancialConnections::AccountInferredBalanceListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
-      def list(account, params = {}, opts = {}); end
+      def list(id, params = {}, opts = {}); end
     end
   end
 end

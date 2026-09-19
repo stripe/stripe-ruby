@@ -15,10 +15,10 @@ module Stripe
     end
 
     # You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
-    def delete(webhook_endpoint, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
+        path: format("/v1/webhook_endpoints/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Retrieves the webhook endpoint with the given ID.
-    def retrieve(webhook_endpoint, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
+        path: format("/v1/webhook_endpoints/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -48,10 +48,10 @@ module Stripe
     end
 
     # Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
-    def update(webhook_endpoint, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/webhook_endpoints/%<webhook_endpoint>s", { webhook_endpoint: CGI.escape(webhook_endpoint) }),
+        path: format("/v1/webhook_endpoints/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

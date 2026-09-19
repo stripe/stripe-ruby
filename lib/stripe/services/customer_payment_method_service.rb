@@ -4,10 +4,10 @@
 module Stripe
   class CustomerPaymentMethodService < StripeService
     # Returns a list of PaymentMethods for a given Customer
-    def list(customer, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/payment_methods", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves a PaymentMethod object for a given Customer.
-    def retrieve(customer, payment_method, params = {}, opts = {})
+    def retrieve(customer_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/customers/%<customer_id>s/payment_methods/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -14,9 +14,9 @@ module Stripe
 
       # Retrieves a financing transaction for a financing offer.
       sig {
-        params(financing_transaction: String, params: T.any(::Stripe::Capital::FinancingTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingTransaction)
+        params(id: String, params: T.any(::Stripe::Capital::FinancingTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingTransaction)
        }
-      def retrieve(financing_transaction, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

@@ -31,10 +31,10 @@ module Stripe
     # Live-mode accounts that have access to the standard dashboard and Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. All other Live-mode accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-    def delete(account, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -49,10 +49,10 @@ module Stripe
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
-    def reject(account, params = {}, opts = {})
+    def reject(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/reject", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -60,10 +60,10 @@ module Stripe
     end
 
     # Retrieves the details of an account.
-    def retrieve(account, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -90,7 +90,7 @@ module Stripe
     end
 
     # Serializes an Account delete request into a batch job JSONL line.
-    def serialize_batch_delete(account, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -99,13 +99,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { account: account }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Account update request into a batch job JSONL line.
-    def serialize_batch_update(account, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -114,7 +114,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { account: account }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -124,10 +124,10 @@ module Stripe
     # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
     #
     # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
-    def unreject(account, params = {}, opts = {})
+    def unreject(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/unreject", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -147,10 +147,10 @@ module Stripe
     #
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
-    def update(account, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

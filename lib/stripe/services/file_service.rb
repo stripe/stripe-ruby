@@ -22,10 +22,10 @@ module Stripe
     end
 
     # Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
-    def retrieve(file, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/files/%<file>s", { file: CGI.escape(file) }),
+        path: format("/v1/files/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

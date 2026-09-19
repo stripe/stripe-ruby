@@ -371,9 +371,9 @@ module Stripe
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
     sig {
-      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
+      params(id: String, params: T.any(::Stripe::InvoiceItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
-    def self.delete(invoiceitem, params = {}, opts = {}); end
+    def self.delete(id, params = {}, opts = {}); end
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
     sig {
@@ -389,8 +389,8 @@ module Stripe
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
     sig {
-      params(invoiceitem: String, params: T.any(::Stripe::InvoiceItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
+      params(id: String, params: T.any(::Stripe::InvoiceItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceItem)
      }
-    def self.update(invoiceitem, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Returns a Country Spec for a given Country code.
-    def retrieve(country, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/country_specs/%<country>s", { country: CGI.escape(country) }),
+        path: format("/v1/country_specs/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

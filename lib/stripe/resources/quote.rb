@@ -89,7 +89,7 @@ module Stripe
             class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -180,7 +180,7 @@ module Stripe
             class Discount < ::Stripe::StripeObject
               # The amount discounted.
               attr_reader :amount
-              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1066,7 +1066,7 @@ module Stripe
         class Discount < ::Stripe::StripeObject
           # The amount discounted.
           attr_reader :amount
-          # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+          # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
           # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1235,17 +1235,17 @@ module Stripe
     def accept(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/accept", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Accepts the specified quote.
-    def self.accept(quote, params = {}, opts = {})
+    def self.accept(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/accept", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/accept", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1255,17 +1255,17 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Cancels the quote.
-    def self.cancel(quote, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/cancel", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1280,17 +1280,17 @@ module Stripe
     def finalize_quote(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/finalize", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Finalizes the quote.
-    def self.finalize_quote(quote, params = {}, opts = {})
+    def self.finalize_quote(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/finalize", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/finalize", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1305,17 +1305,17 @@ module Stripe
     def list_computed_upfront_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/computed_upfront_line_items", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
-    def self.list_computed_upfront_line_items(quote, params = {}, opts = {})
+    def self.list_computed_upfront_line_items(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/computed_upfront_line_items", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/computed_upfront_line_items", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1325,17 +1325,17 @@ module Stripe
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/line_items", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    def self.list_line_items(quote, params = {}, opts = {})
+    def self.list_line_items(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/line_items", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1345,37 +1345,37 @@ module Stripe
     def list_lines(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/lines", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
-    def self.list_lines(quote, params = {}, opts = {})
+    def self.list_lines(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Preview the invoice line items that would be generated by accepting the quote.
-    def list_preview_invoice_lines(preview_invoice, params = {}, opts = {})
+    def list_preview_invoice_lines(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(self["id"]), preview_invoice: CGI.escape(preview_invoice) }),
+        path: format("/v1/quotes/%<quote_id>s/preview_invoices/%<id>s/lines", { quote_id: CGI.escape(self["id"]), id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Preview the invoice line items that would be generated by accepting the quote.
-    def self.list_preview_invoice_lines(quote, preview_invoice, params = {}, opts = {})
+    def self.list_preview_invoice_lines(quote_id, id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/preview_invoices/%<preview_invoice>s/lines", { quote: CGI.escape(quote), preview_invoice: CGI.escape(preview_invoice) }),
+        path: format("/v1/quotes/%<quote_id>s/preview_invoices/%<id>s/lines", { quote_id: CGI.escape(quote_id), id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1385,17 +1385,17 @@ module Stripe
     def mark_draft(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/mark_draft", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/mark_draft", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Converts a stale quote to draft.
-    def self.mark_draft(quote, params = {}, opts = {})
+    def self.mark_draft(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/mark_draft", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/mark_draft", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1405,17 +1405,17 @@ module Stripe
     def mark_stale(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/mark_stale", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/mark_stale", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Converts a draft or open quote to stale.
-    def self.mark_stale(quote, params = {}, opts = {})
+    def self.mark_stale(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/mark_stale", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/mark_stale", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1426,7 +1426,7 @@ module Stripe
       opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
       request_stream(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/pdf", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts,
         base_address: :files,
@@ -1435,11 +1435,11 @@ module Stripe
     end
 
     # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
-    def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block)
+    def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block)
       opts = { api_base: APIRequestor.active_requestor.config.uploads_base }.merge(opts)
       execute_resource_request_stream(
         :get,
-        format("/v1/quotes/%<quote>s/pdf", { quote: CGI.escape(quote) }),
+        format("/v1/quotes/%<id>s/pdf", { id: CGI.escape(id) }),
         :files,
         params,
         opts,
@@ -1451,27 +1451,27 @@ module Stripe
     def reestimate(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/reestimate", { quote: CGI.escape(self["id"]) }),
+        path: format("/v1/quotes/%<id>s/reestimate", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Recompute the upcoming invoice estimate for the quote.
-    def self.reestimate(quote, params = {}, opts = {})
+    def self.reestimate(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s/reestimate", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/reestimate", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # A quote models prices and services for a customer.
-    def self.update(quote, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/quotes/%<quote>s", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

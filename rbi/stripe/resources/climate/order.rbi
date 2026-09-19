@@ -144,9 +144,9 @@ module Stripe
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
       # provides 90 days advance notice and refunds the amount_total.
       sig {
-        params(order: String, params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
+        params(id: String, params: T.any(::Stripe::Climate::OrderCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
-      def self.cancel(order, params = {}, opts = {}); end
+      def self.cancel(id, params = {}, opts = {}); end
 
       # Creates a Climate order object for a given Climate product. The order will be processed immediately
       # after creation and payment will be deducted your Stripe balance.
@@ -164,9 +164,9 @@ module Stripe
 
       # Updates the specified order by setting the values of the parameters passed.
       sig {
-        params(order: String, params: T.any(::Stripe::Climate::OrderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
+        params(id: String, params: T.any(::Stripe::Climate::OrderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Order)
        }
-      def self.update(order, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

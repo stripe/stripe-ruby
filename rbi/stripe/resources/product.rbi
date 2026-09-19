@@ -5,7 +5,7 @@
 module Stripe
   # Products describe the specific goods or services you offer to your customers.
   # For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-  # They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+  # They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
   #
   # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
   # [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -101,7 +101,7 @@ module Stripe
       end
     end
     class TaxDetails < ::Stripe::StripeObject
-      # The performance location.
+      # The ID of a tax location with type `performance`, representing where the performance takes place.
       sig { returns(T.nilable(String)) }
       def performance_location; end
       # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.

@@ -11,10 +11,10 @@ module Stripe
     end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
-    def delete(coupon, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -27,10 +27,10 @@ module Stripe
     end
 
     # Retrieves the coupon with the given ID.
-    def retrieve(coupon, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -52,7 +52,7 @@ module Stripe
     end
 
     # Serializes a Coupon delete request into a batch job JSONL line.
-    def serialize_batch_delete(coupon, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -61,13 +61,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { coupon: coupon }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Coupon update request into a batch job JSONL line.
-    def serialize_batch_update(coupon, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -76,16 +76,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { coupon: coupon }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
-    def update(coupon, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves a physical bundle object.
-      def retrieve(physical_bundle, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/physical_bundles/%<physical_bundle>s", { physical_bundle: CGI.escape(physical_bundle) }),
+          path: format("/v1/issuing/physical_bundles/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -7,9 +7,9 @@ module Stripe
     class GrantedTokenService < StripeService
       # Retrieves an existing SharedPaymentGrantedToken object
       sig {
-        params(shared_payment_granted_token: String, params: T.any(::Stripe::SharedPayment::GrantedTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::GrantedToken)
+        params(id: String, params: T.any(::Stripe::SharedPayment::GrantedTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::GrantedToken)
        }
-      def retrieve(shared_payment_granted_token, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

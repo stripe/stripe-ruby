@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
-      def retrieve(report_type, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/reporting/report_types/%<report_type>s", { report_type: CGI.escape(report_type) }),
+          path: format("/v1/reporting/report_types/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

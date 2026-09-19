@@ -4,10 +4,10 @@
 module Stripe
   class SourceTransactionService < StripeService
     # List source transactions for a given source.
-    def list(source, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/sources/%<source>s/source_transactions", { source: CGI.escape(source) }),
+        path: format("/v1/sources/%<id>s/source_transactions", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

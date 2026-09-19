@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves an Issuing DisputeSettlementDetail object.
       sig {
-        params(dispute_settlement_detail: String, params: T.any(::Stripe::Issuing::DisputeSettlementDetailRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::DisputeSettlementDetail)
+        params(id: String, params: T.any(::Stripe::Issuing::DisputeSettlementDetailRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::DisputeSettlementDetail)
        }
-      def retrieve(dispute_settlement_detail, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

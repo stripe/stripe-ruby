@@ -96,9 +96,9 @@ module Stripe
 
     # Cancels a top-up. Only pending top-ups can be canceled.
     sig {
-      params(topup: String, params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
+      params(id: String, params: T.any(::Stripe::TopupCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
-    def self.cancel(topup, params = {}, opts = {}); end
+    def self.cancel(id, params = {}, opts = {}); end
 
     # Top up the balance of an account
     sig {
@@ -114,8 +114,8 @@ module Stripe
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
     sig {
-      params(topup: String, params: T.any(::Stripe::TopupUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
+      params(id: String, params: T.any(::Stripe::TopupUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Topup)
      }
-    def self.update(topup, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

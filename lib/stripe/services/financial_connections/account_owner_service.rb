@@ -5,10 +5,10 @@ module Stripe
   module FinancialConnections
     class AccountOwnerService < StripeService
       # Lists all owners for a given Account
-      def list(account, params = {}, opts = {})
+      def list(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/financial_connections/accounts/%<account>s/owners", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s/owners", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

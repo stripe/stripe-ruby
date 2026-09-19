@@ -4,10 +4,10 @@
 module Stripe
   class AccountCapabilityService < StripeService
     # Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
-    def list(account, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account>s/capabilities", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/capabilities", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves information about the specified Account Capability.
-    def retrieve(account, capability, params = {}, opts = {})
+    def retrieve(account_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account>s/capabilities/%<capability>s", { account: CGI.escape(account), capability: CGI.escape(capability) }),
+        path: format("/v1/accounts/%<account_id>s/capabilities/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
-    def update(account, capability, params = {}, opts = {})
+    def update(account_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s/capabilities/%<capability>s", { account: CGI.escape(account), capability: CGI.escape(capability) }),
+        path: format("/v1/accounts/%<account_id>s/capabilities/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -184,7 +184,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The customer's address.
+    # The customer's billing address.
     attr_reader :address
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://docs.stripe.com/api/customers/object#customer_object-invoice_credit_balance).
     attr_reader :balance
@@ -268,7 +268,7 @@ module Stripe
     def create_funding_instructions(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(self["id"]) }),
+        path: format("/v1/customers/%<id>s/funding_instructions", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -277,20 +277,20 @@ module Stripe
     # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
-    def self.create_funding_instructions(customer, params = {}, opts = {})
+    def self.create_funding_instructions(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/funding_instructions", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
-    def self.delete(customer, params = {}, opts = {})
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -300,7 +300,7 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(self["id"]) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -310,17 +310,17 @@ module Stripe
     def delete_discount(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(self["id"]) }),
+        path: format("/v1/customers/%<id>s/discount", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Removes the currently applied discount on a customer.
-    def self.delete_discount(customer, params = {}, opts = {})
+    def self.delete_discount(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/discount", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -335,47 +335,47 @@ module Stripe
     def list_payment_methods(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(self["id"]) }),
+        path: format("/v1/customers/%<id>s/payment_methods", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Returns a list of PaymentMethods for a given Customer
-    def self.list_payment_methods(customer, params = {}, opts = {})
+    def self.list_payment_methods(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/payment_methods", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves a customer's cash balance.
-    def self.retrieve_cash_balance(customer, params = {}, opts = {})
+    def self.retrieve_cash_balance(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/cash_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves a PaymentMethod object for a given Customer.
-    def retrieve_payment_method(payment_method, params = {}, opts = {})
+    def retrieve_payment_method(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(self["id"]), payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/customers/%<customer_id>s/payment_methods/%<id>s", { customer_id: CGI.escape(self["id"]), id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves a PaymentMethod object for a given Customer.
-    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {})
+    def self.retrieve_payment_method(customer_id, id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/customers/%<customer>s/payment_methods/%<payment_method>s", { customer: CGI.escape(customer), payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/customers/%<customer_id>s/payment_methods/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -392,20 +392,20 @@ module Stripe
     # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.
-    def self.update(customer, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Changes the settings on a customer's cash balance.
-    def self.update_cash_balance(customer, params = {}, opts = {})
+    def self.update_cash_balance(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/customers/%<customer>s/cash_balance", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/cash_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -430,10 +430,10 @@ module Stripe
       end
 
       # Create an incoming testmode bank transfer
-      def self.fund_cash_balance(customer, params = {}, opts = {})
+      def self.fund_cash_balance(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(customer) }),
+          path: format("/v1/test_helpers/customers/%<id>s/fund_cash_balance", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -443,7 +443,7 @@ module Stripe
       def fund_cash_balance(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(@resource["id"]) }),
+          path: format("/v1/test_helpers/customers/%<id>s/fund_cash_balance", { id: CGI.escape(@resource["id"]) }),
           params: params,
           opts: opts
         )

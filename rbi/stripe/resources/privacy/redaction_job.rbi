@@ -80,9 +80,9 @@ module Stripe
       #
       # Canceling the redaction job will abandon its attempt to redact the configured objects. A canceled job cannot be used again.
       sig {
-        params(job: String, params: T.any(::Stripe::Privacy::RedactionJobCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
+        params(id: String, params: T.any(::Stripe::Privacy::RedactionJobCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
        }
-      def self.cancel(job, params = {}, opts = {}); end
+      def self.cancel(id, params = {}, opts = {}); end
 
       # Creates a redaction job. When a job is created, it will start to validate.
       sig {
@@ -112,17 +112,17 @@ module Stripe
       #
       # The status of the job will move to redacting. Once all of the objects are redacted, the status will become succeeded. If the job's validation_behavior is set to fix, the automatic fixes will be applied to objects at this step.
       sig {
-        params(job: String, params: T.any(::Stripe::Privacy::RedactionJobRunParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
+        params(id: String, params: T.any(::Stripe::Privacy::RedactionJobRunParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
        }
-      def self.run(job, params = {}, opts = {}); end
+      def self.run(id, params = {}, opts = {}); end
 
       # Updates the properties of a redaction job without running or canceling the job.
       #
       # If the job to update is in a failed status, it will not automatically start to validate. Once you applied all of the changes, use the validate API to start validation again.
       sig {
-        params(job: String, params: T.any(::Stripe::Privacy::RedactionJobUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
+        params(id: String, params: T.any(::Stripe::Privacy::RedactionJobUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
        }
-      def self.update(job, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
 
       # Validate a redaction job when it is in a failed status.
       #
@@ -140,9 +140,9 @@ module Stripe
       #
       # The status of the job will move to validating. Once all of the objects are validated, the status of the job will become ready. If there are any validation errors preventing the job from running, the status will become failed.
       sig {
-        params(job: String, params: T.any(::Stripe::Privacy::RedactionJobValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
+        params(id: String, params: T.any(::Stripe::Privacy::RedactionJobValidateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Privacy::RedactionJob)
        }
-      def self.validate(job, params = {}, opts = {}); end
+      def self.validate(id, params = {}, opts = {}); end
     end
   end
 end

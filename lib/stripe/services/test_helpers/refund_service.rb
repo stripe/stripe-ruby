@@ -5,10 +5,10 @@ module Stripe
   module TestHelpers
     class RefundService < StripeService
       # Expire a refund with a status of requires_action.
-      def expire(refund, params = {}, opts = {})
+      def expire(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(refund) }),
+          path: format("/v1/test_helpers/refunds/%<id>s/expire", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

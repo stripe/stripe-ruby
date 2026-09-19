@@ -79,7 +79,7 @@ module Stripe
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
-              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -175,7 +175,7 @@ module Stripe
               # The amount discounted.
               sig { returns(Integer) }
               def amount; end
-              # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+              # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
               # It contains information about when the discount began, when it will end, and what it is applied to.
               #
               # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1088,7 +1088,7 @@ module Stripe
           # The amount discounted.
           sig { returns(Integer) }
           def amount; end
-          # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+          # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
           # It contains information about when the discount began, when it will end, and what it is applied to.
           #
           # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -1303,9 +1303,9 @@ module Stripe
 
     # Accepts the specified quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteAcceptParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.accept(quote, params = {}, opts = {}); end
+    def self.accept(id, params = {}, opts = {}); end
 
     # Cancels the quote.
     sig {
@@ -1315,9 +1315,9 @@ module Stripe
 
     # Cancels the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.cancel(quote, params = {}, opts = {}); end
+    def self.cancel(id, params = {}, opts = {}); end
 
     # A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
     sig {
@@ -1333,9 +1333,9 @@ module Stripe
 
     # Finalizes the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteFinalizeQuoteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.finalize_quote(quote, params = {}, opts = {}); end
+    def self.finalize_quote(id, params = {}, opts = {}); end
 
     # Returns a list of your quotes.
     sig {
@@ -1351,9 +1351,9 @@ module Stripe
 
     # When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::QuoteListComputedUpfrontLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_computed_upfront_line_items(quote, params = {}, opts = {}); end
+    def self.list_computed_upfront_line_items(id, params = {}, opts = {}); end
 
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
@@ -1363,9 +1363,9 @@ module Stripe
 
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::QuoteListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_line_items(quote, params = {}, opts = {}); end
+    def self.list_line_items(id, params = {}, opts = {}); end
 
     # Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     sig {
@@ -1375,21 +1375,21 @@ module Stripe
 
     # Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteListLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::QuoteListLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_lines(quote, params = {}, opts = {}); end
+    def self.list_lines(id, params = {}, opts = {}); end
 
     # Preview the invoice line items that would be generated by accepting the quote.
     sig {
-      params(preview_invoice: String, params: T.any(::Stripe::QuoteListPreviewInvoiceLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::QuoteListPreviewInvoiceLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def list_preview_invoice_lines(preview_invoice, params = {}, opts = {}); end
+    def list_preview_invoice_lines(id, params = {}, opts = {}); end
 
     # Preview the invoice line items that would be generated by accepting the quote.
     sig {
-      params(quote: String, preview_invoice: String, params: T.any(::Stripe::QuoteListPreviewInvoiceLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(quote_id: String, id: String, params: T.any(::Stripe::QuoteListPreviewInvoiceLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_preview_invoice_lines(quote, preview_invoice, params = {}, opts = {}); end
+    def self.list_preview_invoice_lines(quote_id, id, params = {}, opts = {}); end
 
     # Converts a stale quote to draft.
     sig {
@@ -1399,9 +1399,9 @@ module Stripe
 
     # Converts a stale quote to draft.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteMarkDraftParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteMarkDraftParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.mark_draft(quote, params = {}, opts = {}); end
+    def self.mark_draft(id, params = {}, opts = {}); end
 
     # Converts a draft or open quote to stale.
     sig {
@@ -1411,9 +1411,9 @@ module Stripe
 
     # Converts a draft or open quote to stale.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteMarkStaleParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteMarkStaleParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.mark_stale(quote, params = {}, opts = {}); end
+    def self.mark_stale(id, params = {}, opts = {}); end
 
     # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
     sig {
@@ -1423,9 +1423,9 @@ module Stripe
 
     # Download the PDF for a finalized quote. Explanation for special handling can be found [here](https://docs.stripe.com/quotes/overview#quote_pdf)
     sig {
-      params(quote: String, params: T.any(::Stripe::QuotePdfParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, read_body_chunk_block: T.untyped).returns(T.untyped)
+      params(id: String, params: T.any(::Stripe::QuotePdfParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped, read_body_chunk_block: T.untyped).returns(T.untyped)
      }
-    def self.pdf(quote, params = {}, opts = {}, &read_body_chunk_block); end
+    def self.pdf(id, params = {}, opts = {}, &read_body_chunk_block); end
 
     # Recompute the upcoming invoice estimate for the quote.
     sig {
@@ -1435,14 +1435,14 @@ module Stripe
 
     # Recompute the upcoming invoice estimate for the quote.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteReestimateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteReestimateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.reestimate(quote, params = {}, opts = {}); end
+    def self.reestimate(id, params = {}, opts = {}); end
 
     # A quote models prices and services for a customer.
     sig {
-      params(quote: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
+      params(id: String, params: T.any(::Stripe::QuoteUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Quote)
      }
-    def self.update(quote, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -22,16 +22,16 @@ module Stripe
 
     # By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer_id: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
      }
-    def retrieve(transfer, id, params = {}, opts = {}); end
+    def retrieve(transfer_id, id, params = {}, opts = {}); end
 
     # Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request only accepts metadata and description as arguments.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer_id: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
      }
-    def update(transfer, id, params = {}, opts = {}); end
+    def update(transfer_id, id, params = {}, opts = {}); end
   end
 end

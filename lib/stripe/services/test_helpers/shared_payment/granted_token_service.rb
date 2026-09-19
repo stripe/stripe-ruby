@@ -17,10 +17,10 @@ module Stripe
         end
 
         # Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
-        def revoke(shared_payment_granted_token, params = {}, opts = {})
+        def revoke(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/shared_payment/granted_tokens/%<shared_payment_granted_token>s/revoke", { shared_payment_granted_token: CGI.escape(shared_payment_granted_token) }),
+            path: format("/v1/test_helpers/shared_payment/granted_tokens/%<id>s/revoke", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

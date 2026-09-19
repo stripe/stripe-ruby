@@ -19,15 +19,15 @@ module Stripe
 
       # Retrieves an Issuing Cardholder object.
       sig {
-        params(cardholder: String, params: T.any(::Stripe::Issuing::CardholderRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
+        params(id: String, params: T.any(::Stripe::Issuing::CardholderRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
        }
-      def retrieve(cardholder, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(cardholder: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
+        params(id: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
        }
-      def update(cardholder, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

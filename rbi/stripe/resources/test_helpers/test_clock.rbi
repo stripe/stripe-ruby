@@ -68,9 +68,9 @@ module Stripe
 
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
       sig {
-        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
+        params(id: String, params: T.any(::Stripe::TestHelpers::TestClockAdvanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
-      def self.advance(test_clock, params = {}, opts = {}); end
+      def self.advance(id, params = {}, opts = {}); end
 
       # Creates a new test clock that can be attached to new customers and quotes.
       sig {
@@ -80,9 +80,9 @@ module Stripe
 
       # Deletes a test clock.
       sig {
-        params(test_clock: String, params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
+        params(id: String, params: T.any(::Stripe::TestHelpers::TestClockDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TestHelpers::TestClock)
        }
-      def self.delete(test_clock, params = {}, opts = {}); end
+      def self.delete(id, params = {}, opts = {}); end
 
       # Deletes a test clock.
       sig {

@@ -34,10 +34,10 @@ module Stripe
     end
 
     # By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
-    def retrieve(fee, id, params = {}, opts = {})
+    def retrieve(fee_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/application_fees/%<fee>s/refunds/%<id>s", { fee: CGI.escape(fee), id: CGI.escape(id) }),
+        path: format("/v1/application_fees/%<fee_id>s/refunds/%<id>s", { fee_id: CGI.escape(fee_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -47,10 +47,10 @@ module Stripe
     # Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request only accepts metadata as an argument.
-    def update(fee, id, params = {}, opts = {})
+    def update(fee_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/application_fees/%<fee>s/refunds/%<id>s", { fee: CGI.escape(fee), id: CGI.escape(id) }),
+        path: format("/v1/application_fees/%<fee_id>s/refunds/%<id>s", { fee_id: CGI.escape(fee_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

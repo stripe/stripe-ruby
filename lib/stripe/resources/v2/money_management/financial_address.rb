@@ -60,9 +60,9 @@ module Stripe
           end
 
           class Clabe < ::Stripe::StripeObject
-            # Attribute for field account_holder_name
+            # The name of the account holder.
             attr_reader :account_holder_name
-            # Attribute for field clabe
+            # The CLABE interbank code.
             attr_reader :clabe
 
             def self.inner_class_types
@@ -75,17 +75,17 @@ module Stripe
           end
 
           class Cpa < ::Stripe::StripeObject
-            # Attribute for field account_holder_name
+            # The name of the account holder.
             attr_reader :account_holder_name
-            # Attribute for field account_number
+            # The full account number.
             attr_reader :account_number
-            # Attribute for field bank_name
+            # The name of the bank.
             attr_reader :bank_name
-            # Attribute for field institution_number
+            # The institution number.
             attr_reader :institution_number
-            # Attribute for field last4
+            # The last four digits of the account number.
             attr_reader :last4
-            # Attribute for field transit_number
+            # The transit number.
             attr_reader :transit_number
 
             def self.inner_class_types
@@ -138,11 +138,11 @@ module Stripe
           end
           # ABA bank account details (US).
           attr_reader :aba
-          # Attribute for field clabe
+          # CLABE bank account details (Mexico).
           attr_reader :clabe
           # The country of the bank account.
           attr_reader :country
-          # Attribute for field cpa
+          # CPA bank account details (Canada).
           attr_reader :cpa
           # Open Enum. The currency of the bank account.
           attr_reader :currency
@@ -163,11 +163,11 @@ module Stripe
         end
 
         class CryptoWallet < ::Stripe::StripeObject
-          # Attribute for field address
+          # The blockchain wallet address.
           attr_reader :address
-          # Attribute for field memo
+          # An optional memo or tag required by some networks to identify the recipient.
           attr_reader :memo
-          # Attribute for field network
+          # Open Enum. The blockchain network of the crypto wallet.
           attr_reader :network
 
           def self.inner_class_types
@@ -182,7 +182,7 @@ module Stripe
         attr_reader :bank_account
         # The creation timestamp of the FinancialAddress.
         attr_reader :created
-        # Attribute for field crypto_wallet
+        # Crypto wallet details for this FinancialAddress.
         attr_reader :crypto_wallet
         # The ID of the FinancialAccount this FinancialAddress corresponds to.
         attr_reader :financial_account
@@ -192,7 +192,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Attribute for field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         attr_reader :settlement_currency
         # Closed Enum. The status of the FinancialAddress.
         attr_reader :status

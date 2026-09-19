@@ -1360,7 +1360,7 @@ module Stripe
       def approve(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/approve", { authorization: CGI.escape(self["id"]) }),
+          path: format("/v1/issuing/authorizations/%<id>s/approve", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -1369,10 +1369,10 @@ module Stripe
       deprecate :approve, :none, 2024, 3
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-      def self.approve(authorization, params = {}, opts = {})
+      def self.approve(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/approve", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s/approve", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -1388,7 +1388,7 @@ module Stripe
       def decline(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/decline", { authorization: CGI.escape(self["id"]) }),
+          path: format("/v1/issuing/authorizations/%<id>s/decline", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -1397,10 +1397,10 @@ module Stripe
       deprecate :decline, :none, 2024, 3
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-      def self.decline(authorization, params = {}, opts = {})
+      def self.decline(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/decline", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s/decline", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -1422,10 +1422,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(authorization, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -1442,10 +1442,10 @@ module Stripe
         end
 
         # Capture a test-mode authorization.
-        def self.capture(authorization, params = {}, opts = {})
+        def self.capture(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/capture", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1455,7 +1455,7 @@ module Stripe
         def capture(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/capture", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
@@ -1472,10 +1472,10 @@ module Stripe
         end
 
         # Expire a test-mode Authorization.
-        def self.expire(authorization, params = {}, opts = {})
+        def self.expire(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/expire", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/expire", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1485,17 +1485,17 @@ module Stripe
         def expire(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/expire", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/expire", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
-        def self.finalize_amount(authorization, params = {}, opts = {})
+        def self.finalize_amount(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/finalize_amount", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1505,17 +1505,17 @@ module Stripe
         def finalize_amount(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/finalize_amount", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Increment a test-mode Authorization.
-        def self.increment(authorization, params = {}, opts = {})
+        def self.increment(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/increment", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1525,17 +1525,17 @@ module Stripe
         def increment(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/increment", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
-        def self.respond(authorization, params = {}, opts = {})
+        def self.respond(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/fraud_challenges/respond", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/fraud_challenges/respond", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1545,17 +1545,17 @@ module Stripe
         def respond(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/fraud_challenges/respond", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/fraud_challenges/respond", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Reverse a test-mode Authorization.
-        def self.reverse(authorization, params = {}, opts = {})
+        def self.reverse(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/reverse", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1565,7 +1565,7 @@ module Stripe
         def reverse(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/reverse", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

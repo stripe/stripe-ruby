@@ -84,17 +84,17 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(self["id"]) }),
+        path: format("/v1/topups/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Cancels a top-up. Only pending top-ups can be canceled.
-    def self.cancel(topup, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
+        path: format("/v1/topups/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -111,10 +111,10 @@ module Stripe
     end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
-    def self.update(topup, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/topups/%<topup>s", { topup: CGI.escape(topup) }),
+        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

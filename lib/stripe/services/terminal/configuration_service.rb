@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Deletes a Configuration object.
-      def delete(configuration, params = {}, opts = {})
+      def delete(id, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Retrieves a Configuration object.
-      def retrieve(configuration, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -49,10 +49,10 @@ module Stripe
       end
 
       # Updates a new Configuration object.
-      def update(configuration, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

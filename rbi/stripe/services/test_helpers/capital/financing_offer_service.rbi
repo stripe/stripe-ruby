@@ -14,9 +14,9 @@ module Stripe
 
         # Refills a test financing offer for a connected account.
         sig {
-          params(financing_offer: String, params: T.any(::Stripe::TestHelpers::Capital::FinancingOfferRefillParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingOffer)
+          params(id: String, params: T.any(::Stripe::TestHelpers::Capital::FinancingOfferRefillParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Capital::FinancingOffer)
          }
-        def refill(financing_offer, params = {}, opts = {}); end
+        def refill(id, params = {}, opts = {}); end
       end
     end
   end

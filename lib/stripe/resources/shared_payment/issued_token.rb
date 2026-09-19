@@ -294,17 +294,17 @@ module Stripe
       def revoke(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s/revoke", { shared_payment_issued_token: CGI.escape(self["id"]) }),
+          path: format("/v1/shared_payment/issued_tokens/%<id>s/revoke", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Revokes a SharedPaymentIssuedToken
-      def self.revoke(shared_payment_issued_token, params = {}, opts = {})
+      def self.revoke(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s/revoke", { shared_payment_issued_token: CGI.escape(shared_payment_issued_token) }),
+          path: format("/v1/shared_payment/issued_tokens/%<id>s/revoke", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

@@ -14,6 +14,8 @@ module Stripe
     class Payments < ::Stripe::StripeObject
       class Payouts < ::Stripe::StripeObject
         class AutomaticTransferRulesByCurrency < ::Stripe::StripeObject
+          # The currency of the FinancialAccount balance that receives the automatic transfer.
+          attr_reader :destination_currency
           # The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
           attr_reader :payout_method
           # The maximum amount in minor units to transfer to the FinancialAccount. Only applicable when `type` is `transfer_up_to_amount`.

@@ -14,10 +14,10 @@ module Stripe
       end
 
       # Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
-      def disconnect(account, params = {}, opts = {})
+      def disconnect(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/financial_connections/accounts/%<account>s/disconnect", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s/disconnect", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -36,10 +36,10 @@ module Stripe
       end
 
       # Refreshes the data associated with a Financial Connections Account.
-      def refresh(account, params = {}, opts = {})
+      def refresh(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/financial_connections/accounts/%<account>s/refresh", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s/refresh", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -47,10 +47,10 @@ module Stripe
       end
 
       # Retrieves the details of a Financial Connections Account.
-      def retrieve(account, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/financial_connections/accounts/%<account>s", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -58,10 +58,10 @@ module Stripe
       end
 
       # Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
-      def subscribe(account, params = {}, opts = {})
+      def subscribe(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/financial_connections/accounts/%<account>s/subscribe", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s/subscribe", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -69,10 +69,10 @@ module Stripe
       end
 
       # Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
-      def unsubscribe(account, params = {}, opts = {})
+      def unsubscribe(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/financial_connections/accounts/%<account>s/unsubscribe", { account: CGI.escape(account) }),
+          path: format("/v1/financial_connections/accounts/%<id>s/unsubscribe", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

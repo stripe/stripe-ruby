@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves the invoice payment with the given ID.
-    def retrieve(invoice_payment, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/invoice_payments/%<invoice_payment>s", { invoice_payment: CGI.escape(invoice_payment) }),
+        path: format("/v1/invoice_payments/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

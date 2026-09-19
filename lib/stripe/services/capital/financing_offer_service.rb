@@ -17,10 +17,10 @@ module Stripe
 
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.
-      def mark_delivered(financing_offer, params = {}, opts = {})
+      def mark_delivered(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/capital/financing_offers/%<financing_offer>s/mark_delivered", { financing_offer: CGI.escape(financing_offer) }),
+          path: format("/v1/capital/financing_offers/%<id>s/mark_delivered", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -28,10 +28,10 @@ module Stripe
       end
 
       # Get the details of the financing offer
-      def retrieve(financing_offer, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/capital/financing_offers/%<financing_offer>s", { financing_offer: CGI.escape(financing_offer) }),
+          path: format("/v1/capital/financing_offers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -12,8 +12,8 @@ module Stripe
 
     # Retrieves the invoice payment with the given ID.
     sig {
-      params(invoice_payment: String, params: T.any(::Stripe::InvoicePaymentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoicePayment)
+      params(id: String, params: T.any(::Stripe::InvoicePaymentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoicePayment)
      }
-    def retrieve(invoice_payment, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

@@ -37,7 +37,7 @@ module Stripe
     def file; end
     sig { params(_file: T.untyped).returns(T.untyped) }
     def file=(_file); end
-    # Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
+    # Optional parameters that automatically create a [file link](https://docs.stripe.com/api#file_links) for the newly created file.
     sig { returns(T.nilable(::Stripe::FileCreateParams::FileLinkData)) }
     def file_link_data; end
     sig {

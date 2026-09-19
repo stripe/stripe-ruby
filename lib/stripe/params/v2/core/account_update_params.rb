@@ -737,6 +737,53 @@ module Stripe
             end
           end
 
+          class Developer < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Projects < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+              # Updates access to Stripe developer tooling.
+              attr_accessor :projects
+
+              def initialize(projects: nil)
+                @projects = projects
+              end
+            end
+            # Represents the state of the configuration and can be updated to deactivate or reapply it.
+            attr_accessor :applied
+            # Capabilities to request on the Developer Configuration.
+            attr_accessor :capabilities
+
+            def initialize(applied: nil, capabilities: nil)
+              @applied = applied
+              @capabilities = capabilities
+            end
+          end
+
           class Merchant < ::Stripe::RequestParams
             class BacsDebitPayments < ::Stripe::RequestParams
               # Display name for Bacs Direct Debit payments.
@@ -4112,6 +4159,8 @@ module Stripe
           attr_accessor :card_creator
           # The Customer Configuration allows the Account to be charged.
           attr_accessor :customer
+          # The Developer Configuration allows the Account to use developer tooling.
+          attr_accessor :developer
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           attr_accessor :merchant
           # The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
@@ -4122,12 +4171,14 @@ module Stripe
           def initialize(
             card_creator: nil,
             customer: nil,
+            developer: nil,
             merchant: nil,
             money_manager: nil,
             recipient: nil
           )
             @card_creator = card_creator
             @customer = customer
+            @developer = developer
             @merchant = merchant
             @money_manager = money_manager
             @recipient = recipient

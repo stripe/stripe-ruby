@@ -38,9 +38,9 @@ module Stripe
 
       # Updates a Program object.
       sig {
-        params(program: String, params: T.any(::Stripe::Issuing::ProgramUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
+        params(id: String, params: T.any(::Stripe::Issuing::ProgramUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
        }
-      def self.update(program, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

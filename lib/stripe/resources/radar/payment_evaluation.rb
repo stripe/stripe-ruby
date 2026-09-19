@@ -304,7 +304,7 @@ module Stripe
           end
           # Describes card money movement details.
           attr_reader :card
-          # Describes the type of money movement. Currently only `card` is supported.
+          # Describes the type of money movement.
           attr_reader :money_movement_type
 
           def self.inner_class_types

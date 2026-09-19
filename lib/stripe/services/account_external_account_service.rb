@@ -4,10 +4,10 @@
 module Stripe
   class AccountExternalAccountService < StripeService
     # Create an external account for a given account.
-    def create(account, params = {}, opts = {})
+    def create(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s/external_accounts", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/external_accounts", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Delete a specified external account for a given account.
-    def delete(account, id, params = {}, opts = {})
+    def delete(account_id, id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/accounts/%<account>s/external_accounts/%<id>s", { account: CGI.escape(account), id: CGI.escape(id) }),
+        path: format("/v1/accounts/%<account_id>s/external_accounts/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # List external accounts for an account.
-    def list(account, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account>s/external_accounts", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/external_accounts", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Retrieve a specified external account for a given account.
-    def retrieve(account, id, params = {}, opts = {})
+    def retrieve(account_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account>s/external_accounts/%<id>s", { account: CGI.escape(account), id: CGI.escape(id) }),
+        path: format("/v1/accounts/%<account_id>s/external_accounts/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -55,10 +55,10 @@ module Stripe
     #
     # You can re-enable a disabled bank account by performing an update call without providing any
     # arguments or changes.
-    def update(account, id, params = {}, opts = {})
+    def update(account_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/accounts/%<account>s/external_accounts/%<id>s", { account: CGI.escape(account), id: CGI.escape(id) }),
+        path: format("/v1/accounts/%<account_id>s/external_accounts/%<id>s", { account_id: CGI.escape(account_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

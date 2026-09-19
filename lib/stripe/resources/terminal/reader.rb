@@ -79,7 +79,7 @@ module Stripe
           attr_reader :request_log_url
           # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
           # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-          # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+          # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
           #
           # Create a SetupIntent when you're ready to collect your customer's payment credentials.
           # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -90,9 +90,9 @@ module Stripe
           # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
           # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
           # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-          # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+          # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
           # it automatically attaches the resulting payment method to that Customer after successful setup.
-          # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+          # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
           # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
           #
           # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -737,17 +737,17 @@ module Stripe
       def activate_gift_card(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/activate_gift_card", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/activate_gift_card", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a gift card activation flow on a Reader and optionally sets its balance.
-      def self.activate_gift_card(reader, params = {}, opts = {})
+      def self.activate_gift_card(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/activate_gift_card", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/activate_gift_card", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -757,17 +757,17 @@ module Stripe
       def cancel_action(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/cancel_action", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
-      def self.cancel_action(reader, params = {}, opts = {})
+      def self.cancel_action(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/cancel_action", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/cancel_action", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -777,17 +777,17 @@ module Stripe
       def cashout_gift_card(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/cashout_gift_card", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/cashout_gift_card", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
-      def self.cashout_gift_card(reader, params = {}, opts = {})
+      def self.cashout_gift_card(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/cashout_gift_card", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/cashout_gift_card", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -797,17 +797,17 @@ module Stripe
       def check_gift_card_balance(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/check_gift_card_balance", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/check_gift_card_balance", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a gift card balance check flow on a Reader.
-      def self.check_gift_card_balance(reader, params = {}, opts = {})
+      def self.check_gift_card_balance(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/check_gift_card_balance", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/check_gift_card_balance", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -817,17 +817,17 @@ module Stripe
       def collect_inputs(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/collect_inputs", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
-      def self.collect_inputs(reader, params = {}, opts = {})
+      def self.collect_inputs(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_inputs", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/collect_inputs", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -837,17 +837,17 @@ module Stripe
       def collect_payment_method(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/collect_payment_method", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
-      def self.collect_payment_method(reader, params = {}, opts = {})
+      def self.collect_payment_method(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/collect_payment_method", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/collect_payment_method", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -857,17 +857,17 @@ module Stripe
       def confirm_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/confirm_payment_intent", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
-      def self.confirm_payment_intent(reader, params = {}, opts = {})
+      def self.confirm_payment_intent(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/confirm_payment_intent", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/confirm_payment_intent", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -884,10 +884,10 @@ module Stripe
       end
 
       # Deletes a Reader object.
-      def self.delete(reader, params = {}, opts = {})
+      def self.delete(id, params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -897,7 +897,7 @@ module Stripe
       def delete(params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -917,17 +917,17 @@ module Stripe
       def process_payment_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/process_payment_intent", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
-      def self.process_payment_intent(reader, params = {}, opts = {})
+      def self.process_payment_intent(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_payment_intent", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/process_payment_intent", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -937,17 +937,17 @@ module Stripe
       def process_setup_intent(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/process_setup_intent", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
-      def self.process_setup_intent(reader, params = {}, opts = {})
+      def self.process_setup_intent(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/process_setup_intent", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/process_setup_intent", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -957,17 +957,17 @@ module Stripe
       def refund_payment(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/refund_payment", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
-      def self.refund_payment(reader, params = {}, opts = {})
+      def self.refund_payment(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/refund_payment", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/refund_payment", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -977,17 +977,17 @@ module Stripe
       def reload_gift_card(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/reload_gift_card", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/reload_gift_card", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
-      def self.reload_gift_card(reader, params = {}, opts = {})
+      def self.reload_gift_card(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/reload_gift_card", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/reload_gift_card", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -997,27 +997,27 @@ module Stripe
       def set_reader_display(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/readers/%<id>s/set_reader_display", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
-      def self.set_reader_display(reader, params = {}, opts = {})
+      def self.set_reader_display(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s/set_reader_display", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s/set_reader_display", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
       end
 
       # Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(reader, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/readers/%<reader>s", { reader: CGI.escape(reader) }),
+          path: format("/v1/terminal/readers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -1034,10 +1034,10 @@ module Stripe
         end
 
         # Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
-        def self.present_payment_method(reader, params = {}, opts = {})
+        def self.present_payment_method(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(reader) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/present_payment_method", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1047,17 +1047,17 @@ module Stripe
         def present_payment_method(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/present_payment_method", { reader: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/present_payment_method", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Use this endpoint to trigger a successful input collection on a simulated reader.
-        def self.succeed_input_collection(reader, params = {}, opts = {})
+        def self.succeed_input_collection(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(reader) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/succeed_input_collection", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1067,17 +1067,17 @@ module Stripe
         def succeed_input_collection(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/succeed_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/succeed_input_collection", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Use this endpoint to complete an input collection with a timeout error on a simulated reader.
-        def self.timeout_input_collection(reader, params = {}, opts = {})
+        def self.timeout_input_collection(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(reader) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/timeout_input_collection", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -1087,7 +1087,7 @@ module Stripe
         def timeout_input_collection(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/terminal/readers/%<reader>s/timeout_input_collection", { reader: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/terminal/readers/%<id>s/timeout_input_collection", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

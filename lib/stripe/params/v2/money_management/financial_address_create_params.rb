@@ -27,11 +27,11 @@ module Stripe
         end
         # Properties for creating a bank account FinancialAddress.
         attr_accessor :bank_account
-        # Attribute for param field crypto_wallet
+        # Properties for creating a crypto wallet FinancialAddress.
         attr_accessor :crypto_wallet
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         attr_accessor :financial_account
-        # Attribute for param field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         attr_accessor :settlement_currency
         # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
         attr_accessor :type

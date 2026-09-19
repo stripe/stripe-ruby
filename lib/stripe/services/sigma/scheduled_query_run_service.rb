@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves the details of an scheduled query run.
-      def retrieve(scheduled_query_run, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/sigma/scheduled_query_runs/%<scheduled_query_run>s", { scheduled_query_run: CGI.escape(scheduled_query_run) }),
+          path: format("/v1/sigma/scheduled_query_runs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

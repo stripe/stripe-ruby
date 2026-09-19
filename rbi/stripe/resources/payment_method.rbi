@@ -1958,9 +1958,9 @@ module Stripe
     # set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
     # on the Customer to the PaymentMethod's ID.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodAttachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
+      params(id: String, params: T.any(::Stripe::PaymentMethodAttachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
-    def self.attach(payment_method, params = {}, opts = {}); end
+    def self.attach(id, params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod's Balance.
     sig {
@@ -1970,9 +1970,9 @@ module Stripe
 
     # Retrieves a PaymentMethod's Balance.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodBalance)
+      params(id: String, params: T.any(::Stripe::PaymentMethodCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodBalance)
      }
-    def self.check_balance(payment_method, params = {}, opts = {}); end
+    def self.check_balance(id, params = {}, opts = {}); end
 
     # Creates a PaymentMethod object. Read the [Stripe.js reference](https://docs.stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
     #
@@ -1990,9 +1990,9 @@ module Stripe
 
     # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
+      params(id: String, params: T.any(::Stripe::PaymentMethodDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
-    def self.detach(payment_method, params = {}, opts = {}); end
+    def self.detach(id, params = {}, opts = {}); end
 
     # Returns a list of all PaymentMethods.
     sig {
@@ -2002,8 +2002,8 @@ module Stripe
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::PaymentMethodUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
+      params(id: String, params: T.any(::Stripe::PaymentMethodUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
-    def self.update(payment_method, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

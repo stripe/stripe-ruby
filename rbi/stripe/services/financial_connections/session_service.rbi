@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves the details of a Financial Connections Session
       sig {
-        params(session: String, params: T.any(::Stripe::FinancialConnections::SessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Session)
+        params(id: String, params: T.any(::Stripe::FinancialConnections::SessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Session)
        }
-      def retrieve(session, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

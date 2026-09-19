@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves the details of a Financial Connections Institution.
       sig {
-        params(institution: String, params: T.any(::Stripe::FinancialConnections::InstitutionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Institution)
+        params(id: String, params: T.any(::Stripe::FinancialConnections::InstitutionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Institution)
        }
-      def retrieve(institution, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

@@ -19,14 +19,14 @@ module Stripe
 
     # Retrieve a payment link.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
+      params(id: String, params: T.any(::Stripe::PaymentLinkRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
      }
-    def retrieve(payment_link, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates a payment link.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
+      params(id: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
      }
-    def update(payment_link, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

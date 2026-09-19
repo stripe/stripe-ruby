@@ -4,10 +4,10 @@
 module Stripe
   class QuoteLineItemService < StripeService
     # When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    def list(quote, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/line_items", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/line_items", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

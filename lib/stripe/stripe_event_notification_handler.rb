@@ -982,6 +982,22 @@ module Stripe
       register("v2.billing.contract.canceled", &callback)
     end
 
+    def on_v2_billing_contract_collection_blocked(&callback)
+      register("v2.billing.contract.collection_blocked", &callback)
+    end
+
+    def on_v2_billing_contract_collection_current(&callback)
+      register("v2.billing.contract.collection_current", &callback)
+    end
+
+    def on_v2_billing_contract_collection_past_due(&callback)
+      register("v2.billing.contract.collection_past_due", &callback)
+    end
+
+    def on_v2_billing_contract_collection_unpaid(&callback)
+      register("v2.billing.contract.collection_unpaid", &callback)
+    end
+
     def on_v2_billing_contract_created(&callback)
       register("v2.billing.contract.created", &callback)
     end
@@ -1442,6 +1458,26 @@ module Stripe
       register("v2.core.health.webhook_latency.resolved", &callback)
     end
 
+    def on_v2_core_vault_network_token_activated(&callback)
+      register("v2.core.vault.network_token.activated", &callback)
+    end
+
+    def on_v2_core_vault_network_token_authorization_requirements_changed(&callback)
+      register("v2.core.vault.network_token.authorization_requirements_changed", &callback)
+    end
+
+    def on_v2_core_vault_network_token_deactivated(&callback)
+      register("v2.core.vault.network_token.deactivated", &callback)
+    end
+
+    def on_v2_core_vault_network_token_details_updated(&callback)
+      register("v2.core.vault.network_token.details_updated", &callback)
+    end
+
+    def on_v2_core_vault_network_token_suspended(&callback)
+      register("v2.core.vault.network_token.suspended", &callback)
+    end
+
     def on_v2_data_reporting_query_run_created(&callback)
       register("v2.data.reporting.query_run.created", &callback)
     end
@@ -1544,6 +1580,18 @@ module Stripe
 
     def on_v2_money_management_financial_account_updated(&callback)
       register("v2.money_management.financial_account.updated", &callback)
+    end
+
+    def on_v2_money_management_financial_account_wallet_export_completed(&callback)
+      register("v2.money_management.financial_account.wallet_export.completed", &callback)
+    end
+
+    def on_v2_money_management_financial_account_wallet_export_pending(&callback)
+      register("v2.money_management.financial_account.wallet_export.pending", &callback)
+    end
+
+    def on_v2_money_management_financial_account_wallet_export_ready(&callback)
+      register("v2.money_management.financial_account.wallet_export.ready", &callback)
     end
 
     def on_v2_money_management_financial_account_statement_created(&callback)

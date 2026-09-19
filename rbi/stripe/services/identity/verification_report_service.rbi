@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves an existing VerificationReport
       sig {
-        params(report: String, params: T.any(::Stripe::Identity::VerificationReportRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationReport)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationReportRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationReport)
        }
-      def retrieve(report, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

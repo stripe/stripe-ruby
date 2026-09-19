@@ -5,10 +5,10 @@ module Stripe
   module TestHelpers
     class CustomerService < StripeService
       # Create an incoming testmode bank transfer
-      def fund_cash_balance(customer, params = {}, opts = {})
+      def fund_cash_balance(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/test_helpers/customers/%<customer>s/fund_cash_balance", { customer: CGI.escape(customer) }),
+          path: format("/v1/test_helpers/customers/%<id>s/fund_cash_balance", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

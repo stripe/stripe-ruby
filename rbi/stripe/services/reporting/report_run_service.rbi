@@ -19,9 +19,9 @@ module Stripe
 
       # Retrieves the details of an existing Report Run.
       sig {
-        params(report_run: String, params: T.any(::Stripe::Reporting::ReportRunRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reporting::ReportRun)
+        params(id: String, params: T.any(::Stripe::Reporting::ReportRunRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reporting::ReportRun)
        }
-      def retrieve(report_run, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

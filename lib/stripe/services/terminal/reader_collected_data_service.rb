@@ -5,10 +5,10 @@ module Stripe
   module Terminal
     class ReaderCollectedDataService < StripeService
       # Retrieve data collected using Reader hardware.
-      def retrieve(reader_collected_data, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/terminal/reader_collected_data/%<reader_collected_data>s", { reader_collected_data: CGI.escape(reader_collected_data) }),
+          path: format("/v1/terminal/reader_collected_data/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

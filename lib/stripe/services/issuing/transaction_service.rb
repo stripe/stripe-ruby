@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an Issuing Transaction object.
-      def retrieve(transaction, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/issuing/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def update(transaction, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/issuing/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

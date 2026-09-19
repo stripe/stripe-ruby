@@ -17,10 +17,10 @@ module Stripe
       end
 
       # Deletes a Location object.
-      def delete(location, params = {}, opts = {})
+      def delete(id, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/terminal/locations/%<location>s", { location: CGI.escape(location) }),
+          path: format("/v1/terminal/locations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -39,10 +39,10 @@ module Stripe
       end
 
       # Retrieves a Location object.
-      def retrieve(location, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/terminal/locations/%<location>s", { location: CGI.escape(location) }),
+          path: format("/v1/terminal/locations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -50,10 +50,10 @@ module Stripe
       end
 
       # Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def update(location, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/terminal/locations/%<location>s", { location: CGI.escape(location) }),
+          path: format("/v1/terminal/locations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

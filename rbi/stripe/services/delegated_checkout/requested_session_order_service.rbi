@@ -7,9 +7,9 @@ module Stripe
     class RequestedSessionOrderService < StripeService
       # Lists orders for a delegated checkout requested session.
       sig {
-        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionOrderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionOrderListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
-      def list(requested_session, params = {}, opts = {}); end
+      def list(id, params = {}, opts = {}); end
     end
   end
 end

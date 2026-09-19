@@ -39,7 +39,7 @@ module Stripe
           params(_account_subcategories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def account_subcategories=(_account_subcategories); end
-        # List of countries from which to collect accounts.
+        # List of countries from which to filter accounts.
         sig { returns(T.nilable(T::Array[String])) }
         def countries; end
         sig { params(_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }

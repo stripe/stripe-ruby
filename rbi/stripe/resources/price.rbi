@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   # Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-  # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+  # [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
   #
   # For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
   #
@@ -290,8 +290,8 @@ module Stripe
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
     sig {
-      params(price: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
+      params(id: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
      }
-    def self.update(price, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

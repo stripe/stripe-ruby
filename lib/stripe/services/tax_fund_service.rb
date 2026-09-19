@@ -9,10 +9,10 @@ module Stripe
     end
 
     # Retrieves a tax fund object by its ID.
-    def retrieve(tax_fund, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tax_funds/%<tax_fund>s", { tax_fund: CGI.escape(tax_fund) }),
+        path: format("/v1/tax_funds/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

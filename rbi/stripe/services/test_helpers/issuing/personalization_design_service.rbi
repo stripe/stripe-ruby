@@ -8,21 +8,21 @@ module Stripe
       class PersonalizationDesignService < StripeService
         # Updates the status of the specified testmode personalization design object to active.
         sig {
-          params(personalization_design: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
+          params(id: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
          }
-        def activate(personalization_design, params = {}, opts = {}); end
+        def activate(id, params = {}, opts = {}); end
 
         # Updates the status of the specified testmode personalization design object to inactive.
         sig {
-          params(personalization_design: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
+          params(id: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignDeactivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
          }
-        def deactivate(personalization_design, params = {}, opts = {}); end
+        def deactivate(id, params = {}, opts = {}); end
 
         # Updates the status of the specified testmode personalization design object to rejected.
         sig {
-          params(personalization_design: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
+          params(id: String, params: T.any(::Stripe::TestHelpers::Issuing::PersonalizationDesignRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
          }
-        def reject(personalization_design, params = {}, opts = {}); end
+        def reject(id, params = {}, opts = {}); end
       end
     end
   end

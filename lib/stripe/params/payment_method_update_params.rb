@@ -89,21 +89,6 @@ module Stripe
       end
     end
 
-    class Payto < ::Stripe::RequestParams
-      # The account number for the bank account.
-      attr_accessor :account_number
-      # Bank-State-Branch number of the bank account.
-      attr_accessor :bsb_number
-      # The PayID alias for the bank account.
-      attr_accessor :pay_id
-
-      def initialize(account_number: nil, bsb_number: nil, pay_id: nil)
-        @account_number = account_number
-        @bsb_number = bsb_number
-        @pay_id = pay_id
-      end
-    end
-
     class UsBankAccount < ::Stripe::RequestParams
       # Bank account holder type.
       attr_accessor :account_holder_type
@@ -127,8 +112,6 @@ module Stripe
     attr_accessor :expand
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
-    # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-    attr_accessor :payto
     # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     attr_accessor :us_bank_account
 
@@ -139,7 +122,6 @@ module Stripe
       custom: nil,
       expand: nil,
       metadata: nil,
-      payto: nil,
       us_bank_account: nil
     )
       @allow_redisplay = allow_redisplay
@@ -148,7 +130,6 @@ module Stripe
       @custom = custom
       @expand = expand
       @metadata = metadata
-      @payto = payto
       @us_bank_account = us_bank_account
     end
   end

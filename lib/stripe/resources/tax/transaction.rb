@@ -256,17 +256,17 @@ module Stripe
       def list_line_items(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s/line_items", { transaction: CGI.escape(self["id"]) }),
+          path: format("/v1/tax/transactions/%<id>s/line_items", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Retrieves the line items of a committed standalone transaction as a collection.
-      def self.list_line_items(transaction, params = {}, opts = {})
+      def self.list_line_items(id, params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s/line_items", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/tax/transactions/%<id>s/line_items", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

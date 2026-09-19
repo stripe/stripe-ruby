@@ -104,10 +104,10 @@ module Stripe
         end
         class Verification < ::Stripe::StripeObject
           class Document < ::Stripe::StripeObject
-            # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def back; end
-            # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def front; end
             def self.inner_class_types
@@ -289,9 +289,9 @@ module Stripe
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(cardholder: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
+        params(id: String, params: T.any(::Stripe::Issuing::CardholderUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Cardholder)
        }
-      def self.update(cardholder, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

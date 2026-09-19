@@ -19,15 +19,15 @@ module Stripe
 
       # Retrieves a personalization design object.
       sig {
-        params(personalization_design: String, params: T.any(::Stripe::Issuing::PersonalizationDesignRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
+        params(id: String, params: T.any(::Stripe::Issuing::PersonalizationDesignRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
        }
-      def retrieve(personalization_design, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a card personalization object.
       sig {
-        params(personalization_design: String, params: T.any(::Stripe::Issuing::PersonalizationDesignUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
+        params(id: String, params: T.any(::Stripe::Issuing::PersonalizationDesignUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::PersonalizationDesign)
        }
-      def update(personalization_design, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

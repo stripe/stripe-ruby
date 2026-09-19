@@ -4,10 +4,10 @@
 module Stripe
   class SubscriptionScheduleService < StripeService
     # Amends an existing subscription schedule.
-    def amend(schedule, params = {}, opts = {})
+    def amend(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s/amend", { schedule: CGI.escape(schedule) }),
+        path: format("/v1/subscription_schedules/%<id>s/amend", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
-    def cancel(schedule, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s/cancel", { schedule: CGI.escape(schedule) }),
+        path: format("/v1/subscription_schedules/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -52,10 +52,10 @@ module Stripe
     end
 
     # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
-    def release(schedule, params = {}, opts = {})
+    def release(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s/release", { schedule: CGI.escape(schedule) }),
+        path: format("/v1/subscription_schedules/%<id>s/release", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -63,10 +63,10 @@ module Stripe
     end
 
     # Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
-    def retrieve(schedule, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/subscription_schedules/%<schedule>s", { schedule: CGI.escape(schedule) }),
+        path: format("/v1/subscription_schedules/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -74,7 +74,7 @@ module Stripe
     end
 
     # Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
-    def serialize_batch_cancel(schedule, params = {}, opts = {})
+    def serialize_batch_cancel(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -83,7 +83,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { schedule: schedule }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -103,7 +103,7 @@ module Stripe
     end
 
     # Serializes a SubscriptionSchedule release request into a batch job JSONL line.
-    def serialize_batch_release(schedule, params = {}, opts = {})
+    def serialize_batch_release(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -112,13 +112,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { schedule: schedule }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
-    def serialize_batch_update(schedule, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -127,20 +127,20 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { schedule: schedule }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates an existing subscription schedule.
-    def update(schedule, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       unless params.is_a?(Stripe::RequestParams)
         params = ::Stripe::SubscriptionScheduleUpdateParams.coerce_params(params)
       end
 
       request(
         method: :post,
-        path: format("/v1/subscription_schedules/%<schedule>s", { schedule: CGI.escape(schedule) }),
+        path: format("/v1/subscription_schedules/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

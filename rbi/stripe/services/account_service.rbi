@@ -28,9 +28,9 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def delete(account, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
     sig {
@@ -42,15 +42,15 @@ module Stripe
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def reject(account, params = {}, opts = {}); end
+    def reject(id, params = {}, opts = {}); end
 
     # Retrieves the details of an account.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def retrieve(account, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Retrieves the details of an account.
     sig {
@@ -64,15 +64,15 @@ module Stripe
 
     # Serializes an Account delete request into a batch job JSONL line.
     sig {
-      params(account: String, params: ::Stripe::AccountDeleteParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::AccountDeleteParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete(account, params = {}, opts = {}); end
+    def serialize_batch_delete(id, params = {}, opts = {}); end
 
     # Serializes an Account update request into a batch job JSONL line.
     sig {
-      params(account: String, params: ::Stripe::AccountUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::AccountUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(account, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # With Connect, you can unreject accounts that you have previously rejected.
     #
@@ -80,9 +80,9 @@ module Stripe
     #
     # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def unreject(account, params = {}, opts = {}); end
+    def unreject(id, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
@@ -98,8 +98,8 @@ module Stripe
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def update(account, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

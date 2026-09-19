@@ -19,15 +19,15 @@ module Stripe
 
       # Retrieves a configuration that describes the functionality of the customer portal.
       sig {
-        params(configuration: String, params: T.any(::Stripe::BillingPortal::ConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
+        params(id: String, params: T.any(::Stripe::BillingPortal::ConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
        }
-      def retrieve(configuration, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a configuration that describes the functionality of the customer portal.
       sig {
-        params(configuration: String, params: T.any(::Stripe::BillingPortal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
+        params(id: String, params: T.any(::Stripe::BillingPortal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::BillingPortal::Configuration)
        }
-      def update(configuration, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

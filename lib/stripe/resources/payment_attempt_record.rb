@@ -678,6 +678,8 @@ module Stripe
         attr_reader :network_token
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         attr_reader :network_transaction_id
+        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
@@ -2421,17 +2423,17 @@ module Stripe
     def report_authenticated(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authenticated", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_authenticated", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record was authenticated.
-    def self.report_authenticated(payment_attempt_record, params = {}, opts = {})
+    def self.report_authenticated(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authenticated", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_authenticated", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2441,17 +2443,17 @@ module Stripe
     def report_authorized(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authorized", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_authorized", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record was authorized.
-    def self.report_authorized(payment_attempt_record, params = {}, opts = {})
+    def self.report_authorized(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_authorized", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_authorized", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2461,17 +2463,17 @@ module Stripe
     def report_canceled(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_canceled", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_canceled", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record was canceled.
-    def self.report_canceled(payment_attempt_record, params = {}, opts = {})
+    def self.report_canceled(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_canceled", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_canceled", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2481,17 +2483,17 @@ module Stripe
     def report_early_fraud_warning(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_early_fraud_warning", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_early_fraud_warning", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record received an early fraud warning.
-    def self.report_early_fraud_warning(payment_attempt_record, params = {}, opts = {})
+    def self.report_early_fraud_warning(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_early_fraud_warning", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_early_fraud_warning", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2501,17 +2503,17 @@ module Stripe
     def report_failed(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_failed", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_failed", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record failed.
-    def self.report_failed(payment_attempt_record, params = {}, opts = {})
+    def self.report_failed(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_failed", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_failed", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2521,17 +2523,17 @@ module Stripe
     def report_guaranteed(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_guaranteed", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_guaranteed", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record was guaranteed.
-    def self.report_guaranteed(payment_attempt_record, params = {}, opts = {})
+    def self.report_guaranteed(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_guaranteed", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_guaranteed", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2541,17 +2543,17 @@ module Stripe
     def report_informational(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_informational", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_informational", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report informational updates on the specified Payment Attempt Record.
-    def self.report_informational(payment_attempt_record, params = {}, opts = {})
+    def self.report_informational(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_informational", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_informational", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2561,17 +2563,17 @@ module Stripe
     def report_refund(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_refund", { payment_attempt_record: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_refund", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Report that the specified Payment Attempt Record was refunded.
-    def self.report_refund(payment_attempt_record, params = {}, opts = {})
+    def self.report_refund(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_attempt_records/%<payment_attempt_record>s/report_refund", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+        path: format("/v1/payment_attempt_records/%<id>s/report_refund", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

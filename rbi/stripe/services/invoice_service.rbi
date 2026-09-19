@@ -7,9 +7,9 @@ module Stripe
     attr_reader :line_items
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceAddLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceAddLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def add_lines(invoice, params = {}, opts = {}); end
+    def add_lines(id, params = {}, opts = {}); end
 
     # Attaches a PaymentIntent or an Out of Band Payment to the invoice, adding it to the list of payments.
     #
@@ -22,9 +22,9 @@ module Stripe
     #
     # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceAttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceAttachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def attach_payment(invoice, params = {}, opts = {}); end
+    def attach_payment(id, params = {}, opts = {}); end
 
     # This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](/api/invoices/pay) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/finalize) the invoice to your customers.
     sig {
@@ -48,21 +48,21 @@ module Stripe
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def delete(invoice, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # Detaches a payment from the invoice, removing it from the list of payments
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceDetachPaymentParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def detach_payment(invoice, params = {}, opts = {}); end
+    def detach_payment(id, params = {}, opts = {}); end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceFinalizeInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceFinalizeInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def finalize_invoice(invoice, params = {}, opts = {}); end
+    def finalize_invoice(id, params = {}, opts = {}); end
 
     # You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
     sig {
@@ -72,27 +72,27 @@ module Stripe
 
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceMarkUncollectibleParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceMarkUncollectibleParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def mark_uncollectible(invoice, params = {}, opts = {}); end
+    def mark_uncollectible(id, params = {}, opts = {}); end
 
     # Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoicePayParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoicePayParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def pay(invoice, params = {}, opts = {}); end
+    def pay(id, params = {}, opts = {}); end
 
     # Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceRemoveLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceRemoveLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def remove_lines(invoice, params = {}, opts = {}); end
+    def remove_lines(id, params = {}, opts = {}); end
 
     # Retrieves the invoice with the given ID.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def retrieve(invoice, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for invoices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -107,15 +107,15 @@ module Stripe
     #
     # Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceSendInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceSendInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def send_invoice(invoice, params = {}, opts = {}); end
+    def send_invoice(id, params = {}, opts = {}); end
 
     # Serializes an Invoice add_lines request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceAddLinesParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceAddLinesParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_add_lines(invoice, params = {}, opts = {}); end
+    def serialize_batch_add_lines(id, params = {}, opts = {}); end
 
     # Serializes an Invoice create request into a batch job JSONL line.
     sig { params(params: ::Stripe::InvoiceCreateParams, opts: T.untyped).returns(String) }
@@ -127,57 +127,55 @@ module Stripe
 
     # Serializes an Invoice delete request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceDeleteParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceDeleteParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete(invoice, params = {}, opts = {}); end
+    def serialize_batch_delete(id, params = {}, opts = {}); end
 
     # Serializes an Invoice finalize_invoice request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceFinalizeInvoiceParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceFinalizeInvoiceParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_finalize_invoice(invoice, params = {}, opts = {}); end
+    def serialize_batch_finalize_invoice(id, params = {}, opts = {}); end
 
     # Serializes an Invoice mark_uncollectible request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceMarkUncollectibleParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceMarkUncollectibleParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_mark_uncollectible(invoice, params = {}, opts = {}); end
+    def serialize_batch_mark_uncollectible(id, params = {}, opts = {}); end
 
     # Serializes an Invoice pay request into a batch job JSONL line.
-    sig {
-      params(invoice: String, params: ::Stripe::InvoicePayParams, opts: T.untyped).returns(String)
-     }
-    def serialize_batch_pay(invoice, params = {}, opts = {}); end
+    sig { params(id: String, params: ::Stripe::InvoicePayParams, opts: T.untyped).returns(String) }
+    def serialize_batch_pay(id, params = {}, opts = {}); end
 
     # Serializes an Invoice remove_lines request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceRemoveLinesParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceRemoveLinesParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_remove_lines(invoice, params = {}, opts = {}); end
+    def serialize_batch_remove_lines(id, params = {}, opts = {}); end
 
     # Serializes an Invoice send_invoice request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceSendInvoiceParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceSendInvoiceParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_send_invoice(invoice, params = {}, opts = {}); end
+    def serialize_batch_send_invoice(id, params = {}, opts = {}); end
 
     # Serializes an Invoice update request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(invoice, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Serializes an Invoice update_lines request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceUpdateLinesParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceUpdateLinesParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update_lines(invoice, params = {}, opts = {}); end
+    def serialize_batch_update_lines(id, params = {}, opts = {}); end
 
     # Serializes an Invoice void_invoice request into a batch job JSONL line.
     sig {
-      params(invoice: String, params: ::Stripe::InvoiceVoidInvoiceParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::InvoiceVoidInvoiceParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_void_invoice(invoice, params = {}, opts = {}); end
+    def serialize_batch_void_invoice(id, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
     # you can no longer change most of its details, including monetary values and collection_method. For most invoices,
@@ -187,22 +185,22 @@ module Stripe
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def update(invoice, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceUpdateLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceUpdateLinesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def update_lines(invoice, params = {}, opts = {}); end
+    def update_lines(id, params = {}, opts = {}); end
 
     # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
     # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="/api/credit_notes/create">credit note](https://docs.stripe.com/api/invoices/create) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
     sig {
-      params(invoice: String, params: T.any(::Stripe::InvoiceVoidInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
+      params(id: String, params: T.any(::Stripe::InvoiceVoidInvoiceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Invoice)
      }
-    def void_invoice(invoice, params = {}, opts = {}); end
+    def void_invoice(id, params = {}, opts = {}); end
   end
 end

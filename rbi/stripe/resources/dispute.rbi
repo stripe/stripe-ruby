@@ -15,7 +15,7 @@ module Stripe
           # The reason for filing the appeal.
           sig { returns(T.nilable(String)) }
           def reason_for_filing; end
-          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
           sig { returns(T.nilable(T::Array[String])) }
           def supporting_files; end
           def self.inner_class_types
@@ -559,9 +559,9 @@ module Stripe
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
     sig {
-      params(dispute: String, params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
+      params(id: String, params: T.any(::Stripe::DisputeCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
      }
-    def self.close(dispute, params = {}, opts = {}); end
+    def self.close(id, params = {}, opts = {}); end
 
     # Returns a list of your disputes.
     sig {
@@ -573,8 +573,8 @@ module Stripe
     #
     # Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
     sig {
-      params(dispute: String, params: T.any(::Stripe::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
+      params(id: String, params: T.any(::Stripe::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Dispute)
      }
-    def self.update(dispute, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Returns the shipping rate object with the given ID.
-    def retrieve(shipping_rate_token, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/shipping_rates/%<shipping_rate_token>s", { shipping_rate_token: CGI.escape(shipping_rate_token) }),
+        path: format("/v1/shipping_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Updates an existing shipping rate object.
-    def update(shipping_rate_token, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/shipping_rates/%<shipping_rate_token>s", { shipping_rate_token: CGI.escape(shipping_rate_token) }),
+        path: format("/v1/shipping_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

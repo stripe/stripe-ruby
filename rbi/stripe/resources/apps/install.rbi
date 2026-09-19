@@ -25,10 +25,10 @@ module Stripe
       end
       class ContentSecurityPolicyGranted < ::Stripe::StripeObject
         # Attribute for field connect_src
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T::Array[String]) }
         def connect_src; end
         # Attribute for field image_src
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T::Array[String]) }
         def image_src; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -39,10 +39,10 @@ module Stripe
       end
       class ContentSecurityPolicyPending < ::Stripe::StripeObject
         # Attribute for field connect_src
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T::Array[String]) }
         def connect_src; end
         # Attribute for field image_src
-        sig { returns(T.nilable(T::Array[String])) }
+        sig { returns(T::Array[String]) }
         def image_src; end
         def self.inner_class_types
           @inner_class_types = {}

@@ -1174,9 +1174,9 @@ module Stripe
 
     # Amends an existing subscription schedule.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def self.amend(schedule, params = {}, opts = {}); end
+    def self.amend(id, params = {}, opts = {}); end
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     sig {
@@ -1186,9 +1186,9 @@ module Stripe
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def self.cancel(schedule, params = {}, opts = {}); end
+    def self.cancel(id, params = {}, opts = {}); end
 
     # Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
     sig {
@@ -1210,14 +1210,14 @@ module Stripe
 
     # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleReleaseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleReleaseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def self.release(schedule, params = {}, opts = {}); end
+    def self.release(id, params = {}, opts = {}); end
 
     # Updates an existing subscription schedule.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def self.update(schedule, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

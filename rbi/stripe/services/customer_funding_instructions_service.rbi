@@ -8,14 +8,14 @@ module Stripe
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerFundingInstructionsCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
+      params(id: String, params: T.any(::Stripe::CustomerFundingInstructionsCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
      }
-    def create(customer, params = {}, opts = {}); end
+    def create(id, params = {}, opts = {}); end
 
     # Serializes a CustomerFundingInstructions create request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerFundingInstructionsCreateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerFundingInstructionsCreateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_create_funding_instructions(customer, params = {}, opts = {}); end
+    def serialize_batch_create_funding_instructions(id, params = {}, opts = {}); end
   end
 end

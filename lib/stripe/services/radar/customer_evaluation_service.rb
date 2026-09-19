@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an CustomerEvaluation object.
-      def retrieve(customer_evaluation, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/radar/customer_evaluations/%<customer_evaluation>s", { customer_evaluation: CGI.escape(customer_evaluation) }),
+          path: format("/v1/radar/customer_evaluations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Reports an event on a CustomerEvaluation object.
-      def update(customer_evaluation, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/radar/customer_evaluations/%<customer_evaluation>s/report", { customer_evaluation: CGI.escape(customer_evaluation) }),
+          path: format("/v1/radar/customer_evaluations/%<id>s/report", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

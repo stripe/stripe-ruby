@@ -64,10 +64,10 @@ module Stripe
             end
           end
           class Clabe < ::Stripe::StripeObject
-            # Attribute for field account_holder_name
+            # The name of the account holder.
             sig { returns(String) }
             def account_holder_name; end
-            # Attribute for field clabe
+            # The CLABE interbank code.
             sig { returns(String) }
             def clabe; end
             def self.inner_class_types
@@ -78,22 +78,22 @@ module Stripe
             end
           end
           class Cpa < ::Stripe::StripeObject
-            # Attribute for field account_holder_name
+            # The name of the account holder.
             sig { returns(String) }
             def account_holder_name; end
-            # Attribute for field account_number
+            # The full account number.
             sig { returns(T.nilable(String)) }
             def account_number; end
-            # Attribute for field bank_name
+            # The name of the bank.
             sig { returns(String) }
             def bank_name; end
-            # Attribute for field institution_number
+            # The institution number.
             sig { returns(String) }
             def institution_number; end
-            # Attribute for field last4
+            # The last four digits of the account number.
             sig { returns(String) }
             def last4; end
-            # Attribute for field transit_number
+            # The transit number.
             sig { returns(String) }
             def transit_number; end
             def self.inner_class_types
@@ -149,13 +149,13 @@ module Stripe
           # ABA bank account details (US).
           sig { returns(T.nilable(Aba)) }
           def aba; end
-          # Attribute for field clabe
+          # CLABE bank account details (Mexico).
           sig { returns(T.nilable(Clabe)) }
           def clabe; end
           # The country of the bank account.
           sig { returns(T.nilable(String)) }
           def country; end
-          # Attribute for field cpa
+          # CPA bank account details (Canada).
           sig { returns(T.nilable(Cpa)) }
           def cpa; end
           # Open Enum. The currency of the bank account.
@@ -178,13 +178,13 @@ module Stripe
           end
         end
         class CryptoWallet < ::Stripe::StripeObject
-          # Attribute for field address
+          # The blockchain wallet address.
           sig { returns(String) }
           def address; end
-          # Attribute for field memo
+          # An optional memo or tag required by some networks to identify the recipient.
           sig { returns(T.nilable(String)) }
           def memo; end
-          # Attribute for field network
+          # Open Enum. The blockchain network of the crypto wallet.
           sig { returns(String) }
           def network; end
           def self.inner_class_types
@@ -200,7 +200,7 @@ module Stripe
         # The creation timestamp of the FinancialAddress.
         sig { returns(String) }
         def created; end
-        # Attribute for field crypto_wallet
+        # Crypto wallet details for this FinancialAddress.
         sig { returns(T.nilable(CryptoWallet)) }
         def crypto_wallet; end
         # The ID of the FinancialAccount this FinancialAddress corresponds to.
@@ -215,7 +215,7 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
-        # Attribute for field settlement_currency
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
         sig { returns(T.nilable(String)) }
         def settlement_currency; end
         # Closed Enum. The status of the FinancialAddress.

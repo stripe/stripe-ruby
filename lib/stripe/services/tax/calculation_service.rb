@@ -23,10 +23,10 @@ module Stripe
       end
 
       # Retrieves a Tax Calculation object, if the calculation hasn't expired.
-      def retrieve(calculation, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/tax/calculations/%<calculation>s", { calculation: CGI.escape(calculation) }),
+          path: format("/v1/tax/calculations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

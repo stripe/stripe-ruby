@@ -8,9 +8,9 @@ module Stripe
       attr_reader :line_items
       # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def approve(session, params = {}, opts = {}); end
+      def approve(id, params = {}, opts = {}); end
 
       # Creates a Checkout Session object.
       sig {
@@ -22,9 +22,9 @@ module Stripe
       #
       # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def expire(session, params = {}, opts = {}); end
+      def expire(id, params = {}, opts = {}); end
 
       # Returns a list of Checkout Sessions.
       sig {
@@ -34,17 +34,17 @@ module Stripe
 
       # Retrieves a Checkout Session object.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def retrieve(session, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a Checkout Session object.
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def update(session, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

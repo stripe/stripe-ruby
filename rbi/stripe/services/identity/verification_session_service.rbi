@@ -9,9 +9,9 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def cancel(session, params = {}, opts = {}); end
+      def cancel(id, params = {}, opts = {}); end
 
       # Creates a VerificationSession object.
       #
@@ -51,27 +51,27 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def redact(session, params = {}, opts = {}); end
+      def redact(id, params = {}, opts = {}); end
 
       # Retrieves the details of a VerificationSession that was previously created.
       #
       # When the session status is requires_input, you can use this method to retrieve a valid
       # client_secret or url to allow re-submission.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def retrieve(session, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a VerificationSession object.
       #
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def update(session, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

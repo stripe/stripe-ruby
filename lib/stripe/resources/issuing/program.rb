@@ -48,10 +48,10 @@ module Stripe
       end
 
       # Updates a Program object.
-      def self.update(program, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/programs/%<program>s", { program: CGI.escape(program) }),
+          path: format("/v1/issuing/programs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

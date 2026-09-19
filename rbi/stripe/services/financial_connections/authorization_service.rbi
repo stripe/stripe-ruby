@@ -7,9 +7,9 @@ module Stripe
     class AuthorizationService < StripeService
       # Retrieves the details of a Financial Connections Authorization.
       sig {
-        params(authorization: String, params: T.any(::Stripe::FinancialConnections::AuthorizationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Authorization)
+        params(id: String, params: T.any(::Stripe::FinancialConnections::AuthorizationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Authorization)
        }
-      def retrieve(authorization, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

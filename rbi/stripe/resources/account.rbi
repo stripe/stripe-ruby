@@ -169,6 +169,9 @@ module Stripe
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       sig { returns(T.nilable(String)) }
       def blik_payments; end
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      sig { returns(T.nilable(String)) }
+      def blik_recurring_payments; end
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       sig { returns(T.nilable(String)) }
       def boleto_payments; end
@@ -581,7 +584,7 @@ module Stripe
       end
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def back; end
           # A user-displayable string describing the verification state of this document.
@@ -590,7 +593,7 @@ module Stripe
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           sig { returns(T.nilable(String)) }
           def details_code; end
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def front; end
           def self.inner_class_types
@@ -1052,6 +1055,20 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Capital < ::Stripe::StripeObject
+        # The payout destinations allowed for Capital financing payouts.
+        sig { returns(T.nilable(T::Array[String])) }
+        def allowed_payout_destinations; end
+        # The payout destinations excluded from Capital financing payouts.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payout_destinations; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class CardIssuing < ::Stripe::StripeObject
         class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -1380,6 +1397,9 @@ module Stripe
       # Attribute for field branding
       sig { returns(Branding) }
       def branding; end
+      # Attribute for field capital
+      sig { returns(T.nilable(Capital)) }
+      def capital; end
       # Attribute for field card_issuing
       sig { returns(T.nilable(CardIssuing)) }
       def card_issuing; end
@@ -1421,6 +1441,7 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
+          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,
@@ -1560,9 +1581,9 @@ module Stripe
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def self.delete(account, params = {}, opts = {}); end
+    def self.delete(id, params = {}, opts = {}); end
 
     # With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
     #
@@ -1590,9 +1611,9 @@ module Stripe
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::AccountPersonsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.persons(account, params = {}, opts = {}); end
+    def self.persons(id, params = {}, opts = {}); end
 
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
@@ -1606,15 +1627,15 @@ module Stripe
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountRejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def self.reject(account, params = {}, opts = {}); end
+    def self.reject(id, params = {}, opts = {}); end
 
     # Retrieves the account's Signal objects
     sig {
-      params(account_id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
+      params(id: String, params: T.any(::Stripe::AccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
-    def self.retrieve_signal(account_id, params = {}, opts = {}); end
+    def self.retrieve_signal(id, params = {}, opts = {}); end
 
     # With Connect, you can unreject accounts that you have previously rejected.
     #
@@ -1632,9 +1653,9 @@ module Stripe
     #
     # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountUnrejectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def self.unreject(account, params = {}, opts = {}); end
+    def self.unreject(id, params = {}, opts = {}); end
 
     # Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
     # left unchanged.
@@ -1650,8 +1671,8 @@ module Stripe
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
+      params(id: String, params: T.any(::Stripe::AccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Account)
      }
-    def self.update(account, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -8,9 +8,9 @@ module Stripe
     #
     # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
+      params(id: String, params: T.any(::Stripe::SetupIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
-    def cancel(intent, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # Confirm that your customer intends to set up the current or
     # provided payment method. For example, you would confirm a SetupIntent
@@ -27,9 +27,9 @@ module Stripe
     # requires_payment_method status or the canceled status if the
     # confirmation limit is reached.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
+      params(id: String, params: T.any(::Stripe::SetupIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
-    def confirm(intent, params = {}, opts = {}); end
+    def confirm(id, params = {}, opts = {}); end
 
     # Creates a SetupIntent object.
     #
@@ -52,20 +52,20 @@ module Stripe
     #
     # When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
+      params(id: String, params: T.any(::Stripe::SetupIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
-    def retrieve(intent, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates a SetupIntent object.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
+      params(id: String, params: T.any(::Stripe::SetupIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
-    def update(intent, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
 
     # Verifies microdeposits on a SetupIntent object.
     sig {
-      params(intent: String, params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
+      params(id: String, params: T.any(::Stripe::SetupIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SetupIntent)
      }
-    def verify_microdeposits(intent, params = {}, opts = {}); end
+    def verify_microdeposits(id, params = {}, opts = {}); end
   end
 end

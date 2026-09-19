@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves the details of a Financial Connections Transaction
-      def retrieve(transaction, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/financial_connections/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/financial_connections/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

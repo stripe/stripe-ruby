@@ -4,10 +4,10 @@
 module Stripe
   class QuoteLineService < StripeService
     # Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
-    def list(quote, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/quotes/%<quote>s/lines", { quote: CGI.escape(quote) }),
+        path: format("/v1/quotes/%<id>s/lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

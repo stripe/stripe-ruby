@@ -13,7 +13,7 @@ module Stripe
       end
 
       class Classification < ::Stripe::StripeObject
-        class Credit < ::Stripe::StripeObject
+        class FinancialActivity < ::Stripe::StripeObject
           # Stripe's confidence in this classification.
           attr_reader :confidence_level
           # The detailed category label for this transaction.
@@ -63,8 +63,8 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Attribute for field credit
-        attr_reader :credit
+        # Attribute for field financial_activity
+        attr_reader :financial_activity
         # Attribute for field money_movement
         attr_reader :money_movement
         # Attribute for field personal_finance
@@ -74,7 +74,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
-            credit: Credit,
+            financial_activity: FinancialActivity,
             money_movement: MoneyMovement,
             personal_finance: PersonalFinance,
           }

@@ -18,9 +18,9 @@ module Stripe
 
     # Retrieves a tax rate with the given ID
     sig {
-      params(tax_rate: String, params: T.any(::Stripe::TaxRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
+      params(id: String, params: T.any(::Stripe::TaxRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
      }
-    def retrieve(tax_rate, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a TaxRate create request into a batch job JSONL line.
     sig { params(params: ::Stripe::TaxRateCreateParams, opts: T.untyped).returns(String) }
@@ -28,14 +28,14 @@ module Stripe
 
     # Serializes a TaxRate update request into a batch job JSONL line.
     sig {
-      params(tax_rate: String, params: ::Stripe::TaxRateUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::TaxRateUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(tax_rate, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates an existing tax rate.
     sig {
-      params(tax_rate: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
+      params(id: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
      }
-    def update(tax_rate, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

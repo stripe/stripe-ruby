@@ -489,6 +489,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Custom < ::Stripe::StripeObject
+            # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Link < ::Stripe::StripeObject
             # Unique, encrypted bank account identifier.
             sig { returns(T.nilable(String)) }
@@ -548,6 +559,9 @@ module Stripe
           # Attribute for field card
           sig { returns(T.nilable(Card)) }
           def card; end
+          # Attribute for field custom
+          sig { returns(T.nilable(Custom)) }
+          def custom; end
           # Attribute for field link
           sig { returns(T.nilable(Link)) }
           def link; end
@@ -569,6 +583,7 @@ module Stripe
               bacs_debit: BacsDebit,
               boleto: Boleto,
               card: Card,
+              custom: Custom,
               link: Link,
               pix: Pix,
               sepa_debit: SepaDebit,
@@ -1117,7 +1132,7 @@ module Stripe
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         sig { returns(String) }
         def key; end
-        # Details on the subscription for this item.
+        # Attribute for field subscription
         sig { returns(T.nilable(Subscription)) }
         def subscription; end
         # The type of the item.
@@ -2816,7 +2831,7 @@ module Stripe
             # The amount discounted.
             sig { returns(Integer) }
             def amount; end
-            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -3181,6 +3196,9 @@ module Stripe
       # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
       def payment_record; end
+      # The ID of the Payment Reservation for this Checkout Session.
+      sig { returns(T.nilable(String)) }
+      def payment_reservation; end
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }
@@ -3265,9 +3283,9 @@ module Stripe
 
       # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionApproveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def self.approve(session, params = {}, opts = {}); end
+      def self.approve(id, params = {}, opts = {}); end
 
       # Creates a Checkout Session object.
       sig {
@@ -3287,9 +3305,9 @@ module Stripe
       #
       # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def self.expire(session, params = {}, opts = {}); end
+      def self.expire(id, params = {}, opts = {}); end
 
       # Returns a list of Checkout Sessions.
       sig {
@@ -3305,17 +3323,17 @@ module Stripe
 
       # When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
-      def self.list_line_items(session, params = {}, opts = {}); end
+      def self.list_line_items(id, params = {}, opts = {}); end
 
       # Updates a Checkout Session object.
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
       sig {
-        params(session: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
+        params(id: String, params: T.any(::Stripe::Checkout::SessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Checkout::Session)
        }
-      def self.update(session, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

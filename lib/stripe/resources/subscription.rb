@@ -829,6 +829,8 @@ module Stripe
     class PendingUpdate < ::Stripe::StripeObject
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      attr_reader :cancel_at_period_end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       attr_reader :discount
       # The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.
@@ -1088,17 +1090,17 @@ module Stripe
     def attach_cadence(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s/attach_cadence", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    def self.attach_cadence(subscription, params = {}, opts = {})
+    def self.attach_cadence(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/attach_cadence", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1112,7 +1114,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1123,10 +1125,10 @@ module Stripe
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
-    def self.cancel(subscription_exposed_id, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1147,17 +1149,17 @@ module Stripe
     def delete_discount(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s/discount", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Removes the currently applied discount on a subscription.
-    def self.delete_discount(subscription_exposed_id, params = {}, opts = {})
+    def self.delete_discount(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s/discount", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1172,17 +1174,17 @@ module Stripe
     def migrate(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s/migrate", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Upgrade the billing_mode of an existing subscription.
-    def self.migrate(subscription, params = {}, opts = {})
+    def self.migrate(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/migrate", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1192,17 +1194,17 @@ module Stripe
     def pause(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s/pause", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    def self.pause(subscription, params = {}, opts = {})
+    def self.pause(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/pause", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1212,17 +1214,17 @@ module Stripe
     def resume(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/resume", { subscription: CGI.escape(self["id"]) }),
+        path: format("/v1/subscriptions/%<id>s/resume", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
-    def self.resume(subscription, params = {}, opts = {})
+    def self.resume(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/resume", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/resume", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1262,10 +1264,10 @@ module Stripe
     # If you don't want to prorate, set the proration_behavior option to none. With this option, the customer is billed 100 on May 1 and 200 on June 1. Similarly, if you set proration_behavior to none when switching between different billing intervals (for example, from monthly to yearly), we don't generate any credits for the old subscription's unused time. We still reset the billing date and bill immediately for the new subscription.
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
-    def self.update(subscription_exposed_id, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

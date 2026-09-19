@@ -14,9 +14,9 @@ module Stripe
 
       # Deletes a Location object.
       sig {
-        params(location: String, params: T.any(::Stripe::Terminal::LocationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
+        params(id: String, params: T.any(::Stripe::Terminal::LocationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
        }
-      def delete(location, params = {}, opts = {}); end
+      def delete(id, params = {}, opts = {}); end
 
       # Returns a list of Location objects.
       sig {
@@ -26,15 +26,15 @@ module Stripe
 
       # Retrieves a Location object.
       sig {
-        params(location: String, params: T.any(::Stripe::Terminal::LocationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
+        params(id: String, params: T.any(::Stripe::Terminal::LocationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
        }
-      def retrieve(location, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(location: String, params: T.any(::Stripe::Terminal::LocationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
+        params(id: String, params: T.any(::Stripe::Terminal::LocationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Location)
        }
-      def update(location, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

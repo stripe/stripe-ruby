@@ -5,10 +5,10 @@ module Stripe
   module Tax
     class TransactionLineItemService < StripeService
       # Retrieves the line items of a committed standalone transaction as a collection.
-      def list(transaction, params = {}, opts = {})
+      def list(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s/line_items", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/tax/transactions/%<id>s/line_items", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

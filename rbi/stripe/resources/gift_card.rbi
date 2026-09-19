@@ -40,9 +40,9 @@ module Stripe
 
     # Activates a third-party gift card and optionally sets its balance.
     sig {
-      params(gift_card: String, params: T.any(::Stripe::GiftCardActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
+      params(id: String, params: T.any(::Stripe::GiftCardActivateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
      }
-    def self.activate(gift_card, params = {}, opts = {}); end
+    def self.activate(id, params = {}, opts = {}); end
 
     # Cashout a third-party gift card by zeroing its balance.
     sig {
@@ -52,9 +52,9 @@ module Stripe
 
     # Cashout a third-party gift card by zeroing its balance.
     sig {
-      params(gift_card: String, params: T.any(::Stripe::GiftCardCashoutParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
+      params(id: String, params: T.any(::Stripe::GiftCardCashoutParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
      }
-    def self.cashout(gift_card, params = {}, opts = {}); end
+    def self.cashout(id, params = {}, opts = {}); end
 
     # Checks the balance of a third-party gift card.
     sig {
@@ -64,9 +64,9 @@ module Stripe
 
     # Checks the balance of a third-party gift card.
     sig {
-      params(gift_card: String, params: T.any(::Stripe::GiftCardCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
+      params(id: String, params: T.any(::Stripe::GiftCardCheckBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
      }
-    def self.check_balance(gift_card, params = {}, opts = {}); end
+    def self.check_balance(id, params = {}, opts = {}); end
 
     # Creates a gift card object.
     sig {
@@ -82,9 +82,9 @@ module Stripe
 
     # Reloads a third-party gift card by adding the specified amount to its balance.
     sig {
-      params(gift_card: String, params: T.any(::Stripe::GiftCardReloadParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
+      params(id: String, params: T.any(::Stripe::GiftCardReloadParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
      }
-    def self.reload(gift_card, params = {}, opts = {}); end
+    def self.reload(id, params = {}, opts = {}); end
 
     # Voids a previously performed gift card operation.
     sig {
@@ -94,8 +94,8 @@ module Stripe
 
     # Voids a previously performed gift card operation.
     sig {
-      params(gift_card: String, params: T.any(::Stripe::GiftCardVoidOperationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
+      params(id: String, params: T.any(::Stripe::GiftCardVoidOperationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::GiftCardOperation)
      }
-    def self.void_operation(gift_card, params = {}, opts = {}); end
+    def self.void_operation(id, params = {}, opts = {}); end
   end
 end

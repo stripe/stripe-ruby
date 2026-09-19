@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an existing VerificationReport
-      def retrieve(report, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/identity/verification_reports/%<report>s", { report: CGI.escape(report) }),
+          path: format("/v1/identity/verification_reports/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

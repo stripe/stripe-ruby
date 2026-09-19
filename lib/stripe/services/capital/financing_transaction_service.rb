@@ -17,10 +17,10 @@ module Stripe
       end
 
       # Retrieves a financing transaction for a financing offer.
-      def retrieve(financing_transaction, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/capital/financing_transactions/%<financing_transaction>s", { financing_transaction: CGI.escape(financing_transaction) }),
+          path: format("/v1/capital/financing_transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

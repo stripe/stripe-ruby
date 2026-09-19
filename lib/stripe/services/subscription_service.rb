@@ -4,10 +4,10 @@
 module Stripe
   class SubscriptionService < StripeService
     # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-    def attach_cadence(subscription, params = {}, opts = {})
+    def attach_cadence(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/attach_cadence", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/attach_cadence", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -19,10 +19,10 @@ module Stripe
     # Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to false.
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
-    def cancel(subscription_exposed_id, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -49,10 +49,10 @@ module Stripe
     end
 
     # Removes the currently applied discount on a subscription.
-    def delete_discount(subscription_exposed_id, params = {}, opts = {})
+    def delete_discount(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s/discount", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s/discount", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -71,10 +71,10 @@ module Stripe
     end
 
     # Upgrade the billing_mode of an existing subscription.
-    def migrate(subscription, params = {}, opts = {})
+    def migrate(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/migrate", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/migrate", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -82,10 +82,10 @@ module Stripe
     end
 
     # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-    def pause(subscription, params = {}, opts = {})
+    def pause(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/pause", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -93,10 +93,10 @@ module Stripe
     end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
-    def resume(subscription, params = {}, opts = {})
+    def resume(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription>s/resume", { subscription: CGI.escape(subscription) }),
+        path: format("/v1/subscriptions/%<id>s/resume", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -104,10 +104,10 @@ module Stripe
     end
 
     # Retrieves the subscription with the given ID.
-    def retrieve(subscription_exposed_id, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -129,7 +129,7 @@ module Stripe
     end
 
     # Serializes a Subscription cancel request into a batch job JSONL line.
-    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {})
+    def serialize_batch_cancel(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -138,7 +138,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -158,7 +158,7 @@ module Stripe
     end
 
     # Serializes a Subscription migrate request into a batch job JSONL line.
-    def serialize_batch_migrate(subscription, params = {}, opts = {})
+    def serialize_batch_migrate(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -167,13 +167,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { subscription: subscription }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Subscription pause request into a batch job JSONL line.
-    def serialize_batch_pause(subscription, params = {}, opts = {})
+    def serialize_batch_pause(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -182,13 +182,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { subscription: subscription }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Subscription resume request into a batch job JSONL line.
-    def serialize_batch_resume(subscription, params = {}, opts = {})
+    def serialize_batch_resume(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -197,13 +197,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { subscription: subscription }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Subscription update request into a batch job JSONL line.
-    def serialize_batch_update(subscription_exposed_id, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -212,7 +212,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { subscription_exposed_id: subscription_exposed_id }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -238,12 +238,12 @@ module Stripe
     # If you don't want to prorate, set the proration_behavior option to none. With this option, the customer is billed 100 on May 1 and 200 on June 1. Similarly, if you set proration_behavior to none when switching between different billing intervals (for example, from monthly to yearly), we don't generate any credits for the old subscription's unused time. We still reset the billing date and bill immediately for the new subscription.
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
-    def update(subscription_exposed_id, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       params = ::Stripe::SubscriptionUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
-        path: format("/v1/subscriptions/%<subscription_exposed_id>s", { subscription_exposed_id: CGI.escape(subscription_exposed_id) }),
+        path: format("/v1/subscriptions/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -6,9 +6,9 @@ module Stripe
   class PayoutService < StripeService
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def cancel(payout, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
     #
@@ -28,22 +28,22 @@ module Stripe
 
     # Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def retrieve(payout, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def reverse(payout, params = {}, opts = {}); end
+    def reverse(id, params = {}, opts = {}); end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def update(payout, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

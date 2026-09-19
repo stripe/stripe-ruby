@@ -479,10 +479,10 @@ module Stripe
     # so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
     # item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
     # Updating an invoice's line item is only possible before the invoice is finalized.
-    def self.update(invoice, line_item_id, params = {}, opts = {})
+    def self.update(invoice_id, id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/lines/%<line_item_id>s", { invoice: CGI.escape(invoice), line_item_id: CGI.escape(line_item_id) }),
+        path: format("/v1/invoices/%<invoice_id>s/lines/%<id>s", { invoice_id: CGI.escape(invoice_id), id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

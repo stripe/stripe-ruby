@@ -9,10 +9,10 @@ module Stripe
     end
 
     # Retrieves a Mandate object.
-    def retrieve(mandate, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/mandates/%<mandate>s", { mandate: CGI.escape(mandate) }),
+        path: format("/v1/mandates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

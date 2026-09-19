@@ -6,10 +6,10 @@ module Stripe
     # Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
-    def create(customer, params = {}, opts = {})
+    def create(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/customers/%<customer>s/funding_instructions", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/funding_instructions", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -17,7 +17,7 @@ module Stripe
     end
 
     # Serializes a CustomerFundingInstructions create request into a batch job JSONL line.
-    def serialize_batch_create_funding_instructions(customer, params = {}, opts = {})
+    def serialize_batch_create_funding_instructions(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -26,7 +26,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end

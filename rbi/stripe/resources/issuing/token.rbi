@@ -40,16 +40,16 @@ module Stripe
           end
         end
         class Mastercard < ::Stripe::StripeObject
-          # A unique reference ID from MasterCard to represent the card account number.
+          # A unique reference ID from Mastercard to represent the card account number.
           sig { returns(T.nilable(String)) }
           def card_reference_id; end
           # The network-unique identifier for the token.
           sig { returns(String) }
           def token_reference_id; end
-          # The ID of the entity requesting tokenization, specific to MasterCard.
+          # The ID of the entity requesting tokenization, specific to Mastercard.
           sig { returns(String) }
           def token_requestor_id; end
-          # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
+          # The name of the entity requesting tokenization, if known. This is directly provided from Mastercard.
           sig { returns(T.nilable(String)) }
           def token_requestor_name; end
           def self.inner_class_types
@@ -211,9 +211,9 @@ module Stripe
 
       # Attempts to update the specified Issuing Token object to the status specified.
       sig {
-        params(token: String, params: T.any(::Stripe::Issuing::TokenUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Token)
+        params(id: String, params: T.any(::Stripe::Issuing::TokenUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Token)
        }
-      def self.update(token, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

@@ -7,9 +7,9 @@ module Stripe
     attr_reader :amount_details_line_items
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentApplyCustomerBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def apply_customer_balance(intent, params = {}, opts = {}); end
+    def apply_customer_balance(id, params = {}, opts = {}); end
 
     # You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
     #
@@ -17,9 +17,9 @@ module Stripe
     #
     # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def cancel(intent, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
     #
@@ -27,9 +27,9 @@ module Stripe
     #
     # Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def capture(intent, params = {}, opts = {}); end
+    def capture(id, params = {}, opts = {}); end
 
     # Confirm that your customer intends to pay with current or provided
     # payment method. Upon confirmation, the PaymentIntent will attempt to initiate
@@ -62,9 +62,9 @@ module Stripe
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def confirm(intent, params = {}, opts = {}); end
+    def confirm(id, params = {}, opts = {}); end
 
     # Creates a PaymentIntent object.
     #
@@ -98,9 +98,9 @@ module Stripe
     # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
     # After it's fully captured, a PaymentIntent can no longer be decremented.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentDecrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentDecrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def decrement_authorization(intent, params = {}, opts = {}); end
+    def decrement_authorization(id, params = {}, opts = {}); end
 
     # Perform an incremental authorization on an eligible
     # [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
@@ -129,9 +129,9 @@ module Stripe
     # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
     # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentIncrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentIncrementAuthorizationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def increment_authorization(intent, params = {}, opts = {}); end
+    def increment_authorization(id, params = {}, opts = {}); end
 
     # Returns a list of PaymentIntents.
     sig {
@@ -148,9 +148,9 @@ module Stripe
     # This is useful for retail and ecommerce scenarios with delayed shipments where
     # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentReauthorizeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentReauthorizeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def reauthorize(intent, params = {}, opts = {}); end
+    def reauthorize(id, params = {}, opts = {}); end
 
     # Retrieves the details of a PaymentIntent that has previously been created.
     #
@@ -158,9 +158,9 @@ module Stripe
     #
     # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api/payment_intents/object) object reference for more details.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def retrieve(intent, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -173,9 +173,9 @@ module Stripe
 
     # Trigger an external action on a PaymentIntent.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentTriggerActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentTriggerActionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def trigger_action(intent, params = {}, opts = {}); end
+    def trigger_action(id, params = {}, opts = {}); end
 
     # Updates properties on a PaymentIntent object without confirming.
     #
@@ -185,20 +185,20 @@ module Stripe
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def update(intent, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
 
     # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentUpdateCryptoRefundAddressParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentUpdateCryptoRefundAddressParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def update_crypto_refund_address(intent, params = {}, opts = {}); end
+    def update_crypto_refund_address(id, params = {}, opts = {}); end
 
     # Verifies microdeposits on a PaymentIntent object.
     sig {
-      params(intent: String, params: T.any(::Stripe::PaymentIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
+      params(id: String, params: T.any(::Stripe::PaymentIntentVerifyMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentIntent)
      }
-    def verify_microdeposits(intent, params = {}, opts = {}); end
+    def verify_microdeposits(id, params = {}, opts = {}); end
   end
 end

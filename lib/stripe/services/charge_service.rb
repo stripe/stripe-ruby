@@ -4,10 +4,10 @@
 module Stripe
   class ChargeService < StripeService
     # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
-    def capture(charge, params = {}, opts = {})
+    def capture(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/charges/%<charge>s/capture", { charge: CGI.escape(charge) }),
+        path: format("/v1/charges/%<id>s/capture", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -25,10 +25,10 @@ module Stripe
     end
 
     # Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
-    def retrieve(charge, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
+        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -50,10 +50,10 @@ module Stripe
     end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    def update(charge, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
+        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -6,27 +6,27 @@ module Stripe
   class AccountExternalAccountService < StripeService
     # Create an external account for a given account.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountExternalAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
+      params(id: String, params: T.any(::Stripe::AccountExternalAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
      }
-    def create(account, params = {}, opts = {}); end
+    def create(id, params = {}, opts = {}); end
 
     # Delete a specified external account for a given account.
     sig {
-      params(account: String, id: String, params: T.any(::Stripe::AccountExternalAccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
+      params(account_id: String, id: String, params: T.any(::Stripe::AccountExternalAccountDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
      }
-    def delete(account, id, params = {}, opts = {}); end
+    def delete(account_id, id, params = {}, opts = {}); end
 
     # List external accounts for an account.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountExternalAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::AccountExternalAccountListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def list(account, params = {}, opts = {}); end
+    def list(id, params = {}, opts = {}); end
 
     # Retrieve a specified external account for a given account.
     sig {
-      params(account: String, id: String, params: T.any(::Stripe::AccountExternalAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
+      params(account_id: String, id: String, params: T.any(::Stripe::AccountExternalAccountRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
      }
-    def retrieve(account, id, params = {}, opts = {}); end
+    def retrieve(account_id, id, params = {}, opts = {}); end
 
     # Updates the metadata, account holder name, account holder type of a bank account belonging to
     # a connected account and optionally sets it as the default for its currency. Other bank account
@@ -37,8 +37,8 @@ module Stripe
     # You can re-enable a disabled bank account by performing an update call without providing any
     # arguments or changes.
     sig {
-      params(account: String, id: String, params: T.any(::Stripe::AccountExternalAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
+      params(account_id: String, id: String, params: T.any(::Stripe::AccountExternalAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::BankAccount, ::Stripe::Card))
      }
-    def update(account, id, params = {}, opts = {}); end
+    def update(account_id, id, params = {}, opts = {}); end
   end
 end

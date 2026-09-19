@@ -250,6 +250,9 @@ module Stripe
               # The address to send forwarded payouts to.
               sig { returns(T.nilable(String)) }
               def payout_method; end
+              # Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
+              sig { returns(T.nilable(T::Boolean)) }
+              def skip_exportable_balances; end
               def self.inner_class_types
                 @inner_class_types = {}
               end
@@ -281,6 +284,23 @@ module Stripe
           end
         end
         class Storage < ::Stripe::StripeObject
+          class Crypto < ::Stripe::StripeObject
+            # The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+            sig { returns(T::Hash[String, String]) }
+            def currency_networks; end
+            # Describes who controls the private keys for the crypto storage.
+            sig { returns(String) }
+            def custody_model; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+          sig { returns(T.nilable(Crypto)) }
+          def crypto; end
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end
@@ -288,7 +308,7 @@ module Stripe
           sig { returns(T::Array[String]) }
           def holds_currencies; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {crypto: Crypto}
           end
           def self.field_remappings
             @field_remappings = {}

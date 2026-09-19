@@ -7,9 +7,9 @@ module Stripe
     class CustomerService < StripeService
       # Create an incoming testmode bank transfer
       sig {
-        params(customer: String, params: T.any(::Stripe::TestHelpers::CustomerFundCashBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerCashBalanceTransaction)
+        params(id: String, params: T.any(::Stripe::TestHelpers::CustomerFundCashBalanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerCashBalanceTransaction)
        }
-      def fund_cash_balance(customer, params = {}, opts = {}); end
+      def fund_cash_balance(id, params = {}, opts = {}); end
     end
   end
 end

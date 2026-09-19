@@ -764,9 +764,9 @@ module Stripe
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
+        params(id: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
        }
-      def self.update(transaction, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

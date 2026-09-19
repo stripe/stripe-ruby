@@ -748,10 +748,10 @@ module Stripe
       end
 
       # Deletes a Configuration object.
-      def self.delete(configuration, params = {}, opts = {})
+      def self.delete(id, params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -761,7 +761,7 @@ module Stripe
       def delete(params = {}, opts = {})
         request_stripe_object(
           method: :delete,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(self["id"]) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -778,10 +778,10 @@ module Stripe
       end
 
       # Updates a new Configuration object.
-      def self.update(configuration, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/terminal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/terminal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

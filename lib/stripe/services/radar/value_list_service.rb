@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
-      def delete(value_list, params = {}, opts = {})
+      def delete(id, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
+          path: format("/v1/radar/value_lists/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Retrieves a ValueList object.
-      def retrieve(value_list, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
+          path: format("/v1/radar/value_lists/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -49,10 +49,10 @@ module Stripe
       end
 
       # Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
-      def update(value_list, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/radar/value_lists/%<value_list>s", { value_list: CGI.escape(value_list) }),
+          path: format("/v1/radar/value_lists/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

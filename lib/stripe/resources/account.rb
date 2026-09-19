@@ -160,6 +160,8 @@ module Stripe
       attr_reader :bizum_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      attr_reader :blik_recurring_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       attr_reader :boleto_payments
       # The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
@@ -492,13 +494,13 @@ module Stripe
 
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :back
           # A user-displayable string describing the verification state of this document.
           attr_reader :details
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           attr_reader :details_code
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :front
 
           def self.inner_class_types
@@ -939,6 +941,21 @@ module Stripe
         end
       end
 
+      class Capital < ::Stripe::StripeObject
+        # The payout destinations allowed for Capital financing payouts.
+        attr_reader :allowed_payout_destinations
+        # The payout destinations excluded from Capital financing payouts.
+        attr_reader :excluded_payout_destinations
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class CardIssuing < ::Stripe::StripeObject
         class TosAcceptance < ::Stripe::StripeObject
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -1269,6 +1286,8 @@ module Stripe
       attr_reader :bank_bca_onboarding
       # Attribute for field branding
       attr_reader :branding
+      # Attribute for field capital
+      attr_reader :capital
       # Attribute for field card_issuing
       attr_reader :card_issuing
       # Attribute for field card_payments
@@ -1299,6 +1318,7 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
+          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,
@@ -1411,10 +1431,10 @@ module Stripe
     # Live-mode accounts that have access to the standard dashboard and Stripe is responsible for negative account balances cannot be deleted, which includes Standard accounts. All other Live-mode accounts, can be deleted when all [balances](https://docs.stripe.com/api/balance/balance_object) are zero.
     #
     # If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
-    def self.delete(account, params = {}, opts = {})
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1430,7 +1450,7 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(self["id"]) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1445,17 +1465,17 @@ module Stripe
     def persons(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(self["id"]) }),
+        path: format("/v1/accounts/%<id>s/persons", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
-    def self.persons(account, params = {}, opts = {})
+    def self.persons(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/accounts/%<account>s/persons", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/persons", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1467,7 +1487,7 @@ module Stripe
     def reject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(self["id"]) }),
+        path: format("/v1/accounts/%<id>s/reject", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1476,20 +1496,20 @@ module Stripe
     # With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
     #
     # Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
-    def self.reject(account, params = {}, opts = {})
+    def self.reject(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<account>s/reject", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/reject", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves the account's Signal objects
-    def self.retrieve_signal(account_id, params = {}, opts = {})
+    def self.retrieve_signal(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/accounts/%<account_id>s/signals", { account_id: CGI.escape(account_id) }),
+        path: format("/v1/accounts/%<id>s/signals", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1503,7 +1523,7 @@ module Stripe
     def unreject(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(self["id"]) }),
+        path: format("/v1/accounts/%<id>s/unreject", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1514,10 +1534,10 @@ module Stripe
     # Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
     #
     # Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
-    def self.unreject(account, params = {}, opts = {})
+    def self.unreject(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<account>s/unreject", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s/unreject", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1536,10 +1556,10 @@ module Stripe
     #
     # To update your own account, use the [Dashboard](https://dashboard.stripe.com/settings/account). Refer to our
     # [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
-    def self.update(account, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/accounts/%<account>s", { account: CGI.escape(account) }),
+        path: format("/v1/accounts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -18,10 +18,10 @@ module Stripe
       # Retrieves the details of an early fraud warning that has previously been created.
       #
       # Please refer to the [early fraud warning](https://docs.stripe.com/api#early_fraud_warning_object) object reference for more details.
-      def retrieve(early_fraud_warning, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/radar/early_fraud_warnings/%<early_fraud_warning>s", { early_fraud_warning: CGI.escape(early_fraud_warning) }),
+          path: format("/v1/radar/early_fraud_warnings/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

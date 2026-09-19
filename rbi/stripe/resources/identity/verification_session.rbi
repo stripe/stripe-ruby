@@ -318,9 +318,9 @@ module Stripe
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def self.cancel(session, params = {}, opts = {}); end
+      def self.cancel(id, params = {}, opts = {}); end
 
       # Creates a VerificationSession object.
       #
@@ -384,18 +384,18 @@ module Stripe
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionRedactParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def self.redact(session, params = {}, opts = {}); end
+      def self.redact(id, params = {}, opts = {}); end
 
       # Updates a VerificationSession object.
       #
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
       sig {
-        params(session: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
+        params(id: String, params: T.any(::Stripe::Identity::VerificationSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Identity::VerificationSession)
        }
-      def self.update(session, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

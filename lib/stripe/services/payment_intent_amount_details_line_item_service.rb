@@ -4,10 +4,10 @@
 module Stripe
   class PaymentIntentAmountDetailsLineItemService < StripeService
     # Lists all LineItems of a given PaymentIntent.
-    def list(intent, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_intents/%<intent>s/amount_details_line_items", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/amount_details_line_items", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

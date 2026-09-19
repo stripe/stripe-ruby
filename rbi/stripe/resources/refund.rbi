@@ -710,9 +710,9 @@ module Stripe
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
+      params(id: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
-    def self.cancel(refund, params = {}, opts = {}); end
+    def self.cancel(id, params = {}, opts = {}); end
 
     # When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
     #
@@ -740,8 +740,8 @@ module Stripe
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
+      params(id: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
-    def self.update(refund, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

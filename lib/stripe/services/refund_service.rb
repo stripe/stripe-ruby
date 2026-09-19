@@ -6,10 +6,10 @@ module Stripe
     # Cancels a refund with a status of requires_action.
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
-    def cancel(refund, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
+        path: format("/v1/refunds/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Retrieves the details of an existing refund.
-    def retrieve(refund, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
+        path: format("/v1/refunds/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -48,7 +48,7 @@ module Stripe
     end
 
     # Serializes a Refund cancel request into a batch job JSONL line.
-    def serialize_batch_cancel(refund, params = {}, opts = {})
+    def serialize_batch_cancel(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -57,7 +57,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { refund: refund }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -79,10 +79,10 @@ module Stripe
     # Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
     #
     # This request only accepts metadata as an argument.
-    def update(refund, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
+        path: format("/v1/refunds/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

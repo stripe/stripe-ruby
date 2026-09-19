@@ -12,10 +12,10 @@ module Stripe
       end
 
       # Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
-      def approve(session, params = {}, opts = {})
+      def approve(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/checkout/sessions/%<session>s/approve", { session: CGI.escape(session) }),
+          path: format("/v1/checkout/sessions/%<id>s/approve", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -40,10 +40,10 @@ module Stripe
       # A Checkout Session can be expired when it is in one of these statuses: open
       #
       # After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
-      def expire(session, params = {}, opts = {})
+      def expire(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/checkout/sessions/%<session>s/expire", { session: CGI.escape(session) }),
+          path: format("/v1/checkout/sessions/%<id>s/expire", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -62,10 +62,10 @@ module Stripe
       end
 
       # Retrieves a Checkout Session object.
-      def retrieve(session, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),
+          path: format("/v1/checkout/sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -75,14 +75,14 @@ module Stripe
       # Updates a Checkout Session object.
       #
       # Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
-      def update(session, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         unless params.is_a?(Stripe::RequestParams)
           params = ::Stripe::Checkout::SessionUpdateParams.coerce_params(params)
         end
 
         request(
           method: :post,
-          path: format("/v1/checkout/sessions/%<session>s", { session: CGI.escape(session) }),
+          path: format("/v1/checkout/sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

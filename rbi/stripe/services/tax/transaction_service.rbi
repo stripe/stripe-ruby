@@ -20,9 +20,9 @@ module Stripe
 
       # Retrieves a Tax Transaction object.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Tax::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Transaction)
+        params(id: String, params: T.any(::Stripe::Tax::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Transaction)
        }
-      def retrieve(transaction, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Serializes a Transaction create_reversal request into a batch job JSONL line.
       sig {

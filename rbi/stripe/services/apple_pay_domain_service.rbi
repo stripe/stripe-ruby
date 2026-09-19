@@ -12,9 +12,9 @@ module Stripe
 
     # Delete an apple pay domain.
     sig {
-      params(domain: String, params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
+      params(id: String, params: T.any(::Stripe::ApplePayDomainDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
      }
-    def delete(domain, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # List apple pay domains.
     sig {
@@ -24,8 +24,8 @@ module Stripe
 
     # Retrieve an apple pay domain.
     sig {
-      params(domain: String, params: T.any(::Stripe::ApplePayDomainRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
+      params(id: String, params: T.any(::Stripe::ApplePayDomainRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplePayDomain)
      }
-    def retrieve(domain, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

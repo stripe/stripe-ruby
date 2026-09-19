@@ -755,9 +755,9 @@ module Stripe
 
       # Deletes a Configuration object.
       sig {
-        params(configuration: String, params: T.any(::Stripe::Terminal::ConfigurationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
+        params(id: String, params: T.any(::Stripe::Terminal::ConfigurationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
        }
-      def self.delete(configuration, params = {}, opts = {}); end
+      def self.delete(id, params = {}, opts = {}); end
 
       # Deletes a Configuration object.
       sig {
@@ -773,9 +773,9 @@ module Stripe
 
       # Updates a new Configuration object.
       sig {
-        params(configuration: String, params: T.any(::Stripe::Terminal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
+        params(id: String, params: T.any(::Stripe::Terminal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
        }
-      def self.update(configuration, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

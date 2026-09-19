@@ -166,9 +166,9 @@ module Stripe
 
       # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
+        params(id: String, params: T.any(::Stripe::Treasury::FinancialAccountCloseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
-      def self.close(financial_account, params = {}, opts = {}); end
+      def self.close(id, params = {}, opts = {}); end
 
       # Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
       sig {
@@ -190,15 +190,15 @@ module Stripe
 
       # Retrieves Features information associated with the FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
+        params(id: String, params: T.any(::Stripe::Treasury::FinancialAccountRetrieveFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
-      def self.retrieve_features(financial_account, params = {}, opts = {}); end
+      def self.retrieve_features(id, params = {}, opts = {}); end
 
       # Updates the details of a FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
+        params(id: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccount)
        }
-      def self.update(financial_account, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
 
       # Updates the Features associated with a FinancialAccount.
       sig {
@@ -208,9 +208,9 @@ module Stripe
 
       # Updates the Features associated with a FinancialAccount.
       sig {
-        params(financial_account: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
+        params(id: String, params: T.any(::Stripe::Treasury::FinancialAccountUpdateFeaturesParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::FinancialAccountFeatures)
        }
-      def self.update_features(financial_account, params = {}, opts = {}); end
+      def self.update_features(id, params = {}, opts = {}); end
     end
   end
 end

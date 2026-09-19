@@ -322,9 +322,9 @@ module Stripe
 
       # Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
       sig {
-        params(calculation: String, params: T.any(::Stripe::Tax::CalculationListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+        params(id: String, params: T.any(::Stripe::Tax::CalculationListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
-      def self.list_line_items(calculation, params = {}, opts = {}); end
+      def self.list_line_items(id, params = {}, opts = {}); end
     end
   end
 end

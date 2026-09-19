@@ -86,17 +86,17 @@ module Stripe
     def approve(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(self["id"]) }),
+        path: format("/v1/reviews/%<id>s/approve", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Approves a Review object, closing it and removing it from the list of reviews.
-    def self.approve(review, params = {}, opts = {})
+    def self.approve(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(review) }),
+        path: format("/v1/reviews/%<id>s/approve", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

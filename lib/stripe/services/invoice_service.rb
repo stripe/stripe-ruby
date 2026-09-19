@@ -11,12 +11,12 @@ module Stripe
     end
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
-    def add_lines(invoice, params = {}, opts = {})
+    def add_lines(id, params = {}, opts = {})
       params = ::Stripe::InvoiceAddLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/add_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -33,10 +33,10 @@ module Stripe
     # credited to the invoice immediately.
     #
     # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
-    def attach_payment(invoice, params = {}, opts = {})
+    def attach_payment(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/attach_payment", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -70,10 +70,10 @@ module Stripe
     end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
-    def delete(invoice, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -81,10 +81,10 @@ module Stripe
     end
 
     # Detaches a payment from the invoice, removing it from the list of payments
-    def detach_payment(invoice, params = {}, opts = {})
+    def detach_payment(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/detach_payment", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -92,10 +92,10 @@ module Stripe
     end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
-    def finalize_invoice(invoice, params = {}, opts = {})
+    def finalize_invoice(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/finalize", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -108,10 +108,10 @@ module Stripe
     end
 
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
-    def mark_uncollectible(invoice, params = {}, opts = {})
+    def mark_uncollectible(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/mark_uncollectible", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -119,10 +119,10 @@ module Stripe
     end
 
     # Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
-    def pay(invoice, params = {}, opts = {})
+    def pay(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/pay", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -130,10 +130,10 @@ module Stripe
     end
 
     # Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
-    def remove_lines(invoice, params = {}, opts = {})
+    def remove_lines(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/remove_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/remove_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -141,10 +141,10 @@ module Stripe
     end
 
     # Retrieves the invoice with the given ID.
-    def retrieve(invoice, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -168,10 +168,10 @@ module Stripe
     # Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
     #
     # Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
-    def send_invoice(invoice, params = {}, opts = {})
+    def send_invoice(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/send", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -179,7 +179,7 @@ module Stripe
     end
 
     # Serializes an Invoice add_lines request into a batch job JSONL line.
-    def serialize_batch_add_lines(invoice, params = {}, opts = {})
+    def serialize_batch_add_lines(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -188,7 +188,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -222,7 +222,7 @@ module Stripe
     end
 
     # Serializes an Invoice delete request into a batch job JSONL line.
-    def serialize_batch_delete(invoice, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -231,13 +231,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice finalize_invoice request into a batch job JSONL line.
-    def serialize_batch_finalize_invoice(invoice, params = {}, opts = {})
+    def serialize_batch_finalize_invoice(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -246,13 +246,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice mark_uncollectible request into a batch job JSONL line.
-    def serialize_batch_mark_uncollectible(invoice, params = {}, opts = {})
+    def serialize_batch_mark_uncollectible(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -261,13 +261,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice pay request into a batch job JSONL line.
-    def serialize_batch_pay(invoice, params = {}, opts = {})
+    def serialize_batch_pay(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -276,13 +276,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice remove_lines request into a batch job JSONL line.
-    def serialize_batch_remove_lines(invoice, params = {}, opts = {})
+    def serialize_batch_remove_lines(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -291,13 +291,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice send_invoice request into a batch job JSONL line.
-    def serialize_batch_send_invoice(invoice, params = {}, opts = {})
+    def serialize_batch_send_invoice(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -306,13 +306,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice update request into a batch job JSONL line.
-    def serialize_batch_update(invoice, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -321,13 +321,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice update_lines request into a batch job JSONL line.
-    def serialize_batch_update_lines(invoice, params = {}, opts = {})
+    def serialize_batch_update_lines(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -336,13 +336,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an Invoice void_invoice request into a batch job JSONL line.
-    def serialize_batch_void_invoice(invoice, params = {}, opts = {})
+    def serialize_batch_void_invoice(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -351,7 +351,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoice: invoice }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -363,10 +363,10 @@ module Stripe
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
-    def update(invoice, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -374,12 +374,12 @@ module Stripe
     end
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
-    def update_lines(invoice, params = {}, opts = {})
+    def update_lines(id, params = {}, opts = {})
       params = ::Stripe::InvoiceUpdateLinesParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/update_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -389,10 +389,10 @@ module Stripe
     # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
     # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="/api/credit_notes/create">credit note](https://docs.stripe.com/api/invoices/create) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
-    def void_invoice(invoice, params = {}, opts = {})
+    def void_invoice(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/void", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -4,10 +4,10 @@
 module Stripe
   class CustomerCashBalanceTransactionService < StripeService
     # Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
-    def list(customer, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/cash_balance_transactions", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/cash_balance_transactions", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
-    def retrieve(customer, transaction, params = {}, opts = {})
+    def retrieve(customer_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/cash_balance_transactions/%<transaction>s", { customer: CGI.escape(customer), transaction: CGI.escape(transaction) }),
+        path: format("/v1/customers/%<customer_id>s/cash_balance_transactions/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

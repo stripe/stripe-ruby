@@ -4,10 +4,10 @@
 module Stripe
   class ConfirmationTokenService < StripeService
     # Retrieves an existing ConfirmationToken object
-    def retrieve(confirmation_token, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/confirmation_tokens/%<confirmation_token>s", { confirmation_token: CGI.escape(confirmation_token) }),
+        path: format("/v1/confirmation_tokens/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

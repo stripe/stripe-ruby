@@ -7,9 +7,9 @@ module Stripe
     class PaymentAttemptService < StripeService
       # Retrieves orchestration information for the given payment attempt record (e.g. return url).
       sig {
-        params(payment_attempt_record: String, params: T.any(::Stripe::Orchestration::PaymentAttemptRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Orchestration::PaymentAttempt)
+        params(id: String, params: T.any(::Stripe::Orchestration::PaymentAttemptRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Orchestration::PaymentAttempt)
        }
-      def retrieve(payment_attempt_record, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

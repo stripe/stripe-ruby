@@ -6,15 +6,15 @@ module Stripe
   class SubscriptionScheduleService < StripeService
     # Amends an existing subscription schedule.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleAmendParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def amend(schedule, params = {}, opts = {}); end
+    def amend(id, params = {}, opts = {}); end
 
     # Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def cancel(schedule, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
     sig {
@@ -30,21 +30,21 @@ module Stripe
 
     # Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleReleaseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleReleaseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def release(schedule, params = {}, opts = {}); end
+    def release(id, params = {}, opts = {}); end
 
     # Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def retrieve(schedule, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
     sig {
-      params(schedule: String, params: ::Stripe::SubscriptionScheduleCancelParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionScheduleCancelParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_cancel(schedule, params = {}, opts = {}); end
+    def serialize_batch_cancel(id, params = {}, opts = {}); end
 
     # Serializes a SubscriptionSchedule create request into a batch job JSONL line.
     sig {
@@ -54,20 +54,20 @@ module Stripe
 
     # Serializes a SubscriptionSchedule release request into a batch job JSONL line.
     sig {
-      params(schedule: String, params: ::Stripe::SubscriptionScheduleReleaseParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionScheduleReleaseParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_release(schedule, params = {}, opts = {}); end
+    def serialize_batch_release(id, params = {}, opts = {}); end
 
     # Serializes a SubscriptionSchedule update request into a batch job JSONL line.
     sig {
-      params(schedule: String, params: ::Stripe::SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionScheduleUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(schedule, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates an existing subscription schedule.
     sig {
-      params(schedule: String, params: T.any(::Stripe::SubscriptionScheduleUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
+      params(id: String, params: T.any(::Stripe::SubscriptionScheduleUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionSchedule)
      }
-    def update(schedule, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

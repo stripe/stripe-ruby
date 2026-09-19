@@ -91,8 +91,8 @@ module Stripe
 
     # Updates an existing tax rate.
     sig {
-      params(tax_rate: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
+      params(id: String, params: T.any(::Stripe::TaxRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxRate)
      }
-    def self.update(tax_rate, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

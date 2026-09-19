@@ -5,10 +5,10 @@ module Stripe
   module DelegatedCheckout
     class RequestedSessionOrderService < StripeService
       # Lists orders for a delegated checkout requested session.
-      def list(requested_session, params = {}, opts = {})
+      def list(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/orders", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/orders", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

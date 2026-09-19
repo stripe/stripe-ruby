@@ -124,10 +124,10 @@ module Stripe
     end
 
     # Updates an existing shipping rate object.
-    def self.update(shipping_rate_token, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/shipping_rates/%<shipping_rate_token>s", { shipping_rate_token: CGI.escape(shipping_rate_token) }),
+        path: format("/v1/shipping_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -12,6 +12,28 @@ module Stripe
   #
   # Related guide: [Receiving payouts](https://docs.stripe.com/payouts)
   class Payout < APIResource
+    class PayoutMethodOptions < ::Stripe::StripeObject
+      class FinancialAccount < ::Stripe::StripeObject
+        # The currency credited to the destination Financial Account.
+        sig { returns(T.nilable(String)) }
+        def destination_currency; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field financial_account
+      sig { returns(T.nilable(FinancialAccount)) }
+      def financial_account; end
+      def self.inner_class_types
+        @inner_class_types = {financial_account: FinancialAccount}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class TraceId < ::Stripe::StripeObject
       # Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
       sig { returns(String) }
@@ -86,6 +108,9 @@ module Stripe
     # ID of the v2 FinancialAccount the funds are sent to.
     sig { returns(T.nilable(String)) }
     def payout_method; end
+    # Attribute for field payout_method_options
+    sig { returns(T.nilable(PayoutMethodOptions)) }
+    def payout_method_options; end
     # If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     sig { returns(String) }
     def reconciliation_status; end
@@ -115,9 +140,9 @@ module Stripe
 
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def self.cancel(payout, params = {}, opts = {}); end
+    def self.cancel(id, params = {}, opts = {}); end
 
     # To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
     #
@@ -147,14 +172,14 @@ module Stripe
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutReverseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def self.reverse(payout, params = {}, opts = {}); end
+    def self.reverse(id, params = {}, opts = {}); end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
     sig {
-      params(payout: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
+      params(id: String, params: T.any(::Stripe::PayoutUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Payout)
      }
-    def self.update(payout, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

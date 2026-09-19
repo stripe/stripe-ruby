@@ -32,8 +32,22 @@ module Stripe
         end
       end
 
+      class RelatedSingletonObject
+        attr_reader :type, :url
+
+        def initialize(related_object)
+          @type = related_object[:type]
+          @url = related_object[:url]
+        end
+      end
+
       class EventNotification
         attr_reader :id, :object, :type, :created, :context, :livemode, :reason
+
+        # Overridden by generated subclasses if their related object is a singleton
+        private def related_object_class
+          RelatedObject
+        end
 
         def initialize(event_payload, client)
           @id = event_payload[:id]
@@ -46,7 +60,7 @@ module Stripe
             @context = StripeContext.parse(event_payload[:context])
           end
           # private unless a child declares an attr_reader
-          @related_object = RelatedObject.new(event_payload[:related_object]) if event_payload[:related_object]
+          @related_object = related_object_class.new(event_payload[:related_object]) if event_payload[:related_object]
 
           # internal use
           @client = client
@@ -54,9 +68,12 @@ module Stripe
 
         # Retrieves the Event that generated this EventNotification.
         def fetch_event
-          resp = @client.raw_request(:get, "/v2/core/events/#{id}", opts: { stripe_context: context,
-                                                                            "Stripe-Request-Trigger" => "event=#{id}", },
-                                                                    usage: ["fetch_event"])
+          # `id` comes from the notification body, so escape it the way generated
+          # services do -- otherwise it can inject extra path or query segments.
+          path = "/v2/core/events/#{CGI.escape(id)}"
+          resp = @client.raw_request(:get, path, opts: { stripe_context: context,
+                                                         "Stripe-Request-Trigger" => "event=#{id}", },
+                                                 usage: ["fetch_event"])
           @client.deserialize(resp.http_body, api_mode: :v2)
         end
       end

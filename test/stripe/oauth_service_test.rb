@@ -24,10 +24,21 @@ module Stripe
         assert_equal("/oauth/authorize", uri.path)
 
         assert_equal(["foo"], params["client_id"])
+        assert_equal(["code"], params["response_type"])
         assert_equal(["read_write"], params["scope"])
         assert_equal(["test@example.com"], params["stripe_user[email]"])
         assert_equal(["https://example.com/profile/test"], params["stripe_user[url]"])
         assert_equal(["US"], params["stripe_user[country]"])
+      end
+
+      should "preserve an explicit response type" do
+        client = Stripe::StripeClient.new("sk_test_fake_key", client_id: "foo")
+        uri_str = client.v1.oauth.authorize_url(response_type: "token")
+
+        uri = URI.parse(uri_str)
+        params = CGI.parse(uri.query)
+
+        assert_equal(["token"], params["response_type"])
       end
 
       should "optionally return an express path" do

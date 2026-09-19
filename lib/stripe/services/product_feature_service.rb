@@ -4,10 +4,10 @@
 module Stripe
   class ProductFeatureService < StripeService
     # Creates a product_feature, which represents a feature attachment to a product
-    def create(product, params = {}, opts = {})
+    def create(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/products/%<product>s/features", { product: CGI.escape(product) }),
+        path: format("/v1/products/%<id>s/features", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Deletes the feature attachment to a product
-    def delete(product, id, params = {}, opts = {})
+    def delete(product_id, id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/products/%<product>s/features/%<id>s", { product: CGI.escape(product), id: CGI.escape(id) }),
+        path: format("/v1/products/%<product_id>s/features/%<id>s", { product_id: CGI.escape(product_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Retrieve a list of features for a product
-    def list(product, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/products/%<product>s/features", { product: CGI.escape(product) }),
+        path: format("/v1/products/%<id>s/features", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Retrieves a product_feature, which represents a feature attachment to a product
-    def retrieve(product, id, params = {}, opts = {})
+    def retrieve(product_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/products/%<product>s/features/%<id>s", { product: CGI.escape(product), id: CGI.escape(id) }),
+        path: format("/v1/products/%<product_id>s/features/%<id>s", { product_id: CGI.escape(product_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -48,7 +48,7 @@ module Stripe
     end
 
     # Serializes a ProductFeature create request into a batch job JSONL line.
-    def serialize_batch_create(product, params = {}, opts = {})
+    def serialize_batch_create(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -57,13 +57,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { product: product }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a ProductFeature delete request into a batch job JSONL line.
-    def serialize_batch_delete(product, id, params = {}, opts = {})
+    def serialize_batch_delete(product_id, id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -72,7 +72,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { product: product, id: id }
+      request_body[:path_params] = { product_id: product_id, id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end

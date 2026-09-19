@@ -4,10 +4,10 @@
 module Stripe
   class GiftCardService < StripeService
     # Activates a third-party gift card and optionally sets its balance.
-    def activate(gift_card, params = {}, opts = {})
+    def activate(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/activate", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/activate", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Cashout a third-party gift card by zeroing its balance.
-    def cashout(gift_card, params = {}, opts = {})
+    def cashout(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/cashout", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/cashout", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Checks the balance of a third-party gift card.
-    def check_balance(gift_card, params = {}, opts = {})
+    def check_balance(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/check_balance", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/check_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -42,10 +42,10 @@ module Stripe
     end
 
     # Reloads a third-party gift card by adding the specified amount to its balance.
-    def reload(gift_card, params = {}, opts = {})
+    def reload(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/reload", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/reload", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -53,10 +53,10 @@ module Stripe
     end
 
     # Retrieves a third-party gift card object.
-    def retrieve(gift_card, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/gift_cards/%<gift_card>s", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -64,10 +64,10 @@ module Stripe
     end
 
     # Voids a previously performed gift card operation.
-    def void_operation(gift_card, params = {}, opts = {})
+    def void_operation(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/void_operation", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/void_operation", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

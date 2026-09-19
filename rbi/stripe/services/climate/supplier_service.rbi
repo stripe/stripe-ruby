@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves a Climate supplier object.
       sig {
-        params(supplier: String, params: T.any(::Stripe::Climate::SupplierRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Supplier)
+        params(id: String, params: T.any(::Stripe::Climate::SupplierRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Supplier)
        }
-      def retrieve(supplier, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

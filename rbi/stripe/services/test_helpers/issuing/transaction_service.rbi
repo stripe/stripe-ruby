@@ -20,9 +20,9 @@ module Stripe
 
         # Refund a test-mode Transaction.
         sig {
-          params(transaction: String, params: T.any(::Stripe::TestHelpers::Issuing::TransactionRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
+          params(id: String, params: T.any(::Stripe::TestHelpers::Issuing::TransactionRefundParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
          }
-        def refund(transaction, params = {}, opts = {}); end
+        def refund(id, params = {}, opts = {}); end
       end
     end
   end

@@ -6,10 +6,10 @@ module Stripe
     class AuthorizationService < StripeService
       # [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-      def approve(authorization, params = {}, opts = {})
+      def approve(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/approve", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s/approve", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -18,10 +18,10 @@ module Stripe
 
       # [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
       # This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
-      def decline(authorization, params = {}, opts = {})
+      def decline(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s/decline", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s/decline", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -40,10 +40,10 @@ module Stripe
       end
 
       # Retrieves an Issuing Authorization object.
-      def retrieve(authorization, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/authorizations/%<authorization>s", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -51,10 +51,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def update(authorization, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/authorizations/%<authorization>s", { authorization: CGI.escape(authorization) }),
+          path: format("/v1/issuing/authorizations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -18,14 +18,14 @@ module Stripe
 
     # Retrieve payment method configuration
     sig {
-      params(configuration: String, params: T.any(::Stripe::PaymentMethodConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
+      params(id: String, params: T.any(::Stripe::PaymentMethodConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
      }
-    def retrieve(configuration, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Update payment method configuration
     sig {
-      params(configuration: String, params: T.any(::Stripe::PaymentMethodConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
+      params(id: String, params: T.any(::Stripe::PaymentMethodConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
      }
-    def update(configuration, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

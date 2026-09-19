@@ -74,10 +74,10 @@ module Stripe
     end
 
     # Updates an AccountNotice object.
-    def self.update(account_notice, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/account_notices/%<account_notice>s", { account_notice: CGI.escape(account_notice) }),
+        path: format("/v1/account_notices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

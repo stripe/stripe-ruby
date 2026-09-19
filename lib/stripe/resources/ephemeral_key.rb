@@ -29,10 +29,10 @@ module Stripe
     attr_reader :secret
 
     # Invalidates a short-lived API key for a given resource.
-    def self.delete(key, params = {}, opts = {})
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/ephemeral_keys/%<key>s", { key: CGI.escape(key) }),
+        path: format("/v1/ephemeral_keys/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -42,7 +42,7 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/ephemeral_keys/%<key>s", { key: CGI.escape(self["id"]) }),
+        path: format("/v1/ephemeral_keys/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )

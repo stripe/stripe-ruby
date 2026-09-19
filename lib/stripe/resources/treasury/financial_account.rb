@@ -152,17 +152,17 @@ module Stripe
       def close(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(self["id"]) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/close", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
-      def self.close(financial_account, params = {}, opts = {})
+      def self.close(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/close", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -192,27 +192,27 @@ module Stripe
       def retrieve_features(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/features", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Retrieves Features information associated with the FinancialAccount.
-      def self.retrieve_features(financial_account, params = {}, opts = {})
+      def self.retrieve_features(id, params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/features", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
       end
 
       # Updates the details of a FinancialAccount.
-      def self.update(financial_account, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -222,17 +222,17 @@ module Stripe
       def update_features(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(self["id"]) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/features", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Updates the Features associated with a FinancialAccount.
-      def self.update_features(financial_account, params = {}, opts = {})
+      def self.update_features(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/features", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/features", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

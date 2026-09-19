@@ -74,10 +74,10 @@ module Stripe
     end
 
     # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
-    def self.update(capability, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_location_capabilities/%<capability>s", { capability: CGI.escape(capability) }),
+        path: format("/v1/payment_location_capabilities/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

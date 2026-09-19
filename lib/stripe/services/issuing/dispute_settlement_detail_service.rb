@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an Issuing DisputeSettlementDetail object.
-      def retrieve(dispute_settlement_detail, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/dispute_settlement_details/%<dispute_settlement_detail>s", { dispute_settlement_detail: CGI.escape(dispute_settlement_detail) }),
+          path: format("/v1/issuing/dispute_settlement_details/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

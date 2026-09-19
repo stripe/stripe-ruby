@@ -5,10 +5,10 @@ module Stripe
   module Treasury
     class OutboundTransferService < StripeService
       # An OutboundTransfer can be canceled if the funds have not yet been paid out.
-      def cancel(outbound_transfer, params = {}, opts = {})
+      def cancel(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/outbound_transfers/%<outbound_transfer>s/cancel", { outbound_transfer: CGI.escape(outbound_transfer) }),
+          path: format("/v1/treasury/outbound_transfers/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
-      def retrieve(outbound_transfer, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/outbound_transfers/%<outbound_transfer>s", { outbound_transfer: CGI.escape(outbound_transfer) }),
+          path: format("/v1/treasury/outbound_transfers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -18,9 +18,9 @@ module Stripe
 
     # Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
     sig {
-      params(promotion_code: String, params: T.any(::Stripe::PromotionCodeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
+      params(id: String, params: T.any(::Stripe::PromotionCodeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
      }
-    def retrieve(promotion_code, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a PromotionCode create request into a batch job JSONL line.
     sig { params(params: ::Stripe::PromotionCodeCreateParams, opts: T.untyped).returns(String) }
@@ -28,14 +28,14 @@ module Stripe
 
     # Serializes a PromotionCode update request into a batch job JSONL line.
     sig {
-      params(promotion_code: String, params: ::Stripe::PromotionCodeUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::PromotionCodeUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(promotion_code, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
     sig {
-      params(promotion_code: String, params: T.any(::Stripe::PromotionCodeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
+      params(id: String, params: T.any(::Stripe::PromotionCodeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PromotionCode)
      }
-    def update(promotion_code, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

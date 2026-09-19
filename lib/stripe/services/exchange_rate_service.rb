@@ -19,10 +19,10 @@ module Stripe
     # [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
     #
     # Retrieves the exchange rates from the given currency to every supported currency.
-    def retrieve(rate_id, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/exchange_rates/%<rate_id>s", { rate_id: CGI.escape(rate_id) }),
+        path: format("/v1/exchange_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

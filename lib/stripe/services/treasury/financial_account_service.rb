@@ -12,10 +12,10 @@ module Stripe
       end
 
       # Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
-      def close(financial_account, params = {}, opts = {})
+      def close(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s/close", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s/close", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -45,10 +45,10 @@ module Stripe
       end
 
       # Retrieves the details of a FinancialAccount.
-      def retrieve(financial_account, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -56,10 +56,10 @@ module Stripe
       end
 
       # Updates the details of a FinancialAccount.
-      def update(financial_account, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/financial_accounts/%<financial_account>s", { financial_account: CGI.escape(financial_account) }),
+          path: format("/v1/treasury/financial_accounts/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

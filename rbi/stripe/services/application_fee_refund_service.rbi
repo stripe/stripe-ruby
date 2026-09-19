@@ -26,16 +26,16 @@ module Stripe
 
     # By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
     sig {
-      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
+      params(fee_id: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
      }
-    def retrieve(fee, id, params = {}, opts = {}); end
+    def retrieve(fee_id, id, params = {}, opts = {}); end
 
     # Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(fee: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
+      params(fee_id: String, id: String, params: T.any(::Stripe::ApplicationFeeRefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ApplicationFeeRefund)
      }
-    def update(fee, id, params = {}, opts = {}); end
+    def update(fee_id, id, params = {}, opts = {}); end
   end
 end

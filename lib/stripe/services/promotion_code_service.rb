@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
-    def retrieve(promotion_code, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/promotion_codes/%<promotion_code>s", { promotion_code: CGI.escape(promotion_code) }),
+        path: format("/v1/promotion_codes/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -51,7 +51,7 @@ module Stripe
     end
 
     # Serializes a PromotionCode update request into a batch job JSONL line.
-    def serialize_batch_update(promotion_code, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -60,16 +60,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { promotion_code: promotion_code }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
-    def update(promotion_code, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/promotion_codes/%<promotion_code>s", { promotion_code: CGI.escape(promotion_code) }),
+        path: format("/v1/promotion_codes/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

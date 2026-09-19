@@ -13,8 +13,8 @@ module Stripe
 
     # Retrieves the token with the given ID.
     sig {
-      params(token: String, params: T.any(::Stripe::TokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Token)
+      params(id: String, params: T.any(::Stripe::TokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Token)
      }
-    def retrieve(token, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

@@ -6,38 +6,38 @@ module Stripe
   class CustomerBalanceTransactionService < StripeService
     # Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerBalanceTransactionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
+      params(id: String, params: T.any(::Stripe::CustomerBalanceTransactionCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
      }
-    def create(customer, params = {}, opts = {}); end
+    def create(id, params = {}, opts = {}); end
 
     # Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerBalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::CustomerBalanceTransactionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def list(customer, params = {}, opts = {}); end
+    def list(id, params = {}, opts = {}); end
 
     # Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
     sig {
-      params(customer: String, transaction: String, params: T.any(::Stripe::CustomerBalanceTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
+      params(customer_id: String, id: String, params: T.any(::Stripe::CustomerBalanceTransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
      }
-    def retrieve(customer, transaction, params = {}, opts = {}); end
+    def retrieve(customer_id, id, params = {}, opts = {}); end
 
     # Serializes a CustomerBalanceTransaction create request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerBalanceTransactionCreateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerBalanceTransactionCreateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_create(customer, params = {}, opts = {}); end
+    def serialize_batch_create(id, params = {}, opts = {}); end
 
     # Serializes a CustomerBalanceTransaction update request into a batch job JSONL line.
     sig {
-      params(customer: String, transaction: String, params: ::Stripe::CustomerBalanceTransactionUpdateParams, opts: T.untyped).returns(String)
+      params(customer_id: String, id: String, params: ::Stripe::CustomerBalanceTransactionUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(customer, transaction, params = {}, opts = {}); end
+    def serialize_batch_update(customer_id, id, params = {}, opts = {}); end
 
     # Most credit balance transaction fields are immutable, but you may update its description and metadata.
     sig {
-      params(customer: String, transaction: String, params: T.any(::Stripe::CustomerBalanceTransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
+      params(customer_id: String, id: String, params: T.any(::Stripe::CustomerBalanceTransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CustomerBalanceTransaction)
      }
-    def update(customer, transaction, params = {}, opts = {}); end
+    def update(customer_id, id, params = {}, opts = {}); end
   end
 end

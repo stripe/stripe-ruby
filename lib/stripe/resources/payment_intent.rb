@@ -400,7 +400,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -411,9 +411,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -3462,6 +3462,22 @@ module Stripe
       end
 
       class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          attr_reader :expires_at
+          # Type of the mandate.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3472,7 +3488,7 @@ module Stripe
         attr_reader :setup_future_usage
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { mandate_options: MandateOptions }
         end
 
         def self.field_remappings
@@ -3672,6 +3688,8 @@ module Stripe
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_reader :require_cvc_recollection
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_reader :setup_credential_usage
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3686,6 +3704,8 @@ module Stripe
         attr_reader :statement_descriptor_suffix_kanji
         # Attribute for field statement_details
         attr_reader :statement_details
+        # Selected usage to indicate the transaction type of the off-session payment.
+        attr_reader :stored_credential_usage
 
         def self.inner_class_types
           @inner_class_types = {
@@ -5530,13 +5550,13 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_reader :customer
     # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
     #
     # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
@@ -5622,17 +5642,17 @@ module Stripe
     def apply_customer_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/apply_customer_balance", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/apply_customer_balance", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
-    def self.apply_customer_balance(intent, params = {}, opts = {})
+    def self.apply_customer_balance(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/apply_customer_balance", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/apply_customer_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5646,7 +5666,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/cancel", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5657,10 +5677,10 @@ module Stripe
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
     # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
-    def self.cancel(intent, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5674,7 +5694,7 @@ module Stripe
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/capture", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/capture", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5685,10 +5705,10 @@ module Stripe
     # Uncaptured PaymentIntents are cancelled a set number of days (7 by default) after their creation.
     #
     # Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
-    def self.capture(intent, params = {}, opts = {})
+    def self.capture(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/capture", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/capture", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5727,7 +5747,7 @@ module Stripe
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/confirm", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5763,10 +5783,10 @@ module Stripe
     # There is a variable upper limit on how many times a PaymentIntent can be confirmed.
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.
-    def self.confirm(intent, params = {}, opts = {})
+    def self.confirm(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/confirm", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5805,7 +5825,7 @@ module Stripe
     def decrement_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/decrement_authorization", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5827,10 +5847,10 @@ module Stripe
     #
     # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
     # After it's fully captured, a PaymentIntent can no longer be decremented.
-    def self.decrement_authorization(intent, params = {}, opts = {})
+    def self.decrement_authorization(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/decrement_authorization", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5865,7 +5885,7 @@ module Stripe
     def increment_authorization(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/increment_authorization", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/increment_authorization", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5897,10 +5917,10 @@ module Stripe
     # Learn more about incremental authorizations with
     # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
     # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
-    def self.increment_authorization(intent, params = {}, opts = {})
+    def self.increment_authorization(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/increment_authorization", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/increment_authorization", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5922,7 +5942,7 @@ module Stripe
     def reauthorize(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/reauthorize", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -5936,10 +5956,10 @@ module Stripe
     #
     # This is useful for retail and ecommerce scenarios with delayed shipments where
     # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
-    def self.reauthorize(intent, params = {}, opts = {})
+    def self.reauthorize(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/reauthorize", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5962,17 +5982,17 @@ module Stripe
     def trigger_action(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/test/payment_intents/%<id>s/trigger_action", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Trigger an external action on a PaymentIntent.
-    def self.trigger_action(intent, params = {}, opts = {})
+    def self.trigger_action(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        path: format("/v1/test/payment_intents/%<id>s/trigger_action", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5985,10 +6005,10 @@ module Stripe
     # always requires you to confirm the PaymentIntent again. If you prefer to
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
-    def self.update(intent, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -5998,17 +6018,17 @@ module Stripe
     def update_crypto_refund_address(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/update_crypto_refund_address", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
-    def self.update_crypto_refund_address(intent, params = {}, opts = {})
+    def self.update_crypto_refund_address(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/update_crypto_refund_address", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -6018,17 +6038,17 @@ module Stripe
     def verify_microdeposits(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_intents/%<id>s/verify_microdeposits", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Verifies microdeposits on a PaymentIntent object.
-    def self.verify_microdeposits(intent, params = {}, opts = {})
+    def self.verify_microdeposits(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/verify_microdeposits", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -6045,10 +6065,10 @@ module Stripe
       end
 
       # Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
-      def self.simulate_crypto_deposit(intent, params = {}, opts = {})
+      def self.simulate_crypto_deposit(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(intent) }),
+          path: format("/v1/test_helpers/payment_intents/%<id>s/simulate_crypto_deposit", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -6058,7 +6078,7 @@ module Stripe
       def simulate_crypto_deposit(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/payment_intents/%<intent>s/simulate_crypto_deposit", { intent: CGI.escape(@resource["id"]) }),
+          path: format("/v1/test_helpers/payment_intents/%<id>s/simulate_crypto_deposit", { id: CGI.escape(@resource["id"]) }),
           params: params,
           opts: opts
         )

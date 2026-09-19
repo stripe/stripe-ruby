@@ -6,10 +6,10 @@ module Stripe
     module Issuing
       class DisputeService < StripeService
         # Test helper: closes a test-mode Issuing dispute as won or lost.
-        def close(dispute, params = {}, opts = {})
+        def close(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
+            path: format("/v1/test_helpers/issuing/disputes/%<id>s/close", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -17,10 +17,10 @@ module Stripe
         end
 
         # Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
-        def provisional_credit(dispute, params = {}, opts = {})
+        def provisional_credit(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/provisional_credit", { dispute: CGI.escape(dispute) }),
+            path: format("/v1/test_helpers/issuing/disputes/%<id>s/provisional_credit", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -28,10 +28,10 @@ module Stripe
         end
 
         # Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
-        def simulate_network_lifecycle_dispute_response(dispute, params = {}, opts = {})
+        def simulate_network_lifecycle_dispute_response(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_dispute_response", { dispute: CGI.escape(dispute) }),
+            path: format("/v1/test_helpers/issuing/disputes/%<id>s/simulate_network_lifecycle_dispute_response", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -39,10 +39,10 @@ module Stripe
         end
 
         # Test helper: populates network_lifecycle.pre_arbitration_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes in the collaboration flow.
-        def simulate_network_lifecycle_pre_arbitration_response(dispute, params = {}, opts = {})
+        def simulate_network_lifecycle_pre_arbitration_response(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_response", { dispute: CGI.escape(dispute) }),
+            path: format("/v1/test_helpers/issuing/disputes/%<id>s/simulate_network_lifecycle_pre_arbitration_response", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -50,10 +50,10 @@ module Stripe
         end
 
         # Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
-        def simulate_network_lifecycle_pre_arbitration_submission(dispute, params = {}, opts = {})
+        def simulate_network_lifecycle_pre_arbitration_submission(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/disputes/%<dispute>s/simulate_network_lifecycle_pre_arbitration_submission", { dispute: CGI.escape(dispute) }),
+            path: format("/v1/test_helpers/issuing/disputes/%<id>s/simulate_network_lifecycle_pre_arbitration_submission", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

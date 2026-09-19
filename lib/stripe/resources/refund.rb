@@ -709,7 +709,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(self["id"]) }),
+        path: format("/v1/refunds/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -718,10 +718,10 @@ module Stripe
     # Cancels a refund with a status of requires_action.
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
-    def self.cancel(refund, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/refunds/%<refund>s/cancel", { refund: CGI.escape(refund) }),
+        path: format("/v1/refunds/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -750,10 +750,10 @@ module Stripe
     # Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
     #
     # This request only accepts metadata as an argument.
-    def self.update(refund, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/refunds/%<refund>s", { refund: CGI.escape(refund) }),
+        path: format("/v1/refunds/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -770,10 +770,10 @@ module Stripe
       end
 
       # Expire a refund with a status of requires_action.
-      def self.expire(refund, params = {}, opts = {})
+      def self.expire(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(refund) }),
+          path: format("/v1/test_helpers/refunds/%<id>s/expire", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -783,7 +783,7 @@ module Stripe
       def expire(params = {}, opts = {})
         @resource.request_stripe_object(
           method: :post,
-          path: format("/v1/test_helpers/refunds/%<refund>s/expire", { refund: CGI.escape(@resource["id"]) }),
+          path: format("/v1/test_helpers/refunds/%<id>s/expire", { id: CGI.escape(@resource["id"]) }),
           params: params,
           opts: opts
         )

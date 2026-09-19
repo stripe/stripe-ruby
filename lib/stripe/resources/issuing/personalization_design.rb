@@ -110,10 +110,10 @@ module Stripe
       end
 
       # Updates a card personalization object.
-      def self.update(personalization_design, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/personalization_designs/%<personalization_design>s", { personalization_design: CGI.escape(personalization_design) }),
+          path: format("/v1/issuing/personalization_designs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -130,10 +130,10 @@ module Stripe
         end
 
         # Updates the status of the specified testmode personalization design object to active.
-        def self.activate(personalization_design, params = {}, opts = {})
+        def self.activate(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/activate", { personalization_design: CGI.escape(personalization_design) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/activate", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -143,17 +143,17 @@ module Stripe
         def activate(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/activate", { personalization_design: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/activate", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the status of the specified testmode personalization design object to inactive.
-        def self.deactivate(personalization_design, params = {}, opts = {})
+        def self.deactivate(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/deactivate", { personalization_design: CGI.escape(personalization_design) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/deactivate", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -163,17 +163,17 @@ module Stripe
         def deactivate(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/deactivate", { personalization_design: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/deactivate", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the status of the specified testmode personalization design object to rejected.
-        def self.reject(personalization_design, params = {}, opts = {})
+        def self.reject(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/reject", { personalization_design: CGI.escape(personalization_design) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/reject", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -183,7 +183,7 @@ module Stripe
         def reject(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/personalization_designs/%<personalization_design>s/reject", { personalization_design: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/personalization_designs/%<id>s/reject", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

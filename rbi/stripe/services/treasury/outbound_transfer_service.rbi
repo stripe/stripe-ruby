@@ -7,9 +7,9 @@ module Stripe
     class OutboundTransferService < StripeService
       # An OutboundTransfer can be canceled if the funds have not yet been paid out.
       sig {
-        params(outbound_transfer: String, params: T.any(::Stripe::Treasury::OutboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundTransfer)
+        params(id: String, params: T.any(::Stripe::Treasury::OutboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundTransfer)
        }
-      def cancel(outbound_transfer, params = {}, opts = {}); end
+      def cancel(id, params = {}, opts = {}); end
 
       # Creates an OutboundTransfer.
       sig {
@@ -25,9 +25,9 @@ module Stripe
 
       # Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
       sig {
-        params(outbound_transfer: String, params: T.any(::Stripe::Treasury::OutboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundTransfer)
+        params(id: String, params: T.any(::Stripe::Treasury::OutboundTransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::OutboundTransfer)
        }
-      def retrieve(outbound_transfer, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

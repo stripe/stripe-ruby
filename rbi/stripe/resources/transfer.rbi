@@ -8,7 +8,7 @@ module Stripe
   #
   # Before April 6, 2017, transfers also represented movement of funds from a
   # Stripe account to a card or bank account. This behavior has since been split
-  # out into a [Payout](https://api.stripe.com#payout_object) object, with corresponding payout endpoints. For more
+  # out into a [Payout](https://docs.stripe.com/api#payout_object) object, with corresponding payout endpoints. For more
   # information, read about the
   # [transfer/payout split](https://docs.stripe.com/transfer-payout-split).
   #
@@ -90,8 +90,8 @@ module Stripe
     #
     # This request accepts only metadata as an argument.
     sig {
-      params(transfer: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
+      params(id: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
      }
-    def self.update(transfer, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -34,17 +34,17 @@ module Stripe
     def activate(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/activate", { gift_card: CGI.escape(self["id"]) }),
+        path: format("/v1/gift_cards/%<id>s/activate", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Activates a third-party gift card and optionally sets its balance.
-    def self.activate(gift_card, params = {}, opts = {})
+    def self.activate(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/activate", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/activate", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -54,17 +54,17 @@ module Stripe
     def cashout(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/cashout", { gift_card: CGI.escape(self["id"]) }),
+        path: format("/v1/gift_cards/%<id>s/cashout", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Cashout a third-party gift card by zeroing its balance.
-    def self.cashout(gift_card, params = {}, opts = {})
+    def self.cashout(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/cashout", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/cashout", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -74,17 +74,17 @@ module Stripe
     def check_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/check_balance", { gift_card: CGI.escape(self["id"]) }),
+        path: format("/v1/gift_cards/%<id>s/check_balance", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Checks the balance of a third-party gift card.
-    def self.check_balance(gift_card, params = {}, opts = {})
+    def self.check_balance(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/check_balance", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/check_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -99,17 +99,17 @@ module Stripe
     def reload(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/reload", { gift_card: CGI.escape(self["id"]) }),
+        path: format("/v1/gift_cards/%<id>s/reload", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Reloads a third-party gift card by adding the specified amount to its balance.
-    def self.reload(gift_card, params = {}, opts = {})
+    def self.reload(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/reload", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/reload", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -119,17 +119,17 @@ module Stripe
     def void_operation(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/void_operation", { gift_card: CGI.escape(self["id"]) }),
+        path: format("/v1/gift_cards/%<id>s/void_operation", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Voids a previously performed gift card operation.
-    def self.void_operation(gift_card, params = {}, opts = {})
+    def self.void_operation(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/gift_cards/%<gift_card>s/void_operation", { gift_card: CGI.escape(gift_card) }),
+        path: format("/v1/gift_cards/%<id>s/void_operation", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

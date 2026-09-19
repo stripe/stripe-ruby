@@ -20,15 +20,15 @@ module Stripe
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
+      params(id: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
-    def delete(customer, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # Removes the currently applied discount on a customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
+      params(id: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
-    def delete_discount(customer, params = {}, opts = {}); end
+    def delete_discount(id, params = {}, opts = {}); end
 
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
     sig {
@@ -38,9 +38,9 @@ module Stripe
 
     # Retrieves a Customer object.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
+      params(id: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
-    def retrieve(customer, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -57,28 +57,28 @@ module Stripe
 
     # Serializes a Customer delete request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerDeleteParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerDeleteParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete(customer, params = {}, opts = {}); end
+    def serialize_batch_delete(id, params = {}, opts = {}); end
 
     # Serializes a Customer delete_discount request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerDeleteDiscountParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerDeleteDiscountParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete_discount(customer, params = {}, opts = {}); end
+    def serialize_batch_delete_discount(id, params = {}, opts = {}); end
 
     # Serializes a Customer update request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(customer, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
+      params(id: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
-    def update(customer, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

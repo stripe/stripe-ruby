@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an Issuing Token object.
-      def retrieve(token, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/tokens/%<token>s", { token: CGI.escape(token) }),
+          path: format("/v1/issuing/tokens/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Attempts to update the specified Issuing Token object to the status specified.
-      def update(token, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/tokens/%<token>s", { token: CGI.escape(token) }),
+          path: format("/v1/issuing/tokens/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

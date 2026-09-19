@@ -7,9 +7,9 @@ module Stripe
     class InboundTransferService < StripeService
       # Cancels an InboundTransfer.
       sig {
-        params(inbound_transfer: String, params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::InboundTransfer)
+        params(id: String, params: T.any(::Stripe::Treasury::InboundTransferCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::InboundTransfer)
        }
-      def cancel(inbound_transfer, params = {}, opts = {}); end
+      def cancel(id, params = {}, opts = {}); end
 
       # Creates an InboundTransfer.
       sig {

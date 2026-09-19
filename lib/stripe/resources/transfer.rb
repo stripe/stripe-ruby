@@ -7,7 +7,7 @@ module Stripe
   #
   # Before April 6, 2017, transfers also represented movement of funds from a
   # Stripe account to a card or bank account. This behavior has since been split
-  # out into a [Payout](https://api.stripe.com#payout_object) object, with corresponding payout endpoints. For more
+  # out into a [Payout](https://docs.stripe.com/api#payout_object) object, with corresponding payout endpoints. For more
   # information, read about the
   # [transfer/payout split](https://docs.stripe.com/transfer-payout-split).
   #
@@ -79,10 +79,10 @@ module Stripe
     # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts only metadata as an argument.
-    def self.update(transfer, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
+        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

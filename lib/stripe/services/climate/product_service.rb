@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves the details of a Climate product with the given ID.
-      def retrieve(product, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/climate/products/%<product>s", { product: CGI.escape(product) }),
+          path: format("/v1/climate/products/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

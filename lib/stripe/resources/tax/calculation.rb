@@ -290,17 +290,17 @@ module Stripe
       def list_line_items(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/tax/calculations/%<calculation>s/line_items", { calculation: CGI.escape(self["id"]) }),
+          path: format("/v1/tax/calculations/%<id>s/line_items", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Retrieves the line items of a tax calculation as a collection, if the calculation hasn't expired.
-      def self.list_line_items(calculation, params = {}, opts = {})
+      def self.list_line_items(id, params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/tax/calculations/%<calculation>s/line_items", { calculation: CGI.escape(calculation) }),
+          path: format("/v1/tax/calculations/%<id>s/line_items", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

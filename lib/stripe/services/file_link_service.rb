@@ -14,10 +14,10 @@ module Stripe
     end
 
     # Retrieves the file link with the given ID.
-    def retrieve(link, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/file_links/%<link>s", { link: CGI.escape(link) }),
+        path: format("/v1/file_links/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -25,10 +25,10 @@ module Stripe
     end
 
     # Updates an existing file link object. Expired links can no longer be updated.
-    def update(link, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/file_links/%<link>s", { link: CGI.escape(link) }),
+        path: format("/v1/file_links/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

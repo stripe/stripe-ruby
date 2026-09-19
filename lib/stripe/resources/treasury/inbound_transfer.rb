@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
@@ -149,7 +149,7 @@ module Stripe
       attr_reader :currency
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_reader :description
-      # Details about this InboundTransfer's failure. Only set when status is `failed`.
+      # Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
       attr_reader :failure_details
       # The FinancialAccount that received the funds.
       attr_reader :financial_account
@@ -184,17 +184,17 @@ module Stripe
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/inbound_transfers/%<inbound_transfer>s/cancel", { inbound_transfer: CGI.escape(self["id"]) }),
+          path: format("/v1/treasury/inbound_transfers/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Cancels an InboundTransfer.
-      def self.cancel(inbound_transfer, params = {}, opts = {})
+      def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/treasury/inbound_transfers/%<inbound_transfer>s/cancel", { inbound_transfer: CGI.escape(inbound_transfer) }),
+          path: format("/v1/treasury/inbound_transfers/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

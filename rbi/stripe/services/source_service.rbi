@@ -13,28 +13,28 @@ module Stripe
 
     # Delete a specified source for a given customer.
     sig {
-      params(customer: String, id: String, params: T.any(::Stripe::SourceDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))
+      params(customer_id: String, id: String, params: T.any(::Stripe::SourceDetachParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.any(::Stripe::Account, ::Stripe::BankAccount, ::Stripe::Card, ::Stripe::Source))
      }
-    def detach(customer, id, params = {}, opts = {}); end
+    def detach(customer_id, id, params = {}, opts = {}); end
 
     # Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
     sig {
-      params(source: String, params: T.any(::Stripe::SourceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
+      params(id: String, params: T.any(::Stripe::SourceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
-    def retrieve(source, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
     sig {
-      params(source: String, params: T.any(::Stripe::SourceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
+      params(id: String, params: T.any(::Stripe::SourceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
-    def update(source, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
 
     # Verify a given source.
     sig {
-      params(source: String, params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
+      params(id: String, params: T.any(::Stripe::SourceVerifyParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Source)
      }
-    def verify(source, params = {}, opts = {}); end
+    def verify(id, params = {}, opts = {}); end
   end
 end

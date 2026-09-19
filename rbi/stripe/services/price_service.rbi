@@ -18,9 +18,9 @@ module Stripe
 
     # Retrieves the price with the given ID.
     sig {
-      params(price: String, params: T.any(::Stripe::PriceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
+      params(id: String, params: T.any(::Stripe::PriceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
      }
-    def retrieve(price, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -36,15 +36,13 @@ module Stripe
     def serialize_batch_create(params = {}, opts = {}); end
 
     # Serializes a Price update request into a batch job JSONL line.
-    sig {
-      params(price: String, params: ::Stripe::PriceUpdateParams, opts: T.untyped).returns(String)
-     }
-    def serialize_batch_update(price, params = {}, opts = {}); end
+    sig { params(id: String, params: ::Stripe::PriceUpdateParams, opts: T.untyped).returns(String) }
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
     sig {
-      params(price: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
+      params(id: String, params: T.any(::Stripe::PriceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Price)
      }
-    def update(price, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

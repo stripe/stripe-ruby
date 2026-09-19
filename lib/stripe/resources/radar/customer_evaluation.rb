@@ -134,10 +134,10 @@ module Stripe
       end
 
       # Reports an event on a CustomerEvaluation object.
-      def self.update(customer_evaluation, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/radar/customer_evaluations/%<customer_evaluation>s/report", { customer_evaluation: CGI.escape(customer_evaluation) }),
+          path: format("/v1/radar/customer_evaluations/%<id>s/report", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

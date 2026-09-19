@@ -11,10 +11,10 @@ module Stripe
     end
 
     # Manually reconcile the remaining amount for a customer_balance PaymentIntent.
-    def apply_customer_balance(intent, params = {}, opts = {})
+    def apply_customer_balance(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/apply_customer_balance", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/apply_customer_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     # After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
     #
     # You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
-    def cancel(intent, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -41,10 +41,10 @@ module Stripe
     # Uncaptured PaymentIntents are cancelled a set number of days (7 by default) after their creation.
     #
     # Learn more about [separate authorization and capture](https://docs.stripe.com/docs/payments/capture-later).
-    def capture(intent, params = {}, opts = {})
+    def capture(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/capture", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/capture", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -81,10 +81,10 @@ module Stripe
     # There is a variable upper limit on how many times a PaymentIntent can be confirmed.
     # After this limit is reached, any further calls to this endpoint will
     # transition the PaymentIntent to the canceled state.
-    def confirm(intent, params = {}, opts = {})
+    def confirm(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/confirm", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -127,10 +127,10 @@ module Stripe
     #
     # Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
     # After it's fully captured, a PaymentIntent can no longer be decremented.
-    def decrement_authorization(intent, params = {}, opts = {})
+    def decrement_authorization(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/decrement_authorization", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/decrement_authorization", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -163,10 +163,10 @@ module Stripe
     # Learn more about incremental authorizations with
     # [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
     # [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
-    def increment_authorization(intent, params = {}, opts = {})
+    def increment_authorization(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/increment_authorization", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/increment_authorization", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -192,10 +192,10 @@ module Stripe
     #
     # This is useful for retail and ecommerce scenarios with delayed shipments where
     # authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
-    def reauthorize(intent, params = {}, opts = {})
+    def reauthorize(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/reauthorize", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/reauthorize", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -207,10 +207,10 @@ module Stripe
     # You can retrieve a PaymentIntent client-side using a publishable key when the client_secret is in the query string.
     #
     # If you retrieve a PaymentIntent with a publishable key, it only returns a subset of properties. Refer to the [payment intent](https://docs.stripe.com/api/payment_intents/object) object reference for more details.
-    def retrieve(intent, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -232,10 +232,10 @@ module Stripe
     end
 
     # Trigger an external action on a PaymentIntent.
-    def trigger_action(intent, params = {}, opts = {})
+    def trigger_action(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/test/payment_intents/%<intent>s/trigger_action", { intent: CGI.escape(intent) }),
+        path: format("/v1/test/payment_intents/%<id>s/trigger_action", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -249,10 +249,10 @@ module Stripe
     # always requires you to confirm the PaymentIntent again. If you prefer to
     # update and confirm at the same time, we recommend updating properties through
     # the [confirm API](https://docs.stripe.com/docs/api/payment_intents/confirm) instead.
-    def update(intent, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -260,10 +260,10 @@ module Stripe
     end
 
     # Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
-    def update_crypto_refund_address(intent, params = {}, opts = {})
+    def update_crypto_refund_address(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/update_crypto_refund_address", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/update_crypto_refund_address", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -271,10 +271,10 @@ module Stripe
     end
 
     # Verifies microdeposits on a PaymentIntent object.
-    def verify_microdeposits(intent, params = {}, opts = {})
+    def verify_microdeposits(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        path: format("/v1/payment_intents/%<id>s/verify_microdeposits", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

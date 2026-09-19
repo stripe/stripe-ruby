@@ -19,21 +19,21 @@ module Stripe
 
       # Retrieves an Issuing Dispute object.
       sig {
-        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+        params(id: String, params: T.any(::Stripe::Issuing::DisputeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
-      def retrieve(dispute, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
       sig {
-        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+        params(id: String, params: T.any(::Stripe::Issuing::DisputeSubmitParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
-      def submit(dispute, params = {}, opts = {}); end
+      def submit(id, params = {}, opts = {}); end
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
       sig {
-        params(dispute: String, params: T.any(::Stripe::Issuing::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
+        params(id: String, params: T.any(::Stripe::Issuing::DisputeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Dispute)
        }
-      def update(dispute, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

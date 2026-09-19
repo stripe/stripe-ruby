@@ -13,9 +13,9 @@ module Stripe
 
       # Deletes a Configuration object.
       sig {
-        params(configuration: String, params: T.any(::Stripe::Terminal::ConfigurationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
+        params(id: String, params: T.any(::Stripe::Terminal::ConfigurationDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
        }
-      def delete(configuration, params = {}, opts = {}); end
+      def delete(id, params = {}, opts = {}); end
 
       # Returns a list of Configuration objects.
       sig {
@@ -25,15 +25,15 @@ module Stripe
 
       # Retrieves a Configuration object.
       sig {
-        params(configuration: String, params: T.any(::Stripe::Terminal::ConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
+        params(id: String, params: T.any(::Stripe::Terminal::ConfigurationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
        }
-      def retrieve(configuration, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a new Configuration object.
       sig {
-        params(configuration: String, params: T.any(::Stripe::Terminal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
+        params(id: String, params: T.any(::Stripe::Terminal::ConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Terminal::Configuration)
        }
-      def update(configuration, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

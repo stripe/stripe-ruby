@@ -102,6 +102,8 @@ module Stripe
         attr_reader :amount
         # ID of the external account for this net balance (not expandable).
         attr_reader :destination
+        # ID of the v2 Payout Method for this net balance (not expandable).
+        attr_reader :payout_method
         # Attribute for field source_types
         attr_reader :source_types
 
@@ -465,7 +467,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://api.stripe.com#transfers) or [Payouts API](https://api.stripe.com#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
+    # Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://docs.stripe.com/api#transfers) or [Payouts API](https://docs.stripe.com/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     attr_reader :available
     # Funds held due to negative balances on connected accounts where [account.controller.requirement_collection](/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
     attr_reader :connect_reserved

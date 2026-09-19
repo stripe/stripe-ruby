@@ -4,7 +4,7 @@
 module Stripe
   # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
   # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-  # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+  # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
   #
   # Create a SetupIntent when you're ready to collect your customer's payment credentials.
   # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -15,9 +15,9 @@ module Stripe
   # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
   # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
   # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-  # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+  # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
   # it automatically attaches the resulting payment method to that Customer after successful setup.
-  # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+  # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
   # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
   #
   # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -96,7 +96,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -107,9 +107,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -419,6 +419,33 @@ module Stripe
         end
       end
 
+      class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          attr_reader :expires_at
+          # Type of the mandate.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
+
+        def self.inner_class_types
+          @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Card < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Amount to be charged for future payments, specified in the presentment currency.
@@ -456,6 +483,8 @@ module Stripe
         attr_reader :network
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_reader :request_three_d_secure
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_reader :setup_credential_usage
 
         def self.inner_class_types
           @inner_class_types = { mandate_options: MandateOptions }
@@ -765,6 +794,8 @@ module Stripe
       attr_reader :bacs_debit
       # Attribute for field bizum
       attr_reader :bizum
+      # Attribute for field blik
+      attr_reader :blik
       # Attribute for field card
       attr_reader :card
       # Attribute for field card_present
@@ -794,6 +825,7 @@ module Stripe
           amazon_pay: AmazonPay,
           bacs_debit: BacsDebit,
           bizum: Bizum,
+          blik: Blik,
           card: Card,
           card_present: CardPresent,
           klarna: Klarna,
@@ -947,7 +979,7 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/setup_intents/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -956,10 +988,10 @@ module Stripe
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #
     # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
-    def self.cancel(intent, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -982,7 +1014,7 @@ module Stripe
     def confirm(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/setup_intents/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1002,10 +1034,10 @@ module Stripe
     # the SetupIntent will transition to the
     # requires_payment_method status or the canceled status if the
     # confirmation limit is reached.
-    def self.confirm(intent, params = {}, opts = {})
+    def self.confirm(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/confirm", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1025,10 +1057,10 @@ module Stripe
     end
 
     # Updates a SetupIntent object.
-    def self.update(intent, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1038,17 +1070,17 @@ module Stripe
     def verify_microdeposits(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(self["id"]) }),
+        path: format("/v1/setup_intents/%<id>s/verify_microdeposits", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Verifies microdeposits on a SetupIntent object.
-    def self.verify_microdeposits(intent, params = {}, opts = {})
+    def self.verify_microdeposits(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/verify_microdeposits", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

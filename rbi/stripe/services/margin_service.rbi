@@ -18,14 +18,14 @@ module Stripe
 
     # Retrieve a margin object with the given ID.
     sig {
-      params(margin: String, params: T.any(::Stripe::MarginRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
+      params(id: String, params: T.any(::Stripe::MarginRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
      }
-    def retrieve(margin, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Update the specified margin object. Certain fields of the margin object are not editable.
     sig {
-      params(margin: String, params: T.any(::Stripe::MarginUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
+      params(id: String, params: T.any(::Stripe::MarginUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
      }
-    def update(margin, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

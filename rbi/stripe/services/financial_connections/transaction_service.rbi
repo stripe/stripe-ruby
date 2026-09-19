@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves the details of a Financial Connections Transaction
       sig {
-        params(transaction: String, params: T.any(::Stripe::FinancialConnections::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Transaction)
+        params(id: String, params: T.any(::Stripe::FinancialConnections::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FinancialConnections::Transaction)
        }
-      def retrieve(transaction, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

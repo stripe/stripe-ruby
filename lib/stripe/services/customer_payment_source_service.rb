@@ -8,10 +8,10 @@ module Stripe
     # If the card's owner has no default card, then the new card will become the default.
     # However, if the owner already has a default, then it will not change.
     # To change the default, you should [update the customer](https://docs.stripe.com/api/customers/update) to have a new default_source.
-    def create(customer, params = {}, opts = {})
+    def create(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/customers/%<customer>s/sources", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/sources", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -19,10 +19,10 @@ module Stripe
     end
 
     # Delete a specified source for a given customer.
-    def delete(customer, id, params = {}, opts = {})
+    def delete(customer_id, id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/sources/%<id>s", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer_id>s/sources/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -30,10 +30,10 @@ module Stripe
     end
 
     # List sources for a specified customer.
-    def list(customer, params = {}, opts = {})
+    def list(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/sources", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/sources", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -41,10 +41,10 @@ module Stripe
     end
 
     # Retrieve a specified source for a given customer.
-    def retrieve(customer, id, params = {}, opts = {})
+    def retrieve(customer_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s/sources/%<id>s", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer_id>s/sources/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -52,7 +52,7 @@ module Stripe
     end
 
     # Serializes a CustomerPaymentSource create request into a batch job JSONL line.
-    def serialize_batch_create(customer, params = {}, opts = {})
+    def serialize_batch_create(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -61,13 +61,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a CustomerPaymentSource delete request into a batch job JSONL line.
-    def serialize_batch_delete(customer, id, params = {}, opts = {})
+    def serialize_batch_delete(customer_id, id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -76,13 +76,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer, id: id }
+      request_body[:path_params] = { customer_id: customer_id, id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a CustomerPaymentSource update request into a batch job JSONL line.
-    def serialize_batch_update(customer, id, params = {}, opts = {})
+    def serialize_batch_update(customer_id, id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -91,13 +91,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer, id: id }
+      request_body[:path_params] = { customer_id: customer_id, id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a CustomerPaymentSource verify request into a batch job JSONL line.
-    def serialize_batch_verify(customer, id, params = {}, opts = {})
+    def serialize_batch_verify(customer_id, id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -106,16 +106,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer, id: id }
+      request_body[:path_params] = { customer_id: customer_id, id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Update a specified source for a given customer.
-    def update(customer, id, params = {}, opts = {})
+    def update(customer_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/customers/%<customer>s/sources/%<id>s", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer_id>s/sources/%<id>s", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -123,10 +123,10 @@ module Stripe
     end
 
     # Verify a specified bank account for a given customer.
-    def verify(customer, id, params = {}, opts = {})
+    def verify(customer_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/customers/%<customer>s/sources/%<id>s/verify", { customer: CGI.escape(customer), id: CGI.escape(id) }),
+        path: format("/v1/customers/%<customer_id>s/sources/%<id>s/verify", { customer_id: CGI.escape(customer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

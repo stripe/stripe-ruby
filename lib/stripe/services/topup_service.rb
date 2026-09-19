@@ -4,10 +4,10 @@
 module Stripe
   class TopupService < StripeService
     # Cancels a top-up. Only pending top-ups can be canceled.
-    def cancel(topup, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/topups/%<topup>s/cancel", { topup: CGI.escape(topup) }),
+        path: format("/v1/topups/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -25,10 +25,10 @@ module Stripe
     end
 
     # Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
-    def retrieve(topup, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/topups/%<topup>s", { topup: CGI.escape(topup) }),
+        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -36,10 +36,10 @@ module Stripe
     end
 
     # Updates the metadata of a top-up. Other top-up details are not editable by design.
-    def update(topup, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/topups/%<topup>s", { topup: CGI.escape(topup) }),
+        path: format("/v1/topups/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

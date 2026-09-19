@@ -7,9 +7,9 @@ module Stripe
     class CreditUnderwritingRecordService < StripeService
       # Update a CreditUnderwritingRecord object to correct mistakes.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+        params(id: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordCorrectParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
-      def correct(credit_underwriting_record, params = {}, opts = {}); end
+      def correct(id, params = {}, opts = {}); end
 
       # Creates a CreditUnderwritingRecord object with information about a credit application submission.
       sig {
@@ -31,21 +31,21 @@ module Stripe
 
       # Update a CreditUnderwritingRecord object from a decision made on a credit application.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+        params(id: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportDecisionParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
-      def report_decision(credit_underwriting_record, params = {}, opts = {}); end
+      def report_decision(id, params = {}, opts = {}); end
 
       # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportOfferAcceptanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+        params(id: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordReportOfferAcceptanceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
-      def report_offer_acceptance(credit_underwriting_record, params = {}, opts = {}); end
+      def report_offer_acceptance(id, params = {}, opts = {}); end
 
       # Retrieves a CreditUnderwritingRecord object.
       sig {
-        params(credit_underwriting_record: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
+        params(id: String, params: T.any(::Stripe::Issuing::CreditUnderwritingRecordRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::CreditUnderwritingRecord)
        }
-      def retrieve(credit_underwriting_record, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

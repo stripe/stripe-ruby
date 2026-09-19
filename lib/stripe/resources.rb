@@ -692,6 +692,18 @@ module Stripe
     autoload :V2BillingContractActivatedEventNotification, "stripe/events/v2_billing_contract_activated_event"
     autoload :V2BillingContractCanceledEvent, "stripe/events/v2_billing_contract_canceled_event"
     autoload :V2BillingContractCanceledEventNotification, "stripe/events/v2_billing_contract_canceled_event"
+    autoload :V2BillingContractCollectionBlockedEvent, "stripe/events/v2_billing_contract_collection_blocked_event"
+    autoload :V2BillingContractCollectionBlockedEventNotification,
+             "stripe/events/v2_billing_contract_collection_blocked_event"
+    autoload :V2BillingContractCollectionCurrentEvent, "stripe/events/v2_billing_contract_collection_current_event"
+    autoload :V2BillingContractCollectionCurrentEventNotification,
+             "stripe/events/v2_billing_contract_collection_current_event"
+    autoload :V2BillingContractCollectionPastDueEvent, "stripe/events/v2_billing_contract_collection_past_due_event"
+    autoload :V2BillingContractCollectionPastDueEventNotification,
+             "stripe/events/v2_billing_contract_collection_past_due_event"
+    autoload :V2BillingContractCollectionUnpaidEvent, "stripe/events/v2_billing_contract_collection_unpaid_event"
+    autoload :V2BillingContractCollectionUnpaidEventNotification,
+             "stripe/events/v2_billing_contract_collection_unpaid_event"
     autoload :V2BillingContractCreatedEvent, "stripe/events/v2_billing_contract_created_event"
     autoload :V2BillingContractCreatedEventNotification, "stripe/events/v2_billing_contract_created_event"
     autoload :V2BillingContractEndedEvent, "stripe/events/v2_billing_contract_ended_event"
@@ -1043,6 +1055,23 @@ module Stripe
     autoload :V2CoreHealthWebhookLatencyResolvedEvent, "stripe/events/v2_core_health_webhook_latency_resolved_event"
     autoload :V2CoreHealthWebhookLatencyResolvedEventNotification,
              "stripe/events/v2_core_health_webhook_latency_resolved_event"
+    autoload :V2CoreVaultNetworkTokenActivatedEvent, "stripe/events/v2_core_vault_network_token_activated_event"
+    autoload :V2CoreVaultNetworkTokenActivatedEventNotification,
+             "stripe/events/v2_core_vault_network_token_activated_event"
+    autoload :V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent,
+             "stripe/events/v2_core_vault_network_token_authorization_requirements_changed_event"
+    autoload :V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification,
+             "stripe/events/v2_core_vault_network_token_authorization_requirements_changed_event"
+    autoload :V2CoreVaultNetworkTokenDeactivatedEvent, "stripe/events/v2_core_vault_network_token_deactivated_event"
+    autoload :V2CoreVaultNetworkTokenDeactivatedEventNotification,
+             "stripe/events/v2_core_vault_network_token_deactivated_event"
+    autoload :V2CoreVaultNetworkTokenDetailsUpdatedEvent,
+             "stripe/events/v2_core_vault_network_token_details_updated_event"
+    autoload :V2CoreVaultNetworkTokenDetailsUpdatedEventNotification,
+             "stripe/events/v2_core_vault_network_token_details_updated_event"
+    autoload :V2CoreVaultNetworkTokenSuspendedEvent, "stripe/events/v2_core_vault_network_token_suspended_event"
+    autoload :V2CoreVaultNetworkTokenSuspendedEventNotification,
+             "stripe/events/v2_core_vault_network_token_suspended_event"
     autoload :V2DataReportingQueryRunCreatedEvent, "stripe/events/v2_data_reporting_query_run_created_event"
     autoload :V2DataReportingQueryRunCreatedEventNotification, "stripe/events/v2_data_reporting_query_run_created_event"
     autoload :V2DataReportingQueryRunFailedEvent, "stripe/events/v2_data_reporting_query_run_failed_event"
@@ -1116,6 +1145,18 @@ module Stripe
              "stripe/events/v2_money_management_financial_account_updated_event"
     autoload :V2MoneyManagementFinancialAccountUpdatedEventNotification,
              "stripe/events/v2_money_management_financial_account_updated_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportCompletedEvent,
+             "stripe/events/v2_money_management_financial_account_wallet_export_completed_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification,
+             "stripe/events/v2_money_management_financial_account_wallet_export_completed_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportPendingEvent,
+             "stripe/events/v2_money_management_financial_account_wallet_export_pending_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportPendingEventNotification,
+             "stripe/events/v2_money_management_financial_account_wallet_export_pending_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportReadyEvent,
+             "stripe/events/v2_money_management_financial_account_wallet_export_ready_event"
+    autoload :V2MoneyManagementFinancialAccountWalletExportReadyEventNotification,
+             "stripe/events/v2_money_management_financial_account_wallet_export_ready_event"
     autoload :V2MoneyManagementFinancialAddressActivatedEvent,
              "stripe/events/v2_money_management_financial_address_activated_event"
     autoload :V2MoneyManagementFinancialAddressActivatedEventNotification,
@@ -1488,7 +1529,6 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluation, "stripe/resources/radar/account_evaluation"
-    autoload :BillingEvaluation, "stripe/resources/radar/billing_evaluation"
     autoload :CustomerEvaluation, "stripe/resources/radar/customer_evaluation"
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
@@ -1658,6 +1698,9 @@ module Stripe
       autoload :DebitDispute, "stripe/resources/v2/money_management/debit_dispute"
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
       autoload :FinancialAccountStatement, "stripe/resources/v2/money_management/financial_account_statement"
+      autoload :FinancialAccountWalletExport, "stripe/resources/v2/money_management/financial_account_wallet_export"
+      autoload :FinancialAccountWalletExportCredentials,
+               "stripe/resources/v2/money_management/financial_account_wallet_export_credentials"
       autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
       autoload :FinancialAddressDebitSimulation,
                "stripe/resources/v2/money_management/financial_address_debit_simulation"
@@ -1689,6 +1732,18 @@ module Stripe
       autoload :OffSessionPayment, "stripe/resources/v2/payments/off_session_payment"
       autoload :SettlementAllocationIntent, "stripe/resources/v2/payments/settlement_allocation_intent"
       autoload :SettlementAllocationIntentSplit, "stripe/resources/v2/payments/settlement_allocation_intent_split"
+    end
+
+    module Provisioning
+      autoload :Eligibility, "stripe/resources/v2/provisioning/eligibility"
+      autoload :PaymentMethodRequest, "stripe/resources/v2/provisioning/payment_method_request"
+      autoload :PaymentProfile, "stripe/resources/v2/provisioning/payment_profile"
+      autoload :Project, "stripe/resources/v2/provisioning/project"
+      autoload :Provider, "stripe/resources/v2/provisioning/provider"
+      autoload :ProviderConnection, "stripe/resources/v2/provisioning/provider_connection"
+      autoload :ProviderConnectionRequest, "stripe/resources/v2/provisioning/provider_connection_request"
+      autoload :ProviderServiceDetail, "stripe/resources/v2/provisioning/provider_service_detail"
+      autoload :Resource, "stripe/resources/v2/provisioning/resource"
     end
 
     module Reporting
@@ -1861,7 +1916,6 @@ module Stripe
     stripe/resources/quote_preview_invoice
     stripe/resources/quote_preview_subscription_schedule
     stripe/resources/radar/account_evaluation
-    stripe/resources/radar/billing_evaluation
     stripe/resources/radar/customer_evaluation
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
@@ -1990,6 +2044,8 @@ module Stripe
     stripe/resources/v2/money_management/debit_dispute
     stripe/resources/v2/money_management/financial_account
     stripe/resources/v2/money_management/financial_account_statement
+    stripe/resources/v2/money_management/financial_account_wallet_export
+    stripe/resources/v2/money_management/financial_account_wallet_export_credentials
     stripe/resources/v2/money_management/financial_address
     stripe/resources/v2/money_management/financial_address_debit_simulation
     stripe/resources/v2/money_management/inbound_transfer
@@ -2011,6 +2067,15 @@ module Stripe
     stripe/resources/v2/payments/off_session_payment
     stripe/resources/v2/payments/settlement_allocation_intent
     stripe/resources/v2/payments/settlement_allocation_intent_split
+    stripe/resources/v2/provisioning/eligibility
+    stripe/resources/v2/provisioning/payment_method_request
+    stripe/resources/v2/provisioning/payment_profile
+    stripe/resources/v2/provisioning/project
+    stripe/resources/v2/provisioning/provider
+    stripe/resources/v2/provisioning/provider_connection
+    stripe/resources/v2/provisioning/provider_connection_request
+    stripe/resources/v2/provisioning/provider_service_detail
+    stripe/resources/v2/provisioning/resource
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
     stripe/resources/v2/risk/inquiry
@@ -2244,6 +2309,10 @@ module Stripe
     stripe/events/v2_billing_cadence_created_event
     stripe/events/v2_billing_contract_activated_event
     stripe/events/v2_billing_contract_canceled_event
+    stripe/events/v2_billing_contract_collection_blocked_event
+    stripe/events/v2_billing_contract_collection_current_event
+    stripe/events/v2_billing_contract_collection_past_due_event
+    stripe/events/v2_billing_contract_collection_unpaid_event
     stripe/events/v2_billing_contract_created_event
     stripe/events/v2_billing_contract_ended_event
     stripe/events/v2_billing_contract_updated_event
@@ -2359,6 +2428,11 @@ module Stripe
     stripe/events/v2_core_health_traffic_volume_drop_resolved_event
     stripe/events/v2_core_health_webhook_latency_firing_event
     stripe/events/v2_core_health_webhook_latency_resolved_event
+    stripe/events/v2_core_vault_network_token_activated_event
+    stripe/events/v2_core_vault_network_token_authorization_requirements_changed_event
+    stripe/events/v2_core_vault_network_token_deactivated_event
+    stripe/events/v2_core_vault_network_token_details_updated_event
+    stripe/events/v2_core_vault_network_token_suspended_event
     stripe/events/v2_data_reporting_query_run_created_event
     stripe/events/v2_data_reporting_query_run_failed_event
     stripe/events/v2_data_reporting_query_run_succeeded_event
@@ -2387,6 +2461,9 @@ module Stripe
     stripe/events/v2_money_management_financial_account_statement_created_event
     stripe/events/v2_money_management_financial_account_statement_restated_event
     stripe/events/v2_money_management_financial_account_updated_event
+    stripe/events/v2_money_management_financial_account_wallet_export_completed_event
+    stripe/events/v2_money_management_financial_account_wallet_export_pending_event
+    stripe/events/v2_money_management_financial_account_wallet_export_ready_event
     stripe/events/v2_money_management_financial_address_activated_event
     stripe/events/v2_money_management_financial_address_failed_event
     stripe/events/v2_money_management_inbound_transfer_available_event

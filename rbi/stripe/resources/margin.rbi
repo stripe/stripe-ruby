@@ -47,8 +47,8 @@ module Stripe
 
     # Update the specified margin object. Certain fields of the margin object are not editable.
     sig {
-      params(margin: String, params: T.any(::Stripe::MarginUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
+      params(id: String, params: T.any(::Stripe::MarginUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Margin)
      }
-    def self.update(margin, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -12,8 +12,8 @@ module Stripe
 
     # Retrieves a Mandate object.
     sig {
-      params(mandate: String, params: T.any(::Stripe::MandateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Mandate)
+      params(id: String, params: T.any(::Stripe::MandateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Mandate)
      }
-    def retrieve(mandate, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

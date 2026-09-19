@@ -5,7 +5,7 @@ module Stripe
   # Invoices are statements of amounts owed by a customer, and are either
   # generated one-off, or generated periodically from a subscription.
   #
-  # They contain [invoice items](https://api.stripe.com#invoiceitems), and proration adjustments
+  # They contain [invoice items](https://docs.stripe.com/api#invoiceitems), and proration adjustments
   # that may be caused by subscription upgrades/downgrades (if necessary).
   #
   # If your invoice is configured to be billed through automatic charges,
@@ -315,7 +315,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -326,9 +326,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -1346,17 +1346,17 @@ module Stripe
     def add_lines(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/add_lines", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Adds multiple line items to an invoice. This is only possible when an invoice is still a draft.
-    def self.add_lines(invoice, params = {}, opts = {})
+    def self.add_lines(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/add_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/add_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1375,7 +1375,7 @@ module Stripe
     def attach_payment(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/attach_payment", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1391,10 +1391,10 @@ module Stripe
     # credited to the invoice immediately.
     #
     # See: [Partial payments](https://docs.stripe.com/docs/invoicing/partial-payments) to learn more.
-    def self.attach_payment(invoice, params = {}, opts = {})
+    def self.attach_payment(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/attach_payment", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/attach_payment", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1424,10 +1424,10 @@ module Stripe
     end
 
     # Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://docs.stripe.com/api/invoices/void).
-    def self.delete(invoice, params = {}, opts = {})
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1437,7 +1437,7 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1447,17 +1447,17 @@ module Stripe
     def detach_payment(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/detach_payment", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Detaches a payment from the invoice, removing it from the list of payments
-    def self.detach_payment(invoice, params = {}, opts = {})
+    def self.detach_payment(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/detach_payment", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/detach_payment", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1467,17 +1467,17 @@ module Stripe
     def finalize_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/finalize", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
-    def self.finalize_invoice(invoice, params = {}, opts = {})
+    def self.finalize_invoice(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/finalize", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/finalize", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1492,17 +1492,17 @@ module Stripe
     def mark_uncollectible(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/mark_uncollectible", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
-    def self.mark_uncollectible(invoice, params = {}, opts = {})
+    def self.mark_uncollectible(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/mark_uncollectible", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/mark_uncollectible", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1512,17 +1512,17 @@ module Stripe
     def pay(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/pay", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
-    def self.pay(invoice, params = {}, opts = {})
+    def self.pay(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/pay", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/pay", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1532,17 +1532,17 @@ module Stripe
     def remove_lines(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/remove_lines", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/remove_lines", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Removes multiple line items from an invoice. This is only possible when an invoice is still a draft.
-    def self.remove_lines(invoice, params = {}, opts = {})
+    def self.remove_lines(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/remove_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/remove_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1562,7 +1562,7 @@ module Stripe
     def send_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/send", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1571,10 +1571,10 @@ module Stripe
     # Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
     #
     # Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
-    def self.send_invoice(invoice, params = {}, opts = {})
+    def self.send_invoice(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/send", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/send", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1587,10 +1587,10 @@ module Stripe
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass
     # auto_advance=false.
-    def self.update(invoice, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1600,17 +1600,17 @@ module Stripe
     def update_lines(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/update_lines", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Updates multiple line items on an invoice. This is only possible when an invoice is still a draft.
-    def self.update_lines(invoice, params = {}, opts = {})
+    def self.update_lines(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/update_lines", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/update_lines", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1622,7 +1622,7 @@ module Stripe
     def void_invoice(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(self["id"]) }),
+        path: format("/v1/invoices/%<id>s/void", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1631,10 +1631,10 @@ module Stripe
     # Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://docs.stripe.com/api/invoices/delete), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
     #
     # Consult with local regulations to determine whether and how an invoice might be amended, canceled, or voided in the jurisdiction you're doing business in. You might need to [issue another invoice or <a href="/api/credit_notes/create">credit note](https://docs.stripe.com/api/invoices/create) instead. Stripe recommends that you consult with your legal counsel for advice specific to your business.
-    def self.void_invoice(invoice, params = {}, opts = {})
+    def self.void_invoice(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/invoices/%<invoice>s/void", { invoice: CGI.escape(invoice) }),
+        path: format("/v1/invoices/%<id>s/void", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

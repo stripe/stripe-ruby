@@ -7,6 +7,7 @@ module Stripe
     module MoneyManagement
       class FinancialAccountService < StripeService
         attr_reader :statements
+        attr_reader :wallet_export
         # Closes a FinancialAccount with or without forwarding settings.
         #
         # ** raises NonZeroBalanceError

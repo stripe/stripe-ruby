@@ -711,10 +711,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(transaction, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/issuing/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -751,10 +751,10 @@ module Stripe
         end
 
         # Refund a test-mode Transaction.
-        def self.refund(transaction, params = {}, opts = {})
+        def self.refund(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(transaction) }),
+            path: format("/v1/test_helpers/issuing/transactions/%<id>s/refund", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -764,7 +764,7 @@ module Stripe
         def refund(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/transactions/%<id>s/refund", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

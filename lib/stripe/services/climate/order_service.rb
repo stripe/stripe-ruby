@@ -8,10 +8,10 @@ module Stripe
       # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
       # provides 90 days advance notice and refunds the amount_total.
-      def cancel(order, params = {}, opts = {})
+      def cancel(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/climate/orders/%<order>s/cancel", { order: CGI.escape(order) }),
+          path: format("/v1/climate/orders/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -45,10 +45,10 @@ module Stripe
       end
 
       # Retrieves the details of a Climate order object with the given ID.
-      def retrieve(order, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/climate/orders/%<order>s", { order: CGI.escape(order) }),
+          path: format("/v1/climate/orders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -56,10 +56,10 @@ module Stripe
       end
 
       # Updates the specified order by setting the values of the parameters passed.
-      def update(order, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/climate/orders/%<order>s", { order: CGI.escape(order) }),
+          path: format("/v1/climate/orders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

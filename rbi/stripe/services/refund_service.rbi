@@ -8,9 +8,9 @@ module Stripe
     #
     # You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
+      params(id: String, params: T.any(::Stripe::RefundCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
-    def cancel(refund, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
     #
@@ -36,15 +36,15 @@ module Stripe
 
     # Retrieves the details of an existing refund.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
+      params(id: String, params: T.any(::Stripe::RefundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
-    def retrieve(refund, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a Refund cancel request into a batch job JSONL line.
     sig {
-      params(refund: String, params: ::Stripe::RefundCancelParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::RefundCancelParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_cancel(refund, params = {}, opts = {}); end
+    def serialize_batch_cancel(id, params = {}, opts = {}); end
 
     # Serializes a Refund create request into a batch job JSONL line.
     sig { params(params: ::Stripe::RefundCreateParams, opts: T.untyped).returns(String) }
@@ -54,8 +54,8 @@ module Stripe
     #
     # This request only accepts metadata as an argument.
     sig {
-      params(refund: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
+      params(id: String, params: T.any(::Stripe::RefundUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Refund)
      }
-    def update(refund, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

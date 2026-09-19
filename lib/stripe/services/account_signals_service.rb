@@ -4,10 +4,10 @@
 module Stripe
   class AccountSignalsService < StripeService
     # Retrieves the account's Signal objects
-    def retrieve(account_id, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/accounts/%<account_id>s/signals", { account_id: CGI.escape(account_id) }),
+        path: format("/v1/accounts/%<id>s/signals", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

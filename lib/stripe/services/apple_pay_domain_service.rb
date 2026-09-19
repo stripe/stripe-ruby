@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Delete an apple pay domain.
-    def delete(domain, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/apple_pay/domains/%<domain>s", { domain: CGI.escape(domain) }),
+        path: format("/v1/apple_pay/domains/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Retrieve an apple pay domain.
-    def retrieve(domain, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/apple_pay/domains/%<domain>s", { domain: CGI.escape(domain) }),
+        path: format("/v1/apple_pay/domains/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

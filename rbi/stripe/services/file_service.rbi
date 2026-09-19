@@ -20,8 +20,8 @@ module Stripe
 
     # Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://docs.stripe.com/docs/file-upload#download-file-contents).
     sig {
-      params(file: String, params: T.any(::Stripe::FileRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::File)
+      params(id: String, params: T.any(::Stripe::FileRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::File)
      }
-    def retrieve(file, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

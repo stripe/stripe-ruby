@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves the details of a Financial Connections Institution.
-      def retrieve(institution, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/financial_connections/institutions/%<institution>s", { institution: CGI.escape(institution) }),
+          path: format("/v1/financial_connections/institutions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

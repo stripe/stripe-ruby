@@ -62,6 +62,12 @@ module Stripe
         class GbBankTransfer < ::Stripe::StripeObject
           # The last 4 digits of the account number of the sender of the funding.
           attr_reader :account_number_last4
+          # The BIC of the bank of the sender of the funding.
+          attr_reader :bic
+          # The last 4 digits of the IBAN of the sender of the funding.
+          attr_reader :iban_last4
+          # The banking network used for this funding.
+          attr_reader :network
           # The full name of the sender, as supplied by the sending bank.
           attr_reader :sender_name
           # The sort code of the bank of the sender of the funding

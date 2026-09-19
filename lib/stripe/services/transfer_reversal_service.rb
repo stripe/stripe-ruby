@@ -30,10 +30,10 @@ module Stripe
     end
 
     # By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
-    def retrieve(transfer, id, params = {}, opts = {})
+    def retrieve(transfer_id, id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/transfers/%<transfer>s/reversals/%<id>s", { transfer: CGI.escape(transfer), id: CGI.escape(id) }),
+        path: format("/v1/transfers/%<transfer_id>s/reversals/%<id>s", { transfer_id: CGI.escape(transfer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -43,10 +43,10 @@ module Stripe
     # Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request only accepts metadata and description as arguments.
-    def update(transfer, id, params = {}, opts = {})
+    def update(transfer_id, id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/transfers/%<transfer>s/reversals/%<id>s", { transfer: CGI.escape(transfer), id: CGI.escape(id) }),
+        path: format("/v1/transfers/%<transfer_id>s/reversals/%<id>s", { transfer_id: CGI.escape(transfer_id), id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -93,6 +93,19 @@ module Stripe
         end
       end
 
+      class PreCollectedConsent < ::Stripe::StripeObject
+        # The outcome of evaluating the pre-collected consent submitted for this Session.
+        attr_reader :outcome
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RelinkOptions < ::Stripe::StripeObject
         # Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
         attr_reader :account
@@ -192,6 +205,8 @@ module Stripe
       attr_reader :object
       # Permissions requested for accounts collected during this session.
       attr_reader :permissions
+      # Attribute for field pre_collected_consent
+      attr_reader :pre_collected_consent
       # Data features requested to be retrieved upon account creation.
       attr_reader :prefetch
       # Attribute for field relink_options
@@ -226,6 +241,7 @@ module Stripe
           hosted: Hosted,
           limits: Limits,
           manual_entry: ManualEntry,
+          pre_collected_consent: PreCollectedConsent,
           relink_options: RelinkOptions,
           relink_result: RelinkResult,
           status_details: StatusDetails,

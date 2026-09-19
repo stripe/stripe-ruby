@@ -12,8 +12,8 @@ module Stripe
 
     # Returns a Country Spec for a given Country code.
     sig {
-      params(country: String, params: T.any(::Stripe::CountrySpecRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CountrySpec)
+      params(id: String, params: T.any(::Stripe::CountrySpecRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CountrySpec)
      }
-    def retrieve(country, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

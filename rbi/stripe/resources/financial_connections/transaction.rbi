@@ -7,7 +7,7 @@ module Stripe
     # A Transaction represents a real transaction that affects a Financial Connections Account balance.
     class Transaction < APIResource
       class Classification < ::Stripe::StripeObject
-        class Credit < ::Stripe::StripeObject
+        class FinancialActivity < ::Stripe::StripeObject
           # Stripe's confidence in this classification.
           sig { returns(T.nilable(String)) }
           def confidence_level; end
@@ -58,9 +58,9 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Attribute for field credit
-        sig { returns(T.nilable(Credit)) }
-        def credit; end
+        # Attribute for field financial_activity
+        sig { returns(T.nilable(FinancialActivity)) }
+        def financial_activity; end
         # Attribute for field money_movement
         sig { returns(T.nilable(MoneyMovement)) }
         def money_movement; end
@@ -72,7 +72,7 @@ module Stripe
         def type; end
         def self.inner_class_types
           @inner_class_types = {
-            credit: Credit,
+            financial_activity: FinancialActivity,
             money_movement: MoneyMovement,
             personal_finance: PersonalFinance,
           }

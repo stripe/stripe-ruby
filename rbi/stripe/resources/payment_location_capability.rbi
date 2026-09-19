@@ -74,8 +74,8 @@ module Stripe
 
     # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
     sig {
-      params(capability: String, params: T.any(::Stripe::PaymentLocationCapabilityUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocationCapability)
+      params(id: String, params: T.any(::Stripe::PaymentLocationCapabilityUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLocationCapability)
      }
-    def self.update(capability, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

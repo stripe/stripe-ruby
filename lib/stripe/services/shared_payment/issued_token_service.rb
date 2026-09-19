@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an existing SharedPaymentIssuedToken object
-      def retrieve(shared_payment_issued_token, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s", { shared_payment_issued_token: CGI.escape(shared_payment_issued_token) }),
+          path: format("/v1/shared_payment/issued_tokens/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Revokes a SharedPaymentIssuedToken
-      def revoke(shared_payment_issued_token, params = {}, opts = {})
+      def revoke(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/shared_payment/issued_tokens/%<shared_payment_issued_token>s/revoke", { shared_payment_issued_token: CGI.escape(shared_payment_issued_token) }),
+          path: format("/v1/shared_payment/issued_tokens/%<id>s/revoke", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

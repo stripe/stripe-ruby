@@ -18,14 +18,14 @@ module Stripe
 
     # Returns the shipping rate object with the given ID.
     sig {
-      params(shipping_rate_token: String, params: T.any(::Stripe::ShippingRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
+      params(id: String, params: T.any(::Stripe::ShippingRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
      }
-    def retrieve(shipping_rate_token, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates an existing shipping rate object.
     sig {
-      params(shipping_rate_token: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
+      params(id: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
      }
-    def update(shipping_rate_token, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

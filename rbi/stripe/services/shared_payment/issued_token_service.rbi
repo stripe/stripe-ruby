@@ -13,15 +13,15 @@ module Stripe
 
       # Retrieves an existing SharedPaymentIssuedToken object
       sig {
-        params(shared_payment_issued_token: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+        params(id: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
        }
-      def retrieve(shared_payment_issued_token, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Revokes a SharedPaymentIssuedToken
       sig {
-        params(shared_payment_issued_token: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+        params(id: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
        }
-      def revoke(shared_payment_issued_token, params = {}, opts = {}); end
+      def revoke(id, params = {}, opts = {}); end
     end
   end
 end

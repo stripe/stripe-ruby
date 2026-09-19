@@ -3,10 +3,10 @@
 
 # typed: true
 module Stripe
-  # You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+  # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
   #
   # Plans define the base price, currency, and billing cycle for recurring purchases of products.
-  # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+  # [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
   #
   # For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
   #
@@ -126,9 +126,9 @@ module Stripe
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
-      params(plan: String, params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
+      params(id: String, params: T.any(::Stripe::PlanDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
-    def self.delete(plan, params = {}, opts = {}); end
+    def self.delete(id, params = {}, opts = {}); end
 
     # Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
     sig {
@@ -144,8 +144,8 @@ module Stripe
 
     # Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
     sig {
-      params(plan: String, params: T.any(::Stripe::PlanUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
+      params(id: String, params: T.any(::Stripe::PlanUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Plan)
      }
-    def self.update(plan, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

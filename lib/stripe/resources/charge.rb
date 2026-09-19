@@ -961,7 +961,7 @@ module Stripe
         attr_reader :decremental_authorization
         # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         attr_reader :description
-        # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. The response value is the source of truth; it may differ from the request value if the network downgraded the transaction.
+        # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
         attr_reader :electronic_commerce_indicator
         # Two-digit number representing the card's expiration month.
         attr_reader :exp_month
@@ -1009,6 +1009,10 @@ module Stripe
         attr_reader :reauthorize_before
         # Status of a card based on the card issuer.
         attr_reader :regulated_status
+        # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+        attr_reader :setup_credential_usage
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
@@ -2767,17 +2771,17 @@ module Stripe
     def capture(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<charge>s/capture", { charge: CGI.escape(self["id"]) }),
+        path: format("/v1/charges/%<id>s/capture", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
-    def self.capture(charge, params = {}, opts = {})
+    def self.capture(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<charge>s/capture", { charge: CGI.escape(charge) }),
+        path: format("/v1/charges/%<id>s/capture", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -2802,10 +2806,10 @@ module Stripe
     end
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-    def self.update(charge, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/charges/%<charge>s", { charge: CGI.escape(charge) }),
+        path: format("/v1/charges/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

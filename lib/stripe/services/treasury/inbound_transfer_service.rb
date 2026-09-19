@@ -5,10 +5,10 @@ module Stripe
   module Treasury
     class InboundTransferService < StripeService
       # Cancels an InboundTransfer.
-      def cancel(inbound_transfer, params = {}, opts = {})
+      def cancel(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/treasury/inbound_transfers/%<inbound_transfer>s/cancel", { inbound_transfer: CGI.escape(inbound_transfer) }),
+          path: format("/v1/treasury/inbound_transfers/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

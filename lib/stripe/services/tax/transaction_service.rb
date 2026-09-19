@@ -34,10 +34,10 @@ module Stripe
       end
 
       # Retrieves a Tax Transaction object.
-      def retrieve(transaction, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/tax/transactions/%<transaction>s", { transaction: CGI.escape(transaction) }),
+          path: format("/v1/tax/transactions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -1867,7 +1867,7 @@ module Stripe
     def attach(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_methods/%<id>s/attach", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -1886,10 +1886,10 @@ module Stripe
     # To use this PaymentMethod as the default for invoice or subscription payments,
     # set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
     # on the Customer to the PaymentMethod's ID.
-    def self.attach(payment_method, params = {}, opts = {})
+    def self.attach(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/attach", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1899,17 +1899,17 @@ module Stripe
     def check_balance(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_methods/%<id>s/check_balance", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Retrieves a PaymentMethod's Balance.
-    def self.check_balance(payment_method, params = {}, opts = {})
+    def self.check_balance(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/check_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1926,17 +1926,17 @@ module Stripe
     def detach(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_methods/%<id>s/detach", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
-    def self.detach(payment_method, params = {}, opts = {})
+    def self.detach(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/detach", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -1948,10 +1948,10 @@ module Stripe
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
-    def self.update(payment_method, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

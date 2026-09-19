@@ -6,9 +6,9 @@ module Stripe
   class ChargeService < StripeService
     # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     sig {
-      params(charge: String, params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
+      params(id: String, params: T.any(::Stripe::ChargeCaptureParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
-    def capture(charge, params = {}, opts = {}); end
+    def capture(id, params = {}, opts = {}); end
 
     # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     sig {
@@ -24,9 +24,9 @@ module Stripe
 
     # Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
     sig {
-      params(charge: String, params: T.any(::Stripe::ChargeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
+      params(id: String, params: T.any(::Stripe::ChargeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
-    def retrieve(charge, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -39,8 +39,8 @@ module Stripe
 
     # Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     sig {
-      params(charge: String, params: T.any(::Stripe::ChargeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
+      params(id: String, params: T.any(::Stripe::ChargeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Charge)
      }
-    def update(charge, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

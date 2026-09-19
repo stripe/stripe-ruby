@@ -299,9 +299,9 @@ module Stripe
 
       # Revokes a SharedPaymentIssuedToken
       sig {
-        params(shared_payment_issued_token: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
+        params(id: String, params: T.any(::Stripe::SharedPayment::IssuedTokenRevokeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SharedPayment::IssuedToken)
        }
-      def self.revoke(shared_payment_issued_token, params = {}, opts = {}); end
+      def self.revoke(id, params = {}, opts = {}); end
     end
   end
 end

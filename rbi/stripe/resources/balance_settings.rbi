@@ -8,6 +8,9 @@ module Stripe
     class Payments < ::Stripe::StripeObject
       class Payouts < ::Stripe::StripeObject
         class AutomaticTransferRulesByCurrency < ::Stripe::StripeObject
+          # The currency of the FinancialAccount balance that receives the automatic transfer.
+          sig { returns(T.nilable(String)) }
+          def destination_currency; end
           # The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
           sig { returns(String) }
           def payout_method; end

@@ -2175,10 +2175,10 @@ module Stripe
     end
 
     # Update payment method configuration
-    def self.update(configuration, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+        path: format("/v1/payment_method_configurations/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -19,16 +19,16 @@ module Stripe
 
     # Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
     sig {
-      params(transfer: String, params: T.any(::Stripe::TransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
+      params(id: String, params: T.any(::Stripe::TransferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
      }
-    def retrieve(transfer, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts only metadata as an argument.
     sig {
-      params(transfer: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
+      params(id: String, params: T.any(::Stripe::TransferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Transfer)
      }
-    def update(transfer, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

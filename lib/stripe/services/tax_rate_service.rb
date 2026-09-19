@@ -14,10 +14,10 @@ module Stripe
     end
 
     # Retrieves a tax rate with the given ID
-    def retrieve(tax_rate, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
+        path: format("/v1/tax_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -39,7 +39,7 @@ module Stripe
     end
 
     # Serializes a TaxRate update request into a batch job JSONL line.
-    def serialize_batch_update(tax_rate, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -48,16 +48,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { tax_rate: tax_rate }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates an existing tax rate.
-    def update(tax_rate, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/tax_rates/%<tax_rate>s", { tax_rate: CGI.escape(tax_rate) }),
+        path: format("/v1/tax_rates/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

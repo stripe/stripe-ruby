@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves the details of a Climate product with the given ID.
       sig {
-        params(product: String, params: T.any(::Stripe::Climate::ProductRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Product)
+        params(id: String, params: T.any(::Stripe::Climate::ProductRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Climate::Product)
        }
-      def retrieve(product, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

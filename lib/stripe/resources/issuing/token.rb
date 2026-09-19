@@ -42,13 +42,13 @@ module Stripe
         end
 
         class Mastercard < ::Stripe::StripeObject
-          # A unique reference ID from MasterCard to represent the card account number.
+          # A unique reference ID from Mastercard to represent the card account number.
           attr_reader :card_reference_id
           # The network-unique identifier for the token.
           attr_reader :token_reference_id
-          # The ID of the entity requesting tokenization, specific to MasterCard.
+          # The ID of the entity requesting tokenization, specific to Mastercard.
           attr_reader :token_requestor_id
-          # The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
+          # The name of the entity requesting tokenization, if known. This is directly provided from Mastercard.
           attr_reader :token_requestor_name
 
           def self.inner_class_types
@@ -184,10 +184,10 @@ module Stripe
       end
 
       # Attempts to update the specified Issuing Token object to the status specified.
-      def self.update(token, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/tokens/%<token>s", { token: CGI.escape(token) }),
+          path: format("/v1/issuing/tokens/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

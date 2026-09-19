@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Retrieves the program specified by the given id.
-      def retrieve(program, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/programs/%<program>s", { program: CGI.escape(program) }),
+          path: format("/v1/issuing/programs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Updates a Program object.
-      def update(program, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/programs/%<program>s", { program: CGI.escape(program) }),
+          path: format("/v1/issuing/programs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

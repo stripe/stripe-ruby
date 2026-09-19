@@ -23,10 +23,10 @@ module Stripe
     end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
-    def delete(customer, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -34,10 +34,10 @@ module Stripe
     end
 
     # Removes the currently applied discount on a customer.
-    def delete_discount(customer, params = {}, opts = {})
+    def delete_discount(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/customers/%<customer>s/discount", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s/discount", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -50,10 +50,10 @@ module Stripe
     end
 
     # Retrieves a Customer object.
-    def retrieve(customer, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -89,7 +89,7 @@ module Stripe
     end
 
     # Serializes a Customer delete request into a batch job JSONL line.
-    def serialize_batch_delete(customer, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -98,13 +98,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Customer delete_discount request into a batch job JSONL line.
-    def serialize_batch_delete_discount(customer, params = {}, opts = {})
+    def serialize_batch_delete_discount(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -113,13 +113,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a Customer update request into a batch job JSONL line.
-    def serialize_batch_update(customer, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -128,7 +128,7 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { customer: customer }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
@@ -136,10 +136,10 @@ module Stripe
     # Updates the specified customer by setting the values of the parameters passed. Any parameters not provided are left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (such as a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled is retried. This retry doesn't count as an automatic retry, and doesn't affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer doesn't trigger this behavior.
     #
     # This request accepts mostly the same arguments as the customer creation call.
-    def update(customer, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/customers/%<customer>s", { customer: CGI.escape(customer) }),
+        path: format("/v1/customers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

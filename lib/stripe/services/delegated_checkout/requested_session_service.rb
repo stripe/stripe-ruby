@@ -12,10 +12,10 @@ module Stripe
       end
 
       # Confirms a requested session
-      def confirm(requested_session, params = {}, opts = {})
+      def confirm(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/confirm", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/confirm", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -34,10 +34,10 @@ module Stripe
       end
 
       # Expires a requested session
-      def expire(requested_session, params = {}, opts = {})
+      def expire(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/expire", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/expire", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -45,10 +45,10 @@ module Stripe
       end
 
       # Retrieves a requested session
-      def retrieve(requested_session, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -56,10 +56,10 @@ module Stripe
       end
 
       # Updates a requested session
-      def update(requested_session, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

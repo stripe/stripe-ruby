@@ -304,7 +304,7 @@ module Stripe
           # Describes card money movement details.
           sig { returns(T.nilable(Card)) }
           def card; end
-          # Describes the type of money movement. Currently only `card` is supported.
+          # Describes the type of money movement.
           sig { returns(String) }
           def money_movement_type; end
           def self.inner_class_types

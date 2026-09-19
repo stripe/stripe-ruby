@@ -177,7 +177,7 @@ module Stripe
         @field_remappings = {}
       end
     end
-    # The customer's address.
+    # The customer's billing address.
     sig { returns(T.nilable(Address)) }
     def address; end
     # The current balance, if any, that's stored on the customer in their default currency. If negative, the customer has credit to apply to their next invoice. If positive, the customer has an amount owed that's added to their next invoice. The balance only considers amounts that Stripe hasn't successfully applied to any invoice. It doesn't reflect unpaid invoices. This balance is only taken into account after invoices finalize. For multi-currency balances, see [invoice_credit_balance](https://docs.stripe.com/api/customers/object#customer_object-invoice_credit_balance).
@@ -302,15 +302,15 @@ module Stripe
     # funding instructions will be created. If funding instructions have already been created for a given customer, the same
     # funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
+      params(id: String, params: T.any(::Stripe::CustomerCreateFundingInstructionsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::FundingInstructions)
      }
-    def self.create_funding_instructions(customer, params = {}, opts = {}); end
+    def self.create_funding_instructions(id, params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
+      params(id: String, params: T.any(::Stripe::CustomerDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
-    def self.delete(customer, params = {}, opts = {}); end
+    def self.delete(id, params = {}, opts = {}); end
 
     # Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
     sig {
@@ -326,9 +326,9 @@ module Stripe
 
     # Removes the currently applied discount on a customer.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
+      params(id: String, params: T.any(::Stripe::CustomerDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
-    def self.delete_discount(customer, params = {}, opts = {}); end
+    def self.delete_discount(id, params = {}, opts = {}); end
 
     # Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
     sig {
@@ -344,27 +344,27 @@ module Stripe
 
     # Returns a list of PaymentMethods for a given Customer
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::CustomerListPaymentMethodsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_payment_methods(customer, params = {}, opts = {}); end
+    def self.list_payment_methods(id, params = {}, opts = {}); end
 
     # Retrieves a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
+      params(id: String, params: T.any(::Stripe::CustomerRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
-    def self.retrieve_cash_balance(customer, params = {}, opts = {}); end
+    def self.retrieve_cash_balance(id, params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod object for a given Customer.
     sig {
-      params(payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
+      params(id: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
-    def retrieve_payment_method(payment_method, params = {}, opts = {}); end
+    def retrieve_payment_method(id, params = {}, opts = {}); end
 
     # Retrieves a PaymentMethod object for a given Customer.
     sig {
-      params(customer: String, payment_method: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
+      params(customer_id: String, id: String, params: T.any(::Stripe::CustomerRetrievePaymentMethodParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethod)
      }
-    def self.retrieve_payment_method(customer, payment_method, params = {}, opts = {}); end
+    def self.retrieve_payment_method(customer_id, id, params = {}, opts = {}); end
 
     sig {
       params(params: T.any(::Stripe::CustomerSearchParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SearchResultObject)
@@ -380,14 +380,14 @@ module Stripe
     #
     # This request accepts mostly the same arguments as the customer creation call.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
+      params(id: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Customer)
      }
-    def self.update(customer, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
 
     # Changes the settings on a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
+      params(id: String, params: T.any(::Stripe::CustomerUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(T.untyped)
      }
-    def self.update_cash_balance(customer, params = {}, opts = {}); end
+    def self.update_cash_balance(id, params = {}, opts = {}); end
   end
 end

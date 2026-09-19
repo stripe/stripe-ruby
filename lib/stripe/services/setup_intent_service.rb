@@ -6,10 +6,10 @@ module Stripe
     # You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
     #
     # After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
-    def cancel(intent, params = {}, opts = {})
+    def cancel(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/cancel", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -30,10 +30,10 @@ module Stripe
     # the SetupIntent will transition to the
     # requires_payment_method status or the canceled status if the
     # confirmation limit is reached.
-    def confirm(intent, params = {}, opts = {})
+    def confirm(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/confirm", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/confirm", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -70,10 +70,10 @@ module Stripe
     # Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
     #
     # When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
-    def retrieve(intent, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/setup_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -81,10 +81,10 @@ module Stripe
     end
 
     # Updates a SetupIntent object.
-    def update(intent, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -92,10 +92,10 @@ module Stripe
     end
 
     # Verifies microdeposits on a SetupIntent object.
-    def verify_microdeposits(intent, params = {}, opts = {})
+    def verify_microdeposits(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/setup_intents/%<intent>s/verify_microdeposits", { intent: CGI.escape(intent) }),
+        path: format("/v1/setup_intents/%<id>s/verify_microdeposits", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

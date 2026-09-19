@@ -10,10 +10,10 @@ module Stripe
     end
 
     # Retrieves the token with the given ID.
-    def retrieve(token, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/tokens/%<token>s", { token: CGI.escape(token) }),
+        path: format("/v1/tokens/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

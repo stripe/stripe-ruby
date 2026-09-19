@@ -110,6 +110,8 @@ module Stripe
           #
           # If not specified, defaults to ["always"]. In order to display all saved payment methods, specify ["always", "limited", "unspecified"].
           attr_accessor :payment_method_allow_redisplay_filters
+          # The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. Customer Sessions can't be updated, so create a new one to change the preselection.
+          attr_accessor :payment_method_preselect
           # Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
           attr_accessor :payment_method_redisplay
           # Determines the max number of saved payment methods for the Payment Element to display. This parameter defaults to `3`. The maximum redisplay limit is `10`.
@@ -129,6 +131,7 @@ module Stripe
 
           def initialize(
             payment_method_allow_redisplay_filters: nil,
+            payment_method_preselect: nil,
             payment_method_redisplay: nil,
             payment_method_redisplay_limit: nil,
             payment_method_remove: nil,
@@ -136,6 +139,7 @@ module Stripe
             payment_method_save_usage: nil
           )
             @payment_method_allow_redisplay_filters = payment_method_allow_redisplay_filters
+            @payment_method_preselect = payment_method_preselect
             @payment_method_redisplay = payment_method_redisplay
             @payment_method_redisplay_limit = payment_method_redisplay_limit
             @payment_method_remove = payment_method_remove

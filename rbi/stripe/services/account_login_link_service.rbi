@@ -8,8 +8,8 @@ module Stripe
     #
     # You can only create login links for accounts that use the [Express Dashboard](https://docs.stripe.com/connect/express-dashboard) and are connected to your platform.
     sig {
-      params(account: String, params: T.any(::Stripe::AccountLoginLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::LoginLink)
+      params(id: String, params: T.any(::Stripe::AccountLoginLinkCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::LoginLink)
      }
-    def create(account, params = {}, opts = {}); end
+    def create(id, params = {}, opts = {}); end
   end
 end

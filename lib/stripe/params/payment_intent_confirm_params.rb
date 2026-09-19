@@ -2625,6 +2625,7 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::RequestParams; end
       class Shopeepay < ::Stripe::RequestParams; end
 
       class Sofort < ::Stripe::RequestParams
@@ -2818,6 +2819,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      attr_accessor :sequra
       # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
       attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -2904,6 +2907,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
@@ -2975,6 +2979,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
@@ -3312,8 +3317,18 @@ module Stripe
       class Bizum < ::Stripe::RequestParams; end
 
       class Blik < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Expiry date of the mandate.
+          attr_accessor :expires_at
+
+          def initialize(expires_at: nil)
+            @expires_at = expires_at
+          end
+        end
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         attr_accessor :code
+        # Details of the BLIK mandate
+        attr_accessor :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3325,8 +3340,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(code: nil, setup_future_usage: nil)
+        def initialize(code: nil, mandate_options: nil, setup_future_usage: nil)
           @code = code
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end
@@ -3626,6 +3642,8 @@ module Stripe
         attr_accessor :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_accessor :require_cvc_recollection
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_accessor :setup_credential_usage
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3642,6 +3660,14 @@ module Stripe
         attr_accessor :statement_descriptor_suffix_kanji
         # Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         attr_accessor :statement_details
+        # Use this parameter in scenarios where you collect card details and [charge them later](https://stripe.com/docs/payments/cards/charging-saved-cards).
+        #
+        #  When making an off session payment with a previously saved card (that was saved with a SetupIntent or with a PaymentIntent with `setup_future_usage`), set this parameter to indicate the type of transaction.
+        #
+        #  You can set this parameter at any time before or during PaymentIntent confirmation, and confirm this PaymentIntent with `off_session=true`.
+        #
+        #  Note that this parameter is currently unsupported with the `setup_future_usage` parameter.
+        attr_accessor :stored_credential_usage
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this payment.
         attr_accessor :three_d_secure
@@ -3665,10 +3691,12 @@ module Stripe
           request_reauthorization: nil,
           request_three_d_secure: nil,
           require_cvc_recollection: nil,
+          setup_credential_usage: nil,
           setup_future_usage: nil,
           statement_descriptor_suffix_kana: nil,
           statement_descriptor_suffix_kanji: nil,
           statement_details: nil,
+          stored_credential_usage: nil,
           three_d_secure: nil
         )
           @capture_by = capture_by
@@ -3689,10 +3717,12 @@ module Stripe
           @request_reauthorization = request_reauthorization
           @request_three_d_secure = request_three_d_secure
           @require_cvc_recollection = require_cvc_recollection
+          @setup_credential_usage = setup_credential_usage
           @setup_future_usage = setup_future_usage
           @statement_descriptor_suffix_kana = statement_descriptor_suffix_kana
           @statement_descriptor_suffix_kanji = statement_descriptor_suffix_kanji
           @statement_details = statement_details
+          @stored_credential_usage = stored_credential_usage
           @three_d_secure = three_d_secure
         end
       end
@@ -5532,12 +5562,6 @@ module Stripe
       end
 
       class Paypay < ::Stripe::RequestParams
-        # Controls when the funds are captured from the customer's account.
-        #
-        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
-        #
-        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
-        attr_accessor :capture_method
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -5547,8 +5571,7 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_accessor :setup_future_usage
 
-        def initialize(capture_method: nil, setup_future_usage: nil)
-          @capture_method = capture_method
+        def initialize(setup_future_usage: nil)
           @setup_future_usage = setup_future_usage
         end
       end
@@ -5817,6 +5840,30 @@ module Stripe
           @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
           @target_date = target_date
+        end
+      end
+
+      class Sequra < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(capture_method: nil, setup_future_usage: nil)
+          @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -6281,6 +6328,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
+      # If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
+      attr_accessor :sequra
       # If this is a `shopeepay` PaymentMethod, this sub-hash contains details about the ShopeePay payment method options.
       attr_accessor :shopeepay
       # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
@@ -6359,6 +6408,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         shopeepay: nil,
         sofort: nil,
         stripe_balance: nil,
@@ -6425,6 +6475,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @shopeepay = shopeepay
         @sofort = sofort
         @stripe_balance = stripe_balance
@@ -6536,7 +6587,7 @@ module Stripe
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
     # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-    # If the payment method is attached to a Customer, it must match the [customer](https://api.stripe.com#create_payment_intent-customer) that is set on this PaymentIntent.
+    # If the payment method is attached to a Customer, it must match the [customer](https://docs.stripe.com/api#create_payment_intent-customer) that is set on this PaymentIntent.
     attr_accessor :payment_method
     # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
     # in the [payment_method](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-payment_method)

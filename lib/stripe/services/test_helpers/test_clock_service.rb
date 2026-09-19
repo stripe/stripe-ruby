@@ -5,10 +5,10 @@ module Stripe
   module TestHelpers
     class TestClockService < StripeService
       # Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
-      def advance(test_clock, params = {}, opts = {})
+      def advance(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/test_helpers/test_clocks/%<test_clock>s/advance", { test_clock: CGI.escape(test_clock) }),
+          path: format("/v1/test_helpers/test_clocks/%<id>s/advance", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Deletes a test clock.
-      def delete(test_clock, params = {}, opts = {})
+      def delete(id, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/test_helpers/test_clocks/%<test_clock>s", { test_clock: CGI.escape(test_clock) }),
+          path: format("/v1/test_helpers/test_clocks/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -49,10 +49,10 @@ module Stripe
       end
 
       # Retrieves a test clock.
-      def retrieve(test_clock, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/test_helpers/test_clocks/%<test_clock>s", { test_clock: CGI.escape(test_clock) }),
+          path: format("/v1/test_helpers/test_clocks/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

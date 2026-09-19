@@ -506,8 +506,8 @@ module Stripe
     # item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
     # Updating an invoice's line item is only possible before the invoice is finalized.
     sig {
-      params(invoice: String, line_item_id: String, params: T.any(::Stripe::InvoiceLineItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceLineItem)
+      params(invoice_id: String, id: String, params: T.any(::Stripe::InvoiceLineItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::InvoiceLineItem)
      }
-    def self.update(invoice, line_item_id, params = {}, opts = {}); end
+    def self.update(invoice_id, id, params = {}, opts = {}); end
   end
 end

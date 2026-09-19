@@ -5,10 +5,10 @@ module Stripe
   module SharedPayment
     class GrantedTokenService < StripeService
       # Retrieves an existing SharedPaymentGrantedToken object
-      def retrieve(shared_payment_granted_token, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/shared_payment/granted_tokens/%<shared_payment_granted_token>s", { shared_payment_granted_token: CGI.escape(shared_payment_granted_token) }),
+          path: format("/v1/shared_payment/granted_tokens/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

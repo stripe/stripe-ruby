@@ -79,8 +79,8 @@ module Stripe
 
     # Updates an AccountNotice object.
     sig {
-      params(account_notice: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
+      params(id: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
      }
-    def self.update(account_notice, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

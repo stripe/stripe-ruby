@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Retrieves an Issuing Dispute object.
-      def retrieve(dispute, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/disputes/%<dispute>s", { dispute: CGI.escape(dispute) }),
+          path: format("/v1/issuing/disputes/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://docs.stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
-      def submit(dispute, params = {}, opts = {})
+      def submit(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/disputes/%<dispute>s/submit", { dispute: CGI.escape(dispute) }),
+          path: format("/v1/issuing/disputes/%<id>s/submit", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -49,10 +49,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
-      def update(dispute, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/disputes/%<dispute>s", { dispute: CGI.escape(dispute) }),
+          path: format("/v1/issuing/disputes/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

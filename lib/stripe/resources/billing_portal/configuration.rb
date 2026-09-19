@@ -283,10 +283,10 @@ module Stripe
       end
 
       # Updates a configuration that describes the functionality of the customer portal.
-      def self.update(configuration, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/billing_portal/configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+          path: format("/v1/billing_portal/configurations/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

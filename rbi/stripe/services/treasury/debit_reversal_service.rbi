@@ -19,9 +19,9 @@ module Stripe
 
       # Retrieves a DebitReversal object.
       sig {
-        params(debit_reversal: String, params: T.any(::Stripe::Treasury::DebitReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::DebitReversal)
+        params(id: String, params: T.any(::Stripe::Treasury::DebitReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::DebitReversal)
        }
-      def retrieve(debit_reversal, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

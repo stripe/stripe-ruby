@@ -113,9 +113,9 @@ module Stripe
 
         class Verification < ::Stripe::StripeObject
           class Document < ::Stripe::StripeObject
-            # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             attr_reader :back
-            # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             attr_reader :front
 
             def self.inner_class_types
@@ -284,10 +284,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(cardholder, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/cardholders/%<cardholder>s", { cardholder: CGI.escape(cardholder) }),
+          path: format("/v1/issuing/cardholders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

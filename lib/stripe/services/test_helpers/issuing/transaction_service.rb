@@ -36,10 +36,10 @@ module Stripe
         end
 
         # Refund a test-mode Transaction.
-        def refund(transaction, params = {}, opts = {})
+        def refund(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/transactions/%<transaction>s/refund", { transaction: CGI.escape(transaction) }),
+            path: format("/v1/test_helpers/issuing/transactions/%<id>s/refund", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

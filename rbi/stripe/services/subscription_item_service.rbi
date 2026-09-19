@@ -12,9 +12,9 @@ module Stripe
 
     # Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
     sig {
-      params(item: String, params: T.any(::Stripe::SubscriptionItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
+      params(id: String, params: T.any(::Stripe::SubscriptionItemDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
      }
-    def delete(item, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # Returns a list of your subscription items for a given subscription.
     sig {
@@ -24,9 +24,9 @@ module Stripe
 
     # Retrieves the subscription item with the given ID.
     sig {
-      params(item: String, params: T.any(::Stripe::SubscriptionItemRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
+      params(id: String, params: T.any(::Stripe::SubscriptionItemRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
      }
-    def retrieve(item, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a SubscriptionItem create request into a batch job JSONL line.
     sig { params(params: ::Stripe::SubscriptionItemCreateParams, opts: T.untyped).returns(String) }
@@ -34,20 +34,20 @@ module Stripe
 
     # Serializes a SubscriptionItem delete request into a batch job JSONL line.
     sig {
-      params(item: String, params: ::Stripe::SubscriptionItemDeleteParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionItemDeleteParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete(item, params = {}, opts = {}); end
+    def serialize_batch_delete(id, params = {}, opts = {}); end
 
     # Serializes a SubscriptionItem update request into a batch job JSONL line.
     sig {
-      params(item: String, params: ::Stripe::SubscriptionItemUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionItemUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(item, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates the plan or quantity of an item on a current subscription.
     sig {
-      params(item: String, params: T.any(::Stripe::SubscriptionItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
+      params(id: String, params: T.any(::Stripe::SubscriptionItemUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::SubscriptionItem)
      }
-    def update(item, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

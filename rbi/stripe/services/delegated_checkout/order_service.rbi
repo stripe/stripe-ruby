@@ -7,9 +7,9 @@ module Stripe
     class OrderService < StripeService
       # Retrieves a delegated checkout order.
       sig {
-        params(order_id: String, params: T.any(::Stripe::DelegatedCheckout::OrderRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::Order)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::OrderRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::Order)
        }
-      def retrieve(order_id, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

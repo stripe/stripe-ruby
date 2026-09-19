@@ -934,10 +934,10 @@ module Stripe
     # Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://docs.stripe.com/docs/sources) for more detail.
-    def self.update(source, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/sources/%<source>s", { source: CGI.escape(source) }),
+        path: format("/v1/sources/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -947,17 +947,17 @@ module Stripe
     def verify(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/sources/%<source>s/verify", { source: CGI.escape(self["id"]) }),
+        path: format("/v1/sources/%<id>s/verify", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # Verify a given source.
-    def self.verify(source, params = {}, opts = {})
+    def self.verify(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/sources/%<source>s/verify", { source: CGI.escape(source) }),
+        path: format("/v1/sources/%<id>s/verify", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

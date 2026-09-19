@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Deletes a ValueListItem object, removing it from its parent value list.
-      def delete(item, params = {}, opts = {})
+      def delete(id, params = {}, opts = {})
         request(
           method: :delete,
-          path: format("/v1/radar/value_list_items/%<item>s", { item: CGI.escape(item) }),
+          path: format("/v1/radar/value_list_items/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Retrieves a ValueListItem object.
-      def retrieve(item, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/radar/value_list_items/%<item>s", { item: CGI.escape(item) }),
+          path: format("/v1/radar/value_list_items/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

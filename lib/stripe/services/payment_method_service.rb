@@ -16,10 +16,10 @@ module Stripe
     # To use this PaymentMethod as the default for invoice or subscription payments,
     # set [invoice_settings.default_payment_method](https://docs.stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
     # on the Customer to the PaymentMethod's ID.
-    def attach(payment_method, params = {}, opts = {})
+    def attach(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/attach", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/attach", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -27,10 +27,10 @@ module Stripe
     end
 
     # Retrieves a PaymentMethod's Balance.
-    def check_balance(payment_method, params = {}, opts = {})
+    def check_balance(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/check_balance", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/check_balance", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -51,10 +51,10 @@ module Stripe
     end
 
     # Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
-    def detach(payment_method, params = {}, opts = {})
+    def detach(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s/detach", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s/detach", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -73,10 +73,10 @@ module Stripe
     end
 
     # Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer)
-    def retrieve(payment_method, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -84,7 +84,7 @@ module Stripe
     end
 
     # Serializes a PaymentMethod attach request into a batch job JSONL line.
-    def serialize_batch_attach(payment_method, params = {}, opts = {})
+    def serialize_batch_attach(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -93,16 +93,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { payment_method: payment_method }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates a PaymentMethod object. A PaymentMethod must be attached to a customer to be updated.
-    def update(payment_method, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_methods/%<payment_method>s", { payment_method: CGI.escape(payment_method) }),
+        path: format("/v1/payment_methods/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

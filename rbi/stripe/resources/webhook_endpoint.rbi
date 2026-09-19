@@ -58,9 +58,9 @@ module Stripe
 
     # You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
     sig {
-      params(webhook_endpoint: String, params: T.any(::Stripe::WebhookEndpointDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::WebhookEndpoint)
+      params(id: String, params: T.any(::Stripe::WebhookEndpointDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::WebhookEndpoint)
      }
-    def self.delete(webhook_endpoint, params = {}, opts = {}); end
+    def self.delete(id, params = {}, opts = {}); end
 
     # You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
     sig {
@@ -76,8 +76,8 @@ module Stripe
 
     # Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
     sig {
-      params(webhook_endpoint: String, params: T.any(::Stripe::WebhookEndpointUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::WebhookEndpoint)
+      params(id: String, params: T.any(::Stripe::WebhookEndpointUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::WebhookEndpoint)
      }
-    def self.update(webhook_endpoint, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

@@ -13,9 +13,9 @@ module Stripe
 
       # Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
       sig {
-        params(report_type: String, params: T.any(::Stripe::Reporting::ReportTypeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reporting::ReportType)
+        params(id: String, params: T.any(::Stripe::Reporting::ReportTypeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reporting::ReportType)
        }
-      def retrieve(report_type, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

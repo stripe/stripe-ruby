@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves an AccountNotice object.
-    def retrieve(account_notice, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/account_notices/%<account_notice>s", { account_notice: CGI.escape(account_notice) }),
+        path: format("/v1/account_notices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Updates an AccountNotice object.
-    def update(account_notice, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/account_notices/%<account_notice>s", { account_notice: CGI.escape(account_notice) }),
+        path: format("/v1/account_notices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

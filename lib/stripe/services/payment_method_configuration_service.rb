@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Retrieve payment method configuration
-    def retrieve(configuration, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+        path: format("/v1/payment_method_configurations/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Update payment method configuration
-    def update(configuration, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_method_configurations/%<configuration>s", { configuration: CGI.escape(configuration) }),
+        path: format("/v1/payment_method_configurations/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -6,20 +6,20 @@ module Stripe
   class CustomerCashBalanceService < StripeService
     # Retrieves a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerCashBalanceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CashBalance)
+      params(id: String, params: T.any(::Stripe::CustomerCashBalanceRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CashBalance)
      }
-    def retrieve(customer, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a CustomerCashBalance update request into a batch job JSONL line.
     sig {
-      params(customer: String, params: ::Stripe::CustomerCashBalanceUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CustomerCashBalanceUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(customer, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Changes the settings on a customer's cash balance.
     sig {
-      params(customer: String, params: T.any(::Stripe::CustomerCashBalanceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CashBalance)
+      params(id: String, params: T.any(::Stripe::CustomerCashBalanceUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::CashBalance)
      }
-    def update(customer, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

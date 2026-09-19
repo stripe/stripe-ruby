@@ -296,7 +296,7 @@ module Stripe
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s/cancel", { session: CGI.escape(self["id"]) }),
+          path: format("/v1/identity/verification_sessions/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -305,10 +305,10 @@ module Stripe
       # A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
       #
       # Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
-      def self.cancel(session, params = {}, opts = {})
+      def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s/cancel", { session: CGI.escape(session) }),
+          path: format("/v1/identity/verification_sessions/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -362,7 +362,7 @@ module Stripe
       def redact(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s/redact", { session: CGI.escape(self["id"]) }),
+          path: format("/v1/identity/verification_sessions/%<id>s/redact", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -387,10 +387,10 @@ module Stripe
       # used for any purpose.
       #
       # [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
-      def self.redact(session, params = {}, opts = {})
+      def self.redact(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s/redact", { session: CGI.escape(session) }),
+          path: format("/v1/identity/verification_sessions/%<id>s/redact", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -400,10 +400,10 @@ module Stripe
       #
       # When the session status is requires_input, you can use this method to update the
       # verification check and options.
-      def self.update(session, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/identity/verification_sessions/%<session>s", { session: CGI.escape(session) }),
+          path: format("/v1/identity/verification_sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

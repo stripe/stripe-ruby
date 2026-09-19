@@ -21,7 +21,7 @@ module Stripe
         class Card < ::Stripe::StripeObject
           # The reason for filing the appeal.
           attr_reader :reason_for_filing
-          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
           attr_reader :supporting_files
 
           def self.inner_class_types
@@ -500,7 +500,7 @@ module Stripe
     def close(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(self["id"]) }),
+        path: format("/v1/disputes/%<id>s/close", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -509,10 +509,10 @@ module Stripe
     # Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
     #
     # The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
-    def self.close(dispute, params = {}, opts = {})
+    def self.close(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/disputes/%<dispute>s/close", { dispute: CGI.escape(dispute) }),
+        path: format("/v1/disputes/%<id>s/close", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -526,10 +526,10 @@ module Stripe
     # When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
     #
     # Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://docs.stripe.com/docs/disputes/categories).
-    def self.update(dispute, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/disputes/%<dispute>s", { dispute: CGI.escape(dispute) }),
+        path: format("/v1/disputes/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -795,17 +795,17 @@ module Stripe
       def confirm(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/confirm", { requested_session: CGI.escape(self["id"]) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/confirm", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Confirms a requested session
-      def self.confirm(requested_session, params = {}, opts = {})
+      def self.confirm(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/confirm", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/confirm", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -825,17 +825,17 @@ module Stripe
       def expire(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/expire", { requested_session: CGI.escape(self["id"]) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/expire", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Expires a requested session
-      def self.expire(requested_session, params = {}, opts = {})
+      def self.expire(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/expire", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/expire", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -845,27 +845,27 @@ module Stripe
       def list_orders(params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/orders", { requested_session: CGI.escape(self["id"]) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/orders", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
       end
 
       # Lists orders for a delegated checkout requested session.
-      def self.list_orders(requested_session, params = {}, opts = {})
+      def self.list_orders(id, params = {}, opts = {})
         request_stripe_object(
           method: :get,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s/orders", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s/orders", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
       end
 
       # Updates a requested session
-      def self.update(requested_session, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/delegated_checkout/requested_sessions/%<requested_session>s", { requested_session: CGI.escape(requested_session) }),
+          path: format("/v1/delegated_checkout/requested_sessions/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

@@ -14,9 +14,9 @@ module Stripe
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
     sig {
-      params(coupon: String, params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
+      params(id: String, params: T.any(::Stripe::CouponDeleteParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
-    def delete(coupon, params = {}, opts = {}); end
+    def delete(id, params = {}, opts = {}); end
 
     # Returns a list of your coupons.
     sig {
@@ -26,9 +26,9 @@ module Stripe
 
     # Retrieves the coupon with the given ID.
     sig {
-      params(coupon: String, params: T.any(::Stripe::CouponRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
+      params(id: String, params: T.any(::Stripe::CouponRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
-    def retrieve(coupon, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Serializes a Coupon create request into a batch job JSONL line.
     sig { params(params: ::Stripe::CouponCreateParams, opts: T.untyped).returns(String) }
@@ -36,20 +36,20 @@ module Stripe
 
     # Serializes a Coupon delete request into a batch job JSONL line.
     sig {
-      params(coupon: String, params: ::Stripe::CouponDeleteParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CouponDeleteParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_delete(coupon, params = {}, opts = {}); end
+    def serialize_batch_delete(id, params = {}, opts = {}); end
 
     # Serializes a Coupon update request into a batch job JSONL line.
     sig {
-      params(coupon: String, params: ::Stripe::CouponUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::CouponUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(coupon, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
     sig {
-      params(coupon: String, params: T.any(::Stripe::CouponUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
+      params(id: String, params: T.any(::Stripe::CouponUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Coupon)
      }
-    def update(coupon, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

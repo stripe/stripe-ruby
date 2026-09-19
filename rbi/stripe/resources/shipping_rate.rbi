@@ -129,8 +129,8 @@ module Stripe
 
     # Updates an existing shipping rate object.
     sig {
-      params(shipping_rate_token: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
+      params(id: String, params: T.any(::Stripe::ShippingRateUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ShippingRate)
      }
-    def self.update(shipping_rate_token, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

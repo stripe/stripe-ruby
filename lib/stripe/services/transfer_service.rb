@@ -21,10 +21,10 @@ module Stripe
     end
 
     # Retrieves the details of an existing transfer. Supply the unique transfer ID from either a transfer creation request or the transfer list, and Stripe will return the corresponding transfer information.
-    def retrieve(transfer, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
+        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -34,10 +34,10 @@ module Stripe
     # Updates the specified transfer by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
     #
     # This request accepts only metadata as an argument.
-    def update(transfer, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/transfers/%<transfer>s", { transfer: CGI.escape(transfer) }),
+        path: format("/v1/transfers/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

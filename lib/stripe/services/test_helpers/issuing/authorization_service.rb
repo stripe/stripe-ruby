@@ -6,14 +6,14 @@ module Stripe
     module Issuing
       class AuthorizationService < StripeService
         # Capture a test-mode authorization.
-        def capture(authorization, params = {}, opts = {})
+        def capture(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::TestHelpers::Issuing::AuthorizationCaptureParams.coerce_params(params)
           end
 
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/capture", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/capture", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -36,10 +36,10 @@ module Stripe
         end
 
         # Expire a test-mode Authorization.
-        def expire(authorization, params = {}, opts = {})
+        def expire(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/expire", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/expire", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -47,14 +47,14 @@ module Stripe
         end
 
         # Finalize the amount on an Authorization prior to capture, when the initial authorization was for an estimated amount.
-        def finalize_amount(authorization, params = {}, opts = {})
+        def finalize_amount(id, params = {}, opts = {})
           unless params.is_a?(Stripe::RequestParams)
             params = ::Stripe::TestHelpers::Issuing::AuthorizationFinalizeAmountParams.coerce_params(params)
           end
 
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/finalize_amount", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/finalize_amount", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -62,10 +62,10 @@ module Stripe
         end
 
         # Increment a test-mode Authorization.
-        def increment(authorization, params = {}, opts = {})
+        def increment(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/increment", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/increment", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -73,10 +73,10 @@ module Stripe
         end
 
         # Respond to a fraud challenge on a testmode Issuing authorization, simulating either a confirmation of fraud or a correction of legitimacy.
-        def respond(authorization, params = {}, opts = {})
+        def respond(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/fraud_challenges/respond", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/fraud_challenges/respond", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -84,10 +84,10 @@ module Stripe
         end
 
         # Reverse a test-mode Authorization.
-        def reverse(authorization, params = {}, opts = {})
+        def reverse(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/issuing/authorizations/%<authorization>s/reverse", { authorization: CGI.escape(authorization) }),
+            path: format("/v1/test_helpers/issuing/authorizations/%<id>s/reverse", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

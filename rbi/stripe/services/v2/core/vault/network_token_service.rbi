@@ -7,7 +7,7 @@ module Stripe
     module Core
       module Vault
         class NetworkTokenService < StripeService
-          # Creates or returns a NetworkToken from raw card data for POST /v2/core/vault/network_tokens.
+          # Create or Return a Network Token Using Raw Card Data.
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
@@ -17,7 +17,7 @@ module Stripe
            }
           def create(params = {}, opts = {}); end
 
-          # Creates or returns a NetworkToken from an existing card reference for POST /v2/core/vault/network_tokens/create_from_credential.
+          # Creates or returns a Network Token from an existing card reference.
           #
           # ** raises CannotProceedError
           # ** raises BlockedByStripeError
@@ -26,7 +26,6 @@ module Stripe
            }
           def create_from_credential(params = {}, opts = {}); end
 
-          # Generates a single-use cryptogram for POST /v2/core/vault/network_tokens/:id/generate_cryptogram.
           # Every successful call generates a new cryptogram, and retrying can generate another cryptogram.
           # The cryptogram is returned only in this response and is never persisted.
           #
@@ -37,7 +36,7 @@ module Stripe
            }
           def generate_cryptogram(id, params = {}, opts = {}); end
 
-          # Retrieves the persisted NetworkToken projection for GET /v2/core/vault/network_tokens/:id.
+          # Retrieves an existing network token.
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::NetworkTokenRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::NetworkToken)
            }

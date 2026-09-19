@@ -120,7 +120,7 @@ module Stripe
       def cancel(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/climate/orders/%<order>s/cancel", { order: CGI.escape(self["id"]) }),
+          path: format("/v1/climate/orders/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -130,10 +130,10 @@ module Stripe
       # reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
       # might cancel reservations if suppliers fail to deliver. If Frontier cancels the reservation, Stripe
       # provides 90 days advance notice and refunds the amount_total.
-      def self.cancel(order, params = {}, opts = {})
+      def self.cancel(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/climate/orders/%<order>s/cancel", { order: CGI.escape(order) }),
+          path: format("/v1/climate/orders/%<id>s/cancel", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -152,10 +152,10 @@ module Stripe
       end
 
       # Updates the specified order by setting the values of the parameters passed.
-      def self.update(order, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/climate/orders/%<order>s", { order: CGI.escape(order) }),
+          path: format("/v1/climate/orders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

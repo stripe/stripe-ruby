@@ -35,10 +35,10 @@ module Stripe
     end
 
     # Retrieve a payment link.
-    def retrieve(payment_link, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
+        path: format("/v1/payment_links/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -46,10 +46,10 @@ module Stripe
     end
 
     # Updates a payment link.
-    def update(payment_link, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
+        path: format("/v1/payment_links/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -14,9 +14,9 @@ module Stripe
 
       # Retrieves a Tax Calculation object, if the calculation hasn't expired.
       sig {
-        params(calculation: String, params: T.any(::Stripe::Tax::CalculationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Calculation)
+        params(id: String, params: T.any(::Stripe::Tax::CalculationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Calculation)
        }
-      def retrieve(calculation, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Retrieves the details of an existing Report Run.
-      def retrieve(report_run, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/reporting/report_runs/%<report_run>s", { report_run: CGI.escape(report_run) }),
+          path: format("/v1/reporting/report_runs/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

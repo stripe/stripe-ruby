@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Retrieves an Issuing Cardholder object.
-      def retrieve(cardholder, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/cardholders/%<cardholder>s", { cardholder: CGI.escape(cardholder) }),
+          path: format("/v1/issuing/cardholders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -38,10 +38,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def update(cardholder, params = {}, opts = {})
+      def update(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/cardholders/%<cardholder>s", { cardholder: CGI.escape(cardholder) }),
+          path: format("/v1/issuing/cardholders/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

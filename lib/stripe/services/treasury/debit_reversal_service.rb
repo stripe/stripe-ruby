@@ -27,10 +27,10 @@ module Stripe
       end
 
       # Retrieves a DebitReversal object.
-      def retrieve(debit_reversal, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/treasury/debit_reversals/%<debit_reversal>s", { debit_reversal: CGI.escape(debit_reversal) }),
+          path: format("/v1/treasury/debit_reversals/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

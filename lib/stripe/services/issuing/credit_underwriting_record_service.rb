@@ -5,10 +5,10 @@ module Stripe
   module Issuing
     class CreditUnderwritingRecordService < StripeService
       # Update a CreditUnderwritingRecord object to correct mistakes.
-      def correct(credit_underwriting_record, params = {}, opts = {})
+      def correct(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/correct", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          path: format("/v1/issuing/credit_underwriting_records/%<id>s/correct", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -49,10 +49,10 @@ module Stripe
       end
 
       # Update a CreditUnderwritingRecord object from a decision made on a credit application.
-      def report_decision(credit_underwriting_record, params = {}, opts = {})
+      def report_decision(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_decision", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          path: format("/v1/issuing/credit_underwriting_records/%<id>s/report_decision", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -60,10 +60,10 @@ module Stripe
       end
 
       # Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
-      def report_offer_acceptance(credit_underwriting_record, params = {}, opts = {})
+      def report_offer_acceptance(id, params = {}, opts = {})
         request(
           method: :post,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s/report_offer_acceptance", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          path: format("/v1/issuing/credit_underwriting_records/%<id>s/report_offer_acceptance", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api
@@ -71,10 +71,10 @@ module Stripe
       end
 
       # Retrieves a CreditUnderwritingRecord object.
-      def retrieve(credit_underwriting_record, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/credit_underwriting_records/%<credit_underwriting_record>s", { credit_underwriting_record: CGI.escape(credit_underwriting_record) }),
+          path: format("/v1/issuing/credit_underwriting_records/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

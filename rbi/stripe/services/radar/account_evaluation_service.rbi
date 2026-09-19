@@ -13,15 +13,15 @@ module Stripe
 
       # Retrieves an AccountEvaluation object.
       sig {
-        params(account_evaluation: String, params: T.any(::Stripe::Radar::AccountEvaluationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::AccountEvaluation)
+        params(id: String, params: T.any(::Stripe::Radar::AccountEvaluationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::AccountEvaluation)
        }
-      def retrieve(account_evaluation, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Reports an event on an AccountEvaluation object.
       sig {
-        params(account_evaluation: String, params: T.any(::Stripe::Radar::AccountEvaluationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::AccountEvaluation)
+        params(id: String, params: T.any(::Stripe::Radar::AccountEvaluationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Radar::AccountEvaluation)
        }
-      def update(account_evaluation, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

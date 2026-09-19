@@ -3,8 +3,8 @@
 
 module Stripe
   # A coupon contains information about a percent-off or amount-off discount you
-  # might want to apply to a customer. Coupons may be applied to [subscriptions](https://api.stripe.com#subscriptions), [invoices](https://api.stripe.com#invoices),
-  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://api.stripe.com#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
+  # might want to apply to a customer. Coupons may be applied to [subscriptions](https://docs.stripe.com/api#subscriptions), [invoices](https://docs.stripe.com/api#invoices),
+  # [checkout sessions](https://docs.stripe.com/api/checkout/sessions), [quotes](https://docs.stripe.com/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://docs.stripe.com/api/charges/create) or [payment intents](https://docs.stripe.com/api/payment_intents).
   class Coupon < APIResource
     extend Stripe::APIOperations::Create
     include Stripe::APIOperations::Delete
@@ -140,10 +140,10 @@ module Stripe
     end
 
     # You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
-    def self.delete(coupon, params = {}, opts = {})
+    def self.delete(id, params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -153,7 +153,7 @@ module Stripe
     def delete(params = {}, opts = {})
       request_stripe_object(
         method: :delete,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(self["id"]) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -165,10 +165,10 @@ module Stripe
     end
 
     # Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
-    def self.update(coupon, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/coupons/%<coupon>s", { coupon: CGI.escape(coupon) }),
+        path: format("/v1/coupons/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

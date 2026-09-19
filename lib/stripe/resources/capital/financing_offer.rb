@@ -23,6 +23,8 @@ module Stripe
         # Populated when the `product_type` of the `financingoffer` is `refill`.
         # Represents the discount amount on remaining premium for the existing loan at payout time.
         attr_reader :previous_financing_fee_discount_amount
+        # Total amount due for the financing independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
+        attr_reader :total_due_amount
         # Per-transaction rate at which Stripe withholds funds to repay the financing.
         attr_reader :withhold_rate
 
@@ -115,7 +117,7 @@ module Stripe
       def mark_delivered(params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/capital/financing_offers/%<financing_offer>s/mark_delivered", { financing_offer: CGI.escape(self["id"]) }),
+          path: format("/v1/capital/financing_offers/%<id>s/mark_delivered", { id: CGI.escape(self["id"]) }),
           params: params,
           opts: opts
         )
@@ -123,10 +125,10 @@ module Stripe
 
       # Acknowledges that platform has received and delivered the financing_offer to
       # the intended merchant recipient.
-      def self.mark_delivered(financing_offer, params = {}, opts = {})
+      def self.mark_delivered(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/capital/financing_offers/%<financing_offer>s/mark_delivered", { financing_offer: CGI.escape(financing_offer) }),
+          path: format("/v1/capital/financing_offers/%<id>s/mark_delivered", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -153,10 +155,10 @@ module Stripe
         end
 
         # Refills a test financing offer for a connected account.
-        def self.refill(financing_offer, params = {}, opts = {})
+        def self.refill(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(financing_offer) }),
+            path: format("/v1/test_helpers/capital/financing_offers/%<id>s/refill", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -166,7 +168,7 @@ module Stripe
         def refill(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/capital/financing_offers/%<id>s/refill", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

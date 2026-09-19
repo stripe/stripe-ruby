@@ -102,10 +102,10 @@ module Stripe
     end
 
     # Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
-    def self.update(promotion_code, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/promotion_codes/%<promotion_code>s", { promotion_code: CGI.escape(promotion_code) }),
+        path: format("/v1/promotion_codes/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

@@ -16,8 +16,8 @@ module Stripe
     #
     # Retrieves the exchange rates from the given currency to every supported currency.
     sig {
-      params(rate_id: String, params: T.any(::Stripe::ExchangeRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ExchangeRate)
+      params(id: String, params: T.any(::Stripe::ExchangeRateRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ExchangeRate)
      }
-    def retrieve(rate_id, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

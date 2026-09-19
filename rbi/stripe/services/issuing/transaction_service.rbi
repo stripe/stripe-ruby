@@ -13,15 +13,15 @@ module Stripe
 
       # Retrieves an Issuing Transaction object.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Issuing::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
+        params(id: String, params: T.any(::Stripe::Issuing::TransactionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
        }
-      def retrieve(transaction, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
       sig {
-        params(transaction: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
+        params(id: String, params: T.any(::Stripe::Issuing::TransactionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Transaction)
        }
-      def update(transaction, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Retrieve a margin object with the given ID.
-    def retrieve(margin, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/billing/margins/%<margin>s", { margin: CGI.escape(margin) }),
+        path: format("/v1/billing/margins/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Update the specified margin object. Certain fields of the margin object are not editable.
-    def update(margin, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/billing/margins/%<margin>s", { margin: CGI.escape(margin) }),
+        path: format("/v1/billing/margins/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

@@ -860,9 +860,9 @@ module Stripe
 
       # Confirms a requested session
       sig {
-        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionConfirmParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
        }
-      def self.confirm(requested_session, params = {}, opts = {}); end
+      def self.confirm(id, params = {}, opts = {}); end
 
       # Creates a requested session
       sig {
@@ -878,9 +878,9 @@ module Stripe
 
       # Expires a requested session
       sig {
-        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionExpireParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
        }
-      def self.expire(requested_session, params = {}, opts = {}); end
+      def self.expire(id, params = {}, opts = {}); end
 
       # Lists orders for a delegated checkout requested session.
       sig {
@@ -890,15 +890,15 @@ module Stripe
 
       # Lists orders for a delegated checkout requested session.
       sig {
-        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionListOrdersParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
-      def self.list_orders(requested_session, params = {}, opts = {}); end
+      def self.list_orders(id, params = {}, opts = {}); end
 
       # Updates a requested session
       sig {
-        params(requested_session: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
+        params(id: String, params: T.any(::Stripe::DelegatedCheckout::RequestedSessionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::DelegatedCheckout::RequestedSession)
        }
-      def self.update(requested_session, params = {}, opts = {}); end
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

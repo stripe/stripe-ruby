@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Retrieves a payment_location capability
-    def retrieve(capability, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_location_capabilities/%<capability>s", { capability: CGI.escape(capability) }),
+        path: format("/v1/payment_location_capabilities/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
-    def update(capability, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_location_capabilities/%<capability>s", { capability: CGI.escape(capability) }),
+        path: format("/v1/payment_location_capabilities/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

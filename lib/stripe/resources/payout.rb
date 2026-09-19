@@ -20,6 +20,31 @@ module Stripe
       "payout"
     end
 
+    class PayoutMethodOptions < ::Stripe::StripeObject
+      class FinancialAccount < ::Stripe::StripeObject
+        # The currency credited to the destination Financial Account.
+        attr_reader :destination_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field financial_account
+      attr_reader :financial_account
+
+      def self.inner_class_types
+        @inner_class_types = { financial_account: FinancialAccount }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TraceId < ::Stripe::StripeObject
       # Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
       attr_reader :status
@@ -74,6 +99,8 @@ module Stripe
     attr_reader :original_payout
     # ID of the v2 FinancialAccount the funds are sent to.
     attr_reader :payout_method
+    # Attribute for field payout_method_options
+    attr_reader :payout_method_options
     # If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     attr_reader :reconciliation_status
     # If the payout reverses, this is the ID of the payout that reverses this payout.
@@ -93,17 +120,17 @@ module Stripe
     def cancel(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<payout>s/cancel", { payout: CGI.escape(self["id"]) }),
+        path: format("/v1/payouts/%<id>s/cancel", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
-    def self.cancel(payout, params = {}, opts = {})
+    def self.cancel(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<payout>s/cancel", { payout: CGI.escape(payout) }),
+        path: format("/v1/payouts/%<id>s/cancel", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
@@ -129,7 +156,7 @@ module Stripe
     def reverse(params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(self["id"]) }),
+        path: format("/v1/payouts/%<id>s/reverse", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
@@ -138,27 +165,27 @@ module Stripe
     # Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US and Canadian bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
     #
     # By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
-    def self.reverse(payout, params = {}, opts = {})
+    def self.reverse(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<payout>s/reverse", { payout: CGI.escape(payout) }),
+        path: format("/v1/payouts/%<id>s/reverse", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
-    def self.update(payout, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payouts/%<payout>s", { payout: CGI.escape(payout) }),
+        path: format("/v1/payouts/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     def self.inner_class_types
-      @inner_class_types = { trace_id: TraceId }
+      @inner_class_types = { payout_method_options: PayoutMethodOptions, trace_id: TraceId }
     end
 
     def self.field_remappings

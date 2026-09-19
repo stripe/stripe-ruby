@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves an Issuing FraudLiabilityDebit object.
-      def retrieve(fraud_liability_debit, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/issuing/fraud_liability_debits/%<fraud_liability_debit>s", { fraud_liability_debit: CGI.escape(fraud_liability_debit) }),
+          path: format("/v1/issuing/fraud_liability_debits/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

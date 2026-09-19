@@ -12,14 +12,14 @@ module Stripe
 
     # Retrieves an AccountNotice object.
     sig {
-      params(account_notice: String, params: T.any(::Stripe::AccountNoticeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
+      params(id: String, params: T.any(::Stripe::AccountNoticeRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
      }
-    def retrieve(account_notice, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Updates an AccountNotice object.
     sig {
-      params(account_notice: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
+      params(id: String, params: T.any(::Stripe::AccountNoticeUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::AccountNotice)
      }
-    def update(account_notice, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

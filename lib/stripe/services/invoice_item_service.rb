@@ -17,10 +17,10 @@ module Stripe
     end
 
     # Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
-    def delete(invoiceitem, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),
+        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -39,10 +39,10 @@ module Stripe
     end
 
     # Retrieves the invoice item with the given ID.
-    def retrieve(invoiceitem, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),
+        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -64,7 +64,7 @@ module Stripe
     end
 
     # Serializes an InvoiceItem delete request into a batch job JSONL line.
-    def serialize_batch_delete(invoiceitem, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -73,13 +73,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoiceitem: invoiceitem }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes an InvoiceItem update request into a batch job JSONL line.
-    def serialize_batch_update(invoiceitem, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -88,18 +88,18 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { invoiceitem: invoiceitem }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
-    def update(invoiceitem, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       params = ::Stripe::InvoiceItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
-        path: format("/v1/invoiceitems/%<invoiceitem>s", { invoiceitem: CGI.escape(invoiceitem) }),
+        path: format("/v1/invoiceitems/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

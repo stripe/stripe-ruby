@@ -814,27 +814,27 @@ module Stripe
     def list_line_items(params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(self["id"]) }),
+        path: format("/v1/payment_links/%<id>s/line_items", { id: CGI.escape(self["id"]) }),
         params: params,
         opts: opts
       )
     end
 
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-    def self.list_line_items(payment_link, params = {}, opts = {})
+    def self.list_line_items(id, params = {}, opts = {})
       request_stripe_object(
         method: :get,
-        path: format("/v1/payment_links/%<payment_link>s/line_items", { payment_link: CGI.escape(payment_link) }),
+        path: format("/v1/payment_links/%<id>s/line_items", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )
     end
 
     # Updates a payment link.
-    def self.update(payment_link, params = {}, opts = {})
+    def self.update(id, params = {}, opts = {})
       request_stripe_object(
         method: :post,
-        path: format("/v1/payment_links/%<payment_link>s", { payment_link: CGI.escape(payment_link) }),
+        path: format("/v1/payment_links/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts
       )

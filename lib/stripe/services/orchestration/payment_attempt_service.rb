@@ -5,10 +5,10 @@ module Stripe
   module Orchestration
     class PaymentAttemptService < StripeService
       # Retrieves orchestration information for the given payment attempt record (e.g. return url).
-      def retrieve(payment_attempt_record, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/orchestration/payment_attempts/%<payment_attempt_record>s", { payment_attempt_record: CGI.escape(payment_attempt_record) }),
+          path: format("/v1/orchestration/payment_attempts/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

@@ -17,10 +17,10 @@ module Stripe
     end
 
     # Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
-    def delete(item, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
+        path: format("/v1/subscription_items/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -39,10 +39,10 @@ module Stripe
     end
 
     # Retrieves the subscription item with the given ID.
-    def retrieve(item, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
+        path: format("/v1/subscription_items/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -64,7 +64,7 @@ module Stripe
     end
 
     # Serializes a SubscriptionItem delete request into a batch job JSONL line.
-    def serialize_batch_delete(item, params = {}, opts = {})
+    def serialize_batch_delete(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -73,13 +73,13 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { item: item }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Serializes a SubscriptionItem update request into a batch job JSONL line.
-    def serialize_batch_update(item, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -88,18 +88,18 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { item: item }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates the plan or quantity of an item on a current subscription.
-    def update(item, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       params = ::Stripe::SubscriptionItemUpdateParams.coerce_params(params) unless params.is_a?(Stripe::RequestParams)
 
       request(
         method: :post,
-        path: format("/v1/subscription_items/%<item>s", { item: CGI.escape(item) }),
+        path: format("/v1/subscription_items/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

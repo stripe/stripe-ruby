@@ -388,10 +388,10 @@ module Stripe
       end
 
       # Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
-      def self.update(card, params = {}, opts = {})
+      def self.update(id, params = {}, opts = {})
         request_stripe_object(
           method: :post,
-          path: format("/v1/issuing/cards/%<card>s", { card: CGI.escape(card) }),
+          path: format("/v1/issuing/cards/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )
@@ -408,10 +408,10 @@ module Stripe
         end
 
         # Updates the shipping status of the specified Issuing Card object to delivered.
-        def self.deliver_card(card, params = {}, opts = {})
+        def self.deliver_card(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/deliver", { card: CGI.escape(card) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/deliver", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -421,17 +421,17 @@ module Stripe
         def deliver_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/deliver", { card: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/deliver", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the shipping status of the specified Issuing Card object to failure.
-        def self.fail_card(card, params = {}, opts = {})
+        def self.fail_card(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/fail", { card: CGI.escape(card) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/fail", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -441,17 +441,17 @@ module Stripe
         def fail_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/fail", { card: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/fail", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the shipping status of the specified Issuing Card object to returned.
-        def self.return_card(card, params = {}, opts = {})
+        def self.return_card(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/return", { card: CGI.escape(card) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/return", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -461,17 +461,17 @@ module Stripe
         def return_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/return", { card: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/return", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the shipping status of the specified Issuing Card object to shipped.
-        def self.ship_card(card, params = {}, opts = {})
+        def self.ship_card(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/ship", { card: CGI.escape(card) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/ship", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -481,17 +481,17 @@ module Stripe
         def ship_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/ship", { card: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/ship", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )
         end
 
         # Updates the shipping status of the specified Issuing Card object to submitted. This method requires Stripe Version ‘2024-09-30.acacia' or later.
-        def self.submit_card(card, params = {}, opts = {})
+        def self.submit_card(id, params = {}, opts = {})
           request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/submit", { card: CGI.escape(card) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/submit", { id: CGI.escape(id) }),
             params: params,
             opts: opts
           )
@@ -501,7 +501,7 @@ module Stripe
         def submit_card(params = {}, opts = {})
           @resource.request_stripe_object(
             method: :post,
-            path: format("/v1/test_helpers/issuing/cards/%<card>s/shipping/submit", { card: CGI.escape(@resource["id"]) }),
+            path: format("/v1/test_helpers/issuing/cards/%<id>s/shipping/submit", { id: CGI.escape(@resource["id"]) }),
             params: params,
             opts: opts
           )

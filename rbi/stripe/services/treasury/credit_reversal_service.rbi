@@ -19,9 +19,9 @@ module Stripe
 
       # Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
       sig {
-        params(credit_reversal: String, params: T.any(::Stripe::Treasury::CreditReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::CreditReversal)
+        params(id: String, params: T.any(::Stripe::Treasury::CreditReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Treasury::CreditReversal)
        }
-      def retrieve(credit_reversal, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
     end
   end
 end

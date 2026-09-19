@@ -16,10 +16,10 @@ module Stripe
       end
 
       # Retrieves a Climate supplier object.
-      def retrieve(supplier, params = {}, opts = {})
+      def retrieve(id, params = {}, opts = {})
         request(
           method: :get,
-          path: format("/v1/climate/suppliers/%<supplier>s", { supplier: CGI.escape(supplier) }),
+          path: format("/v1/climate/suppliers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts,
           base_address: :api

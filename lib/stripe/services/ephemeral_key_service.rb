@@ -15,10 +15,10 @@ module Stripe
     end
 
     # Invalidates a short-lived API key for a given resource.
-    def delete(key, params = {}, opts = {})
+    def delete(id, params = {}, opts = {})
       request(
         method: :delete,
-        path: format("/v1/ephemeral_keys/%<key>s", { key: CGI.escape(key) }),
+        path: format("/v1/ephemeral_keys/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

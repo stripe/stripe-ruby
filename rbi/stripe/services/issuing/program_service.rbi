@@ -19,15 +19,15 @@ module Stripe
 
       # Retrieves the program specified by the given id.
       sig {
-        params(program: String, params: T.any(::Stripe::Issuing::ProgramRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
+        params(id: String, params: T.any(::Stripe::Issuing::ProgramRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
        }
-      def retrieve(program, params = {}, opts = {}); end
+      def retrieve(id, params = {}, opts = {}); end
 
       # Updates a Program object.
       sig {
-        params(program: String, params: T.any(::Stripe::Issuing::ProgramUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
+        params(id: String, params: T.any(::Stripe::Issuing::ProgramUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Issuing::Program)
        }
-      def update(program, params = {}, opts = {}); end
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

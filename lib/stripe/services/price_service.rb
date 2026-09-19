@@ -16,10 +16,10 @@ module Stripe
     end
 
     # Retrieves the price with the given ID.
-    def retrieve(price, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/prices/%<price>s", { price: CGI.escape(price) }),
+        path: format("/v1/prices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -55,7 +55,7 @@ module Stripe
     end
 
     # Serializes a Price update request into a batch job JSONL line.
-    def serialize_batch_update(price, params = {}, opts = {})
+    def serialize_batch_update(id, params = {}, opts = {})
       request_id = SecureRandom.uuid
       stripe_version = opts[:stripe_version] || Stripe.api_version
 
@@ -64,16 +64,16 @@ module Stripe
         params: params,
         stripe_version: stripe_version,
       }
-      request_body[:path_params] = { price: price }
+      request_body[:path_params] = { id: id }
       request_body[:context] = opts[:stripe_context] if opts[:stripe_context]
       JSON.generate(request_body)
     end
 
     # Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
-    def update(price, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/prices/%<price>s", { price: CGI.escape(price) }),
+        path: format("/v1/prices/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

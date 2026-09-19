@@ -26,10 +26,10 @@ module Stripe
     end
 
     # Retrieves the details of an existing payment method domain.
-    def retrieve(payment_method_domain, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s", { payment_method_domain: CGI.escape(payment_method_domain) }),
+        path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -37,10 +37,10 @@ module Stripe
     end
 
     # Updates an existing payment method domain.
-    def update(payment_method_domain, params = {}, opts = {})
+    def update(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s", { payment_method_domain: CGI.escape(payment_method_domain) }),
+        path: format("/v1/payment_method_domains/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -53,10 +53,10 @@ module Stripe
     # To activate a payment method on an existing payment method domain, complete the required registration steps specific to the payment method, and then validate the payment method domain with this endpoint.
     #
     # Related guides: [Payment method domains](https://docs.stripe.com/docs/payments/payment-methods/pmd-registration).
-    def validate(payment_method_domain, params = {}, opts = {})
+    def validate(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/payment_method_domains/%<payment_method_domain>s/validate", { payment_method_domain: CGI.escape(payment_method_domain) }),
+        path: format("/v1/payment_method_domains/%<id>s/validate", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

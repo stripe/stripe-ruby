@@ -17,10 +17,10 @@ module Stripe
         end
 
         # Refills a test financing offer for a connected account.
-        def refill(financing_offer, params = {}, opts = {})
+        def refill(id, params = {}, opts = {})
           request(
             method: :post,
-            path: format("/v1/test_helpers/capital/financing_offers/%<financing_offer>s/refill", { financing_offer: CGI.escape(financing_offer) }),
+            path: format("/v1/test_helpers/capital/financing_offers/%<id>s/refill", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

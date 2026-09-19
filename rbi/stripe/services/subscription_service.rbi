@@ -6,9 +6,9 @@ module Stripe
   class SubscriptionService < StripeService
     # Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionAttachCadenceParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def attach_cadence(subscription, params = {}, opts = {}); end
+    def attach_cadence(id, params = {}, opts = {}); end
 
     # Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
     #
@@ -16,9 +16,9 @@ module Stripe
     #
     # By default, upon subscription cancellation, Stripe stops automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionCancelParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def cancel(subscription_exposed_id, params = {}, opts = {}); end
+    def cancel(id, params = {}, opts = {}); end
 
     # Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
     #
@@ -34,9 +34,9 @@ module Stripe
 
     # Removes the currently applied discount on a subscription.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
+      params(id: String, params: T.any(::Stripe::SubscriptionDeleteDiscountParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Discount)
      }
-    def delete_discount(subscription_exposed_id, params = {}, opts = {}); end
+    def delete_discount(id, params = {}, opts = {}); end
 
     # By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
     sig {
@@ -46,27 +46,27 @@ module Stripe
 
     # Upgrade the billing_mode of an existing subscription.
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionMigrateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def migrate(subscription, params = {}, opts = {}); end
+    def migrate(id, params = {}, opts = {}); end
 
     # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionPauseParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def pause(subscription, params = {}, opts = {}); end
+    def pause(id, params = {}, opts = {}); end
 
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     sig {
-      params(subscription: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionResumeParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def resume(subscription, params = {}, opts = {}); end
+    def resume(id, params = {}, opts = {}); end
 
     # Retrieves the subscription with the given ID.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def retrieve(subscription_exposed_id, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
 
     # Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
     # Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -79,9 +79,9 @@ module Stripe
 
     # Serializes a Subscription cancel request into a batch job JSONL line.
     sig {
-      params(subscription_exposed_id: String, params: ::Stripe::SubscriptionCancelParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionCancelParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_cancel(subscription_exposed_id, params = {}, opts = {}); end
+    def serialize_batch_cancel(id, params = {}, opts = {}); end
 
     # Serializes a Subscription create request into a batch job JSONL line.
     sig { params(params: ::Stripe::SubscriptionCreateParams, opts: T.untyped).returns(String) }
@@ -89,27 +89,27 @@ module Stripe
 
     # Serializes a Subscription migrate request into a batch job JSONL line.
     sig {
-      params(subscription: String, params: ::Stripe::SubscriptionMigrateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionMigrateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_migrate(subscription, params = {}, opts = {}); end
+    def serialize_batch_migrate(id, params = {}, opts = {}); end
 
     # Serializes a Subscription pause request into a batch job JSONL line.
     sig {
-      params(subscription: String, params: ::Stripe::SubscriptionPauseParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionPauseParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_pause(subscription, params = {}, opts = {}); end
+    def serialize_batch_pause(id, params = {}, opts = {}); end
 
     # Serializes a Subscription resume request into a batch job JSONL line.
     sig {
-      params(subscription: String, params: ::Stripe::SubscriptionResumeParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionResumeParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_resume(subscription, params = {}, opts = {}); end
+    def serialize_batch_resume(id, params = {}, opts = {}); end
 
     # Serializes a Subscription update request into a batch job JSONL line.
     sig {
-      params(subscription_exposed_id: String, params: ::Stripe::SubscriptionUpdateParams, opts: T.untyped).returns(String)
+      params(id: String, params: ::Stripe::SubscriptionUpdateParams, opts: T.untyped).returns(String)
      }
-    def serialize_batch_update(subscription_exposed_id, params = {}, opts = {}); end
+    def serialize_batch_update(id, params = {}, opts = {}); end
 
     # Updates an existing subscription to match the specified parameters.
     # When changing prices or quantities, we optionally prorate the price we charge next month to make up for any price changes.
@@ -133,8 +133,8 @@ module Stripe
     #
     # Updating the quantity on a subscription many times in an hour may result in [rate limiting. If you need to bill for a frequently changing quantity, consider integrating <a href="/docs/billing/subscriptions/usage-based">usage-based billing](https://docs.stripe.com/docs/rate-limits) instead.
     sig {
-      params(subscription_exposed_id: String, params: T.any(::Stripe::SubscriptionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
+      params(id: String, params: T.any(::Stripe::SubscriptionUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Subscription)
      }
-    def update(subscription_exposed_id, params = {}, opts = {}); end
+    def update(id, params = {}, opts = {}); end
   end
 end

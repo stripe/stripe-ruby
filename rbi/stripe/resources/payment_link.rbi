@@ -831,14 +831,14 @@ module Stripe
 
     # When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+      params(id: String, params: T.any(::Stripe::PaymentLinkListLineItemsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
      }
-    def self.list_line_items(payment_link, params = {}, opts = {}); end
+    def self.list_line_items(id, params = {}, opts = {}); end
 
     # Updates a payment link.
     sig {
-      params(payment_link: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
+      params(id: String, params: T.any(::Stripe::PaymentLinkUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentLink)
      }
-    def self.update(payment_link, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

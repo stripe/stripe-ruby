@@ -2232,8 +2232,8 @@ module Stripe
 
     # Update payment method configuration
     sig {
-      params(configuration: String, params: T.any(::Stripe::PaymentMethodConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
+      params(id: String, params: T.any(::Stripe::PaymentMethodConfigurationUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::PaymentMethodConfiguration)
      }
-    def self.update(configuration, params = {}, opts = {}); end
+    def self.update(id, params = {}, opts = {}); end
   end
 end

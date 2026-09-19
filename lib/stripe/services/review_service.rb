@@ -4,10 +4,10 @@
 module Stripe
   class ReviewService < StripeService
     # Approves a Review object, closing it and removing it from the list of reviews.
-    def approve(review, params = {}, opts = {})
+    def approve(id, params = {}, opts = {})
       request(
         method: :post,
-        path: format("/v1/reviews/%<review>s/approve", { review: CGI.escape(review) }),
+        path: format("/v1/reviews/%<id>s/approve", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api
@@ -20,10 +20,10 @@ module Stripe
     end
 
     # Retrieves a Review object.
-    def retrieve(review, params = {}, opts = {})
+    def retrieve(id, params = {}, opts = {})
       request(
         method: :get,
-        path: format("/v1/reviews/%<review>s", { review: CGI.escape(review) }),
+        path: format("/v1/reviews/%<id>s", { id: CGI.escape(id) }),
         params: params,
         opts: opts,
         base_address: :api

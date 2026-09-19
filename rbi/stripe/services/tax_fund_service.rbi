@@ -12,8 +12,8 @@ module Stripe
 
     # Retrieves a tax fund object by its ID.
     sig {
-      params(tax_fund: String, params: T.any(::Stripe::TaxFundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxFund)
+      params(id: String, params: T.any(::Stripe::TaxFundRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TaxFund)
      }
-    def retrieve(tax_fund, params = {}, opts = {}); end
+    def retrieve(id, params = {}, opts = {}); end
   end
 end

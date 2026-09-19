@@ -588,6 +588,7 @@ module Stripe
       autoload :EventReason, "stripe/resources/v2/core/event_notification"
       autoload :EventReasonRequest, "stripe/resources/v2/core/event_notification"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
+      autoload :RelatedSingletonObject, "stripe/resources/v2/core/event_notification"
 
       module Vault
         autoload :GbBankAccount, "stripe/resources/v2/core/vault/gb_bank_account"

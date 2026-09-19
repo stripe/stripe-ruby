@@ -20,8 +20,9 @@ require "stripe"
 require "sinatra"
 
 api_key = ENV.fetch("STRIPE_API_KEY", nil)
-# Retrieve the webhook secret from the environment variable
-webhook_secret = ENV.fetch("WEBHOOK_SECRET", nil)
+# Retrieve the webhook secret from the environment variable. This is required;
+# `ENV.fetch` without a default raises a KeyError if it's not set.
+webhook_secret = ENV.fetch("WEBHOOK_SECRET")
 
 client = Stripe::StripeClient.new(api_key)
 

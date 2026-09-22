@@ -72,7 +72,7 @@ module Stripe
     def reporting_category; end
     # This transaction relates to the Stripe object.
     sig {
-      returns(T.nilable(T.any(String, T.any(::Stripe::ApplicationFee, ::Stripe::Charge, ::Stripe::ConnectCollectionTransfer, ::Stripe::CustomerCashBalanceTransaction, ::Stripe::Dispute, ::Stripe::ApplicationFeeRefund, ::Stripe::Issuing::Authorization, ::Stripe::Issuing::Dispute, ::Stripe::Issuing::Transaction, ::Stripe::Payout, ::Stripe::Refund, ::Stripe::ReserveTransaction, ::Stripe::TaxDeductedAtSource, ::Stripe::Topup, ::Stripe::Transfer, ::Stripe::Reversal))))
+      returns(T.nilable(T.any(String, T.any(::Stripe::ApplicationFee, ::Stripe::Charge, ::Stripe::ConnectCollectionTransfer, ::Stripe::CustomerCashBalanceTransaction, ::Stripe::Dispute, ::Stripe::ApplicationFeeRefund, ::Stripe::Issuing::Authorization, ::Stripe::Issuing::Dispute, ::Stripe::Issuing::Transaction, ::Stripe::Payout, ::Stripe::Refund, ::Stripe::ReserveTransaction, ::Stripe::TaxDeductedAtSource, ::Stripe::Topup, ::Stripe::Transfer, ::Stripe::TransferReversal))))
      }
     def source; end
     # The transaction's net funds status in the Stripe balance, which are either `available` or `pending`.

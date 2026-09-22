@@ -3,7 +3,7 @@
 require File.expand_path("../test_helper", __dir__)
 
 module Stripe
-  class ReversalTest < Test::Unit::TestCase
+  class TransferReversalTest < Test::Unit::TestCase
     setup do
       @transfer = Stripe::Transfer.retrieve("tr_123")
     end
@@ -13,14 +13,14 @@ module Stripe
       assert_requested :get,
                        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals"
       assert reversals.data.is_a?(Array)
-      assert reversals.data[0].is_a?(Stripe::Reversal)
+      assert reversals.data[0].is_a?(Stripe::TransferReversal)
     end
 
     should "be retrievable" do
       reversal = @transfer.reversals.retrieve("trr_123")
       assert_requested :get,
                        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals/trr_123"
-      assert reversal.is_a?(Stripe::Reversal)
+      assert reversal.is_a?(Stripe::TransferReversal)
     end
 
     should "be creatable" do
@@ -29,7 +29,7 @@ module Stripe
       )
       assert_requested :post,
                        "#{Stripe.api_base}/v1/transfers/#{@transfer.id}/reversals"
-      assert reversal.is_a?(Stripe::Reversal)
+      assert reversal.is_a?(Stripe::TransferReversal)
     end
 
     should "be saveable" do

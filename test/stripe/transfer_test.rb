@@ -47,7 +47,7 @@ module Stripe
           amount: 100
         )
         assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_123/reversals"
-        assert reversal.is_a?(Stripe::Reversal)
+        assert reversal.is_a?(Stripe::TransferReversal)
       end
     end
 
@@ -58,7 +58,7 @@ module Stripe
           "trr_123"
         )
         assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123"
-        assert reversal.is_a?(Stripe::Reversal)
+        assert reversal.is_a?(Stripe::TransferReversal)
       end
     end
 
@@ -70,7 +70,7 @@ module Stripe
           metadata: { foo: "bar" }
         )
         assert_requested :post, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123"
-        assert reversal.is_a?(Stripe::Reversal)
+        assert reversal.is_a?(Stripe::TransferReversal)
       end
     end
 
@@ -93,7 +93,7 @@ module Stripe
         {}
       )
       assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_123/reversals/trr_123?expand%5B%5D=transfer"
-      assert reversal.is_a?(Stripe::Reversal)
+      assert reversal.is_a?(Stripe::TransferReversal)
     end
 
     should "be retrievable with opts and params" do
@@ -105,7 +105,7 @@ module Stripe
         assert_equal("acct_123", req.headers["Stripe-Account"])
         true
       end
-      assert transfer_reversal.is_a?(Stripe::Reversal)
+      assert transfer_reversal.is_a?(Stripe::TransferReversal)
     end
     should "be retrievable with params and an explicitly empty opts" do
       transfer_reversal = Stripe::Transfer.retrieve_reversal(
@@ -118,7 +118,7 @@ module Stripe
         assert_nil(req.headers["Stripe-Account"])
         true
       end
-      assert transfer_reversal.is_a?(Stripe::Reversal)
+      assert transfer_reversal.is_a?(Stripe::TransferReversal)
     end
   end
 end

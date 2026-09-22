@@ -5808,7 +5808,7 @@ module Stripe
     def reporting_category; end
     # This transaction relates to the Stripe object.
     sig {
-      returns(T.nilable(T.any(String, T.any(::Stripe::ApplicationFee, ::Stripe::Charge, ::Stripe::ConnectCollectionTransfer, ::Stripe::CustomerCashBalanceTransaction, ::Stripe::Dispute, ::Stripe::ApplicationFeeRefund, ::Stripe::Issuing::Authorization, ::Stripe::Issuing::Dispute, ::Stripe::Issuing::Transaction, ::Stripe::Payout, ::Stripe::Refund, ::Stripe::ReserveTransaction, ::Stripe::TaxDeductedAtSource, ::Stripe::Topup, ::Stripe::Transfer, ::Stripe::Reversal))))
+      returns(T.nilable(T.any(String, T.any(::Stripe::ApplicationFee, ::Stripe::Charge, ::Stripe::ConnectCollectionTransfer, ::Stripe::CustomerCashBalanceTransaction, ::Stripe::Dispute, ::Stripe::ApplicationFeeRefund, ::Stripe::Issuing::Authorization, ::Stripe::Issuing::Dispute, ::Stripe::Issuing::Transaction, ::Stripe::Payout, ::Stripe::Refund, ::Stripe::ReserveTransaction, ::Stripe::TaxDeductedAtSource, ::Stripe::Topup, ::Stripe::Transfer, ::Stripe::TransferReversal))))
      }
     def source; end
     # The transaction's net funds status in the Stripe balance, which are either `available` or `pending`.
@@ -39307,13 +39307,13 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def receipt_number; end
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
-    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TransferReversal))) }
     def source_transfer_reversal; end
     # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     sig { returns(T.nilable(String)) }
     def status; end
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
-    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TransferReversal))) }
     def transfer_reversal; end
     # Cancels a refund with a status of requires_action.
     #
@@ -50102,7 +50102,7 @@ module Stripe
   # reversal.
   #
   # Related guide: [Reverse transfers](https://docs.stripe.com/connect/separate-charges-and-transfers#reverse-transfers)
-  class Reversal < APIResource
+  class TransferReversal < APIResource
     # Amount, in cents (or local equivalent).
     sig { returns(Integer) }
     def amount; end
@@ -61417,7 +61417,7 @@ module Stripe
     #
     # Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
     sig {
-      params(id: String, params: T.any(::Stripe::TransferReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(id: String, params: T.any(::Stripe::TransferReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def create(id, params = {}, opts = {}); end
 
@@ -61429,7 +61429,7 @@ module Stripe
 
     # By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def retrieve(transfer, id, params = {}, opts = {}); end
 
@@ -61437,7 +61437,7 @@ module Stripe
     #
     # This request only accepts metadata and description as arguments.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def update(transfer, id, params = {}, opts = {}); end
   end

@@ -117,7 +117,7 @@ module Stripe
         Reserve::Plan.object_name => Reserve::Plan,
         Reserve::Release.object_name => Reserve::Release,
         ReserveTransaction.object_name => ReserveTransaction,
-        Reversal.object_name => Reversal,
+        TransferReversal.object_name => TransferReversal,
         Review.object_name => Review,
         SetupAttempt.object_name => SetupAttempt,
         SetupIntent.object_name => SetupIntent,

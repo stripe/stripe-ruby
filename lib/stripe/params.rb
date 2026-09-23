@@ -531,6 +531,8 @@ module Stripe
     autoload :AccountSubscribeParams, "stripe/params/financial_connections/account_subscribe_params"
     autoload :AccountUnsubscribeParams, "stripe/params/financial_connections/account_unsubscribe_params"
     autoload :AuthorizationRetrieveParams, "stripe/params/financial_connections/authorization_retrieve_params"
+    autoload :ConsentCreateParams, "stripe/params/financial_connections/consent_create_params"
+    autoload :ConsentRetrieveParams, "stripe/params/financial_connections/consent_retrieve_params"
     autoload :InstitutionListParams, "stripe/params/financial_connections/institution_list_params"
     autoload :InstitutionRetrieveParams, "stripe/params/financial_connections/institution_retrieve_params"
     autoload :SessionCreateParams, "stripe/params/financial_connections/session_create_params"
@@ -663,7 +665,6 @@ module Stripe
     autoload :AccountEvaluationCreateParams, "stripe/params/radar/account_evaluation_create_params"
     autoload :AccountEvaluationRetrieveParams, "stripe/params/radar/account_evaluation_retrieve_params"
     autoload :AccountEvaluationUpdateParams, "stripe/params/radar/account_evaluation_update_params"
-    autoload :BillingEvaluationCreateParams, "stripe/params/radar/billing_evaluation_create_params"
     autoload :CustomerEvaluationCreateParams, "stripe/params/radar/customer_evaluation_create_params"
     autoload :CustomerEvaluationRetrieveParams, "stripe/params/radar/customer_evaluation_retrieve_params"
     autoload :CustomerEvaluationUpdateParams, "stripe/params/radar/customer_evaluation_update_params"
@@ -1260,6 +1261,10 @@ module Stripe
         autoload :StatementListParams, "stripe/params/v2/money_management/financial_accounts/statement_list_params"
         autoload :StatementRetrieveParams,
                  "stripe/params/v2/money_management/financial_accounts/statement_retrieve_params"
+        autoload :WalletExportExportCredentialsParams,
+                 "stripe/params/v2/money_management/financial_accounts/wallet_export_export_credentials_params"
+        autoload :WalletExportRetrieveParams,
+                 "stripe/params/v2/money_management/financial_accounts/wallet_export_retrieve_params"
       end
 
       module TestHelpers
@@ -1307,6 +1312,35 @@ module Stripe
         autoload :SplitCreateParams, "stripe/params/v2/payments/settlement_allocation_intents/split_create_params"
         autoload :SplitListParams, "stripe/params/v2/payments/settlement_allocation_intents/split_list_params"
         autoload :SplitRetrieveParams, "stripe/params/v2/payments/settlement_allocation_intents/split_retrieve_params"
+      end
+    end
+
+    module Provisioning
+      autoload :EligibilityRetrieveParams, "stripe/params/v2/provisioning/eligibility_retrieve_params"
+      autoload :PaymentMethodRequestCreateParams, "stripe/params/v2/provisioning/payment_method_request_create_params"
+      autoload :PaymentProfileRetrieveParams, "stripe/params/v2/provisioning/payment_profile_retrieve_params"
+      autoload :PaymentProfileUpdateLimitParams, "stripe/params/v2/provisioning/payment_profile_update_limit_params"
+      autoload :ProjectCreateParams, "stripe/params/v2/provisioning/project_create_params"
+      autoload :ProviderConnectionListParams, "stripe/params/v2/provisioning/provider_connection_list_params"
+      autoload :ProviderConnectionRequestCreateParams,
+               "stripe/params/v2/provisioning/provider_connection_request_create_params"
+      autoload :ProviderConnectionRequestRetrieveParams,
+               "stripe/params/v2/provisioning/provider_connection_request_retrieve_params"
+      autoload :ProviderConnectionRequestSubmitInformationParams,
+               "stripe/params/v2/provisioning/provider_connection_request_submit_information_params"
+      autoload :ProviderConnectionUnlinkParams, "stripe/params/v2/provisioning/provider_connection_unlink_params"
+      autoload :ResourceCreateParams, "stripe/params/v2/provisioning/resource_create_params"
+      autoload :ResourceLinkParams, "stripe/params/v2/provisioning/resource_link_params"
+      autoload :ResourceRemoveParams, "stripe/params/v2/provisioning/resource_remove_params"
+      autoload :ResourceRetrieveParams, "stripe/params/v2/provisioning/resource_retrieve_params"
+      autoload :ResourceRotateCredentialsParams, "stripe/params/v2/provisioning/resource_rotate_credentials_params"
+      autoload :ResourceSubmitInformationParams, "stripe/params/v2/provisioning/resource_submit_information_params"
+      autoload :ResourceUnlinkParams, "stripe/params/v2/provisioning/resource_unlink_params"
+      autoload :ResourceUpdateParams, "stripe/params/v2/provisioning/resource_update_params"
+
+      module Catalog
+        autoload :ProviderListParams, "stripe/params/v2/provisioning/catalog/provider_list_params"
+        autoload :ServiceListParams, "stripe/params/v2/provisioning/catalog/service_list_params"
       end
     end
 
@@ -1592,6 +1626,8 @@ module Stripe
     stripe/params/financial_connections/account_subscribe_params
     stripe/params/financial_connections/account_unsubscribe_params
     stripe/params/financial_connections/authorization_retrieve_params
+    stripe/params/financial_connections/consent_create_params
+    stripe/params/financial_connections/consent_retrieve_params
     stripe/params/financial_connections/institution_list_params
     stripe/params/financial_connections/institution_retrieve_params
     stripe/params/financial_connections/session_create_params
@@ -1870,7 +1906,6 @@ module Stripe
     stripe/params/radar/account_evaluation_create_params
     stripe/params/radar/account_evaluation_retrieve_params
     stripe/params/radar/account_evaluation_update_params
-    stripe/params/radar/billing_evaluation_create_params
     stripe/params/radar/customer_evaluation_create_params
     stripe/params/radar/customer_evaluation_retrieve_params
     stripe/params/radar/customer_evaluation_update_params
@@ -2337,6 +2372,8 @@ module Stripe
     stripe/params/v2/money_management/financial_account_update_params
     stripe/params/v2/money_management/financial_accounts/statement_list_params
     stripe/params/v2/money_management/financial_accounts/statement_retrieve_params
+    stripe/params/v2/money_management/financial_accounts/wallet_export_export_credentials_params
+    stripe/params/v2/money_management/financial_accounts/wallet_export_retrieve_params
     stripe/params/v2/money_management/financial_address_create_params
     stripe/params/v2/money_management/financial_address_list_params
     stripe/params/v2/money_management/financial_address_retrieve_params
@@ -2411,6 +2448,26 @@ module Stripe
     stripe/params/v2/payments/settlement_allocation_intents/split_create_params
     stripe/params/v2/payments/settlement_allocation_intents/split_list_params
     stripe/params/v2/payments/settlement_allocation_intents/split_retrieve_params
+    stripe/params/v2/provisioning/catalog/provider_list_params
+    stripe/params/v2/provisioning/catalog/service_list_params
+    stripe/params/v2/provisioning/eligibility_retrieve_params
+    stripe/params/v2/provisioning/payment_method_request_create_params
+    stripe/params/v2/provisioning/payment_profile_retrieve_params
+    stripe/params/v2/provisioning/payment_profile_update_limit_params
+    stripe/params/v2/provisioning/project_create_params
+    stripe/params/v2/provisioning/provider_connection_list_params
+    stripe/params/v2/provisioning/provider_connection_request_create_params
+    stripe/params/v2/provisioning/provider_connection_request_retrieve_params
+    stripe/params/v2/provisioning/provider_connection_request_submit_information_params
+    stripe/params/v2/provisioning/provider_connection_unlink_params
+    stripe/params/v2/provisioning/resource_create_params
+    stripe/params/v2/provisioning/resource_link_params
+    stripe/params/v2/provisioning/resource_remove_params
+    stripe/params/v2/provisioning/resource_retrieve_params
+    stripe/params/v2/provisioning/resource_rotate_credentials_params
+    stripe/params/v2/provisioning/resource_submit_information_params
+    stripe/params/v2/provisioning/resource_unlink_params
+    stripe/params/v2/provisioning/resource_update_params
     stripe/params/v2/reporting/report_retrieve_params
     stripe/params/v2/reporting/report_run_create_params
     stripe/params/v2/reporting/report_run_retrieve_params

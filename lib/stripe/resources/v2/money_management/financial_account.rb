@@ -263,6 +263,8 @@ module Stripe
               attr_reader :payment_method
               # The address to send forwarded payouts to.
               attr_reader :payout_method
+              # Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
+              attr_reader :skip_exportable_balances
 
               def self.inner_class_types
                 @inner_class_types = {}
@@ -298,13 +300,29 @@ module Stripe
         end
 
         class Storage < ::Stripe::StripeObject
+          class Crypto < ::Stripe::StripeObject
+            # The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+            attr_reader :currency_networks
+            # Describes who controls the private keys for the crypto storage.
+            attr_reader :custody_model
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+          attr_reader :crypto
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           attr_reader :funds_usage_type
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { crypto: Crypto }
           end
 
           def self.field_remappings

@@ -39,6 +39,11 @@ module Stripe
             class BankAccount < ::Stripe::RequestParams
               class PreferredNetworkOptions < ::Stripe::RequestParams
                 class Ach < ::Stripe::RequestParams
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  sig { returns(T.nilable(String)) }
+                  def addenda; end
+                  sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+                  def addenda=(_addenda); end
                   # Open Enum. ACH submission timing.
                   sig { returns(T.nilable(String)) }
                   def submission; end
@@ -50,9 +55,9 @@ module Stripe
                   sig { params(_transaction_purpose: T.nilable(String)).returns(T.nilable(String)) }
                   def transaction_purpose=(_transaction_purpose); end
                   sig {
-                    params(submission: T.nilable(String), transaction_purpose: T.nilable(String)).void
+                    params(addenda: T.nilable(String), submission: T.nilable(String), transaction_purpose: T.nilable(String)).void
                    }
-                  def initialize(submission: nil, transaction_purpose: nil); end
+                  def initialize(addenda: nil, submission: nil, transaction_purpose: nil); end
                 end
                 # ACH-specific network options.
                 sig {

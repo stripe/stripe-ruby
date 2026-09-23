@@ -400,7 +400,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -411,9 +411,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -3462,6 +3462,22 @@ module Stripe
       end
 
       class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          attr_reader :expires_at
+          # Type of the mandate.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3472,7 +3488,7 @@ module Stripe
         attr_reader :setup_future_usage
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { mandate_options: MandateOptions }
         end
 
         def self.field_remappings
@@ -3672,6 +3688,8 @@ module Stripe
         attr_reader :request_three_d_secure
         # When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
         attr_reader :require_cvc_recollection
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_reader :setup_credential_usage
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -3686,6 +3704,8 @@ module Stripe
         attr_reader :statement_descriptor_suffix_kanji
         # Attribute for field statement_details
         attr_reader :statement_details
+        # Selected usage to indicate the transaction type of the off-session payment.
+        attr_reader :stored_credential_usage
 
         def self.inner_class_types
           @inner_class_types = {
@@ -5530,13 +5550,13 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_reader :customer
     # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
     #
     # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description

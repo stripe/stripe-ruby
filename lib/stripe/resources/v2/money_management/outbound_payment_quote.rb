@@ -110,6 +110,8 @@ module Stripe
             class BankAccount < ::Stripe::StripeObject
               class PreferredNetworkOptions < ::Stripe::StripeObject
                 class Ach < ::Stripe::StripeObject
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  attr_reader :addenda
                   # Open Enum. ACH submission timing.
                   attr_reader :submission
                   # The transaction purpose for this ACH payment.

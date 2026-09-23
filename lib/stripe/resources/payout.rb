@@ -20,6 +20,31 @@ module Stripe
       "payout"
     end
 
+    class PayoutMethodOptions < ::Stripe::StripeObject
+      class FinancialAccount < ::Stripe::StripeObject
+        # The currency credited to the destination Financial Account.
+        attr_reader :destination_currency
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field financial_account
+      attr_reader :financial_account
+
+      def self.inner_class_types
+        @inner_class_types = { financial_account: FinancialAccount }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TraceId < ::Stripe::StripeObject
       # Possible values are `pending`, `supported`, and `unsupported`. When `payout.status` is `pending` or `in_transit`, this will be `pending`. When the payout transitions to `paid`, `failed`, or `canceled`, this status will become `supported` or `unsupported` shortly after in most cases. In some cases, this may appear as `pending` for up to 10 days after `arrival_date` until transitioning to `supported` or `unsupported`.
       attr_reader :status
@@ -74,6 +99,8 @@ module Stripe
     attr_reader :original_payout
     # ID of the v2 FinancialAccount the funds are sent to.
     attr_reader :payout_method
+    # Attribute for field payout_method_options
+    attr_reader :payout_method_options
     # If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     attr_reader :reconciliation_status
     # If the payout reverses, this is the ID of the payout that reverses this payout.
@@ -158,7 +185,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { trace_id: TraceId }
+      @inner_class_types = { payout_method_options: PayoutMethodOptions, trace_id: TraceId }
     end
 
     def self.field_remappings

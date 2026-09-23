@@ -20,7 +20,7 @@ module Stripe
       "webhook_endpoint"
     end
 
-    # The API version events are rendered as for this webhook endpoint.
+    # The API version that events are rendered as for this webhook endpoint. You can't change this value after you create the endpoint.
     attr_reader :api_version
     # The ID of the associated Connect application.
     attr_reader :application

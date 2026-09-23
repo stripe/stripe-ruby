@@ -5,6 +5,45 @@
 module Stripe
   module Treasury
     class InboundTransferCreateParams < ::Stripe::RequestParams
+      class OriginPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # Freeform payment-related information to transmit in the ACH addenda record. Maximum 80 characters, ACH character set. Applied only when the payment routes over ACH. Immutable after creation.
+            sig { returns(T.nilable(String)) }
+            def addenda; end
+            sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+            def addenda=(_addenda); end
+            sig { params(addenda: T.nilable(String)).void }
+            def initialize(addenda: nil); end
+          end
+          # Specify details about the ACH transaction.
+          sig {
+            returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount::Ach))
+           }
+          def ach; end
+          sig {
+            params(_ach: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount::Ach)).returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount::Ach))
+           }
+          def ach=(_ach); end
+          sig {
+            params(ach: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount::Ach)).void
+           }
+          def initialize(ach: nil); end
+        end
+        # Includes additional payment method options if the destination is a us_bank_account.
+        sig {
+          returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount))
+         }
+        def us_bank_account; end
+        sig {
+          params(_us_bank_account: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount)).returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount))
+         }
+        def us_bank_account=(_us_bank_account); end
+        sig {
+          params(us_bank_account: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions::UsBankAccount)).void
+         }
+        def initialize(us_bank_account: nil); end
+      end
       # Amount (in cents) to be transferred.
       sig { returns(Integer) }
       def amount; end
@@ -42,13 +81,22 @@ module Stripe
       def origin_payment_method; end
       sig { params(_origin_payment_method: String).returns(String) }
       def origin_payment_method=(_origin_payment_method); end
+      # Additional options about the origin PaymentMethod.
+      sig {
+        returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions))
+       }
+      def origin_payment_method_options; end
+      sig {
+        params(_origin_payment_method_options: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions)).returns(T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions))
+       }
+      def origin_payment_method_options=(_origin_payment_method_options); end
       # The complete description that appears on your customers' statements. Maximum 10 characters. Can only include -#.$&*, spaces, and alphanumeric characters.
       sig { returns(T.nilable(String)) }
       def statement_descriptor; end
       sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
       def statement_descriptor=(_statement_descriptor); end
       sig {
-        params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), origin_payment_method: String, statement_descriptor: T.nilable(String)).void
+        params(amount: Integer, currency: String, description: T.nilable(String), expand: T.nilable(T::Array[String]), financial_account: String, metadata: T.nilable(T::Hash[String, String]), origin_payment_method: String, origin_payment_method_options: T.nilable(::Stripe::Treasury::InboundTransferCreateParams::OriginPaymentMethodOptions), statement_descriptor: T.nilable(String)).void
        }
       def initialize(
         amount: nil,
@@ -58,6 +106,7 @@ module Stripe
         financial_account: nil,
         metadata: nil,
         origin_payment_method: nil,
+        origin_payment_method_options: nil,
         statement_descriptor: nil
       ); end
     end

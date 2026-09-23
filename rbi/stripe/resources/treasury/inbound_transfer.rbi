@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Treasury
-    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
@@ -75,12 +75,26 @@ module Stripe
           end
         end
         class UsBankAccount < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # Freeform payment-related information transmitted in the ACH addenda record.
+            sig { returns(T.nilable(String)) }
+            def addenda; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Account holder type: individual or company.
           sig { returns(T.nilable(String)) }
           def account_holder_type; end
           # Account type: checkings or savings. Defaults to checking if omitted.
           sig { returns(T.nilable(String)) }
           def account_type; end
+          # Details about an ACH transaction.
+          sig { returns(T.nilable(Ach)) }
+          def ach; end
           # Name of the bank associated with the bank account.
           sig { returns(T.nilable(String)) }
           def bank_name; end
@@ -100,7 +114,7 @@ module Stripe
           sig { returns(T.nilable(String)) }
           def routing_number; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {ach: Ach}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -154,7 +168,7 @@ module Stripe
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
       def description; end
-      # Details about this InboundTransfer's failure. Only set when status is `failed`.
+      # Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
       sig { returns(T.nilable(FailureDetails)) }
       def failure_details; end
       # The FinancialAccount that received the funds.

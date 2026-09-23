@@ -159,6 +159,11 @@ module Stripe
             params(_payment_method_allow_redisplay_filters: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
            }
           def payment_method_allow_redisplay_filters=(_payment_method_allow_redisplay_filters); end
+          # The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. Customer Sessions can't be updated, so create a new one to change the preselection.
+          sig { returns(T.nilable(String)) }
+          def payment_method_preselect; end
+          sig { params(_payment_method_preselect: T.nilable(String)).returns(T.nilable(String)) }
+          def payment_method_preselect=(_payment_method_preselect); end
           # Controls whether or not the Payment Element shows saved payment methods. This parameter defaults to `disabled`.
           sig { returns(T.nilable(String)) }
           def payment_method_redisplay; end
@@ -193,10 +198,11 @@ module Stripe
           sig { params(_payment_method_save_usage: T.nilable(String)).returns(T.nilable(String)) }
           def payment_method_save_usage=(_payment_method_save_usage); end
           sig {
-            params(payment_method_allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_redisplay: T.nilable(String), payment_method_redisplay_limit: T.nilable(Integer), payment_method_remove: T.nilable(String), payment_method_save: T.nilable(String), payment_method_save_usage: T.nilable(String)).void
+            params(payment_method_allow_redisplay_filters: T.nilable(T::Array[String]), payment_method_preselect: T.nilable(String), payment_method_redisplay: T.nilable(String), payment_method_redisplay_limit: T.nilable(Integer), payment_method_remove: T.nilable(String), payment_method_save: T.nilable(String), payment_method_save_usage: T.nilable(String)).void
            }
           def initialize(
             payment_method_allow_redisplay_filters: nil,
+            payment_method_preselect: nil,
             payment_method_redisplay: nil,
             payment_method_redisplay_limit: nil,
             payment_method_remove: nil,

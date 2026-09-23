@@ -507,10 +507,12 @@ module Stripe
             def initialize(timestamp: nil, type: nil); end
           end
           # When the pricing line ends.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt))
+           }
           def ends_at; end
           sig {
-            params(_ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt).returns(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt)
+            params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt))
            }
           def ends_at=(_ends_at); end
           # A user-provided lookup key to reference this pricing line.
@@ -540,7 +542,7 @@ module Stripe
            }
           def starts_at=(_starts_at); end
           sig {
-            params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing, starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt).void
+            params(ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingLine::EndsAt), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), pricing: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::Pricing, starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingLine::StartsAt).void
            }
           def initialize(
             ends_at: nil,
@@ -643,10 +645,12 @@ module Stripe
             def initialize(timestamp: nil, type: nil); end
           end
           # When the pricing override ends.
-          sig { returns(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt) }
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt))
+           }
           def ends_at; end
           sig {
-            params(_ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt).returns(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt)
+            params(_ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt)).returns(T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt))
            }
           def ends_at=(_ends_at); end
           # A user-provided lookup key to reference this pricing override.
@@ -688,7 +692,7 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(ends_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt, lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt, type: String).void
+            params(ends_at: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::EndsAt), lookup_key: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), multiply_pricing: T.nilable(::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing), priority: T.nilable(Integer), starts_at: ::Stripe::V2::Billing::ContractCreateParams::PricingOverride::StartsAt, type: String).void
            }
           def initialize(
             ends_at: nil,

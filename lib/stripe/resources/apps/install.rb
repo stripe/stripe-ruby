@@ -3,7 +3,10 @@
 
 module Stripe
   module Apps
-    # An object representing an app installation.
+    # An app install represents a Stripe App that is installed on an account. It reports the permissions,
+    # content security policy entries, and endpoints that the installing account has authorized, along with any
+    # that the app's latest version requests but the account has not authorized yet. Use the Install API to
+    # install, reauthorize, and uninstall apps, and to check the state of existing installs.
     class Install < APIResource
       OBJECT_NAME = "apps.install"
       def self.object_name
@@ -28,9 +31,9 @@ module Stripe
       end
 
       class ContentSecurityPolicyGranted < ::Stripe::StripeObject
-        # Attribute for field connect_src
+        # The URLs that the app can make network requests to.
         attr_reader :connect_src
-        # Attribute for field image_src
+        # The URLs that the app can load images from.
         attr_reader :image_src
 
         def self.inner_class_types
@@ -43,9 +46,9 @@ module Stripe
       end
 
       class ContentSecurityPolicyPending < ::Stripe::StripeObject
-        # Attribute for field connect_src
+        # The URLs that the app can make network requests to.
         attr_reader :connect_src
-        # Attribute for field image_src
+        # The URLs that the app can load images from.
         attr_reader :image_src
 
         def self.inner_class_types
@@ -60,7 +63,7 @@ module Stripe
       attr_reader :account
       # The ID of the app installed.
       attr_reader :app
-      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints.
+      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`. Install a new version from the Dashboard to grant its permissions.
       attr_reader :approval_required
       # The authorization code for an oauth app install.
       attr_reader :auth_code

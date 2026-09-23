@@ -85,6 +85,17 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PreCollectedConsent < ::Stripe::StripeObject
+        # The outcome of evaluating the pre-collected consent submitted for this Session.
+        sig { returns(String) }
+        def outcome; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RelinkOptions < ::Stripe::StripeObject
         # Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
         sig { returns(T.nilable(String)) }
@@ -193,6 +204,9 @@ module Stripe
       # Permissions requested for accounts collected during this session.
       sig { returns(T::Array[String]) }
       def permissions; end
+      # Attribute for field pre_collected_consent
+      sig { returns(T.nilable(PreCollectedConsent)) }
+      def pre_collected_consent; end
       # Data features requested to be retrieved upon account creation.
       sig { returns(T.nilable(T::Array[String])) }
       def prefetch; end

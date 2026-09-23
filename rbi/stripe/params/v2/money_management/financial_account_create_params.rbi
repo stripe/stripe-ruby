@@ -16,6 +16,31 @@ module Stripe
           def initialize(holds_currencies: nil); end
         end
         class Storage < ::Stripe::RequestParams
+          class Crypto < ::Stripe::RequestParams
+            # The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+            sig { returns(T::Hash[String, String]) }
+            def currency_networks; end
+            sig {
+              params(_currency_networks: T::Hash[String, String]).returns(T::Hash[String, String])
+             }
+            def currency_networks=(_currency_networks); end
+            # Describes who controls the private keys for the crypto storage.
+            sig { returns(String) }
+            def custody_model; end
+            sig { params(_custody_model: String).returns(String) }
+            def custody_model=(_custody_model); end
+            sig { params(currency_networks: T::Hash[String, String], custody_model: String).void }
+            def initialize(currency_networks: nil, custody_model: nil); end
+          end
+          # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+          sig {
+            returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto))
+           }
+          def crypto; end
+          sig {
+            params(_crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto))
+           }
+          def crypto=(_crypto); end
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end
@@ -27,9 +52,9 @@ module Stripe
           sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
           def holds_currencies=(_holds_currencies); end
           sig {
-            params(funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
+            params(crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto), funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
            }
-          def initialize(funds_usage_type: nil, holds_currencies: nil); end
+          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil); end
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }

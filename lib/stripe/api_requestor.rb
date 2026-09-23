@@ -203,7 +203,7 @@ module Stripe
       req_opts = RequestOptions.extract_opts_from_hash(req_opts)
 
       notice = http_resp["stripe-notice"]
-      warn("WARNING: #{notice}") if notice
+      maybe_emit_stripe_notice(notice)
 
       resp = interpret_response(http_resp)
 
@@ -216,6 +216,20 @@ module Stripe
       Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
                                                 api_mode: api_mode, requestor: self,
                                                 v2_deleted_object: method == :delete && api_mode == :v2)
+    end
+
+    private def maybe_emit_stripe_notice(notice, env = ENV)
+      return unless notice
+
+      ai_agent = SystemProfiler.detect_ai_agent(env)
+      return if ai_agent.empty? && env.fetch("STRIPE_SUPPRESS_NOTICES", "").downcase == "true"
+
+      if ai_agent.empty?
+        notice += "\nTo suppress Stripe notices in test and sandbox environments, " \
+                  "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
+      end
+
+      warn("WARNING: #{notice}")
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
@@ -901,6 +915,8 @@ module Stripe
         RateLimitError.new(error_data[:message], **opts)
       when "recipient_not_notifiable"
         RecipientNotNotifiableError.new(error_data[:message], **opts)
+      when "service_unavailable"
+        ServiceUnavailableError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
       # switch cases: The end of the section generated from our OpenAPI spec

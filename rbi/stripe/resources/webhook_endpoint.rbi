@@ -11,7 +11,7 @@ module Stripe
   #
   # Related guide: [Setting up webhooks](https://docs.stripe.com/webhooks/configure)
   class WebhookEndpoint < APIResource
-    # The API version events are rendered as for this webhook endpoint.
+    # The API version that events are rendered as for this webhook endpoint. You can't change this value after you create the endpoint.
     sig { returns(T.nilable(String)) }
     def api_version; end
     # The ID of the associated Connect application.

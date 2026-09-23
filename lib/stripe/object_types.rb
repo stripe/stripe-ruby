@@ -91,6 +91,7 @@ module Stripe
         FinancialConnections::AccountOwner.object_name => FinancialConnections::AccountOwner,
         FinancialConnections::AccountOwnership.object_name => FinancialConnections::AccountOwnership,
         FinancialConnections::Authorization.object_name => FinancialConnections::Authorization,
+        FinancialConnections::Consent.object_name => FinancialConnections::Consent,
         FinancialConnections::Institution.object_name => FinancialConnections::Institution,
         FinancialConnections::Session.object_name => FinancialConnections::Session,
         FinancialConnections::Transaction.object_name => FinancialConnections::Transaction,
@@ -154,7 +155,6 @@ module Stripe
         QuotePreviewInvoice.object_name => QuotePreviewInvoice,
         QuotePreviewSubscriptionSchedule.object_name => QuotePreviewSubscriptionSchedule,
         Radar::AccountEvaluation.object_name => Radar::AccountEvaluation,
-        Radar::BillingEvaluation.object_name => Radar::BillingEvaluation,
         Radar::CustomerEvaluation.object_name => Radar::CustomerEvaluation,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
         Radar::IssuingAuthorizationEvaluation.object_name => Radar::IssuingAuthorizationEvaluation,
@@ -296,6 +296,10 @@ module Stripe
         V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
         V2::MoneyManagement::FinancialAccountStatement.object_name =>
         V2::MoneyManagement::FinancialAccountStatement,
+        V2::MoneyManagement::FinancialAccountWalletExport.object_name =>
+        V2::MoneyManagement::FinancialAccountWalletExport,
+        V2::MoneyManagement::FinancialAccountWalletExportCredentials.object_name =>
+        V2::MoneyManagement::FinancialAccountWalletExportCredentials,
         V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
         V2::MoneyManagement::FinancialAddressDebitSimulation.object_name =>
         V2::MoneyManagement::FinancialAddressDebitSimulation,
@@ -321,6 +325,16 @@ module Stripe
         V2::Payments::SettlementAllocationIntent.object_name => V2::Payments::SettlementAllocationIntent,
         V2::Payments::SettlementAllocationIntentSplit.object_name =>
         V2::Payments::SettlementAllocationIntentSplit,
+        V2::Provisioning::Eligibility.object_name => V2::Provisioning::Eligibility,
+        V2::Provisioning::PaymentMethodRequest.object_name => V2::Provisioning::PaymentMethodRequest,
+        V2::Provisioning::PaymentProfile.object_name => V2::Provisioning::PaymentProfile,
+        V2::Provisioning::Project.object_name => V2::Provisioning::Project,
+        V2::Provisioning::Provider.object_name => V2::Provisioning::Provider,
+        V2::Provisioning::ProviderConnection.object_name => V2::Provisioning::ProviderConnection,
+        V2::Provisioning::ProviderConnectionRequest.object_name =>
+        V2::Provisioning::ProviderConnectionRequest,
+        V2::Provisioning::ProviderServiceDetail.object_name => V2::Provisioning::ProviderServiceDetail,
+        V2::Provisioning::Resource.object_name => V2::Provisioning::Resource,
         V2::Reporting::Report.object_name => V2::Reporting::Report,
         V2::Reporting::ReportRun.object_name => V2::Reporting::ReportRun,
         V2::Risk::Inquiry.object_name => V2::Risk::Inquiry,

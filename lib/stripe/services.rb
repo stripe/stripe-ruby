@@ -193,6 +193,7 @@ module Stripe
     autoload :AccountOwnerService, "stripe/services/financial_connections/account_owner_service"
     autoload :AccountService, "stripe/services/financial_connections/account_service"
     autoload :AuthorizationService, "stripe/services/financial_connections/authorization_service"
+    autoload :ConsentService, "stripe/services/financial_connections/consent_service"
     autoload :InstitutionService, "stripe/services/financial_connections/institution_service"
     autoload :SessionService, "stripe/services/financial_connections/session_service"
     autoload :TransactionService, "stripe/services/financial_connections/transaction_service"
@@ -238,7 +239,6 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluationService, "stripe/services/radar/account_evaluation_service"
-    autoload :BillingEvaluationService, "stripe/services/radar/billing_evaluation_service"
     autoload :CustomerEvaluationService, "stripe/services/radar/customer_evaluation_service"
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
     autoload :IssuingAuthorizationEvaluationService, "stripe/services/radar/issuing_authorization_evaluation_service"
@@ -354,6 +354,7 @@ module Stripe
     autoload :NetworkService, "stripe/services/v2/network_service"
     autoload :OrchestratedCommerceService, "stripe/services/v2/orchestrated_commerce_service"
     autoload :PaymentsService, "stripe/services/v2/payments_service"
+    autoload :ProvisioningService, "stripe/services/v2/provisioning_service"
     autoload :ReportingService, "stripe/services/v2/reporting_service"
     autoload :RiskService, "stripe/services/v2/risk_service"
     autoload :SignalsService, "stripe/services/v2/signals_service"
@@ -515,6 +516,7 @@ module Stripe
 
       module FinancialAccounts
         autoload :StatementService, "stripe/services/v2/money_management/financial_accounts/statement_service"
+        autoload :WalletExportService, "stripe/services/v2/money_management/financial_accounts/wallet_export_service"
       end
 
       module TestHelpers
@@ -536,6 +538,22 @@ module Stripe
 
       module SettlementAllocationIntents
         autoload :SplitService, "stripe/services/v2/payments/settlement_allocation_intents/split_service"
+      end
+    end
+
+    module Provisioning
+      autoload :CatalogService, "stripe/services/v2/provisioning/catalog_service"
+      autoload :EligibilityService, "stripe/services/v2/provisioning/eligibility_service"
+      autoload :PaymentMethodRequestService, "stripe/services/v2/provisioning/payment_method_request_service"
+      autoload :PaymentProfileService, "stripe/services/v2/provisioning/payment_profile_service"
+      autoload :ProjectService, "stripe/services/v2/provisioning/project_service"
+      autoload :ProviderConnectionRequestService, "stripe/services/v2/provisioning/provider_connection_request_service"
+      autoload :ProviderConnectionService, "stripe/services/v2/provisioning/provider_connection_service"
+      autoload :ResourceService, "stripe/services/v2/provisioning/resource_service"
+
+      module Catalog
+        autoload :ProviderService, "stripe/services/v2/provisioning/catalog/provider_service"
+        autoload :ServiceService, "stripe/services/v2/provisioning/catalog/service_service"
       end
     end
 
@@ -659,6 +677,7 @@ module Stripe
     stripe/services/financial_connections/account_owner_service
     stripe/services/financial_connections/account_service
     stripe/services/financial_connections/authorization_service
+    stripe/services/financial_connections/consent_service
     stripe/services/financial_connections/institution_service
     stripe/services/financial_connections/session_service
     stripe/services/financial_connections/transaction_service
@@ -725,7 +744,6 @@ module Stripe
     stripe/services/quote_preview_subscription_schedule_service
     stripe/services/quote_service
     stripe/services/radar/account_evaluation_service
-    stripe/services/radar/billing_evaluation_service
     stripe/services/radar/customer_evaluation_service
     stripe/services/radar/early_fraud_warning_service
     stripe/services/radar/issuing_authorization_evaluation_service
@@ -891,6 +909,7 @@ module Stripe
     stripe/services/v2/money_management/debit_dispute_service
     stripe/services/v2/money_management/financial_account_service
     stripe/services/v2/money_management/financial_accounts/statement_service
+    stripe/services/v2/money_management/financial_accounts/wallet_export_service
     stripe/services/v2/money_management/financial_address_service
     stripe/services/v2/money_management/inbound_transfer_service
     stripe/services/v2/money_management/outbound_payment_quote_service
@@ -917,6 +936,17 @@ module Stripe
     stripe/services/v2/payments/settlement_allocation_intent_service
     stripe/services/v2/payments/settlement_allocation_intents/split_service
     stripe/services/v2/payments_service
+    stripe/services/v2/provisioning/catalog/provider_service
+    stripe/services/v2/provisioning/catalog/service_service
+    stripe/services/v2/provisioning/catalog_service
+    stripe/services/v2/provisioning/eligibility_service
+    stripe/services/v2/provisioning/payment_method_request_service
+    stripe/services/v2/provisioning/payment_profile_service
+    stripe/services/v2/provisioning/project_service
+    stripe/services/v2/provisioning/provider_connection_request_service
+    stripe/services/v2/provisioning/provider_connection_service
+    stripe/services/v2/provisioning/resource_service
+    stripe/services/v2/provisioning_service
     stripe/services/v2/reporting/report_run_service
     stripe/services/v2/reporting/report_service
     stripe/services/v2/reporting_service

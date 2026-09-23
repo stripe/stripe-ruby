@@ -121,6 +121,49 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class NetworkDetails < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Payment-related information from the ACH addenda record, up to 80 characters.
+              sig { returns(T.nilable(String)) }
+              def addenda; end
+              # Company Entry Description from the ACH batch header, e.g. "HCCLAIMPMT".
+              sig { returns(T.nilable(String)) }
+              def originator_company_entry_description; end
+              # Company Identification from the ACH batch header.
+              sig { returns(T.nilable(String)) }
+              def originator_company_id; end
+              # Company Name from the ACH batch header -- the business that sent the funds.
+              sig { returns(T.nilable(String)) }
+              def originator_company_name; end
+              # Identification Number from the ACH entry detail record.
+              sig { returns(T.nilable(String)) }
+              def receiver_id_number; end
+              # Individual Name from the ACH entry detail record.
+              sig { returns(T.nilable(String)) }
+              def receiver_name; end
+              # Open Enum. Standard Entry Class code of the ACH entry.
+              sig { returns(T.nilable(String)) }
+              def standard_entry_class_code; end
+              # Trace Number from the ACH entry detail record.
+              sig { returns(T.nilable(String)) }
+              def trace_id; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # NACHA details for the ACH entry that created this ReceivedCredit.
+            sig { returns(Ach) }
+            def ach; end
+            def self.inner_class_types
+              @inner_class_types = {ach: Ach}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class OriginatingBankAccount < ::Stripe::StripeObject
             class Aba < ::Stripe::StripeObject
               # The name of the account holder that sent the payment.
@@ -335,6 +378,9 @@ module Stripe
           # Deprecated. Use `originating_bank_account.clabe` instead.
           sig { returns(T.nilable(MxBankAccount)) }
           def mx_bank_account; end
+          # Network-level detail for the transfer that created this ReceivedCredit. Present only for ACH.
+          sig { returns(T.nilable(NetworkDetails)) }
+          def network_details; end
           # Hash containing the originating bank account details and type for this bank transfer.
           sig { returns(OriginatingBankAccount) }
           def originating_bank_account; end
@@ -353,6 +399,7 @@ module Stripe
               eu_bank_account: EuBankAccount,
               gb_bank_account: GbBankAccount,
               mx_bank_account: MxBankAccount,
+              network_details: NetworkDetails,
               originating_bank_account: OriginatingBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

@@ -563,6 +563,35 @@ module Stripe
           }
         end
       end
+      class Fuels < ::Stripe::StripeObject
+        # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        sig { returns(T.nilable(String)) }
+        def industry_product_code; end
+        # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        sig { returns(T.nilable(BigDecimal)) }
+        def quantity_decimal; end
+        # The type of fuel that was purchased.
+        sig { returns(T.nilable(String)) }
+        def type; end
+        # The units for `quantity_decimal`.
+        sig { returns(T.nilable(String)) }
+        def unit; end
+        # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+        sig { returns(T.nilable(BigDecimal)) }
+        def unit_cost_decimal; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+        def self.field_encodings
+          @field_encodings = {
+            quantity_decimal: {kind: :nullable, inner: :decimal_string},
+            unit_cost_decimal: {kind: :nullable, inner: :decimal_string},
+          }
+        end
+      end
       class Healthcare < ::Stripe::StripeObject
         # Clinic and urgent care sub-amount for Visa only. Null if the merchant did not include this amount.
         sig { returns(T.nilable(Integer)) }
@@ -1376,6 +1405,9 @@ module Stripe
       # Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
       sig { returns(T.nilable(Fuel)) }
       def fuel; end
+      # Information about the list of fuel items that were purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+      sig { returns(T.nilable(T::Array[Fuels])) }
+      def fuels; end
       # Details about the IIAS FSA/HSA healthcare amounts on this authorization.
       sig { returns(T.nilable(Healthcare)) }
       def healthcare; end

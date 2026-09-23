@@ -305,6 +305,14 @@ module Stripe
         Events::V2BillingCadenceCreatedEvent.lookup_type => Events::V2BillingCadenceCreatedEvent,
         Events::V2BillingContractActivatedEvent.lookup_type => Events::V2BillingContractActivatedEvent,
         Events::V2BillingContractCanceledEvent.lookup_type => Events::V2BillingContractCanceledEvent,
+        Events::V2BillingContractCollectionBlockedEvent.lookup_type =>
+        Events::V2BillingContractCollectionBlockedEvent,
+        Events::V2BillingContractCollectionCurrentEvent.lookup_type =>
+        Events::V2BillingContractCollectionCurrentEvent,
+        Events::V2BillingContractCollectionPastDueEvent.lookup_type =>
+        Events::V2BillingContractCollectionPastDueEvent,
+        Events::V2BillingContractCollectionUnpaidEvent.lookup_type =>
+        Events::V2BillingContractCollectionUnpaidEvent,
         Events::V2BillingContractCreatedEvent.lookup_type => Events::V2BillingContractCreatedEvent,
         Events::V2BillingContractEndedEvent.lookup_type => Events::V2BillingContractEndedEvent,
         Events::V2BillingContractUpdatedEvent.lookup_type => Events::V2BillingContractUpdatedEvent,
@@ -498,6 +506,16 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEvent,
         Events::V2CoreHealthWebhookLatencyResolvedEvent.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEvent,
+        Events::V2CoreVaultNetworkTokenActivatedEvent.lookup_type =>
+        Events::V2CoreVaultNetworkTokenActivatedEvent,
+        Events::V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent.lookup_type =>
+        Events::V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEvent,
+        Events::V2CoreVaultNetworkTokenDeactivatedEvent.lookup_type =>
+        Events::V2CoreVaultNetworkTokenDeactivatedEvent,
+        Events::V2CoreVaultNetworkTokenDetailsUpdatedEvent.lookup_type =>
+        Events::V2CoreVaultNetworkTokenDetailsUpdatedEvent,
+        Events::V2CoreVaultNetworkTokenSuspendedEvent.lookup_type =>
+        Events::V2CoreVaultNetworkTokenSuspendedEvent,
         Events::V2DataReportingQueryRunCreatedEvent.lookup_type =>
         Events::V2DataReportingQueryRunCreatedEvent,
         Events::V2DataReportingQueryRunFailedEvent.lookup_type =>
@@ -545,6 +563,12 @@ module Stripe
         Events::V2MoneyManagementFinancialAccountStatementRestatedEvent,
         Events::V2MoneyManagementFinancialAccountUpdatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountUpdatedEvent,
+        Events::V2MoneyManagementFinancialAccountWalletExportCompletedEvent.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportCompletedEvent,
+        Events::V2MoneyManagementFinancialAccountWalletExportPendingEvent.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportPendingEvent,
+        Events::V2MoneyManagementFinancialAccountWalletExportReadyEvent.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportReadyEvent,
         Events::V2MoneyManagementFinancialAddressActivatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAddressActivatedEvent,
         Events::V2MoneyManagementFinancialAddressFailedEvent.lookup_type =>
@@ -1107,6 +1131,14 @@ module Stripe
         Events::V2BillingContractActivatedEventNotification,
         Events::V2BillingContractCanceledEventNotification.lookup_type =>
         Events::V2BillingContractCanceledEventNotification,
+        Events::V2BillingContractCollectionBlockedEventNotification.lookup_type =>
+        Events::V2BillingContractCollectionBlockedEventNotification,
+        Events::V2BillingContractCollectionCurrentEventNotification.lookup_type =>
+        Events::V2BillingContractCollectionCurrentEventNotification,
+        Events::V2BillingContractCollectionPastDueEventNotification.lookup_type =>
+        Events::V2BillingContractCollectionPastDueEventNotification,
+        Events::V2BillingContractCollectionUnpaidEventNotification.lookup_type =>
+        Events::V2BillingContractCollectionUnpaidEventNotification,
         Events::V2BillingContractCreatedEventNotification.lookup_type =>
         Events::V2BillingContractCreatedEventNotification,
         Events::V2BillingContractEndedEventNotification.lookup_type =>
@@ -1337,6 +1369,16 @@ module Stripe
         Events::V2CoreHealthWebhookLatencyFiringEventNotification,
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification.lookup_type =>
         Events::V2CoreHealthWebhookLatencyResolvedEventNotification,
+        Events::V2CoreVaultNetworkTokenActivatedEventNotification.lookup_type =>
+        Events::V2CoreVaultNetworkTokenActivatedEventNotification,
+        Events::V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification.lookup_type =>
+        Events::V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification,
+        Events::V2CoreVaultNetworkTokenDeactivatedEventNotification.lookup_type =>
+        Events::V2CoreVaultNetworkTokenDeactivatedEventNotification,
+        Events::V2CoreVaultNetworkTokenDetailsUpdatedEventNotification.lookup_type =>
+        Events::V2CoreVaultNetworkTokenDetailsUpdatedEventNotification,
+        Events::V2CoreVaultNetworkTokenSuspendedEventNotification.lookup_type =>
+        Events::V2CoreVaultNetworkTokenSuspendedEventNotification,
         Events::V2DataReportingQueryRunCreatedEventNotification.lookup_type =>
         Events::V2DataReportingQueryRunCreatedEventNotification,
         Events::V2DataReportingQueryRunFailedEventNotification.lookup_type =>
@@ -1393,6 +1435,12 @@ module Stripe
         Events::V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
         Events::V2MoneyManagementFinancialAccountUpdatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountUpdatedEventNotification,
+        Events::V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification,
+        Events::V2MoneyManagementFinancialAccountWalletExportPendingEventNotification.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportPendingEventNotification,
+        Events::V2MoneyManagementFinancialAccountWalletExportReadyEventNotification.lookup_type =>
+        Events::V2MoneyManagementFinancialAccountWalletExportReadyEventNotification,
         Events::V2MoneyManagementFinancialAddressActivatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAddressActivatedEventNotification,
         Events::V2MoneyManagementFinancialAddressFailedEventNotification.lookup_type =>

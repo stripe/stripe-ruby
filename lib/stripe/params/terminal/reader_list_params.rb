@@ -20,6 +20,8 @@ module Stripe
       attr_accessor :starting_after
       # A status filter to filter readers to only offline or online readers
       attr_accessor :status
+      # Filters readers by tamper state.
+      attr_accessor :tamper_state
 
       def initialize(
         device_type: nil,
@@ -29,7 +31,8 @@ module Stripe
         location: nil,
         serial_number: nil,
         starting_after: nil,
-        status: nil
+        status: nil,
+        tamper_state: nil
       )
         @device_type = device_type
         @ending_before = ending_before
@@ -39,6 +42,7 @@ module Stripe
         @serial_number = serial_number
         @starting_after = starting_after
         @status = status
+        @tamper_state = tamper_state
       end
     end
   end

@@ -7,6 +7,11 @@ module Stripe
     class Payments < ::Stripe::RequestParams
       class Payouts < ::Stripe::RequestParams
         class AutomaticTransferRulesByCurrency < ::Stripe::RequestParams
+          # The currency of the FinancialAccount balance that receives the automatic transfer. If specified, funds are converted from the source currency before transfer.
+          sig { returns(T.nilable(String)) }
+          def destination_currency; end
+          sig { params(_destination_currency: T.nilable(String)).returns(T.nilable(String)) }
+          def destination_currency=(_destination_currency); end
           # The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
           sig { returns(String) }
           def payout_method; end
@@ -23,9 +28,14 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(payout_method: String, transfer_up_to_amount: T.nilable(Integer), type: String).void
+            params(destination_currency: T.nilable(String), payout_method: String, transfer_up_to_amount: T.nilable(Integer), type: String).void
            }
-          def initialize(payout_method: nil, transfer_up_to_amount: nil, type: nil); end
+          def initialize(
+            destination_currency: nil,
+            payout_method: nil,
+            transfer_up_to_amount: nil,
+            type: nil
+          ); end
         end
         class Schedule < ::Stripe::RequestParams
           # How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.

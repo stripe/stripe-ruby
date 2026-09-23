@@ -5,12 +5,14 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAccountService < StripeService
-        attr_reader :statements
+        attr_reader :statements, :wallet_export
 
         def initialize(requestor)
           super
           @statements = Stripe::V2::MoneyManagement::FinancialAccounts::StatementService
                         .new(@requestor)
+          @wallet_export = Stripe::V2::MoneyManagement::FinancialAccounts::WalletExportService
+                           .new(@requestor)
         end
 
         # Closes a FinancialAccount with or without forwarding settings.

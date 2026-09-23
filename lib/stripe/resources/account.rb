@@ -160,6 +160,8 @@ module Stripe
       attr_reader :bizum_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      attr_reader :blik_recurring_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       attr_reader :boleto_payments
       # The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
@@ -492,13 +494,13 @@ module Stripe
 
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :back
           # A user-displayable string describing the verification state of this document.
           attr_reader :details
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           attr_reader :details_code
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :front
 
           def self.inner_class_types
@@ -742,7 +744,7 @@ module Stripe
       attr_reader :current_deadline
       # Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
       attr_reader :currently_due
-      # This is typed as an enum for consistency with `requirements.disabled_reason`.
+      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
       attr_reader :disabled_reason
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
@@ -827,7 +829,7 @@ module Stripe
       attr_reader :current_deadline
       # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       attr_reader :currently_due
-      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
+      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
       attr_reader :disabled_reason
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
@@ -929,6 +931,21 @@ module Stripe
         attr_reader :primary_color
         # A CSS hex color value representing the secondary branding color for this account
         attr_reader :secondary_color
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Capital < ::Stripe::StripeObject
+        # The payout destinations allowed for Capital financing payouts.
+        attr_reader :allowed_payout_destinations
+        # The payout destinations excluded from Capital financing payouts.
+        attr_reader :excluded_payout_destinations
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -1269,6 +1286,8 @@ module Stripe
       attr_reader :bank_bca_onboarding
       # Attribute for field branding
       attr_reader :branding
+      # Attribute for field capital
+      attr_reader :capital
       # Attribute for field card_issuing
       attr_reader :card_issuing
       # Attribute for field card_payments
@@ -1299,6 +1318,7 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
+          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,

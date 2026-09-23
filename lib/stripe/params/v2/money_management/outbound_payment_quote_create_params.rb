@@ -34,12 +34,15 @@ module Stripe
             class BankAccount < ::Stripe::RequestParams
               class PreferredNetworkOptions < ::Stripe::RequestParams
                 class Ach < ::Stripe::RequestParams
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  attr_accessor :addenda
                   # Open Enum. ACH submission timing.
                   attr_accessor :submission
                   # The transaction purpose for this ACH payment.
                   attr_accessor :transaction_purpose
 
-                  def initialize(submission: nil, transaction_purpose: nil)
+                  def initialize(addenda: nil, submission: nil, transaction_purpose: nil)
+                    @addenda = addenda
                     @submission = submission
                     @transaction_purpose = transaction_purpose
                   end

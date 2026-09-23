@@ -169,6 +169,9 @@ module Stripe
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       sig { returns(T.nilable(String)) }
       def blik_payments; end
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      sig { returns(T.nilable(String)) }
+      def blik_recurring_payments; end
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       sig { returns(T.nilable(String)) }
       def boleto_payments; end
@@ -581,7 +584,7 @@ module Stripe
       end
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def back; end
           # A user-displayable string describing the verification state of this document.
@@ -590,7 +593,7 @@ module Stripe
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           sig { returns(T.nilable(String)) }
           def details_code; end
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def front; end
           def self.inner_class_types
@@ -854,7 +857,7 @@ module Stripe
       # Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # This is typed as an enum for consistency with `requirements.disabled_reason`.
+      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
@@ -942,7 +945,7 @@ module Stripe
       # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
+      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
@@ -1045,6 +1048,20 @@ module Stripe
         # A CSS hex color value representing the secondary branding color for this account
         sig { returns(T.nilable(String)) }
         def secondary_color; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Capital < ::Stripe::StripeObject
+        # The payout destinations allowed for Capital financing payouts.
+        sig { returns(T.nilable(T::Array[String])) }
+        def allowed_payout_destinations; end
+        # The payout destinations excluded from Capital financing payouts.
+        sig { returns(T.nilable(T::Array[String])) }
+        def excluded_payout_destinations; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1380,6 +1397,9 @@ module Stripe
       # Attribute for field branding
       sig { returns(Branding) }
       def branding; end
+      # Attribute for field capital
+      sig { returns(T.nilable(Capital)) }
+      def capital; end
       # Attribute for field card_issuing
       sig { returns(T.nilable(CardIssuing)) }
       def card_issuing; end
@@ -1421,6 +1441,7 @@ module Stripe
           bacs_debit_payments: BacsDebitPayments,
           bank_bca_onboarding: BankBcaOnboarding,
           branding: Branding,
+          capital: Capital,
           card_issuing: CardIssuing,
           card_payments: CardPayments,
           dashboard: Dashboard,

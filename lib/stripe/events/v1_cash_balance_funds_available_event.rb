@@ -28,7 +28,9 @@ module Stripe
       end
 
       attr_reader :related_object
-
+      private def related_object_class
+        Stripe::V2::Core::RelatedSingletonObject
+      end
       # Retrieves the CashBalance related to this EventNotification from the Stripe API. Makes an API request on every call.
       def fetch_related_object
         resp = @client.raw_request(

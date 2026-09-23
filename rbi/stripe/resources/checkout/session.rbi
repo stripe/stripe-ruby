@@ -89,7 +89,7 @@ module Stripe
       class AutomaticTax < ::Stripe::StripeObject
         class EnablementDetails < ::Stripe::StripeObject
           class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
-            # The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+            # The parameter that prevented `automatic_tax` from being enabled (for example `line_items[][tax_rates]`).
             sig { returns(String) }
             def conflicting_field; end
             def self.inner_class_types
@@ -489,6 +489,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Custom < ::Stripe::StripeObject
+            # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class Link < ::Stripe::StripeObject
             # Unique, encrypted bank account identifier.
             sig { returns(T.nilable(String)) }
@@ -548,6 +559,9 @@ module Stripe
           # Attribute for field card
           sig { returns(T.nilable(Card)) }
           def card; end
+          # Attribute for field custom
+          sig { returns(T.nilable(Custom)) }
+          def custom; end
           # Attribute for field link
           sig { returns(T.nilable(Link)) }
           def link; end
@@ -569,6 +583,7 @@ module Stripe
               bacs_debit: BacsDebit,
               boleto: Boleto,
               card: Card,
+              custom: Custom,
               link: Link,
               pix: Pix,
               sepa_debit: SepaDebit,
@@ -1117,7 +1132,7 @@ module Stripe
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         sig { returns(String) }
         def key; end
-        # Details on the subscription for this item.
+        # Attribute for field subscription
         sig { returns(T.nilable(Subscription)) }
         def subscription; end
         # The type of the item.
@@ -2816,7 +2831,7 @@ module Stripe
             # The amount discounted.
             sig { returns(Integer) }
             def amount; end
-            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -3181,6 +3196,9 @@ module Stripe
       # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
       sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
       def payment_record; end
+      # The ID of the Payment Reservation for this Checkout Session.
+      sig { returns(T.nilable(String)) }
+      def payment_reservation; end
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       sig { returns(String) }

@@ -126,12 +126,12 @@ module Stripe
         end
         class Verification < ::Stripe::RequestParams
           class Document < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }

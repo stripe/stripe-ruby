@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
@@ -82,10 +82,24 @@ module Stripe
         end
 
         class UsBankAccount < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # Freeform payment-related information transmitted in the ACH addenda record.
+            attr_reader :addenda
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Account holder type: individual or company.
           attr_reader :account_holder_type
           # Account type: checkings or savings. Defaults to checking if omitted.
           attr_reader :account_type
+          # Details about an ACH transaction.
+          attr_reader :ach
           # Name of the bank associated with the bank account.
           attr_reader :bank_name
           # Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -100,7 +114,7 @@ module Stripe
           attr_reader :routing_number
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { ach: Ach }
           end
 
           def self.field_remappings
@@ -149,7 +163,7 @@ module Stripe
       attr_reader :currency
       # An arbitrary string attached to the object. Often useful for displaying to users.
       attr_reader :description
-      # Details about this InboundTransfer's failure. Only set when status is `failed`.
+      # Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
       attr_reader :failure_details
       # The FinancialAccount that received the funds.
       attr_reader :financial_account

@@ -116,6 +116,45 @@ module Stripe
             end
           end
 
+          class NetworkDetails < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Payment-related information from the ACH addenda record, up to 80 characters.
+              attr_reader :addenda
+              # Company Entry Description from the ACH batch header, e.g. "HCCLAIMPMT".
+              attr_reader :originator_company_entry_description
+              # Company Identification from the ACH batch header.
+              attr_reader :originator_company_id
+              # Company Name from the ACH batch header -- the business that sent the funds.
+              attr_reader :originator_company_name
+              # Identification Number from the ACH entry detail record.
+              attr_reader :receiver_id_number
+              # Individual Name from the ACH entry detail record.
+              attr_reader :receiver_name
+              # Open Enum. Standard Entry Class code of the ACH entry.
+              attr_reader :standard_entry_class_code
+              # Trace Number from the ACH entry detail record.
+              attr_reader :trace_id
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # NACHA details for the ACH entry that created this ReceivedCredit.
+            attr_reader :ach
+
+            def self.inner_class_types
+              @inner_class_types = { ach: Ach }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class OriginatingBankAccount < ::Stripe::StripeObject
             class Aba < ::Stripe::StripeObject
               # The name of the account holder that sent the payment.
@@ -304,6 +343,8 @@ module Stripe
           attr_reader :gb_bank_account
           # Deprecated. Use `originating_bank_account.clabe` instead.
           attr_reader :mx_bank_account
+          # Network-level detail for the transfer that created this ReceivedCredit. Present only for ACH.
+          attr_reader :network_details
           # Hash containing the originating bank account details and type for this bank transfer.
           attr_reader :originating_bank_account
           # Deprecated. Use `originating_bank_account.iban` instead.
@@ -319,6 +360,7 @@ module Stripe
               eu_bank_account: EuBankAccount,
               gb_bank_account: GbBankAccount,
               mx_bank_account: MxBankAccount,
+              network_details: NetworkDetails,
               originating_bank_account: OriginatingBankAccount,
               sepa_bank_account: SepaBankAccount,
               us_bank_account: UsBankAccount,

@@ -97,7 +97,7 @@ module Stripe
       class AutomaticTax < ::Stripe::StripeObject
         class EnablementDetails < ::Stripe::StripeObject
           class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
-            # The parameter that prevented `automatic_tax` from being enabled (e.g. `line_items[][tax_rates]`).
+            # The parameter that prevented `automatic_tax` from being enabled (for example `line_items[][tax_rates]`).
             attr_reader :conflicting_field
 
             def self.inner_class_types
@@ -485,6 +485,19 @@ module Stripe
             end
           end
 
+          class Custom < ::Stripe::StripeObject
+            # ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class Link < ::Stripe::StripeObject
             # Unique, encrypted bank account identifier.
             attr_reader :fingerprint
@@ -546,6 +559,8 @@ module Stripe
           attr_reader :boleto
           # Attribute for field card
           attr_reader :card
+          # Attribute for field custom
+          attr_reader :custom
           # Attribute for field link
           attr_reader :link
           # Attribute for field pix
@@ -563,6 +578,7 @@ module Stripe
               bacs_debit: BacsDebit,
               boleto: Boleto,
               card: Card,
+              custom: Custom,
               link: Link,
               pix: Pix,
               sepa_debit: SepaDebit,
@@ -1092,7 +1108,7 @@ module Stripe
         end
         # The key of the item. Guaranteed to be a unique ID within this checkout session's items.
         attr_reader :key
-        # Details on the subscription for this item.
+        # Attribute for field subscription
         attr_reader :subscription
         # The type of the item.
         attr_reader :type
@@ -2783,7 +2799,7 @@ module Stripe
           class Discount < ::Stripe::StripeObject
             # The amount discounted.
             attr_reader :amount
-            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -3089,6 +3105,8 @@ module Stripe
       attr_reader :payment_method_types
       # The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
       attr_reader :payment_record
+      # The ID of the Payment Reservation for this Checkout Session.
+      attr_reader :payment_reservation
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       attr_reader :payment_status

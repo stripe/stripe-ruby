@@ -549,6 +549,34 @@ module Stripe
         end
       end
 
+      class Fuels < ::Stripe::StripeObject
+        # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+        attr_reader :industry_product_code
+        # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+        attr_reader :quantity_decimal
+        # The type of fuel that was purchased.
+        attr_reader :type
+        # The units for `quantity_decimal`.
+        attr_reader :unit
+        # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+        attr_reader :unit_cost_decimal
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            quantity_decimal: { kind: :nullable, inner: :decimal_string },
+            unit_cost_decimal: { kind: :nullable, inner: :decimal_string },
+          }
+        end
+      end
+
       class Healthcare < ::Stripe::StripeObject
         # Clinic and urgent care sub-amount for Visa only. Null if the merchant did not include this amount.
         attr_reader :clinic_amount
@@ -1308,6 +1336,8 @@ module Stripe
       attr_reader :fraud_challenges
       # Information about fuel that was purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
       attr_reader :fuel
+      # Information about the list of fuel items that were purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+      attr_reader :fuels
       # Details about the IIAS FSA/HSA healthcare amounts on this authorization.
       attr_reader :healthcare
       # Unique identifier for the object.
@@ -1581,6 +1611,7 @@ module Stripe
           fleet: Fleet,
           fraud_challenges: FraudChallenge,
           fuel: Fuel,
+          fuels: Fuels,
           healthcare: Healthcare,
           merchant_data: MerchantData,
           network_data: NetworkData,
@@ -1647,6 +1678,19 @@ module Stripe
               fields: {
                 quantity_decimal: { kind: :nullable, inner: :decimal_string },
                 unit_cost_decimal: { kind: :nullable, inner: :decimal_string },
+              },
+            },
+          },
+          fuels: {
+            kind: :nullable,
+            inner: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {
+                  quantity_decimal: { kind: :nullable, inner: :decimal_string },
+                  unit_cost_decimal: { kind: :nullable, inner: :decimal_string },
+                },
               },
             },
           },

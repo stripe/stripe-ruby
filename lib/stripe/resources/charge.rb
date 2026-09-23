@@ -961,7 +961,7 @@ module Stripe
         attr_reader :decremental_authorization
         # A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
         attr_reader :description
-        # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. The response value is the source of truth; it may differ from the request value if the network downgraded the transaction.
+        # The Electronic Commerce Indicator (ECI) returned by the card network in the authorization response. Indicates the level of authentication used. Only populated for Visa and Mastercard transactions. This is the network's final ECI and can differ from the request value. An authenticated ECI alone doesn't determine liability shift.
         attr_reader :electronic_commerce_indicator
         # Two-digit number representing the card's expiration month.
         attr_reader :exp_month
@@ -1009,6 +1009,10 @@ module Stripe
         attr_reader :reauthorize_before
         # Status of a card based on the card issuer.
         attr_reader :regulated_status
+        # The payment_method_options.card.setup_credential_usage value that was passed when setup_future_usage was present at confirmation, one of `recurring`, `unscheduled`, or `installment`
+        attr_reader :setup_credential_usage
+        # The payment_method_options.card.stored_credential_usage value that was passed for an off session, merchant-initiated transaction, one of `recurring`, `unscheduled`, `on_session`, or `installment`
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # Transaction Link ID (TLID) is a unique identifier for a transaction. This is used by some card networks, such as Mastercard, for transaction linking, in addition to Network Transaction IDs. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.

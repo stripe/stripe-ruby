@@ -120,11 +120,37 @@ module Stripe
         class To < ::Stripe::StripeObject
           class PayoutMethodOptions < ::Stripe::StripeObject
             class BankAccount < ::Stripe::StripeObject
+              class PreferredNetworkOptions < ::Stripe::StripeObject
+                class Ach < ::Stripe::StripeObject
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  attr_reader :addenda
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # ACH-specific network options.
+                attr_reader :ach
+
+                def self.inner_class_types
+                  @inner_class_types = { ach: Ach }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Per-network configuration options.
+              attr_reader :preferred_network_options
               # The preferred networks to use for this OutboundTransfer.
               attr_reader :preferred_networks
 
               def self.inner_class_types
-                @inner_class_types = {}
+                @inner_class_types = { preferred_network_options: PreferredNetworkOptions }
               end
 
               def self.field_remappings

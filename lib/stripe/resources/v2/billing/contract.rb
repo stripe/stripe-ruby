@@ -140,6 +140,25 @@ module Stripe
           end
         end
 
+        class CollectionStatusTransitions < ::Stripe::StripeObject
+          # The timestamp when the contract's collection status transitioned to blocked.
+          attr_reader :blocked_at
+          # The timestamp when the contract's collection status transitioned to current.
+          attr_reader :current_at
+          # The timestamp when the contract's collection status transitioned to past due.
+          attr_reader :past_due_at
+          # The timestamp when the contract's collection status transitioned to unpaid.
+          attr_reader :unpaid_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class OneTimeFees < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class BillAt < ::Stripe::StripeObject
@@ -517,6 +536,10 @@ module Stripe
         attr_reader :billing_cycle_anchor
         # The billing settings.
         attr_reader :billing_settings
+        # The collection status of the contract that indicates whether there are any outstanding invoices for the contract.
+        attr_reader :collection_status
+        # Historical timestamps of when the contract's collection status transitioned into each status.
+        attr_reader :collection_status_transitions
         # A unique user-provided contract number e.g. C-2026-0001.
         attr_reader :contract_number
         # Timestamp of when the contract was created.
@@ -548,6 +571,7 @@ module Stripe
           @inner_class_types = {
             billing_cycle_anchor: BillingCycleAnchor,
             billing_settings: BillingSettings,
+            collection_status_transitions: CollectionStatusTransitions,
             one_time_fees: OneTimeFees,
             pricing_lines: PricingLines,
             pricing_overrides: PricingOverrides,

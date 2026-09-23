@@ -821,6 +821,9 @@ module Stripe
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       sig { returns(T.nilable(Integer)) }
       def billing_cycle_anchor; end
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      sig { returns(T.nilable(T::Boolean)) }
+      def cancel_at_period_end; end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       sig { returns(T.nilable(::Stripe::Discount)) }
       def discount; end

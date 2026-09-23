@@ -15,12 +15,26 @@ module Stripe
         end
 
         class Storage < ::Stripe::RequestParams
+          class Crypto < ::Stripe::RequestParams
+            # The blockchain network configured for each crypto currency. Keys are lowercase currency codes and must identify crypto currencies also present in `holds_currencies`.
+            attr_accessor :currency_networks
+            # Describes who controls the private keys for the crypto storage.
+            attr_accessor :custody_model
+
+            def initialize(currency_networks: nil, custody_model: nil)
+              @currency_networks = currency_networks
+              @custody_model = custody_model
+            end
+          end
+          # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
+          attr_accessor :crypto
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           attr_accessor :funds_usage_type
           # The currencies that this FinancialAccount can hold.
           attr_accessor :holds_currencies
 
-          def initialize(funds_usage_type: nil, holds_currencies: nil)
+          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil)
+            @crypto = crypto
             @funds_usage_type = funds_usage_type
             @holds_currencies = holds_currencies
           end

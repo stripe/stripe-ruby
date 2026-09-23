@@ -1354,6 +1354,30 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCollectionBlockedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_collection_blocked(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCollectionCurrentEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_collection_current(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCollectionPastDueEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_collection_past_due(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCollectionUnpaidEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_billing_contract_collection_unpaid(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2BillingContractCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_billing_contract_created(&blk);
@@ -2044,6 +2068,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreVaultNetworkTokenActivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_vault_network_token_activated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreVaultNetworkTokenAuthorizationRequirementsChangedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_vault_network_token_authorization_requirements_changed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreVaultNetworkTokenDeactivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_vault_network_token_deactivated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreVaultNetworkTokenDetailsUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_vault_network_token_details_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2CoreVaultNetworkTokenSuspendedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_core_vault_network_token_suspended(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_created(&blk);
@@ -2197,6 +2251,24 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_account_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountWalletExportCompletedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_financial_account_wallet_export_completed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountWalletExportPendingEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_financial_account_wallet_export_pending(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountWalletExportReadyEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_financial_account_wallet_export_ready(&blk);
     end
     
     sig do

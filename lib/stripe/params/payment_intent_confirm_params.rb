@@ -6536,7 +6536,7 @@ module Stripe
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
     # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-    # If the payment method is attached to a Customer, it must match the [customer](https://api.stripe.com#create_payment_intent-customer) that is set on this PaymentIntent.
+    # If the payment method is attached to a Customer, it must match the [customer](https://docs.stripe.com/api#create_payment_intent-customer) that is set on this PaymentIntent.
     attr_accessor :payment_method
     # If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
     # in the [payment_method](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-payment_method)

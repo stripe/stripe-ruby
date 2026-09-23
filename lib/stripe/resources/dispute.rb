@@ -21,7 +21,7 @@ module Stripe
         class Card < ::Stripe::StripeObject
           # The reason for filing the appeal.
           attr_reader :reason_for_filing
-          # One or more document IDs returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
           attr_reader :supporting_files
 
           def self.inner_class_types

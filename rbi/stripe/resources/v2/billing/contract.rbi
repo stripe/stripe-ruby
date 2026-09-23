@@ -128,6 +128,26 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class CollectionStatusTransitions < ::Stripe::StripeObject
+          # The timestamp when the contract's collection status transitioned to blocked.
+          sig { returns(T.nilable(String)) }
+          def blocked_at; end
+          # The timestamp when the contract's collection status transitioned to current.
+          sig { returns(T.nilable(String)) }
+          def current_at; end
+          # The timestamp when the contract's collection status transitioned to past due.
+          sig { returns(T.nilable(String)) }
+          def past_due_at; end
+          # The timestamp when the contract's collection status transitioned to unpaid.
+          sig { returns(T.nilable(String)) }
+          def unpaid_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class OneTimeFees < ::Stripe::StripeObject
           class Data < ::Stripe::StripeObject
             class BillAt < ::Stripe::StripeObject
@@ -227,7 +247,7 @@ module Stripe
                       end
                     end
                     # Timestamp when this override ends.
-                    sig { returns(EndsAt) }
+                    sig { returns(T.nilable(EndsAt)) }
                     def ends_at; end
                     # The ID of the pricing override.
                     sig { returns(String) }
@@ -320,7 +340,7 @@ module Stripe
               end
             end
             # Timestamp when the pricing line ends.
-            sig { returns(EndsAt) }
+            sig { returns(T.nilable(EndsAt)) }
             def ends_at; end
             # The id of the pricing line.
             sig { returns(String) }
@@ -438,7 +458,7 @@ module Stripe
               end
             end
             # Resolved timestamp when the pricing override ends.
-            sig { returns(EndsAt) }
+            sig { returns(T.nilable(EndsAt)) }
             def ends_at; end
             # The ID of the pricing override.
             sig { returns(String) }
@@ -505,6 +525,12 @@ module Stripe
         # The billing settings.
         sig { returns(T.nilable(BillingSettings)) }
         def billing_settings; end
+        # The collection status of the contract that indicates whether there are any outstanding invoices for the contract.
+        sig { returns(String) }
+        def collection_status; end
+        # Historical timestamps of when the contract's collection status transitioned into each status.
+        sig { returns(CollectionStatusTransitions) }
+        def collection_status_transitions; end
         # A unique user-provided contract number e.g. C-2026-0001.
         sig { returns(String) }
         def contract_number; end

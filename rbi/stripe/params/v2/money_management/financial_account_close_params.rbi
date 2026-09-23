@@ -17,8 +17,21 @@ module Stripe
           def payout_method; end
           sig { params(_payout_method: T.nilable(String)).returns(T.nilable(String)) }
           def payout_method=(_payout_method); end
-          sig { params(payment_method: T.nilable(String), payout_method: T.nilable(String)).void }
-          def initialize(payment_method: nil, payout_method: nil); end
+          # Whether to skip forwarding exportable self-custodied wallet balances. Defaults to false. This does not skip non-exportable or fiat balances, inbound-pending checks, or negative-balance requirements.
+          sig { returns(T.nilable(T::Boolean)) }
+          def skip_exportable_balances; end
+          sig {
+            params(_skip_exportable_balances: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean))
+           }
+          def skip_exportable_balances=(_skip_exportable_balances); end
+          sig {
+            params(payment_method: T.nilable(String), payout_method: T.nilable(String), skip_exportable_balances: T.nilable(T::Boolean)).void
+           }
+          def initialize(
+            payment_method: nil,
+            payout_method: nil,
+            skip_exportable_balances: nil
+          ); end
         end
         # The addresses to forward any incoming transactions to.
         sig {

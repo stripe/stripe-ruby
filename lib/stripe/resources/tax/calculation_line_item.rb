@@ -3,6 +3,7 @@
 
 module Stripe
   module Tax
+    # A Tax Calculation Line Item represents a single item in a tax calculation.
     class CalculationLineItem < APIResource
       OBJECT_NAME = "tax.calculation_line_item"
       def self.object_name

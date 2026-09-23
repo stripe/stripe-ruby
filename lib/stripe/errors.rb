@@ -261,6 +261,9 @@ module Stripe
   class RecipientNotNotifiableError < StripeError
   end
 
+  class ServiceUnavailableError < StripeError
+  end
+
   class TemporarySessionExpiredError < StripeError
   end
   # class definitions: The end of the section generated from our OpenAPI spec

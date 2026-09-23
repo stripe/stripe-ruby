@@ -21,6 +21,9 @@ module Stripe
         # Represents the discount amount on remaining premium for the existing loan at payout time.
         sig { returns(T.nilable(Integer)) }
         def previous_financing_fee_discount_amount; end
+        # Total amount due for the financing independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
+        sig { returns(T.nilable(Integer)) }
+        def total_due_amount; end
         # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end

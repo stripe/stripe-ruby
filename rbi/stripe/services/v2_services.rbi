@@ -14,6 +14,7 @@ module Stripe
     attr_reader :network
     attr_reader :orchestrated_commerce
     attr_reader :payments
+    attr_reader :provisioning
     attr_reader :reporting
     attr_reader :risk
     attr_reader :signals

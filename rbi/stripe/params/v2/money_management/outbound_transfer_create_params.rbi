@@ -32,13 +32,48 @@ module Stripe
         class To < ::Stripe::RequestParams
           class PayoutMethodOptions < ::Stripe::RequestParams
             class BankAccount < ::Stripe::RequestParams
+              class PreferredNetworkOptions < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  sig { returns(T.nilable(String)) }
+                  def addenda; end
+                  sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+                  def addenda=(_addenda); end
+                  sig { params(addenda: T.nilable(String)).void }
+                  def initialize(addenda: nil); end
+                end
+                # ACH-specific network options.
+                sig {
+                  returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach))
+                 }
+                def ach; end
+                sig {
+                  params(_ach: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach))
+                 }
+                def ach=(_ach); end
+                sig {
+                  params(ach: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions::Ach)).void
+                 }
+                def initialize(ach: nil); end
+              end
+              # Per-network configuration options.
+              sig {
+                returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions))
+               }
+              def preferred_network_options; end
+              sig {
+                params(_preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions))
+               }
+              def preferred_network_options=(_preferred_network_options); end
               # The preferred networks to use for this OutboundTransfer.
               sig { returns(T::Array[String]) }
               def preferred_networks; end
               sig { params(_preferred_networks: T::Array[String]).returns(T::Array[String]) }
               def preferred_networks=(_preferred_networks); end
-              sig { params(preferred_networks: T::Array[String]).void }
-              def initialize(preferred_networks: nil); end
+              sig {
+                params(preferred_network_options: T.nilable(::Stripe::V2::MoneyManagement::OutboundTransferCreateParams::To::PayoutMethodOptions::BankAccount::PreferredNetworkOptions), preferred_networks: T::Array[String]).void
+               }
+              def initialize(preferred_network_options: nil, preferred_networks: nil); end
             end
             # Options for bank account payout methods.
             sig {

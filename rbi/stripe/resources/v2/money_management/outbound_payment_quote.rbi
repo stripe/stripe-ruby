@@ -105,6 +105,9 @@ module Stripe
             class BankAccount < ::Stripe::StripeObject
               class PreferredNetworkOptions < ::Stripe::StripeObject
                 class Ach < ::Stripe::StripeObject
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  sig { returns(T.nilable(String)) }
+                  def addenda; end
                   # Open Enum. ACH submission timing.
                   sig { returns(T.nilable(String)) }
                   def submission; end

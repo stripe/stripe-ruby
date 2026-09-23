@@ -4,7 +4,10 @@
 # typed: true
 module Stripe
   module Apps
-    # An object representing an app installation.
+    # An app install represents a Stripe App that is installed on an account. It reports the permissions,
+    # content security policy entries, and endpoints that the installing account has authorized, along with any
+    # that the app's latest version requests but the account has not authorized yet. Use the Install API to
+    # install, reauthorize, and uninstall apps, and to check the state of existing installs.
     class Install < APIResource
       class AuthorizedContentSecurityPolicy < ::Stripe::StripeObject
         # Attribute for field connect_src
@@ -24,11 +27,11 @@ module Stripe
         end
       end
       class ContentSecurityPolicyGranted < ::Stripe::StripeObject
-        # Attribute for field connect_src
-        sig { returns(T.nilable(T::Array[String])) }
+        # The URLs that the app can make network requests to.
+        sig { returns(T::Array[String]) }
         def connect_src; end
-        # Attribute for field image_src
-        sig { returns(T.nilable(T::Array[String])) }
+        # The URLs that the app can load images from.
+        sig { returns(T::Array[String]) }
         def image_src; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -38,11 +41,11 @@ module Stripe
         end
       end
       class ContentSecurityPolicyPending < ::Stripe::StripeObject
-        # Attribute for field connect_src
-        sig { returns(T.nilable(T::Array[String])) }
+        # The URLs that the app can make network requests to.
+        sig { returns(T::Array[String]) }
         def connect_src; end
-        # Attribute for field image_src
-        sig { returns(T.nilable(T::Array[String])) }
+        # The URLs that the app can load images from.
+        sig { returns(T::Array[String]) }
         def image_src; end
         def self.inner_class_types
           @inner_class_types = {}
@@ -57,7 +60,7 @@ module Stripe
       # The ID of the app installed.
       sig { returns(String) }
       def app; end
-      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints.
+      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`. Install a new version from the Dashboard to grant its permissions.
       sig { returns(T::Boolean) }
       def approval_required; end
       # The authorization code for an oauth app install.

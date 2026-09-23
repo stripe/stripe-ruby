@@ -6,6 +6,8 @@ module Stripe
     class Payments < ::Stripe::RequestParams
       class Payouts < ::Stripe::RequestParams
         class AutomaticTransferRulesByCurrency < ::Stripe::RequestParams
+          # The currency of the FinancialAccount balance that receives the automatic transfer. If specified, funds are converted from the source currency before transfer.
+          attr_accessor :destination_currency
           # The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
           attr_accessor :payout_method
           # The maximum amount in minor units to transfer to the FinancialAccount. Required and only applicable when `type` is `transfer_up_to_amount`.
@@ -13,7 +15,13 @@ module Stripe
           # The type of automatic transfer rule.
           attr_accessor :type
 
-          def initialize(payout_method: nil, transfer_up_to_amount: nil, type: nil)
+          def initialize(
+            destination_currency: nil,
+            payout_method: nil,
+            transfer_up_to_amount: nil,
+            type: nil
+          )
+            @destination_currency = destination_currency
             @payout_method = payout_method
             @transfer_up_to_amount = transfer_up_to_amount
             @type = type

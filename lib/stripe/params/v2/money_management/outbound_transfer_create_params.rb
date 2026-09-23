@@ -29,10 +29,29 @@ module Stripe
         class To < ::Stripe::RequestParams
           class PayoutMethodOptions < ::Stripe::RequestParams
             class BankAccount < ::Stripe::RequestParams
+              class PreferredNetworkOptions < ::Stripe::RequestParams
+                class Ach < ::Stripe::RequestParams
+                  # Freeform ACH addenda (max 80 characters) included in the NACHA submission.
+                  attr_accessor :addenda
+
+                  def initialize(addenda: nil)
+                    @addenda = addenda
+                  end
+                end
+                # ACH-specific network options.
+                attr_accessor :ach
+
+                def initialize(ach: nil)
+                  @ach = ach
+                end
+              end
+              # Per-network configuration options.
+              attr_accessor :preferred_network_options
               # The preferred networks to use for this OutboundTransfer.
               attr_accessor :preferred_networks
 
-              def initialize(preferred_networks: nil)
+              def initialize(preferred_network_options: nil, preferred_networks: nil)
+                @preferred_network_options = preferred_network_options
                 @preferred_networks = preferred_networks
               end
             end

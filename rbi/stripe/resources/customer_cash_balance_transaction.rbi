@@ -56,6 +56,15 @@ module Stripe
           # The last 4 digits of the account number of the sender of the funding.
           sig { returns(T.nilable(String)) }
           def account_number_last4; end
+          # The BIC of the bank of the sender of the funding.
+          sig { returns(T.nilable(String)) }
+          def bic; end
+          # The last 4 digits of the IBAN of the sender of the funding.
+          sig { returns(T.nilable(String)) }
+          def iban_last4; end
+          # The banking network used for this funding.
+          sig { returns(T.nilable(String)) }
+          def network; end
           # The full name of the sender, as supplied by the sending bank.
           sig { returns(T.nilable(String)) }
           def sender_name; end

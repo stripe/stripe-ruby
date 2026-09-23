@@ -4,6 +4,30 @@
 module Stripe
   module Treasury
     class InboundTransferCreateParams < ::Stripe::RequestParams
+      class OriginPaymentMethodOptions < ::Stripe::RequestParams
+        class UsBankAccount < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # Freeform payment-related information to transmit in the ACH addenda record. Maximum 80 characters, ACH character set. Applied only when the payment routes over ACH. Immutable after creation.
+            attr_accessor :addenda
+
+            def initialize(addenda: nil)
+              @addenda = addenda
+            end
+          end
+          # Specify details about the ACH transaction.
+          attr_accessor :ach
+
+          def initialize(ach: nil)
+            @ach = ach
+          end
+        end
+        # Includes additional payment method options if the destination is a us_bank_account.
+        attr_accessor :us_bank_account
+
+        def initialize(us_bank_account: nil)
+          @us_bank_account = us_bank_account
+        end
+      end
       # Amount (in cents) to be transferred.
       attr_accessor :amount
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -18,6 +42,8 @@ module Stripe
       attr_accessor :metadata
       # The origin payment method to be debited for the InboundTransfer.
       attr_accessor :origin_payment_method
+      # Additional options about the origin PaymentMethod.
+      attr_accessor :origin_payment_method_options
       # The complete description that appears on your customers' statements. Maximum 10 characters. Can only include -#.$&*, spaces, and alphanumeric characters.
       attr_accessor :statement_descriptor
 
@@ -29,6 +55,7 @@ module Stripe
         financial_account: nil,
         metadata: nil,
         origin_payment_method: nil,
+        origin_payment_method_options: nil,
         statement_descriptor: nil
       )
         @amount = amount
@@ -38,6 +65,7 @@ module Stripe
         @financial_account = financial_account
         @metadata = metadata
         @origin_payment_method = origin_payment_method
+        @origin_payment_method_options = origin_payment_method_options
         @statement_descriptor = statement_descriptor
       end
     end

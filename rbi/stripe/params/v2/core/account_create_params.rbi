@@ -1217,6 +1217,80 @@ module Stripe
               test_clock: nil
             ); end
           end
+          class Developer < ::Stripe::RequestParams
+            class Capabilities < ::Stripe::RequestParams
+              class Projects < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    sig { returns(T::Boolean) }
+                    def requested; end
+                    sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                    def requested=(_requested); end
+                    sig { params(requested: T::Boolean).void }
+                    def initialize(requested: nil); end
+                  end
+                  # Parameter to request psp_migration protection.
+                  sig {
+                    returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections::PspMigration)
+                   }
+                  def psp_migration; end
+                  sig {
+                    params(_psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections::PspMigration).returns(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections::PspMigration)
+                   }
+                  def psp_migration=(_psp_migration); end
+                  sig {
+                    params(psp_migration: ::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections::PspMigration).void
+                   }
+                  def initialize(psp_migration: nil); end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                sig {
+                  returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections))
+                 }
+                def protections; end
+                sig {
+                  params(_protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections))
+                 }
+                def protections=(_protections); end
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                sig { returns(T::Boolean) }
+                def requested; end
+                sig { params(_requested: T::Boolean).returns(T::Boolean) }
+                def requested=(_requested); end
+                sig {
+                  params(protections: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects::Protections), requested: T::Boolean).void
+                 }
+                def initialize(protections: nil, requested: nil); end
+              end
+              # Requests access to Stripe developer tooling.
+              sig {
+                returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects))
+               }
+              def projects; end
+              sig {
+                params(_projects: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects))
+               }
+              def projects=(_projects); end
+              sig {
+                params(projects: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities::Projects)).void
+               }
+              def initialize(projects: nil); end
+            end
+            # Capabilities to request on the Developer Configuration.
+            sig {
+              returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities))
+             }
+            def capabilities; end
+            sig {
+              params(_capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities))
+             }
+            def capabilities=(_capabilities); end
+            sig {
+              params(capabilities: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer::Capabilities)).void
+             }
+            def initialize(capabilities: nil); end
+          end
           class Merchant < ::Stripe::RequestParams
             class BacsDebitPayments < ::Stripe::RequestParams
               # Display name for Bacs Direct Debit payments.
@@ -6912,6 +6986,15 @@ module Stripe
             params(_customer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer))
            }
           def customer=(_customer); end
+          # The Developer Configuration allows the Account to use developer tooling.
+          sig {
+            returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer))
+           }
+          def developer; end
+          sig {
+            params(_developer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer)).returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer))
+           }
+          def developer=(_developer); end
           # Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
           sig {
             returns(T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant))
@@ -6940,11 +7023,12 @@ module Stripe
            }
           def recipient=(_recipient); end
           sig {
-            params(card_creator: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator), customer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer), merchant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant), money_manager: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager), recipient: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient)).void
+            params(card_creator: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::CardCreator), customer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Customer), developer: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Developer), merchant: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Merchant), money_manager: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::MoneyManager), recipient: T.nilable(::Stripe::V2::Core::AccountCreateParams::Configuration::Recipient)).void
            }
           def initialize(
             card_creator: nil,
             customer: nil,
+            developer: nil,
             merchant: nil,
             money_manager: nil,
             recipient: nil

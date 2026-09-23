@@ -110,7 +110,7 @@ module Stripe
             type: nil
           ); end
         end
-        # The list of installment entries.
+        # The list of installment entries. Must contain at least 2 entries.
         sig { returns(T::Array[::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue::Amount]) }
         def amounts; end
         sig {
@@ -122,7 +122,7 @@ module Stripe
          }
         def initialize(amounts: nil); end
       end
-      # Required when type is 'amounts_due'.
+      # Required when type is 'amounts_due'. Must contain at least 2 installment entries.
       sig { returns(::Stripe::PaymentPlanUpdateParams::Schedule::AmountsDue) }
       def amounts_due; end
       sig {

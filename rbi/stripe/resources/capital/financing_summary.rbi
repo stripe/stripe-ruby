@@ -12,12 +12,18 @@ module Stripe
           # Given in seconds since unix epoch.
           sig { returns(Float) }
           def due_at; end
+          # The balance for the current repayment interval, in minor units. This does not account for any amount paid down during the interval.
+          sig { returns(T.nilable(Integer)) }
+          def incremental_interval_target_amount; end
           # The amount that has already been paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
           sig { returns(T.nilable(Integer)) }
           def paid_amount; end
           # The amount that is yet to be paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
           sig { returns(Integer) }
           def remaining_amount; end
+          # The time at which the current repayment interval started. Given in seconds since unix epoch.
+          sig { returns(T.nilable(Integer)) }
+          def starts_at; end
           def self.inner_class_types
             @inner_class_types = {}
           end
@@ -52,6 +58,9 @@ module Stripe
         # The time at which Capital will begin withholding from payments. Given in seconds since unix epoch.
         sig { returns(T.nilable(Float)) }
         def repayments_begin_at; end
+        # Total amount to be paid, independent of what's already been paid, in minor units. For example, 100 USD is represented as 10000.
+        sig { returns(T.nilable(Integer)) }
+        def total_due_amount; end
         # Per-transaction rate at which Stripe withholds funds to repay the financing.
         sig { returns(Float) }
         def withhold_rate; end

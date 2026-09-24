@@ -25,14 +25,14 @@ module Stripe
 
     should "be rejectable" do
       account = Stripe::Account.retrieve("acct_foo")
-      account = account.reject(reason: "fraud")
+      account = account.reject(reason: "fraud_other")
       assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
       assert account.is_a?(Stripe::Account)
     end
 
     context ".reject" do
       should "reject the account" do
-        account = Stripe::Account.reject("acct_foo", reason: "fraud")
+        account = Stripe::Account.reject("acct_foo", reason: "fraud_other")
         assert_requested :post, "#{Stripe.api_base}/v1/accounts/#{account.id}/reject"
         assert account.is_a?(Stripe::Account)
       end

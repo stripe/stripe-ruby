@@ -89,6 +89,7 @@ module Stripe
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
   module Apps
+    autoload :Install, "stripe/resources/apps/install"
     autoload :Secret, "stripe/resources/apps/secret"
   end
 
@@ -488,6 +489,7 @@ module Stripe
   end
 
   module Radar
+    autoload :BillingEvaluation, "stripe/resources/radar/billing_evaluation"
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :PaymentEvaluation, "stripe/resources/radar/payment_evaluation"
     autoload :ValueList, "stripe/resources/radar/value_list"
@@ -539,6 +541,10 @@ module Stripe
     autoload :TestClock, "stripe/resources/test_helpers/test_clock"
   end
 
+  module ThreeDSecure
+    autoload :Authentication, "stripe/resources/three_d_secure/authentication"
+  end
+
   module Treasury
     autoload :CreditReversal, "stripe/resources/treasury/credit_reversal"
     autoload :DebitReversal, "stripe/resources/treasury/debit_reversal"
@@ -588,6 +594,7 @@ module Stripe
       autoload :EventReason, "stripe/resources/v2/core/event_notification"
       autoload :EventReasonRequest, "stripe/resources/v2/core/event_notification"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
+      autoload :RelatedSingletonObject, "stripe/resources/v2/core/event_notification"
 
       module Vault
         autoload :GbBankAccount, "stripe/resources/v2/core/vault/gb_bank_account"
@@ -655,6 +662,7 @@ module Stripe
     stripe/resources/application
     stripe/resources/application_fee
     stripe/resources/application_fee_refund
+    stripe/resources/apps/install
     stripe/resources/apps/secret
     stripe/resources/balance
     stripe/resources/balance_settings
@@ -762,6 +770,7 @@ module Stripe
     stripe/resources/quote_line
     stripe/resources/quote_preview_invoice
     stripe/resources/quote_preview_subscription_schedule
+    stripe/resources/radar/billing_evaluation
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/payment_evaluation
     stripe/resources/radar/value_list
@@ -807,6 +816,7 @@ module Stripe
     stripe/resources/terminal/reader
     stripe/resources/terminal/reader_collected_data
     stripe/resources/test_helpers/test_clock
+    stripe/resources/three_d_secure/authentication
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer

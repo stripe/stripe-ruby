@@ -103,6 +103,7 @@ module Stripe
   autoload :TaxService, "stripe/services/tax_service"
   autoload :TerminalService, "stripe/services/terminal_service"
   autoload :TestHelpersService, "stripe/services/test_helpers_service"
+  autoload :ThreeDSecureService, "stripe/services/three_d_secure_service"
   autoload :TokenService, "stripe/services/token_service"
   autoload :TopupService, "stripe/services/topup_service"
   autoload :TransferReversalService, "stripe/services/transfer_reversal_service"
@@ -113,6 +114,7 @@ module Stripe
   autoload :WebhookEndpointService, "stripe/services/webhook_endpoint_service"
 
   module Apps
+    autoload :InstallService, "stripe/services/apps/install_service"
     autoload :SecretService, "stripe/services/apps/secret_service"
   end
 
@@ -203,6 +205,7 @@ module Stripe
   end
 
   module Radar
+    autoload :BillingEvaluationService, "stripe/services/radar/billing_evaluation_service"
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
     autoload :PaymentEvaluationService, "stripe/services/radar/payment_evaluation_service"
     autoload :ValueListItemService, "stripe/services/radar/value_list_item_service"
@@ -282,6 +285,10 @@ module Stripe
       autoload :ReceivedCreditService, "stripe/services/test_helpers/treasury/received_credit_service"
       autoload :ReceivedDebitService, "stripe/services/test_helpers/treasury/received_debit_service"
     end
+  end
+
+  module ThreeDSecure
+    autoload :AuthenticationService, "stripe/services/three_d_secure/authentication_service"
   end
 
   module Treasury
@@ -428,6 +435,7 @@ module Stripe
     stripe/services/apple_pay_domain_service
     stripe/services/application_fee_refund_service
     stripe/services/application_fee_service
+    stripe/services/apps/install_service
     stripe/services/apps/secret_service
     stripe/services/apps_service
     stripe/services/balance_service
@@ -545,6 +553,7 @@ module Stripe
     stripe/services/quote_preview_invoice_service
     stripe/services/quote_preview_subscription_schedule_service
     stripe/services/quote_service
+    stripe/services/radar/billing_evaluation_service
     stripe/services/radar/early_fraud_warning_service
     stripe/services/radar/payment_evaluation_service
     stripe/services/radar/value_list_item_service
@@ -612,6 +621,8 @@ module Stripe
     stripe/services/test_helpers/treasury/received_debit_service
     stripe/services/test_helpers/treasury_service
     stripe/services/test_helpers_service
+    stripe/services/three_d_secure/authentication_service
+    stripe/services/three_d_secure_service
     stripe/services/token_service
     stripe/services/topup_service
     stripe/services/transfer_reversal_service

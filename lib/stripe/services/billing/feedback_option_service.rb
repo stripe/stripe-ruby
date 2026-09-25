@@ -26,7 +26,7 @@ module Stripe
         )
       end
 
-      # An API method for listing the feedback options model
+      # Returns a list of your feedback options.
       def list(params = {}, opts = {})
         request(
           method: :get,
@@ -37,7 +37,7 @@ module Stripe
         )
       end
 
-      # Retrieves a feedback options object given an ID.
+      # Retrieves a feedback option object given an ID.
       def retrieve(id, params = {}, opts = {})
         request(
           method: :get,

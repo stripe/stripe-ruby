@@ -51,6 +51,8 @@ module Stripe
       attr_reader :created_by
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
+      # The balance destination to which the reserved funds are sent.
+      attr_reader :destination
       # Unique identifier for the object.
       attr_reader :id
       # Whether there are any funds available to release on this ReserveHold. Note that if the ReserveHold is in the process of being released, this could be false, even though the funds haven't been fully released yet.

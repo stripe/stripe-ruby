@@ -582,15 +582,78 @@ module Stripe
           end
         end
 
-        class Billie < ::Stripe::RequestParams; end
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code.
+              attr_accessor :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # The address the company or entity is registered with.
+            attr_accessor :registered_address
+            # Company or entity name.
+            attr_accessor :registered_name
+            # The official registration number for the given registration type.
+            attr_accessor :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_accessor :registration_type
+            # VAT ID number.
+            attr_accessor :vat
+
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            )
+              @registered_address = registered_address
+              @registered_name = registered_name
+              @registration_number = registration_number
+              @registration_type = registration_type
+              @vat = vat
+            end
+          end
+          # Registration details about the buyer's organization.
+          attr_accessor :company_details
+
+          def initialize(company_details: nil)
+            @company_details = company_details
+          end
+        end
 
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Configuration options for setting up a mandate

@@ -3,6 +3,14 @@
 
 module Stripe
   class SubscriptionResumeParams < ::Stripe::RequestParams
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # Determines how the billing cycle anchor changes when the subscription resumes.
+      attr_accessor :type
+
+      def initialize(type: nil)
+        @type = type
+      end
+    end
     # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # Specifies which fields in the response should be expanded.

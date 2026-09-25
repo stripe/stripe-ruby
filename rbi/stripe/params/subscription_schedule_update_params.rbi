@@ -234,6 +234,226 @@ module Stripe
         transfer_data: nil
       ); end
     end
+    class PauseSchedule < ::Stripe::RequestParams
+      class Pause < ::Stripe::RequestParams
+        class PauseAt < ::Stripe::RequestParams
+          # The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(timestamp: T.nilable(Integer), type: String).void }
+          def initialize(timestamp: nil, type: nil); end
+        end
+        class Settings < ::Stripe::RequestParams
+          class BillFor < ::Stripe::RequestParams
+            class OutstandingUsageThrough < ::Stripe::RequestParams
+              # Determines whether to collect metered usage accrued up to the pause date.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig { params(type: T.nilable(String)).void }
+              def initialize(type: nil); end
+            end
+            class UnusedTimeFrom < ::Stripe::RequestParams
+              # Determines which point in the billing period unused time is credited from.
+              sig { returns(T.nilable(String)) }
+              def type; end
+              sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+              def type=(_type); end
+              sig { params(type: T.nilable(String)).void }
+              def initialize(type: nil); end
+            end
+            # Controls whether to collect metered usage accrued up to the pause date.
+            sig {
+              returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough))
+             }
+            def outstanding_usage_through; end
+            sig {
+              params(_outstanding_usage_through: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough))
+             }
+            def outstanding_usage_through=(_outstanding_usage_through); end
+            # Controls how unused time on subscription items is credited when pausing.
+            sig {
+              returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom))
+             }
+            def unused_time_from; end
+            sig {
+              params(_unused_time_from: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom))
+             }
+            def unused_time_from=(_unused_time_from); end
+            sig {
+              params(outstanding_usage_through: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::OutstandingUsageThrough), unused_time_from: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor::UnusedTimeFrom)).void
+             }
+            def initialize(outstanding_usage_through: nil, unused_time_from: nil); end
+          end
+          # Controls what to bill for when pausing the subscription.
+          sig {
+            returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor))
+           }
+          def bill_for; end
+          sig {
+            params(_bill_for: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor))
+           }
+          def bill_for=(_bill_for); end
+          # Determines whether to generate an invoice for outstanding amounts when pausing.
+          sig { returns(T.nilable(String)) }
+          def invoicing_behavior; end
+          sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def invoicing_behavior=(_invoicing_behavior); end
+          # The pause type. Currently only `subscription` is supported.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
+          sig {
+            params(bill_for: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings::BillFor), invoicing_behavior: T.nilable(String), type: T.nilable(String)).void
+           }
+          def initialize(bill_for: nil, invoicing_behavior: nil, type: nil); end
+        end
+        # When to pause the subscription.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::PauseAt))
+         }
+        def pause_at; end
+        sig {
+          params(_pause_at: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::PauseAt)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::PauseAt))
+         }
+        def pause_at=(_pause_at); end
+        # Settings controlling billing behavior during the pause.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings))
+         }
+        def settings; end
+        sig {
+          params(_settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings))
+         }
+        def settings=(_settings); end
+        sig {
+          params(pause_at: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::PauseAt), settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause::Settings)).void
+         }
+        def initialize(pause_at: nil, settings: nil); end
+      end
+      class Resume < ::Stripe::RequestParams
+        class ResumeAt < ::Stripe::RequestParams
+          class Duration < ::Stripe::RequestParams
+            # The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+            sig { returns(String) }
+            def interval; end
+            sig { params(_interval: String).returns(String) }
+            def interval=(_interval); end
+            # The number of intervals after which the subscription resumes.
+            sig { returns(T.nilable(Integer)) }
+            def interval_count; end
+            sig { params(_interval_count: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def interval_count=(_interval_count); end
+            sig { params(interval: String, interval_count: T.nilable(Integer)).void }
+            def initialize(interval: nil, interval_count: nil); end
+          end
+          # The duration after which to resume the subscription. Required when `type` is `duration`.
+          sig {
+            returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt::Duration))
+           }
+          def duration; end
+          sig {
+            params(_duration: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt::Duration)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt::Duration))
+           }
+          def duration=(_duration); end
+          # The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+          sig { returns(T.nilable(Integer)) }
+          def timestamp; end
+          sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def timestamp=(_timestamp); end
+          # When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig {
+            params(duration: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt::Duration), timestamp: T.nilable(Integer), type: String).void
+           }
+          def initialize(duration: nil, timestamp: nil, type: nil); end
+        end
+        class Settings < ::Stripe::RequestParams
+          # Controls the billing cycle anchor when the subscription resumes.
+          sig { returns(T.nilable(String)) }
+          def billing_cycle_anchor; end
+          sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+          def billing_cycle_anchor=(_billing_cycle_anchor); end
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
+          sig { returns(T.nilable(String)) }
+          def payment_behavior; end
+          sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def payment_behavior=(_payment_behavior); end
+          # Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+          sig { returns(T.nilable(String)) }
+          def proration_behavior; end
+          sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
+          def proration_behavior=(_proration_behavior); end
+          sig {
+            params(billing_cycle_anchor: T.nilable(String), payment_behavior: T.nilable(String), proration_behavior: T.nilable(String)).void
+           }
+          def initialize(
+            billing_cycle_anchor: nil,
+            payment_behavior: nil,
+            proration_behavior: nil
+          ); end
+        end
+        # When to resume the subscription.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt))
+         }
+        def resume_at; end
+        sig {
+          params(_resume_at: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt))
+         }
+        def resume_at=(_resume_at); end
+        # Settings controlling how the subscription resumes.
+        sig {
+          returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::Settings))
+         }
+        def settings; end
+        sig {
+          params(_settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::Settings)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::Settings))
+         }
+        def settings=(_settings); end
+        sig {
+          params(resume_at: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::ResumeAt), settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume::Settings)).void
+         }
+        def initialize(resume_at: nil, settings: nil); end
+      end
+      # A unique identifier for this pause schedule entry.
+      sig { returns(T.nilable(String)) }
+      def key; end
+      sig { params(_key: T.nilable(String)).returns(T.nilable(String)) }
+      def key=(_key); end
+      # Configuration for when and how the subscription pauses.
+      sig { returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause)) }
+      def pause; end
+      sig {
+        params(_pause: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause)).returns(T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause))
+       }
+      def pause=(_pause); end
+      # Configuration for when and how the subscription resumes.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)))
+       }
+      def resume; end
+      sig {
+        params(_resume: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume)))
+       }
+      def resume=(_resume); end
+      sig {
+        params(key: T.nilable(String), pause: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Pause), resume: T.nilable(T.any(String, ::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule::Resume))).void
+       }
+      def initialize(key: nil, pause: nil, resume: nil); end
+    end
     class Phase < ::Stripe::RequestParams
       class AddInvoiceItem < ::Stripe::RequestParams
         class Discount < ::Stripe::RequestParams
@@ -1236,6 +1456,15 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
+    # Configures the subscription's pause behavior and, optionally, its resume behavior. Only one entry is supported. Include a key to update an existing entry. Omit to leave an existing pause schedule unchanged, or pass "" to clear it.
+    sig {
+      returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule])))
+     }
+    def pause_schedules; end
+    sig {
+      params(_pause_schedules: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule]))).returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule])))
+     }
+    def pause_schedules=(_pause_schedules); end
     # List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
     sig { returns(T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase])) }
     def phases; end
@@ -1256,7 +1485,7 @@ module Stripe
     sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }
     def proration_behavior=(_proration_behavior); end
     sig {
-      params(billing_behavior: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Prebilling), proration_behavior: T.nilable(String)).void
+      params(billing_behavior: T.nilable(String), default_settings: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::DefaultSettings), end_behavior: T.nilable(String), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), pause_schedules: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionScheduleUpdateParams::PauseSchedule])), phases: T.nilable(T::Array[::Stripe::SubscriptionScheduleUpdateParams::Phase]), prebilling: T.nilable(::Stripe::SubscriptionScheduleUpdateParams::Prebilling), proration_behavior: T.nilable(String)).void
      }
     def initialize(
       billing_behavior: nil,
@@ -1264,6 +1493,7 @@ module Stripe
       end_behavior: nil,
       expand: nil,
       metadata: nil,
+      pause_schedules: nil,
       phases: nil,
       prebilling: nil,
       proration_behavior: nil

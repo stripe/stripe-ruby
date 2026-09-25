@@ -179,6 +179,15 @@ module Stripe
       end
     end
 
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # Determines how the billing cycle anchor changes when the subscription is updated.
+      attr_accessor :type
+
+      def initialize(type: nil)
+        @type = type
+      end
+    end
+
     class BillingSchedule < ::Stripe::RequestParams
       class AppliesTo < ::Stripe::RequestParams
         # The ID of the price object.
@@ -477,9 +486,9 @@ module Stripe
       attr_accessor :metadata
       # Plan ID for this item, as a string.
       attr_accessor :plan
-      # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+      # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
       attr_accessor :price
-      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+      # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
       attr_accessor :price_data
       # Quantity for this item.
       attr_accessor :quantity
@@ -564,15 +573,78 @@ module Stripe
           end
         end
 
-        class Billie < ::Stripe::RequestParams; end
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code.
+              attr_accessor :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # The address the company or entity is registered with.
+            attr_accessor :registered_address
+            # Company or entity name.
+            attr_accessor :registered_name
+            # The official registration number for the given registration type.
+            attr_accessor :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_accessor :registration_type
+            # VAT ID number.
+            attr_accessor :vat
+
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            )
+              @registered_address = registered_address
+              @registered_name = registered_name
+              @registration_number = registration_number
+              @registration_type = registration_type
+              @vat = vat
+            end
+          end
+          # Registration details about the buyer's organization.
+          attr_accessor :company_details
+
+          def initialize(company_details: nil)
+            @company_details = company_details
+          end
+        end
 
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Configuration options for setting up a mandate
@@ -900,7 +972,7 @@ module Stripe
     attr_accessor :application_fee_percent
     # Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     attr_accessor :automatic_tax
-    # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    # Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules

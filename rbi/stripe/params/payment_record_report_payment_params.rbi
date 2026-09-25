@@ -18,6 +18,15 @@ module Stripe
       sig { params(currency: String, value: Integer).void }
       def initialize(currency: nil, value: nil); end
     end
+    class Canceled < ::Stripe::RequestParams
+      # When the reported payment was canceled. Measured in seconds since the Unix epoch.
+      sig { returns(Integer) }
+      def canceled_at; end
+      sig { params(_canceled_at: Integer).returns(Integer) }
+      def canceled_at=(_canceled_at); end
+      sig { params(canceled_at: Integer).void }
+      def initialize(canceled_at: nil); end
+    end
     class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       sig { returns(T.nilable(String)) }
@@ -287,6 +296,13 @@ module Stripe
       params(_amount_requested: ::Stripe::PaymentRecordReportPaymentParams::AmountRequested).returns(::Stripe::PaymentRecordReportPaymentParams::AmountRequested)
      }
     def amount_requested=(_amount_requested); end
+    # Information about the payment attempt cancelation.
+    sig { returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Canceled)) }
+    def canceled; end
+    sig {
+      params(_canceled: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Canceled)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::Canceled))
+     }
+    def canceled=(_canceled); end
     # Customer information for this payment.
     sig { returns(T.nilable(::Stripe::PaymentRecordReportPaymentParams::CustomerDetails)) }
     def customer_details; end
@@ -362,10 +378,11 @@ module Stripe
      }
     def shipping_details=(_shipping_details); end
     sig {
-      params(amount_requested: ::Stripe::PaymentRecordReportPaymentParams::AmountRequested, customer_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::CustomerDetails), customer_presence: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: ::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails, processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::ProcessorDetails), shipping_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::ShippingDetails)).void
+      params(amount_requested: ::Stripe::PaymentRecordReportPaymentParams::AmountRequested, canceled: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Canceled), customer_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::CustomerDetails), customer_presence: T.nilable(String), description: T.nilable(String), expand: T.nilable(T::Array[String]), failed: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Failed), guaranteed: T.nilable(::Stripe::PaymentRecordReportPaymentParams::Guaranteed), initiated_at: Integer, metadata: T.nilable(T.any(String, T::Hash[String, String])), outcome: T.nilable(String), payment_method_details: ::Stripe::PaymentRecordReportPaymentParams::PaymentMethodDetails, processor_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::ProcessorDetails), shipping_details: T.nilable(::Stripe::PaymentRecordReportPaymentParams::ShippingDetails)).void
      }
     def initialize(
       amount_requested: nil,
+      canceled: nil,
       customer_details: nil,
       customer_presence: nil,
       description: nil,

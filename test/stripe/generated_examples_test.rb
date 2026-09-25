@@ -388,7 +388,7 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx"
     end
     should "Test accounts reject post" do
-      account = Stripe::Account.reject("acct_xxxxxxxxxxxxx", { reason: "fraud" })
+      account = Stripe::Account.reject("acct_xxxxxxxxxxxxx", { reason: "fraud_other" })
       assert_requested :post, "#{Stripe.api_base}/v1/accounts/acct_xxxxxxxxxxxxx/reject"
     end
     should "Test accounts reject post (service)" do
@@ -398,7 +398,7 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      account = client.v1.accounts.reject("acct_xxxxxxxxxxxxx", { reason: "fraud" })
+      account = client.v1.accounts.reject("acct_xxxxxxxxxxxxx", { reason: "fraud_other" })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/accounts/acct_xxxxxxxxxxxxx/reject"
     end
     should "Test application fees get" do
@@ -2086,7 +2086,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
     end
@@ -2103,7 +2103,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions"
     end

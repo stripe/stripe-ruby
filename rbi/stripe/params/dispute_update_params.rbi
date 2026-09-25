@@ -5,6 +5,39 @@
 module Stripe
   class DisputeUpdateParams < ::Stripe::RequestParams
     class Evidence < ::Stripe::RequestParams
+      class Appeal < ::Stripe::RequestParams
+        class Card < ::Stripe::RequestParams
+          # An explanation of the reason for filing the appeal.
+          sig { returns(T.nilable(String)) }
+          def reason_for_filing; end
+          sig { params(_reason_for_filing: T.nilable(String)).returns(T.nilable(String)) }
+          def reason_for_filing=(_reason_for_filing); end
+          # One or more document IDs returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `dispute_evidence` to support the appeal.
+          sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+          def supporting_files; end
+          sig {
+            params(_supporting_files: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+           }
+          def supporting_files=(_supporting_files); end
+          sig {
+            params(reason_for_filing: T.nilable(String), supporting_files: T.nilable(T.any(String, T::Array[String]))).void
+           }
+          def initialize(reason_for_filing: nil, supporting_files: nil); end
+        end
+        # Evidence for a card dispute appeal.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal::Card)))
+         }
+        def card; end
+        sig {
+          params(_card: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal::Card))).returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal::Card)))
+         }
+        def card=(_card); end
+        sig {
+          params(card: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal::Card))).void
+         }
+        def initialize(card: nil); end
+      end
       class EnhancedEvidence < ::Stripe::RequestParams
         class MastercardCompliance < ::Stripe::RequestParams
           # A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
@@ -297,6 +330,13 @@ module Stripe
       def access_activity_log; end
       sig { params(_access_activity_log: T.nilable(String)).returns(T.nilable(String)) }
       def access_activity_log=(_access_activity_log); end
+      # Evidence to submit when appealing a dispute.
+      sig { returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal))) }
+      def appeal; end
+      sig {
+        params(_appeal: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal))).returns(T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal)))
+       }
+      def appeal=(_appeal); end
       # The billing address provided by the customer.
       sig { returns(T.nilable(String)) }
       def billing_address; end
@@ -437,10 +477,11 @@ module Stripe
       sig { params(_uncategorized_text: T.nilable(String)).returns(T.nilable(String)) }
       def uncategorized_text=(_uncategorized_text); end
       sig {
-        params(access_activity_log: T.nilable(String), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence)), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
+        params(access_activity_log: T.nilable(String), appeal: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::Appeal)), billing_address: T.nilable(String), cancellation_policy: T.nilable(String), cancellation_policy_disclosure: T.nilable(String), cancellation_rebuttal: T.nilable(String), customer_communication: T.nilable(String), customer_email_address: T.nilable(String), customer_name: T.nilable(String), customer_purchase_ip: T.nilable(String), customer_signature: T.nilable(String), duplicate_charge_documentation: T.nilable(String), duplicate_charge_explanation: T.nilable(String), duplicate_charge_id: T.nilable(String), enhanced_evidence: T.nilable(T.any(String, ::Stripe::DisputeUpdateParams::Evidence::EnhancedEvidence)), product_description: T.nilable(String), receipt: T.nilable(String), refund_policy: T.nilable(String), refund_policy_disclosure: T.nilable(String), refund_refusal_explanation: T.nilable(String), service_date: T.nilable(String), service_documentation: T.nilable(String), shipping_address: T.nilable(String), shipping_carrier: T.nilable(String), shipping_date: T.nilable(String), shipping_documentation: T.nilable(String), shipping_tracking_number: T.nilable(String), uncategorized_file: T.nilable(String), uncategorized_text: T.nilable(String)).void
        }
       def initialize(
         access_activity_log: nil,
+        appeal: nil,
         billing_address: nil,
         cancellation_policy: nil,
         cancellation_policy_disclosure: nil,

@@ -195,7 +195,110 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
-        class Billie < ::Stripe::RequestParams; end
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (for example, street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            # The address the company or entity is registered with.
+            sig {
+              returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+             }
+            def registered_address; end
+            sig {
+              params(_registered_address: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+             }
+            def registered_address=(_registered_address); end
+            # Company or entity name.
+            sig { returns(T.nilable(String)) }
+            def registered_name; end
+            sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+            def registered_name=(_registered_name); end
+            # The official registration number for the given registration type.
+            sig { returns(T.nilable(String)) }
+            def registration_number; end
+            sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
+            def registration_number=(_registration_number); end
+            # Type of registration the company or entity holds in their registered country.
+            sig { returns(T.nilable(String)) }
+            def registration_type; end
+            sig { params(_registration_type: T.nilable(String)).returns(T.nilable(String)) }
+            def registration_type=(_registration_type); end
+            # VAT ID number.
+            sig { returns(T.nilable(String)) }
+            def vat; end
+            sig { params(_vat: T.nilable(String)).returns(T.nilable(String)) }
+            def vat=(_vat); end
+            sig {
+              params(registered_address: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)), registered_name: T.nilable(String), registration_number: T.nilable(String), registration_type: T.nilable(String), vat: T.nilable(String)).void
+             }
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            ); end
+          end
+          # Registration details about the buyer's organization.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails)))
+           }
+          def company_details; end
+          sig {
+            params(_company_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails))).returns(T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails)))
+           }
+          def company_details=(_company_details); end
+          # An identifier or reference that this payment corresponds to.
+          sig { returns(T.nilable(String)) }
+          def reference; end
+          sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+          def reference=(_reference); end
+          sig {
+            params(company_details: T.nilable(T.any(String, ::Stripe::InvoiceUpdateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails)), reference: T.nilable(String)).void
+           }
+          def initialize(company_details: nil, reference: nil); end
+        end
         class Blik < ::Stripe::RequestParams; end
         class Card < ::Stripe::RequestParams
           class Installments < ::Stripe::RequestParams
@@ -646,11 +749,9 @@ module Stripe
         def initialize(page_size: nil); end
       end
       # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def amount_tax_display; end
-      sig {
-        params(_amount_tax_display: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
       def amount_tax_display=(_amount_tax_display); end
       # Invoice pdf rendering options
       sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf)) }
@@ -672,7 +773,7 @@ module Stripe
        }
       def template_version=(_template_version); end
       sig {
-        params(amount_tax_display: T.nilable(T.any(String, String)), pdf: T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
+        params(amount_tax_display: T.nilable(String), pdf: T.nilable(::Stripe::InvoiceUpdateParams::Rendering::Pdf), template: T.nilable(String), template_version: T.nilable(T.any(String, Integer))).void
        }
       def initialize(amount_tax_display: nil, pdf: nil, template: nil, template_version: nil); end
     end
@@ -1066,7 +1167,7 @@ module Stripe
       params(_payment_settings: T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings)).returns(T.nilable(::Stripe::InvoiceUpdateParams::PaymentSettings))
      }
     def payment_settings=(_payment_settings); end
-    # The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+    # The rendering-related settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
     sig { returns(T.nilable(::Stripe::InvoiceUpdateParams::Rendering)) }
     def rendering; end
     sig {

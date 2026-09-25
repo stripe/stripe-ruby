@@ -160,6 +160,8 @@ module Stripe
       attr_reader :bizum_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      attr_reader :blik_recurring_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       attr_reader :boleto_payments
       # The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
@@ -256,6 +258,8 @@ module Stripe
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       attr_reader :sepa_debit_payments
+      # The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
+      attr_reader :sequra_payments
       # The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
       attr_reader :shopeepay_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
@@ -490,13 +494,13 @@ module Stripe
 
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :back
           # A user-displayable string describing the verification state of this document.
           attr_reader :details
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           attr_reader :details_code
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :front
 
           def self.inner_class_types

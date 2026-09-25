@@ -110,6 +110,8 @@ module Stripe
       attr_accessor :name
       # Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
       attr_accessor :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+      attr_accessor :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_accessor :support_address
       # A publicly available email address for sending support issues to.
@@ -129,6 +131,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -142,6 +145,7 @@ module Stripe
         @monthly_estimated_revenue = monthly_estimated_revenue
         @name = name
         @product_description = product_description
+        @specified_commercial_transactions_act_url = specified_commercial_transactions_act_url
         @support_address = support_address
         @support_email = support_email
         @support_phone = support_phone
@@ -260,6 +264,15 @@ module Stripe
       end
 
       class BlikPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class BlikRecurringPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -556,6 +569,15 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class PaytoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -629,6 +651,15 @@ module Stripe
       end
 
       class SepaDebitPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
+      class SequraPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
 
@@ -770,6 +801,8 @@ module Stripe
       attr_accessor :bizum_payments
       # The blik_payments capability.
       attr_accessor :blik_payments
+      # The blik_recurring_payments capability.
+      attr_accessor :blik_recurring_payments
       # The boleto_payments capability.
       attr_accessor :boleto_payments
       # The card_issuing capability.
@@ -834,6 +867,8 @@ module Stripe
       attr_accessor :payco_payments
       # The paynow_payments capability.
       attr_accessor :paynow_payments
+      # The paypay_payments capability.
+      attr_accessor :paypay_payments
       # The payto_payments capability.
       attr_accessor :payto_payments
       # The pix_payments capability.
@@ -852,6 +887,8 @@ module Stripe
       attr_accessor :sepa_bank_transfer_payments
       # The sepa_debit_payments capability.
       attr_accessor :sepa_debit_payments
+      # The sequra_payments capability.
+      attr_accessor :sequra_payments
       # The sofort_payments capability.
       attr_accessor :sofort_payments
       # The sunbit_payments capability.
@@ -891,6 +928,7 @@ module Stripe
         billie_payments: nil,
         bizum_payments: nil,
         blik_payments: nil,
+        blik_recurring_payments: nil,
         boleto_payments: nil,
         card_issuing: nil,
         card_payments: nil,
@@ -923,6 +961,7 @@ module Stripe
         pay_by_bank_payments: nil,
         payco_payments: nil,
         paynow_payments: nil,
+        paypay_payments: nil,
         payto_payments: nil,
         pix_payments: nil,
         promptpay_payments: nil,
@@ -932,6 +971,7 @@ module Stripe
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        sequra_payments: nil,
         sofort_payments: nil,
         sunbit_payments: nil,
         swish_payments: nil,
@@ -958,6 +998,7 @@ module Stripe
         @billie_payments = billie_payments
         @bizum_payments = bizum_payments
         @blik_payments = blik_payments
+        @blik_recurring_payments = blik_recurring_payments
         @boleto_payments = boleto_payments
         @card_issuing = card_issuing
         @card_payments = card_payments
@@ -990,6 +1031,7 @@ module Stripe
         @pay_by_bank_payments = pay_by_bank_payments
         @payco_payments = payco_payments
         @paynow_payments = paynow_payments
+        @paypay_payments = paypay_payments
         @payto_payments = payto_payments
         @pix_payments = pix_payments
         @promptpay_payments = promptpay_payments
@@ -999,6 +1041,7 @@ module Stripe
         @scalapay_payments = scalapay_payments
         @sepa_bank_transfer_payments = sepa_bank_transfer_payments
         @sepa_debit_payments = sepa_debit_payments
+        @sequra_payments = sequra_payments
         @sofort_payments = sofort_payments
         @sunbit_payments = sunbit_payments
         @swish_payments = swish_payments
@@ -1322,9 +1365,9 @@ module Stripe
 
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -1493,7 +1536,7 @@ module Stripe
 
     class Documents < ::Stripe::RequestParams
       class BankAccountOwnershipVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1502,7 +1545,7 @@ module Stripe
       end
 
       class CompanyLicense < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1511,7 +1554,7 @@ module Stripe
       end
 
       class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1520,7 +1563,7 @@ module Stripe
       end
 
       class CompanyMinisterialDecree < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1529,7 +1572,7 @@ module Stripe
       end
 
       class CompanyRegistrationVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1538,7 +1581,7 @@ module Stripe
       end
 
       class CompanyTaxIdVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1547,7 +1590,7 @@ module Stripe
       end
 
       class ProofOfAddress < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
 
         def initialize(files: nil)
@@ -1564,7 +1607,7 @@ module Stripe
             @person = person
           end
         end
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         attr_accessor :files
         # Information regarding the person signing the document if applicable.
         attr_accessor :signer
@@ -1798,9 +1841,9 @@ module Stripe
 
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -1810,9 +1853,9 @@ module Stripe
         end
 
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :back
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           attr_accessor :front
 
           def initialize(back: nil, front: nil)
@@ -2086,6 +2129,69 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::RequestParams
+        class Site < ::Stripe::RequestParams
+          class Accessible < ::Stripe::RequestParams; end
+
+          class InDevelopment < ::Stripe::RequestParams
+            # The password needed to access your business's website.
+            attr_accessor :password
+            # The username needed to access your business's website.
+            attr_accessor :username
+
+            def initialize(password: nil, username: nil)
+              @password = password
+              @username = username
+            end
+          end
+
+          class Restricted < ::Stripe::RequestParams
+            # The file explaining the payment flow for your business.
+            attr_accessor :payment_flow_file
+
+            def initialize(payment_flow_file: nil)
+              @payment_flow_file = payment_flow_file
+            end
+          end
+          # Additional information about your business's website.
+          attr_accessor :accessible
+          # Additional information about your business's website.
+          attr_accessor :in_development
+          # Additional information about your business's website.
+          attr_accessor :restricted
+          # The status of your business's website.
+          attr_accessor :type
+
+          def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil)
+            @accessible = accessible
+            @in_development = in_development
+            @restricted = restricted
+            @type = type
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_accessor :additional_files
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        attr_accessor :goods_type
+        # Details regarding your business's website.
+        attr_accessor :site
+
+        def initialize(additional_files: nil, goods_type: nil, site: nil)
+          @additional_files = additional_files
+          @goods_type = goods_type
+          @site = site
+        end
+      end
+
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        attr_accessor :creditor_id
+
+        def initialize(creditor_id: nil)
+          @creditor_id = creditor_id
+        end
+      end
+
       class Treasury < ::Stripe::RequestParams
         class TosAcceptance < ::Stripe::RequestParams
           # The Unix timestamp marking when the account representative accepted the service agreement.
@@ -2122,6 +2228,10 @@ module Stripe
       attr_accessor :payments
       # Settings specific to the account's payouts.
       attr_accessor :payouts
+      # Settings specific to the PayPay payments method.
+      attr_accessor :paypay_payments
+      # Settings specific to SEPA Direct Debit payments.
+      attr_accessor :sepa_debit_payments
       # Settings specific to the account's Treasury FinancialAccounts.
       attr_accessor :treasury
 
@@ -2133,6 +2243,8 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
+        sepa_debit_payments: nil,
         treasury: nil
       )
         @bacs_debit_payments = bacs_debit_payments
@@ -2142,6 +2254,8 @@ module Stripe
         @invoices = invoices
         @payments = payments
         @payouts = payouts
+        @paypay_payments = paypay_payments
+        @sepa_debit_payments = sepa_debit_payments
         @treasury = treasury
       end
     end
@@ -2163,7 +2277,7 @@ module Stripe
         @user_agent = user_agent
       end
     end
-    # An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
+    # An [account token](https://docs.stripe.com/api#create_account_token), used to securely provide details to the account.
     attr_accessor :account_token
     # Business information about the account.
     attr_accessor :business_profile

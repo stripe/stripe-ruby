@@ -208,7 +208,7 @@ module Stripe
       attr_reader :request_log_url
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -219,9 +219,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -1073,6 +1073,8 @@ module Stripe
         class QrCode < ::Stripe::StripeObject
           # The raw data string used to generate QR code, it should be used together with QR code library.
           attr_reader :data
+          # The timestamp at which the QR code expires.
+          attr_reader :expires_at
           # The image_url_png string used to render QR code
           attr_reader :image_url_png
           # The image_url_svg string used to render QR code
@@ -1539,11 +1541,57 @@ module Stripe
       end
 
       class Billie < ::Stripe::StripeObject
+        class CompanyDetails < ::Stripe::StripeObject
+          class RegisteredAddress < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            attr_reader :city
+            # Two-letter country code.
+            attr_reader :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_reader :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_reader :line2
+            # ZIP or postal code.
+            attr_reader :postal_code
+            # State, county, province, or region.
+            attr_reader :state
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field registered_address
+          attr_reader :registered_address
+          # Company or entity name.
+          attr_reader :registered_name
+          # The official registration number for the given registration type.
+          attr_reader :registration_number
+          # Type of registration the company or entity holds in their registered country.
+          attr_reader :registration_type
+          # VAT id number
+          attr_reader :vat
+
+          def self.inner_class_types
+            @inner_class_types = { registered_address: RegisteredAddress }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Attribute for field company_details
+        attr_reader :company_details
+        # An identifier or reference that this payment corresponds to.
+        attr_reader :reference
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { company_details: CompanyDetails }
         end
 
         def self.field_remappings
@@ -1562,6 +1610,22 @@ module Stripe
       end
 
       class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          attr_reader :expires_at
+          # Type of the mandate.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        attr_reader :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1572,7 +1636,7 @@ module Stripe
         attr_reader :setup_future_usage
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { mandate_options: MandateOptions }
         end
 
         def self.field_remappings
@@ -2286,6 +2350,16 @@ module Stripe
         end
       end
 
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payto < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -2505,6 +2579,27 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { mandate_options: MandateOptions }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Sequra < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        attr_reader :setup_future_usage
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -2809,6 +2904,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -2825,6 +2922,8 @@ module Stripe
       attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field sequra
+      attr_reader :sequra
       # Attribute for field sofort
       attr_reader :sofort
       # Attribute for field sunbit
@@ -2884,6 +2983,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -2892,6 +2992,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           sofort: Sofort,
           sunbit: Sunbit,
           swish: Swish,
@@ -3081,13 +3182,13 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_reader :customer
     # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
     #
     # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     attr_reader :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_reader :description
@@ -3124,6 +3225,8 @@ module Stripe
     attr_reader :payment_method_options
     # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     attr_reader :payment_method_types
+    # ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
+    attr_reader :payment_record
     # Attribute for field presentment_details
     attr_reader :presentment_details
     # If present, this property tells you about the processing state of the payment.

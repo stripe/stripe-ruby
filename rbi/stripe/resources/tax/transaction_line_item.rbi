@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module Tax
+    # A Tax Transaction Line Item represents an individual item in a Tax Transaction.
     class TransactionLineItem < APIResource
       class Reversal < ::Stripe::StripeObject
         # The `id` of the line item to reverse in the original transaction.

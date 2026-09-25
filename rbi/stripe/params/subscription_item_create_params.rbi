@@ -13,6 +13,15 @@ module Stripe
       sig { params(usage_gte: Integer).void }
       def initialize(usage_gte: nil); end
     end
+    class CurrentTrial < ::Stripe::RequestParams
+      # The ID of the trial offer to apply to the subscription item.
+      sig { returns(String) }
+      def trial_offer; end
+      sig { params(_trial_offer: String).returns(String) }
+      def trial_offer=(_trial_offer); end
+      sig { params(trial_offer: String).void }
+      def initialize(trial_offer: nil); end
+    end
     class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
@@ -105,6 +114,13 @@ module Stripe
       params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)))
      }
     def billing_thresholds=(_billing_thresholds); end
+    # The trial offer to apply to this subscription item.
+    sig { returns(T.nilable(::Stripe::SubscriptionItemCreateParams::CurrentTrial)) }
+    def current_trial; end
+    sig {
+      params(_current_trial: T.nilable(::Stripe::SubscriptionItemCreateParams::CurrentTrial)).returns(T.nilable(::Stripe::SubscriptionItemCreateParams::CurrentTrial))
+     }
+    def current_trial=(_current_trial); end
     # The coupons to redeem into discounts for the subscription item.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])))
@@ -176,10 +192,11 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemCreateParams::BillingThresholds)), current_trial: T.nilable(::Stripe::SubscriptionItemCreateParams::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemCreateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, String]), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemCreateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), subscription: String, tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,

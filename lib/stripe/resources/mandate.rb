@@ -133,9 +133,39 @@ module Stripe
         end
       end
 
-      class Card < ::Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
+        # Date at which the mandate expires.
+        attr_reader :expires_at
+        # Type of the mandate.
+        attr_reader :type
+
         def self.inner_class_types
           @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Card < ::Stripe::StripeObject
+        class India < ::Stripe::StripeObject
+          # The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+          attr_reader :inactive_reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field india
+        attr_reader :india
+
+        def self.inner_class_types
+          @inner_class_types = { india: India }
         end
 
         def self.field_remappings
@@ -350,6 +380,8 @@ module Stripe
       attr_reader :au_becs_debit
       # Attribute for field bacs_debit
       attr_reader :bacs_debit
+      # Attribute for field blik
+      attr_reader :blik
       # Attribute for field card
       attr_reader :card
       # Attribute for field cashapp
@@ -391,6 +423,7 @@ module Stripe
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
           bacs_debit: BacsDebit,
+          blik: Blik,
           card: Card,
           cashapp: Cashapp,
           kakao_pay: KakaoPay,

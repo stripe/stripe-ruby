@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module Tax
+    # A Tax Calculation Line Item represents a single item in a tax calculation.
     class CalculationLineItem < APIResource
       class TaxBreakdown < ::Stripe::StripeObject
         class Jurisdiction < ::Stripe::StripeObject
@@ -86,6 +87,9 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
+      # Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
       # The ID of an existing [Product](https://docs.stripe.com/api/products/object).
       sig { returns(T.nilable(String)) }
       def product; end

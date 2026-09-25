@@ -1,0 +1,130 @@
+# File generated from our OpenAPI spec
+# frozen_string_literal: true
+
+module Stripe
+  module ProductCatalog
+    # Trial offers let you define free or paid introductory pricing for a subscription item.
+    # A TrialOffer specifies the price to charge during the trial, how many billing intervals
+    # the trial lasts, and what price the subscription item transitions to when the trial ends.
+    # You attach a TrialOffer to a subscription item
+    # using `items[current_trial][trial_offer]` when creating or updating a subscription.
+    class TrialOffer < APIResource
+      extend Stripe::APIOperations::Create
+      extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
+
+      OBJECT_NAME = "product_catalog.trial_offer"
+      def self.object_name
+        "product_catalog.trial_offer"
+      end
+
+      class Duration < ::Stripe::StripeObject
+        class Relative < ::Stripe::StripeObject
+          # The number of iterations of the price's interval for this trial offer.
+          attr_reader :iterations
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field relative
+        attr_reader :relative
+        # The type of trial offer duration.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { relative: Relative }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class EndBehavior < ::Stripe::StripeObject
+        class Transition < ::Stripe::StripeObject
+          # The new price to use at the end of the trial offer period.
+          attr_reader :price
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field transition
+        attr_reader :transition
+        # The type of behavior when the trial offer ends.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { transition: Transition }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether the trial offer is active. Set to false to archive the trial offer.
+      attr_reader :active
+      # Attribute for field duration
+      attr_reader :duration
+      # Attribute for field end_behavior
+      attr_reader :end_behavior
+      # Unique identifier for the object.
+      attr_reader :id
+      # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+      attr_reader :livemode
+      # A brief description of the trial offer, hidden from customers.
+      attr_reader :nickname
+      # String representing the object's type. Objects of the same type share the same value.
+      attr_reader :object
+      # The price during the trial offer.
+      attr_reader :price
+
+      # Creates a trial offer.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: "/v1/product_catalog/trial_offers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Returns a list of trial offers.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(
+          method: :get,
+          path: "/v1/product_catalog/trial_offers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/product_catalog/trial_offers/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      def self.inner_class_types
+        @inner_class_types = { duration: Duration, end_behavior: EndBehavior }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+  end
+end

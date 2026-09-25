@@ -316,8 +316,78 @@ module Stripe
         end
 
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code.
+              attr_reader :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            attr_reader :registered_address
+            # Company or entity name.
+            attr_reader :registered_name
+            # The official registration number for the given registration type.
+            attr_reader :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_reader :registration_type
+            # VAT ID number.
+            attr_reader :vat
+
+            def self.inner_class_types
+              @inner_class_types = { registered_address: RegisteredAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          attr_reader :company_details
+
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { company_details: CompanyDetails }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Blik < ::Stripe::StripeObject
+          class MandateOptions < ::Stripe::StripeObject
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_reader :expires_at
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field mandate_options
+          attr_reader :mandate_options
+
+          def self.inner_class_types
+            @inner_class_types = { mandate_options: MandateOptions }
           end
 
           def self.field_remappings
@@ -560,6 +630,8 @@ module Stripe
         attr_reader :bancontact
         # This sub-hash contains details about the Billie payment method options to pass to invoices created by the subscription.
         attr_reader :billie
+        # This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+        attr_reader :blik
         # This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
         attr_reader :card
         # This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
@@ -582,6 +654,7 @@ module Stripe
             acss_debit: AcssDebit,
             bancontact: Bancontact,
             billie: Billie,
+            blik: Blik,
             card: Card,
             customer_balance: CustomerBalance,
             konbini: Konbini,
@@ -631,6 +704,8 @@ module Stripe
     class PendingUpdate < ::Stripe::StripeObject
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      attr_reader :cancel_at_period_end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       attr_reader :discount
       # The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.
@@ -668,6 +743,47 @@ module Stripe
       end
     end
 
+    class StatusDetails < ::Stripe::StripeObject
+      class Paused < ::Stripe::StripeObject
+        class Subscription < ::Stripe::StripeObject
+          # The reason that the subscription was paused.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Information on the `type=subscription` pause.
+        attr_reader :subscription
+        # Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+        attr_reader :transitioned_at
+        # The type of pause.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { subscription: Subscription }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Indicates when and why the subscription transitioned to the paused status.
+      attr_reader :paused
+
+      def self.inner_class_types
+        @inner_class_types = { paused: Paused }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class TransferData < ::Stripe::StripeObject
       # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
       attr_reader :amount_percent
@@ -685,6 +801,8 @@ module Stripe
 
     class TrialSettings < ::Stripe::StripeObject
       class EndBehavior < ::Stripe::StripeObject
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+        attr_reader :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_reader :missing_payment_method
 
@@ -803,6 +921,8 @@ module Stripe
     #
     # If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
     attr_reader :status
+    # Describes changes to the subscription's status.
+    attr_reader :status_details
     # ID of the test clock this subscription belongs to.
     attr_reader :test_clock
     # The account (if any) the subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
@@ -898,6 +1018,26 @@ module Stripe
       )
     end
 
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def pause(params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(self["id"]) }),
+        params: params,
+        opts: opts
+      )
+    end
+
+    # Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+    def self.pause(subscription, params = {}, opts = {})
+      request_stripe_object(
+        method: :post,
+        path: format("/v1/subscriptions/%<subscription>s/pause", { subscription: CGI.escape(subscription) }),
+        params: params,
+        opts: opts
+      )
+    end
+
     # Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
     def resume(params = {}, opts = {})
       request_stripe_object(
@@ -978,6 +1118,7 @@ module Stripe
         pending_invoice_item_interval: PendingInvoiceItemInterval,
         pending_update: PendingUpdate,
         presentment_details: PresentmentDetails,
+        status_details: StatusDetails,
         transfer_data: TransferData,
         trial_settings: TrialSettings,
       }

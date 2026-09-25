@@ -3,7 +3,7 @@
 
 module Stripe
   class PayoutCreateParams < ::Stripe::RequestParams
-    # A positive integer in cents representing how much to payout.
+    # A positive integer in cents representing how much to pay out.
     attr_accessor :amount
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     attr_accessor :currency

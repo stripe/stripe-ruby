@@ -13,6 +13,15 @@ module Stripe
       sig { params(usage_gte: Integer).void }
       def initialize(usage_gte: nil); end
     end
+    class CurrentTrial < ::Stripe::RequestParams
+      # The ID of the trial offer to apply to the subscription item.
+      sig { returns(String) }
+      def trial_offer; end
+      sig { params(_trial_offer: String).returns(String) }
+      def trial_offer=(_trial_offer); end
+      sig { params(trial_offer: String).void }
+      def initialize(trial_offer: nil); end
+    end
     class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       sig { returns(T.nilable(String)) }
@@ -105,6 +114,13 @@ module Stripe
       params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)))
      }
     def billing_thresholds=(_billing_thresholds); end
+    # The trial offer to apply to this subscription item.
+    sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial)) }
+    def current_trial; end
+    sig {
+      params(_current_trial: T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial)).returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial))
+     }
+    def current_trial=(_current_trial); end
     # The coupons to redeem into discounts for the subscription item.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])))
@@ -141,12 +157,12 @@ module Stripe
     def plan; end
     sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
     def plan=(_plan); end
-    # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     sig { returns(T.nilable(String)) }
     def price; end
     sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
     def price=(_price); end
-    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     sig { returns(T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData)) }
     def price_data; end
     sig {
@@ -176,10 +192,11 @@ module Stripe
      }
     def tax_rates=(_tax_rates); end
     sig {
-      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+      params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionItemUpdateParams::BillingThresholds)), current_trial: T.nilable(::Stripe::SubscriptionItemUpdateParams::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), payment_behavior: T.nilable(String), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionItemUpdateParams::PriceData), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
      }
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,

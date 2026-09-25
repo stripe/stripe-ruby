@@ -5,7 +5,7 @@
 module Stripe
   # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
   # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-  # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+  # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
   #
   # Create a SetupIntent when you're ready to collect your customer's payment credentials.
   # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -16,9 +16,9 @@ module Stripe
   # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
   # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
   # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-  # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+  # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
   # it automatically attaches the resulting payment method to that Customer after successful setup.
-  # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+  # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
   # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
   #
   # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -97,7 +97,7 @@ module Stripe
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -108,9 +108,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -398,6 +398,31 @@ module Stripe
       class Bizum < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          # Type of the mandate.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        sig { returns(T.nilable(MandateOptions)) }
+        def mandate_options; end
+        def self.inner_class_types
+          @inner_class_types = {mandate_options: MandateOptions}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -712,6 +737,9 @@ module Stripe
       # Attribute for field bizum
       sig { returns(T.nilable(Bizum)) }
       def bizum; end
+      # Attribute for field blik
+      sig { returns(T.nilable(Blik)) }
+      def blik; end
       # Attribute for field card
       sig { returns(T.nilable(Card)) }
       def card; end
@@ -748,6 +776,7 @@ module Stripe
           amazon_pay: AmazonPay,
           bacs_debit: BacsDebit,
           bizum: Bizum,
+          blik: Blik,
           card: Card,
           card_present: CardPresent,
           klarna: Klarna,

@@ -195,11 +195,9 @@ module Stripe
        }
       def tax=(_tax); end
       # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def tax_exempt; end
-      sig {
-        params(_tax_exempt: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_tax_exempt: T.nilable(String)).returns(T.nilable(String)) }
       def tax_exempt=(_tax_exempt); end
       # The customer's tax IDs.
       sig {
@@ -211,7 +209,7 @@ module Stripe
        }
       def tax_ids=(_tax_ids); end
       sig {
-        params(address: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Address)), shipping: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Shipping)), tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_ids: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::CustomerDetails::TaxId])).void
+        params(address: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Address)), shipping: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Shipping)), tax: T.nilable(::Stripe::InvoiceCreatePreviewParams::CustomerDetails::Tax), tax_exempt: T.nilable(String), tax_ids: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::CustomerDetails::TaxId])).void
        }
       def initialize(address: nil, shipping: nil, tax: nil, tax_exempt: nil, tax_ids: nil); end
     end
@@ -1258,6 +1256,20 @@ module Stripe
       end
     end
     class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingCycleAnchor < ::Stripe::RequestParams
+        # A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def timestamp=(_timestamp); end
+        # Determines how the subscription's billing cycle anchor behaves for the invoice preview.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(timestamp: T.nilable(Integer), type: String).void }
+        def initialize(timestamp: nil, type: nil); end
+      end
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -1379,6 +1391,15 @@ module Stripe
           sig { params(usage_gte: Integer).void }
           def initialize(usage_gte: nil); end
         end
+        class CurrentTrial < ::Stripe::RequestParams
+          # The ID of the trial offer to apply to the subscription item.
+          sig { returns(String) }
+          def trial_offer; end
+          sig { params(_trial_offer: String).returns(String) }
+          def trial_offer=(_trial_offer); end
+          sig { params(trial_offer: String).void }
+          def initialize(trial_offer: nil); end
+        end
         class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           sig { returns(T.nilable(String)) }
@@ -1478,6 +1499,15 @@ module Stripe
         def clear_usage; end
         sig { params(_clear_usage: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
         def clear_usage=(_clear_usage); end
+        # The trial offer to apply to this subscription item.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial; end
+        sig {
+          params(_current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial))
+         }
+        def current_trial=(_current_trial); end
         # A flag that, if set to `true`, will delete the specified item.
         sig { returns(T.nilable(T::Boolean)) }
         def deleted; end
@@ -1509,12 +1539,12 @@ module Stripe
         def plan; end
         sig { params(_plan: T.nilable(String)).returns(T.nilable(String)) }
         def plan=(_plan); end
-        # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         sig { returns(T.nilable(String)) }
         def price; end
         sig { params(_price: T.nilable(String)).returns(T.nilable(String)) }
         def price=(_price); end
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
         sig {
           returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData))
          }
@@ -1536,11 +1566,12 @@ module Stripe
          }
         def tax_rates=(_tax_rates); end
         sig {
-          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+          params(billing_thresholds: T.nilable(T.any(String, ::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::BillingThresholds)), clear_usage: T.nilable(T::Boolean), current_trial: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::CurrentTrial), deleted: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::Discount])), id: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
          }
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,
@@ -1557,11 +1588,80 @@ module Stripe
           }
         end
       end
+      class Pause < ::Stripe::RequestParams
+        class BillFor < ::Stripe::RequestParams
+          class OutstandingUsageThrough < ::Stripe::RequestParams
+            # When to bill metered usage in the current period.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          class UnusedTimeFrom < ::Stripe::RequestParams
+            # When to credit for unused time.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(type: String).void }
+            def initialize(type: nil); end
+          end
+          # Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::OutstandingUsageThrough))
+           }
+          def outstanding_usage_through; end
+          sig {
+            params(_outstanding_usage_through: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::OutstandingUsageThrough)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::OutstandingUsageThrough))
+           }
+          def outstanding_usage_through=(_outstanding_usage_through); end
+          # Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+          sig {
+            returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::UnusedTimeFrom))
+           }
+          def unused_time_from; end
+          sig {
+            params(_unused_time_from: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::UnusedTimeFrom)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::UnusedTimeFrom))
+           }
+          def unused_time_from=(_unused_time_from); end
+          sig {
+            params(outstanding_usage_through: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::OutstandingUsageThrough), unused_time_from: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor::UnusedTimeFrom)).void
+           }
+          def initialize(outstanding_usage_through: nil, unused_time_from: nil); end
+        end
+        # Controls what to bill for when pausing the subscription.
+        sig {
+          returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor))
+         }
+        def bill_for; end
+        sig {
+          params(_bill_for: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor))
+         }
+        def bill_for=(_bill_for); end
+        # Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
+        sig { returns(T.nilable(String)) }
+        def invoicing_behavior; end
+        sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }
+        def invoicing_behavior=(_invoicing_behavior); end
+        # The type of pause to apply. Defaults to `subscription`.
+        sig { returns(T.nilable(String)) }
+        def type; end
+        sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+        def type=(_type); end
+        sig {
+          params(bill_for: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause::BillFor), invoicing_behavior: T.nilable(String), type: T.nilable(String)).void
+         }
+        def initialize(bill_for: nil, invoicing_behavior: nil, type: nil); end
+      end
       # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
-      sig { returns(T.nilable(T.any(String, Integer))) }
+      sig {
+        returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor))
+       }
       def billing_cycle_anchor; end
       sig {
-        params(_billing_cycle_anchor: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+        params(_billing_cycle_anchor: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor))
        }
       def billing_cycle_anchor=(_billing_cycle_anchor); end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -1622,6 +1722,17 @@ module Stripe
         params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
        }
       def metadata=(_metadata); end
+      # Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
+      #
+      # To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
+      #
+      # `pending_invoice_item` never has a preview available because pausing wouldn't generate an invoice, and paused subscriptions don't generate invoices either.
+      sig { returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause)) }
+      def pause; end
+      sig {
+        params(_pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause))
+       }
+      def pause=(_pause); end
       # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
       sig { returns(T.nilable(String)) }
       def proration_behavior; end
@@ -1650,7 +1761,7 @@ module Stripe
        }
       def trial_end=(_trial_end); end
       sig {
-        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+        params(billing_cycle_anchor: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         billing_cycle_anchor: nil,
@@ -1662,6 +1773,7 @@ module Stripe
         default_tax_rates: nil,
         items: nil,
         metadata: nil,
+        pause: nil,
         proration_behavior: nil,
         proration_date: nil,
         resume_at: nil,

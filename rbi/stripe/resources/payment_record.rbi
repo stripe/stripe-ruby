@@ -606,6 +606,14 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class Link < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field apple_pay
           sig { returns(T.nilable(ApplePay)) }
           def apple_pay; end
@@ -615,11 +623,14 @@ module Stripe
           # Attribute for field google_pay
           sig { returns(T.nilable(GooglePay)) }
           def google_pay; end
-          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          # Attribute for field link
+          sig { returns(T.nilable(Link)) }
+          def link; end
+          # The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay}
+            @inner_class_types = {apple_pay: ApplePay, google_pay: GooglePay, link: Link}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1217,6 +1228,9 @@ module Stripe
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         sig { returns(T.nilable(String)) }
         def country; end
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        sig { returns(T.nilable(String)) }
+        def funding_source_group; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1261,6 +1275,20 @@ module Stripe
         def card; end
         def self.inner_class_types
           @inner_class_types = {card: Card}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Momo < ::Stripe::StripeObject
+        # Uniquely identifies this particular MoMo account. You can use this attribute to check whether two MoMo accounts are the same.
+        sig { returns(T.nilable(String)) }
+        def fingerprint; end
+        # ID of the multi-use Mandate created by, or used to make, this MoMo payment.
+        sig { returns(T.nilable(String)) }
+        def mandate; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1427,6 +1455,14 @@ module Stripe
         def transaction_id; end
         def self.inner_class_types
           @inner_class_types = {seller_protection: SellerProtection}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1606,6 +1642,17 @@ module Stripe
         # Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
         sig { returns(T.nilable(String)) }
         def mandate; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sequra < ::Stripe::StripeObject
+        # The SeQura transaction ID associated with this payment.
+        sig { returns(T.nilable(String)) }
+        def transaction_id; end
         def self.inner_class_types
           @inner_class_types = {}
         end
@@ -1884,6 +1931,9 @@ module Stripe
       # Attribute for field mobilepay
       sig { returns(T.nilable(Mobilepay)) }
       def mobilepay; end
+      # Attribute for field momo
+      sig { returns(T.nilable(Momo)) }
+      def momo; end
       # Attribute for field multibanco
       sig { returns(T.nilable(Multibanco)) }
       def multibanco; end
@@ -1914,6 +1964,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(T.nilable(Paypay)) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
@@ -1941,6 +1994,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field sofort
       sig { returns(T.nilable(Sofort)) }
       def sofort; end
@@ -2013,6 +2069,7 @@ module Stripe
           link: Link,
           mb_way: MbWay,
           mobilepay: Mobilepay,
+          momo: Momo,
           multibanco: Multibanco,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
@@ -2022,6 +2079,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -2031,6 +2089,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           sofort: Sofort,
           stripe_account: StripeAccount,
           sunbit: Sunbit,

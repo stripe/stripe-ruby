@@ -203,7 +203,7 @@ module Stripe
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -214,9 +214,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -1147,6 +1147,9 @@ module Stripe
           # The raw data string used to generate QR code, it should be used together with QR code library.
           sig { returns(String) }
           def data; end
+          # The timestamp at which the QR code expires.
+          sig { returns(Integer) }
+          def expires_at; end
           # The image_url_png string used to render QR code
           sig { returns(String) }
           def image_url_png; end
@@ -1630,11 +1633,66 @@ module Stripe
         end
       end
       class Billie < ::Stripe::StripeObject
+        class CompanyDetails < ::Stripe::StripeObject
+          class RegisteredAddress < ::Stripe::StripeObject
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            # Two-letter country code.
+            sig { returns(T.nilable(String)) }
+            def country; end
+            # Address line 1 (e.g., street, PO Box, or company name).
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            # State, county, province, or region.
+            sig { returns(T.nilable(String)) }
+            def state; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field registered_address
+          sig { returns(T.nilable(RegisteredAddress)) }
+          def registered_address; end
+          # Company or entity name.
+          sig { returns(T.nilable(String)) }
+          def registered_name; end
+          # The official registration number for the given registration type.
+          sig { returns(T.nilable(String)) }
+          def registration_number; end
+          # Type of registration the company or entity holds in their registered country.
+          sig { returns(T.nilable(String)) }
+          def registration_type; end
+          # VAT id number
+          sig { returns(T.nilable(String)) }
+          def vat; end
+          def self.inner_class_types
+            @inner_class_types = {registered_address: RegisteredAddress}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Attribute for field company_details
+        sig { returns(T.nilable(CompanyDetails)) }
+        def company_details; end
+        # An identifier or reference that this payment corresponds to.
+        sig { returns(T.nilable(String)) }
+        def reference; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {company_details: CompanyDetails}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1649,6 +1707,23 @@ module Stripe
         end
       end
       class Blik < ::Stripe::StripeObject
+        class MandateOptions < ::Stripe::StripeObject
+          # Date at which the mandate expires.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          # Type of the mandate.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field mandate_options
+        sig { returns(T.nilable(MandateOptions)) }
+        def mandate_options; end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1659,7 +1734,7 @@ module Stripe
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {mandate_options: MandateOptions}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2359,6 +2434,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Payto < ::Stripe::StripeObject
         class MandateOptions < ::Stripe::StripeObject
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -2583,6 +2666,26 @@ module Stripe
         def target_date; end
         def self.inner_class_types
           @inner_class_types = {mandate_options: MandateOptions}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sequra < ::Stripe::StripeObject
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -2919,6 +3022,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(T.nilable(Paypay)) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
@@ -2943,6 +3049,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field sofort
       sig { returns(T.nilable(Sofort)) }
       def sofort; end
@@ -3009,6 +3118,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -3017,6 +3127,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           sofort: Sofort,
           sunbit: Sunbit,
           swish: Swish,
@@ -3225,14 +3336,14 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     sig { returns(T.nilable(T.any(String, ::Stripe::Customer))) }
     def customer; end
     # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
     #
     # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     sig { returns(T.nilable(String)) }
     def customer_account; end
     # An arbitrary string attached to the object. Often useful for displaying to users.
@@ -3287,6 +3398,9 @@ module Stripe
     # The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     sig { returns(T::Array[String]) }
     def payment_method_types; end
+    # ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
+    sig { returns(T.nilable(T.any(String, ::Stripe::PaymentRecord))) }
+    def payment_record; end
     # Attribute for field presentment_details
     sig { returns(T.nilable(PresentmentDetails)) }
     def presentment_details; end

@@ -240,6 +240,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
 
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
@@ -281,6 +282,8 @@ module Stripe
           @iban = iban
         end
       end
+
+      class Sequra < ::Stripe::RequestParams; end
 
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
@@ -360,9 +363,9 @@ module Stripe
       attr_accessor :alipay
       # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
       attr_accessor :allow_redisplay
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       attr_accessor :alma
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       attr_accessor :amazon_pay
       # If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
       attr_accessor :au_becs_debit
@@ -432,6 +435,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -450,6 +455,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      attr_accessor :sequra
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
       # If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
@@ -511,6 +518,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -520,6 +528,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,
@@ -571,6 +580,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -580,6 +590,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @sofort = sofort
         @sunbit = sunbit
         @swish = swish

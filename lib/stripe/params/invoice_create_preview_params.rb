@@ -835,6 +835,18 @@ module Stripe
     end
 
     class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingCycleAnchor < ::Stripe::RequestParams
+        # A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+        attr_accessor :timestamp
+        # Determines how the subscription's billing cycle anchor behaves for the invoice preview.
+        attr_accessor :type
+
+        def initialize(timestamp: nil, type: nil)
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -917,6 +929,15 @@ module Stripe
           end
         end
 
+        class CurrentTrial < ::Stripe::RequestParams
+          # The ID of the trial offer to apply to the subscription item.
+          attr_accessor :trial_offer
+
+          def initialize(trial_offer: nil)
+            @trial_offer = trial_offer
+          end
+        end
+
         class Discount < ::Stripe::RequestParams
           # ID of the coupon to create a new discount for.
           attr_accessor :coupon
@@ -981,6 +1002,8 @@ module Stripe
         attr_accessor :billing_thresholds
         # Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
         attr_accessor :clear_usage
+        # The trial offer to apply to this subscription item.
+        attr_accessor :current_trial
         # A flag that, if set to `true`, will delete the specified item.
         attr_accessor :deleted
         # The coupons to redeem into discounts for the subscription item.
@@ -991,9 +1014,9 @@ module Stripe
         attr_accessor :metadata
         # Plan ID for this item, as a string.
         attr_accessor :plan
-        # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
         attr_accessor :price_data
         # Quantity for this item.
         attr_accessor :quantity
@@ -1003,6 +1026,7 @@ module Stripe
         def initialize(
           billing_thresholds: nil,
           clear_usage: nil,
+          current_trial: nil,
           deleted: nil,
           discounts: nil,
           id: nil,
@@ -1015,6 +1039,7 @@ module Stripe
         )
           @billing_thresholds = billing_thresholds
           @clear_usage = clear_usage
+          @current_trial = current_trial
           @deleted = deleted
           @discounts = discounts
           @id = id
@@ -1030,6 +1055,49 @@ module Stripe
           @field_encodings = {
             price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } },
           }
+        end
+      end
+
+      class Pause < ::Stripe::RequestParams
+        class BillFor < ::Stripe::RequestParams
+          class OutstandingUsageThrough < ::Stripe::RequestParams
+            # When to bill metered usage in the current period.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+
+          class UnusedTimeFrom < ::Stripe::RequestParams
+            # When to credit for unused time.
+            attr_accessor :type
+
+            def initialize(type: nil)
+              @type = type
+            end
+          end
+          # Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+          attr_accessor :outstanding_usage_through
+          # Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+          attr_accessor :unused_time_from
+
+          def initialize(outstanding_usage_through: nil, unused_time_from: nil)
+            @outstanding_usage_through = outstanding_usage_through
+            @unused_time_from = unused_time_from
+          end
+        end
+        # Controls what to bill for when pausing the subscription.
+        attr_accessor :bill_for
+        # Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
+        attr_accessor :invoicing_behavior
+        # The type of pause to apply. Defaults to `subscription`.
+        attr_accessor :type
+
+        def initialize(bill_for: nil, invoicing_behavior: nil, type: nil)
+          @bill_for = bill_for
+          @invoicing_behavior = invoicing_behavior
+          @type = type
         end
       end
       # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
@@ -1050,6 +1118,12 @@ module Stripe
       attr_accessor :items
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
       attr_accessor :metadata
+      # Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
+      #
+      # To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
+      #
+      # `pending_invoice_item` never has a preview available because pausing wouldn't generate an invoice, and paused subscriptions don't generate invoices either.
+      attr_accessor :pause
       # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
       attr_accessor :proration_behavior
       # If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
@@ -1071,6 +1145,7 @@ module Stripe
         default_tax_rates: nil,
         items: nil,
         metadata: nil,
+        pause: nil,
         proration_behavior: nil,
         proration_date: nil,
         resume_at: nil,
@@ -1086,6 +1161,7 @@ module Stripe
         @default_tax_rates = default_tax_rates
         @items = items
         @metadata = metadata
+        @pause = pause
         @proration_behavior = proration_behavior
         @proration_date = proration_date
         @resume_at = resume_at

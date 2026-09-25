@@ -322,7 +322,7 @@ module Stripe
         end
 
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_reader :custom
           # The type of the label.
           attr_reader :type
@@ -1701,6 +1701,19 @@ module Stripe
           end
         end
 
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          attr_reader :capture_method
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -1967,6 +1980,8 @@ module Stripe
         attr_reader :scalapay
         # Attribute for field sepa_debit
         attr_reader :sepa_debit
+        # Attribute for field sequra
+        attr_reader :sequra
         # Attribute for field sofort
         attr_reader :sofort
         # Attribute for field sunbit
@@ -2023,6 +2038,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,
@@ -2190,7 +2206,7 @@ module Stripe
           class Discount < ::Stripe::StripeObject
             # The amount discounted.
             attr_reader :amount
-            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -2286,6 +2302,8 @@ module Stripe
       attr_reader :after_expiration
       # Enables user redeemable promotion codes.
       attr_reader :allow_promotion_codes
+      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+      attr_reader :allowed_payment_method_types
       # Total of all items before discounts or taxes are applied.
       attr_reader :amount_subtotal
       # Total of all items after discounts and taxes are applied.

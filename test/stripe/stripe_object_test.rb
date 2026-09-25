@@ -103,7 +103,7 @@ module Stripe
         copy_obj = Stripe::StripeObject.send(:deep_copy, obj, api_mode: :v1)
 
         assert_equal values, copy_obj.instance_variable_get(:@values)
-        assert_equal opts.reject { |k, _v| k == :client },
+        assert_equal opts.except(:client),
                      copy_obj.instance_variable_get(:@opts)
       end
 

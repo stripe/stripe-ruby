@@ -14,8 +14,8 @@ group :development do
 
   gem "test-unit"
 
-  # Version doesn't matter that much, but this one contains some fixes for Ruby
-  # 2.7 warnings that add noise to the test suite.
+  # Version doesn't matter that much, but this one contains fixes that reduce
+  # warning noise in the test suite.
   gem "webmock", ">= 3.8.0"
 
   # Rubocop changes pretty quickly: new cops get added and old cops change
@@ -24,8 +24,7 @@ group :development do
   # bad, pin to a specific version number here. Try to keep this relatively
   # up-to-date, but it's not the end of the world if it's not.
   #
-  # The latest version of rubocop is only compatible with Ruby 2.7+
-  gem "rubocop", "1.75.2" if RUBY_VERSION >= "2.7"
+  gem "rubocop", "1.75.2"
 
   unless RUBY_PLATFORM =~ /mingw|mswin/
     gem "sorbet"

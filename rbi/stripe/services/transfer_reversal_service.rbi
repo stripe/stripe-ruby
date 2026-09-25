@@ -10,7 +10,7 @@ module Stripe
     #
     # Once entirely reversed, a transfer can't be reversed again. This method will return an error when called on an already-reversed transfer, or when trying to reverse more money than is left on a transfer.
     sig {
-      params(id: String, params: T.any(::Stripe::TransferReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(id: String, params: T.any(::Stripe::TransferReversalCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def create(id, params = {}, opts = {}); end
 
@@ -22,7 +22,7 @@ module Stripe
 
     # By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def retrieve(transfer, id, params = {}, opts = {}); end
 
@@ -30,7 +30,7 @@ module Stripe
     #
     # This request only accepts metadata and description as arguments.
     sig {
-      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Reversal)
+      params(transfer: String, id: String, params: T.any(::Stripe::TransferReversalUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::TransferReversal)
      }
     def update(transfer, id, params = {}, opts = {}); end
   end

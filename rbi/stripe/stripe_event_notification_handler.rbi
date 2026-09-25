@@ -2242,6 +2242,12 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementEarnedCreditSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_earned_credit_succeeded(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementFinancialAccountCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_financial_account_created(&blk);

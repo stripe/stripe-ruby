@@ -253,11 +253,6 @@ module Stripe
             def initialize(address: nil, email: nil, name: nil, phone: nil); end
           end
           class Card < ::Stripe::RequestParams
-            # The card CVC.
-            sig { returns(T.nilable(String)) }
-            def cvc; end
-            sig { params(_cvc: T.nilable(String)).returns(T.nilable(String)) }
-            def cvc=(_cvc); end
             # The card expiration month.
             sig { returns(String) }
             def exp_month; end
@@ -273,10 +268,8 @@ module Stripe
             def number; end
             sig { params(_number: T.nilable(String)).returns(T.nilable(String)) }
             def number=(_number); end
-            sig {
-              params(cvc: T.nilable(String), exp_month: String, exp_year: String, number: T.nilable(String)).void
-             }
-            def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil); end
+            sig { params(exp_month: String, exp_year: String, number: T.nilable(String)).void }
+            def initialize(exp_month: nil, exp_year: nil, number: nil); end
           end
           # Billing information associated with the payment method.
           sig {

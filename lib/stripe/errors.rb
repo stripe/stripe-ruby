@@ -198,9 +198,6 @@ module Stripe
   class ControlledByAlternateResourceError < StripeError
   end
 
-  class ControlledByDashboardError < StripeError
-  end
-
   class FeatureNotEnabledError < StripeError
   end
 
@@ -243,6 +240,30 @@ module Stripe
   class InvalidPayoutMethodError < StripeError
   end
 
+  class InvalidVaultedCredentialError < StripeError
+    attr_reader :invalid_param
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      invalid_param: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @invalid_param = invalid_param
+    end
+  end
+
   class MerchantNotGatedError < StripeError
   end
 
@@ -265,6 +286,78 @@ module Stripe
   end
 
   class TemporarySessionExpiredError < StripeError
+  end
+
+  class VerificationAttemptFailedError < StripeError
+    attr_reader :verification_status
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      verification_status: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @verification_status = verification_status
+    end
+  end
+
+  class VerificationExpiredError < StripeError
+    attr_reader :verification_status
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      verification_status: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @verification_status = verification_status
+    end
+  end
+
+  class VerificationNotInitiatedError < StripeError
+    attr_reader :verification_status
+
+    def initialize(
+      message = nil,
+      http_body: nil,
+      http_status: nil,
+      json_body: nil,
+      http_headers: nil,
+      code: nil,
+      verification_status: nil
+    )
+      super(
+        message,
+        http_body: http_body,
+        http_status: http_status,
+        json_body: json_body,
+        http_headers: http_headers,
+        code: code,
+      )
+      @verification_status = verification_status
+    end
   end
   # class definitions: The end of the section generated from our OpenAPI spec
 end

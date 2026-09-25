@@ -11,7 +11,7 @@ module Stripe
        }
       def list(params = {}, opts = {}); end
 
-      # Retrieves the details of an scheduled query run.
+      # Retrieves the details of a scheduled query run.
       sig {
         params(scheduled_query_run: String, params: T.any(::Stripe::Sigma::ScheduledQueryRunRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Sigma::ScheduledQueryRun)
        }

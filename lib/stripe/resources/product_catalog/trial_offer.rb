@@ -11,6 +11,7 @@ module Stripe
     class TrialOffer < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
 
       OBJECT_NAME = "product_catalog.trial_offer"
       def self.object_name
@@ -70,6 +71,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Whether the trial offer is active. Set to false to archive the trial offer.
+      attr_reader :active
       # Attribute for field duration
       attr_reader :duration
       # Attribute for field end_behavior
@@ -78,8 +81,8 @@ module Stripe
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
-      # A brief, user-friendly name for the trial offer-for identification purposes.
-      attr_reader :name
+      # A brief description of the trial offer, hidden from customers.
+      attr_reader :nickname
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
       # The price during the trial offer.
@@ -100,6 +103,16 @@ module Stripe
         request_stripe_object(
           method: :get,
           path: "/v1/product_catalog/trial_offers",
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/product_catalog/trial_offers/%<id>s", { id: CGI.escape(id) }),
           params: params,
           opts: opts
         )

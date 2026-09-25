@@ -1958,6 +1958,8 @@ module Stripe
         attr_reader :mandate
         # The ACH payment reference for this transaction.
         attr_reader :payment_reference
+        # NACHA ACH return code for a failed US bank account payment.
+        attr_reader :return_code
         # The routing number for the bank account.
         attr_reader :routing_number
 

@@ -481,7 +481,7 @@ module Stripe
           sig { returns(String) }
           def risk_level; end
           # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
-          sig { returns(Float) }
+          sig { returns(T.nilable(Float)) }
           def score; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -498,7 +498,7 @@ module Stripe
           sig { returns(String) }
           def risk_level; end
           # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
-          sig { returns(Float) }
+          sig { returns(T.nilable(Float)) }
           def score; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -515,7 +515,7 @@ module Stripe
           sig { returns(String) }
           def risk_level; end
           # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
-          sig { returns(Float) }
+          sig { returns(T.nilable(Float)) }
           def score; end
           def self.inner_class_types
             @inner_class_types = {}

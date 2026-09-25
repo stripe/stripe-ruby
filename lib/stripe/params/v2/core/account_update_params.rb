@@ -1905,6 +1905,34 @@ module Stripe
                 end
               end
 
+              class SatispayPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
               class SepaBankTransferPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
@@ -1934,6 +1962,34 @@ module Stripe
               end
 
               class SepaDebitPayments < ::Stripe::RequestParams
+                class Protections < ::Stripe::RequestParams
+                  class PspMigration < ::Stripe::RequestParams
+                    # To request a protection, pass true.
+                    attr_accessor :requested
+
+                    def initialize(requested: nil)
+                      @requested = requested
+                    end
+                  end
+                  # Parameter to request psp_migration protection.
+                  attr_accessor :psp_migration
+
+                  def initialize(psp_migration: nil)
+                    @psp_migration = psp_migration
+                  end
+                end
+                # Protection types to request for this capability (e.g. "psp_migration").
+                attr_accessor :protections
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(protections: nil, requested: nil)
+                  @protections = protections
+                  @requested = requested
+                end
+              end
+
+              class SequraPayments < ::Stripe::RequestParams
                 class Protections < ::Stripe::RequestParams
                   class PspMigration < ::Stripe::RequestParams
                     # To request a protection, pass true.
@@ -2178,10 +2234,14 @@ module Stripe
               attr_accessor :revolut_pay_payments
               # Allow the merchant to process Samsung Pay payments.
               attr_accessor :samsung_pay_payments
+              # Allow the merchant to process Satispay payments.
+              attr_accessor :satispay_payments
               # Allow the merchant to process SEPA bank transfer payments.
               attr_accessor :sepa_bank_transfer_payments
               # Allow the merchant to process SEPA Direct Debit payments.
               attr_accessor :sepa_debit_payments
+              # Allow the merchant to process SeQura payments.
+              attr_accessor :sequra_payments
               # Allow the merchant to process Sunbit payments.
               attr_accessor :sunbit_payments
               # Allow the merchant to process Swish payments.
@@ -2233,8 +2293,10 @@ module Stripe
                 promptpay_payments: nil,
                 revolut_pay_payments: nil,
                 samsung_pay_payments: nil,
+                satispay_payments: nil,
                 sepa_bank_transfer_payments: nil,
                 sepa_debit_payments: nil,
+                sequra_payments: nil,
                 sunbit_payments: nil,
                 swish_payments: nil,
                 twint_payments: nil,
@@ -2280,8 +2342,10 @@ module Stripe
                 @promptpay_payments = promptpay_payments
                 @revolut_pay_payments = revolut_pay_payments
                 @samsung_pay_payments = samsung_pay_payments
+                @satispay_payments = satispay_payments
                 @sepa_bank_transfer_payments = sepa_bank_transfer_payments
                 @sepa_debit_payments = sepa_debit_payments
+                @sequra_payments = sequra_payments
                 @sunbit_payments = sunbit_payments
                 @swish_payments = swish_payments
                 @twint_payments = twint_payments
@@ -2388,6 +2452,15 @@ module Stripe
               end
             end
 
+            class SepaDebitPayments < ::Stripe::RequestParams
+              # Creditor ID for SEPA Direct Debit payments.
+              attr_accessor :creditor_id
+
+              def initialize(creditor_id: nil)
+                @creditor_id = creditor_id
+              end
+            end
+
             class SmartDisputes < ::Stripe::RequestParams
               class AutoRespond < ::Stripe::RequestParams
                 # The preference for automatic dispute responses.
@@ -2486,6 +2559,8 @@ module Stripe
             attr_accessor :mcc
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
+            # Settings for SEPA Direct Debit payments.
+            attr_accessor :sepa_debit_payments
             # Settings for Smart Disputes automatic response feature.
             attr_accessor :smart_disputes
             # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
@@ -2503,6 +2578,7 @@ module Stripe
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
+              sepa_debit_payments: nil,
               smart_disputes: nil,
               statement_descriptor: nil,
               support: nil
@@ -2516,6 +2592,7 @@ module Stripe
               @konbini_payments = konbini_payments
               @mcc = mcc
               @script_statement_descriptor = script_statement_descriptor
+              @sepa_debit_payments = sepa_debit_payments
               @smart_disputes = smart_disputes
               @statement_descriptor = statement_descriptor
               @support = support
@@ -2638,6 +2715,34 @@ module Stripe
                     end
                   end
 
+                  class Ousd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
                   class Usd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -2701,16 +2806,27 @@ module Stripe
                   attr_accessor :eur
                   # Can receive business storage-type funds on Stripe in GBP.
                   attr_accessor :gbp
+                  # Can receive business storage-type funds on Stripe in OUSD.
+                  attr_accessor :ousd
                   # Can receive business storage-type funds on Stripe in USD.
                   attr_accessor :usd
                   # Can receive business storage-type funds on Stripe in USDC.
                   attr_accessor :usdc
 
-                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil, usdc: nil)
+                  def initialize(
+                    aud: nil,
+                    cad: nil,
+                    eur: nil,
+                    gbp: nil,
+                    ousd: nil,
+                    usd: nil,
+                    usdc: nil
+                  )
                     @aud = aud
                     @cad = cad
                     @eur = eur
                     @gbp = gbp
+                    @ousd = ousd
                     @usd = usd
                     @usdc = usdc
                   end
@@ -2829,6 +2945,34 @@ module Stripe
                     end
                   end
 
+                  class Ousd < ::Stripe::RequestParams
+                    class Protections < ::Stripe::RequestParams
+                      class PspMigration < ::Stripe::RequestParams
+                        # To request a protection, pass true.
+                        attr_accessor :requested
+
+                        def initialize(requested: nil)
+                          @requested = requested
+                        end
+                      end
+                      # Parameter to request psp_migration protection.
+                      attr_accessor :psp_migration
+
+                      def initialize(psp_migration: nil)
+                        @psp_migration = psp_migration
+                      end
+                    end
+                    # Protection types to request for this capability (e.g. "psp_migration").
+                    attr_accessor :protections
+                    # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                    attr_accessor :requested
+
+                    def initialize(protections: nil, requested: nil)
+                      @protections = protections
+                      @requested = requested
+                    end
+                  end
+
                   class Usd < ::Stripe::RequestParams
                     class Protections < ::Stripe::RequestParams
                       class PspMigration < ::Stripe::RequestParams
@@ -2892,16 +3036,27 @@ module Stripe
                   attr_accessor :eur
                   # Can send business storage-type funds on Stripe in GBP.
                   attr_accessor :gbp
+                  # Can send business storage-type funds on Stripe in OUSD.
+                  attr_accessor :ousd
                   # Can send business storage-type funds on Stripe in USD.
                   attr_accessor :usd
                   # Can send business storage-type funds on Stripe in USDC.
                   attr_accessor :usdc
 
-                  def initialize(aud: nil, cad: nil, eur: nil, gbp: nil, usd: nil, usdc: nil)
+                  def initialize(
+                    aud: nil,
+                    cad: nil,
+                    eur: nil,
+                    gbp: nil,
+                    ousd: nil,
+                    usd: nil,
+                    usdc: nil
+                  )
                     @aud = aud
                     @cad = cad
                     @eur = eur
                     @gbp = gbp
+                    @ousd = ousd
                     @usd = usd
                     @usdc = usdc
                   end

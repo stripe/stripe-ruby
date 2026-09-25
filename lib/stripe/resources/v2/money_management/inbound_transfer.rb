@@ -128,8 +128,6 @@ module Stripe
           attr_reader :effective_at
           # A unique ID for the HistoryEntry.
           attr_reader :id
-          # Open Enum. The Level of the HistoryEntry.
-          attr_reader :level
           # Open Enum. The type of the HistoryEntry.
           attr_reader :type
 

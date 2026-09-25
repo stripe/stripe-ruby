@@ -1129,6 +1129,10 @@ module Stripe
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
     autoload :V2MoneyManagementDebitDisputeSucceededEventNotification,
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
+    autoload :V2MoneyManagementEarnedCreditSucceededEvent,
+             "stripe/events/v2_money_management_earned_credit_succeeded_event"
+    autoload :V2MoneyManagementEarnedCreditSucceededEventNotification,
+             "stripe/events/v2_money_management_earned_credit_succeeded_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEvent,
              "stripe/events/v2_money_management_financial_account_created_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -1530,6 +1534,7 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluation, "stripe/resources/radar/account_evaluation"
+    autoload :BillingEvaluation, "stripe/resources/radar/billing_evaluation"
     autoload :CustomerEvaluation, "stripe/resources/radar/customer_evaluation"
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
@@ -1583,6 +1588,10 @@ module Stripe
     autoload :TestClock, "stripe/resources/test_helpers/test_clock"
   end
 
+  module ThreeDSecure
+    autoload :Authentication, "stripe/resources/three_d_secure/authentication"
+  end
+
   module Treasury
     autoload :CreditReversal, "stripe/resources/treasury/credit_reversal"
     autoload :DebitReversal, "stripe/resources/treasury/debit_reversal"
@@ -1599,8 +1608,6 @@ module Stripe
 
   module V2
     autoload :DeletedObject, "stripe/resources/v2/deleted_object"
-    autoload :FinancialAddressCreditSimulation, "stripe/resources/v2/financial_address_credit_simulation"
-    autoload :FinancialAddressGeneratedMicrodeposits, "stripe/resources/v2/financial_address_generated_microdeposits"
 
     module Billing
       autoload :BillSetting, "stripe/resources/v2/billing/bill_setting"
@@ -1697,14 +1704,20 @@ module Stripe
       autoload :Adjustment, "stripe/resources/v2/money_management/adjustment"
       autoload :CurrencyConversion, "stripe/resources/v2/money_management/currency_conversion"
       autoload :DebitDispute, "stripe/resources/v2/money_management/debit_dispute"
+      autoload :EarnedCredit, "stripe/resources/v2/money_management/earned_credit"
+      autoload :EarnedCreditSimulation, "stripe/resources/v2/money_management/earned_credit_simulation"
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
       autoload :FinancialAccountStatement, "stripe/resources/v2/money_management/financial_account_statement"
       autoload :FinancialAccountWalletExport, "stripe/resources/v2/money_management/financial_account_wallet_export"
       autoload :FinancialAccountWalletExportCredentials,
                "stripe/resources/v2/money_management/financial_account_wallet_export_credentials"
       autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
+      autoload :FinancialAddressCreditSimulation,
+               "stripe/resources/v2/money_management/financial_address_credit_simulation"
       autoload :FinancialAddressDebitSimulation,
                "stripe/resources/v2/money_management/financial_address_debit_simulation"
+      autoload :FinancialAddressGeneratedMicrodeposits,
+               "stripe/resources/v2/money_management/financial_address_generated_microdeposits"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
       autoload :OutboundPaymentQuote, "stripe/resources/v2/money_management/outbound_payment_quote"
@@ -1918,6 +1931,7 @@ module Stripe
     stripe/resources/quote_preview_invoice
     stripe/resources/quote_preview_subscription_schedule
     stripe/resources/radar/account_evaluation
+    stripe/resources/radar/billing_evaluation
     stripe/resources/radar/customer_evaluation
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
@@ -1967,6 +1981,7 @@ module Stripe
     stripe/resources/terminal/reader
     stripe/resources/terminal/reader_collected_data
     stripe/resources/test_helpers/test_clock
+    stripe/resources/three_d_secure/authentication
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer
@@ -2037,19 +2052,21 @@ module Stripe
     stripe/resources/v2/deleted_object
     stripe/resources/v2/extend/workflow
     stripe/resources/v2/extend/workflow_run
-    stripe/resources/v2/financial_address_credit_simulation
-    stripe/resources/v2/financial_address_generated_microdeposits
     stripe/resources/v2/iam/activity_log
     stripe/resources/v2/iam/api_key
     stripe/resources/v2/money_management/adjustment
     stripe/resources/v2/money_management/currency_conversion
     stripe/resources/v2/money_management/debit_dispute
+    stripe/resources/v2/money_management/earned_credit
+    stripe/resources/v2/money_management/earned_credit_simulation
     stripe/resources/v2/money_management/financial_account
     stripe/resources/v2/money_management/financial_account_statement
     stripe/resources/v2/money_management/financial_account_wallet_export
     stripe/resources/v2/money_management/financial_account_wallet_export_credentials
     stripe/resources/v2/money_management/financial_address
+    stripe/resources/v2/money_management/financial_address_credit_simulation
     stripe/resources/v2/money_management/financial_address_debit_simulation
+    stripe/resources/v2/money_management/financial_address_generated_microdeposits
     stripe/resources/v2/money_management/inbound_transfer
     stripe/resources/v2/money_management/outbound_payment
     stripe/resources/v2/money_management/outbound_payment_quote
@@ -2459,6 +2476,7 @@ module Stripe
     stripe/events/v2_money_management_debit_dispute_failed_event
     stripe/events/v2_money_management_debit_dispute_submitted_event
     stripe/events/v2_money_management_debit_dispute_succeeded_event
+    stripe/events/v2_money_management_earned_credit_succeeded_event
     stripe/events/v2_money_management_financial_account_created_event
     stripe/events/v2_money_management_financial_account_statement_created_event
     stripe/events/v2_money_management_financial_account_statement_restated_event

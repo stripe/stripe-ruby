@@ -652,6 +652,8 @@ module Stripe
 
       class TrialSettings < ::Stripe::StripeObject
         class EndBehavior < ::Stripe::StripeObject
+          # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+          attr_reader :billing_cycle_anchor
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           attr_reader :missing_payment_method
 

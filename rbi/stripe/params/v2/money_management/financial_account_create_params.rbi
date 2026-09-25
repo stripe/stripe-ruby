@@ -32,6 +32,25 @@ module Stripe
             sig { params(currency_networks: T::Hash[String, String], custody_model: String).void }
             def initialize(currency_networks: nil, custody_model: nil); end
           end
+          class DepositInsuranceEligibility < ::Stripe::RequestParams
+            # The bank where funds are stored.
+            sig { returns(String) }
+            def bank_name; end
+            sig { params(_bank_name: String).returns(String) }
+            def bank_name=(_bank_name); end
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            sig { returns(T::Array[String]) }
+            def currencies; end
+            sig { params(_currencies: T::Array[String]).returns(T::Array[String]) }
+            def currencies=(_currencies); end
+            # The deposit insurance scheme.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(bank_name: String, currencies: T::Array[String], type: String).void }
+            def initialize(bank_name: nil, currencies: nil, type: nil); end
+          end
           # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
           sig {
             returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto))
@@ -41,6 +60,15 @@ module Stripe
             params(_crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto))
            }
           def crypto=(_crypto); end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]))
+           }
+          def deposit_insurance_eligibility; end
+          sig {
+            params(_deposit_insurance_eligibility: T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility])).returns(T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]))
+           }
+          def deposit_insurance_eligibility=(_deposit_insurance_eligibility); end
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end
@@ -52,9 +80,14 @@ module Stripe
           sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
           def holds_currencies=(_holds_currencies); end
           sig {
-            params(crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto), funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
+            params(crypto: T.nilable(::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::Crypto), deposit_insurance_eligibility: T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]), funds_usage_type: T.nilable(String), holds_currencies: T::Array[String]).void
            }
-          def initialize(crypto: nil, funds_usage_type: nil, holds_currencies: nil); end
+          def initialize(
+            crypto: nil,
+            deposit_insurance_eligibility: nil,
+            funds_usage_type: nil,
+            holds_currencies: nil
+          ); end
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }

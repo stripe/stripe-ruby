@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   class AppsService < StripeService
+    attr_reader :installs
     attr_reader :secrets
   end
 end

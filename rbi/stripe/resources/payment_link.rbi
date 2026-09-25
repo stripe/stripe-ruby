@@ -627,6 +627,9 @@ module Stripe
       end
       class TrialSettings < ::Stripe::StripeObject
         class EndBehavior < ::Stripe::StripeObject
+          # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+          sig { returns(T.nilable(String)) }
+          def billing_cycle_anchor; end
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           sig { returns(String) }
           def missing_payment_method; end

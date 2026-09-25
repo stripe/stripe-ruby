@@ -121,9 +121,6 @@ module Stripe
           # A unique ID for the HistoryEntry.
           sig { returns(String) }
           def id; end
-          # Open Enum. The Level of the HistoryEntry.
-          sig { returns(String) }
-          def level; end
           # Open Enum. The type of the HistoryEntry.
           sig { returns(String) }
           def type; end

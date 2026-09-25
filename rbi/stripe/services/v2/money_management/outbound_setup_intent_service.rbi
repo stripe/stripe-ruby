@@ -15,6 +15,7 @@ module Stripe
         # Create an OutboundSetupIntent object.
         #
         # ** raises BlockedByStripeError
+        # ** raises CannotProceedError
         # ** raises InvalidPayoutMethodError
         # ** raises QuotaExceededError
         # ** raises ControlledByAlternateResourceError

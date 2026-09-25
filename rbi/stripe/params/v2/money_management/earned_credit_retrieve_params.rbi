@@ -4,8 +4,8 @@
 # typed: true
 module Stripe
   module V2
-    module TestHelpers
-      class FinancialAddressGenerateMicrodepositsParams < ::Stripe::RequestParams; end
+    module MoneyManagement
+      class EarnedCreditRetrieveParams < ::Stripe::RequestParams; end
     end
   end
 end

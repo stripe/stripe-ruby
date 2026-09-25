@@ -3,7 +3,11 @@
 
 module Stripe
   module Billing
-    # A resource for the feedback options model (for custom cancellation reasons)
+    # A feedback option is a reason you can present to customers when they cancel a
+    # subscription through the customer portal. Configure the set of options a customer
+    # can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+    #
+    # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class FeedbackOption < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List
@@ -69,7 +73,7 @@ module Stripe
         )
       end
 
-      # An API method for listing the feedback options model
+      # Returns a list of your feedback options.
       def self.list(params = {}, opts = {})
         request_stripe_object(
           method: :get,

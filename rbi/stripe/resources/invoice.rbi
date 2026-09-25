@@ -6,7 +6,7 @@ module Stripe
   # Invoices are statements of amounts owed by a customer, and are either
   # generated one-off, or generated periodically from a subscription.
   #
-  # They contain [invoice items](https://api.stripe.com#invoiceitems), and proration adjustments
+  # They contain [invoice items](https://docs.stripe.com/api#invoiceitems), and proration adjustments
   # that may be caused by subscription upgrades/downgrades (if necessary).
   #
   # If your invoice is configured to be billed through automatic charges,
@@ -306,7 +306,7 @@ module Stripe
       def request_log_url; end
       # A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
       # For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-      # Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
+      # Later, you can use [PaymentIntents](https://docs.stripe.com/api#payment_intents) to drive the payment flow.
       #
       # Create a SetupIntent when you're ready to collect your customer's payment credentials.
       # Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -317,9 +317,9 @@ module Stripe
       # For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
       # [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
       # to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-      # If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
+      # If you use the SetupIntent with a [Customer](https://docs.stripe.com/api#setup_intent_object-customer),
       # it automatically attaches the resulting payment method to that Customer after successful setup.
-      # We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
+      # We recommend using SetupIntents or [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) on
       # PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
       #
       # By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -447,8 +447,63 @@ module Stripe
           end
         end
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (for example, street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            sig { returns(T.nilable(RegisteredAddress)) }
+            def registered_address; end
+            # Company or entity name.
+            sig { returns(T.nilable(String)) }
+            def registered_name; end
+            # The official registration number for the given registration type.
+            sig { returns(T.nilable(String)) }
+            def registration_number; end
+            # Type of registration the company or entity holds in their registered country.
+            sig { returns(T.nilable(String)) }
+            def registration_type; end
+            # VAT ID number.
+            sig { returns(T.nilable(String)) }
+            def vat; end
+            def self.inner_class_types
+              @inner_class_types = {registered_address: RegisteredAddress}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          sig { returns(T.nilable(CompanyDetails)) }
+          def company_details; end
+          # An identifier or reference that this payment corresponds to.
+          sig { returns(T.nilable(String)) }
+          def reference; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {company_details: CompanyDetails}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -869,6 +924,28 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class StatusDetails < ::Stripe::StripeObject
+      class Uncollectible < ::Stripe::StripeObject
+        # The reason why the invoice is uncollectible.
+        sig { returns(T.nilable(String)) }
+        def reason; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field uncollectible
+      sig { returns(T.nilable(Uncollectible)) }
+      def uncollectible; end
+      def self.inner_class_types
+        @inner_class_types = {uncollectible: Uncollectible}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class StatusTransitions < ::Stripe::StripeObject
       # The time that the invoice draft was finalized.
       sig { returns(T.nilable(Integer)) }
@@ -1207,7 +1284,7 @@ module Stripe
     # This is the transaction number that appears on email receipts sent for this invoice.
     sig { returns(T.nilable(String)) }
     def receipt_number; end
-    # The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
+    # The rendering-related settings that control how invoices render in customer-facing interfaces such as the PDF or hosted invoice page.
     sig { returns(T.nilable(Rendering)) }
     def rendering; end
     # The details of the cost of shipping, including the ShippingRate applied on the invoice.
@@ -1225,6 +1302,9 @@ module Stripe
     # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     sig { returns(T.nilable(String)) }
     def status; end
+    # Attribute for field status_details
+    sig { returns(T.nilable(StatusDetails)) }
+    def status_details; end
     # Attribute for field status_transitions
     sig { returns(StatusTransitions) }
     def status_transitions; end
@@ -1428,7 +1508,8 @@ module Stripe
     def self.send_invoice(invoice, params = {}, opts = {}); end
 
     # Draft invoices are fully editable. Once an invoice is [finalized](https://docs.stripe.com/docs/billing/invoices/workflow#finalized),
-    # monetary values, as well as collection_method, become uneditable.
+    # you can no longer change most of its details, including monetary values and collection_method. For most invoices,
+    # this also includes description.
     #
     # If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
     # sending reminders for, or [automatically reconciling](https://docs.stripe.com/docs/billing/invoices/reconciliation) invoices, pass

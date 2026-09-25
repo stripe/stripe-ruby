@@ -351,6 +351,11 @@ module Stripe
   autoload :WebhookEndpointUpdateParams, "stripe/params/webhook_endpoint_update_params"
 
   module Apps
+    autoload :InstallCreateParams, "stripe/params/apps/install_create_params"
+    autoload :InstallListParams, "stripe/params/apps/install_list_params"
+    autoload :InstallRetrieveParams, "stripe/params/apps/install_retrieve_params"
+    autoload :InstallUninstallParams, "stripe/params/apps/install_uninstall_params"
+    autoload :InstallUpdateParams, "stripe/params/apps/install_update_params"
     autoload :SecretCreateParams, "stripe/params/apps/secret_create_params"
     autoload :SecretDeleteWhereParams, "stripe/params/apps/secret_delete_where_params"
     autoload :SecretFindParams, "stripe/params/apps/secret_find_params"
@@ -558,9 +563,11 @@ module Stripe
     autoload :TrialOfferCreateParams, "stripe/params/product_catalog/trial_offer_create_params"
     autoload :TrialOfferListParams, "stripe/params/product_catalog/trial_offer_list_params"
     autoload :TrialOfferRetrieveParams, "stripe/params/product_catalog/trial_offer_retrieve_params"
+    autoload :TrialOfferUpdateParams, "stripe/params/product_catalog/trial_offer_update_params"
   end
 
   module Radar
+    autoload :BillingEvaluationCreateParams, "stripe/params/radar/billing_evaluation_create_params"
     autoload :EarlyFraudWarningListParams, "stripe/params/radar/early_fraud_warning_list_params"
     autoload :EarlyFraudWarningRetrieveParams, "stripe/params/radar/early_fraud_warning_retrieve_params"
     autoload :PaymentEvaluationCreateParams, "stripe/params/radar/payment_evaluation_create_params"
@@ -586,6 +593,7 @@ module Stripe
   module Reserve
     autoload :HoldListParams, "stripe/params/reserve/hold_list_params"
     autoload :HoldRetrieveParams, "stripe/params/reserve/hold_retrieve_params"
+    autoload :PlanListParams, "stripe/params/reserve/plan_list_params"
     autoload :PlanRetrieveParams, "stripe/params/reserve/plan_retrieve_params"
     autoload :ReleaseListParams, "stripe/params/reserve/release_list_params"
     autoload :ReleaseRetrieveParams, "stripe/params/reserve/release_retrieve_params"
@@ -731,6 +739,14 @@ module Stripe
       autoload :ReceivedCreditCreateParams, "stripe/params/test_helpers/treasury/received_credit_create_params"
       autoload :ReceivedDebitCreateParams, "stripe/params/test_helpers/treasury/received_debit_create_params"
     end
+  end
+
+  module ThreeDSecure
+    autoload :AuthenticationCancelParams, "stripe/params/three_d_secure/authentication_cancel_params"
+    autoload :AuthenticationCreateParams, "stripe/params/three_d_secure/authentication_create_params"
+    autoload :AuthenticationListParams, "stripe/params/three_d_secure/authentication_list_params"
+    autoload :AuthenticationRetrieveParams, "stripe/params/three_d_secure/authentication_retrieve_params"
+    autoload :AuthenticationSubmitParams, "stripe/params/three_d_secure/authentication_submit_params"
   end
 
   module Treasury
@@ -1031,6 +1047,11 @@ module Stripe
     stripe/params/application_fee_refund_retrieve_params
     stripe/params/application_fee_refund_update_params
     stripe/params/application_fee_retrieve_params
+    stripe/params/apps/install_create_params
+    stripe/params/apps/install_list_params
+    stripe/params/apps/install_retrieve_params
+    stripe/params/apps/install_uninstall_params
+    stripe/params/apps/install_update_params
     stripe/params/apps/secret_create_params
     stripe/params/apps/secret_delete_where_params
     stripe/params/apps/secret_find_params
@@ -1385,6 +1406,7 @@ module Stripe
     stripe/params/product_catalog/trial_offer_create_params
     stripe/params/product_catalog/trial_offer_list_params
     stripe/params/product_catalog/trial_offer_retrieve_params
+    stripe/params/product_catalog/trial_offer_update_params
     stripe/params/product_create_params
     stripe/params/product_delete_params
     stripe/params/product_feature_create_params
@@ -1419,6 +1441,7 @@ module Stripe
     stripe/params/quote_reestimate_params
     stripe/params/quote_retrieve_params
     stripe/params/quote_update_params
+    stripe/params/radar/billing_evaluation_create_params
     stripe/params/radar/early_fraud_warning_list_params
     stripe/params/radar/early_fraud_warning_retrieve_params
     stripe/params/radar/payment_evaluation_create_params
@@ -1444,6 +1467,7 @@ module Stripe
     stripe/params/reporting/report_type_retrieve_params
     stripe/params/reserve/hold_list_params
     stripe/params/reserve/hold_retrieve_params
+    stripe/params/reserve/plan_list_params
     stripe/params/reserve/plan_retrieve_params
     stripe/params/reserve/release_list_params
     stripe/params/reserve/release_retrieve_params
@@ -1603,6 +1627,11 @@ module Stripe
     stripe/params/test_helpers/treasury/outbound_transfer_update_params
     stripe/params/test_helpers/treasury/received_credit_create_params
     stripe/params/test_helpers/treasury/received_debit_create_params
+    stripe/params/three_d_secure/authentication_cancel_params
+    stripe/params/three_d_secure/authentication_create_params
+    stripe/params/three_d_secure/authentication_list_params
+    stripe/params/three_d_secure/authentication_retrieve_params
+    stripe/params/three_d_secure/authentication_submit_params
     stripe/params/token_create_params
     stripe/params/token_retrieve_params
     stripe/params/topup_cancel_params

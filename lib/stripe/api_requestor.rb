@@ -203,7 +203,7 @@ module Stripe
       req_opts = RequestOptions.extract_opts_from_hash(req_opts)
 
       notice = http_resp["stripe-notice"]
-      warn("WARNING: #{notice}") if notice
+      maybe_emit_stripe_notice(notice)
 
       resp = interpret_response(http_resp)
 
@@ -216,6 +216,20 @@ module Stripe
       Util.convert_to_stripe_object_with_params(resp.data, params, RequestOptions.persistable(req_opts), resp,
                                                 api_mode: api_mode, requestor: self,
                                                 v2_deleted_object: method == :delete && api_mode == :v2)
+    end
+
+    private def maybe_emit_stripe_notice(notice, env = ENV)
+      return unless notice
+
+      ai_agent = SystemProfiler.detect_ai_agent(env)
+      return if ai_agent.empty? && env.fetch("STRIPE_SUPPRESS_NOTICES", "").downcase == "true"
+
+      if ai_agent.empty?
+        notice += "\nTo suppress Stripe notices in test and sandbox environments, " \
+                  "set the STRIPE_SUPPRESS_NOTICES environment variable to true."
+      end
+
+      warn("WARNING: #{notice}")
     end
 
     # Execute request without instantiating a new object if the relevant object's name matches the class
@@ -462,13 +476,13 @@ module Stripe
     private def execute_request_internal(method, path,
                                          base_address, params, opts, usage,
                                          &read_body_chunk_block)
+      Util.validate_path!(path)
+
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
-      raise ArgumentError, "path should be a string" \
-      unless path.is_a?(String)
 
       base_url ||= config.base_addresses[base_address]
 
@@ -1114,6 +1128,7 @@ module Stripe
         %w[CODEX_CI codex_cli],
         %w[CURSOR_AGENT cursor],
         %w[GEMINI_CLI gemini_cli],
+        %w[HERMES_AGENT hermes],
         %w[OPENCLAW_SHELL openclaw],
         %w[OPENCODE open_code],
         # aiAgents: The end of the section generated from our OpenAPI spec

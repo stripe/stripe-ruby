@@ -176,7 +176,7 @@ module Stripe
         end
 
         class Label < ::Stripe::RequestParams
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           attr_accessor :custom
           # The type of the label.
           attr_accessor :type
@@ -1029,10 +1029,10 @@ module Stripe
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Additional fields for Mandate creation
@@ -1811,6 +1811,15 @@ module Stripe
           end
         end
 
+        class Sequra < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Sofort < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2043,6 +2052,8 @@ module Stripe
         attr_accessor :scalapay
         # contains details about the Sepa Debit payment method options.
         attr_accessor :sepa_debit
+        # contains details about the SeQura payment method options.
+        attr_accessor :sequra
         # contains details about the Sofort payment method options.
         attr_accessor :sofort
         # contains details about the Sunbit payment method options.
@@ -2102,6 +2113,7 @@ module Stripe
           satispay: nil,
           scalapay: nil,
           sepa_debit: nil,
+          sequra: nil,
           sofort: nil,
           sunbit: nil,
           swish: nil,
@@ -2153,6 +2165,7 @@ module Stripe
           @satispay = satispay
           @scalapay = scalapay
           @sepa_debit = sepa_debit
+          @sequra = sequra
           @sofort = sofort
           @sunbit = sunbit
           @swish = swish
@@ -2582,6 +2595,12 @@ module Stripe
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
+      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+      #
+      # Unlike `payment_method_types`, this acts as a filter on the dynamically computed set of
+      # eligible payment methods rather than an explicit static list. Only payment methods that
+      # are both dynamically eligible and present in this list will be offered to the customer.
+      attr_accessor :allowed_payment_method_types
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
       # Specify whether Checkout should collect the customer's billing address. Defaults to `auto`.
@@ -2674,7 +2693,7 @@ module Stripe
       #
       # For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
       #
-      # You can't set this parameter if `ui_mode` is `custom`.
+      # You can't set this parameter if `ui_mode` is `elements` or `form`.
       attr_accessor :optional_items
       # Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :origin_context
@@ -2693,18 +2712,6 @@ module Stripe
       attr_accessor :payment_method_data
       # Payment-method-specific configuration.
       attr_accessor :payment_method_options
-      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-      #
-      # You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-      # See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
-      #
-      # Read more about the supported payment methods and their requirements in our [payment
-      # method details guide](/docs/payments/checkout/payment-methods).
-      #
-      # If multiple payment methods are passed, Checkout will dynamically reorder them to
-      # prioritize the most relevant payment methods based on the customer's location and
-      # other characteristics.
-      attr_accessor :payment_method_types
       # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
       #
       # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
@@ -2753,6 +2760,7 @@ module Stripe
         adaptive_pricing: nil,
         after_expiration: nil,
         allow_promotion_codes: nil,
+        allowed_payment_method_types: nil,
         automatic_tax: nil,
         billing_address_collection: nil,
         branding_settings: nil,
@@ -2786,7 +2794,6 @@ module Stripe
         payment_method_configuration: nil,
         payment_method_data: nil,
         payment_method_options: nil,
-        payment_method_types: nil,
         permissions: nil,
         phone_number_collection: nil,
         redirect_on_completion: nil,
@@ -2805,6 +2812,7 @@ module Stripe
         @adaptive_pricing = adaptive_pricing
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
+        @allowed_payment_method_types = allowed_payment_method_types
         @automatic_tax = automatic_tax
         @billing_address_collection = billing_address_collection
         @branding_settings = branding_settings
@@ -2838,7 +2846,6 @@ module Stripe
         @payment_method_configuration = payment_method_configuration
         @payment_method_data = payment_method_data
         @payment_method_options = payment_method_options
-        @payment_method_types = payment_method_types
         @permissions = permissions
         @phone_number_collection = phone_number_collection
         @redirect_on_completion = redirect_on_completion

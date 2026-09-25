@@ -343,7 +343,7 @@ module Stripe
           end
         end
         class Label < ::Stripe::StripeObject
-          # Custom text for the label, displayed to the customer. Up to 50 characters.
+          # Custom text for the label, displayed to the customer. Up to 100 characters.
           sig { returns(T.nilable(String)) }
           def custom; end
           # The type of the label.
@@ -1709,6 +1709,17 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Sequra < ::Stripe::StripeObject
+          # Controls when the funds will be captured from the customer's account.
+          sig { returns(T.nilable(String)) }
+          def capture_method; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Sofort < ::Stripe::StripeObject
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2028,6 +2039,9 @@ module Stripe
         # Attribute for field sepa_debit
         sig { returns(T.nilable(SepaDebit)) }
         def sepa_debit; end
+        # Attribute for field sequra
+        sig { returns(T.nilable(Sequra)) }
+        def sequra; end
         # Attribute for field sofort
         sig { returns(T.nilable(Sofort)) }
         def sofort; end
@@ -2090,6 +2104,7 @@ module Stripe
             satispay: Satispay,
             scalapay: Scalapay,
             sepa_debit: SepaDebit,
+            sequra: Sequra,
             sofort: Sofort,
             sunbit: Sunbit,
             swish: Swish,
@@ -2294,7 +2309,7 @@ module Stripe
             # The amount discounted.
             sig { returns(Integer) }
             def amount; end
-            # A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
+            # A discount represents the actual application of a [coupon](https://docs.stripe.com/api#coupons) or [promotion code](https://docs.stripe.com/api#promotion_codes).
             # It contains information about when the discount began, when it will end, and what it is applied to.
             #
             # Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
@@ -2392,6 +2407,9 @@ module Stripe
       # Enables user redeemable promotion codes.
       sig { returns(T.nilable(T::Boolean)) }
       def allow_promotion_codes; end
+      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+      sig { returns(T.nilable(T::Array[String])) }
+      def allowed_payment_method_types; end
       # Total of all items before discounts or taxes are applied.
       sig { returns(T.nilable(Integer)) }
       def amount_subtotal; end

@@ -3,7 +3,7 @@
 
 module Stripe
   class AccountSessionService < StripeService
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     def create(params = {}, opts = {})
       request(
         method: :post,

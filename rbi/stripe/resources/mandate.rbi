@@ -127,9 +127,37 @@ module Stripe
           @field_remappings = {}
         end
       end
-      class Card < ::Stripe::StripeObject
+      class Blik < ::Stripe::StripeObject
+        # Date at which the mandate expires.
+        sig { returns(T.nilable(Integer)) }
+        def expires_at; end
+        # Type of the mandate.
+        sig { returns(String) }
+        def type; end
         def self.inner_class_types
           @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Card < ::Stripe::StripeObject
+        class India < ::Stripe::StripeObject
+          # The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+          sig { returns(T.nilable(String)) }
+          def inactive_reason; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field india
+        sig { returns(T.nilable(India)) }
+        def india; end
+        def self.inner_class_types
+          @inner_class_types = {india: India}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -333,6 +361,9 @@ module Stripe
       # Attribute for field bacs_debit
       sig { returns(T.nilable(BacsDebit)) }
       def bacs_debit; end
+      # Attribute for field blik
+      sig { returns(T.nilable(Blik)) }
+      def blik; end
       # Attribute for field card
       sig { returns(T.nilable(Card)) }
       def card; end
@@ -390,6 +421,7 @@ module Stripe
           amazon_pay: AmazonPay,
           au_becs_debit: AuBecsDebit,
           bacs_debit: BacsDebit,
+          blik: Blik,
           card: Card,
           cashapp: Cashapp,
           kakao_pay: KakaoPay,

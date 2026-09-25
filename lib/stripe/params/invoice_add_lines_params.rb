@@ -33,6 +33,17 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            attr_accessor :performance_location
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(performance_location: nil, tax_code: nil)
+              @performance_location = performance_location
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -43,6 +54,8 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
 
@@ -52,6 +65,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           )
             @description = description
@@ -59,6 +73,7 @@ module Stripe
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @tax_details = tax_details
             @unit_label = unit_label
           end
         end

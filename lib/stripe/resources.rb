@@ -82,6 +82,7 @@ module Stripe
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
   module Apps
+    autoload :Install, "stripe/resources/apps/install"
     autoload :Secret, "stripe/resources/apps/secret"
   end
 
@@ -228,6 +229,10 @@ module Stripe
     autoload :Transaction, "stripe/resources/issuing/transaction"
   end
 
+  module ProductCatalog
+    autoload :TrialOffer, "stripe/resources/product_catalog/trial_offer"
+  end
+
   module Radar
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :PaymentEvaluation, "stripe/resources/radar/payment_evaluation"
@@ -254,6 +259,7 @@ module Stripe
     autoload :Association, "stripe/resources/tax/association"
     autoload :Calculation, "stripe/resources/tax/calculation"
     autoload :CalculationLineItem, "stripe/resources/tax/calculation_line_item"
+    autoload :Location, "stripe/resources/tax/location"
     autoload :Registration, "stripe/resources/tax/registration"
     autoload :Settings, "stripe/resources/tax/settings"
     autoload :Transaction, "stripe/resources/tax/transaction"
@@ -270,6 +276,10 @@ module Stripe
 
   module TestHelpers
     autoload :TestClock, "stripe/resources/test_helpers/test_clock"
+  end
+
+  module ThreeDSecure
+    autoload :Authentication, "stripe/resources/three_d_secure/authentication"
   end
 
   module Treasury
@@ -326,6 +336,7 @@ module Stripe
     stripe/resources/application
     stripe/resources/application_fee
     stripe/resources/application_fee_refund
+    stripe/resources/apps/install
     stripe/resources/apps/secret
     stripe/resources/balance
     stripe/resources/balance_settings
@@ -410,6 +421,7 @@ module Stripe
     stripe/resources/plan
     stripe/resources/price
     stripe/resources/product
+    stripe/resources/product_catalog/trial_offer
     stripe/resources/product_feature
     stripe/resources/promotion_code
     stripe/resources/quote
@@ -439,6 +451,7 @@ module Stripe
     stripe/resources/tax/association
     stripe/resources/tax/calculation
     stripe/resources/tax/calculation_line_item
+    stripe/resources/tax/location
     stripe/resources/tax/registration
     stripe/resources/tax/settings
     stripe/resources/tax/transaction
@@ -453,6 +466,7 @@ module Stripe
     stripe/resources/terminal/onboarding_link
     stripe/resources/terminal/reader
     stripe/resources/test_helpers/test_clock
+    stripe/resources/three_d_secure/authentication
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer

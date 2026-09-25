@@ -477,6 +477,15 @@ module Stripe
         sig { params(usage_gte: Integer).void }
         def initialize(usage_gte: nil); end
       end
+      class CurrentTrial < ::Stripe::RequestParams
+        # The ID of the trial offer to apply to the subscription item.
+        sig { returns(String) }
+        def trial_offer; end
+        sig { params(_trial_offer: String).returns(String) }
+        def trial_offer=(_trial_offer); end
+        sig { params(trial_offer: String).void }
+        def initialize(trial_offer: nil); end
+      end
       class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         sig { returns(T.nilable(String)) }
@@ -569,6 +578,13 @@ module Stripe
         params(_billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)))
        }
       def billing_thresholds=(_billing_thresholds); end
+      # The trial offer to apply to this subscription item.
+      sig { returns(T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial)) }
+      def current_trial; end
+      sig {
+        params(_current_trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial)).returns(T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial))
+       }
+      def current_trial=(_current_trial); end
       # The coupons to redeem into discounts for the subscription item.
       sig {
         returns(T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])))
@@ -615,10 +631,11 @@ module Stripe
        }
       def tax_rates=(_tax_rates); end
       sig {
-        params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionCreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
+        params(billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::Item::BillingThresholds)), current_trial: T.nilable(::Stripe::SubscriptionCreateParams::Item::CurrentTrial), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionCreateParams::Item::Discount])), metadata: T.nilable(T::Hash[String, String]), plan: T.nilable(String), price: T.nilable(String), price_data: T.nilable(::Stripe::SubscriptionCreateParams::Item::PriceData), quantity: T.nilable(Integer), tax_rates: T.nilable(T.any(String, T::Array[String]))).void
        }
       def initialize(
         billing_thresholds: nil,
+        current_trial: nil,
         discounts: nil,
         metadata: nil,
         plan: nil,
@@ -673,7 +690,129 @@ module Stripe
           sig { params(preferred_language: T.nilable(String)).void }
           def initialize(preferred_language: nil); end
         end
-        class Billie < ::Stripe::RequestParams; end
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+              def city=(_city); end
+              # Two-letter country code.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+              def country=(_country); end
+              # Address line 1 (for example, street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+              def line1=(_line1); end
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+              def line2=(_line2); end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+              def postal_code=(_postal_code); end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+              def state=(_state); end
+              sig {
+                params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+               }
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              ); end
+            end
+            # The address the company or entity is registered with.
+            sig {
+              returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+             }
+            def registered_address; end
+            sig {
+              params(_registered_address: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+             }
+            def registered_address=(_registered_address); end
+            # Company or entity name.
+            sig { returns(T.nilable(String)) }
+            def registered_name; end
+            sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+            def registered_name=(_registered_name); end
+            # The official registration number for the given registration type.
+            sig { returns(T.nilable(String)) }
+            def registration_number; end
+            sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
+            def registration_number=(_registration_number); end
+            # Type of registration the company or entity holds in their registered country.
+            sig { returns(T.nilable(String)) }
+            def registration_type; end
+            sig { params(_registration_type: T.nilable(String)).returns(T.nilable(String)) }
+            def registration_type=(_registration_type); end
+            # VAT ID number.
+            sig { returns(T.nilable(String)) }
+            def vat; end
+            sig { params(_vat: T.nilable(String)).returns(T.nilable(String)) }
+            def vat=(_vat); end
+            sig {
+              params(registered_address: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)), registered_name: T.nilable(String), registration_number: T.nilable(String), registration_type: T.nilable(String), vat: T.nilable(String)).void
+             }
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            ); end
+          end
+          # Registration details about the buyer's organization.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails)))
+           }
+          def company_details; end
+          sig {
+            params(_company_details: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails)))
+           }
+          def company_details=(_company_details); end
+          sig {
+            params(company_details: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie::CompanyDetails))).void
+           }
+          def initialize(company_details: nil); end
+        end
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            sig { returns(T.nilable(Integer)) }
+            def expires_at; end
+            sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def expires_at=(_expires_at); end
+            sig { params(expires_at: T.nilable(Integer)).void }
+            def initialize(expires_at: nil); end
+          end
+          # Configuration options for setting up a mandate
+          sig {
+            returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options; end
+          sig {
+            params(_mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions)).returns(T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions))
+           }
+          def mandate_options=(_mandate_options); end
+          sig {
+            params(mandate_options: T.nilable(::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik::MandateOptions)).void
+           }
+          def initialize(mandate_options: nil); end
+        end
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Amount to be charged for future payments, specified in the presentment currency.
@@ -979,6 +1118,15 @@ module Stripe
           params(_billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)))
          }
         def billie=(_billie); end
+        # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik; end
+        sig {
+          params(_blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik))).returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)))
+         }
+        def blik=(_blik); end
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         sig {
           returns(T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)))
@@ -1052,12 +1200,13 @@ module Stripe
          }
         def us_bank_account=(_us_bank_account); end
         sig {
-          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
+          params(acss_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::AcssDebit)), bancontact: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Billie)), blik: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Blik)), card: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Card)), customer_balance: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::CustomerBalance)), konbini: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Konbini)), payto: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Pix)), sepa_debit: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::SepaDebit)), upi: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::SubscriptionCreateParams::PaymentSettings::PaymentMethodOptions::UsBankAccount))).void
          }
         def initialize(
           acss_debit: nil,
           bancontact: nil,
           billie: nil,
+          blik: nil,
           card: nil,
           customer_balance: nil,
           konbini: nil,
@@ -1128,13 +1277,20 @@ module Stripe
     end
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        sig { returns(T.nilable(String)) }
+        def billing_cycle_anchor; end
+        sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+        def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def missing_payment_method; end
-        sig { params(_missing_payment_method: String).returns(String) }
+        sig { params(_missing_payment_method: T.nilable(String)).returns(T.nilable(String)) }
         def missing_payment_method=(_missing_payment_method); end
-        sig { params(missing_payment_method: String).void }
-        def initialize(missing_payment_method: nil); end
+        sig {
+          params(billing_cycle_anchor: T.nilable(String), missing_payment_method: T.nilable(String)).void
+         }
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
       sig { returns(::Stripe::SubscriptionCreateParams::TrialSettings::EndBehavior) }

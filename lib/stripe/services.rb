@@ -65,6 +65,7 @@ module Stripe
   autoload :PayoutService, "stripe/services/payout_service"
   autoload :PlanService, "stripe/services/plan_service"
   autoload :PriceService, "stripe/services/price_service"
+  autoload :ProductCatalogService, "stripe/services/product_catalog_service"
   autoload :ProductFeatureService, "stripe/services/product_feature_service"
   autoload :ProductService, "stripe/services/product_service"
   autoload :PromotionCodeService, "stripe/services/promotion_code_service"
@@ -90,6 +91,7 @@ module Stripe
   autoload :TaxService, "stripe/services/tax_service"
   autoload :TerminalService, "stripe/services/terminal_service"
   autoload :TestHelpersService, "stripe/services/test_helpers_service"
+  autoload :ThreeDSecureService, "stripe/services/three_d_secure_service"
   autoload :TokenService, "stripe/services/token_service"
   autoload :TopupService, "stripe/services/topup_service"
   autoload :TransferReversalService, "stripe/services/transfer_reversal_service"
@@ -100,6 +102,7 @@ module Stripe
   autoload :WebhookEndpointService, "stripe/services/webhook_endpoint_service"
 
   module Apps
+    autoload :InstallService, "stripe/services/apps/install_service"
     autoload :SecretService, "stripe/services/apps/secret_service"
   end
 
@@ -163,6 +166,10 @@ module Stripe
     autoload :TransactionService, "stripe/services/issuing/transaction_service"
   end
 
+  module ProductCatalog
+    autoload :TrialOfferService, "stripe/services/product_catalog/trial_offer_service"
+  end
+
   module Radar
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
     autoload :PaymentEvaluationService, "stripe/services/radar/payment_evaluation_service"
@@ -183,6 +190,7 @@ module Stripe
     autoload :AssociationService, "stripe/services/tax/association_service"
     autoload :CalculationLineItemService, "stripe/services/tax/calculation_line_item_service"
     autoload :CalculationService, "stripe/services/tax/calculation_service"
+    autoload :LocationService, "stripe/services/tax/location_service"
     autoload :RegistrationService, "stripe/services/tax/registration_service"
     autoload :SettingsService, "stripe/services/tax/settings_service"
     autoload :TransactionLineItemService, "stripe/services/tax/transaction_line_item_service"
@@ -224,6 +232,10 @@ module Stripe
       autoload :ReceivedCreditService, "stripe/services/test_helpers/treasury/received_credit_service"
       autoload :ReceivedDebitService, "stripe/services/test_helpers/treasury/received_debit_service"
     end
+  end
+
+  module ThreeDSecure
+    autoload :AuthenticationService, "stripe/services/three_d_secure/authentication_service"
   end
 
   module Treasury
@@ -287,6 +299,7 @@ module Stripe
     stripe/services/apple_pay_domain_service
     stripe/services/application_fee_refund_service
     stripe/services/application_fee_service
+    stripe/services/apps/install_service
     stripe/services/apps/secret_service
     stripe/services/apps_service
     stripe/services/balance_service
@@ -374,6 +387,8 @@ module Stripe
     stripe/services/payout_service
     stripe/services/plan_service
     stripe/services/price_service
+    stripe/services/product_catalog/trial_offer_service
+    stripe/services/product_catalog_service
     stripe/services/product_feature_service
     stripe/services/product_service
     stripe/services/promotion_code_service
@@ -403,6 +418,7 @@ module Stripe
     stripe/services/tax/association_service
     stripe/services/tax/calculation_line_item_service
     stripe/services/tax/calculation_service
+    stripe/services/tax/location_service
     stripe/services/tax/registration_service
     stripe/services/tax/settings_service
     stripe/services/tax/transaction_line_item_service
@@ -435,6 +451,8 @@ module Stripe
     stripe/services/test_helpers/treasury/received_debit_service
     stripe/services/test_helpers/treasury_service
     stripe/services/test_helpers_service
+    stripe/services/three_d_secure/authentication_service
+    stripe/services/three_d_secure_service
     stripe/services/token_service
     stripe/services/topup_service
     stripe/services/transfer_reversal_service

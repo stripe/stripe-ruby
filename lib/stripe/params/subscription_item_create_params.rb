@@ -12,6 +12,15 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::RequestParams
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_offer: nil)
+        @trial_offer = trial_offer
+      end
+    end
+
     class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
@@ -74,6 +83,8 @@ module Stripe
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
     # The coupons to redeem into discounts for the subscription item.
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
@@ -101,6 +112,7 @@ module Stripe
 
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,
@@ -115,6 +127,7 @@ module Stripe
       tax_rates: nil
     )
       @billing_thresholds = billing_thresholds
+      @current_trial = current_trial
       @discounts = discounts
       @expand = expand
       @metadata = metadata

@@ -3,11 +3,7 @@
 
 module Stripe
   class ChargeService < StripeService
-    # Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
-    #
-    # Uncaptured payments expire a set number of days after they are created ([7 by default](https://docs.stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
-    #
-    # Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/capture).
+    # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     def capture(charge, params = {}, opts = {})
       request(
         method: :post,
@@ -18,9 +14,7 @@ module Stripe
       )
     end
 
-    # This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
-    # to initiate a new payment instead. Confirmation of the PaymentIntent creates the Charge
-    # object used to request payment.
+    # This method is deprecated and will be removed soon. If your integration uses it, you need to update it to use a different payment flow, such as [the Payment Intents API](https://docs.stripe.com/docs/payments/payment-intents).
     def create(params = {}, opts = {})
       request(method: :post, path: "/v1/charges", params: params, opts: opts, base_address: :api)
     end

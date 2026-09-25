@@ -5,7 +5,7 @@
 module Stripe
   module Billing
     class FeedbackOptionCreateParams < ::Stripe::RequestParams
-      # Attribute for param field description
+      # The text of the feedback option, which customers see when canceling. Maximum 100 characters.
       sig { returns(String) }
       def description; end
       sig { params(_description: String).returns(String) }

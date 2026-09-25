@@ -104,10 +104,10 @@ module Stripe
         end
         class Verification < ::Stripe::StripeObject
           class Document < ::Stripe::StripeObject
-            # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def back; end
-            # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
             def front; end
             def self.inner_class_types

@@ -2086,7 +2086,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
     end
@@ -2103,7 +2103,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions"
     end

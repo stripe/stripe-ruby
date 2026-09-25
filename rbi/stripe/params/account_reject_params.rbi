@@ -14,7 +14,7 @@ module Stripe
     def payouts_action; end
     sig { params(_payouts_action: T.nilable(String)).returns(T.nilable(String)) }
     def payouts_action=(_payouts_action); end
-    # The reason for rejecting the account. Can be `fraud`, `terms_of_service`, or `other`.
+    # The reason for rejecting the account. Can be `fraud_payment_method_casher`, `fraud_payment_method_tester`, `fraud_no_intent_to_fulfill`, `fraud_other`, `credit`, `terms_of_service`, or `other`.
     sig { returns(String) }
     def reason; end
     sig { params(_reason: String).returns(String) }

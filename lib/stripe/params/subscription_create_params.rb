@@ -331,6 +331,15 @@ module Stripe
         end
       end
 
+      class CurrentTrial < ::Stripe::RequestParams
+        # The ID of the trial offer to apply to the subscription item.
+        attr_accessor :trial_offer
+
+        def initialize(trial_offer: nil)
+          @trial_offer = trial_offer
+        end
+      end
+
       class Discount < ::Stripe::RequestParams
         # ID of the coupon to create a new discount for.
         attr_accessor :coupon
@@ -393,6 +402,8 @@ module Stripe
       end
       # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
       attr_accessor :billing_thresholds
+      # The trial offer to apply to this subscription item.
+      attr_accessor :current_trial
       # The coupons to redeem into discounts for the subscription item.
       attr_accessor :discounts
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -410,6 +421,7 @@ module Stripe
 
       def initialize(
         billing_thresholds: nil,
+        current_trial: nil,
         discounts: nil,
         metadata: nil,
         plan: nil,
@@ -419,6 +431,7 @@ module Stripe
         tax_rates: nil
       )
         @billing_thresholds = billing_thresholds
+        @current_trial = current_trial
         @discounts = discounts
         @metadata = metadata
         @plan = plan
@@ -466,7 +479,87 @@ module Stripe
           end
         end
 
-        class Billie < ::Stripe::RequestParams; end
+        class Billie < ::Stripe::RequestParams
+          class CompanyDetails < ::Stripe::RequestParams
+            class RegisteredAddress < ::Stripe::RequestParams
+              # City, district, suburb, town, or village.
+              attr_accessor :city
+              # Two-letter country code.
+              attr_accessor :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_accessor :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_accessor :line2
+              # ZIP or postal code.
+              attr_accessor :postal_code
+              # State, county, province, or region.
+              attr_accessor :state
+
+              def initialize(
+                city: nil,
+                country: nil,
+                line1: nil,
+                line2: nil,
+                postal_code: nil,
+                state: nil
+              )
+                @city = city
+                @country = country
+                @line1 = line1
+                @line2 = line2
+                @postal_code = postal_code
+                @state = state
+              end
+            end
+            # The address the company or entity is registered with.
+            attr_accessor :registered_address
+            # Company or entity name.
+            attr_accessor :registered_name
+            # The official registration number for the given registration type.
+            attr_accessor :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_accessor :registration_type
+            # VAT ID number.
+            attr_accessor :vat
+
+            def initialize(
+              registered_address: nil,
+              registered_name: nil,
+              registration_number: nil,
+              registration_type: nil,
+              vat: nil
+            )
+              @registered_address = registered_address
+              @registered_name = registered_name
+              @registration_number = registration_number
+              @registration_type = registration_type
+              @vat = vat
+            end
+          end
+          # Registration details about the buyer's organization.
+          attr_accessor :company_details
+
+          def initialize(company_details: nil)
+            @company_details = company_details
+          end
+        end
+
+        class Blik < ::Stripe::RequestParams
+          class MandateOptions < ::Stripe::RequestParams
+            # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+            attr_accessor :expires_at
+
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
+            end
+          end
+          # Configuration options for setting up a mandate
+          attr_accessor :mandate_options
+
+          def initialize(mandate_options: nil)
+            @mandate_options = mandate_options
+          end
+        end
 
         class Card < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
@@ -651,6 +744,8 @@ module Stripe
         attr_accessor :bancontact
         # This sub-hash contains details about the Billie payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :billie
+        # This sub-hash contains details about the Blik payment method options to pass to the invoice’s PaymentIntent.
+        attr_accessor :blik
         # This sub-hash contains details about the Card payment method options to pass to the invoice’s PaymentIntent.
         attr_accessor :card
         # This sub-hash contains details about the Bank transfer payment method options to pass to the invoice’s PaymentIntent.
@@ -672,6 +767,7 @@ module Stripe
           acss_debit: nil,
           bancontact: nil,
           billie: nil,
+          blik: nil,
           card: nil,
           customer_balance: nil,
           konbini: nil,
@@ -684,6 +780,7 @@ module Stripe
           @acss_debit = acss_debit
           @bancontact = bancontact
           @billie = billie
+          @blik = blik
           @card = card
           @customer_balance = customer_balance
           @konbini = konbini
@@ -738,10 +835,13 @@ module Stripe
 
     class TrialSettings < ::Stripe::RequestParams
       class EndBehavior < ::Stripe::RequestParams
+        # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+        attr_accessor :billing_cycle_anchor
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         attr_accessor :missing_payment_method
 
-        def initialize(missing_payment_method: nil)
+        def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+          @billing_cycle_anchor = billing_cycle_anchor
           @missing_payment_method = missing_payment_method
         end
       end

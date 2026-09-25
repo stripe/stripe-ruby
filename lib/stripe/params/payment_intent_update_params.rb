@@ -465,6 +465,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
 
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
@@ -506,6 +507,8 @@ module Stripe
           @iban = iban
         end
       end
+
+      class Sequra < ::Stripe::RequestParams; end
 
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
@@ -585,9 +588,9 @@ module Stripe
       attr_accessor :alipay
       # This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
       attr_accessor :allow_redisplay
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       attr_accessor :alma
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       attr_accessor :amazon_pay
       # If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
       attr_accessor :au_becs_debit
@@ -657,6 +660,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -675,6 +680,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      attr_accessor :sequra
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       attr_accessor :sofort
       # If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
@@ -736,6 +743,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -745,6 +753,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,
@@ -796,6 +805,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -805,6 +815,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @sofort = sofort
         @sunbit = sunbit
         @swish = swish
@@ -1052,23 +1063,95 @@ module Stripe
       end
 
       class Billie < ::Stripe::RequestParams
+        class CompanyDetails < ::Stripe::RequestParams
+          class RegisteredAddress < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            attr_accessor :city
+            # Two-letter country code.
+            attr_accessor :country
+            # Address line 1 (e.g., street, PO Box, or company name).
+            attr_accessor :line1
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            attr_accessor :line2
+            # ZIP or postal code.
+            attr_accessor :postal_code
+            # State, county, province, or region.
+            attr_accessor :state
+
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            )
+              @city = city
+              @country = country
+              @line1 = line1
+              @line2 = line2
+              @postal_code = postal_code
+              @state = state
+            end
+          end
+          # The address the company or entity is registered with.
+          attr_accessor :registered_address
+          # Company or entity name.
+          attr_accessor :registered_name
+          # The official registration number for the given registration type.
+          attr_accessor :registration_number
+          # Type of registration the company or entity holds in their registered country.
+          attr_accessor :registration_type
+          # VAT id number
+          attr_accessor :vat
+
+          def initialize(
+            registered_address: nil,
+            registered_name: nil,
+            registration_number: nil,
+            registration_type: nil,
+            vat: nil
+          )
+            @registered_address = registered_address
+            @registered_name = registered_name
+            @registration_number = registration_number
+            @registration_type = registration_type
+            @vat = vat
+          end
+        end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Registration details about the buyer's organization.
+        attr_accessor :company_details
+        # An identifier or reference that this payment corresponds to.
+        attr_accessor :reference
 
-        def initialize(capture_method: nil)
+        def initialize(capture_method: nil, company_details: nil, reference: nil)
           @capture_method = capture_method
+          @company_details = company_details
+          @reference = reference
         end
       end
 
       class Bizum < ::Stripe::RequestParams; end
 
       class Blik < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Expiry date of the mandate.
+          attr_accessor :expires_at
+
+          def initialize(expires_at: nil)
+            @expires_at = expires_at
+          end
+        end
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         attr_accessor :code
+        # Details of the BLIK mandate
+        attr_accessor :mandate_options
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1080,8 +1163,9 @@ module Stripe
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
         attr_accessor :setup_future_usage
 
-        def initialize(code: nil, setup_future_usage: nil)
+        def initialize(code: nil, mandate_options: nil, setup_future_usage: nil)
           @code = code
+          @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
         end
       end
@@ -1976,6 +2060,8 @@ module Stripe
         end
       end
 
+      class Paypay < ::Stripe::RequestParams; end
+
       class Payto < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -2221,6 +2307,30 @@ module Stripe
           @mandate_options = mandate_options
           @setup_future_usage = setup_future_usage
           @target_date = target_date
+        end
+      end
+
+      class Sequra < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        attr_accessor :capture_method
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        attr_accessor :setup_future_usage
+
+        def initialize(capture_method: nil, setup_future_usage: nil)
+          @capture_method = capture_method
+          @setup_future_usage = setup_future_usage
         end
       end
 
@@ -2537,6 +2647,8 @@ module Stripe
       attr_accessor :paynow
       # If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
       attr_accessor :paypal
+      # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+      attr_accessor :paypay
       # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
       attr_accessor :payto
       # If this is a `pix` PaymentMethod, this sub-hash contains details about the Pix payment method options.
@@ -2553,6 +2665,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentIntent, this sub-hash contains details about the SEPA Debit payment method options.
       attr_accessor :sepa_debit
+      # If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
+      attr_accessor :sequra
       # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
       attr_accessor :sofort
       # If this is a `sunbit` PaymentMethod, this sub-hash contains details about the Sunbit payment method options.
@@ -2611,6 +2725,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -2619,6 +2734,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,
@@ -2668,6 +2784,7 @@ module Stripe
         @payco = payco
         @paynow = paynow
         @paypal = paypal
+        @paypay = paypay
         @payto = payto
         @pix = pix
         @promptpay = promptpay
@@ -2676,6 +2793,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @sofort = sofort
         @sunbit = sunbit
         @swish = swish
@@ -2782,13 +2900,13 @@ module Stripe
     #
     # Payment methods attached to other Customers cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     attr_accessor :customer
     # ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
     #
     # Payment methods attached to other Accounts cannot be used with this PaymentIntent.
     #
-    # If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    # If [setup_future_usage](https://docs.stripe.com/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     attr_accessor :customer_account
     # An arbitrary string attached to the object. Often useful for displaying to users.
     attr_accessor :description
@@ -2812,8 +2930,6 @@ module Stripe
     attr_accessor :payment_method_data
     # Payment-method-specific configuration for this PaymentIntent.
     attr_accessor :payment_method_options
-    # The list of payment method types (for example, card) that this PaymentIntent can use. Use `automatic_payment_methods` to manage payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    attr_accessor :payment_method_types
     # Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     attr_accessor :receipt_email
     # Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2858,7 +2974,6 @@ module Stripe
       payment_method_configuration: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       receipt_email: nil,
       setup_future_usage: nil,
       shipping: nil,
@@ -2885,7 +3000,6 @@ module Stripe
       @payment_method_configuration = payment_method_configuration
       @payment_method_data = payment_method_data
       @payment_method_options = payment_method_options
-      @payment_method_types = payment_method_types
       @receipt_email = receipt_email
       @setup_future_usage = setup_future_usage
       @shipping = shipping

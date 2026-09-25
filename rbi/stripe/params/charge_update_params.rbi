@@ -6,11 +6,11 @@ module Stripe
   class ChargeUpdateParams < ::Stripe::RequestParams
     class FraudDetails < ::Stripe::RequestParams
       # Either `safe` or `fraudulent`.
-      sig { returns(T.any(String, String)) }
+      sig { returns(String) }
       def user_report; end
-      sig { params(_user_report: T.any(String, String)).returns(T.any(String, String)) }
+      sig { params(_user_report: String).returns(String) }
       def user_report=(_user_report); end
-      sig { params(user_report: T.any(String, String)).void }
+      sig { params(user_report: String).void }
       def initialize(user_report: nil); end
     end
     class Shipping < ::Stripe::RequestParams

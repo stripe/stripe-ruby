@@ -52,6 +52,45 @@ module Stripe
             end
           end
 
+          class NetworkDetails < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Additional information included with the ACH debit.
+              attr_reader :addenda
+              # The entry description supplied by the company that originated the ACH debit.
+              attr_reader :originator_company_entry_description
+              # The identifier of the company that originated the ACH debit.
+              attr_reader :originator_company_id
+              # The name of the company that originated the ACH debit.
+              attr_reader :originator_company_name
+              # The identifier assigned to the receiver of the ACH debit.
+              attr_reader :receiver_id_number
+              # The name of the receiver of the ACH debit.
+              attr_reader :receiver_name
+              # Open Enum. The standard entry class code for the ACH debit.
+              attr_reader :standard_entry_class_code
+              # The trace identifier for the ACH debit.
+              attr_reader :trace_id
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # ACH-specific network details.
+            attr_reader :ach
+
+            def self.inner_class_types
+              @inner_class_types = { ach: Ach }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             attr_reader :bank_name
@@ -73,6 +112,8 @@ module Stripe
           # Object containing details of the GB Bank Account that originated the debit.
           # Present when the debit was originated via BACS.
           attr_reader :gb_bank_account
+          # Network-specific details about the bank transfer.
+          attr_reader :network_details
           # Open Enum. Indicates the origin type through which this debit was initiated.
           attr_reader :origin_type
           # Open Enum. The type of the payment method used to originate the debit.
@@ -84,7 +125,11 @@ module Stripe
           attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount }
+            @inner_class_types = {
+              gb_bank_account: GbBankAccount,
+              network_details: NetworkDetails,
+              us_bank_account: UsBankAccount,
+            }
           end
 
           def self.field_remappings

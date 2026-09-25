@@ -77,6 +77,35 @@ module Stripe
     end
 
     class AutomaticTax < ::Stripe::StripeObject
+      class EnablementDetails < ::Stripe::StripeObject
+        class IntegrationConfigurationDisabledReason < ::Stripe::StripeObject
+          # The parameter that prevented `automatic_tax` from being enabled (for example `default_tax_rates`).
+          attr_reader :conflicting_field
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Present when `source=tax_integration_configuration`, `automatic_tax[enabled]=false`, and a conflicting parameter is recorded.
+        attr_reader :integration_configuration_disabled_reason
+        # How `automatic_tax` was set: `explicit`, `managed_payments`, or `tax_integration_configuration`.
+        attr_reader :source
+
+        def self.inner_class_types
+          @inner_class_types = {
+            integration_configuration_disabled_reason: IntegrationConfigurationDisabledReason,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Liability < ::Stripe::StripeObject
         # The connected account being referenced when `type` is `account`.
         attr_reader :account
@@ -95,6 +124,8 @@ module Stripe
       attr_reader :disabled_reason
       # Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
       attr_reader :enabled
+      # How `automatic_tax` was set (`explicit`, `managed_payments`, or `tax_integration_configuration`) and why it may have been disabled.
+      attr_reader :enablement_details
       # The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
       attr_reader :liability
       # The tax provider powering automatic tax.
@@ -103,7 +134,7 @@ module Stripe
       attr_reader :status
 
       def self.inner_class_types
-        @inner_class_types = { liability: Liability }
+        @inner_class_types = { enablement_details: EnablementDetails, liability: Liability }
       end
 
       def self.field_remappings
@@ -1030,6 +1061,31 @@ module Stripe
       end
     end
 
+    class StatusDetails < ::Stripe::StripeObject
+      class Uncollectible < ::Stripe::StripeObject
+        # The reason why the invoice is uncollectible.
+        attr_reader :reason
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Attribute for field uncollectible
+      attr_reader :uncollectible
+
+      def self.inner_class_types
+        @inner_class_types = { uncollectible: Uncollectible }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class StatusTransitions < ::Stripe::StripeObject
       # The time that the invoice draft was finalized.
       attr_reader :finalized_at
@@ -1317,6 +1373,8 @@ module Stripe
     attr_reader :statement_descriptor
     # The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     attr_reader :status
+    # Attribute for field status_details
+    attr_reader :status_details
     # Attribute for field status_transitions
     attr_reader :status_transitions
     # Total of all subscriptions, invoice items, and prorations on the invoice before any invoice level discount or exclusive tax is applied. Item discounts are already incorporated
@@ -1659,6 +1717,7 @@ module Stripe
         rendering: Rendering,
         shipping_cost: ShippingCost,
         shipping_details: ShippingDetails,
+        status_details: StatusDetails,
         status_transitions: StatusTransitions,
         threshold_reason: ThresholdReason,
         total_discount_amounts: TotalDiscountAmount,

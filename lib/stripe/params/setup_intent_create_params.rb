@@ -379,6 +379,7 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::RequestParams; end
       class Shopeepay < ::Stripe::RequestParams; end
 
       class Sofort < ::Stripe::RequestParams
@@ -572,6 +573,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      attr_accessor :sequra
       # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
       attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -658,6 +661,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
@@ -729,6 +733,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort
@@ -813,6 +818,26 @@ module Stripe
       end
 
       class Bizum < ::Stripe::RequestParams; end
+
+      class Blik < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Expiry date of the mandate.
+          attr_accessor :expires_at
+
+          def initialize(expires_at: nil)
+            @expires_at = expires_at
+          end
+        end
+        # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
+        attr_accessor :code
+        # Details of the BLIK mandate
+        attr_accessor :mandate_options
+
+        def initialize(code: nil, mandate_options: nil)
+          @code = code
+          @mandate_options = mandate_options
+        end
+      end
 
       class Card < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
@@ -942,6 +967,8 @@ module Stripe
         attr_accessor :network
         # We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
         attr_accessor :request_three_d_secure
+        # Set to indicate the future transaction type usage for the card being set up.
+        attr_accessor :setup_credential_usage
         # If 3D Secure authentication was performed with a third-party provider,
         # the authentication details to use for this setup.
         attr_accessor :three_d_secure
@@ -951,12 +978,14 @@ module Stripe
           moto: nil,
           network: nil,
           request_three_d_secure: nil,
+          setup_credential_usage: nil,
           three_d_secure: nil
         )
           @mandate_options = mandate_options
           @moto = moto
           @network = network
           @request_three_d_secure = request_three_d_secure
+          @setup_credential_usage = setup_credential_usage
           @three_d_secure = three_d_secure
         end
       end
@@ -1316,6 +1345,8 @@ module Stripe
       attr_accessor :bacs_debit
       # If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
       attr_accessor :bizum
+      # If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
+      attr_accessor :blik
       # Configuration for any card setup attempted on this SetupIntent.
       attr_accessor :card
       # If this is a `card_present` PaymentMethod, this sub-hash contains details about the card-present payment method options.
@@ -1344,6 +1375,7 @@ module Stripe
         amazon_pay: nil,
         bacs_debit: nil,
         bizum: nil,
+        blik: nil,
         card: nil,
         card_present: nil,
         klarna: nil,
@@ -1360,6 +1392,7 @@ module Stripe
         @amazon_pay = amazon_pay
         @bacs_debit = bacs_debit
         @bizum = bizum
+        @blik = blik
         @card = card
         @card_present = card_present
         @klarna = klarna

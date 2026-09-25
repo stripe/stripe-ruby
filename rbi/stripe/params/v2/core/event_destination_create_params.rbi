@@ -7,12 +7,12 @@ module Stripe
     module Core
       class EventDestinationCreateParams < ::Stripe::RequestParams
         class AmazonEventbridge < ::Stripe::RequestParams
-          # The AWS account ID.
+          # Your AWS account where Stripe creates the partner event source.
           sig { returns(String) }
           def aws_account_id; end
           sig { params(_aws_account_id: String).returns(String) }
           def aws_account_id=(_aws_account_id); end
-          # The region of the AWS event source.
+          # The AWS region where Stripe creates the partner event source.
           sig { returns(String) }
           def aws_region; end
           sig { params(_aws_region: String).returns(String) }
@@ -21,17 +21,17 @@ module Stripe
           def initialize(aws_account_id: nil, aws_region: nil); end
         end
         class AzureEventGrid < ::Stripe::RequestParams
-          # The Azure region.
+          # The Azure region where Stripe creates the partner topic.
           sig { returns(String) }
           def azure_region; end
           sig { params(_azure_region: String).returns(String) }
           def azure_region=(_azure_region); end
-          # The name of the Azure resource group.
+          # The Azure resource group where Stripe creates the partner topic.
           sig { returns(String) }
           def azure_resource_group_name; end
           sig { params(_azure_resource_group_name: String).returns(String) }
           def azure_resource_group_name=(_azure_resource_group_name); end
-          # The Azure subscription ID.
+          # The Azure subscription where Stripe creates the partner topic.
           sig { returns(String) }
           def azure_subscription_id; end
           sig { params(_azure_subscription_id: String).returns(String) }
@@ -46,7 +46,7 @@ module Stripe
           ); end
         end
         class WebhookEndpoint < ::Stripe::RequestParams
-          # The URL of the webhook endpoint.
+          # The URL where Stripe sends matching events. Live mode requires HTTPS; sandbox mode also supports HTTP.
           sig { returns(String) }
           def url; end
           sig { params(_url: String).returns(String) }
@@ -54,7 +54,7 @@ module Stripe
           sig { params(url: String).void }
           def initialize(url: nil); end
         end
-        # Amazon EventBridge configuration.
+        # AWS account and region where Stripe creates the EventBridge partner event source.
         sig {
           returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
          }
@@ -63,31 +63,31 @@ module Stripe
           params(_amazon_eventbridge: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AmazonEventbridge))
          }
         def amazon_eventbridge=(_amazon_eventbridge); end
-        # Azure Event Grid configuration.
+        # Azure subscription, resource group, and region where Stripe creates the partner topic.
         sig { returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)) }
         def azure_event_grid; end
         sig {
           params(_azure_event_grid: T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid)).returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::AzureEventGrid))
          }
         def azure_event_grid=(_azure_event_grid); end
-        # An optional description of what the event destination is used for.
+        # An optional user-defined description of the destination's purpose.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # The list of events to enable for this endpoint.
+        # The list of event types enabled for delivery to this destination.
         sig { returns(T::Array[String]) }
         def enabled_events; end
         sig { params(_enabled_events: T::Array[String]).returns(T::Array[String]) }
         def enabled_events=(_enabled_events); end
-        # Payload type of events being subscribed to.
+        # Whether to deliver as snapshot or thin events.
         sig { returns(String) }
         def event_payload; end
         sig { params(_event_payload: String).returns(String) }
         def event_payload=(_event_payload); end
-        # Specifies which accounts' events route to this destination.
+        # The account or organization scopes that can supply events. Use this with `enabled_events` to define the subscription.
         # `@self`: Receive events from the account that owns the event destination.
-        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@accounts`: Receive events emitted from other accounts you manage, including your v1 and v2 accounts.
         # `@organization_members`: Receive events from accounts directly linked to the organization.
         # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         sig { returns(T.nilable(T::Array[String])) }
@@ -96,34 +96,34 @@ module Stripe
           params(_events_from: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def events_from=(_events_from); end
-        # Additional fields to include in the response.
+        # Include normally redacted webhook fields in the create response. Public API clients must include `webhook_endpoint.signing_secret` to receive the signing secret.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
         def include=(_include); end
-        # Metadata.
+        # User-defined key/value data for the destination.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def metadata; end
         sig {
           params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
          }
         def metadata=(_metadata); end
-        # Event destination name.
+        # A user-defined label for identifying the destination.
         sig { returns(String) }
         def name; end
         sig { params(_name: String).returns(String) }
         def name=(_name); end
-        # If using the snapshot event payload, the API version events are rendered as.
+        # For snapshot events only, the Stripe API version used to render event objects; do not provide this for thin events.
         sig { returns(T.nilable(String)) }
         def snapshot_api_version; end
         sig { params(_snapshot_api_version: T.nilable(String)).returns(T.nilable(String)) }
         def snapshot_api_version=(_snapshot_api_version); end
-        # Event destination type.
+        # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         sig { returns(String) }
         def type; end
         sig { params(_type: String).returns(String) }
         def type=(_type); end
-        # Webhook endpoint configuration.
+        # Delivery target for the webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
         sig {
           returns(T.nilable(::Stripe::V2::Core::EventDestinationCreateParams::WebhookEndpoint))
          }

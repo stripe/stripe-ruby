@@ -953,6 +953,8 @@ module Stripe
         attr_reader :brand
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
         attr_reader :capture_before
+        # If present, indicates that the Card Account Updater changed the card's credentials during this authorization. `number_changed` means the card number was updated (the expiration date may have changed as well); `expiry_changed` means only the expiration date was updated.
+        attr_reader :card_account_update
         # Check results by Card networks on Card address and CVC at time of payment.
         attr_reader :checks
         # Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.

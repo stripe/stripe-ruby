@@ -155,6 +155,7 @@ module Stripe
         QuotePreviewInvoice.object_name => QuotePreviewInvoice,
         QuotePreviewSubscriptionSchedule.object_name => QuotePreviewSubscriptionSchedule,
         Radar::AccountEvaluation.object_name => Radar::AccountEvaluation,
+        Radar::BillingEvaluation.object_name => Radar::BillingEvaluation,
         Radar::CustomerEvaluation.object_name => Radar::CustomerEvaluation,
         Radar::EarlyFraudWarning.object_name => Radar::EarlyFraudWarning,
         Radar::IssuingAuthorizationEvaluation.object_name => Radar::IssuingAuthorizationEvaluation,
@@ -204,6 +205,7 @@ module Stripe
         Terminal::Reader.object_name => Terminal::Reader,
         Terminal::ReaderCollectedData.object_name => Terminal::ReaderCollectedData,
         TestHelpers::TestClock.object_name => TestHelpers::TestClock,
+        ThreeDSecure::Authentication.object_name => ThreeDSecure::Authentication,
         Token.object_name => Token,
         Topup.object_name => Topup,
         Transfer.object_name => Transfer,
@@ -285,14 +287,14 @@ module Stripe
         V2::Data::Reporting::QueryRun.object_name => V2::Data::Reporting::QueryRun,
         V2::Extend::Workflow.object_name => V2::Extend::Workflow,
         V2::Extend::WorkflowRun.object_name => V2::Extend::WorkflowRun,
-        V2::FinancialAddressCreditSimulation.object_name => V2::FinancialAddressCreditSimulation,
-        V2::FinancialAddressGeneratedMicrodeposits.object_name =>
-        V2::FinancialAddressGeneratedMicrodeposits,
         V2::Iam::ActivityLog.object_name => V2::Iam::ActivityLog,
         V2::Iam::ApiKey.object_name => V2::Iam::ApiKey,
         V2::MoneyManagement::Adjustment.object_name => V2::MoneyManagement::Adjustment,
         V2::MoneyManagement::CurrencyConversion.object_name => V2::MoneyManagement::CurrencyConversion,
         V2::MoneyManagement::DebitDispute.object_name => V2::MoneyManagement::DebitDispute,
+        V2::MoneyManagement::EarnedCredit.object_name => V2::MoneyManagement::EarnedCredit,
+        V2::MoneyManagement::EarnedCreditSimulation.object_name =>
+        V2::MoneyManagement::EarnedCreditSimulation,
         V2::MoneyManagement::FinancialAccount.object_name => V2::MoneyManagement::FinancialAccount,
         V2::MoneyManagement::FinancialAccountStatement.object_name =>
         V2::MoneyManagement::FinancialAccountStatement,
@@ -301,8 +303,12 @@ module Stripe
         V2::MoneyManagement::FinancialAccountWalletExportCredentials.object_name =>
         V2::MoneyManagement::FinancialAccountWalletExportCredentials,
         V2::MoneyManagement::FinancialAddress.object_name => V2::MoneyManagement::FinancialAddress,
+        V2::MoneyManagement::FinancialAddressCreditSimulation.object_name =>
+        V2::MoneyManagement::FinancialAddressCreditSimulation,
         V2::MoneyManagement::FinancialAddressDebitSimulation.object_name =>
         V2::MoneyManagement::FinancialAddressDebitSimulation,
+        V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits.object_name =>
+        V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits,
         V2::MoneyManagement::InboundTransfer.object_name => V2::MoneyManagement::InboundTransfer,
         V2::MoneyManagement::OutboundPayment.object_name => V2::MoneyManagement::OutboundPayment,
         V2::MoneyManagement::OutboundPaymentQuote.object_name => V2::MoneyManagement::OutboundPaymentQuote,

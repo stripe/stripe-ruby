@@ -733,10 +733,13 @@ module Stripe
 
           class TrialSettings < ::Stripe::RequestParams
             class EndBehavior < ::Stripe::RequestParams
+              # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+              attr_accessor :billing_cycle_anchor
               # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
               attr_accessor :missing_payment_method
 
-              def initialize(missing_payment_method: nil)
+              def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+                @billing_cycle_anchor = billing_cycle_anchor
                 @missing_payment_method = missing_payment_method
               end
             end
@@ -1436,10 +1439,10 @@ module Stripe
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Additional fields for Mandate creation
@@ -2218,6 +2221,15 @@ module Stripe
           end
         end
 
+        class Sequra < ::Stripe::RequestParams
+          # Controls when the funds will be captured from the customer's account.
+          attr_accessor :capture_method
+
+          def initialize(capture_method: nil)
+            @capture_method = capture_method
+          end
+        end
+
         class Sofort < ::Stripe::RequestParams
           # Indicates that you intend to make future payments with this PaymentIntent's payment method.
           #
@@ -2452,6 +2464,8 @@ module Stripe
         attr_accessor :scalapay
         # contains details about the Sepa Debit payment method options.
         attr_accessor :sepa_debit
+        # contains details about the SeQura payment method options.
+        attr_accessor :sequra
         # contains details about the Sofort payment method options.
         attr_accessor :sofort
         # contains details about the Sunbit payment method options.
@@ -2512,6 +2526,7 @@ module Stripe
           satispay: nil,
           scalapay: nil,
           sepa_debit: nil,
+          sequra: nil,
           sofort: nil,
           sunbit: nil,
           swish: nil,
@@ -2564,6 +2579,7 @@ module Stripe
           @satispay = satispay
           @scalapay = scalapay
           @sepa_debit = sepa_debit
+          @sequra = sequra
           @sofort = sofort
           @sunbit = sunbit
           @swish = swish
@@ -2640,6 +2656,8 @@ module Stripe
       class SavedPaymentMethodOptions < ::Stripe::RequestParams
         # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
         attr_accessor :allow_redisplay_filters
+        # The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. The preselection is fixed once set. To preselect a different payment method, create a new session. An Element that's already on the page keeps its current selection.
+        attr_accessor :payment_method_preselect
         # Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
         attr_accessor :payment_method_remove
         # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
@@ -2647,10 +2665,12 @@ module Stripe
 
         def initialize(
           allow_redisplay_filters: nil,
+          payment_method_preselect: nil,
           payment_method_remove: nil,
           payment_method_save: nil
         )
           @allow_redisplay_filters = allow_redisplay_filters
+          @payment_method_preselect = payment_method_preselect
           @payment_method_remove = payment_method_remove
           @payment_method_save = payment_method_save
         end
@@ -2878,10 +2898,13 @@ module Stripe
 
         class TrialSettings < ::Stripe::RequestParams
           class EndBehavior < ::Stripe::RequestParams
+            # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+            attr_accessor :billing_cycle_anchor
             # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
             attr_accessor :missing_payment_method
 
-            def initialize(missing_payment_method: nil)
+            def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+              @billing_cycle_anchor = billing_cycle_anchor
               @missing_payment_method = missing_payment_method
             end
           end
@@ -2996,6 +3019,12 @@ module Stripe
       attr_accessor :after_expiration
       # Enables user redeemable promotion codes.
       attr_accessor :allow_promotion_codes
+      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+      #
+      # Unlike `payment_method_types`, this acts as a filter on the dynamically computed set of
+      # eligible payment methods rather than an explicit static list. Only payment methods that
+      # are both dynamically eligible and present in this list will be offered to the customer.
+      attr_accessor :allowed_payment_method_types
       # Determines whether the customer's attempt to pay must be manually approved.
       #
       # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
@@ -3123,18 +3152,6 @@ module Stripe
       attr_accessor :payment_method_data
       # Payment-method-specific configuration.
       attr_accessor :payment_method_options
-      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
-      #
-      # You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-      # See [Dynamic Payment Methods](https://docs.stripe.com/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
-      #
-      # Read more about the supported payment methods and their requirements in our [payment
-      # method details guide](/docs/payments/checkout/payment-methods).
-      #
-      # If multiple payment methods are passed, Checkout will dynamically reorder them to
-      # prioritize the most relevant payment methods based on the customer's location and
-      # other characteristics.
-      attr_accessor :payment_method_types
       # This property is used to set up permissions for various actions (e.g., update) on the CheckoutSession object. Can only be set when creating `embedded` or `custom` sessions.
       #
       # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
@@ -3185,6 +3202,7 @@ module Stripe
         adaptive_pricing: nil,
         after_expiration: nil,
         allow_promotion_codes: nil,
+        allowed_payment_method_types: nil,
         approval_method: nil,
         automatic_surcharge: nil,
         automatic_tax: nil,
@@ -3222,7 +3240,6 @@ module Stripe
         payment_method_configuration: nil,
         payment_method_data: nil,
         payment_method_options: nil,
-        payment_method_types: nil,
         permissions: nil,
         phone_number_collection: nil,
         redirect_on_completion: nil,
@@ -3242,6 +3259,7 @@ module Stripe
         @adaptive_pricing = adaptive_pricing
         @after_expiration = after_expiration
         @allow_promotion_codes = allow_promotion_codes
+        @allowed_payment_method_types = allowed_payment_method_types
         @approval_method = approval_method
         @automatic_surcharge = automatic_surcharge
         @automatic_tax = automatic_tax
@@ -3279,7 +3297,6 @@ module Stripe
         @payment_method_configuration = payment_method_configuration
         @payment_method_data = payment_method_data
         @payment_method_options = payment_method_options
-        @payment_method_types = payment_method_types
         @permissions = permissions
         @phone_number_collection = phone_number_collection
         @redirect_on_completion = redirect_on_completion

@@ -60,6 +60,9 @@ module Stripe
           # If applicable, the ID of the Dispute that created this Transaction.
           sig { returns(T.nilable(String)) }
           def dispute; end
+          # If applicable, the ID of the EarnedCredit that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def earned_credit; end
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           sig { returns(T.nilable(String)) }
           def fee_transaction; end

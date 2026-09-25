@@ -7,7 +7,7 @@ module Stripe
     module Core
       class EventDestinationUpdateParams < ::Stripe::RequestParams
         class WebhookEndpoint < ::Stripe::RequestParams
-          # The URL of the webhook endpoint.
+          # The URL where Stripe sends matching events. Live mode requires HTTPS; sandbox mode also supports HTTP.
           sig { returns(String) }
           def url; end
           sig { params(_url: String).returns(String) }
@@ -15,19 +15,19 @@ module Stripe
           sig { params(url: String).void }
           def initialize(url: nil); end
         end
-        # An optional description of what the event destination is used for.
+        # An optional user-defined description of the destination's purpose; it does not control routing.
         sig { returns(T.nilable(String)) }
         def description; end
         sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
         def description=(_description); end
-        # The list of events to enable for this endpoint.
+        # The list of event types enabled for delivery to this destination. Event scopes are configured when the destination is created.
         sig { returns(T.nilable(T::Array[String])) }
         def enabled_events; end
         sig {
           params(_enabled_events: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def enabled_events=(_enabled_events); end
-        # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+        # Include the normally redacted `webhook_endpoint.url` in the response.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -39,12 +39,12 @@ module Stripe
           params(_metadata: T.nilable(T::Hash[String, T.nilable(String)])).returns(T.nilable(T::Hash[String, T.nilable(String)]))
          }
         def metadata=(_metadata); end
-        # Event destination name.
+        # A user-defined label for identifying the destination; it does not control routing.
         sig { returns(T.nilable(String)) }
         def name; end
         sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
         def name=(_name); end
-        # Webhook endpoint configuration.
+        # New delivery target for the webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
         sig {
           returns(T.nilable(::Stripe::V2::Core::EventDestinationUpdateParams::WebhookEndpoint))
          }

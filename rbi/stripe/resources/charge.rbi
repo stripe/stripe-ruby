@@ -978,6 +978,9 @@ module Stripe
         # When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
         sig { returns(T.nilable(Integer)) }
         def capture_before; end
+        # If present, indicates that the Card Account Updater changed the card's credentials during this authorization. `number_changed` means the card number was updated (the expiration date may have changed as well); `expiry_changed` means only the expiration date was updated.
+        sig { returns(T.nilable(String)) }
+        def card_account_update; end
         # Check results by Card networks on Card address and CVC at time of payment.
         sig { returns(T.nilable(Checks)) }
         def checks; end

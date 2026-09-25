@@ -3915,6 +3915,9 @@ module Stripe
         # Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
         sig { returns(T.nilable(String)) }
         def network; end
+        # Indicates whether Stripe may synchronously request a real-time card account update for this confirmation. `if_available` allows the update; `never` opts out. Defaults to `if_available` and is omitted from the response unless explicitly set on this confirmation. This does not affect batch Card Account Updater.
+        sig { returns(T.nilable(String)) }
+        def request_card_account_update; end
         # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
         sig { returns(T.nilable(String)) }
         def request_decremental_authorization; end

@@ -15,6 +15,15 @@ module Stripe
       end
     end
 
+    class Es < ::Stripe::RequestParams
+      # Two-letter Spanish subdivision code (ISO 3166-2).
+      attr_accessor :state
+
+      def initialize(state: nil)
+        @state = state
+      end
+    end
+
     class Us < ::Stripe::RequestParams
       # Two-letter US state code (ISO 3166-2).
       attr_accessor :state
@@ -29,6 +38,8 @@ module Stripe
     attr_accessor :country
     # ISO 8601 date (YYYY-MM-DD) when the exemption becomes effective. Must be no more than one year after today's UTC date (inclusive).
     attr_accessor :effective_date
+    # Spain-specific exemption details. Optional when country is ES; must be absent otherwise.
+    attr_accessor :es
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
     # ISO 8601 date (YYYY-MM-DD) when the exemption expires.
@@ -40,6 +51,7 @@ module Stripe
       ca: nil,
       country: nil,
       effective_date: nil,
+      es: nil,
       expand: nil,
       expiration_date: nil,
       us: nil
@@ -47,6 +59,7 @@ module Stripe
       @ca = ca
       @country = country
       @effective_date = effective_date
+      @es = es
       @expand = expand
       @expiration_date = expiration_date
       @us = us

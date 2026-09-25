@@ -19,6 +19,17 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Es < ::Stripe::StripeObject
+      # Two-letter Spanish subdivision code (ISO 3166-2). Absent for country-wide Spain exemptions.
+      sig { returns(T.nilable(String)) }
+      def state; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Us < ::Stripe::StripeObject
       # Two-letter US state code (ISO 3166-2).
       sig { returns(String) }
@@ -48,6 +59,9 @@ module Stripe
     # ISO 8601 date (YYYY-MM-DD) when the exemption becomes effective.
     sig { returns(String) }
     def effective_date; end
+    # Attribute for field es
+    sig { returns(T.nilable(Es)) }
+    def es; end
     # ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     sig { returns(T.nilable(String)) }
     def expiration_date; end

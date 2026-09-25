@@ -555,6 +555,8 @@ module Stripe
         Events::V2MoneyManagementDebitDisputeSubmittedEvent,
         Events::V2MoneyManagementDebitDisputeSucceededEvent.lookup_type =>
         Events::V2MoneyManagementDebitDisputeSucceededEvent,
+        Events::V2MoneyManagementEarnedCreditSucceededEvent.lookup_type =>
+        Events::V2MoneyManagementEarnedCreditSucceededEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEvent,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEvent.lookup_type =>
@@ -1427,6 +1429,8 @@ module Stripe
         Events::V2MoneyManagementDebitDisputeSubmittedEventNotification,
         Events::V2MoneyManagementDebitDisputeSucceededEventNotification.lookup_type =>
         Events::V2MoneyManagementDebitDisputeSucceededEventNotification,
+        Events::V2MoneyManagementEarnedCreditSucceededEventNotification.lookup_type =>
+        Events::V2MoneyManagementEarnedCreditSucceededEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification.lookup_type =>

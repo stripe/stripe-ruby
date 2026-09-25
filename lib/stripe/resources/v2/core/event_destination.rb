@@ -12,11 +12,11 @@ module Stripe
         end
 
         class AmazonEventbridge < ::Stripe::StripeObject
-          # The AWS account ID.
+          # The AWS account ID that owns the event bus receiving events.
           attr_reader :aws_account_id
-          # The ARN of the AWS event source.
+          # The ARN of the Stripe-created partner event source in your AWS account.
           attr_reader :aws_event_source_arn
-          # The state of the AWS event source.
+          # The AWS-reported lifecycle state of the partner event source.
           attr_reader :aws_event_source_status
 
           def self.inner_class_types
@@ -29,15 +29,15 @@ module Stripe
         end
 
         class AzureEventGrid < ::Stripe::StripeObject
-          # The name of the Azure partner topic.
+          # The name of the Stripe-created partner topic that receives events.
           attr_reader :azure_partner_topic_name
-          # The status of the Azure partner topic.
+          # The Azure-reported lifecycle state of the partner topic.
           attr_reader :azure_partner_topic_status
-          # The Azure region.
+          # The Azure region where the partner topic is located.
           attr_reader :azure_region
-          # The name of the Azure resource group.
+          # The Azure resource group containing the partner topic.
           attr_reader :azure_resource_group_name
-          # The Azure subscription ID.
+          # The Azure subscription containing the resource group and partner topic.
           attr_reader :azure_subscription_id
 
           def self.inner_class_types
@@ -62,7 +62,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Details about why the event destination has been disabled.
+          # Present when the destination was disabled; identifies the cause, time, and provider-side object involved when available.
           attr_reader :disabled
 
           def self.inner_class_types
@@ -75,9 +75,9 @@ module Stripe
         end
 
         class WebhookEndpoint < ::Stripe::StripeObject
-          # The signing secret of the webhook endpoint, only includable on creation.
+          # The secret used to verify Stripe signatures on delivered events. Returned only in the create response when explicitly included; public API clients cannot retrieve it later.
           attr_reader :signing_secret
-          # The URL of the webhook endpoint, includable.
+          # The URL where Stripe sends matching events. Live mode requires HTTPS; sandbox mode also supports HTTP. Returned only when explicitly included.
           attr_reader :url
 
           def self.inner_class_types
@@ -88,17 +88,17 @@ module Stripe
             @field_remappings = {}
           end
         end
-        # Amazon EventBridge configuration.
+        # Configuration for delivering events through an Amazon EventBridge partner event source.
         attr_reader :amazon_eventbridge
-        # Azure Event Grid configuration.
+        # Configuration for delivering events through an Azure Event Grid partner topic.
         attr_reader :azure_event_grid
-        # Time at which the object was created.
+        # The time when the destination was created.
         attr_reader :created
-        # An optional description of what the event destination is used for.
+        # An optional user-defined description of the destination's purpose.
         attr_reader :description
-        # The list of events to enable for this endpoint.
+        # The list of event types enabled for delivery to this destination.
         attr_reader :enabled_events
-        # Payload type of events being subscribed to.
+        # Whether to deliver as snapshot or thin events.
         attr_reader :event_payload
         # Specifies which accounts' events route to this destination.
         # `@self`: Receive events from the account that owns the event destination.
@@ -110,23 +110,23 @@ module Stripe
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
-        # Metadata.
+        # User-defined key/value data for the destination; it has no effect on event matching or delivery.
         attr_reader :metadata
-        # Event destination name.
+        # A user-defined label for identifying the destination in Stripe.
         attr_reader :name
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # If using the snapshot event payload, the API version events are rendered as.
+        # For snapshot events only, the Stripe API version used to render event objects. You can't change this value after you create the event destination. Thin events are not pinned to an API version.
         attr_reader :snapshot_api_version
-        # Status. It can be set to either enabled or disabled.
+        # Whether Stripe currently attempts delivery. Stripe attempts delivery to enabled destinations when their provider configuration is active; disabled destinations do not receive delivery attempts.
         attr_reader :status
-        # Additional information about event destination status.
+        # Additional lifecycle context for the destination status, when available.
         attr_reader :status_details
-        # Event destination type.
+        # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         attr_reader :type
-        # Time at which the object was last updated.
+        # The time when the destination object was last updated.
         attr_reader :updated
-        # Webhook endpoint configuration.
+        # Configuration for delivering events to a webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
         attr_reader :webhook_endpoint
 
         def self.inner_class_types

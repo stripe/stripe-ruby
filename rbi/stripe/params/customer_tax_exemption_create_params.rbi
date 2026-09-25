@@ -18,6 +18,15 @@ module Stripe
       sig { params(state: T.nilable(String), tax_type: String).void }
       def initialize(state: nil, tax_type: nil); end
     end
+    class Es < ::Stripe::RequestParams
+      # Two-letter Spanish subdivision code (ISO 3166-2).
+      sig { returns(String) }
+      def state; end
+      sig { params(_state: String).returns(String) }
+      def state=(_state); end
+      sig { params(state: String).void }
+      def initialize(state: nil); end
+    end
     class Us < ::Stripe::RequestParams
       # Two-letter US state code (ISO 3166-2).
       sig { returns(String) }
@@ -44,6 +53,13 @@ module Stripe
     def effective_date; end
     sig { params(_effective_date: String).returns(String) }
     def effective_date=(_effective_date); end
+    # Spain-specific exemption details. Optional when country is ES; must be absent otherwise.
+    sig { returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es)) }
+    def es; end
+    sig {
+      params(_es: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es)).returns(T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es))
+     }
+    def es=(_es); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
     def expand; end
@@ -62,12 +78,13 @@ module Stripe
      }
     def us=(_us); end
     sig {
-      params(ca: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Ca), country: String, effective_date: String, expand: T.nilable(T::Array[String]), expiration_date: T.nilable(String), us: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Us)).void
+      params(ca: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Ca), country: String, effective_date: String, es: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Es), expand: T.nilable(T::Array[String]), expiration_date: T.nilable(String), us: T.nilable(::Stripe::CustomerTaxExemptionCreateParams::Us)).void
      }
     def initialize(
       ca: nil,
       country: nil,
       effective_date: nil,
+      es: nil,
       expand: nil,
       expiration_date: nil,
       us: nil

@@ -115,6 +115,7 @@ module Stripe
   autoload :TaxService, "stripe/services/tax_service"
   autoload :TerminalService, "stripe/services/terminal_service"
   autoload :TestHelpersService, "stripe/services/test_helpers_service"
+  autoload :ThreeDSecureService, "stripe/services/three_d_secure_service"
   autoload :TokenService, "stripe/services/token_service"
   autoload :TopupService, "stripe/services/topup_service"
   autoload :TransferReversalService, "stripe/services/transfer_reversal_service"
@@ -125,6 +126,7 @@ module Stripe
   autoload :WebhookEndpointService, "stripe/services/webhook_endpoint_service"
 
   module Apps
+    autoload :InstallService, "stripe/services/apps/install_service"
     autoload :SecretService, "stripe/services/apps/secret_service"
   end
 
@@ -239,6 +241,7 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluationService, "stripe/services/radar/account_evaluation_service"
+    autoload :BillingEvaluationService, "stripe/services/radar/billing_evaluation_service"
     autoload :CustomerEvaluationService, "stripe/services/radar/customer_evaluation_service"
     autoload :EarlyFraudWarningService, "stripe/services/radar/early_fraud_warning_service"
     autoload :IssuingAuthorizationEvaluationService, "stripe/services/radar/issuing_authorization_evaluation_service"
@@ -327,6 +330,10 @@ module Stripe
       autoload :ReceivedCreditService, "stripe/services/test_helpers/treasury/received_credit_service"
       autoload :ReceivedDebitService, "stripe/services/test_helpers/treasury/received_debit_service"
     end
+  end
+
+  module ThreeDSecure
+    autoload :AuthenticationService, "stripe/services/three_d_secure/authentication_service"
   end
 
   module Treasury
@@ -495,6 +502,7 @@ module Stripe
       autoload :AdjustmentService, "stripe/services/v2/money_management/adjustment_service"
       autoload :CurrencyConversionService, "stripe/services/v2/money_management/currency_conversion_service"
       autoload :DebitDisputeService, "stripe/services/v2/money_management/debit_dispute_service"
+      autoload :EarnedCreditService, "stripe/services/v2/money_management/earned_credit_service"
       autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
       autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
       autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
@@ -510,7 +518,7 @@ module Stripe
       autoload :ReceivedDebitMandateService, "stripe/services/v2/money_management/received_debit_mandate_service"
       autoload :ReceivedDebitService, "stripe/services/v2/money_management/received_debit_service"
       autoload :RecipientVerificationService, "stripe/services/v2/money_management/recipient_verification_service"
-      autoload :TestHelpersService, "stripe/services/v2/money_management/test_helpers_service"
+      autoload :TestHelperService, "stripe/services/v2/money_management/test_helper_service"
       autoload :TransactionEntryService, "stripe/services/v2/money_management/transaction_entry_service"
       autoload :TransactionService, "stripe/services/v2/money_management/transaction_service"
 
@@ -581,7 +589,6 @@ module Stripe
     end
 
     module TestHelpers
-      autoload :FinancialAddressService, "stripe/services/v2/test_helpers/financial_address_service"
       autoload :MoneyManagementService, "stripe/services/v2/test_helpers/money_management_service"
     end
   end
@@ -602,6 +609,7 @@ module Stripe
     stripe/services/apple_pay_domain_service
     stripe/services/application_fee_refund_service
     stripe/services/application_fee_service
+    stripe/services/apps/install_service
     stripe/services/apps/secret_service
     stripe/services/apps_service
     stripe/services/balance_service
@@ -744,6 +752,7 @@ module Stripe
     stripe/services/quote_preview_subscription_schedule_service
     stripe/services/quote_service
     stripe/services/radar/account_evaluation_service
+    stripe/services/radar/billing_evaluation_service
     stripe/services/radar/customer_evaluation_service
     stripe/services/radar/early_fraud_warning_service
     stripe/services/radar/issuing_authorization_evaluation_service
@@ -818,6 +827,8 @@ module Stripe
     stripe/services/test_helpers/treasury/received_debit_service
     stripe/services/test_helpers/treasury_service
     stripe/services/test_helpers_service
+    stripe/services/three_d_secure/authentication_service
+    stripe/services/three_d_secure_service
     stripe/services/token_service
     stripe/services/topup_service
     stripe/services/transfer_reversal_service
@@ -907,6 +918,7 @@ module Stripe
     stripe/services/v2/money_management/adjustment_service
     stripe/services/v2/money_management/currency_conversion_service
     stripe/services/v2/money_management/debit_dispute_service
+    stripe/services/v2/money_management/earned_credit_service
     stripe/services/v2/money_management/financial_account_service
     stripe/services/v2/money_management/financial_accounts/statement_service
     stripe/services/v2/money_management/financial_accounts/wallet_export_service
@@ -923,8 +935,8 @@ module Stripe
     stripe/services/v2/money_management/received_debit_mandate_service
     stripe/services/v2/money_management/received_debit_service
     stripe/services/v2/money_management/recipient_verification_service
+    stripe/services/v2/money_management/test_helper_service
     stripe/services/v2/money_management/test_helpers/financial_address_service
-    stripe/services/v2/money_management/test_helpers_service
     stripe/services/v2/money_management/transaction_entry_service
     stripe/services/v2/money_management/transaction_service
     stripe/services/v2/money_management_service
@@ -963,7 +975,6 @@ module Stripe
     stripe/services/v2/tax/operation_service
     stripe/services/v2/tax_service
     stripe/services/v2/test_helper_service
-    stripe/services/v2/test_helpers/financial_address_service
     stripe/services/v2/test_helpers/money_management_service
     stripe/services/v2_services
     stripe/services/webhook_endpoint_service

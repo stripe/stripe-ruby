@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Core
       class EventDestinationListParams < ::Stripe::RequestParams
-        # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+        # Include the normally redacted `webhook_endpoint.url` in each returned destination.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
         sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }

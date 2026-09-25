@@ -1574,6 +1574,10 @@ module Stripe
       register("v2.money_management.debit_dispute.succeeded", &callback)
     end
 
+    def on_v2_money_management_earned_credit_succeeded(&callback)
+      register("v2.money_management.earned_credit.succeeded", &callback)
+    end
+
     def on_v2_money_management_financial_account_created(&callback)
       register("v2.money_management.financial_account.created", &callback)
     end

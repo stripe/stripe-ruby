@@ -46,6 +46,9 @@ module Stripe
         # The type of disclaimer to use for a financing offer in user-facing surfaces. The corresponding disclaimer text to use for each disclaimer_variant value can be found in the [regulatory compliance docs](https://docs.stripe.com/capital/regulatory-compliance).
         sig { returns(T.nilable(String)) }
         def disclaimer_variant; end
+        # The ways the connected account can pay toward its financing(s).
+        sig { returns(T.nilable(T::Array[String])) }
+        def enabled_payment_types; end
         # Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         sig { returns(Integer) }
         def fee_amount; end

@@ -9,7 +9,6 @@ module Stripe
         # Archive a PayoutMethod object. Archived objects cannot be used as payout methods
         # and will not appear in the payout method list.
         #
-        # ** raises ControlledByDashboardError
         # ** raises CannotProceedError
         # ** raises InvalidPayoutMethodError
         # ** raises ControlledByAlternateResourceError
@@ -44,7 +43,6 @@ module Stripe
 
         # Unarchive an PayoutMethod object.
         #
-        # ** raises ControlledByDashboardError
         # ** raises InvalidPayoutMethodError
         # ** raises ControlledByAlternateResourceError
         sig {

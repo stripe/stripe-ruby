@@ -1509,6 +1509,14 @@ module Stripe
         @field_remappings = {}
       end
     end
+    class Sequra < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class Shopeepay < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1884,6 +1892,9 @@ module Stripe
     # Attribute for field sepa_debit
     sig { returns(T.nilable(SepaDebit)) }
     def sepa_debit; end
+    # Attribute for field sequra
+    sig { returns(T.nilable(Sequra)) }
+    def sequra; end
     # ID of the shared payment granted token used in the creation of this PaymentMethod.
     sig { returns(T.nilable(String)) }
     def shared_payment_granted_token; end

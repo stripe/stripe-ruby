@@ -24,6 +24,19 @@ module Stripe
       end
     end
 
+    class Es < ::Stripe::StripeObject
+      # Two-letter Spanish subdivision code (ISO 3166-2). Absent for country-wide Spain exemptions.
+      attr_reader :state
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Us < ::Stripe::StripeObject
       # Two-letter US state code (ISO 3166-2).
       attr_reader :state
@@ -48,6 +61,8 @@ module Stripe
     attr_reader :deleted
     # ISO 8601 date (YYYY-MM-DD) when the exemption becomes effective.
     attr_reader :effective_date
+    # Attribute for field es
+    attr_reader :es
     # ISO 8601 date (YYYY-MM-DD) when the exemption expires.
     attr_reader :expiration_date
     # Unique identifier for the object.
@@ -60,7 +75,7 @@ module Stripe
     attr_reader :us
 
     def self.inner_class_types
-      @inner_class_types = { ca: Ca, us: Us }
+      @inner_class_types = { ca: Ca, es: Es, us: Us }
     end
 
     def self.field_remappings

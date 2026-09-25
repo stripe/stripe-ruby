@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Core
       class EventDestinationListParams < ::Stripe::RequestParams
-        # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+        # Include the normally redacted `webhook_endpoint.url` in each returned destination.
         attr_accessor :include
         # The page size.
         attr_accessor :limit

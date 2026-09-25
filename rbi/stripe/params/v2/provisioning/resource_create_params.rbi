@@ -23,7 +23,8 @@ module Stripe
         def environment; end
         sig { params(_environment: T.nilable(String)).returns(T.nilable(String)) }
         def environment=(_environment); end
-        # Whether the resource should use Stripe live-mode objects. When omitted, this resolves to true.
+        # Whether the resource should use Stripe live-mode objects. When omitted, this resolves to false
+        # for a sandbox target and true otherwise. Sandbox targets cannot create live-mode resources.
         sig { returns(T.nilable(T::Boolean)) }
         def livemode; end
         sig { params(_livemode: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }

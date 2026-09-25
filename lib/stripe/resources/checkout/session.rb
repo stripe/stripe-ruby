@@ -1051,6 +1051,8 @@ module Stripe
 
           class TrialSettings < ::Stripe::StripeObject
             class EndBehavior < ::Stripe::StripeObject
+              # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+              attr_reader :billing_cycle_anchor
               # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
               attr_reader :missing_payment_method
 
@@ -2676,6 +2678,8 @@ module Stripe
       class SavedPaymentMethodOptions < ::Stripe::StripeObject
         # Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with ’allow_redisplay: ‘always’ are shown in Checkout.
         attr_reader :allow_redisplay_filters
+        # The ID of a saved payment method to select when the Payment Element renders, for example `pm_1MqLiJLkdIwHu7ixUEgbFdYF`. Takes precedence over the customer's default payment method. If the ID doesn't match one of the payment methods the Element is displaying, the Element selects a payment method as it normally would and no error is returned. Preselecting a payment method never changes which payment methods the Element displays, and never modifies the payment method, the customer, or this session. The preselection is fixed once set. To preselect a different payment method, create a new session. An Element that's already on the page keeps its current selection.
+        attr_reader :payment_method_preselect
         # Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
         attr_reader :payment_method_remove
         # Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
@@ -2986,6 +2990,8 @@ module Stripe
       attr_reader :after_expiration
       # Enables user redeemable promotion codes.
       attr_reader :allow_promotion_codes
+      # A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
+      attr_reader :allowed_payment_method_types
       # Total of all items before discounts or taxes are applied.
       attr_reader :amount_subtotal
       # Total of all items after discounts and taxes are applied.

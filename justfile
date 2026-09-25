@@ -33,11 +33,7 @@ update-certs: install
 
 # run sorbet to check type definitions
 typecheck: install
-    {{ if semver_matches(`ruby -e "puts RUBY_VERSION"`, ">=2.7") == "true" { \
-        "bundle exec srb tc" \
-    } else { \
-        "echo \"Ruby version < 2.7, skipping srb tc\"" \
-    } }}
+    bundle exec srb tc
 
 # called by tooling
 [private]

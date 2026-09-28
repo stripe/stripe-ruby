@@ -135,6 +135,14 @@ module Stripe
           )
         end
 
+        if secret.nil? || secret.empty?
+          raise SignatureVerificationError.new(
+            "No webhook secret value was provided. It should start with " \
+            "`whsec_`",
+            header, http_body: payload
+          )
+        end
+
         expected_sig = compute_signature(timestamp, payload, secret)
         unless signatures.any? { |s| Util.secure_compare(expected_sig, s) }
           raise SignatureVerificationError.new(

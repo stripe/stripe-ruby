@@ -16,7 +16,7 @@ module Stripe
       )
         .returns(::Stripe::V2::Core::EventNotification)
     end
-    def parse_event_notification(payload, sig_header, secret, tolerance: Webhook::DEFAULT_TOLERANCE); end
+    def parse_event_notification(payload, sig_header, secret, tolerance: ::Stripe::Webhook::DEFAULT_TOLERANCE); end
 
     # Constructs a [thin event notification](https://docs.stripe.com/event-destinations#thin-payload) from
     # an incoming webhook without first verifying its authenticity. Should be used after calling

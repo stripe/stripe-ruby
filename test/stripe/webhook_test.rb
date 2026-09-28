@@ -160,6 +160,22 @@ module Stripe
         assert_match("No signatures found matching the expected signature for payload", e.message)
       end
 
+      should "raise a SignatureVerificationError when the secret is an empty string" do
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD)
+        e = assert_raises(Stripe::SignatureVerificationError) do
+          Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, "")
+        end
+        assert_match("No webhook secret value was provided. It should start with `whsec_`", e.message)
+      end
+
+      should "raise a SignatureVerificationError when the secret is nil" do
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD)
+        e = assert_raises(Stripe::SignatureVerificationError) do
+          Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, nil)
+        end
+        assert_match("No webhook secret value was provided. It should start with `whsec_`", e.message)
+      end
+
       should "raise a SignatureVerificationError when the timestamp is not within the tolerance" do
         header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: Time.now - 15)
         e = assert_raises(Stripe::SignatureVerificationError) do

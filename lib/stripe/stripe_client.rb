@@ -126,7 +126,6 @@ module Stripe
       config = @requestor.config
       StripeClient.new(
         config.api_key,
-        stripe_account: config.stripe_account,
         stripe_context: context,
         stripe_version: config.api_version,
         api_base: config.api_base,

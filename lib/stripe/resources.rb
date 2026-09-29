@@ -311,6 +311,7 @@ module Stripe
       autoload :EventReason, "stripe/resources/v2/core/event_notification"
       autoload :EventReasonRequest, "stripe/resources/v2/core/event_notification"
       autoload :RelatedObject, "stripe/resources/v2/core/event_notification"
+      autoload :RelatedSingletonObject, "stripe/resources/v2/core/event_notification"
     end
   end
 end

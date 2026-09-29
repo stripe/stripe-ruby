@@ -16,7 +16,7 @@ module Stripe
   # reversal.
   #
   # Related guide: [Reverse transfers](https://docs.stripe.com/connect/separate-charges-and-transfers#reverse-transfers)
-  class Reversal < APIResource
+  class TransferReversal < APIResource
     # Amount, in cents (or local equivalent).
     sig { returns(Integer) }
     def amount; end

@@ -6848,7 +6848,7 @@ module Stripe
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals get" do
-      reversals = Stripe::Transfer.list_reversals("tr_xxxxxxxxxxxxx", { limit: 3 })
+      transfer_reversals = Stripe::Transfer.list_reversals("tr_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
     end
     should "Test transfers reversals get (service)" do
@@ -6858,11 +6858,11 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      reversals = client.v1.transfers.reversals.list("tr_xxxxxxxxxxxxx", { limit: 3 })
+      transfer_reversals = client.v1.transfers.reversals.list("tr_xxxxxxxxxxxxx", { limit: 3 })
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
     end
     should "Test transfers reversals get 2" do
-      reversal = Stripe::Transfer.retrieve_reversal("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
+      transfer_reversal = Stripe::Transfer.retrieve_reversal("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals get 2 (service)" do
@@ -6872,11 +6872,11 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      reversal = client.v1.transfers.reversals.retrieve("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
+      transfer_reversal = client.v1.transfers.reversals.retrieve("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals post 2" do
-      reversal = Stripe::Transfer.update_reversal(
+      transfer_reversal = Stripe::Transfer.update_reversal(
         "tr_xxxxxxxxxxxxx",
         "trr_xxxxxxxxxxxxx",
         { metadata: { order_id: "6735" } }
@@ -6890,7 +6890,7 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      reversal = client.v1.transfers.reversals.update(
+      transfer_reversal = client.v1.transfers.reversals.update(
         "tr_xxxxxxxxxxxxx",
         "trr_xxxxxxxxxxxxx",
         { metadata: { order_id: "6735" } }

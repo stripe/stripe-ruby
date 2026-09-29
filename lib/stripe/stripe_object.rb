@@ -143,8 +143,8 @@ module Stripe
     # ==== Attributes
     #
     # * +values+ - Hash of values to use to update the current attributes of
-    #   the object. If you are on ruby 2.7 or higher make sure to wrap in curly
-    #   braces to be ruby 3 compatible.
+    #   the object. Make sure to wrap values in curly braces for Ruby 3
+    #   compatibility.
     # * +opts+ - Options for +StripeObject+ like an API key that will be reused
     #   on subsequent API calls.
     #

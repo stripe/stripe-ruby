@@ -46,8 +46,8 @@ module Stripe
         @meter_events_bases = TestMeterEventsBaseService.new(client.instance_variable_get(:@requestor))
       end
 
-      def method_missing(method, *args, &block)
-        @client.send(method, *args, &block)
+      def method_missing(method, ...)
+        @client.send(method, ...)
       end
 
       def respond_to_missing?(method, include_private = false)

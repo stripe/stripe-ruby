@@ -672,13 +672,13 @@ module Stripe
     sig { returns(T.nilable(String)) }
     def receipt_number; end
     # The transfer reversal that's associated with the refund. Only present if the charge came from another Stripe account.
-    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TransferReversal))) }
     def source_transfer_reversal; end
     # Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     sig { returns(T.nilable(String)) }
     def status; end
     # This refers to the transfer reversal object if the accompanying transfer reverses. This is only applicable if the charge was created using the destination parameter.
-    sig { returns(T.nilable(T.any(String, ::Stripe::Reversal))) }
+    sig { returns(T.nilable(T.any(String, ::Stripe::TransferReversal))) }
     def transfer_reversal; end
     # Cancels a refund with a status of requires_action.
     #

@@ -128,27 +128,6 @@ module Stripe
       sig { params(payment_method_reference: T.nilable(String), usage: T.nilable(String)).void }
       def initialize(payment_method_reference: nil, usage: nil); end
     end
-    class Payto < ::Stripe::RequestParams
-      # The account number for the bank account.
-      sig { returns(T.nilable(String)) }
-      def account_number; end
-      sig { params(_account_number: T.nilable(String)).returns(T.nilable(String)) }
-      def account_number=(_account_number); end
-      # Bank-State-Branch number of the bank account.
-      sig { returns(T.nilable(String)) }
-      def bsb_number; end
-      sig { params(_bsb_number: T.nilable(String)).returns(T.nilable(String)) }
-      def bsb_number=(_bsb_number); end
-      # The PayID alias for the bank account.
-      sig { returns(T.nilable(String)) }
-      def pay_id; end
-      sig { params(_pay_id: T.nilable(String)).returns(T.nilable(String)) }
-      def pay_id=(_pay_id); end
-      sig {
-        params(account_number: T.nilable(String), bsb_number: T.nilable(String), pay_id: T.nilable(String)).void
-       }
-      def initialize(account_number: nil, bsb_number: nil, pay_id: nil); end
-    end
     class UsBankAccount < ::Stripe::RequestParams
       # Bank account holder type.
       sig { returns(T.nilable(String)) }
@@ -201,13 +180,6 @@ module Stripe
       params(_metadata: T.nilable(T.any(String, T::Hash[String, String]))).returns(T.nilable(T.any(String, T::Hash[String, String])))
      }
     def metadata=(_metadata); end
-    # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
-    sig { returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Payto)) }
-    def payto; end
-    sig {
-      params(_payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto)).returns(T.nilable(::Stripe::PaymentMethodUpdateParams::Payto))
-     }
-    def payto=(_payto); end
     # If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     sig { returns(T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)) }
     def us_bank_account; end
@@ -216,7 +188,7 @@ module Stripe
      }
     def us_bank_account=(_us_bank_account); end
     sig {
-      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), payto: T.nilable(::Stripe::PaymentMethodUpdateParams::Payto), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).void
+      params(allow_redisplay: T.nilable(String), billing_details: T.nilable(::Stripe::PaymentMethodUpdateParams::BillingDetails), card: T.nilable(::Stripe::PaymentMethodUpdateParams::Card), custom: T.nilable(::Stripe::PaymentMethodUpdateParams::Custom), expand: T.nilable(T::Array[String]), metadata: T.nilable(T.any(String, T::Hash[String, String])), us_bank_account: T.nilable(::Stripe::PaymentMethodUpdateParams::UsBankAccount)).void
      }
     def initialize(
       allow_redisplay: nil,
@@ -225,7 +197,6 @@ module Stripe
       custom: nil,
       expand: nil,
       metadata: nil,
-      payto: nil,
       us_bank_account: nil
     ); end
   end

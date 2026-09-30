@@ -281,6 +281,15 @@ module Stripe
         end
       end
 
+      class BlikRecurringPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class BoletoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -732,6 +741,15 @@ module Stripe
         end
       end
 
+      class SequraPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class ShopeepayPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -912,6 +930,8 @@ module Stripe
       attr_accessor :bizum_payments
       # The blik_payments capability.
       attr_accessor :blik_payments
+      # The blik_recurring_payments capability.
+      attr_accessor :blik_recurring_payments
       # The boleto_payments capability.
       attr_accessor :boleto_payments
       # The card_issuing capability.
@@ -1008,6 +1028,8 @@ module Stripe
       attr_accessor :sepa_bank_transfer_payments
       # The sepa_debit_payments capability.
       attr_accessor :sepa_debit_payments
+      # The sequra_payments capability.
+      attr_accessor :sequra_payments
       # The shopeepay_payments capability.
       attr_accessor :shopeepay_payments
       # The sofort_payments capability.
@@ -1058,6 +1080,7 @@ module Stripe
         billie_payments: nil,
         bizum_payments: nil,
         blik_payments: nil,
+        blik_recurring_payments: nil,
         boleto_payments: nil,
         card_issuing: nil,
         card_payments: nil,
@@ -1106,6 +1129,7 @@ module Stripe
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        sequra_payments: nil,
         shopeepay_payments: nil,
         sofort_payments: nil,
         stripe_balance_payments: nil,
@@ -1138,6 +1162,7 @@ module Stripe
         @billie_payments = billie_payments
         @bizum_payments = bizum_payments
         @blik_payments = blik_payments
+        @blik_recurring_payments = blik_recurring_payments
         @boleto_payments = boleto_payments
         @card_issuing = card_issuing
         @card_payments = card_payments
@@ -1186,6 +1211,7 @@ module Stripe
         @scalapay_payments = scalapay_payments
         @sepa_bank_transfer_payments = sepa_bank_transfer_payments
         @sepa_debit_payments = sepa_debit_payments
+        @sequra_payments = sequra_payments
         @shopeepay_payments = shopeepay_payments
         @sofort_payments = sofort_payments
         @stripe_balance_payments = stripe_balance_payments
@@ -2495,6 +2521,15 @@ module Stripe
         end
       end
 
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        attr_accessor :creditor_id
+
+        def initialize(creditor_id: nil)
+          @creditor_id = creditor_id
+        end
+      end
+
       class SmartDisputes < ::Stripe::RequestParams
         class AutoRespond < ::Stripe::RequestParams
           # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
@@ -2572,6 +2607,8 @@ module Stripe
       attr_accessor :payouts
       # Settings specific to the PayPay payments method.
       attr_accessor :paypay_payments
+      # Settings specific to SEPA Direct Debit payments.
+      attr_accessor :sepa_debit_payments
       # Settings specific to the account's use of Smart Disputes.
       attr_accessor :smart_disputes
       # Settings specific to the account's tax forms.
@@ -2592,6 +2629,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        sepa_debit_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
         treasury: nil,
@@ -2607,6 +2645,7 @@ module Stripe
         @payments = payments
         @payouts = payouts
         @paypay_payments = paypay_payments
+        @sepa_debit_payments = sepa_debit_payments
         @smart_disputes = smart_disputes
         @tax_forms = tax_forms
         @treasury = treasury

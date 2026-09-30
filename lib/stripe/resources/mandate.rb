@@ -151,8 +151,23 @@ module Stripe
       end
 
       class Card < ::Stripe::StripeObject
+        class India < ::Stripe::StripeObject
+          # The reason why the mandate has an `inactive` status. This field is only populated if the mandate is inactive.
+          attr_reader :inactive_reason
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field india
+        attr_reader :india
+
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = { india: India }
         end
 
         def self.field_remappings

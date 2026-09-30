@@ -46,6 +46,8 @@ module Stripe
             attr_reader :debit_dispute
             # If applicable, the ID of the Dispute that created this Transaction.
             attr_reader :dispute
+            # If applicable, the ID of the EarnedCredit that created this Transaction.
+            attr_reader :earned_credit
             # If applicable, the ID of the FeeTransaction that created this Transaction.
             attr_reader :fee_transaction
             # If applicable, the ID of the InboundTransfer that created this Transaction.

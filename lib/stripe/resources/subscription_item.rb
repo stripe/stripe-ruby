@@ -29,11 +29,11 @@ module Stripe
     end
 
     class CurrentTrial < ::Stripe::StripeObject
-      # Attribute for field end_date
+      # The time the current trial ends.
       attr_reader :end_date
-      # Attribute for field start_date
+      # The time the current trial started.
       attr_reader :start_date
-      # Attribute for field trial_offer
+      # The Trial Offer ID applied to the subscription item.
       attr_reader :trial_offer
 
       def self.inner_class_types

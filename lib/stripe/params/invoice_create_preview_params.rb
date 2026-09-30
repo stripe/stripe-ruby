@@ -2027,6 +2027,18 @@ module Stripe
     end
 
     class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingCycleAnchor < ::Stripe::RequestParams
+        # A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+        attr_accessor :timestamp
+        # Determines how the subscription's billing cycle anchor behaves for the invoice preview.
+        attr_accessor :type
+
+        def initialize(timestamp: nil, type: nil)
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.

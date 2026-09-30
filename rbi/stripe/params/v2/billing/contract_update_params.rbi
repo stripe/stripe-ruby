@@ -6,6 +6,148 @@ module Stripe
   module V2
     module Billing
       class ContractUpdateParams < ::Stripe::RequestParams
+        class BillingSettings < ::Stripe::RequestParams
+          class BillSettingsDetails < ::Stripe::RequestParams
+            class Calculation < ::Stripe::RequestParams
+              class Tax < ::Stripe::RequestParams
+                # The type of tax calculation.
+                sig { returns(String) }
+                def type; end
+                sig { params(_type: String).returns(String) }
+                def type=(_type); end
+                sig { params(type: String).void }
+                def initialize(type: nil); end
+              end
+              # Tax calculation settings.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation::Tax))
+               }
+              def tax; end
+              sig {
+                params(_tax: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation::Tax)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation::Tax))
+               }
+              def tax=(_tax); end
+              sig {
+                params(tax: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation::Tax)).void
+               }
+              def initialize(tax: nil); end
+            end
+            class Invoice < ::Stripe::RequestParams
+              class TimeUntilDue < ::Stripe::RequestParams
+                # The interval unit.
+                sig { returns(String) }
+                def interval; end
+                sig { params(_interval: String).returns(String) }
+                def interval=(_interval); end
+                # The number of intervals.
+                sig { returns(Integer) }
+                def interval_count; end
+                sig { params(_interval_count: Integer).returns(Integer) }
+                def interval_count=(_interval_count); end
+                sig { params(interval: String, interval_count: Integer).void }
+                def initialize(interval: nil, interval_count: nil); end
+              end
+              # How long the customer has to pay the invoice before it's past due.
+              sig {
+                returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice::TimeUntilDue))
+               }
+              def time_until_due; end
+              sig {
+                params(_time_until_due: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice::TimeUntilDue)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice::TimeUntilDue))
+               }
+              def time_until_due=(_time_until_due); end
+              sig {
+                params(time_until_due: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice::TimeUntilDue)).void
+               }
+              def initialize(time_until_due: nil); end
+            end
+            # The tax calculation settings to update.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation))
+             }
+            def calculation; end
+            sig {
+              params(_calculation: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation))
+             }
+            def calculation=(_calculation); end
+            # The invoice settings to update.
+            sig {
+              returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice))
+             }
+            def invoice; end
+            sig {
+              params(_invoice: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice))
+             }
+            def invoice=(_invoice); end
+            sig {
+              params(calculation: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Calculation), invoice: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails::Invoice)).void
+             }
+            def initialize(calculation: nil, invoice: nil); end
+          end
+          class BillingProfileDetails < ::Stripe::RequestParams
+            # The default payment method to charge for the contract.
+            sig { returns(T.nilable(String)) }
+            def default_payment_method; end
+            sig { params(_default_payment_method: T.nilable(String)).returns(T.nilable(String)) }
+            def default_payment_method=(_default_payment_method); end
+            sig { params(default_payment_method: T.nilable(String)).void }
+            def initialize(default_payment_method: nil); end
+          end
+          class CollectionSettingsDetails < ::Stripe::RequestParams
+            # How payment is collected for the contract. An omitted value leaves the
+            # collection method unchanged.
+            sig { returns(T.nilable(String)) }
+            def collection_method; end
+            sig { params(_collection_method: T.nilable(String)).returns(T.nilable(String)) }
+            def collection_method=(_collection_method); end
+            # The payment method configuration.
+            sig { returns(T.nilable(String)) }
+            def payment_method_configuration; end
+            sig {
+              params(_payment_method_configuration: T.nilable(String)).returns(T.nilable(String))
+             }
+            def payment_method_configuration=(_payment_method_configuration); end
+            sig {
+              params(collection_method: T.nilable(String), payment_method_configuration: T.nilable(String)).void
+             }
+            def initialize(collection_method: nil, payment_method_configuration: nil); end
+          end
+          # The bill settings to update (tax calculation type and/or invoice time until due).
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails))
+           }
+          def bill_settings_details; end
+          sig {
+            params(_bill_settings_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails))
+           }
+          def bill_settings_details=(_bill_settings_details); end
+          # The billing profile details to update.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillingProfileDetails))
+           }
+          def billing_profile_details; end
+          sig {
+            params(_billing_profile_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillingProfileDetails)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillingProfileDetails))
+           }
+          def billing_profile_details=(_billing_profile_details); end
+          # The collection settings details to update on the contract.
+          sig {
+            returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::CollectionSettingsDetails))
+           }
+          def collection_settings_details; end
+          sig {
+            params(_collection_settings_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::CollectionSettingsDetails)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::CollectionSettingsDetails))
+           }
+          def collection_settings_details=(_collection_settings_details); end
+          sig {
+            params(bill_settings_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillSettingsDetails), billing_profile_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::BillingProfileDetails), collection_settings_details: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings::CollectionSettingsDetails)).void
+           }
+          def initialize(
+            bill_settings_details: nil,
+            billing_profile_details: nil,
+            collection_settings_details: nil
+          ); end
+        end
         class OneTimeFeeAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class BillAt < ::Stripe::RequestParams
@@ -202,13 +344,18 @@ module Stripe
                     def initialize(timestamp: nil, type: nil); end
                   end
                   class OverwritePrice < ::Stripe::RequestParams
-                    # The per-unit amount to be charged, represented as a decimal string in minor currency units.
-                    sig { returns(T.nilable(String)) }
+                    # The per-unit amount to be charged in minor currency units.
+                    sig { returns(T.nilable(BigDecimal)) }
                     def unit_amount; end
-                    sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
+                    sig {
+                      params(_unit_amount: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+                     }
                     def unit_amount=(_unit_amount); end
-                    sig { params(unit_amount: T.nilable(String)).void }
+                    sig { params(unit_amount: T.nilable(BigDecimal)).void }
                     def initialize(unit_amount: nil); end
+                    def self.field_encodings
+                      @field_encodings = {unit_amount: :decimal_string}
+                    end
                   end
                   class StartsAt < ::Stripe::RequestParams
                     # The timestamp when the item starts. Required if `type` is `timestamp`.
@@ -285,6 +432,11 @@ module Stripe
                     starts_at: nil,
                     type: nil
                   ); end
+                  def self.field_encodings
+                    @field_encodings = {
+                      overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                    }
+                  end
                 end
                 class QuantityChange < ::Stripe::RequestParams
                   class EffectiveAt < ::Stripe::RequestParams
@@ -353,6 +505,15 @@ module Stripe
                 def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil); end
                 def self.field_encodings
                   @field_encodings = {
+                    pricing_overrides: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: {kind: :object, fields: {set: :decimal_string}},
@@ -383,6 +544,18 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_overrides: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            overwrite_price: {
+                              kind: :object,
+                              fields: {unit_amount: :decimal_string},
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: {kind: :object, fields: {set: :decimal_string}},
@@ -463,6 +636,18 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
+                        pricing_overrides: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: {unit_amount: :decimal_string},
+                              },
+                            },
+                          },
+                        },
                         quantity_changes: {
                           kind: :array,
                           element: {kind: :object, fields: {set: :decimal_string}},
@@ -517,13 +702,18 @@ module Stripe
                       def initialize(timestamp: nil, type: nil); end
                     end
                     class OverwritePrice < ::Stripe::RequestParams
-                      # The per-unit amount to be charged, represented as a decimal string in minor currency units.
-                      sig { returns(T.nilable(String)) }
+                      # The per-unit amount to be charged in minor currency units.
+                      sig { returns(T.nilable(BigDecimal)) }
                       def unit_amount; end
-                      sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
+                      sig {
+                        params(_unit_amount: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+                       }
                       def unit_amount=(_unit_amount); end
-                      sig { params(unit_amount: T.nilable(String)).void }
+                      sig { params(unit_amount: T.nilable(BigDecimal)).void }
                       def initialize(unit_amount: nil); end
+                      def self.field_encodings
+                        @field_encodings = {unit_amount: :decimal_string}
+                      end
                     end
                     class StartsAt < ::Stripe::RequestParams
                       # The timestamp when the pricing starts.
@@ -600,6 +790,11 @@ module Stripe
                       starts_at: nil,
                       type: nil
                     ); end
+                    def self.field_encodings
+                      @field_encodings = {
+                        overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                      }
+                    end
                   end
                   class Remove < ::Stripe::RequestParams
                     # The id of the pricing override to remove.
@@ -726,6 +921,16 @@ module Stripe
                     params(add: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Add), remove: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Remove), type: String, update: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction::Update::Pricing::PriceDetails::PricingOverrideAction::Update)).void
                    }
                   def initialize(add: nil, remove: nil, type: nil, update: nil); end
+                  def self.field_encodings
+                    @field_encodings = {
+                      add: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                        },
+                      },
+                    }
+                  end
                 end
                 class QuantityChange < ::Stripe::RequestParams
                   class EffectiveAt < ::Stripe::RequestParams
@@ -788,6 +993,23 @@ module Stripe
                 def initialize(pricing_override_actions: nil, quantity_changes: nil); end
                 def self.field_encodings
                   @field_encodings = {
+                    pricing_override_actions: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          add: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: {unit_amount: :decimal_string},
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: {kind: :object, fields: {set: :decimal_string}},
@@ -813,6 +1035,23 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_override_actions: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            add: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: {unit_amount: :decimal_string},
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: {kind: :object, fields: {set: :decimal_string}},
@@ -887,6 +1126,23 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
+                        pricing_override_actions: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              add: {
+                                kind: :object,
+                                fields: {
+                                  overwrite_price: {
+                                    kind: :object,
+                                    fields: {unit_amount: :decimal_string},
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
                         quantity_changes: {
                           kind: :array,
                           element: {kind: :object, fields: {set: :decimal_string}},
@@ -945,6 +1201,18 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_overrides: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: {unit_amount: :decimal_string},
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: {kind: :object, fields: {set: :decimal_string}},
@@ -964,6 +1232,23 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_override_actions: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                add: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: {unit_amount: :decimal_string},
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: {kind: :object, fields: {set: :decimal_string}},
@@ -1243,6 +1528,13 @@ module Stripe
            }
           def initialize(add: nil, remove: nil, type: nil, update: nil); end
         end
+        # The billing settings to update on the contract.
+        sig { returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings)) }
+        def billing_settings; end
+        sig {
+          params(_billing_settings: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings)).returns(T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings))
+         }
+        def billing_settings=(_billing_settings); end
         # Additional fields to include in the response.
         sig { returns(T.nilable(T::Array[String])) }
         def include; end
@@ -1283,9 +1575,10 @@ module Stripe
          }
         def pricing_override_actions=(_pricing_override_actions); end
         sig {
-          params(include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), one_time_fee_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
+          params(billing_settings: T.nilable(::Stripe::V2::Billing::ContractUpdateParams::BillingSettings), include: T.nilable(T::Array[String]), metadata: T.nilable(T::Hash[String, T.nilable(String)]), one_time_fee_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::OneTimeFeeAction]), pricing_line_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingLineAction]), pricing_override_actions: T.nilable(T::Array[::Stripe::V2::Billing::ContractUpdateParams::PricingOverrideAction])).void
          }
         def initialize(
+          billing_settings: nil,
           include: nil,
           metadata: nil,
           one_time_fee_actions: nil,
@@ -1308,6 +1601,18 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
+                              pricing_overrides: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: {unit_amount: :decimal_string},
+                                    },
+                                  },
+                                },
+                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: {kind: :object, fields: {set: :decimal_string}},
@@ -1327,6 +1632,23 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
+                              pricing_override_actions: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    add: {
+                                      kind: :object,
+                                      fields: {
+                                        overwrite_price: {
+                                          kind: :object,
+                                          fields: {unit_amount: :decimal_string},
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: {kind: :object, fields: {set: :decimal_string}},

@@ -366,7 +366,7 @@ module Stripe
         class Settings < ::Stripe::RequestParams
           class BillFor < ::Stripe::RequestParams
             class OutstandingUsageThrough < ::Stripe::RequestParams
-              # Determines whether to collect metered usage accrued up to the pause date.
+              # Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
               sig { returns(T.nilable(String)) }
               def type; end
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -375,7 +375,7 @@ module Stripe
               def initialize(type: nil); end
             end
             class UnusedTimeFrom < ::Stripe::RequestParams
-              # Determines which point in the billing period unused time is credited from.
+              # Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
               sig { returns(T.nilable(String)) }
               def type; end
               sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
@@ -415,7 +415,7 @@ module Stripe
             params(_bill_for: T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause::Settings::BillFor)).returns(T.nilable(::Stripe::SubscriptionScheduleCreateParams::PauseSchedule::Pause::Settings::BillFor))
            }
           def bill_for=(_bill_for); end
-          # Determines whether to generate an invoice for outstanding amounts when pausing.
+          # Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
           sig { returns(T.nilable(String)) }
           def invoicing_behavior; end
           sig { params(_invoicing_behavior: T.nilable(String)).returns(T.nilable(String)) }
@@ -492,17 +492,17 @@ module Stripe
           def initialize(duration: nil, timestamp: nil, type: nil); end
         end
         class Settings < ::Stripe::RequestParams
-          # Controls the billing cycle anchor when the subscription resumes.
+          # Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
           sig { returns(T.nilable(String)) }
           def billing_cycle_anchor; end
           sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
           def billing_cycle_anchor=(_billing_cycle_anchor); end
-          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
           sig { returns(T.nilable(String)) }
           def payment_behavior; end
           sig { params(_payment_behavior: T.nilable(String)).returns(T.nilable(String)) }
           def payment_behavior=(_payment_behavior); end
-          # Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+          # Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
           sig { returns(T.nilable(String)) }
           def proration_behavior; end
           sig { params(_proration_behavior: T.nilable(String)).returns(T.nilable(String)) }

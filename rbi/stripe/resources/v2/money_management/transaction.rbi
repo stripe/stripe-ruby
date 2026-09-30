@@ -60,6 +60,9 @@ module Stripe
           # If applicable, the ID of the Dispute that created this Transaction.
           sig { returns(T.nilable(String)) }
           def dispute; end
+          # If applicable, the ID of the EarnedCredit that created this Transaction.
+          sig { returns(T.nilable(String)) }
+          def earned_credit; end
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           sig { returns(T.nilable(String)) }
           def fee_transaction; end
@@ -145,6 +148,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class RegulatoryReceipt < ::Stripe::StripeObject
+          # Current availability of the regulatory receipt.
+          sig { returns(String) }
+          def status; end
+          # Hosted URL for the receipt.
+          sig { returns(T.nilable(String)) }
+          def url; end
+          # Time until which `url` is valid.
+          sig { returns(T.nilable(String)) }
+          def url_expires_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class StatusTransitions < ::Stripe::StripeObject
           # The time at which the Transaction became posted. Only present if status == posted.
           sig { returns(T.nilable(String)) }
@@ -198,6 +218,9 @@ module Stripe
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end
+        # Hosted transaction receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. If not applicable, `regulatory_receipt.status` will be `not_applicable` and no URL will be provided.
+        sig { returns(RegulatoryReceipt) }
+        def regulatory_receipt; end
         # Closed Enum. Current status of the Transaction.
         # A Transaction is `pending` if either `balance_impact.inbound_pending` or `balance_impact.outbound_pending` is non-zero.
         # A Transaction is `posted` if only `balance_impact.available` is non-zero.

@@ -140,11 +140,123 @@ module Stripe
       end
 
       class Us1099K < ::Stripe::StripeObject
+        class CardNotPresentTransactions < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class MonthlyVolume < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class PaymentTransactionsCount < ::Stripe::StripeObject
+          # The effective number of transactions.
+          attr_reader :count
+          # The signed adjustment included in the effective count. Only present for drafts.
+          attr_reader :delta
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StateIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card_not_present_transactions
+        attr_reader :card_not_present_transactions
+        # Attribute for field cash_tips
+        attr_reader :cash_tips
+        # The currency of the amounts on the form. Always `usd`.
+        attr_reader :currency
+        # Attribute for field federal_income_tax_withheld
+        attr_reader :federal_income_tax_withheld
+        # The gross amount of payment transactions, as a decimal string in USD.
+        attr_reader :gross_amount_of_transactions_decimal
+        # The gross amounts for each month, ordered from January through December.
+        attr_reader :monthly_volumes
+        # Attribute for field payment_transactions_count
+        attr_reader :payment_transactions_count
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+        # Attribute for field state_income_tax_withheld
+        attr_reader :state_income_tax_withheld
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            card_not_present_transactions: CardNotPresentTransactions,
+            cash_tips: CashTips,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            monthly_volumes: MonthlyVolume,
+            payment_transactions_count: PaymentTransactionsCount,
+            state_income_tax_withheld: StateIncomeTaxWithheld,
+          }
         end
 
         def self.field_remappings
@@ -153,11 +265,323 @@ module Stripe
       end
 
       class Us1099Misc < ::Stripe::StripeObject
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class CropInsuranceProceeds < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class ExcessGoldenParachutePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FishPurchasedForResale < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FishingBoatProceeds < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class GrossProceedsPaidToAnAttorney < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class MedicalAndHealthCarePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class NonqualifiedDeferredCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class OtherIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class OvertimeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Rents < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Royalties < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Section409aDeferrals < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StateIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StateTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class SubstitutePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field cash_tips
+        attr_reader :cash_tips
+        # Attribute for field crop_insurance_proceeds
+        attr_reader :crop_insurance_proceeds
+        # The currency of the amounts on the form. Always `usd`.
+        attr_reader :currency
+        # Whether direct sales of at least $5,000 of consumer products were made for resale.
+        attr_reader :direct_sales_for_resale
+        # Attribute for field excess_golden_parachute_payments
+        attr_reader :excess_golden_parachute_payments
+        # Whether the FATCA filing requirement applies.
+        attr_reader :fatca_filing_required
+        # Attribute for field federal_income_tax_withheld
+        attr_reader :federal_income_tax_withheld
+        # Attribute for field fish_purchased_for_resale
+        attr_reader :fish_purchased_for_resale
+        # Attribute for field fishing_boat_proceeds
+        attr_reader :fishing_boat_proceeds
+        # Attribute for field gross_proceeds_paid_to_an_attorney
+        attr_reader :gross_proceeds_paid_to_an_attorney
+        # Attribute for field medical_and_health_care_payments
+        attr_reader :medical_and_health_care_payments
+        # Attribute for field nonqualified_deferred_compensation
+        attr_reader :nonqualified_deferred_compensation
+        # Attribute for field other_income
+        attr_reader :other_income
+        # Attribute for field overtime_compensation
+        attr_reader :overtime_compensation
+        # Attribute for field rents
+        attr_reader :rents
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+        # Attribute for field royalties
+        attr_reader :royalties
+        # Attribute for field section_409a_deferrals
+        attr_reader :section_409a_deferrals
+        # Attribute for field state_income
+        attr_reader :state_income
+        # Attribute for field state_tax_withheld
+        attr_reader :state_tax_withheld
+        # Attribute for field substitute_payments
+        attr_reader :substitute_payments
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            cash_tips: CashTips,
+            crop_insurance_proceeds: CropInsuranceProceeds,
+            excess_golden_parachute_payments: ExcessGoldenParachutePayments,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            fish_purchased_for_resale: FishPurchasedForResale,
+            fishing_boat_proceeds: FishingBoatProceeds,
+            gross_proceeds_paid_to_an_attorney: GrossProceedsPaidToAnAttorney,
+            medical_and_health_care_payments: MedicalAndHealthCarePayments,
+            nonqualified_deferred_compensation: NonqualifiedDeferredCompensation,
+            other_income: OtherIncome,
+            overtime_compensation: OvertimeCompensation,
+            rents: Rents,
+            royalties: Royalties,
+            section_409a_deferrals: Section409aDeferrals,
+            state_income: StateIncome,
+            state_tax_withheld: StateTaxWithheld,
+            substitute_payments: SubstitutePayments,
+          }
         end
 
         def self.field_remappings
@@ -166,11 +590,125 @@ module Stripe
       end
 
       class Us1099Nec < ::Stripe::StripeObject
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class NonemployeeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class OvertimeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StateIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class StateTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          attr_reader :delta_decimal
+          # The effective amount in the form's currency, as a decimal string.
+          attr_reader :volume_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field cash_tips
+        attr_reader :cash_tips
+        # The currency of the amounts on the form. Always `usd`.
+        attr_reader :currency
+        # Whether direct sales of at least $5,000 of consumer products were made for resale.
+        attr_reader :direct_sales_indicator
+        # Whether the FATCA filing requirement applies.
+        attr_reader :fatca_filing_requirement
+        # Attribute for field federal_income_tax_withheld
+        attr_reader :federal_income_tax_withheld
+        # Attribute for field nonemployee_compensation
+        attr_reader :nonemployee_compensation
+        # Attribute for field overtime_compensation
+        attr_reader :overtime_compensation
         # Year represented by the information reported on the tax form.
         attr_reader :reporting_year
+        # Attribute for field state_income
+        attr_reader :state_income
+        # Attribute for field state_tax_withheld
+        attr_reader :state_tax_withheld
 
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            cash_tips: CashTips,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            nonemployee_compensation: NonemployeeCompensation,
+            overtime_compensation: OvertimeCompensation,
+            state_income: StateIncome,
+            state_tax_withheld: StateTaxWithheld,
+          }
         end
 
         def self.field_remappings
@@ -201,6 +739,8 @@ module Stripe
       attr_reader :object
       # Attribute for field payee
       attr_reader :payee
+      # Whether the tax form is a mutable draft or a finalized form.
+      attr_reader :status
       # The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.
       attr_reader :type
       # Attribute for field us_1099_k

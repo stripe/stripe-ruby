@@ -554,10 +554,13 @@ module Stripe
 
       class TrialSettings < ::Stripe::RequestParams
         class EndBehavior < ::Stripe::RequestParams
+          # Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+          attr_accessor :billing_cycle_anchor
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           attr_accessor :missing_payment_method
 
-          def initialize(missing_payment_method: nil)
+          def initialize(billing_cycle_anchor: nil, missing_payment_method: nil)
+            @billing_cycle_anchor = billing_cycle_anchor
             @missing_payment_method = missing_payment_method
           end
         end
@@ -593,7 +596,7 @@ module Stripe
     class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
-      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :required
 
       def initialize(enabled: nil, required: nil)
@@ -632,9 +635,9 @@ module Stripe
     attr_accessor :billing_address_collection
     # Configure fields to gather active consent from customers.
     attr_accessor :consent_collection
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_fields
-    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_text
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation

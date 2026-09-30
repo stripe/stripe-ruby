@@ -12,6 +12,45 @@ module Stripe
         end
 
         class EstimatedFee < ::Stripe::StripeObject
+          class NetworkFeeDetails < ::Stripe::StripeObject
+            class NetworkOptions < ::Stripe::StripeObject
+              class Ach < ::Stripe::StripeObject
+                # Open Enum. ACH submission timing.
+                attr_reader :submission
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # ACH-specific network fee options.
+              attr_reader :ach
+
+              def self.inner_class_types
+                @inner_class_types = { ach: Ach }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The network associated with the fee.
+            attr_reader :network
+            # Per-network options that affect the fee.
+            attr_reader :network_options
+
+            def self.inner_class_types
+              @inner_class_types = { network_options: NetworkOptions }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class TaxAmount < ::Stripe::StripeObject
             # Currency code.
             attr_reader :currency
@@ -28,13 +67,15 @@ module Stripe
           end
           # The fee amount.
           attr_reader :amount
+          # Details about the network and options associated with this fee. Present when type is network_fee.
+          attr_reader :network_fee_details
           # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
           attr_reader :tax_amount
           # Open Enum. The type of fee.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { tax_amount: TaxAmount }
+            @inner_class_types = { network_fee_details: NetworkFeeDetails, tax_amount: TaxAmount }
           end
 
           def self.field_remappings

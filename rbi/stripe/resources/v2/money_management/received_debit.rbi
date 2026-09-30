@@ -51,6 +51,49 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class NetworkDetails < ::Stripe::StripeObject
+            class Ach < ::Stripe::StripeObject
+              # Additional information included with the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def addenda; end
+              # The entry description supplied by the company that originated the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def originator_company_entry_description; end
+              # The identifier of the company that originated the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def originator_company_id; end
+              # The name of the company that originated the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def originator_company_name; end
+              # The identifier assigned to the receiver of the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def receiver_id_number; end
+              # The name of the receiver of the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def receiver_name; end
+              # Open Enum. The standard entry class code for the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def standard_entry_class_code; end
+              # The trace identifier for the ACH debit.
+              sig { returns(T.nilable(String)) }
+              def trace_id; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # ACH-specific network details.
+            sig { returns(T.nilable(Ach)) }
+            def ach; end
+            def self.inner_class_types
+              @inner_class_types = {ach: Ach}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UsBankAccount < ::Stripe::StripeObject
             # The name of the bank the debit originated from.
             sig { returns(T.nilable(String)) }
@@ -75,6 +118,9 @@ module Stripe
           # Present when the debit was originated via BACS.
           sig { returns(T.nilable(GbBankAccount)) }
           def gb_bank_account; end
+          # Network-specific details about the bank transfer.
+          sig { returns(T.nilable(NetworkDetails)) }
+          def network_details; end
           # Open Enum. Indicates the origin type through which this debit was initiated.
           sig { returns(String) }
           def origin_type; end
@@ -89,7 +135,11 @@ module Stripe
           sig { returns(T.nilable(UsBankAccount)) }
           def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {gb_bank_account: GbBankAccount, us_bank_account: UsBankAccount}
+            @inner_class_types = {
+              gb_bank_account: GbBankAccount,
+              network_details: NetworkDetails,
+              us_bank_account: UsBankAccount,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

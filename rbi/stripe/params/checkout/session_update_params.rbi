@@ -778,7 +778,7 @@ module Stripe
         params(_automatic_tax: T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax)).returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::AutomaticTax))
        }
       def automatic_tax=(_automatic_tax); end
-      # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
+      # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded_page` or `elements` sessions.
       sig { returns(T.nilable(::Stripe::Checkout::SessionUpdateParams::CollectedInformation)) }
       def collected_information; end
       sig {

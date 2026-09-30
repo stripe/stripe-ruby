@@ -36,6 +36,8 @@ module Stripe
       attr_reader :created_by
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       attr_reader :currency
+      # The balance destination to which the released funds are sent.
+      attr_reader :destination
       # Unique identifier for the object.
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.

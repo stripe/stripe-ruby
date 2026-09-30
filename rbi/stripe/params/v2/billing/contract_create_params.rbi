@@ -302,13 +302,16 @@ module Stripe
                   def initialize(timestamp: nil, type: nil); end
                 end
                 class OverwritePrice < ::Stripe::RequestParams
-                  # The per-unit amount to be charged, represented as a decimal string in minor currency units.
-                  sig { returns(T.nilable(String)) }
+                  # The per-unit amount to be charged in minor currency units.
+                  sig { returns(T.nilable(BigDecimal)) }
                   def unit_amount; end
-                  sig { params(_unit_amount: T.nilable(String)).returns(T.nilable(String)) }
+                  sig { params(_unit_amount: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
                   def unit_amount=(_unit_amount); end
-                  sig { params(unit_amount: T.nilable(String)).void }
+                  sig { params(unit_amount: T.nilable(BigDecimal)).void }
                   def initialize(unit_amount: nil); end
+                  def self.field_encodings
+                    @field_encodings = {unit_amount: :decimal_string}
+                  end
                 end
                 class StartsAt < ::Stripe::RequestParams
                   # The timestamp when the item starts. Required if `type` is `timestamp`.
@@ -385,6 +388,11 @@ module Stripe
                   starts_at: nil,
                   type: nil
                 ); end
+                def self.field_encodings
+                  @field_encodings = {
+                    overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                  }
+                end
               end
               class QuantityChange < ::Stripe::RequestParams
                 class EffectiveAt < ::Stripe::RequestParams
@@ -453,6 +461,15 @@ module Stripe
               def initialize(price: nil, pricing_overrides: nil, quantity_changes: nil); end
               def self.field_encodings
                 @field_encodings = {
+                  pricing_overrides: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                      },
+                    },
+                  },
                   quantity_changes: {
                     kind: :array,
                     element: {kind: :object, fields: {set: :decimal_string}},
@@ -483,6 +500,15 @@ module Stripe
                 price_details: {
                   kind: :object,
                   fields: {
+                    pricing_overrides: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: {kind: :object, fields: {unit_amount: :decimal_string}},
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: {kind: :object, fields: {set: :decimal_string}},
@@ -559,6 +585,18 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_overrides: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            overwrite_price: {
+                              kind: :object,
+                              fields: {unit_amount: :decimal_string},
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: {kind: :object, fields: {set: :decimal_string}},
@@ -620,15 +658,18 @@ module Stripe
               params(_criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion])).returns(T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]))
              }
             def criteria=(_criteria); end
-            # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
-            sig { returns(String) }
+            # The multiply_pricing factor. e.g. "0.8" for a 20% reduction.
+            sig { returns(BigDecimal) }
             def factor; end
-            sig { params(_factor: String).returns(String) }
+            sig { params(_factor: BigDecimal).returns(BigDecimal) }
             def factor=(_factor); end
             sig {
-              params(criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]), factor: String).void
+              params(criteria: T.nilable(T::Array[::Stripe::V2::Billing::ContractCreateParams::PricingOverride::MultiplyPricing::Criterion]), factor: BigDecimal).void
              }
             def initialize(criteria: nil, factor: nil); end
+            def self.field_encodings
+              @field_encodings = {factor: :decimal_string}
+            end
           end
           class StartsAt < ::Stripe::RequestParams
             # The timestamp when the item starts. Required if `type` is `timestamp`.
@@ -703,6 +744,11 @@ module Stripe
             starts_at: nil,
             type: nil
           ); end
+          def self.field_encodings
+            @field_encodings = {
+              multiply_pricing: {kind: :object, fields: {factor: :decimal_string}},
+            }
+          end
         end
         # The billing cycle anchor for the contract. If not provided, defaults to the pricing line start time.
         # It is only at the top-level of the contract with no option to override at the pricing line level.
@@ -796,6 +842,18 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_overrides: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: {unit_amount: :decimal_string},
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: {kind: :object, fields: {set: :decimal_string}},
@@ -805,6 +863,13 @@ module Stripe
                     },
                   },
                 },
+              },
+            },
+            pricing_overrides: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: {multiply_pricing: {kind: :object, fields: {factor: :decimal_string}}},
               },
             },
           }

@@ -256,9 +256,6 @@ module Stripe
           # Indicates the strategy for how you want Stripe to retry the payment.
           sig { returns(String) }
           def retry_strategy; end
-          # The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
-          sig { returns(T.nilable(String)) }
-          def retry_until; end
           def self.inner_class_types
             @inner_class_types = {}
           end

@@ -110,7 +110,7 @@ module Stripe
       attr_reader :livemode
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
-      # The status of the Tax `Settings`.
+      # Whether these settings have the information Stripe Tax needs to calculate tax. It doesn't reflect whether your integration is ready to collect tax.
       attr_reader :status
       # Attribute for field status_details
       attr_reader :status_details

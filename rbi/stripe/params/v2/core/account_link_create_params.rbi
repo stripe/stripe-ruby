@@ -31,11 +31,6 @@ module Stripe
               params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions))
              }
             def collection_options=(_collection_options); end
-            # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
-            sig { params(_configurations: T::Array[String]).returns(T::Array[String]) }
-            def configurations=(_configurations); end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
             def refresh_url; end
@@ -47,14 +42,9 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding::CollectionOptions), refresh_url: String, return_url: T.nilable(String)).void
              }
-            def initialize(
-              collection_options: nil,
-              configurations: nil,
-              refresh_url: nil,
-              return_url: nil
-            ); end
+            def initialize(collection_options: nil, refresh_url: nil, return_url: nil); end
           end
           class AccountUpdate < ::Stripe::RequestParams
             class CollectionOptions < ::Stripe::RequestParams
@@ -80,11 +70,6 @@ module Stripe
               params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions))
              }
             def collection_options=(_collection_options); end
-            # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
-            sig { params(_configurations: T::Array[String]).returns(T::Array[String]) }
-            def configurations=(_configurations); end
             # The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
             sig { returns(String) }
             def refresh_url; end
@@ -96,14 +81,9 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate::CollectionOptions), refresh_url: String, return_url: T.nilable(String)).void
              }
-            def initialize(
-              collection_options: nil,
-              configurations: nil,
-              refresh_url: nil,
-              return_url: nil
-            ); end
+            def initialize(collection_options: nil, refresh_url: nil, return_url: nil); end
           end
           class RecipientOnboarding < ::Stripe::RequestParams
             class CollectionOptions < ::Stripe::RequestParams
@@ -129,11 +109,6 @@ module Stripe
               params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding::CollectionOptions))
              }
             def collection_options=(_collection_options); end
-            # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
-            sig { params(_configurations: T::Array[String]).returns(T::Array[String]) }
-            def configurations=(_configurations); end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink's URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
             def refresh_url; end
@@ -145,14 +120,9 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientOnboarding::CollectionOptions), refresh_url: String, return_url: T.nilable(String)).void
              }
-            def initialize(
-              collection_options: nil,
-              configurations: nil,
-              refresh_url: nil,
-              return_url: nil
-            ); end
+            def initialize(collection_options: nil, refresh_url: nil, return_url: nil); end
           end
           class RecipientUpdate < ::Stripe::RequestParams
             class CollectionOptions < ::Stripe::RequestParams
@@ -178,11 +148,6 @@ module Stripe
               params(_collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate::CollectionOptions)).returns(T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate::CollectionOptions))
              }
             def collection_options=(_collection_options); end
-            # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
-            sig { params(_configurations: T::Array[String]).returns(T::Array[String]) }
-            def configurations=(_configurations); end
             # The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
             sig { returns(String) }
             def refresh_url; end
@@ -194,14 +159,9 @@ module Stripe
             sig { params(_return_url: T.nilable(String)).returns(T.nilable(String)) }
             def return_url=(_return_url); end
             sig {
-              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate::CollectionOptions), configurations: T::Array[String], refresh_url: String, return_url: T.nilable(String)).void
+              params(collection_options: T.nilable(::Stripe::V2::Core::AccountLinkCreateParams::UseCase::RecipientUpdate::CollectionOptions), refresh_url: String, return_url: T.nilable(String)).void
              }
-            def initialize(
-              collection_options: nil,
-              configurations: nil,
-              refresh_url: nil,
-              return_url: nil
-            ); end
+            def initialize(collection_options: nil, refresh_url: nil, return_url: nil); end
           end
           # Hash containing configuration options for an Account Link object that onboards a new account.
           sig {
@@ -260,7 +220,9 @@ module Stripe
         def account; end
         sig { params(_account: String).returns(String) }
         def account=(_account); end
-        # The use case of the AccountLink.
+        # Specifies the Stripe-hosted flow for this Account Link. Set `type` and the matching options hash—for example,
+        # `account_onboarding`—to configure the flow, including which Account configurations to collect information for and
+        # any flow-specific collection or redirect options.
         sig { returns(::Stripe::V2::Core::AccountLinkCreateParams::UseCase) }
         def use_case; end
         sig {

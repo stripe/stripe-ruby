@@ -130,33 +130,582 @@ module Stripe
         end
       end
       class Us1099K < ::Stripe::StripeObject
+        class CardNotPresentTransactions < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MonthlyVolume < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class PaymentTransactionsCount < ::Stripe::StripeObject
+          # The effective number of transactions.
+          sig { returns(T.nilable(Integer)) }
+          def count; end
+          # The signed adjustment included in the effective count. Only present for drafts.
+          sig { returns(T.nilable(Integer)) }
+          def delta; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StateIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field card_not_present_transactions
+        sig { returns(T.nilable(CardNotPresentTransactions)) }
+        def card_not_present_transactions; end
+        # Attribute for field cash_tips
+        sig { returns(T.nilable(CashTips)) }
+        def cash_tips; end
+        # The currency of the amounts on the form. Always `usd`.
+        sig { returns(T.nilable(String)) }
+        def currency; end
+        # Attribute for field federal_income_tax_withheld
+        sig { returns(T.nilable(FederalIncomeTaxWithheld)) }
+        def federal_income_tax_withheld; end
+        # The gross amount of payment transactions, as a decimal string in USD.
+        sig { returns(T.nilable(String)) }
+        def gross_amount_of_transactions_decimal; end
+        # The gross amounts for each month, ordered from January through December.
+        sig { returns(T.nilable(T::Array[MonthlyVolume])) }
+        def monthly_volumes; end
+        # Attribute for field payment_transactions_count
+        sig { returns(T.nilable(PaymentTransactionsCount)) }
+        def payment_transactions_count; end
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        # Attribute for field state_income_tax_withheld
+        sig { returns(T.nilable(StateIncomeTaxWithheld)) }
+        def state_income_tax_withheld; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            card_not_present_transactions: CardNotPresentTransactions,
+            cash_tips: CashTips,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            monthly_volumes: MonthlyVolume,
+            payment_transactions_count: PaymentTransactionsCount,
+            state_income_tax_withheld: StateIncomeTaxWithheld,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
         end
       end
       class Us1099Misc < ::Stripe::StripeObject
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class CropInsuranceProceeds < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class ExcessGoldenParachutePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FishPurchasedForResale < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FishingBoatProceeds < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class GrossProceedsPaidToAnAttorney < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class MedicalAndHealthCarePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class NonqualifiedDeferredCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class OtherIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class OvertimeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Rents < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Royalties < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class Section409aDeferrals < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StateIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StateTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class SubstitutePayments < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field cash_tips
+        sig { returns(T.nilable(CashTips)) }
+        def cash_tips; end
+        # Attribute for field crop_insurance_proceeds
+        sig { returns(T.nilable(CropInsuranceProceeds)) }
+        def crop_insurance_proceeds; end
+        # The currency of the amounts on the form. Always `usd`.
+        sig { returns(T.nilable(String)) }
+        def currency; end
+        # Whether direct sales of at least $5,000 of consumer products were made for resale.
+        sig { returns(T.nilable(T::Boolean)) }
+        def direct_sales_for_resale; end
+        # Attribute for field excess_golden_parachute_payments
+        sig { returns(T.nilable(ExcessGoldenParachutePayments)) }
+        def excess_golden_parachute_payments; end
+        # Whether the FATCA filing requirement applies.
+        sig { returns(T.nilable(T::Boolean)) }
+        def fatca_filing_required; end
+        # Attribute for field federal_income_tax_withheld
+        sig { returns(T.nilable(FederalIncomeTaxWithheld)) }
+        def federal_income_tax_withheld; end
+        # Attribute for field fish_purchased_for_resale
+        sig { returns(T.nilable(FishPurchasedForResale)) }
+        def fish_purchased_for_resale; end
+        # Attribute for field fishing_boat_proceeds
+        sig { returns(T.nilable(FishingBoatProceeds)) }
+        def fishing_boat_proceeds; end
+        # Attribute for field gross_proceeds_paid_to_an_attorney
+        sig { returns(T.nilable(GrossProceedsPaidToAnAttorney)) }
+        def gross_proceeds_paid_to_an_attorney; end
+        # Attribute for field medical_and_health_care_payments
+        sig { returns(T.nilable(MedicalAndHealthCarePayments)) }
+        def medical_and_health_care_payments; end
+        # Attribute for field nonqualified_deferred_compensation
+        sig { returns(T.nilable(NonqualifiedDeferredCompensation)) }
+        def nonqualified_deferred_compensation; end
+        # Attribute for field other_income
+        sig { returns(T.nilable(OtherIncome)) }
+        def other_income; end
+        # Attribute for field overtime_compensation
+        sig { returns(T.nilable(OvertimeCompensation)) }
+        def overtime_compensation; end
+        # Attribute for field rents
+        sig { returns(T.nilable(Rents)) }
+        def rents; end
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        # Attribute for field royalties
+        sig { returns(T.nilable(Royalties)) }
+        def royalties; end
+        # Attribute for field section_409a_deferrals
+        sig { returns(T.nilable(Section409aDeferrals)) }
+        def section_409a_deferrals; end
+        # Attribute for field state_income
+        sig { returns(T.nilable(StateIncome)) }
+        def state_income; end
+        # Attribute for field state_tax_withheld
+        sig { returns(T.nilable(StateTaxWithheld)) }
+        def state_tax_withheld; end
+        # Attribute for field substitute_payments
+        sig { returns(T.nilable(SubstitutePayments)) }
+        def substitute_payments; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            cash_tips: CashTips,
+            crop_insurance_proceeds: CropInsuranceProceeds,
+            excess_golden_parachute_payments: ExcessGoldenParachutePayments,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            fish_purchased_for_resale: FishPurchasedForResale,
+            fishing_boat_proceeds: FishingBoatProceeds,
+            gross_proceeds_paid_to_an_attorney: GrossProceedsPaidToAnAttorney,
+            medical_and_health_care_payments: MedicalAndHealthCarePayments,
+            nonqualified_deferred_compensation: NonqualifiedDeferredCompensation,
+            other_income: OtherIncome,
+            overtime_compensation: OvertimeCompensation,
+            rents: Rents,
+            royalties: Royalties,
+            section_409a_deferrals: Section409aDeferrals,
+            state_income: StateIncome,
+            state_tax_withheld: StateTaxWithheld,
+            substitute_payments: SubstitutePayments,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
         end
       end
       class Us1099Nec < ::Stripe::StripeObject
+        class CashTips < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FederalIncomeTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class NonemployeeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class OvertimeCompensation < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StateIncome < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class StateTaxWithheld < ::Stripe::StripeObject
+          # The signed adjustment included in the effective amount, as a decimal string. Only present for drafts.
+          sig { returns(T.nilable(String)) }
+          def delta_decimal; end
+          # The effective amount in the form's currency, as a decimal string.
+          sig { returns(T.nilable(String)) }
+          def volume_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Attribute for field cash_tips
+        sig { returns(T.nilable(CashTips)) }
+        def cash_tips; end
+        # The currency of the amounts on the form. Always `usd`.
+        sig { returns(T.nilable(String)) }
+        def currency; end
+        # Whether direct sales of at least $5,000 of consumer products were made for resale.
+        sig { returns(T.nilable(T::Boolean)) }
+        def direct_sales_indicator; end
+        # Whether the FATCA filing requirement applies.
+        sig { returns(T.nilable(T::Boolean)) }
+        def fatca_filing_requirement; end
+        # Attribute for field federal_income_tax_withheld
+        sig { returns(T.nilable(FederalIncomeTaxWithheld)) }
+        def federal_income_tax_withheld; end
+        # Attribute for field nonemployee_compensation
+        sig { returns(T.nilable(NonemployeeCompensation)) }
+        def nonemployee_compensation; end
+        # Attribute for field overtime_compensation
+        sig { returns(T.nilable(OvertimeCompensation)) }
+        def overtime_compensation; end
         # Year represented by the information reported on the tax form.
         sig { returns(Integer) }
         def reporting_year; end
+        # Attribute for field state_income
+        sig { returns(T.nilable(StateIncome)) }
+        def state_income; end
+        # Attribute for field state_tax_withheld
+        sig { returns(T.nilable(StateTaxWithheld)) }
+        def state_tax_withheld; end
         def self.inner_class_types
-          @inner_class_types = {}
+          @inner_class_types = {
+            cash_tips: CashTips,
+            federal_income_tax_withheld: FederalIncomeTaxWithheld,
+            nonemployee_compensation: NonemployeeCompensation,
+            overtime_compensation: OvertimeCompensation,
+            state_income: StateIncome,
+            state_tax_withheld: StateTaxWithheld,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -198,6 +747,9 @@ module Stripe
       # Attribute for field payee
       sig { returns(Payee) }
       def payee; end
+      # Whether the tax form is a mutable draft or a finalized form.
+      sig { returns(T.nilable(String)) }
+      def status; end
       # The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.
       sig { returns(String) }
       def type; end

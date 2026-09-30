@@ -128,8 +128,6 @@ module Stripe
           attr_reader :effective_at
           # A unique ID for the HistoryEntry.
           attr_reader :id
-          # Open Enum. The Level of the HistoryEntry.
-          attr_reader :level
           # Open Enum. The type of the HistoryEntry.
           attr_reader :type
 
@@ -163,6 +161,8 @@ module Stripe
         attr_reader :object
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
         attr_reader :receipt_url
+        # The statement descriptor surfaced on the payer's bank statement. Echoes the submitted value.
+        attr_reader :statement_descriptor
         # A nested object containing information about the destination of the InboundTransfer.
         attr_reader :to
         # A list of history objects, representing changes in the state of the InboundTransfer. The most recent entry's type indicates the current status of the InboundTransfer.

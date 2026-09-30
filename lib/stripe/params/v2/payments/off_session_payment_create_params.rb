@@ -173,8 +173,6 @@ module Stripe
           end
 
           class Card < ::Stripe::RequestParams
-            # The card CVC.
-            attr_accessor :cvc
             # The card expiration month.
             attr_accessor :exp_month
             # The card expiration year.
@@ -182,8 +180,7 @@ module Stripe
             # The card number.
             attr_accessor :number
 
-            def initialize(cvc: nil, exp_month: nil, exp_year: nil, number: nil)
-              @cvc = cvc
+            def initialize(exp_month: nil, exp_year: nil, number: nil)
               @exp_month = exp_month
               @exp_year = exp_year
               @number = number

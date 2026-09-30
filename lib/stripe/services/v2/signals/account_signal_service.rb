@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Signals
       class AccountSignalService < StripeService
-        # Lists the latest AccountSignals for a given account or customer, filtered by signal type. Note that this endpoint returns only the latest signal for each requested signal type.
+        # Lists AccountSignals for a given account or customer. Signals more than 90 days old are omitted. Returns only the latest AccountSignal for each requested signal type.
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -16,7 +16,7 @@ module Stripe
           )
         end
 
-        # Retrieves an AccountSignal by its ID.
+        # Retrieves an AccountSignal by its ID for up to 90 days after creation. Signals more than 90 days old are inaccessible.
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

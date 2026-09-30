@@ -744,7 +744,7 @@ module Stripe
       attr_reader :current_deadline
       # Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
       attr_reader :currently_due
-      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+      # This is typed as an enum for consistency with `requirements.disabled_reason`.
       attr_reader :disabled_reason
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors
@@ -829,7 +829,7 @@ module Stripe
       attr_reader :current_deadline
       # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       attr_reader :currently_due
-      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       attr_reader :disabled_reason
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
       attr_reader :errors

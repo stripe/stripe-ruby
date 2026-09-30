@@ -10,7 +10,7 @@ module Stripe
       def customer; end
       sig { params(_customer: T.nilable(String)).returns(T.nilable(String)) }
       def customer=(_customer); end
-      # The customer's phone number.
+      # The customer's email address.
       sig { returns(T.nilable(String)) }
       def email; end
       sig { params(_email: T.nilable(String)).returns(T.nilable(String)) }

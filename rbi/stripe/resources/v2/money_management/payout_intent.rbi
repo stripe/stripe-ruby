@@ -8,6 +8,42 @@ module Stripe
       # PayoutIntent represents an intent to send funds from a Financial Account to a payout method.
       class PayoutIntent < APIResource
         class EstimatedFee < ::Stripe::StripeObject
+          class NetworkFeeDetails < ::Stripe::StripeObject
+            class NetworkOptions < ::Stripe::StripeObject
+              class Ach < ::Stripe::StripeObject
+                # Open Enum. ACH submission timing.
+                sig { returns(T.nilable(String)) }
+                def submission; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # ACH-specific network fee options.
+              sig { returns(T.nilable(Ach)) }
+              def ach; end
+              def self.inner_class_types
+                @inner_class_types = {ach: Ach}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The network associated with the fee.
+            sig { returns(String) }
+            def network; end
+            # Per-network options that affect the fee.
+            sig { returns(NetworkOptions) }
+            def network_options; end
+            def self.inner_class_types
+              @inner_class_types = {network_options: NetworkOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class TaxAmount < ::Stripe::StripeObject
             # Currency code.
             sig { returns(String) }
@@ -25,6 +61,9 @@ module Stripe
           # The fee amount.
           sig { returns(::Stripe::V2::Amount) }
           def amount; end
+          # Details about the network and options associated with this fee. Present when type is network_fee.
+          sig { returns(T.nilable(NetworkFeeDetails)) }
+          def network_fee_details; end
           # Tax charged for this fee, if applicable. Value expressed as a decimal string in major units.
           sig { returns(T.nilable(TaxAmount)) }
           def tax_amount; end
@@ -32,7 +71,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {tax_amount: TaxAmount}
+            @inner_class_types = {network_fee_details: NetworkFeeDetails, tax_amount: TaxAmount}
           end
           def self.field_remappings
             @field_remappings = {}

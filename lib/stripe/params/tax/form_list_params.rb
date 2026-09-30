@@ -28,6 +28,8 @@ module Stripe
       attr_accessor :payee
       # A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
       attr_accessor :starting_after
+      # Filter forms by draft or finalized status.
+      attr_accessor :status
       # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
       attr_accessor :type
 
@@ -37,6 +39,7 @@ module Stripe
         limit: nil,
         payee: nil,
         starting_after: nil,
+        status: nil,
         type: nil
       )
         @ending_before = ending_before
@@ -44,6 +47,7 @@ module Stripe
         @limit = limit
         @payee = payee
         @starting_after = starting_after
+        @status = status
         @type = type
       end
     end

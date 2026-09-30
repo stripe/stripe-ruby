@@ -11,7 +11,7 @@ module Stripe
         attr_accessor :chain
         # The cryptocurrency held in the wallet.
         attr_accessor :currency
-        # The type of wallet (standard or bridge_wallet).
+        # The type of crypto wallet.
         attr_accessor :type
 
         def initialize(address: nil, chain: nil, currency: nil, type: nil)

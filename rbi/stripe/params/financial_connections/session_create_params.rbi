@@ -39,11 +39,11 @@ module Stripe
           params(_account_subcategories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def account_subcategories=(_account_subcategories); end
-        # List of countries from which to filter accounts.
-        sig { returns(T.nilable(T::Array[String])) }
-        def countries; end
-        sig { params(_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def countries=(_countries); end
+        # Country from which to collect accounts.
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
         # Stripe ID of the institution with which the customer should be directed to log in.
         sig { returns(T.nilable(String)) }
         def institution; end
@@ -57,11 +57,11 @@ module Stripe
          }
         def require_payment_method_support=(_require_payment_method_support); end
         sig {
-          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), institution: T.nilable(String), require_payment_method_support: T.nilable(String)).void
+          params(account_subcategories: T.nilable(T::Array[String]), country: T.nilable(String), institution: T.nilable(String), require_payment_method_support: T.nilable(String)).void
          }
         def initialize(
           account_subcategories: nil,
-          countries: nil,
+          country: nil,
           institution: nil,
           require_payment_method_support: nil
         ); end

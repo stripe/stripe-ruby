@@ -30,6 +30,15 @@ module Stripe
          }
         def retrieve(id, params = {}, opts = {}); end
 
+        # Reveals the current provider-issued access configuration for a completed Resource.
+        # This is a read-only disclosure: it does not create, refresh, mint, or rotate credentials.
+        # Repeated calls are safe and do not require an idempotency key, but can return a newer
+        # configuration after a separate Rotate operation completes.
+        sig {
+          params(id: String, params: T.any(::Stripe::V2::Provisioning::ResourceRevealAccessConfigurationParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Provisioning::ResourceAccessConfiguration)
+         }
+        def reveal_access_configuration(id, params = {}, opts = {}); end
+
         # Rotates a resource's credentials.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Provisioning::ResourceRotateCredentialsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Provisioning::Resource)

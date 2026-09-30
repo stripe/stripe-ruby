@@ -5,6 +5,94 @@ module Stripe
   module V2
     module Billing
       class ContractUpdateParams < ::Stripe::RequestParams
+        class BillingSettings < ::Stripe::RequestParams
+          class BillSettingsDetails < ::Stripe::RequestParams
+            class Calculation < ::Stripe::RequestParams
+              class Tax < ::Stripe::RequestParams
+                # The type of tax calculation.
+                attr_accessor :type
+
+                def initialize(type: nil)
+                  @type = type
+                end
+              end
+              # Tax calculation settings.
+              attr_accessor :tax
+
+              def initialize(tax: nil)
+                @tax = tax
+              end
+            end
+
+            class Invoice < ::Stripe::RequestParams
+              class TimeUntilDue < ::Stripe::RequestParams
+                # The interval unit.
+                attr_accessor :interval
+                # The number of intervals.
+                attr_accessor :interval_count
+
+                def initialize(interval: nil, interval_count: nil)
+                  @interval = interval
+                  @interval_count = interval_count
+                end
+              end
+              # How long the customer has to pay the invoice before it's past due.
+              attr_accessor :time_until_due
+
+              def initialize(time_until_due: nil)
+                @time_until_due = time_until_due
+              end
+            end
+            # The tax calculation settings to update.
+            attr_accessor :calculation
+            # The invoice settings to update.
+            attr_accessor :invoice
+
+            def initialize(calculation: nil, invoice: nil)
+              @calculation = calculation
+              @invoice = invoice
+            end
+          end
+
+          class BillingProfileDetails < ::Stripe::RequestParams
+            # The default payment method to charge for the contract.
+            attr_accessor :default_payment_method
+
+            def initialize(default_payment_method: nil)
+              @default_payment_method = default_payment_method
+            end
+          end
+
+          class CollectionSettingsDetails < ::Stripe::RequestParams
+            # How payment is collected for the contract. An omitted value leaves the
+            # collection method unchanged.
+            attr_accessor :collection_method
+            # The payment method configuration.
+            attr_accessor :payment_method_configuration
+
+            def initialize(collection_method: nil, payment_method_configuration: nil)
+              @collection_method = collection_method
+              @payment_method_configuration = payment_method_configuration
+            end
+          end
+          # The bill settings to update (tax calculation type and/or invoice time until due).
+          attr_accessor :bill_settings_details
+          # The billing profile details to update.
+          attr_accessor :billing_profile_details
+          # The collection settings details to update on the contract.
+          attr_accessor :collection_settings_details
+
+          def initialize(
+            bill_settings_details: nil,
+            billing_profile_details: nil,
+            collection_settings_details: nil
+          )
+            @bill_settings_details = bill_settings_details
+            @billing_profile_details = billing_profile_details
+            @collection_settings_details = collection_settings_details
+          end
+        end
+
         class OneTimeFeeAction < ::Stripe::RequestParams
           class Add < ::Stripe::RequestParams
             class BillAt < ::Stripe::RequestParams
@@ -128,11 +216,15 @@ module Stripe
                   end
 
                   class OverwritePrice < ::Stripe::RequestParams
-                    # The per-unit amount to be charged, represented as a decimal string in minor currency units.
+                    # The per-unit amount to be charged in minor currency units.
                     attr_accessor :unit_amount
 
                     def initialize(unit_amount: nil)
                       @unit_amount = unit_amount
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = { unit_amount: :decimal_string }
                     end
                   end
 
@@ -179,6 +271,12 @@ module Stripe
                     @starts_at = starts_at
                     @type = type
                   end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                    }
+                  end
                 end
 
                 class QuantityChange < ::Stripe::RequestParams
@@ -223,6 +321,15 @@ module Stripe
 
                 def self.field_encodings
                   @field_encodings = {
+                    pricing_overrides: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -245,6 +352,18 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_overrides: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            overwrite_price: {
+                              kind: :object,
+                              fields: { unit_amount: :decimal_string },
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -299,6 +418,18 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
+                        pricing_overrides: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: { unit_amount: :decimal_string },
+                              },
+                            },
+                          },
+                        },
                         quantity_changes: {
                           kind: :array,
                           element: { kind: :object, fields: { set: :decimal_string } },
@@ -350,11 +481,15 @@ module Stripe
                     end
 
                     class OverwritePrice < ::Stripe::RequestParams
-                      # The per-unit amount to be charged, represented as a decimal string in minor currency units.
+                      # The per-unit amount to be charged in minor currency units.
                       attr_accessor :unit_amount
 
                       def initialize(unit_amount: nil)
                         @unit_amount = unit_amount
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = { unit_amount: :decimal_string }
                       end
                     end
 
@@ -400,6 +535,12 @@ module Stripe
                       @priority = priority
                       @starts_at = starts_at
                       @type = type
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                      }
                     end
                   end
 
@@ -479,6 +620,17 @@ module Stripe
                     @type = type
                     @update = update
                   end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      add: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                        },
+                      },
+                    }
+                  end
                 end
 
                 class QuantityChange < ::Stripe::RequestParams
@@ -519,6 +671,23 @@ module Stripe
 
                 def self.field_encodings
                   @field_encodings = {
+                    pricing_override_actions: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          add: {
+                            kind: :object,
+                            fields: {
+                              overwrite_price: {
+                                kind: :object,
+                                fields: { unit_amount: :decimal_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -538,6 +707,23 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_override_actions: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            add: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: { unit_amount: :decimal_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -586,6 +772,23 @@ module Stripe
                     price_details: {
                       kind: :object,
                       fields: {
+                        pricing_override_actions: {
+                          kind: :array,
+                          element: {
+                            kind: :object,
+                            fields: {
+                              add: {
+                                kind: :object,
+                                fields: {
+                                  overwrite_price: {
+                                    kind: :object,
+                                    fields: { unit_amount: :decimal_string },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
                         quantity_changes: {
                           kind: :array,
                           element: { kind: :object, fields: { set: :decimal_string } },
@@ -624,6 +827,18 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_overrides: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: { unit_amount: :decimal_string },
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },
@@ -643,6 +858,23 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_override_actions: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                add: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: { unit_amount: :decimal_string },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },
@@ -820,6 +1052,8 @@ module Stripe
             @update = update
           end
         end
+        # The billing settings to update on the contract.
+        attr_accessor :billing_settings
         # Additional fields to include in the response.
         attr_accessor :include
         # Set of key-value pairs.
@@ -832,12 +1066,14 @@ module Stripe
         attr_accessor :pricing_override_actions
 
         def initialize(
+          billing_settings: nil,
           include: nil,
           metadata: nil,
           one_time_fee_actions: nil,
           pricing_line_actions: nil,
           pricing_override_actions: nil
         )
+          @billing_settings = billing_settings
           @include = include
           @metadata = metadata
           @one_time_fee_actions = one_time_fee_actions
@@ -861,6 +1097,18 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
+                              pricing_overrides: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    overwrite_price: {
+                                      kind: :object,
+                                      fields: { unit_amount: :decimal_string },
+                                    },
+                                  },
+                                },
+                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: { kind: :object, fields: { set: :decimal_string } },
@@ -880,6 +1128,23 @@ module Stripe
                           price_details: {
                             kind: :object,
                             fields: {
+                              pricing_override_actions: {
+                                kind: :array,
+                                element: {
+                                  kind: :object,
+                                  fields: {
+                                    add: {
+                                      kind: :object,
+                                      fields: {
+                                        overwrite_price: {
+                                          kind: :object,
+                                          fields: { unit_amount: :decimal_string },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                               quantity_changes: {
                                 kind: :array,
                                 element: { kind: :object, fields: { set: :decimal_string } },

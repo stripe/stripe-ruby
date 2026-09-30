@@ -3,6 +3,17 @@
 
 module Stripe
   class SubscriptionResumeParams < ::Stripe::RequestParams
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # A Unix timestamp within the inclusive bounds of the subscription's current billing period. For subscriptions with multiple items, it must fall within the intersection of their current billing periods. Only valid when `type` is `timestamp`.
+      attr_accessor :timestamp
+      # Determines how the billing cycle anchor changes when the subscription resumes.
+      attr_accessor :type
+
+      def initialize(timestamp: nil, type: nil)
+        @timestamp = timestamp
+        @type = type
+      end
+    end
     # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # Specifies which fields in the response should be expanded.

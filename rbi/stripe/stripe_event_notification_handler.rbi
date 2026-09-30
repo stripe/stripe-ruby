@@ -2098,6 +2098,54 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataQueryRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_query_run_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataQueryRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_query_run_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataQueryRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_query_run_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataQueryRunUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_query_run_updated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_report_run_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportRunFailedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_report_run_failed(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportRunSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_report_run_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportRunUpdatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_data_report_run_updated(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2DataReportingQueryRunCreatedEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_data_reporting_query_run_created(&blk);
@@ -2239,6 +2287,12 @@ module Stripe
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementDebitDisputeSucceededEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_debit_dispute_succeeded(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementEarnedCreditSucceededEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_earned_credit_succeeded(&blk);
     end
     
     sig do

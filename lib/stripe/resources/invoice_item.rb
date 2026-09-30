@@ -21,6 +21,19 @@ module Stripe
       "invoiceitem"
     end
 
+    class InvoicingRule < ::Stripe::StripeObject
+      # The type of invoicing rule.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class ManagedPayments < ::Stripe::StripeObject
       # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
       attr_reader :enabled
@@ -316,6 +329,8 @@ module Stripe
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
     attr_reader :invoice
+    # The rules that control when this invoice item is eligible for invoicing. All rules must be satisfied for the item to be invoiced.
+    attr_reader :invoicing_rules
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Attribute for field managed_payments
@@ -389,6 +404,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        invoicing_rules: InvoicingRule,
         managed_payments: ManagedPayments,
         parent: Parent,
         period: Period,

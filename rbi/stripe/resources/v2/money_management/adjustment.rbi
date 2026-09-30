@@ -26,7 +26,7 @@ module Stripe
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           sig { returns(T.nilable(String)) }
           def received_debit; end
-          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
+          # Open Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
           sig { returns(String) }
           def type; end
           def self.inner_class_types

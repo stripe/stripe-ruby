@@ -2039,6 +2039,9 @@ module Stripe
         # The ACH payment reference for this transaction.
         sig { returns(T.nilable(String)) }
         def payment_reference; end
+        # NACHA ACH return code for a failed US bank account payment.
+        sig { returns(T.nilable(String)) }
+        def return_code; end
         # The routing number for the bank account.
         sig { returns(T.nilable(String)) }
         def routing_number; end

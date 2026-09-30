@@ -22,6 +22,12 @@ module Stripe
         params(id: String, params: T.any(::Stripe::ProductCatalog::TrialOfferRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
        }
       def retrieve(id, params = {}, opts = {}); end
+
+      # Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+      sig {
+        params(id: String, params: T.any(::Stripe::ProductCatalog::TrialOfferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
+       }
+      def update(id, params = {}, opts = {}); end
     end
   end
 end

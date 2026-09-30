@@ -1478,6 +1478,38 @@ module Stripe
       register("v2.core.vault.network_token.suspended", &callback)
     end
 
+    def on_v2_data_query_run_created(&callback)
+      register("v2.data.query_run.created", &callback)
+    end
+
+    def on_v2_data_query_run_failed(&callback)
+      register("v2.data.query_run.failed", &callback)
+    end
+
+    def on_v2_data_query_run_succeeded(&callback)
+      register("v2.data.query_run.succeeded", &callback)
+    end
+
+    def on_v2_data_query_run_updated(&callback)
+      register("v2.data.query_run.updated", &callback)
+    end
+
+    def on_v2_data_report_run_created(&callback)
+      register("v2.data.report_run.created", &callback)
+    end
+
+    def on_v2_data_report_run_failed(&callback)
+      register("v2.data.report_run.failed", &callback)
+    end
+
+    def on_v2_data_report_run_succeeded(&callback)
+      register("v2.data.report_run.succeeded", &callback)
+    end
+
+    def on_v2_data_report_run_updated(&callback)
+      register("v2.data.report_run.updated", &callback)
+    end
+
     def on_v2_data_reporting_query_run_created(&callback)
       register("v2.data.reporting.query_run.created", &callback)
     end
@@ -1572,6 +1604,10 @@ module Stripe
 
     def on_v2_money_management_debit_dispute_succeeded(&callback)
       register("v2.money_management.debit_dispute.succeeded", &callback)
+    end
+
+    def on_v2_money_management_earned_credit_succeeded(&callback)
+      register("v2.money_management.earned_credit.succeeded", &callback)
     end
 
     def on_v2_money_management_financial_account_created(&callback)

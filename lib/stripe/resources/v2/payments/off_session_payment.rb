@@ -261,8 +261,6 @@ module Stripe
           attr_reader :retry_policy
           # Indicates the strategy for how you want Stripe to retry the payment.
           attr_reader :retry_strategy
-          # The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
-          attr_reader :retry_until
 
           def self.inner_class_types
             @inner_class_types = {}

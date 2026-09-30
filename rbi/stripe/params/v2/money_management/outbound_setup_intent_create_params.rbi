@@ -6,6 +6,20 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundSetupIntentCreateParams < ::Stripe::RequestParams
+        class FromResource < ::Stripe::RequestParams
+          # The identifier of the source resource.
+          sig { returns(String) }
+          def id; end
+          sig { params(_id: String).returns(String) }
+          def id=(_id); end
+          # The type of the source resource.
+          sig { returns(String) }
+          def type; end
+          sig { params(_type: String).returns(String) }
+          def type=(_type); end
+          sig { params(id: String, type: String).void }
+          def initialize(id: nil, type: nil); end
+        end
         class PayoutMethodData < ::Stripe::RequestParams
           class ApplePay < ::Stripe::RequestParams
             # The paymentData property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web) as a UTF-8 encoded serialization of a JSON dictionary.
@@ -167,6 +181,15 @@ module Stripe
             type: nil
           ); end
         end
+        # An existing resource to use as the source for setting up outbound credentials.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::FromResource))
+         }
+        def from_resource; end
+        sig {
+          params(_from_resource: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::FromResource)).returns(T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::FromResource))
+         }
+        def from_resource=(_from_resource); end
         # If provided, the existing payout method resource to link to this setup intent.
         # Any payout_method_data provided is used to update information on this linked payout method resource.
         sig { returns(T.nilable(String)) }
@@ -190,9 +213,14 @@ module Stripe
         sig { params(_usage_intent: T.nilable(String)).returns(T.nilable(String)) }
         def usage_intent=(_usage_intent); end
         sig {
-          params(payout_method: T.nilable(String), payout_method_data: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData), usage_intent: T.nilable(String)).void
+          params(from_resource: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::FromResource), payout_method: T.nilable(String), payout_method_data: T.nilable(::Stripe::V2::MoneyManagement::OutboundSetupIntentCreateParams::PayoutMethodData), usage_intent: T.nilable(String)).void
          }
-        def initialize(payout_method: nil, payout_method_data: nil, usage_intent: nil); end
+        def initialize(
+          from_resource: nil,
+          payout_method: nil,
+          payout_method_data: nil,
+          usage_intent: nil
+        ); end
       end
     end
   end

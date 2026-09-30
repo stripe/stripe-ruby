@@ -121,9 +121,6 @@ module Stripe
           # A unique ID for the HistoryEntry.
           sig { returns(String) }
           def id; end
-          # Open Enum. The Level of the HistoryEntry.
-          sig { returns(String) }
-          def level; end
           # Open Enum. The type of the HistoryEntry.
           sig { returns(String) }
           def type; end
@@ -164,6 +161,9 @@ module Stripe
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
         sig { returns(T.nilable(String)) }
         def receipt_url; end
+        # The statement descriptor surfaced on the payer's bank statement. Echoes the submitted value.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
         # A nested object containing information about the destination of the InboundTransfer.
         sig { returns(To) }
         def to; end

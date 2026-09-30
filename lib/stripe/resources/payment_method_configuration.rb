@@ -1700,6 +1700,37 @@ module Stripe
       end
     end
 
+    class Sequra < ::Stripe::StripeObject
+      class DisplayPreference < ::Stripe::StripeObject
+        # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+        attr_reader :overridable
+        # The account's display preference.
+        attr_reader :preference
+        # The effective display preference value.
+        attr_reader :value
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      # Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+      attr_reader :available
+      # Attribute for field display_preference
+      attr_reader :display_preference
+
+      def self.inner_class_types
+        @inner_class_types = { display_preference: DisplayPreference }
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Shopeepay < ::Stripe::StripeObject
       class DisplayPreference < ::Stripe::StripeObject
         # For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
@@ -2133,6 +2164,8 @@ module Stripe
     attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
+    # Attribute for field sequra
+    attr_reader :sequra
     # Attribute for field shopeepay
     attr_reader :shopeepay
     # Attribute for field sofort
@@ -2240,6 +2273,7 @@ module Stripe
         satispay: Satispay,
         scalapay: Scalapay,
         sepa_debit: SepaDebit,
+        sequra: Sequra,
         shopeepay: Shopeepay,
         sofort: Sofort,
         sunbit: Sunbit,

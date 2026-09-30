@@ -298,9 +298,29 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class DepositInsuranceEligibility < ::Stripe::StripeObject
+            # The bank where funds are stored.
+            sig { returns(String) }
+            def bank_name; end
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            sig { returns(T::Array[String]) }
+            def currencies; end
+            # The deposit insurance scheme.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
           sig { returns(T.nilable(Crypto)) }
           def crypto; end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          sig { returns(T.nilable(T::Array[DepositInsuranceEligibility])) }
+          def deposit_insurance_eligibility; end
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           sig { returns(T.nilable(String)) }
           def funds_usage_type; end
@@ -308,7 +328,10 @@ module Stripe
           sig { returns(T::Array[String]) }
           def holds_currencies; end
           def self.inner_class_types
-            @inner_class_types = {crypto: Crypto}
+            @inner_class_types = {
+              crypto: Crypto,
+              deposit_insurance_eligibility: DepositInsuranceEligibility,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

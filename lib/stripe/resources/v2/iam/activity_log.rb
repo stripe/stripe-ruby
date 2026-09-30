@@ -54,6 +54,57 @@ module Stripe
         end
 
         class Details < ::Stripe::StripeObject
+          class AccountSecurity < ::Stripe::StripeObject
+            class NewAnomalySettings < ::Stripe::StripeObject
+              # Whether dormant API key protection is enabled.
+              attr_reader :dormant_api_key_protection_enabled
+              # Whether money movement anomaly detection is enabled.
+              attr_reader :money_movement_anomaly_detection_enabled
+              # Whether request-level anomaly detection is enabled.
+              attr_reader :request_level_anomaly_detection_enabled
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+
+            class OldAnomalySettings < ::Stripe::StripeObject
+              # Whether dormant API key protection is enabled.
+              attr_reader :dormant_api_key_protection_enabled
+              # Whether money movement anomaly detection is enabled.
+              attr_reader :money_movement_anomaly_detection_enabled
+              # Whether request-level anomaly detection is enabled.
+              attr_reader :request_level_anomaly_detection_enabled
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Anomaly detection settings after the change.
+            attr_reader :new_anomaly_settings
+            # Anomaly detection settings before the change.
+            attr_reader :old_anomaly_settings
+
+            def self.inner_class_types
+              @inner_class_types = {
+                new_anomaly_settings: NewAnomalySettings,
+                old_anomaly_settings: OldAnomalySettings,
+              }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class ApiKey < ::Stripe::StripeObject
             class ManagedBy < ::Stripe::StripeObject
               class Application < ::Stripe::StripeObject
@@ -102,6 +153,59 @@ module Stripe
 
             def self.inner_class_types
               @inner_class_types = { managed_by: ManagedBy }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Authentication < ::Stripe::StripeObject
+            # Backup email address involved in the authentication.
+            attr_reader :backup_email
+            # Type of challenge used for the authentication.
+            attr_reader :challenge_type
+            # Surface where the authentication occurred.
+            attr_reader :surface
+            # Target email address involved in the authentication.
+            attr_reader :target_email
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Scim < ::Stripe::StripeObject
+            # Name of the SCIM group.
+            attr_reader :group_name
+            # Group roles after the change; only set for the group roles-updated action (scim_group_roles_updated).
+            attr_reader :new_roles
+            # Group roles before the change; only set for the group roles-updated action (scim_group_roles_updated).
+            attr_reader :old_roles
+            # The context the roles were assigned in.
+            attr_reader :role_assigned_context
+            # Email address of the affected member.
+            attr_reader :user_email
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Sso < ::Stripe::StripeObject
+            # SSO enforcement level.
+            attr_reader :mandate
+
+            def self.inner_class_types
+              @inner_class_types = {}
             end
 
             def self.field_remappings
@@ -278,6 +382,25 @@ module Stripe
             end
           end
 
+          class UserProfile < ::Stripe::StripeObject
+            # Email address after the change.
+            attr_reader :new_email
+            # Redacted phone number after the change.
+            attr_reader :new_redacted_phone_number
+            # Email address before the change.
+            attr_reader :old_email
+            # Redacted phone number before the change.
+            attr_reader :old_redacted_phone_number
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UserRoles < ::Stripe::StripeObject
             # Roles the user has after the change.
             attr_reader :new_roles
@@ -296,24 +419,67 @@ module Stripe
               @field_remappings = {}
             end
           end
+          # Details of an account security action.
+          attr_reader :account_security
           # Details of an API key action.
           attr_reader :api_key
+          # Details of an authentication action.
+          attr_reader :authentication
+          # Details of a SCIM action.
+          attr_reader :scim
+          # Details of an SSO action.
+          attr_reader :sso
           # The action group type of the activity log entry.
           attr_reader :type
           # Details of a user access action.
           attr_reader :user_access
           # Details of a user invite action.
           attr_reader :user_invite
+          # Details of a user profile action.
+          attr_reader :user_profile
           # Details of a user role change action.
           attr_reader :user_roles
 
           def self.inner_class_types
             @inner_class_types = {
+              account_security: AccountSecurity,
               api_key: ApiKey,
+              authentication: Authentication,
+              scim: Scim,
+              sso: Sso,
               user_access: UserAccess,
               user_invite: UserInvite,
+              user_profile: UserProfile,
               user_roles: UserRoles,
             }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class RelatedObject < ::Stripe::StripeObject
+          # Unique identifier of the object.
+          attr_reader :id
+          # Type of the object.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
+        class Request < ::Stripe::StripeObject
+          # ID of the API request.
+          attr_reader :id
+
+          def self.inner_class_types
+            @inner_class_types = {}
           end
 
           def self.field_remappings
@@ -334,11 +500,20 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # The object related to the activity log entry.
+        attr_reader :related_object
+        # The API request that instigated the action.
+        attr_reader :request
         # The type of action that was performed.
         attr_reader :type
 
         def self.inner_class_types
-          @inner_class_types = { actor: Actor, details: Details }
+          @inner_class_types = {
+            actor: Actor,
+            details: Details,
+            related_object: RelatedObject,
+            request: Request,
+          }
         end
 
         def self.field_remappings

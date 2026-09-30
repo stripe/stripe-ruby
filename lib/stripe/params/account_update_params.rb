@@ -281,6 +281,15 @@ module Stripe
         end
       end
 
+      class BlikRecurringPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class BoletoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -732,6 +741,15 @@ module Stripe
         end
       end
 
+      class SequraPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        attr_accessor :requested
+
+        def initialize(requested: nil)
+          @requested = requested
+        end
+      end
+
       class ShopeepayPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         attr_accessor :requested
@@ -912,6 +930,8 @@ module Stripe
       attr_accessor :bizum_payments
       # The blik_payments capability.
       attr_accessor :blik_payments
+      # The blik_recurring_payments capability.
+      attr_accessor :blik_recurring_payments
       # The boleto_payments capability.
       attr_accessor :boleto_payments
       # The card_issuing capability.
@@ -1008,6 +1028,8 @@ module Stripe
       attr_accessor :sepa_bank_transfer_payments
       # The sepa_debit_payments capability.
       attr_accessor :sepa_debit_payments
+      # The sequra_payments capability.
+      attr_accessor :sequra_payments
       # The shopeepay_payments capability.
       attr_accessor :shopeepay_payments
       # The sofort_payments capability.
@@ -1058,6 +1080,7 @@ module Stripe
         billie_payments: nil,
         bizum_payments: nil,
         blik_payments: nil,
+        blik_recurring_payments: nil,
         boleto_payments: nil,
         card_issuing: nil,
         card_payments: nil,
@@ -1106,6 +1129,7 @@ module Stripe
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        sequra_payments: nil,
         shopeepay_payments: nil,
         sofort_payments: nil,
         stripe_balance_payments: nil,
@@ -1138,6 +1162,7 @@ module Stripe
         @billie_payments = billie_payments
         @bizum_payments = bizum_payments
         @blik_payments = blik_payments
+        @blik_recurring_payments = blik_recurring_payments
         @boleto_payments = boleto_payments
         @card_issuing = card_issuing
         @card_payments = card_payments
@@ -1186,6 +1211,7 @@ module Stripe
         @scalapay_payments = scalapay_payments
         @sepa_bank_transfer_payments = sepa_bank_transfer_payments
         @sepa_debit_payments = sepa_debit_payments
+        @sequra_payments = sequra_payments
         @shopeepay_payments = shopeepay_payments
         @sofort_payments = sofort_payments
         @stripe_balance_payments = stripe_balance_payments

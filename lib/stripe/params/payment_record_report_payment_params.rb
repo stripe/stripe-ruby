@@ -33,7 +33,7 @@ module Stripe
     class CustomerDetails < ::Stripe::RequestParams
       # The customer who made the payment.
       attr_accessor :customer
-      # The customer's phone number.
+      # The customer's email address.
       attr_accessor :email
       # The customer's name.
       attr_accessor :name

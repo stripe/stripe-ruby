@@ -78,7 +78,6 @@ module Stripe
   autoload :QuotePreviewSubscriptionSchedule, "stripe/resources/quote_preview_subscription_schedule"
   autoload :Refund, "stripe/resources/refund"
   autoload :ReserveTransaction, "stripe/resources/reserve_transaction"
-  autoload :Reversal, "stripe/resources/reversal"
   autoload :Review, "stripe/resources/review"
   autoload :RiskSignals, "stripe/resources/risk_signals"
   autoload :SetupAttempt, "stripe/resources/setup_attempt"
@@ -98,6 +97,7 @@ module Stripe
   autoload :Token, "stripe/resources/token"
   autoload :Topup, "stripe/resources/topup"
   autoload :Transfer, "stripe/resources/transfer"
+  autoload :TransferReversal, "stripe/resources/transfer_reversal"
   autoload :TransitBalance, "stripe/resources/transit_balance"
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
@@ -1072,6 +1072,14 @@ module Stripe
     autoload :V2CoreVaultNetworkTokenSuspendedEvent, "stripe/events/v2_core_vault_network_token_suspended_event"
     autoload :V2CoreVaultNetworkTokenSuspendedEventNotification,
              "stripe/events/v2_core_vault_network_token_suspended_event"
+    autoload :V2DataQueryRunCreatedEvent, "stripe/events/v2_data_query_run_created_event"
+    autoload :V2DataQueryRunCreatedEventNotification, "stripe/events/v2_data_query_run_created_event"
+    autoload :V2DataQueryRunFailedEvent, "stripe/events/v2_data_query_run_failed_event"
+    autoload :V2DataQueryRunFailedEventNotification, "stripe/events/v2_data_query_run_failed_event"
+    autoload :V2DataQueryRunSucceededEvent, "stripe/events/v2_data_query_run_succeeded_event"
+    autoload :V2DataQueryRunSucceededEventNotification, "stripe/events/v2_data_query_run_succeeded_event"
+    autoload :V2DataQueryRunUpdatedEvent, "stripe/events/v2_data_query_run_updated_event"
+    autoload :V2DataQueryRunUpdatedEventNotification, "stripe/events/v2_data_query_run_updated_event"
     autoload :V2DataReportingQueryRunCreatedEvent, "stripe/events/v2_data_reporting_query_run_created_event"
     autoload :V2DataReportingQueryRunCreatedEventNotification, "stripe/events/v2_data_reporting_query_run_created_event"
     autoload :V2DataReportingQueryRunFailedEvent, "stripe/events/v2_data_reporting_query_run_failed_event"
@@ -1081,6 +1089,14 @@ module Stripe
              "stripe/events/v2_data_reporting_query_run_succeeded_event"
     autoload :V2DataReportingQueryRunUpdatedEvent, "stripe/events/v2_data_reporting_query_run_updated_event"
     autoload :V2DataReportingQueryRunUpdatedEventNotification, "stripe/events/v2_data_reporting_query_run_updated_event"
+    autoload :V2DataReportRunCreatedEvent, "stripe/events/v2_data_report_run_created_event"
+    autoload :V2DataReportRunCreatedEventNotification, "stripe/events/v2_data_report_run_created_event"
+    autoload :V2DataReportRunFailedEvent, "stripe/events/v2_data_report_run_failed_event"
+    autoload :V2DataReportRunFailedEventNotification, "stripe/events/v2_data_report_run_failed_event"
+    autoload :V2DataReportRunSucceededEvent, "stripe/events/v2_data_report_run_succeeded_event"
+    autoload :V2DataReportRunSucceededEventNotification, "stripe/events/v2_data_report_run_succeeded_event"
+    autoload :V2DataReportRunUpdatedEvent, "stripe/events/v2_data_report_run_updated_event"
+    autoload :V2DataReportRunUpdatedEventNotification, "stripe/events/v2_data_report_run_updated_event"
     autoload :V2ExtendExtensionRunFailedEvent, "stripe/events/v2_extend_extension_run_failed_event"
     autoload :V2ExtendExtensionRunFailedEventNotification, "stripe/events/v2_extend_extension_run_failed_event"
     autoload :V2ExtendWorkflowRunFailedEvent, "stripe/events/v2_extend_workflow_run_failed_event"
@@ -1129,6 +1145,10 @@ module Stripe
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
     autoload :V2MoneyManagementDebitDisputeSucceededEventNotification,
              "stripe/events/v2_money_management_debit_dispute_succeeded_event"
+    autoload :V2MoneyManagementEarnedCreditSucceededEvent,
+             "stripe/events/v2_money_management_earned_credit_succeeded_event"
+    autoload :V2MoneyManagementEarnedCreditSucceededEventNotification,
+             "stripe/events/v2_money_management_earned_credit_succeeded_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEvent,
              "stripe/events/v2_money_management_financial_account_created_event"
     autoload :V2MoneyManagementFinancialAccountCreatedEventNotification,
@@ -1530,6 +1550,7 @@ module Stripe
 
   module Radar
     autoload :AccountEvaluation, "stripe/resources/radar/account_evaluation"
+    autoload :BillingEvaluation, "stripe/resources/radar/billing_evaluation"
     autoload :CustomerEvaluation, "stripe/resources/radar/customer_evaluation"
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
@@ -1583,6 +1604,10 @@ module Stripe
     autoload :TestClock, "stripe/resources/test_helpers/test_clock"
   end
 
+  module ThreeDSecure
+    autoload :Authentication, "stripe/resources/three_d_secure/authentication"
+  end
+
   module Treasury
     autoload :CreditReversal, "stripe/resources/treasury/credit_reversal"
     autoload :DebitReversal, "stripe/resources/treasury/debit_reversal"
@@ -1599,8 +1624,6 @@ module Stripe
 
   module V2
     autoload :DeletedObject, "stripe/resources/v2/deleted_object"
-    autoload :FinancialAddressCreditSimulation, "stripe/resources/v2/financial_address_credit_simulation"
-    autoload :FinancialAddressGeneratedMicrodeposits, "stripe/resources/v2/financial_address_generated_microdeposits"
 
     module Billing
       autoload :BillSetting, "stripe/resources/v2/billing/bill_setting"
@@ -1674,6 +1697,11 @@ module Stripe
     end
 
     module Data
+      autoload :QueryRun, "stripe/resources/v2/data/query_run"
+      autoload :Report, "stripe/resources/v2/data/report"
+      autoload :ReportRun, "stripe/resources/v2/data/report_run"
+      autoload :Schema, "stripe/resources/v2/data/schema"
+
       module Analytics
         autoload :MetricQueryResult, "stripe/resources/v2/data/analytics/metric_query_result"
       end
@@ -1697,14 +1725,20 @@ module Stripe
       autoload :Adjustment, "stripe/resources/v2/money_management/adjustment"
       autoload :CurrencyConversion, "stripe/resources/v2/money_management/currency_conversion"
       autoload :DebitDispute, "stripe/resources/v2/money_management/debit_dispute"
+      autoload :EarnedCredit, "stripe/resources/v2/money_management/earned_credit"
+      autoload :EarnedCreditSimulation, "stripe/resources/v2/money_management/earned_credit_simulation"
       autoload :FinancialAccount, "stripe/resources/v2/money_management/financial_account"
       autoload :FinancialAccountStatement, "stripe/resources/v2/money_management/financial_account_statement"
       autoload :FinancialAccountWalletExport, "stripe/resources/v2/money_management/financial_account_wallet_export"
       autoload :FinancialAccountWalletExportCredentials,
                "stripe/resources/v2/money_management/financial_account_wallet_export_credentials"
       autoload :FinancialAddress, "stripe/resources/v2/money_management/financial_address"
+      autoload :FinancialAddressCreditSimulation,
+               "stripe/resources/v2/money_management/financial_address_credit_simulation"
       autoload :FinancialAddressDebitSimulation,
                "stripe/resources/v2/money_management/financial_address_debit_simulation"
+      autoload :FinancialAddressGeneratedMicrodeposits,
+               "stripe/resources/v2/money_management/financial_address_generated_microdeposits"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
       autoload :OutboundPaymentQuote, "stripe/resources/v2/money_management/outbound_payment_quote"
@@ -1745,6 +1779,7 @@ module Stripe
       autoload :ProviderConnectionRequest, "stripe/resources/v2/provisioning/provider_connection_request"
       autoload :ProviderServiceDetail, "stripe/resources/v2/provisioning/provider_service_detail"
       autoload :Resource, "stripe/resources/v2/provisioning/resource"
+      autoload :ResourceAccessConfiguration, "stripe/resources/v2/provisioning/resource_access_configuration"
     end
 
     module Reporting
@@ -1918,6 +1953,7 @@ module Stripe
     stripe/resources/quote_preview_invoice
     stripe/resources/quote_preview_subscription_schedule
     stripe/resources/radar/account_evaluation
+    stripe/resources/radar/billing_evaluation
     stripe/resources/radar/customer_evaluation
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
@@ -1931,7 +1967,6 @@ module Stripe
     stripe/resources/reserve/plan
     stripe/resources/reserve/release
     stripe/resources/reserve_transaction
-    stripe/resources/reversal
     stripe/resources/review
     stripe/resources/risk_signals
     stripe/resources/setup_attempt
@@ -1967,9 +2002,11 @@ module Stripe
     stripe/resources/terminal/reader
     stripe/resources/terminal/reader_collected_data
     stripe/resources/test_helpers/test_clock
+    stripe/resources/three_d_secure/authentication
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer
+    stripe/resources/transfer_reversal
     stripe/resources/transit_balance
     stripe/resources/treasury/credit_reversal
     stripe/resources/treasury/debit_reversal
@@ -2033,23 +2070,29 @@ module Stripe
     stripe/resources/v2/core/vault/network_token
     stripe/resources/v2/core/vault/us_bank_account
     stripe/resources/v2/data/analytics/metric_query_result
+    stripe/resources/v2/data/query_run
+    stripe/resources/v2/data/report
+    stripe/resources/v2/data/report_run
     stripe/resources/v2/data/reporting/query_run
+    stripe/resources/v2/data/schema
     stripe/resources/v2/deleted_object
     stripe/resources/v2/extend/workflow
     stripe/resources/v2/extend/workflow_run
-    stripe/resources/v2/financial_address_credit_simulation
-    stripe/resources/v2/financial_address_generated_microdeposits
     stripe/resources/v2/iam/activity_log
     stripe/resources/v2/iam/api_key
     stripe/resources/v2/money_management/adjustment
     stripe/resources/v2/money_management/currency_conversion
     stripe/resources/v2/money_management/debit_dispute
+    stripe/resources/v2/money_management/earned_credit
+    stripe/resources/v2/money_management/earned_credit_simulation
     stripe/resources/v2/money_management/financial_account
     stripe/resources/v2/money_management/financial_account_statement
     stripe/resources/v2/money_management/financial_account_wallet_export
     stripe/resources/v2/money_management/financial_account_wallet_export_credentials
     stripe/resources/v2/money_management/financial_address
+    stripe/resources/v2/money_management/financial_address_credit_simulation
     stripe/resources/v2/money_management/financial_address_debit_simulation
+    stripe/resources/v2/money_management/financial_address_generated_microdeposits
     stripe/resources/v2/money_management/inbound_transfer
     stripe/resources/v2/money_management/outbound_payment
     stripe/resources/v2/money_management/outbound_payment_quote
@@ -2078,6 +2121,7 @@ module Stripe
     stripe/resources/v2/provisioning/provider_connection_request
     stripe/resources/v2/provisioning/provider_service_detail
     stripe/resources/v2/provisioning/resource
+    stripe/resources/v2/provisioning/resource_access_configuration
     stripe/resources/v2/reporting/report
     stripe/resources/v2/reporting/report_run
     stripe/resources/v2/risk/inquiry
@@ -2435,6 +2479,14 @@ module Stripe
     stripe/events/v2_core_vault_network_token_deactivated_event
     stripe/events/v2_core_vault_network_token_details_updated_event
     stripe/events/v2_core_vault_network_token_suspended_event
+    stripe/events/v2_data_query_run_created_event
+    stripe/events/v2_data_query_run_failed_event
+    stripe/events/v2_data_query_run_succeeded_event
+    stripe/events/v2_data_query_run_updated_event
+    stripe/events/v2_data_report_run_created_event
+    stripe/events/v2_data_report_run_failed_event
+    stripe/events/v2_data_report_run_succeeded_event
+    stripe/events/v2_data_report_run_updated_event
     stripe/events/v2_data_reporting_query_run_created_event
     stripe/events/v2_data_reporting_query_run_failed_event
     stripe/events/v2_data_reporting_query_run_succeeded_event
@@ -2459,6 +2511,7 @@ module Stripe
     stripe/events/v2_money_management_debit_dispute_failed_event
     stripe/events/v2_money_management_debit_dispute_submitted_event
     stripe/events/v2_money_management_debit_dispute_succeeded_event
+    stripe/events/v2_money_management_earned_credit_succeeded_event
     stripe/events/v2_money_management_financial_account_created_event
     stripe/events/v2_money_management_financial_account_statement_created_event
     stripe/events/v2_money_management_financial_account_statement_restated_event

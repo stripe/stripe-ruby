@@ -314,15 +314,37 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class DepositInsuranceEligibility < ::Stripe::StripeObject
+            # The bank where funds are stored.
+            attr_reader :bank_name
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            attr_reader :currencies
+            # The deposit insurance scheme.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Crypto-specific storage configuration. Only populated when `storage.crypto` is passed in the `include` parameter and the FinancialAccount stores crypto assets. Fiat currencies remain configured only through `holds_currencies`.
           attr_reader :crypto
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          attr_reader :deposit_insurance_eligibility
           # The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
           attr_reader :funds_usage_type
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
 
           def self.inner_class_types
-            @inner_class_types = { crypto: Crypto }
+            @inner_class_types = {
+              crypto: Crypto,
+              deposit_insurance_eligibility: DepositInsuranceEligibility,
+            }
           end
 
           def self.field_remappings

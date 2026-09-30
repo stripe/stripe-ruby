@@ -49,11 +49,6 @@ module Stripe
           end
         end
         class BankAccount < ::Stripe::StripeObject
-          # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
-          # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
-          # cannot be used as payout methods and will not appear in the payout method list.
-          sig { returns(T::Boolean) }
-          def archived; end
           # The type of bank account (checking or savings).
           sig { returns(String) }
           def bank_account_type; end
@@ -92,11 +87,6 @@ module Stripe
           end
         end
         class Card < ::Stripe::StripeObject
-          # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
-          # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodCard objects
-          # cannot be used as payout methods and will not appear in the payout method list.
-          sig { returns(T::Boolean) }
-          def archived; end
           # The month the card expires.
           sig { returns(String) }
           def exp_month; end
@@ -124,11 +114,6 @@ module Stripe
           # Destination wallet address.
           sig { returns(String) }
           def address; end
-          # Whether the crypto wallet was archived. Crypto wallets can be archived through the /archive API,
-          # and they will not be automatically archived by Stripe. Archived crypto wallets cannot be used as
-          # payout method and will not appear in the payout method list.
-          sig { returns(T::Boolean) }
-          def archived; end
           # Optional field, required if network supports memos (only "stellar" currently).
           sig { returns(T.nilable(String)) }
           def memo; end
@@ -175,6 +160,11 @@ module Stripe
         # The PayoutMethodApplePay object details.
         sig { returns(T.nilable(ApplePay)) }
         def apple_pay; end
+        # Whether the payout method was archived. Payout methods can be archived through the /archive API,
+        # and they will not be automatically archived by Stripe. Archived payout methods cannot be used
+        # for outbound money movement.
+        sig { returns(T::Boolean) }
+        def archived; end
         # A set of available payout speeds for this payout method.
         sig { returns(T::Array[String]) }
         def available_payout_speeds; end

@@ -23,7 +23,7 @@ module Stripe
       end
 
       class Cellular < ::Stripe::RequestParams
-        # Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+        # Determines whether to allow the reader to connect to a cellular network.
         attr_accessor :enabled
 
         def initialize(enabled: nil)
@@ -32,7 +32,7 @@ module Stripe
       end
 
       class Offline < ::Stripe::RequestParams
-        # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        # Determines whether to allow transactions to be collected while reader is offline.
         attr_accessor :enabled
 
         def initialize(enabled: nil)

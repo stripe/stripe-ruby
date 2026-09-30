@@ -25,6 +25,33 @@ module Stripe
         "billing_portal.session"
       end
 
+      class AfterExpiration < ::Stripe::StripeObject
+        class CustomerLogin < ::Stripe::StripeObject
+          # The time after which the customer can no longer recover this session.
+          attr_reader :expires_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Configuration for authenticating the customer after the session expires.
+        attr_reader :customer_login
+        # The behavior to apply when the session expires.
+        attr_reader :type
+
+        def self.inner_class_types
+          @inner_class_types = { customer_login: CustomerLogin }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Flow < ::Stripe::StripeObject
         class AfterCompletion < ::Stripe::StripeObject
           class HostedConfirmation < ::Stripe::StripeObject
@@ -222,6 +249,8 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Behavior after the portal session expires.
+      attr_reader :after_expiration
       # The configuration used by this session, describing the features available.
       attr_reader :configuration
       # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -258,7 +287,7 @@ module Stripe
       end
 
       def self.inner_class_types
-        @inner_class_types = { flow: Flow }
+        @inner_class_types = { after_expiration: AfterExpiration, flow: Flow }
       end
 
       def self.field_remappings

@@ -35,13 +35,17 @@ module Stripe
         attr_accessor :description
         # Object containing details about where the funds will originate from.
         attr_accessor :from
+        # An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
+        # When omitted, Stripe sends its default descriptor.
+        attr_accessor :statement_descriptor
         # Object containing details about where the funds will land.
         attr_accessor :to
 
-        def initialize(amount: nil, description: nil, from: nil, to: nil)
+        def initialize(amount: nil, description: nil, from: nil, statement_descriptor: nil, to: nil)
           @amount = amount
           @description = description
           @from = from
+          @statement_descriptor = statement_descriptor
           @to = to
         end
       end

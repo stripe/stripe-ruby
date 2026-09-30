@@ -6,9 +6,9 @@ module Stripe
     module Core
       class EventDestinationCreateParams < ::Stripe::RequestParams
         class AmazonEventbridge < ::Stripe::RequestParams
-          # The AWS account ID.
+          # Your AWS account where Stripe creates the partner event source.
           attr_accessor :aws_account_id
-          # The region of the AWS event source.
+          # The AWS region where Stripe creates the partner event source.
           attr_accessor :aws_region
 
           def initialize(aws_account_id: nil, aws_region: nil)
@@ -18,11 +18,11 @@ module Stripe
         end
 
         class AzureEventGrid < ::Stripe::RequestParams
-          # The Azure region.
+          # The Azure region where Stripe creates the partner topic.
           attr_accessor :azure_region
-          # The name of the Azure resource group.
+          # The Azure resource group where Stripe creates the partner topic.
           attr_accessor :azure_resource_group_name
-          # The Azure subscription ID.
+          # The Azure subscription where Stripe creates the partner topic.
           attr_accessor :azure_subscription_id
 
           def initialize(
@@ -37,40 +37,40 @@ module Stripe
         end
 
         class WebhookEndpoint < ::Stripe::RequestParams
-          # The URL of the webhook endpoint.
+          # The URL where Stripe sends matching events. Live mode requires HTTPS; sandbox mode also supports HTTP.
           attr_accessor :url
 
           def initialize(url: nil)
             @url = url
           end
         end
-        # Amazon EventBridge configuration.
+        # AWS account and region where Stripe creates the EventBridge partner event source.
         attr_accessor :amazon_eventbridge
-        # Azure Event Grid configuration.
+        # Azure subscription, resource group, and region where Stripe creates the partner topic.
         attr_accessor :azure_event_grid
-        # An optional description of what the event destination is used for.
+        # An optional user-defined description of the destination's purpose.
         attr_accessor :description
-        # The list of events to enable for this endpoint.
+        # The list of event types enabled for delivery to this destination.
         attr_accessor :enabled_events
-        # Payload type of events being subscribed to.
+        # Whether to deliver as snapshot or thin events.
         attr_accessor :event_payload
-        # Specifies which accounts' events route to this destination.
+        # The account or organization scopes that can supply events. Use this with `enabled_events` to define the subscription.
         # `@self`: Receive events from the account that owns the event destination.
-        # `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+        # `@accounts`: Receive events emitted from other accounts you manage, including your v1 and v2 accounts.
         # `@organization_members`: Receive events from accounts directly linked to the organization.
         # `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
         attr_accessor :events_from
-        # Additional fields to include in the response.
+        # Include normally redacted webhook fields in the create response. Public API clients must include `webhook_endpoint.signing_secret` to receive the signing secret.
         attr_accessor :include
-        # Metadata.
+        # User-defined key/value data for the destination.
         attr_accessor :metadata
-        # Event destination name.
+        # A user-defined label for identifying the destination.
         attr_accessor :name
-        # If using the snapshot event payload, the API version events are rendered as.
+        # For snapshot events only, the Stripe API version used to render event objects; do not provide this for thin events.
         attr_accessor :snapshot_api_version
-        # Event destination type.
+        # The delivery transport. Chosen when the destination is created and cannot be changed by update.
         attr_accessor :type
-        # Webhook endpoint configuration.
+        # Delivery target for the webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
         attr_accessor :webhook_endpoint
 
         def initialize(

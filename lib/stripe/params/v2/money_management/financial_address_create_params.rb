@@ -5,13 +5,35 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAddressCreateParams < ::Stripe::RequestParams
+        class BankAccount < ::Stripe::RequestParams
+          # The country for the bank account. Used to select the appropriate rails (e.g. for SEPA).
+          attr_accessor :country
+          # The currency of the bank account to provision.
+          attr_accessor :currency
+
+          def initialize(country: nil, currency: nil)
+            @country = country
+            @currency = currency
+          end
+        end
+        # Properties for creating a bank account FinancialAddress.
+        attr_accessor :bank_account
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         attr_accessor :financial_account
-        # The type of FinancialAddress details to provision.
+        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        attr_accessor :settlement_currency
+        # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
         attr_accessor :type
 
-        def initialize(financial_account: nil, type: nil)
+        def initialize(
+          bank_account: nil,
+          financial_account: nil,
+          settlement_currency: nil,
+          type: nil
+        )
+          @bank_account = bank_account
           @financial_account = financial_account
+          @settlement_currency = settlement_currency
           @type = type
         end
       end

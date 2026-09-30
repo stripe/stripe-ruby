@@ -17,6 +17,7 @@ module Stripe
       attr_reader :payout_methods_bank_account_spec
       attr_reader :received_credits
       attr_reader :received_debits
+      attr_reader :test_helpers
       attr_reader :transactions
       attr_reader :transaction_entries
     end

@@ -46,7 +46,7 @@ module Stripe
         )
       end
 
-      # Retrieves the details of an Financial Connections Account.
+      # Retrieves the details of a Financial Connections Account.
       def retrieve(account, params = {}, opts = {})
         request(
           method: :get,

@@ -63,7 +63,7 @@ module Stripe
              }
             def initialize(customer_presence: nil, payment_type: nil); end
           end
-          # Describes card money movement details for the payment evaluation.
+          # Describes card money movement details.
           sig {
             returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
            }
@@ -72,7 +72,7 @@ module Stripe
             params(_card: T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card)).returns(T.nilable(::Stripe::Radar::PaymentEvaluationCreateParams::PaymentDetails::MoneyMovementDetails::Card))
            }
           def card=(_card); end
-          # Describes the type of money movement. Currently only `card` is supported.
+          # Describes the type of money movement.
           sig { returns(String) }
           def money_movement_type; end
           sig { params(_money_movement_type: String).returns(String) }

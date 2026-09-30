@@ -19,14 +19,53 @@ module Stripe
           end
         end
         class EstimatedFee < ::Stripe::StripeObject
+          class NetworkFeeDetails < ::Stripe::StripeObject
+            class NetworkOptions < ::Stripe::StripeObject
+              class Ach < ::Stripe::StripeObject
+                # Open Enum. ACH submission timing.
+                sig { returns(T.nilable(String)) }
+                def submission; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # ACH-specific network fee options.
+              sig { returns(T.nilable(Ach)) }
+              def ach; end
+              def self.inner_class_types
+                @inner_class_types = {ach: Ach}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # The network associated with the fee.
+            sig { returns(String) }
+            def network; end
+            # Per-network options that affect the fee.
+            sig { returns(NetworkOptions) }
+            def network_options; end
+            def self.inner_class_types
+              @inner_class_types = {network_options: NetworkOptions}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # The fee amount for corresponding fee type.
           sig { returns(::Stripe::V2::Amount) }
           def amount; end
+          # Details about the network and options associated with this fee. Present when type is network_fee.
+          sig { returns(T.nilable(NetworkFeeDetails)) }
+          def network_fee_details; end
           # The fee type.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {network_fee_details: NetworkFeeDetails}
           end
           def self.field_remappings
             @field_remappings = {}

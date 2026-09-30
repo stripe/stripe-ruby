@@ -9,7 +9,7 @@ module Stripe
         def create(params = {}, opts = {})
           request(
             method: :post,
-            path: "/v2/signals/account_activity",
+            path: "/v2/signals/account_activities",
             params: params,
             opts: opts,
             base_address: :api
@@ -20,7 +20,7 @@ module Stripe
         def delete(id, params = {}, opts = {})
           request(
             method: :delete,
-            path: format("/v2/signals/account_activity/%<id>s", { id: CGI.escape(id) }),
+            path: format("/v2/signals/account_activities/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api
@@ -31,7 +31,7 @@ module Stripe
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,
-            path: format("/v2/signals/account_activity/%<id>s", { id: CGI.escape(id) }),
+            path: format("/v2/signals/account_activities/%<id>s", { id: CGI.escape(id) }),
             params: params,
             opts: opts,
             base_address: :api

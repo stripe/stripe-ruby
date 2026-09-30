@@ -219,6 +219,30 @@ module Stripe
                }
               def initialize(profile: nil); end
             end
+            class Identity < ::Stripe::RequestParams
+              class BusinessDetails < ::Stripe::RequestParams
+                # Registered business name.
+                sig { returns(T.nilable(String)) }
+                def registered_name; end
+                sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+                def registered_name=(_registered_name); end
+                sig { params(registered_name: T.nilable(String)).void }
+                def initialize(registered_name: nil); end
+              end
+              # Business details for identity data.
+              sig {
+                returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity::BusinessDetails)
+               }
+              def business_details; end
+              sig {
+                params(_business_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity::BusinessDetails).returns(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity::BusinessDetails)
+               }
+              def business_details=(_business_details); end
+              sig {
+                params(business_details: ::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity::BusinessDetails).void
+               }
+              def initialize(business_details: nil); end
+            end
             # Default account settings.
             sig {
               returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults))
@@ -228,10 +252,19 @@ module Stripe
               params(_defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults))
              }
             def defaults=(_defaults); end
+            # Identity data.
             sig {
-              params(defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults)).void
+              returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity))
              }
-            def initialize(defaults: nil); end
+            def identity; end
+            sig {
+              params(_identity: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity)).returns(T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity))
+             }
+            def identity=(_identity); end
+            sig {
+              params(defaults: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Defaults), identity: T.nilable(::Stripe::V2::Signals::AccountEvaluationCreateParams::AccountDetails::Data::Identity)).void
+             }
+            def initialize(defaults: nil, identity: nil); end
           end
           # The v2 account ID of the account.
           sig { returns(T.nilable(String)) }

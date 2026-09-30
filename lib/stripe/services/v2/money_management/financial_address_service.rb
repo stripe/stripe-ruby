@@ -5,7 +5,7 @@ module Stripe
   module V2
     module MoneyManagement
       class FinancialAddressService < StripeService
-        # Create a new FinancialAddress for a FinancialAccount.
+        # Create a new FinancialAddress for a FinancialAccount (V2 shape).
         #
         # ** raises FinancialAccountNotOpenError
         # ** raises FeatureNotEnabledError
@@ -19,7 +19,7 @@ module Stripe
           )
         end
 
-        # List all FinancialAddresses for a FinancialAccount.
+        # List all FinancialAddresses for a FinancialAccount (V2 shape).
         def list(params = {}, opts = {})
           request(
             method: :get,
@@ -30,7 +30,7 @@ module Stripe
           )
         end
 
-        # Retrieve a FinancialAddress. By default, the FinancialAddress will be returned in its unexpanded state, revealing only the last 4 digits of the account number.
+        # Retrieve a FinancialAddress (V2 shape).
         def retrieve(id, params = {}, opts = {})
           request(
             method: :get,

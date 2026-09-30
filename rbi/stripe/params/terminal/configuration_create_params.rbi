@@ -24,7 +24,7 @@ module Stripe
         def initialize(splashscreen: nil); end
       end
       class Cellular < ::Stripe::RequestParams
-        # Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+        # Determines whether to allow the reader to connect to a cellular network.
         sig { returns(T::Boolean) }
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }
@@ -33,7 +33,7 @@ module Stripe
         def initialize(enabled: nil); end
       end
       class Offline < ::Stripe::RequestParams
-        # Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        # Determines whether to allow transactions to be collected while reader is offline.
         sig { returns(T::Boolean) }
         def enabled; end
         sig { params(_enabled: T::Boolean).returns(T::Boolean) }

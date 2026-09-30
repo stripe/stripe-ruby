@@ -40,22 +40,32 @@ module Stripe
           @transition = transition
         end
       end
+      # Whether the trial offer can be used for new subscriptions. Defaults to true.
+      attr_accessor :active
       # Duration of one service period of the trial.
       attr_accessor :duration
       # Define behavior that occurs at the end of the trial.
       attr_accessor :end_behavior
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand
-      # A brief, user-friendly name for the trial offer-for identification purposes.
-      attr_accessor :name
+      # A brief description of the trial offer, hidden from customers.
+      attr_accessor :nickname
       # Price configuration during the trial period (amount, billing scheme, etc).
       attr_accessor :price
 
-      def initialize(duration: nil, end_behavior: nil, expand: nil, name: nil, price: nil)
+      def initialize(
+        active: nil,
+        duration: nil,
+        end_behavior: nil,
+        expand: nil,
+        nickname: nil,
+        price: nil
+      )
+        @active = active
         @duration = duration
         @end_behavior = end_behavior
         @expand = expand
-        @name = name
+        @nickname = nickname
         @price = price
       end
     end

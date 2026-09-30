@@ -30,9 +30,6 @@ module Stripe
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         sig { returns(T.nilable(T::Array[String])) }
         def account_subcategories; end
-        # List of countries from which to filter accounts.
-        sig { returns(T.nilable(T::Array[String])) }
-        def countries; end
         # Country from which to filter accounts.
         sig { returns(T.nilable(String)) }
         def country; end

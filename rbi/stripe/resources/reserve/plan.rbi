@@ -20,6 +20,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class ManualRelease < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class RollingRelease < ::Stripe::StripeObject
         # The number of days to reserve funds before releasing.
         sig { returns(Integer) }
@@ -43,6 +51,9 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). An unset currency indicates that the plan applies to all currencies.
       sig { returns(T.nilable(String)) }
       def currency; end
+      # The balance destination to which the reserved funds are sent.
+      sig { returns(String) }
+      def destination; end
       # Time at which the ReservePlan was disabled.
       sig { returns(T.nilable(Integer)) }
       def disabled_at; end
@@ -55,6 +66,9 @@ module Stripe
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
+      # Attribute for field manual_release
+      sig { returns(T.nilable(ManualRelease)) }
+      def manual_release; end
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       sig { returns(T.nilable(T::Hash[String, String])) }
       def metadata; end
@@ -73,6 +87,11 @@ module Stripe
       # The type of the ReservePlan.
       sig { returns(String) }
       def type; end
+      # Returns a list of ReservePlans previously created. The ReservePlans are returned in sorted order, with the most recent ReservePlans appearing first.
+      sig {
+        params(params: T.any(::Stripe::Reserve::PlanListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
     end
   end
 end

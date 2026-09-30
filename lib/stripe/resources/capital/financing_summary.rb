@@ -3,9 +3,7 @@
 
 module Stripe
   module Capital
-    # A financing summary object describes a connected account's financing status in real time.
-    # A financing status is either `accepted`, `delivered`, or `none`.
-    # You can read the status of your connected accounts.
+    # A financing summary object describes a connected account's financing details in real time.
     class FinancingSummary < SingletonAPIResource
       OBJECT_NAME = "capital.financing_summary"
       def self.object_name

@@ -334,8 +334,60 @@ module Stripe
           end
         end
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              sig { returns(T.nilable(String)) }
+              def city; end
+              # Two-letter country code.
+              sig { returns(T.nilable(String)) }
+              def country; end
+              # Address line 1 (for example, street, PO Box, or company name).
+              sig { returns(T.nilable(String)) }
+              def line1; end
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              sig { returns(T.nilable(String)) }
+              def line2; end
+              # ZIP or postal code.
+              sig { returns(T.nilable(String)) }
+              def postal_code; end
+              # State, county, province, or region.
+              sig { returns(T.nilable(String)) }
+              def state; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            sig { returns(T.nilable(RegisteredAddress)) }
+            def registered_address; end
+            # Company or entity name.
+            sig { returns(T.nilable(String)) }
+            def registered_name; end
+            # The official registration number for the given registration type.
+            sig { returns(T.nilable(String)) }
+            def registration_number; end
+            # Type of registration the company or entity holds in their registered country.
+            sig { returns(T.nilable(String)) }
+            def registration_type; end
+            # VAT ID number.
+            sig { returns(T.nilable(String)) }
+            def vat; end
+            def self.inner_class_types
+              @inner_class_types = {registered_address: RegisteredAddress}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          sig { returns(T.nilable(CompanyDetails)) }
+          def company_details; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {company_details: CompanyDetails}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -345,7 +397,7 @@ module Stripe
           class MandateOptions < ::Stripe::StripeObject
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
             sig { returns(T.nilable(Integer)) }
-            def expires_after; end
+            def expires_at; end
             def self.inner_class_types
               @inner_class_types = {}
             end
@@ -692,6 +744,9 @@ module Stripe
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       sig { returns(T.nilable(Integer)) }
       def billing_cycle_anchor; end
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      sig { returns(T.nilable(T::Boolean)) }
+      def cancel_at_period_end; end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       sig { returns(T.nilable(::Stripe::Discount)) }
       def discount; end
@@ -713,7 +768,7 @@ module Stripe
       # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
       sig { returns(T.nilable(Integer)) }
       def trial_end; end
-      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
       sig { returns(T.nilable(T::Boolean)) }
       def trial_from_plan; end
       def self.inner_class_types
@@ -972,7 +1027,7 @@ module Stripe
     #
     # A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
     #
-    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials/free-trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
     #
     # If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
     #

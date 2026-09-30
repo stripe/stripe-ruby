@@ -75,11 +75,31 @@ module Stripe
           end
         end
         class Storage < ::Stripe::StripeObject
+          class DepositInsuranceEligibility < ::Stripe::StripeObject
+            # The bank where funds are stored.
+            sig { returns(String) }
+            def bank_name; end
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            sig { returns(T::Array[String]) }
+            def currencies; end
+            # The deposit insurance scheme.
+            sig { returns(String) }
+            def type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          sig { returns(T.nilable(T::Array[DepositInsuranceEligibility])) }
+          def deposit_insurance_eligibility; end
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = {deposit_insurance_eligibility: DepositInsuranceEligibility}
           end
           def self.field_remappings
             @field_remappings = {}

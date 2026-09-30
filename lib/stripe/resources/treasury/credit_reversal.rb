@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    # You can reverse some [ReceivedCredits](https://api.stripe.com#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+    # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     class CreditReversal < APIResource
       extend Stripe::APIOperations::Create
       extend Stripe::APIOperations::List

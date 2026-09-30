@@ -881,8 +881,6 @@ module Stripe
         CannotProceedError.new(error_data[:message], **opts, reason: error_data[:reason])
       when "controlled_by_alternate_resource"
         ControlledByAlternateResourceError.new(error_data[:message], **opts)
-      when "controlled_by_dashboard"
-        ControlledByDashboardError.new(error_data[:message], **opts)
       when "feature_not_enabled"
         FeatureNotEnabledError.new(error_data[:message], **opts)
       when "financial_account_not_open"
@@ -899,6 +897,14 @@ module Stripe
 
       when "invalid_payout_method"
         InvalidPayoutMethodError.new(error_data[:message], **opts)
+      when "invalid_vaulted_credential"
+
+        InvalidVaultedCredentialError.new(
+          error_data[:message],
+          **opts,
+          invalid_param: error_data[:invalid_param]
+        )
+
       when "non_zero_balance"
         NonZeroBalanceError.new(error_data[:message], **opts)
       when "not_cancelable"
@@ -911,6 +917,30 @@ module Stripe
         RecipientNotNotifiableError.new(error_data[:message], **opts)
       when "temporary_session_expired"
         TemporarySessionExpiredError.new(error_data[:message], **opts)
+      when "verification_attempt_failed"
+
+        VerificationAttemptFailedError.new(
+          error_data[:message],
+          **opts,
+          verification_status: error_data[:verification_status]
+        )
+
+      when "verification_expired"
+
+        VerificationExpiredError.new(
+          error_data[:message],
+          **opts,
+          verification_status: error_data[:verification_status]
+        )
+
+      when "verification_not_initiated"
+
+        VerificationNotInitiatedError.new(
+          error_data[:message],
+          **opts,
+          verification_status: error_data[:verification_status]
+        )
+
       # switch cases: The end of the section generated from our OpenAPI spec
       else
         specific_api_error(resp, error_data, context)
@@ -1128,6 +1158,7 @@ module Stripe
         %w[CODEX_CI codex_cli],
         %w[CURSOR_AGENT cursor],
         %w[GEMINI_CLI gemini_cli],
+        %w[HERMES_AGENT hermes],
         %w[OPENCLAW_SHELL openclaw],
         %w[OPENCODE open_code],
         # aiAgents: The end of the section generated from our OpenAPI spec

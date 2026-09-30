@@ -81,6 +81,7 @@ module Stripe
     attr_reader :tax_rates
     attr_reader :terminal
     attr_reader :test_helpers
+    attr_reader :three_d_secure
     attr_reader :tokens
     attr_reader :topups
     attr_reader :transfers

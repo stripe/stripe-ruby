@@ -24,6 +24,70 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class FraudulentMerchant < ::Stripe::StripeObject
+          class AdditionalDetails < ::Stripe::StripeObject
+            class Indicator < ::Stripe::StripeObject
+              # A brief explanation of how this indicator contributed to the fraudulent merchant probability.
+              sig { returns(String) }
+              def explanation; end
+              # The effect this indicator had on the overall risk level.
+              sig { returns(String) }
+              def impact; end
+              # The name of the specific indicator used in the risk assessment.
+              sig { returns(String) }
+              def indicator; end
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Array of objects representing individual factors that contributed to the calculated probability. Absent when risk level is unknown,
+            # or when the user is not on a product tier that includes indicators.
+            sig { returns(T::Array[Indicator]) }
+            def indicators; end
+            def self.inner_class_types
+              @inner_class_types = {indicators: Indicator}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Supplementary contextual data for the signal, including indicators.
+          sig { returns(T.nilable(AdditionalDetails)) }
+          def additional_details; end
+          # The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. Absent when risk level is unknown,
+          # or when the user is not on a product tier that includes numeric scores.
+          sig { returns(T.nilable(BigDecimal)) }
+          def probability; end
+          # Categorical assessment of the fraudulent merchant risk based on probability.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {additional_details: AdditionalDetails}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {probability: :decimal_string}
+          end
+        end
+        class FraudulentWebsite < ::Stripe::StripeObject
+          # Human-readable details about the fraudulent website evaluation.
+          sig { returns(T.nilable(String)) }
+          def details; end
+          # Categorical assessment of the fraudulent website risk.
+          sig { returns(String) }
+          def risk_level; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class UserAccountSharing < ::Stripe::StripeObject
           # Categorical assessment of the account-sharing risk.
           sig { returns(String) }
@@ -69,6 +133,12 @@ module Stripe
         # Timestamp at which the signal was created.
         sig { returns(String) }
         def created; end
+        # Data for the fraudulent merchant signal. Present only when type is fraudulent_merchant.
+        sig { returns(T.nilable(FraudulentMerchant)) }
+        def fraudulent_merchant; end
+        # Data for the fraudulent website signal. Present only when type is fraudulent_website.
+        sig { returns(T.nilable(FraudulentWebsite)) }
+        def fraudulent_website; end
         # Unique identifier for the account signal.
         sig { returns(String) }
         def id; end

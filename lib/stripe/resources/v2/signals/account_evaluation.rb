@@ -54,11 +54,38 @@ module Stripe
                 @field_remappings = {}
               end
             end
+
+            class Identity < ::Stripe::StripeObject
+              class BusinessDetails < ::Stripe::StripeObject
+                # Registered business name.
+                attr_reader :registered_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Business details for identity data.
+              attr_reader :business_details
+
+              def self.inner_class_types
+                @inner_class_types = { business_details: BusinessDetails }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Default account settings.
             attr_reader :defaults
+            # Identity data.
+            attr_reader :identity
 
             def self.inner_class_types
-              @inner_class_types = { defaults: Defaults }
+              @inner_class_types = { defaults: Defaults, identity: Identity }
             end
 
             def self.field_remappings
@@ -82,6 +109,25 @@ module Stripe
         end
 
         class EvaluatedSignals < ::Stripe::StripeObject
+          class FraudulentWebsite < ::Stripe::StripeObject
+            # Human-readable details about the fraudulent website evaluation, when available.
+            attr_reader :details
+            # Timestamp at which the signal was evaluated.
+            attr_reader :evaluated_at
+            # Categorical assessment of the fraudulent website risk.
+            attr_reader :risk_level
+            # The account signal ID containing the full fraudulent website signal result.
+            attr_reader :signal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
           class UserAccountSharing < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             attr_reader :evaluated_at
@@ -127,6 +173,8 @@ module Stripe
               @field_encodings = { score: :decimal_string }
             end
           end
+          # Fraudulent website result for the evaluation, when available.
+          attr_reader :fraudulent_website
           # User account-sharing result for the evaluation, when available.
           attr_reader :user_account_sharing
           # User multi-accounting result for the evaluation, when available.
@@ -134,6 +182,7 @@ module Stripe
 
           def self.inner_class_types
             @inner_class_types = {
+              fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_multi_accounting: UserMultiAccounting,
             }

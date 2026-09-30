@@ -19,6 +19,31 @@ module Stripe
     #
     # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class Session < APIResource
+      class AfterExpiration < ::Stripe::StripeObject
+        class CustomerLogin < ::Stripe::StripeObject
+          # The time after which the customer can no longer recover this session.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Configuration for authenticating the customer after the session expires.
+        sig { returns(T.nilable(CustomerLogin)) }
+        def customer_login; end
+        # The behavior to apply when the session expires.
+        sig { returns(String) }
+        def type; end
+        def self.inner_class_types
+          @inner_class_types = {customer_login: CustomerLogin}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Flow < ::Stripe::StripeObject
         class AfterCompletion < ::Stripe::StripeObject
           class HostedConfirmation < ::Stripe::StripeObject
@@ -196,6 +221,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Behavior after the portal session expires.
+      sig { returns(T.nilable(AfterExpiration)) }
+      def after_expiration; end
       # The configuration used by this session, describing the features available.
       sig { returns(T.any(String, ::Stripe::BillingPortal::Configuration)) }
       def configuration; end

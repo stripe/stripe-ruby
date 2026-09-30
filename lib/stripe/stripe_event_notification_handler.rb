@@ -83,12 +83,876 @@ module Stripe
     end
 
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec
+    def on_v1_account_application_authorized(&callback)
+      register("v1.account.application.authorized", &callback)
+    end
+
+    def on_v1_account_application_deauthorized(&callback)
+      register("v1.account.application.deauthorized", &callback)
+    end
+
+    def on_v1_account_external_account_created(&callback)
+      register("v1.account.external_account.created", &callback)
+    end
+
+    def on_v1_account_external_account_deleted(&callback)
+      register("v1.account.external_account.deleted", &callback)
+    end
+
+    def on_v1_account_external_account_updated(&callback)
+      register("v1.account.external_account.updated", &callback)
+    end
+
+    def on_v1_account_updated(&callback)
+      register("v1.account.updated", &callback)
+    end
+
+    def on_v1_application_fee_created(&callback)
+      register("v1.application_fee.created", &callback)
+    end
+
+    def on_v1_application_fee_refund_updated(&callback)
+      register("v1.application_fee.refund.updated", &callback)
+    end
+
+    def on_v1_application_fee_refunded(&callback)
+      register("v1.application_fee.refunded", &callback)
+    end
+
+    def on_v1_balance_available(&callback)
+      register("v1.balance.available", &callback)
+    end
+
+    def on_v1_balance_settings_updated(&callback)
+      register("v1.balance_settings.updated", &callback)
+    end
+
+    def on_v1_billing_alert_triggered(&callback)
+      register("v1.billing.alert.triggered", &callback)
+    end
+
+    def on_v1_billing_credit_balance_transaction_created(&callback)
+      register("v1.billing.credit_balance_transaction.created", &callback)
+    end
+
+    def on_v1_billing_credit_grant_created(&callback)
+      register("v1.billing.credit_grant.created", &callback)
+    end
+
+    def on_v1_billing_credit_grant_updated(&callback)
+      register("v1.billing.credit_grant.updated", &callback)
+    end
+
+    def on_v1_billing_meter_created(&callback)
+      register("v1.billing.meter.created", &callback)
+    end
+
+    def on_v1_billing_meter_deactivated(&callback)
+      register("v1.billing.meter.deactivated", &callback)
+    end
+
     def on_v1_billing_meter_error_report_triggered(&callback)
       register("v1.billing.meter.error_report_triggered", &callback)
     end
 
     def on_v1_billing_meter_no_meter_found(&callback)
       register("v1.billing.meter.no_meter_found", &callback)
+    end
+
+    def on_v1_billing_meter_reactivated(&callback)
+      register("v1.billing.meter.reactivated", &callback)
+    end
+
+    def on_v1_billing_meter_updated(&callback)
+      register("v1.billing.meter.updated", &callback)
+    end
+
+    def on_v1_billing_portal_configuration_created(&callback)
+      register("v1.billing_portal.configuration.created", &callback)
+    end
+
+    def on_v1_billing_portal_configuration_updated(&callback)
+      register("v1.billing_portal.configuration.updated", &callback)
+    end
+
+    def on_v1_billing_portal_session_created(&callback)
+      register("v1.billing_portal.session.created", &callback)
+    end
+
+    def on_v1_capability_updated(&callback)
+      register("v1.capability.updated", &callback)
+    end
+
+    def on_v1_cash_balance_funds_available(&callback)
+      register("v1.cash_balance.funds_available", &callback)
+    end
+
+    def on_v1_charge_captured(&callback)
+      register("v1.charge.captured", &callback)
+    end
+
+    def on_v1_charge_dispute_closed(&callback)
+      register("v1.charge.dispute.closed", &callback)
+    end
+
+    def on_v1_charge_dispute_created(&callback)
+      register("v1.charge.dispute.created", &callback)
+    end
+
+    def on_v1_charge_dispute_funds_reinstated(&callback)
+      register("v1.charge.dispute.funds_reinstated", &callback)
+    end
+
+    def on_v1_charge_dispute_funds_withdrawn(&callback)
+      register("v1.charge.dispute.funds_withdrawn", &callback)
+    end
+
+    def on_v1_charge_dispute_updated(&callback)
+      register("v1.charge.dispute.updated", &callback)
+    end
+
+    def on_v1_charge_expired(&callback)
+      register("v1.charge.expired", &callback)
+    end
+
+    def on_v1_charge_failed(&callback)
+      register("v1.charge.failed", &callback)
+    end
+
+    def on_v1_charge_pending(&callback)
+      register("v1.charge.pending", &callback)
+    end
+
+    def on_v1_charge_refund_updated(&callback)
+      register("v1.charge.refund.updated", &callback)
+    end
+
+    def on_v1_charge_refunded(&callback)
+      register("v1.charge.refunded", &callback)
+    end
+
+    def on_v1_charge_succeeded(&callback)
+      register("v1.charge.succeeded", &callback)
+    end
+
+    def on_v1_charge_updated(&callback)
+      register("v1.charge.updated", &callback)
+    end
+
+    def on_v1_checkout_session_async_payment_failed(&callback)
+      register("v1.checkout.session.async_payment_failed", &callback)
+    end
+
+    def on_v1_checkout_session_async_payment_succeeded(&callback)
+      register("v1.checkout.session.async_payment_succeeded", &callback)
+    end
+
+    def on_v1_checkout_session_completed(&callback)
+      register("v1.checkout.session.completed", &callback)
+    end
+
+    def on_v1_checkout_session_expired(&callback)
+      register("v1.checkout.session.expired", &callback)
+    end
+
+    def on_v1_climate_order_canceled(&callback)
+      register("v1.climate.order.canceled", &callback)
+    end
+
+    def on_v1_climate_order_created(&callback)
+      register("v1.climate.order.created", &callback)
+    end
+
+    def on_v1_climate_order_delayed(&callback)
+      register("v1.climate.order.delayed", &callback)
+    end
+
+    def on_v1_climate_order_delivered(&callback)
+      register("v1.climate.order.delivered", &callback)
+    end
+
+    def on_v1_climate_order_product_substituted(&callback)
+      register("v1.climate.order.product_substituted", &callback)
+    end
+
+    def on_v1_climate_product_created(&callback)
+      register("v1.climate.product.created", &callback)
+    end
+
+    def on_v1_climate_product_pricing_updated(&callback)
+      register("v1.climate.product.pricing_updated", &callback)
+    end
+
+    def on_v1_coupon_created(&callback)
+      register("v1.coupon.created", &callback)
+    end
+
+    def on_v1_coupon_deleted(&callback)
+      register("v1.coupon.deleted", &callback)
+    end
+
+    def on_v1_coupon_updated(&callback)
+      register("v1.coupon.updated", &callback)
+    end
+
+    def on_v1_credit_note_created(&callback)
+      register("v1.credit_note.created", &callback)
+    end
+
+    def on_v1_credit_note_updated(&callback)
+      register("v1.credit_note.updated", &callback)
+    end
+
+    def on_v1_credit_note_voided(&callback)
+      register("v1.credit_note.voided", &callback)
+    end
+
+    def on_v1_customer_created(&callback)
+      register("v1.customer.created", &callback)
+    end
+
+    def on_v1_customer_deleted(&callback)
+      register("v1.customer.deleted", &callback)
+    end
+
+    def on_v1_customer_discount_created(&callback)
+      register("v1.customer.discount.created", &callback)
+    end
+
+    def on_v1_customer_discount_deleted(&callback)
+      register("v1.customer.discount.deleted", &callback)
+    end
+
+    def on_v1_customer_discount_updated(&callback)
+      register("v1.customer.discount.updated", &callback)
+    end
+
+    def on_v1_customer_subscription_created(&callback)
+      register("v1.customer.subscription.created", &callback)
+    end
+
+    def on_v1_customer_subscription_deleted(&callback)
+      register("v1.customer.subscription.deleted", &callback)
+    end
+
+    def on_v1_customer_subscription_paused(&callback)
+      register("v1.customer.subscription.paused", &callback)
+    end
+
+    def on_v1_customer_subscription_pending_update_applied(&callback)
+      register("v1.customer.subscription.pending_update_applied", &callback)
+    end
+
+    def on_v1_customer_subscription_pending_update_expired(&callback)
+      register("v1.customer.subscription.pending_update_expired", &callback)
+    end
+
+    def on_v1_customer_subscription_resumed(&callback)
+      register("v1.customer.subscription.resumed", &callback)
+    end
+
+    def on_v1_customer_subscription_trial_will_end(&callback)
+      register("v1.customer.subscription.trial_will_end", &callback)
+    end
+
+    def on_v1_customer_subscription_updated(&callback)
+      register("v1.customer.subscription.updated", &callback)
+    end
+
+    def on_v1_customer_tax_id_created(&callback)
+      register("v1.customer.tax_id.created", &callback)
+    end
+
+    def on_v1_customer_tax_id_deleted(&callback)
+      register("v1.customer.tax_id.deleted", &callback)
+    end
+
+    def on_v1_customer_tax_id_updated(&callback)
+      register("v1.customer.tax_id.updated", &callback)
+    end
+
+    def on_v1_customer_updated(&callback)
+      register("v1.customer.updated", &callback)
+    end
+
+    def on_v1_customer_cash_balance_transaction_created(&callback)
+      register("v1.customer_cash_balance_transaction.created", &callback)
+    end
+
+    def on_v1_entitlements_active_entitlement_summary_updated(&callback)
+      register("v1.entitlements.active_entitlement_summary.updated", &callback)
+    end
+
+    def on_v1_file_created(&callback)
+      register("v1.file.created", &callback)
+    end
+
+    def on_v1_financial_connections_account_account_numbers_updated(&callback)
+      register("v1.financial_connections.account.account_numbers_updated", &callback)
+    end
+
+    def on_v1_financial_connections_account_created(&callback)
+      register("v1.financial_connections.account.created", &callback)
+    end
+
+    def on_v1_financial_connections_account_deactivated(&callback)
+      register("v1.financial_connections.account.deactivated", &callback)
+    end
+
+    def on_v1_financial_connections_account_disconnected(&callback)
+      register("v1.financial_connections.account.disconnected", &callback)
+    end
+
+    def on_v1_financial_connections_account_expected_deactivation_date_updated(&callback)
+      register("v1.financial_connections.account.expected_deactivation_date_updated", &callback)
+    end
+
+    def on_v1_financial_connections_account_reactivated(&callback)
+      register("v1.financial_connections.account.reactivated", &callback)
+    end
+
+    def on_v1_financial_connections_account_refreshed_balance(&callback)
+      register("v1.financial_connections.account.refreshed_balance", &callback)
+    end
+
+    def on_v1_financial_connections_account_refreshed_ownership(&callback)
+      register("v1.financial_connections.account.refreshed_ownership", &callback)
+    end
+
+    def on_v1_financial_connections_account_refreshed_transactions(&callback)
+      register("v1.financial_connections.account.refreshed_transactions", &callback)
+    end
+
+    def on_v1_financial_connections_account_supported_payment_method_types_updated(&callback)
+      register("v1.financial_connections.account.supported_payment_method_types_updated", &callback)
+    end
+
+    def on_v1_financial_connections_account_upcoming_account_number_expiry(&callback)
+      register("v1.financial_connections.account.upcoming_account_number_expiry", &callback)
+    end
+
+    def on_v1_financial_connections_account_upcoming_deactivation(&callback)
+      register("v1.financial_connections.account.upcoming_deactivation", &callback)
+    end
+
+    def on_v1_identity_verification_session_canceled(&callback)
+      register("v1.identity.verification_session.canceled", &callback)
+    end
+
+    def on_v1_identity_verification_session_created(&callback)
+      register("v1.identity.verification_session.created", &callback)
+    end
+
+    def on_v1_identity_verification_session_processing(&callback)
+      register("v1.identity.verification_session.processing", &callback)
+    end
+
+    def on_v1_identity_verification_session_redacted(&callback)
+      register("v1.identity.verification_session.redacted", &callback)
+    end
+
+    def on_v1_identity_verification_session_requires_input(&callback)
+      register("v1.identity.verification_session.requires_input", &callback)
+    end
+
+    def on_v1_identity_verification_session_verified(&callback)
+      register("v1.identity.verification_session.verified", &callback)
+    end
+
+    def on_v1_invoice_created(&callback)
+      register("v1.invoice.created", &callback)
+    end
+
+    def on_v1_invoice_deleted(&callback)
+      register("v1.invoice.deleted", &callback)
+    end
+
+    def on_v1_invoice_finalization_failed(&callback)
+      register("v1.invoice.finalization_failed", &callback)
+    end
+
+    def on_v1_invoice_finalized(&callback)
+      register("v1.invoice.finalized", &callback)
+    end
+
+    def on_v1_invoice_marked_uncollectible(&callback)
+      register("v1.invoice.marked_uncollectible", &callback)
+    end
+
+    def on_v1_invoice_overdue(&callback)
+      register("v1.invoice.overdue", &callback)
+    end
+
+    def on_v1_invoice_overpaid(&callback)
+      register("v1.invoice.overpaid", &callback)
+    end
+
+    def on_v1_invoice_paid(&callback)
+      register("v1.invoice.paid", &callback)
+    end
+
+    def on_v1_invoice_payment_action_required(&callback)
+      register("v1.invoice.payment_action_required", &callback)
+    end
+
+    def on_v1_invoice_payment_attempt_required(&callback)
+      register("v1.invoice.payment_attempt_required", &callback)
+    end
+
+    def on_v1_invoice_payment_failed(&callback)
+      register("v1.invoice.payment_failed", &callback)
+    end
+
+    def on_v1_invoice_payment_succeeded(&callback)
+      register("v1.invoice.payment_succeeded", &callback)
+    end
+
+    def on_v1_invoice_sent(&callback)
+      register("v1.invoice.sent", &callback)
+    end
+
+    def on_v1_invoice_upcoming(&callback)
+      register("v1.invoice.upcoming", &callback)
+    end
+
+    def on_v1_invoice_updated(&callback)
+      register("v1.invoice.updated", &callback)
+    end
+
+    def on_v1_invoice_voided(&callback)
+      register("v1.invoice.voided", &callback)
+    end
+
+    def on_v1_invoice_will_be_due(&callback)
+      register("v1.invoice.will_be_due", &callback)
+    end
+
+    def on_v1_invoice_payment_paid(&callback)
+      register("v1.invoice_payment.paid", &callback)
+    end
+
+    def on_v1_invoiceitem_created(&callback)
+      register("v1.invoiceitem.created", &callback)
+    end
+
+    def on_v1_invoiceitem_deleted(&callback)
+      register("v1.invoiceitem.deleted", &callback)
+    end
+
+    def on_v1_issuing_authorization_created(&callback)
+      register("v1.issuing_authorization.created", &callback)
+    end
+
+    def on_v1_issuing_authorization_request(&callback)
+      register("v1.issuing_authorization.request", &callback)
+    end
+
+    def on_v1_issuing_authorization_updated(&callback)
+      register("v1.issuing_authorization.updated", &callback)
+    end
+
+    def on_v1_issuing_card_created(&callback)
+      register("v1.issuing_card.created", &callback)
+    end
+
+    def on_v1_issuing_card_updated(&callback)
+      register("v1.issuing_card.updated", &callback)
+    end
+
+    def on_v1_issuing_cardholder_created(&callback)
+      register("v1.issuing_cardholder.created", &callback)
+    end
+
+    def on_v1_issuing_cardholder_updated(&callback)
+      register("v1.issuing_cardholder.updated", &callback)
+    end
+
+    def on_v1_issuing_dispute_closed(&callback)
+      register("v1.issuing_dispute.closed", &callback)
+    end
+
+    def on_v1_issuing_dispute_created(&callback)
+      register("v1.issuing_dispute.created", &callback)
+    end
+
+    def on_v1_issuing_dispute_funds_reinstated(&callback)
+      register("v1.issuing_dispute.funds_reinstated", &callback)
+    end
+
+    def on_v1_issuing_dispute_funds_rescinded(&callback)
+      register("v1.issuing_dispute.funds_rescinded", &callback)
+    end
+
+    def on_v1_issuing_dispute_submitted(&callback)
+      register("v1.issuing_dispute.submitted", &callback)
+    end
+
+    def on_v1_issuing_dispute_updated(&callback)
+      register("v1.issuing_dispute.updated", &callback)
+    end
+
+    def on_v1_issuing_personalization_design_activated(&callback)
+      register("v1.issuing_personalization_design.activated", &callback)
+    end
+
+    def on_v1_issuing_personalization_design_deactivated(&callback)
+      register("v1.issuing_personalization_design.deactivated", &callback)
+    end
+
+    def on_v1_issuing_personalization_design_rejected(&callback)
+      register("v1.issuing_personalization_design.rejected", &callback)
+    end
+
+    def on_v1_issuing_personalization_design_updated(&callback)
+      register("v1.issuing_personalization_design.updated", &callback)
+    end
+
+    def on_v1_issuing_token_created(&callback)
+      register("v1.issuing_token.created", &callback)
+    end
+
+    def on_v1_issuing_token_updated(&callback)
+      register("v1.issuing_token.updated", &callback)
+    end
+
+    def on_v1_issuing_transaction_created(&callback)
+      register("v1.issuing_transaction.created", &callback)
+    end
+
+    def on_v1_issuing_transaction_purchase_details_receipt_updated(&callback)
+      register("v1.issuing_transaction.purchase_details_receipt_updated", &callback)
+    end
+
+    def on_v1_issuing_transaction_updated(&callback)
+      register("v1.issuing_transaction.updated", &callback)
+    end
+
+    def on_v1_mandate_updated(&callback)
+      register("v1.mandate.updated", &callback)
+    end
+
+    def on_v1_payment_intent_amount_capturable_updated(&callback)
+      register("v1.payment_intent.amount_capturable_updated", &callback)
+    end
+
+    def on_v1_payment_intent_canceled(&callback)
+      register("v1.payment_intent.canceled", &callback)
+    end
+
+    def on_v1_payment_intent_created(&callback)
+      register("v1.payment_intent.created", &callback)
+    end
+
+    def on_v1_payment_intent_partially_funded(&callback)
+      register("v1.payment_intent.partially_funded", &callback)
+    end
+
+    def on_v1_payment_intent_payment_failed(&callback)
+      register("v1.payment_intent.payment_failed", &callback)
+    end
+
+    def on_v1_payment_intent_processing(&callback)
+      register("v1.payment_intent.processing", &callback)
+    end
+
+    def on_v1_payment_intent_requires_action(&callback)
+      register("v1.payment_intent.requires_action", &callback)
+    end
+
+    def on_v1_payment_intent_succeeded(&callback)
+      register("v1.payment_intent.succeeded", &callback)
+    end
+
+    def on_v1_payment_link_created(&callback)
+      register("v1.payment_link.created", &callback)
+    end
+
+    def on_v1_payment_link_updated(&callback)
+      register("v1.payment_link.updated", &callback)
+    end
+
+    def on_v1_payment_method_attached(&callback)
+      register("v1.payment_method.attached", &callback)
+    end
+
+    def on_v1_payment_method_automatically_updated(&callback)
+      register("v1.payment_method.automatically_updated", &callback)
+    end
+
+    def on_v1_payment_method_detached(&callback)
+      register("v1.payment_method.detached", &callback)
+    end
+
+    def on_v1_payment_method_updated(&callback)
+      register("v1.payment_method.updated", &callback)
+    end
+
+    def on_v1_payout_canceled(&callback)
+      register("v1.payout.canceled", &callback)
+    end
+
+    def on_v1_payout_created(&callback)
+      register("v1.payout.created", &callback)
+    end
+
+    def on_v1_payout_failed(&callback)
+      register("v1.payout.failed", &callback)
+    end
+
+    def on_v1_payout_paid(&callback)
+      register("v1.payout.paid", &callback)
+    end
+
+    def on_v1_payout_reconciliation_completed(&callback)
+      register("v1.payout.reconciliation_completed", &callback)
+    end
+
+    def on_v1_payout_updated(&callback)
+      register("v1.payout.updated", &callback)
+    end
+
+    def on_v1_person_created(&callback)
+      register("v1.person.created", &callback)
+    end
+
+    def on_v1_person_deleted(&callback)
+      register("v1.person.deleted", &callback)
+    end
+
+    def on_v1_person_updated(&callback)
+      register("v1.person.updated", &callback)
+    end
+
+    def on_v1_plan_created(&callback)
+      register("v1.plan.created", &callback)
+    end
+
+    def on_v1_plan_deleted(&callback)
+      register("v1.plan.deleted", &callback)
+    end
+
+    def on_v1_plan_updated(&callback)
+      register("v1.plan.updated", &callback)
+    end
+
+    def on_v1_price_created(&callback)
+      register("v1.price.created", &callback)
+    end
+
+    def on_v1_price_deleted(&callback)
+      register("v1.price.deleted", &callback)
+    end
+
+    def on_v1_price_updated(&callback)
+      register("v1.price.updated", &callback)
+    end
+
+    def on_v1_product_created(&callback)
+      register("v1.product.created", &callback)
+    end
+
+    def on_v1_product_deleted(&callback)
+      register("v1.product.deleted", &callback)
+    end
+
+    def on_v1_product_updated(&callback)
+      register("v1.product.updated", &callback)
+    end
+
+    def on_v1_promotion_code_created(&callback)
+      register("v1.promotion_code.created", &callback)
+    end
+
+    def on_v1_promotion_code_updated(&callback)
+      register("v1.promotion_code.updated", &callback)
+    end
+
+    def on_v1_quote_accepted(&callback)
+      register("v1.quote.accepted", &callback)
+    end
+
+    def on_v1_quote_canceled(&callback)
+      register("v1.quote.canceled", &callback)
+    end
+
+    def on_v1_quote_created(&callback)
+      register("v1.quote.created", &callback)
+    end
+
+    def on_v1_quote_finalized(&callback)
+      register("v1.quote.finalized", &callback)
+    end
+
+    def on_v1_radar_early_fraud_warning_created(&callback)
+      register("v1.radar.early_fraud_warning.created", &callback)
+    end
+
+    def on_v1_radar_early_fraud_warning_updated(&callback)
+      register("v1.radar.early_fraud_warning.updated", &callback)
+    end
+
+    def on_v1_refund_created(&callback)
+      register("v1.refund.created", &callback)
+    end
+
+    def on_v1_refund_failed(&callback)
+      register("v1.refund.failed", &callback)
+    end
+
+    def on_v1_refund_updated(&callback)
+      register("v1.refund.updated", &callback)
+    end
+
+    def on_v1_review_closed(&callback)
+      register("v1.review.closed", &callback)
+    end
+
+    def on_v1_review_opened(&callback)
+      register("v1.review.opened", &callback)
+    end
+
+    def on_v1_setup_intent_canceled(&callback)
+      register("v1.setup_intent.canceled", &callback)
+    end
+
+    def on_v1_setup_intent_created(&callback)
+      register("v1.setup_intent.created", &callback)
+    end
+
+    def on_v1_setup_intent_requires_action(&callback)
+      register("v1.setup_intent.requires_action", &callback)
+    end
+
+    def on_v1_setup_intent_setup_failed(&callback)
+      register("v1.setup_intent.setup_failed", &callback)
+    end
+
+    def on_v1_setup_intent_succeeded(&callback)
+      register("v1.setup_intent.succeeded", &callback)
+    end
+
+    def on_v1_sigma_scheduled_query_run_created(&callback)
+      register("v1.sigma.scheduled_query_run.created", &callback)
+    end
+
+    def on_v1_source_canceled(&callback)
+      register("v1.source.canceled", &callback)
+    end
+
+    def on_v1_source_chargeable(&callback)
+      register("v1.source.chargeable", &callback)
+    end
+
+    def on_v1_source_failed(&callback)
+      register("v1.source.failed", &callback)
+    end
+
+    def on_v1_source_refund_attributes_required(&callback)
+      register("v1.source.refund_attributes_required", &callback)
+    end
+
+    def on_v1_subscription_schedule_aborted(&callback)
+      register("v1.subscription_schedule.aborted", &callback)
+    end
+
+    def on_v1_subscription_schedule_canceled(&callback)
+      register("v1.subscription_schedule.canceled", &callback)
+    end
+
+    def on_v1_subscription_schedule_completed(&callback)
+      register("v1.subscription_schedule.completed", &callback)
+    end
+
+    def on_v1_subscription_schedule_created(&callback)
+      register("v1.subscription_schedule.created", &callback)
+    end
+
+    def on_v1_subscription_schedule_expiring(&callback)
+      register("v1.subscription_schedule.expiring", &callback)
+    end
+
+    def on_v1_subscription_schedule_released(&callback)
+      register("v1.subscription_schedule.released", &callback)
+    end
+
+    def on_v1_subscription_schedule_updated(&callback)
+      register("v1.subscription_schedule.updated", &callback)
+    end
+
+    def on_v1_tax_settings_updated(&callback)
+      register("v1.tax.settings.updated", &callback)
+    end
+
+    def on_v1_tax_rate_created(&callback)
+      register("v1.tax_rate.created", &callback)
+    end
+
+    def on_v1_tax_rate_updated(&callback)
+      register("v1.tax_rate.updated", &callback)
+    end
+
+    def on_v1_terminal_reader_action_failed(&callback)
+      register("v1.terminal.reader.action_failed", &callback)
+    end
+
+    def on_v1_terminal_reader_action_succeeded(&callback)
+      register("v1.terminal.reader.action_succeeded", &callback)
+    end
+
+    def on_v1_terminal_reader_action_updated(&callback)
+      register("v1.terminal.reader.action_updated", &callback)
+    end
+
+    def on_v1_test_helpers_test_clock_advancing(&callback)
+      register("v1.test_helpers.test_clock.advancing", &callback)
+    end
+
+    def on_v1_test_helpers_test_clock_created(&callback)
+      register("v1.test_helpers.test_clock.created", &callback)
+    end
+
+    def on_v1_test_helpers_test_clock_deleted(&callback)
+      register("v1.test_helpers.test_clock.deleted", &callback)
+    end
+
+    def on_v1_test_helpers_test_clock_internal_failure(&callback)
+      register("v1.test_helpers.test_clock.internal_failure", &callback)
+    end
+
+    def on_v1_test_helpers_test_clock_ready(&callback)
+      register("v1.test_helpers.test_clock.ready", &callback)
+    end
+
+    def on_v1_topup_canceled(&callback)
+      register("v1.topup.canceled", &callback)
+    end
+
+    def on_v1_topup_created(&callback)
+      register("v1.topup.created", &callback)
+    end
+
+    def on_v1_topup_failed(&callback)
+      register("v1.topup.failed", &callback)
+    end
+
+    def on_v1_topup_reversed(&callback)
+      register("v1.topup.reversed", &callback)
+    end
+
+    def on_v1_topup_succeeded(&callback)
+      register("v1.topup.succeeded", &callback)
+    end
+
+    def on_v1_transfer_created(&callback)
+      register("v1.transfer.created", &callback)
+    end
+
+    def on_v1_transfer_reversed(&callback)
+      register("v1.transfer.reversed", &callback)
+    end
+
+    def on_v1_transfer_updated(&callback)
+      register("v1.transfer.updated", &callback)
     end
 
     def on_v2_commerce_product_catalog_imports_failed(&callback)
@@ -457,6 +1321,14 @@ module Stripe
 
     def on_v2_signals_account_evaluation_complete(&callback)
       register("v2.signals.account_evaluation.complete", &callback)
+    end
+
+    def on_v2_signals_account_signal_fraudulent_merchant_ready(&callback)
+      register("v2.signals.account_signal.fraudulent_merchant_ready", &callback)
+    end
+
+    def on_v2_signals_account_signal_fraudulent_website_ready(&callback)
+      register("v2.signals.account_signal.fraudulent_website_ready", &callback)
     end
     # event-handler-methods: The end of the section generated from our OpenAPI spec
   end

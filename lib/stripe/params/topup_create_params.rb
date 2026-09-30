@@ -33,7 +33,7 @@ module Stripe
     attr_accessor :payment_method
     # Payment method-specific configuration for this top-up.
     attr_accessor :payment_method_options
-    # The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://docs.stripe.com/connect/testing#testing-top-ups)).
+    # The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. While testing, this can be a test bank token (see [Testing Top-ups](https://docs.stripe.com/connect/testing#testing-top-ups)).
     attr_accessor :source
     # Extra information about a top-up for the source's bank statement. Limited to 15 ASCII characters.
     attr_accessor :statement_descriptor

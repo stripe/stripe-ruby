@@ -161,6 +161,11 @@ module Stripe
     def expand; end
     sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
     def expand=(_expand); end
+    # Pass an empty string to remove previously-defined invoicing rules. Setting invoicing rules is not supported.
+    sig { returns(T.nilable(String)) }
+    def invoicing_rules; end
+    sig { params(_invoicing_rules: T.nilable(String)).returns(T.nilable(String)) }
+    def invoicing_rules=(_invoicing_rules); end
     # The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     sig { returns(T.nilable(T.any(String, T::Array[String]))) }
     def margins; end
@@ -229,7 +234,7 @@ module Stripe
     sig { params(_unit_amount_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
     def unit_amount_decimal=(_unit_amount_decimal); end
     sig {
-      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(BigDecimal)).void
+      params(amount: T.nilable(Integer), description: T.nilable(String), discountable: T.nilable(T::Boolean), discounts: T.nilable(T.any(String, T::Array[::Stripe::InvoiceItemUpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoicing_rules: T.nilable(String), margins: T.nilable(T.any(String, T::Array[String])), metadata: T.nilable(T.any(String, T::Hash[String, String])), period: T.nilable(::Stripe::InvoiceItemUpdateParams::Period), price_data: T.nilable(::Stripe::InvoiceItemUpdateParams::PriceData), pricing: T.nilable(::Stripe::InvoiceItemUpdateParams::Pricing), quantity: T.nilable(Integer), quantity_decimal: T.nilable(BigDecimal), tax_behavior: T.nilable(String), tax_code: T.nilable(String), tax_rates: T.nilable(T.any(String, T::Array[String])), unit_amount_decimal: T.nilable(BigDecimal)).void
      }
     def initialize(
       amount: nil,
@@ -237,6 +242,7 @@ module Stripe
       discountable: nil,
       discounts: nil,
       expand: nil,
+      invoicing_rules: nil,
       margins: nil,
       metadata: nil,
       period: nil,

@@ -83,11 +83,29 @@ module Stripe
         end
 
         class Storage < ::Stripe::StripeObject
+          class DepositInsuranceEligibility < ::Stripe::StripeObject
+            # The bank where funds are stored.
+            attr_reader :bank_name
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            attr_reader :currencies
+            # The deposit insurance scheme.
+            attr_reader :type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          attr_reader :deposit_insurance_eligibility
           # The currencies that this FinancialAccount can hold.
           attr_reader :holds_currencies
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { deposit_insurance_eligibility: DepositInsuranceEligibility }
           end
 
           def self.field_remappings

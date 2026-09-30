@@ -37,11 +37,36 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Identity < ::Stripe::StripeObject
+              class BusinessDetails < ::Stripe::StripeObject
+                # Registered business name.
+                sig { returns(T.nilable(String)) }
+                def registered_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Business details for identity data.
+              sig { returns(BusinessDetails) }
+              def business_details; end
+              def self.inner_class_types
+                @inner_class_types = {business_details: BusinessDetails}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Default account settings.
             sig { returns(T.nilable(Defaults)) }
             def defaults; end
+            # Identity data.
+            sig { returns(T.nilable(Identity)) }
+            def identity; end
             def self.inner_class_types
-              @inner_class_types = {defaults: Defaults}
+              @inner_class_types = {defaults: Defaults, identity: Identity}
             end
             def self.field_remappings
               @field_remappings = {}

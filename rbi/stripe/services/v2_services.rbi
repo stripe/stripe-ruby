@@ -14,6 +14,5 @@ module Stripe
     attr_reader :network
     attr_reader :orchestrated_commerce
     attr_reader :signals
-    attr_reader :test_helpers
   end
 end

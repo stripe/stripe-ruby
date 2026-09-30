@@ -24,7 +24,7 @@ module Stripe
           attr_reader :received_credit
           # If applicable, the ID of the ReceivedDebit linked to this Adjustment.
           attr_reader :received_debit
-          # Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
+          # Open Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
           attr_reader :type
 
           def self.inner_class_types

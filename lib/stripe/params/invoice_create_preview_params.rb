@@ -1559,6 +1559,18 @@ module Stripe
     end
 
     class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingCycleAnchor < ::Stripe::RequestParams
+        # A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+        attr_accessor :timestamp
+        # Determines how the subscription's billing cycle anchor behaves for the invoice preview.
+        attr_accessor :type
+
+        def initialize(timestamp: nil, type: nil)
+          @timestamp = timestamp
+          @type = type
+        end
+      end
+
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -1757,9 +1769,9 @@ module Stripe
         attr_accessor :metadata
         # Plan ID for this item, as a string.
         attr_accessor :plan
-        # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
         attr_accessor :price
-        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+        # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
         attr_accessor :price_data
         # Quantity for this item.
         attr_accessor :quantity

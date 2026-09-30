@@ -29,11 +29,31 @@ module Stripe
                 @profile = profile
               end
             end
+
+            class Identity < ::Stripe::RequestParams
+              class BusinessDetails < ::Stripe::RequestParams
+                # Registered business name.
+                attr_accessor :registered_name
+
+                def initialize(registered_name: nil)
+                  @registered_name = registered_name
+                end
+              end
+              # Business details for identity data.
+              attr_accessor :business_details
+
+              def initialize(business_details: nil)
+                @business_details = business_details
+              end
+            end
             # Default account settings.
             attr_accessor :defaults
+            # Identity data.
+            attr_accessor :identity
 
-            def initialize(defaults: nil)
+            def initialize(defaults: nil, identity: nil)
               @defaults = defaults
+              @identity = identity
             end
           end
           # The v2 account ID of the account.

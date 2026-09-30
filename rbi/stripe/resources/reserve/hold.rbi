@@ -49,6 +49,9 @@ module Stripe
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
       sig { returns(String) }
       def currency; end
+      # The balance destination to which the reserved funds are sent.
+      sig { returns(String) }
+      def destination; end
       # Unique identifier for the object.
       sig { returns(String) }
       def id; end

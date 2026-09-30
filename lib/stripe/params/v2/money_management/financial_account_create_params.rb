@@ -6,10 +6,27 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
         class Storage < ::Stripe::RequestParams
+          class DepositInsuranceEligibility < ::Stripe::RequestParams
+            # The bank where funds are stored.
+            attr_accessor :bank_name
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            attr_accessor :currencies
+            # The deposit insurance scheme.
+            attr_accessor :type
+
+            def initialize(bank_name: nil, currencies: nil, type: nil)
+              @bank_name = bank_name
+              @currencies = currencies
+              @type = type
+            end
+          end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          attr_accessor :deposit_insurance_eligibility
           # The currencies that this FinancialAccount can hold.
           attr_accessor :holds_currencies
 
-          def initialize(holds_currencies: nil)
+          def initialize(deposit_insurance_eligibility: nil, holds_currencies: nil)
+            @deposit_insurance_eligibility = deposit_insurance_eligibility
             @holds_currencies = holds_currencies
           end
         end

@@ -3,10 +3,11 @@
 
 module Stripe
   class AppsService < StripeService
-    attr_reader :secrets
+    attr_reader :installs, :secrets
 
     def initialize(requestor)
       super
+      @installs = Stripe::Apps::InstallService.new(@requestor)
       @secrets = Stripe::Apps::SecretService.new(@requestor)
     end
   end

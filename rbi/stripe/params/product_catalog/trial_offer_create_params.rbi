@@ -56,6 +56,11 @@ module Stripe
          }
         def initialize(transition: nil); end
       end
+      # Whether the trial offer can be used for new subscriptions. Defaults to true.
+      sig { returns(T.nilable(T::Boolean)) }
+      def active; end
+      sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def active=(_active); end
       # Duration of one service period of the trial.
       sig { returns(::Stripe::ProductCatalog::TrialOfferCreateParams::Duration) }
       def duration; end
@@ -75,20 +80,27 @@ module Stripe
       def expand; end
       sig { params(_expand: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
       def expand=(_expand); end
-      # A brief, user-friendly name for the trial offer-for identification purposes.
+      # A brief description of the trial offer, hidden from customers.
       sig { returns(T.nilable(String)) }
-      def name; end
-      sig { params(_name: T.nilable(String)).returns(T.nilable(String)) }
-      def name=(_name); end
+      def nickname; end
+      sig { params(_nickname: T.nilable(String)).returns(T.nilable(String)) }
+      def nickname=(_nickname); end
       # Price configuration during the trial period (amount, billing scheme, etc).
       sig { returns(String) }
       def price; end
       sig { params(_price: String).returns(String) }
       def price=(_price); end
       sig {
-        params(duration: ::Stripe::ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ::Stripe::ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), name: T.nilable(String), price: String).void
+        params(active: T.nilable(T::Boolean), duration: ::Stripe::ProductCatalog::TrialOfferCreateParams::Duration, end_behavior: ::Stripe::ProductCatalog::TrialOfferCreateParams::EndBehavior, expand: T.nilable(T::Array[String]), nickname: T.nilable(String), price: String).void
        }
-      def initialize(duration: nil, end_behavior: nil, expand: nil, name: nil, price: nil); end
+      def initialize(
+        active: nil,
+        duration: nil,
+        end_behavior: nil,
+        expand: nil,
+        nickname: nil,
+        price: nil
+      ); end
     end
   end
 end

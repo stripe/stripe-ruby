@@ -31,7 +31,7 @@ module Stripe
     attr_reader :name
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # An object that describes more information about the tax location required for this tax code. Some [tax codes](/tax/tax-for-tickets/integration-guide#types-of-products) require a tax location of type `performance` to calculate tax correctly.
+    # An object that describes more information about the tax location required for this tax code. Some tax codes require a [performance location](/tax/location-sales#required-versus-optional-performance-locations) to calculate tax correctly.
     attr_reader :requirements
 
     # A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.

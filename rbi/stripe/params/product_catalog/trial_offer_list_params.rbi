@@ -31,6 +31,11 @@ module Stripe
          }
         def initialize(gt: nil, gte: nil, lt: nil, lte: nil); end
       end
+      # Only return trial offers that are active (`true`) or archived (`false`). If omitted, both active and archived trial offers are returned.
+      sig { returns(T.nilable(T::Boolean)) }
+      def active; end
+      sig { params(_active: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+      def active=(_active); end
       # Only return trial offers that were created during the given date interval.
       sig {
         returns(T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)))
@@ -66,9 +71,10 @@ module Stripe
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
       sig {
-        params(created: T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), prices: T.nilable(T::Array[String]), starting_after: T.nilable(String)).void
+        params(active: T.nilable(T::Boolean), created: T.nilable(T.any(::Stripe::ProductCatalog::TrialOfferListParams::Created, Integer)), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), prices: T.nilable(T::Array[String]), starting_after: T.nilable(String)).void
        }
       def initialize(
+        active: nil,
         created: nil,
         ending_before: nil,
         expand: nil,

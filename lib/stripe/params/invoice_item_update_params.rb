@@ -107,6 +107,8 @@ module Stripe
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Pass an empty string to remove previously-defined invoicing rules. Setting invoicing rules is not supported.
+    attr_accessor :invoicing_rules
     # The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     attr_accessor :margins
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -136,6 +138,7 @@ module Stripe
       discountable: nil,
       discounts: nil,
       expand: nil,
+      invoicing_rules: nil,
       margins: nil,
       metadata: nil,
       period: nil,
@@ -153,6 +156,7 @@ module Stripe
       @discountable = discountable
       @discounts = discounts
       @expand = expand
+      @invoicing_rules = invoicing_rules
       @margins = margins
       @metadata = metadata
       @period = period

@@ -347,8 +347,53 @@ module Stripe
         end
 
         class Billie < ::Stripe::StripeObject
+          class CompanyDetails < ::Stripe::StripeObject
+            class RegisteredAddress < ::Stripe::StripeObject
+              # City, district, suburb, town, or village.
+              attr_reader :city
+              # Two-letter country code.
+              attr_reader :country
+              # Address line 1 (for example, street, PO Box, or company name).
+              attr_reader :line1
+              # Address line 2 (for example, apartment, suite, unit, or building).
+              attr_reader :line2
+              # ZIP or postal code.
+              attr_reader :postal_code
+              # State, county, province, or region.
+              attr_reader :state
+
+              def self.inner_class_types
+                @inner_class_types = {}
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
+            # Attribute for field registered_address
+            attr_reader :registered_address
+            # Company or entity name.
+            attr_reader :registered_name
+            # The official registration number for the given registration type.
+            attr_reader :registration_number
+            # Type of registration the company or entity holds in their registered country.
+            attr_reader :registration_type
+            # VAT ID number.
+            attr_reader :vat
+
+            def self.inner_class_types
+              @inner_class_types = { registered_address: RegisteredAddress }
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field company_details
+          attr_reader :company_details
+
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { company_details: CompanyDetails }
           end
 
           def self.field_remappings
@@ -359,7 +404,7 @@ module Stripe
         class Blik < ::Stripe::StripeObject
           class MandateOptions < ::Stripe::StripeObject
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_reader :expires_after
+            attr_reader :expires_at
 
             def self.inner_class_types
               @inner_class_types = {}
@@ -705,6 +750,8 @@ module Stripe
     class PendingUpdate < ::Stripe::StripeObject
       # If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
       attr_reader :billing_cycle_anchor
+      # Indicates whether this subscription should cancel at the end of the current period if the update is applied.
+      attr_reader :cancel_at_period_end
       # The pending subscription-level discount that will be applied when the pending update is applied.
       attr_reader :discount
       # The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.
@@ -719,7 +766,7 @@ module Stripe
       attr_reader :subscription_items
       # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time, if the update is applied.
       attr_reader :trial_end
-      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+      # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
       attr_reader :trial_from_plan
 
       def self.inner_class_types
@@ -939,7 +986,7 @@ module Stripe
     #
     # A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
     #
-    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    # A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials/free-trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
     #
     # If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
     #

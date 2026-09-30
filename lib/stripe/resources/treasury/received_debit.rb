@@ -3,7 +3,7 @@
 
 module Stripe
   module Treasury
-    # ReceivedDebits represent funds pulled from a [FinancialAccount](https://api.stripe.com#financial_accounts). These are not initiated from the FinancialAccount.
+    # ReceivedDebits represent funds pulled from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts). These are not initiated from the FinancialAccount.
     class ReceivedDebit < APIResource
       extend Stripe::APIOperations::List
 
@@ -89,7 +89,7 @@ module Stripe
         attr_reader :billing_details
         # Attribute for field financial_account
         attr_reader :financial_account
-        # Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
+        # Set when `type` is `issuing_card`. This is an [Issuing Card](https://docs.stripe.com/api#issuing_cards) ID.
         attr_reader :issuing_card
         # Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
         attr_reader :type
@@ -114,15 +114,15 @@ module Stripe
         attr_reader :debit_reversal
         # Set if the ReceivedDebit is associated with an InboundTransfer's return of funds.
         attr_reader :inbound_transfer
-        # Set if the ReceivedDebit was created due to an [Issuing Authorization](https://api.stripe.com#issuing_authorizations) object.
+        # Set if the ReceivedDebit was created due to an [Issuing Authorization](https://docs.stripe.com/api#issuing_authorizations) object.
         attr_reader :issuing_authorization
-        # Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://api.stripe.com#issuing_disputes) object.
+        # Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://docs.stripe.com/api#issuing_disputes) object.
         attr_reader :issuing_transaction
-        # Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
+        # Set if the ReceivedDebit was created due to a [Payout](https://docs.stripe.com/api#payouts) object.
         attr_reader :payout
         # The ReceivedCredit that Capital withheld from
         attr_reader :received_credit_capital_withholding
-        # Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        # Set if the ReceivedDebit was created due to a [Topup](https://docs.stripe.com/api#topups) object.
         attr_reader :topup
 
         def self.inner_class_types

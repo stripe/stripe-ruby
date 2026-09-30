@@ -48,11 +48,36 @@ module Stripe
                 @field_remappings = {}
               end
             end
+            class Identity < ::Stripe::StripeObject
+              class BusinessDetails < ::Stripe::StripeObject
+                # Registered business name.
+                sig { returns(T.nilable(String)) }
+                def registered_name; end
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Business details for identity data.
+              sig { returns(BusinessDetails) }
+              def business_details; end
+              def self.inner_class_types
+                @inner_class_types = {business_details: BusinessDetails}
+              end
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Default account settings.
             sig { returns(T.nilable(Defaults)) }
             def defaults; end
+            # Identity data.
+            sig { returns(T.nilable(Identity)) }
+            def identity; end
             def self.inner_class_types
-              @inner_class_types = {defaults: Defaults}
+              @inner_class_types = {defaults: Defaults, identity: Identity}
             end
             def self.field_remappings
               @field_remappings = {}
@@ -75,6 +100,26 @@ module Stripe
           end
         end
         class EvaluatedSignals < ::Stripe::StripeObject
+          class FraudulentWebsite < ::Stripe::StripeObject
+            # Human-readable details about the fraudulent website evaluation, when available.
+            sig { returns(T.nilable(String)) }
+            def details; end
+            # Timestamp at which the signal was evaluated.
+            sig { returns(T.nilable(String)) }
+            def evaluated_at; end
+            # Categorical assessment of the fraudulent website risk.
+            sig { returns(String) }
+            def risk_level; end
+            # The account signal ID containing the full fraudulent website signal result.
+            sig { returns(T.nilable(String)) }
+            def signal; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           class UserAccountSharing < ::Stripe::StripeObject
             # Timestamp at which the signal was evaluated.
             sig { returns(T.nilable(String)) }
@@ -121,6 +166,9 @@ module Stripe
               @field_encodings = {score: :decimal_string}
             end
           end
+          # Fraudulent website result for the evaluation, when available.
+          sig { returns(T.nilable(FraudulentWebsite)) }
+          def fraudulent_website; end
           # User account-sharing result for the evaluation, when available.
           sig { returns(T.nilable(UserAccountSharing)) }
           def user_account_sharing; end
@@ -129,6 +177,7 @@ module Stripe
           def user_multi_accounting; end
           def self.inner_class_types
             @inner_class_types = {
+              fraudulent_website: FraudulentWebsite,
               user_account_sharing: UserAccountSharing,
               user_multi_accounting: UserMultiAccounting,
             }

@@ -27,10 +27,6 @@ module Stripe
         end
 
         class BankAccount < ::Stripe::StripeObject
-          # Whether this PayoutMethodBankAccount object was archived. PayoutMethodBankAccount objects can be archived through
-          # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodBankAccount objects
-          # cannot be used as payout methods and will not appear in the payout method list.
-          attr_reader :archived
           # The type of bank account (checking or savings).
           attr_reader :bank_account_type
           # The name of the bank this bank account is in. This field is populated automatically by Stripe.
@@ -62,10 +58,6 @@ module Stripe
         end
 
         class Card < ::Stripe::StripeObject
-          # Whether the PayoutMethodCard object was archived. PayoutMethodCard objects can be archived through
-          # the /archive API, and they will not be automatically archived by Stripe. Archived PayoutMethodCard objects
-          # cannot be used as payout methods and will not appear in the payout method list.
-          attr_reader :archived
           # The month the card expires.
           attr_reader :exp_month
           # The year the card expires.
@@ -105,6 +97,10 @@ module Stripe
         end
         # The alternative reference for this payout method, if it's a projected payout method.
         attr_reader :alternative_reference
+        # Whether the payout method was archived. Payout methods can be archived through the /archive API,
+        # and they will not be automatically archived by Stripe. Archived payout methods cannot be used
+        # for outbound money movement.
+        attr_reader :archived
         # A set of available payout speeds for this payout method.
         attr_reader :available_payout_speeds
         # The PayoutMethodBankAccount object details.

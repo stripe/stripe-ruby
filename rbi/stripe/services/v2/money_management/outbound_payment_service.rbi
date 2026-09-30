@@ -17,6 +17,7 @@ module Stripe
 
         # Creates an OutboundPayment.
         #
+        # ** raises BlockedByStripeError
         # ** raises InsufficientFundsError
         # ** raises FeatureNotEnabledError
         # ** raises QuotaExceededError

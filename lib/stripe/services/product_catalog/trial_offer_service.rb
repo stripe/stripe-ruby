@@ -36,6 +36,17 @@ module Stripe
           base_address: :api
         )
       end
+
+      # Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+      def update(id, params = {}, opts = {})
+        request(
+          method: :post,
+          path: format("/v1/product_catalog/trial_offers/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts,
+          base_address: :api
+        )
+      end
     end
   end
 end

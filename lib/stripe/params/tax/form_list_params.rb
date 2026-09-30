@@ -9,7 +9,7 @@ module Stripe
         attr_accessor :account
         # The external reference to the payee whose forms will be retrieved.
         attr_accessor :external_reference
-        # Specifies the payee type. Either `account` or `external_reference`.
+        # Specifies the payee type.
         attr_accessor :type
 
         def initialize(account: nil, external_reference: nil, type: nil)

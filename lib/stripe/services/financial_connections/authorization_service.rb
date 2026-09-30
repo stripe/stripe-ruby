@@ -4,7 +4,7 @@
 module Stripe
   module FinancialConnections
     class AuthorizationService < StripeService
-      # Retrieves the details of an Financial Connections Authorization.
+      # Retrieves the details of a Financial Connections Authorization.
       def retrieve(authorization, params = {}, opts = {})
         request(
           method: :get,

@@ -107,7 +107,7 @@ module Stripe
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
-      # The status of the Tax `Settings`.
+      # Whether these settings have the information Stripe Tax needs to calculate tax. It doesn't reflect whether your integration is ready to collect tax.
       sig { returns(String) }
       def status; end
       # Attribute for field status_details

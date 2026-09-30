@@ -7,13 +7,43 @@ module Stripe
     module MoneyManagement
       class FinancialAccountCreateParams < ::Stripe::RequestParams
         class Storage < ::Stripe::RequestParams
+          class DepositInsuranceEligibility < ::Stripe::RequestParams
+            # The bank where funds are stored.
+            sig { returns(String) }
+            def bank_name; end
+            sig { params(_bank_name: String).returns(String) }
+            def bank_name=(_bank_name); end
+            # Currencies eligible for deposit insurance at this bank under this scheme.
+            sig { returns(T::Array[String]) }
+            def currencies; end
+            sig { params(_currencies: T::Array[String]).returns(T::Array[String]) }
+            def currencies=(_currencies); end
+            # The deposit insurance scheme.
+            sig { returns(String) }
+            def type; end
+            sig { params(_type: String).returns(String) }
+            def type=(_type); end
+            sig { params(bank_name: String, currencies: T::Array[String], type: String).void }
+            def initialize(bank_name: nil, currencies: nil, type: nil); end
+          end
+          # Array of eligibility objects, segmented by bank name and deposit insurance scheme.
+          sig {
+            returns(T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]))
+           }
+          def deposit_insurance_eligibility; end
+          sig {
+            params(_deposit_insurance_eligibility: T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility])).returns(T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]))
+           }
+          def deposit_insurance_eligibility=(_deposit_insurance_eligibility); end
           # The currencies that this FinancialAccount can hold.
           sig { returns(T::Array[String]) }
           def holds_currencies; end
           sig { params(_holds_currencies: T::Array[String]).returns(T::Array[String]) }
           def holds_currencies=(_holds_currencies); end
-          sig { params(holds_currencies: T::Array[String]).void }
-          def initialize(holds_currencies: nil); end
+          sig {
+            params(deposit_insurance_eligibility: T.nilable(T::Array[::Stripe::V2::MoneyManagement::FinancialAccountCreateParams::Storage::DepositInsuranceEligibility]), holds_currencies: T::Array[String]).void
+           }
+          def initialize(deposit_insurance_eligibility: nil, holds_currencies: nil); end
         end
         # A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
         sig { returns(T.nilable(String)) }

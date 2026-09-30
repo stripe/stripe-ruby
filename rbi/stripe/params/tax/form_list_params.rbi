@@ -16,7 +16,7 @@ module Stripe
         def external_reference; end
         sig { params(_external_reference: T.nilable(String)).returns(T.nilable(String)) }
         def external_reference=(_external_reference); end
-        # Specifies the payee type. Either `account` or `external_reference`.
+        # Specifies the payee type.
         sig { returns(T.nilable(String)) }
         def type; end
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }

@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Treasury
-    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://api.stripe.com#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+    # Use [InboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://docs.stripe.com/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     #
     # Related guide: [Moving money with Treasury using InboundTransfer objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers)
     class InboundTransfer < APIResource
@@ -154,7 +154,7 @@ module Stripe
       # An arbitrary string attached to the object. Often useful for displaying to users.
       sig { returns(T.nilable(String)) }
       def description; end
-      # Details about this InboundTransfer's failure. Only set when status is `failed`.
+      # Details about this InboundTransfer's failure. Will be set when `status=failed` or `returned=true`.
       sig { returns(T.nilable(FailureDetails)) }
       def failure_details; end
       # The FinancialAccount that received the funds.

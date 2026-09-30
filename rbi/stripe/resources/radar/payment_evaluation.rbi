@@ -275,10 +275,10 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Describes card money movement details for the payment evaluation.
+          # Describes card money movement details.
           sig { returns(T.nilable(Card)) }
           def card; end
-          # Describes the type of money movement. Currently only `card` is supported.
+          # Describes the type of money movement.
           sig { returns(String) }
           def money_movement_type; end
           def self.inner_class_types
@@ -424,15 +424,15 @@ module Stripe
         end
       end
       class Signals < ::Stripe::StripeObject
-        class FraudulentPayment < ::Stripe::StripeObject
+        class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           sig { returns(Integer) }
           def evaluated_at; end
           # Risk level of this signal, based on the score.
           sig { returns(String) }
           def risk_level; end
-          # Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
-          sig { returns(Float) }
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(T.nilable(Float)) }
           def score; end
           def self.inner_class_types
             @inner_class_types = {}
@@ -441,11 +441,55 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class FraudulentDispute < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          sig { returns(Integer) }
+          def evaluated_at; end
+          # Risk level of this signal, based on the score.
+          sig { returns(String) }
+          def risk_level; end
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(T.nilable(Float)) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        class FraudulentPayment < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          sig { returns(Integer) }
+          def evaluated_at; end
+          # Risk level of this signal, based on the score.
+          sig { returns(String) }
+          def risk_level; end
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(T.nilable(Float)) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
+        sig { returns(T.nilable(EarlyFraudWarning)) }
+        def early_fraud_warning; end
+        # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
+        sig { returns(T.nilable(FraudulentDispute)) }
+        def fraudulent_dispute; end
         # A payment evaluation signal with evaluated_at, risk_level, and score fields.
         sig { returns(FraudulentPayment) }
         def fraudulent_payment; end
         def self.inner_class_types
-          @inner_class_types = {fraudulent_payment: FraudulentPayment}
+          @inner_class_types = {
+            early_fraud_warning: EarlyFraudWarning,
+            fraudulent_dispute: FraudulentDispute,
+            fraudulent_payment: FraudulentPayment,
+          }
         end
         def self.field_remappings
           @field_remappings = {}

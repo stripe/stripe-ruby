@@ -543,6 +543,35 @@ module Stripe
                 end
               end
 
+              class BlikRecurringPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class BoletoPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1355,6 +1384,35 @@ module Stripe
                 end
               end
 
+              class SatispayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
               class SepaBankTransferPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1385,6 +1443,35 @@ module Stripe
               end
 
               class SepaDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+
+              class SequraPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   attr_reader :code
@@ -1618,6 +1705,8 @@ module Stripe
               attr_reader :bancontact_payments
               # Allow the merchant to process BLIK payments.
               attr_reader :blik_payments
+              # Allow the merchant to process recurring BLIK payments.
+              attr_reader :blik_recurring_payments
               # Allow the merchant to process Boleto payments.
               attr_reader :boleto_payments
               # Allow the merchant to collect card payments.
@@ -1674,10 +1763,14 @@ module Stripe
               attr_reader :revolut_pay_payments
               # Allow the merchant to process Samsung Pay payments.
               attr_reader :samsung_pay_payments
+              # Allow the merchant to process Satispay payments.
+              attr_reader :satispay_payments
               # Allow the merchant to process SEPA bank transfer payments.
               attr_reader :sepa_bank_transfer_payments
               # Allow the merchant to process SEPA Direct Debit payments.
               attr_reader :sepa_debit_payments
+              # Allow the merchant to process SeQura payments.
+              attr_reader :sequra_payments
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
               # Allow the merchant to process Sunbit payments.
@@ -1703,6 +1796,7 @@ module Stripe
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   blik_payments: BlikPayments,
+                  blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
                   card_payments: CardPayments,
                   cartes_bancaires_payments: CartesBancairesPayments,
@@ -1731,8 +1825,10 @@ module Stripe
                   promptpay_payments: PromptpayPayments,
                   revolut_pay_payments: RevolutPayPayments,
                   samsung_pay_payments: SamsungPayPayments,
+                  satispay_payments: SatispayPayments,
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
+                  sequra_payments: SequraPayments,
                   stripe_balance: StripeBalance,
                   sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,

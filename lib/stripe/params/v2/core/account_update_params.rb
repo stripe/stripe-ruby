@@ -301,6 +301,15 @@ module Stripe
                 end
               end
 
+              class BlikRecurringPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class BoletoPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -553,6 +562,15 @@ module Stripe
                 end
               end
 
+              class SatispayPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
               class SepaBankTransferPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
@@ -563,6 +581,15 @@ module Stripe
               end
 
               class SepaDebitPayments < ::Stripe::RequestParams
+                # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+                attr_accessor :requested
+
+                def initialize(requested: nil)
+                  @requested = requested
+                end
+              end
+
+              class SequraPayments < ::Stripe::RequestParams
                 # To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
                 attr_accessor :requested
 
@@ -635,6 +662,8 @@ module Stripe
               attr_accessor :bancontact_payments
               # Allow the merchant to process BLIK payments.
               attr_accessor :blik_payments
+              # Allow the merchant to process recurring BLIK payments.
+              attr_accessor :blik_recurring_payments
               # Allow the merchant to process Boleto payments.
               attr_accessor :boleto_payments
               # Allow the merchant to collect card payments.
@@ -691,10 +720,14 @@ module Stripe
               attr_accessor :revolut_pay_payments
               # Allow the merchant to process Samsung Pay payments.
               attr_accessor :samsung_pay_payments
+              # Allow the merchant to process Satispay payments.
+              attr_accessor :satispay_payments
               # Allow the merchant to process SEPA bank transfer payments.
               attr_accessor :sepa_bank_transfer_payments
               # Allow the merchant to process SEPA Direct Debit payments.
               attr_accessor :sepa_debit_payments
+              # Allow the merchant to process SeQura payments.
+              attr_accessor :sequra_payments
               # Allow the merchant to process Sunbit payments.
               attr_accessor :sunbit_payments
               # Allow the merchant to process Swish payments.
@@ -717,6 +750,7 @@ module Stripe
                 bacs_debit_payments: nil,
                 bancontact_payments: nil,
                 blik_payments: nil,
+                blik_recurring_payments: nil,
                 boleto_payments: nil,
                 card_payments: nil,
                 cartes_bancaires_payments: nil,
@@ -745,8 +779,10 @@ module Stripe
                 promptpay_payments: nil,
                 revolut_pay_payments: nil,
                 samsung_pay_payments: nil,
+                satispay_payments: nil,
                 sepa_bank_transfer_payments: nil,
                 sepa_debit_payments: nil,
+                sequra_payments: nil,
                 sunbit_payments: nil,
                 swish_payments: nil,
                 twint_payments: nil,
@@ -763,6 +799,7 @@ module Stripe
                 @bacs_debit_payments = bacs_debit_payments
                 @bancontact_payments = bancontact_payments
                 @blik_payments = blik_payments
+                @blik_recurring_payments = blik_recurring_payments
                 @boleto_payments = boleto_payments
                 @card_payments = card_payments
                 @cartes_bancaires_payments = cartes_bancaires_payments
@@ -791,8 +828,10 @@ module Stripe
                 @promptpay_payments = promptpay_payments
                 @revolut_pay_payments = revolut_pay_payments
                 @samsung_pay_payments = samsung_pay_payments
+                @satispay_payments = satispay_payments
                 @sepa_bank_transfer_payments = sepa_bank_transfer_payments
                 @sepa_debit_payments = sepa_debit_payments
+                @sequra_payments = sequra_payments
                 @sunbit_payments = sunbit_payments
                 @swish_payments = swish_payments
                 @twint_payments = twint_payments
@@ -887,6 +926,15 @@ module Stripe
               def initialize(kana: nil, kanji: nil)
                 @kana = kana
                 @kanji = kanji
+              end
+            end
+
+            class SepaDebitPayments < ::Stripe::RequestParams
+              # Creditor ID for SEPA Direct Debit payments.
+              attr_accessor :creditor_id
+
+              def initialize(creditor_id: nil)
+                @creditor_id = creditor_id
               end
             end
 
@@ -986,6 +1034,8 @@ module Stripe
             attr_accessor :mcc
             # Settings for the default text that appears on statements for language variations.
             attr_accessor :script_statement_descriptor
+            # Settings for SEPA Direct Debit payments.
+            attr_accessor :sepa_debit_payments
             # Settings for Smart Disputes automatic response feature.
             attr_accessor :smart_disputes
             # Settings for the default [statement descriptor](/connect/statement-descriptors) text.
@@ -1002,6 +1052,7 @@ module Stripe
               konbini_payments: nil,
               mcc: nil,
               script_statement_descriptor: nil,
+              sepa_debit_payments: nil,
               smart_disputes: nil,
               statement_descriptor: nil,
               support: nil
@@ -1014,6 +1065,7 @@ module Stripe
               @konbini_payments = konbini_payments
               @mcc = mcc
               @script_statement_descriptor = script_statement_descriptor
+              @sepa_debit_payments = sepa_debit_payments
               @smart_disputes = smart_disputes
               @statement_descriptor = statement_descriptor
               @support = support
@@ -2614,7 +2666,7 @@ module Stripe
             }
           end
         end
-        # The account token generated by the account token api.
+        # The account token generated by the account token API.
         attr_accessor :account_token
         # An Account Configuration which allows the Account to take on a key persona across Stripe products.
         attr_accessor :configuration

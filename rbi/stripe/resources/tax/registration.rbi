@@ -70,17 +70,6 @@ module Stripe
           end
         end
         class At < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -92,9 +81,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -102,7 +88,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -189,17 +175,6 @@ module Stripe
           end
         end
         class Be < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -211,9 +186,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -221,7 +193,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -239,17 +211,6 @@ module Stripe
           end
         end
         class Bg < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -261,9 +222,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -271,7 +229,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -438,17 +396,6 @@ module Stripe
           end
         end
         class Cy < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -460,9 +407,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -470,24 +414,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Cz < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -499,9 +432,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -509,24 +439,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class De < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -538,9 +457,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -548,24 +464,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Dk < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -577,9 +482,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -587,7 +489,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -605,17 +507,6 @@ module Stripe
           end
         end
         class Ee < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -627,9 +518,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -637,7 +525,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -683,7 +571,7 @@ module Stripe
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
-          # Type of registration in an EU country.
+          # Type of registration in ES.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -705,17 +593,6 @@ module Stripe
           end
         end
         class Fi < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -727,9 +604,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -737,24 +611,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Fr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -766,9 +629,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -776,7 +636,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -830,17 +690,6 @@ module Stripe
           end
         end
         class Gr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -852,9 +701,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -862,24 +708,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Hr < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -891,9 +726,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -901,24 +733,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Hu < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -930,9 +751,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -940,7 +758,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -958,17 +776,6 @@ module Stripe
           end
         end
         class Ie < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -980,9 +787,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -990,7 +794,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1019,17 +823,6 @@ module Stripe
           end
         end
         class It < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1041,9 +834,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1051,7 +841,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1160,17 +950,6 @@ module Stripe
           end
         end
         class Lt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1182,9 +961,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1192,24 +968,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Lu < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1221,9 +986,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1231,24 +993,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Lv < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1260,9 +1011,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1270,7 +1018,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1332,17 +1080,6 @@ module Stripe
           end
         end
         class Mt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1354,9 +1091,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1364,7 +1098,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1404,17 +1138,6 @@ module Stripe
           end
         end
         class Nl < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1426,9 +1149,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1436,7 +1156,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1537,17 +1257,6 @@ module Stripe
           end
         end
         class Pl < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1559,9 +1268,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1569,24 +1275,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Pt < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1598,9 +1293,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1608,24 +1300,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Ro < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1637,9 +1318,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1647,7 +1325,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1687,17 +1365,6 @@ module Stripe
           end
         end
         class Se < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1709,9 +1376,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1719,7 +1383,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -1751,17 +1415,6 @@ module Stripe
           end
         end
         class Si < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1773,9 +1426,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1783,24 +1433,13 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}
           end
         end
         class Sk < ::Stripe::StripeObject
-          class Igic < ::Stripe::StripeObject
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            def self.inner_class_types
-              @inner_class_types = {}
-            end
-            def self.field_remappings
-              @field_remappings = {}
-            end
-          end
           class Standard < ::Stripe::StripeObject
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1812,9 +1451,6 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field igic
-          sig { returns(T.nilable(Igic)) }
-          def igic; end
           # Attribute for field standard
           sig { returns(T.nilable(Standard)) }
           def standard; end
@@ -1822,7 +1458,7 @@ module Stripe
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {igic: Igic, standard: Standard}
+            @inner_class_types = {standard: Standard}
           end
           def self.field_remappings
             @field_remappings = {}

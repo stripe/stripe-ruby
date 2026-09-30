@@ -49,18 +49,14 @@ module Stripe
           sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
           def product_description=(_product_description); end
           # Whether the product was a merchandise or service.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def product_type; end
-          sig {
-            params(_product_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_product_type: T.nilable(String)).returns(T.nilable(String)) }
           def product_type=(_product_type); end
           # Result of cardholder's attempt to return the product.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def return_status; end
-          sig {
-            params(_return_status: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_return_status: T.nilable(String)).returns(T.nilable(String)) }
           def return_status=(_return_status); end
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(T.any(String, Integer))) }
@@ -70,7 +66,7 @@ module Stripe
            }
           def returned_at=(_returned_at); end
           sig {
-            params(additional_documentation: T.nilable(String), canceled_at: T.nilable(T.any(String, Integer)), cancellation_policy_provided: T.nilable(T.any(String, T::Boolean)), cancellation_reason: T.nilable(String), expected_at: T.nilable(T.any(String, Integer)), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(T.any(String, String)), return_status: T.nilable(T.any(String, String)), returned_at: T.nilable(T.any(String, Integer))).void
+            params(additional_documentation: T.nilable(String), canceled_at: T.nilable(T.any(String, Integer)), cancellation_policy_provided: T.nilable(T.any(String, T::Boolean)), cancellation_reason: T.nilable(String), expected_at: T.nilable(T.any(String, Integer)), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(T.any(String, Integer))).void
            }
           def initialize(
             additional_documentation: nil,
@@ -168,11 +164,9 @@ module Stripe
           sig { params(_return_description: T.nilable(String)).returns(T.nilable(String)) }
           def return_description=(_return_description); end
           # Result of cardholder's attempt to return the product.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def return_status; end
-          sig {
-            params(_return_status: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_return_status: T.nilable(String)).returns(T.nilable(String)) }
           def return_status=(_return_status); end
           # Date when the product was returned or attempted to be returned.
           sig { returns(T.nilable(T.any(String, Integer))) }
@@ -182,7 +176,7 @@ module Stripe
            }
           def returned_at=(_returned_at); end
           sig {
-            params(additional_documentation: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(T.any(String, Integer)), return_description: T.nilable(String), return_status: T.nilable(T.any(String, String)), returned_at: T.nilable(T.any(String, Integer))).void
+            params(additional_documentation: T.nilable(String), explanation: T.nilable(String), received_at: T.nilable(T.any(String, Integer)), return_description: T.nilable(String), return_status: T.nilable(String), returned_at: T.nilable(T.any(String, Integer))).void
            }
           def initialize(
             additional_documentation: nil,
@@ -233,14 +227,12 @@ module Stripe
           sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
           def product_description=(_product_description); end
           # Whether the product was a merchandise or service.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def product_type; end
-          sig {
-            params(_product_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_product_type: T.nilable(String)).returns(T.nilable(String)) }
           def product_type=(_product_type); end
           sig {
-            params(additional_documentation: T.nilable(String), expected_at: T.nilable(T.any(String, Integer)), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(T.any(String, String))).void
+            params(additional_documentation: T.nilable(String), expected_at: T.nilable(T.any(String, Integer)), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
            }
           def initialize(
             additional_documentation: nil,
@@ -267,14 +259,12 @@ module Stripe
           sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
           def product_description=(_product_description); end
           # Whether the product was a merchandise or service.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def product_type; end
-          sig {
-            params(_product_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_product_type: T.nilable(String)).returns(T.nilable(String)) }
           def product_type=(_product_type); end
           sig {
-            params(additional_documentation: T.nilable(String), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(T.any(String, String))).void
+            params(additional_documentation: T.nilable(String), explanation: T.nilable(String), product_description: T.nilable(String), product_type: T.nilable(String)).void
            }
           def initialize(
             additional_documentation: nil,

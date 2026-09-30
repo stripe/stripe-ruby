@@ -41,11 +41,38 @@ module Stripe
                 @field_remappings = {}
               end
             end
+
+            class Identity < ::Stripe::StripeObject
+              class BusinessDetails < ::Stripe::StripeObject
+                # Registered business name.
+                attr_reader :registered_name
+
+                def self.inner_class_types
+                  @inner_class_types = {}
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              # Business details for identity data.
+              attr_reader :business_details
+
+              def self.inner_class_types
+                @inner_class_types = { business_details: BusinessDetails }
+              end
+
+              def self.field_remappings
+                @field_remappings = {}
+              end
+            end
             # Default account settings.
             attr_reader :defaults
+            # Identity data.
+            attr_reader :identity
 
             def self.inner_class_types
-              @inner_class_types = { defaults: Defaults }
+              @inner_class_types = { defaults: Defaults, identity: Identity }
             end
 
             def self.field_remappings

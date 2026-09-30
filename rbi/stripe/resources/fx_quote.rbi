@@ -103,6 +103,9 @@ module Stripe
     # Unique identifier for the object.
     sig { returns(String) }
     def id; end
+    # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    sig { returns(T::Boolean) }
+    def livemode; end
     # The duration that the quote is locked for, from creation time. The quote will be usable for the duration specified.
     sig { returns(String) }
     def lock_duration; end

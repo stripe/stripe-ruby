@@ -11,7 +11,7 @@ module Stripe
        }
       def retrieve(params = {}, opts = {}); end
 
-      # Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+      # Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
       sig {
         params(params: T.any(::Stripe::Tax::SettingsUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Tax::Settings)
        }

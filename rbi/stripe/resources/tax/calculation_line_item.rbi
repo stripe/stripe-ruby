@@ -4,6 +4,7 @@
 # typed: true
 module Stripe
   module Tax
+    # A Tax Calculation Line Item represents a single item in a tax calculation.
     class CalculationLineItem < APIResource
       class TaxBreakdown < ::Stripe::StripeObject
         class Jurisdiction < ::Stripe::StripeObject

@@ -607,17 +607,29 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class Link < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field apple_pay
           attr_reader :apple_pay
           # (For tokenized numbers only.) The last four digits of the device account number.
           attr_reader :dynamic_last4
           # Attribute for field google_pay
           attr_reader :google_pay
-          # The type of the card wallet, one of `apple_pay` or `google_pay`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+          # Attribute for field link
+          attr_reader :link
+          # The type of the card wallet, one of `apple_pay`, `google_pay`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
           attr_reader :type
 
           def self.inner_class_types
-            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay }
+            @inner_class_types = { apple_pay: ApplePay, google_pay: GooglePay, link: Link }
           end
 
           def self.field_remappings
@@ -666,6 +678,8 @@ module Stripe
         attr_reader :network_token
         # This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
         attr_reader :network_transaction_id
+        # The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
+        attr_reader :stored_credential_usage
         # Populated if this transaction used 3D Secure authentication.
         attr_reader :three_d_secure
         # If this Card is part of a card wallet, this contains the details of the card wallet.
@@ -1178,6 +1192,8 @@ module Stripe
       class Link < ::Stripe::StripeObject
         # Two-letter ISO code representing the funding source country beneath the Link payment. You could use this attribute to get a sense of international fees.
         attr_reader :country
+        # The [funding source group code](https://docs.stripe.com/payments/link/link-payment-methods) applied to this Link payment at confirmation time.
+        attr_reader :funding_source_group
 
         def self.inner_class_types
           @inner_class_types = {}
@@ -1224,6 +1240,21 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { card: Card }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Momo < ::Stripe::StripeObject
+        # Uniquely identifies this particular MoMo account. You can use this attribute to check whether two MoMo accounts are the same.
+        attr_reader :fingerprint
+        # ID of the multi-use Mandate created by, or used to make, this MoMo payment.
+        attr_reader :mandate
+
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -1677,6 +1708,19 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::StripeObject
+        # The SeQura transaction ID associated with this payment.
+        attr_reader :transaction_id
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Shopeepay < ::Stripe::StripeObject
         def self.inner_class_types
           @inner_class_types = {}
@@ -1938,6 +1982,8 @@ module Stripe
       attr_reader :mb_way
       # Attribute for field mobilepay
       attr_reader :mobilepay
+      # Attribute for field momo
+      attr_reader :momo
       # Attribute for field multibanco
       attr_reader :multibanco
       # Attribute for field naver_pay
@@ -1982,6 +2028,8 @@ module Stripe
       attr_reader :sepa_credit_transfer
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field sequra
+      attr_reader :sequra
       # Attribute for field shopeepay
       attr_reader :shopeepay
       # Attribute for field sofort
@@ -2050,6 +2098,7 @@ module Stripe
           link: Link,
           mb_way: MbWay,
           mobilepay: Mobilepay,
+          momo: Momo,
           multibanco: Multibanco,
           naver_pay: NaverPay,
           nz_bank_account: NzBankAccount,
@@ -2071,6 +2120,7 @@ module Stripe
           scalapay: Scalapay,
           sepa_credit_transfer: SepaCreditTransfer,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           shopeepay: Shopeepay,
           sofort: Sofort,
           stripe_account: StripeAccount,

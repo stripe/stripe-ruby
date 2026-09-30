@@ -159,7 +159,7 @@ module Stripe
         def initialize(default_value: nil, options: nil); end
       end
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(String) }
         def custom; end
         sig { params(_custom: String).returns(String) }
@@ -385,20 +385,16 @@ module Stripe
         end
         class RenderingOptions < ::Stripe::RequestParams
           # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def amount_tax_display; end
-          sig {
-            params(_amount_tax_display: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
           def amount_tax_display=(_amount_tax_display); end
           # ID of the invoice rendering template to use for this invoice.
           sig { returns(T.nilable(String)) }
           def template; end
           sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
           def template=(_template); end
-          sig {
-            params(amount_tax_display: T.nilable(T.any(String, String)), template: T.nilable(String)).void
-           }
+          sig { params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void }
           def initialize(amount_tax_display: nil, template: nil); end
         end
         # The account tax IDs associated with the invoice.
@@ -644,11 +640,9 @@ module Stripe
       # If Checkout does not create a Customer, the payment method is not attached to a Customer. To reuse the payment method, you can retrieve it from the Checkout Session's PaymentIntent.
       #
       # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def setup_future_usage; end
-      sig {
-        params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
       def setup_future_usage=(_setup_future_usage); end
       # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
       #
@@ -668,7 +662,7 @@ module Stripe
       sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
       def transfer_group=(_transfer_group); end
       sig {
-        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
+        params(description: T.nilable(String), metadata: T.nilable(T.any(String, T::Hash[String, String])), setup_future_usage: T.nilable(String), statement_descriptor: T.nilable(String), statement_descriptor_suffix: T.nilable(String), transfer_group: T.nilable(String)).void
        }
       def initialize(
         description: nil,
@@ -872,7 +866,7 @@ module Stripe
       def enabled; end
       sig { params(_enabled: T::Boolean).returns(T::Boolean) }
       def enabled=(_enabled); end
-      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
       sig { returns(T.nilable(String)) }
       def required; end
       sig { params(_required: T.nilable(String)).returns(T.nilable(String)) }
@@ -949,7 +943,7 @@ module Stripe
       params(_consent_collection: T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection)).returns(T.nilable(::Stripe::PaymentLinkUpdateParams::ConsentCollection))
      }
     def consent_collection=(_consent_collection); end
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     sig {
       returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])))
      }
@@ -958,7 +952,7 @@ module Stripe
       params(_custom_fields: T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentLinkUpdateParams::CustomField])))
      }
     def custom_fields=(_custom_fields); end
-    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     sig { returns(T.nilable(::Stripe::PaymentLinkUpdateParams::CustomText)) }
     def custom_text; end
     sig {

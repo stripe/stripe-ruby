@@ -119,7 +119,7 @@ module Stripe
         # The external reference to this payee.
         sig { returns(T.nilable(String)) }
         def external_reference; end
-        # Either `account` or `external_reference`.
+        # Specifies the payee type.
         sig { returns(String) }
         def type; end
         def self.inner_class_types

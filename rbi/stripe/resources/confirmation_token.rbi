@@ -1272,6 +1272,14 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Payto < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         sig { returns(T.nilable(String)) }
@@ -1375,6 +1383,14 @@ module Stripe
         def last4; end
         def self.inner_class_types
           @inner_class_types = {generated_from: GeneratedFrom}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+      class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
         def self.field_remappings
           @field_remappings = {}
@@ -1648,6 +1664,9 @@ module Stripe
       # Attribute for field paypal
       sig { returns(T.nilable(Paypal)) }
       def paypal; end
+      # Attribute for field paypay
+      sig { returns(T.nilable(Paypay)) }
+      def paypay; end
       # Attribute for field payto
       sig { returns(T.nilable(Payto)) }
       def payto; end
@@ -1672,6 +1691,9 @@ module Stripe
       # Attribute for field sepa_debit
       sig { returns(T.nilable(SepaDebit)) }
       def sepa_debit; end
+      # Attribute for field sequra
+      sig { returns(T.nilable(Sequra)) }
+      def sequra; end
       # Attribute for field sofort
       sig { returns(T.nilable(Sofort)) }
       def sofort; end
@@ -1742,6 +1764,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -1750,6 +1773,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           sofort: Sofort,
           sunbit: Sunbit,
           swish: Swish,

@@ -54,6 +54,8 @@ module Stripe
         attr_reader :object
         # Reason for the event.
         attr_reader :reason
+        # For interop events, this is the snapshot event ID.
+        attr_reader :snapshot_event
         # The type of the event.
         attr_reader :type
 

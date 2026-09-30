@@ -136,7 +136,7 @@ module Stripe
         end
       end
       class Label < ::Stripe::StripeObject
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         sig { returns(T.nilable(String)) }
         def custom; end
         # The type of the label.
@@ -707,7 +707,7 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     sig { returns(T::Array[CustomField]) }
     def custom_fields; end
     # Attribute for field custom_text

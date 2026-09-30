@@ -537,6 +537,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class BlikRecurringPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class BoletoPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1321,6 +1349,34 @@ module Stripe
                   @field_remappings = {}
                 end
               end
+              class SatispayPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
               class SepaBankTransferPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
@@ -1350,6 +1406,34 @@ module Stripe
                 end
               end
               class SepaDebitPayments < ::Stripe::StripeObject
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  sig { returns(String) }
+                  def code; end
+                  # Machine-readable code explaining how to make the Capability active.
+                  sig { returns(String) }
+                  def resolution; end
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # The status of the Capability.
+                sig { returns(String) }
+                def status; end
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                sig { returns(T::Array[StatusDetail]) }
+                def status_details; end
+                def self.inner_class_types
+                  @inner_class_types = {status_details: StatusDetail}
+                end
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+              end
+              class SequraPayments < ::Stripe::StripeObject
                 class StatusDetail < ::Stripe::StripeObject
                   # Machine-readable code explaining the reason for the Capability to be in its current status.
                   sig { returns(String) }
@@ -1586,6 +1670,9 @@ module Stripe
               # Allow the merchant to process BLIK payments.
               sig { returns(T.nilable(BlikPayments)) }
               def blik_payments; end
+              # Allow the merchant to process recurring BLIK payments.
+              sig { returns(T.nilable(BlikRecurringPayments)) }
+              def blik_recurring_payments; end
               # Allow the merchant to process Boleto payments.
               sig { returns(T.nilable(BoletoPayments)) }
               def boleto_payments; end
@@ -1670,12 +1757,18 @@ module Stripe
               # Allow the merchant to process Samsung Pay payments.
               sig { returns(T.nilable(SamsungPayPayments)) }
               def samsung_pay_payments; end
+              # Allow the merchant to process Satispay payments.
+              sig { returns(T.nilable(SatispayPayments)) }
+              def satispay_payments; end
               # Allow the merchant to process SEPA bank transfer payments.
               sig { returns(T.nilable(SepaBankTransferPayments)) }
               def sepa_bank_transfer_payments; end
               # Allow the merchant to process SEPA Direct Debit payments.
               sig { returns(T.nilable(SepaDebitPayments)) }
               def sepa_debit_payments; end
+              # Allow the merchant to process SeQura payments.
+              sig { returns(T.nilable(SequraPayments)) }
+              def sequra_payments; end
               # Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
               sig { returns(T.nilable(StripeBalance)) }
               def stripe_balance; end
@@ -1706,6 +1799,7 @@ module Stripe
                   bacs_debit_payments: BacsDebitPayments,
                   bancontact_payments: BancontactPayments,
                   blik_payments: BlikPayments,
+                  blik_recurring_payments: BlikRecurringPayments,
                   boleto_payments: BoletoPayments,
                   card_payments: CardPayments,
                   cartes_bancaires_payments: CartesBancairesPayments,
@@ -1734,8 +1828,10 @@ module Stripe
                   promptpay_payments: PromptpayPayments,
                   revolut_pay_payments: RevolutPayPayments,
                   samsung_pay_payments: SamsungPayPayments,
+                  satispay_payments: SatispayPayments,
                   sepa_bank_transfer_payments: SepaBankTransferPayments,
                   sepa_debit_payments: SepaDebitPayments,
+                  sequra_payments: SequraPayments,
                   stripe_balance: StripeBalance,
                   sunbit_payments: SunbitPayments,
                   swish_payments: SwishPayments,

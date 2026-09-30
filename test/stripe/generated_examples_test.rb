@@ -986,7 +986,7 @@ module Stripe
     end
     should "Test core events get (service)" do
       stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v2/core/events/ll_123").to_return(
-        body: '{"object":"v2.core.event","changes":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]},"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"reason":{"request":{"id":"obj_123","idempotency_key":"idempotency_key"},"type":"request"},"type":"type"}'
+        body: '{"object":"v2.core.event","changes":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]},"context":"context","created":"1970-01-12T21:42:34.472Z","id":"obj_123","livemode":true,"reason":{"request":{"id":"obj_123","idempotency_key":"idempotency_key"},"type":"request"},"snapshot_event":"snapshot_event","type":"type"}'
       )
       client = Stripe::StripeClient.new("sk_test_123")
 
@@ -2086,7 +2086,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe.api_base}/v1/financial_connections/sessions"
     end
@@ -2103,7 +2103,7 @@ module Stripe
           customer: "cus_xxxxxxxxxxxxx",
         },
         permissions: %w[payment_method balances],
-        filters: { countries: ["US"] },
+        filters: { country: "US" },
       })
       assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v1/financial_connections/sessions"
     end
@@ -6862,7 +6862,10 @@ module Stripe
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals?limit=3"
     end
     should "Test transfers reversals get 2" do
-      transfer_reversal = Stripe::Transfer.retrieve_reversal("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
+      transfer_reversal = Stripe::Transfer.retrieve_reversal(
+        "tr_xxxxxxxxxxxxx",
+        "trr_xxxxxxxxxxxxx"
+      )
       assert_requested :get, "#{Stripe.api_base}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals get 2 (service)" do
@@ -6872,7 +6875,10 @@ module Stripe
       ).to_return(body: "{}")
       client = Stripe::StripeClient.new("sk_test_123")
 
-      transfer_reversal = client.v1.transfers.reversals.retrieve("tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx")
+      transfer_reversal = client.v1.transfers.reversals.retrieve(
+        "tr_xxxxxxxxxxxxx",
+        "trr_xxxxxxxxxxxxx"
+      )
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx"
     end
     should "Test transfers reversals post 2" do
@@ -7771,7 +7777,6 @@ module Stripe
               fields: "eventually_due",
               future_requirements: "include",
             },
-            configurations: ["merchant"],
             refresh_url: "refresh_url",
             return_url: "return_url",
           },
@@ -7780,7 +7785,6 @@ module Stripe
               fields: "eventually_due",
               future_requirements: "include",
             },
-            configurations: ["merchant"],
             refresh_url: "refresh_url",
             return_url: "return_url",
           },

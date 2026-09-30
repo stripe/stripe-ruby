@@ -79,6 +79,8 @@ module Stripe
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
     attr_accessor :expand
+    # Pass an empty string to remove previously-defined invoicing rules. Setting invoicing rules is not supported.
+    attr_accessor :invoicing_rules
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     attr_accessor :metadata
     # The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://docs.stripe.com/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://docs.stripe.com/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
@@ -106,6 +108,7 @@ module Stripe
       discountable: nil,
       discounts: nil,
       expand: nil,
+      invoicing_rules: nil,
       metadata: nil,
       period: nil,
       price_data: nil,
@@ -122,6 +125,7 @@ module Stripe
       @discountable = discountable
       @discounts = discounts
       @expand = expand
+      @invoicing_rules = invoicing_rules
       @metadata = metadata
       @period = period
       @price_data = price_data

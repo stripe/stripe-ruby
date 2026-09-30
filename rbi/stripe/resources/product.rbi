@@ -5,7 +5,7 @@
 module Stripe
   # Products describe the specific goods or services you offer to your customers.
   # For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-  # They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+  # They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
   #
   # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
   # [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -36,6 +36,20 @@ module Stripe
       # Width, in inches.
       sig { returns(Float) }
       def width; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+    class TaxDetails < ::Stripe::StripeObject
+      # The ID of a tax location with type `performance`, representing where the performance takes place.
+      sig { returns(T.nilable(String)) }
+      def performance_location; end
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      sig { returns(T.nilable(String)) }
+      def tax_code; end
       def self.inner_class_types
         @inner_class_types = {}
       end
@@ -91,6 +105,9 @@ module Stripe
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     sig { returns(T.nilable(T.any(String, ::Stripe::TaxCode))) }
     def tax_code; end
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    sig { returns(T.nilable(TaxDetails)) }
+    def tax_details; end
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     sig { returns(String) }
     def type; end

@@ -25,6 +25,16 @@ module Stripe
         end
       end
 
+      class ManualRelease < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class RollingRelease < ::Stripe::StripeObject
         # The number of days to reserve funds before releasing.
         attr_reader :days_after_charge
@@ -45,6 +55,8 @@ module Stripe
       attr_reader :created_by
       # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). An unset currency indicates that the plan applies to all currencies.
       attr_reader :currency
+      # The balance destination to which the reserved funds are sent.
+      attr_reader :destination
       # Time at which the ReservePlan was disabled.
       attr_reader :disabled_at
       # Attribute for field fixed_release
@@ -53,6 +65,8 @@ module Stripe
       attr_reader :id
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       attr_reader :livemode
+      # Attribute for field manual_release
+      attr_reader :manual_release
       # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
@@ -67,7 +81,11 @@ module Stripe
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { fixed_release: FixedRelease, rolling_release: RollingRelease }
+        @inner_class_types = {
+          fixed_release: FixedRelease,
+          manual_release: ManualRelease,
+          rolling_release: RollingRelease,
+        }
       end
 
       def self.field_remappings

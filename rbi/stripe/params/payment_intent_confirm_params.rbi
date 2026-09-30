@@ -693,6 +693,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
         sig { returns(T.nilable(String)) }
@@ -738,6 +739,7 @@ module Stripe
         sig { params(iban: String).void }
         def initialize(iban: nil); end
       end
+      class Sequra < ::Stripe::RequestParams; end
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(String) }
@@ -865,14 +867,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay)) }
       def amazon_pay; end
       sig {
@@ -1131,6 +1133,13 @@ module Stripe
         params(_paypal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal))
        }
       def paypal=(_paypal); end
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypay)) }
+      def paypay; end
+      sig {
+        params(_paypay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypay)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypay))
+       }
+      def paypay=(_paypay); end
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payto)) }
       def payto; end
@@ -1200,6 +1209,13 @@ module Stripe
         params(_sepa_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit))
        }
       def sepa_debit=(_sepa_debit); end
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sequra)) }
+      def sequra; end
+      sig {
+        params(_sequra: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sequra)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sequra))
+       }
+      def sequra=(_sequra); end
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort)) }
       def sofort; end
@@ -1264,7 +1280,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BillingDetails), bizum: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bizum), blik: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Satispay), scalapay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Scalapay), sepa_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::BillingDetails), bizum: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Bizum), blik: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypal), paypay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Paypay), payto: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Satispay), scalapay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Scalapay), sepa_debit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::SepaDebit), sequra: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sequra), sofort: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -1308,6 +1324,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -1317,6 +1334,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,
@@ -1381,11 +1399,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
@@ -1398,7 +1414,7 @@ module Stripe
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), verification_method: T.nilable(String)).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AcssDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String), verification_method: T.nilable(String)).void
          }
         def initialize(
           mandate_options: nil,
@@ -1484,13 +1500,11 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
-        sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
+        sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
       class Alma < ::Stripe::RequestParams
@@ -1523,14 +1537,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -1544,20 +1556,16 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
         def target_date; end
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
-        sig {
-          params(setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
-         }
+        sig { params(setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void }
         def initialize(setup_future_usage: nil, target_date: nil); end
       end
       class BacsDebit < ::Stripe::RequestParams
@@ -1588,11 +1596,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
@@ -1600,7 +1606,7 @@ module Stripe
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::BacsDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
          }
         def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
       end
@@ -1619,18 +1625,100 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(preferred_language: nil, setup_future_usage: nil); end
       end
       class Billie < ::Stripe::RequestParams
+        class CompanyDetails < ::Stripe::RequestParams
+          class RegisteredAddress < ::Stripe::RequestParams
+            # City, district, suburb, town, or village.
+            sig { returns(T.nilable(String)) }
+            def city; end
+            sig { params(_city: T.nilable(String)).returns(T.nilable(String)) }
+            def city=(_city); end
+            # Two-letter country code.
+            sig { returns(T.nilable(String)) }
+            def country; end
+            sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+            def country=(_country); end
+            # Address line 1 (e.g., street, PO Box, or company name).
+            sig { returns(T.nilable(String)) }
+            def line1; end
+            sig { params(_line1: T.nilable(String)).returns(T.nilable(String)) }
+            def line1=(_line1); end
+            # Address line 2 (e.g., apartment, suite, unit, or building).
+            sig { returns(T.nilable(String)) }
+            def line2; end
+            sig { params(_line2: T.nilable(String)).returns(T.nilable(String)) }
+            def line2=(_line2); end
+            # ZIP or postal code.
+            sig { returns(T.nilable(String)) }
+            def postal_code; end
+            sig { params(_postal_code: T.nilable(String)).returns(T.nilable(String)) }
+            def postal_code=(_postal_code); end
+            # State, county, province, or region.
+            sig { returns(T.nilable(String)) }
+            def state; end
+            sig { params(_state: T.nilable(String)).returns(T.nilable(String)) }
+            def state=(_state); end
+            sig {
+              params(city: T.nilable(String), country: T.nilable(String), line1: T.nilable(String), line2: T.nilable(String), postal_code: T.nilable(String), state: T.nilable(String)).void
+             }
+            def initialize(
+              city: nil,
+              country: nil,
+              line1: nil,
+              line2: nil,
+              postal_code: nil,
+              state: nil
+            ); end
+          end
+          # The address the company or entity is registered with.
+          sig {
+            returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+           }
+          def registered_address; end
+          sig {
+            params(_registered_address: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)))
+           }
+          def registered_address=(_registered_address); end
+          # Company or entity name.
+          sig { returns(T.nilable(String)) }
+          def registered_name; end
+          sig { params(_registered_name: T.nilable(String)).returns(T.nilable(String)) }
+          def registered_name=(_registered_name); end
+          # The official registration number for the given registration type.
+          sig { returns(T.nilable(String)) }
+          def registration_number; end
+          sig { params(_registration_number: T.nilable(String)).returns(T.nilable(String)) }
+          def registration_number=(_registration_number); end
+          # Type of registration the company or entity holds in their registered country.
+          sig { returns(T.nilable(String)) }
+          def registration_type; end
+          sig { params(_registration_type: T.nilable(String)).returns(T.nilable(String)) }
+          def registration_type=(_registration_type); end
+          # VAT id number
+          sig { returns(T.nilable(String)) }
+          def vat; end
+          sig { params(_vat: T.nilable(String)).returns(T.nilable(String)) }
+          def vat=(_vat); end
+          sig {
+            params(registered_address: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails::RegisteredAddress)), registered_name: T.nilable(String), registration_number: T.nilable(String), registration_type: T.nilable(String), vat: T.nilable(String)).void
+           }
+          def initialize(
+            registered_address: nil,
+            registered_name: nil,
+            registration_number: nil,
+            registration_type: nil,
+            vat: nil
+          ); end
+        end
         # Controls when the funds are captured from the customer's account.
         #
         # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
@@ -1640,16 +1728,50 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
-        sig { params(capture_method: T.nilable(String)).void }
-        def initialize(capture_method: nil); end
+        # Registration details about the buyer's organization.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails)))
+         }
+        def company_details; end
+        sig {
+          params(_company_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails)))
+         }
+        def company_details=(_company_details); end
+        # An identifier or reference that this payment corresponds to.
+        sig { returns(T.nilable(String)) }
+        def reference; end
+        sig { params(_reference: T.nilable(String)).returns(T.nilable(String)) }
+        def reference=(_reference); end
+        sig {
+          params(capture_method: T.nilable(String), company_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie::CompanyDetails)), reference: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, company_details: nil, reference: nil); end
       end
       class Bizum < ::Stripe::RequestParams; end
       class Blik < ::Stripe::RequestParams
+        class MandateOptions < ::Stripe::RequestParams
+          # Expiry date of the mandate.
+          sig { returns(T.nilable(Integer)) }
+          def expires_at; end
+          sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def expires_at=(_expires_at); end
+          sig { params(expires_at: T.nilable(Integer)).void }
+          def initialize(expires_at: nil); end
+        end
         # The 6-digit BLIK code that a customer has generated using their banking application. Can only be set on confirmation.
         sig { returns(T.nilable(String)) }
         def code; end
         sig { params(_code: T.nilable(String)).returns(T.nilable(String)) }
         def code=(_code); end
+        # Details of the BLIK mandate
+        sig {
+          returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik::MandateOptions))
+         }
+        def mandate_options; end
+        sig {
+          params(_mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik::MandateOptions)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik::MandateOptions))
+         }
+        def mandate_options=(_mandate_options); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
         # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
@@ -1663,8 +1785,10 @@ module Stripe
         def setup_future_usage; end
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
-        sig { params(code: T.nilable(String), setup_future_usage: T.nilable(String)).void }
-        def initialize(code: nil, setup_future_usage: nil); end
+        sig {
+          params(code: T.nilable(String), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik::MandateOptions), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(code: nil, mandate_options: nil, setup_future_usage: nil); end
       end
       class Boleto < ::Stripe::RequestParams
         # The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto invoice will expire on Wednesday at 23:59 America/Sao_Paulo time.
@@ -1681,14 +1805,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(expires_after_days: T.nilable(Integer), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(expires_after_days: T.nilable(Integer), setup_future_usage: T.nilable(String)).void
          }
         def initialize(expires_after_days: nil, setup_future_usage: nil); end
       end
@@ -2005,11 +2127,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that’s set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
         sig { returns(T.nilable(String)) }
@@ -2036,7 +2156,7 @@ module Stripe
          }
         def three_d_secure=(_three_d_secure); end
         sig {
-          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(T.any(String, String)), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), three_d_secure: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::ThreeDSecure)).void
+          params(capture_method: T.nilable(String), cvc_token: T.nilable(String), installments: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::Installments), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::MandateOptions), moto: T.nilable(T::Boolean), network: T.nilable(String), request_extended_authorization: T.nilable(String), request_incremental_authorization: T.nilable(String), request_multicapture: T.nilable(String), request_overcapture: T.nilable(String), request_three_d_secure: T.nilable(String), require_cvc_recollection: T.nilable(T::Boolean), setup_future_usage: T.nilable(String), statement_descriptor_suffix_kana: T.nilable(String), statement_descriptor_suffix_kanji: T.nilable(String), three_d_secure: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card::ThreeDSecure)).void
          }
         def initialize(
           capture_method: nil,
@@ -2130,14 +2250,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -2307,13 +2425,11 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
-        sig { params(setup_future_usage: T.nilable(T.any(String, String))).void }
+        sig { params(setup_future_usage: T.nilable(String)).void }
         def initialize(setup_future_usage: nil); end
       end
       class InteracPresent < ::Stripe::RequestParams; end
@@ -2334,14 +2450,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -2560,14 +2674,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -2595,14 +2707,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), persistent_token: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, persistent_token: nil, setup_future_usage: nil); end
       end
@@ -2685,14 +2795,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -2706,20 +2814,16 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
         def target_date; end
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
-        sig {
-          params(setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
-         }
+        sig { params(setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void }
         def initialize(setup_future_usage: nil, target_date: nil); end
       end
       class Oxxo < ::Stripe::RequestParams
@@ -2846,14 +2950,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), preferred_locale: T.nilable(String), reference: T.nilable(String), risk_correlation_id: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(
           capture_method: nil,
@@ -2863,6 +2965,7 @@ module Stripe
           setup_future_usage: nil
         ); end
       end
+      class Paypay < ::Stripe::RequestParams; end
       class Payto < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
           # Amount that will be collected. It is required when `amount_type` is `fixed`.
@@ -2873,11 +2976,9 @@ module Stripe
            }
           def amount=(_amount); end
           # The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def amount_type; end
-          sig {
-            params(_amount_type: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_amount_type: T.nilable(String)).returns(T.nilable(String)) }
           def amount_type=(_amount_type); end
           # Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
           sig { returns(T.nilable(String)) }
@@ -2885,11 +2986,9 @@ module Stripe
           sig { params(_end_date: T.nilable(String)).returns(T.nilable(String)) }
           def end_date=(_end_date); end
           # The periodicity at which payments will be collected. Defaults to `adhoc`.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def payment_schedule; end
-          sig {
-            params(_payment_schedule: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_payment_schedule: T.nilable(String)).returns(T.nilable(String)) }
           def payment_schedule=(_payment_schedule); end
           # The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
           sig { returns(T.nilable(T.any(String, Integer))) }
@@ -2899,14 +2998,12 @@ module Stripe
            }
           def payments_per_period=(_payments_per_period); end
           # The purpose for which payments are made. Has a default value based on your merchant category code.
-          sig { returns(T.nilable(T.any(String, String))) }
+          sig { returns(T.nilable(String)) }
           def purpose; end
-          sig {
-            params(_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-           }
+          sig { params(_purpose: T.nilable(String)).returns(T.nilable(String)) }
           def purpose=(_purpose); end
           sig {
-            params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(T.any(String, String)), end_date: T.nilable(String), payment_schedule: T.nilable(T.any(String, String)), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(T.any(String, String))).void
+            params(amount: T.nilable(T.any(String, Integer)), amount_type: T.nilable(String), end_date: T.nilable(String), payment_schedule: T.nilable(String), payments_per_period: T.nilable(T.any(String, Integer)), purpose: T.nilable(String)).void
            }
           def initialize(
             amount: nil,
@@ -2935,14 +3032,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payto::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payto::MandateOptions), setup_future_usage: T.nilable(String)).void
          }
         def initialize(mandate_options: nil, setup_future_usage: nil); end
       end
@@ -3082,14 +3177,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -3136,14 +3229,12 @@ module Stripe
         # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(capture_method: nil, setup_future_usage: nil); end
       end
@@ -3188,11 +3279,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
@@ -3200,17 +3289,43 @@ module Stripe
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String)).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit::MandateOptions), setup_future_usage: T.nilable(String), target_date: T.nilable(String)).void
          }
         def initialize(mandate_options: nil, setup_future_usage: nil, target_date: nil); end
       end
+      class Sequra < ::Stripe::RequestParams
+        # Controls when the funds are captured from the customer's account.
+        #
+        # If provided, this parameter overrides the behavior of the top-level [capture_method](/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+        #
+        # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_method=(_capture_method); end
+        # Indicates that you intend to make future payments with this PaymentIntent's payment method.
+        #
+        # If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+        #
+        # If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+        #
+        # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
+        #
+        # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        sig {
+          params(capture_method: T.nilable(String), setup_future_usage: T.nilable(String)).void
+         }
+        def initialize(capture_method: nil, setup_future_usage: nil); end
+      end
       class Sofort < ::Stripe::RequestParams
         # Language shown to the payer on redirect.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def preferred_language; end
-        sig {
-          params(_preferred_language: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_preferred_language: T.nilable(String)).returns(T.nilable(String)) }
         def preferred_language=(_preferred_language); end
         # Indicates that you intend to make future payments with this PaymentIntent's payment method.
         #
@@ -3221,14 +3336,12 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(preferred_language: T.nilable(T.any(String, String)), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(preferred_language: T.nilable(String), setup_future_usage: T.nilable(String)).void
          }
         def initialize(preferred_language: nil, setup_future_usage: nil); end
       end
@@ -3334,14 +3447,12 @@ module Stripe
          }
         def mandate_options=(_mandate_options); end
         # Attribute for param field setup_future_usage
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         sig {
-          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(T.any(String, String))).void
+          params(mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Upi::MandateOptions), setup_future_usage: T.nilable(String)).void
          }
         def initialize(mandate_options: nil, setup_future_usage: nil); end
       end
@@ -3447,11 +3558,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         #
         # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def setup_future_usage; end
-        sig {
-          params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
         # Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
         sig { returns(T.nilable(String)) }
@@ -3459,11 +3568,9 @@ module Stripe
         sig { params(_target_date: T.nilable(String)).returns(T.nilable(String)) }
         def target_date=(_target_date); end
         # The purpose of the transaction.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def transaction_purpose; end
-        sig {
-          params(_transaction_purpose: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_transaction_purpose: T.nilable(String)).returns(T.nilable(String)) }
         def transaction_purpose=(_transaction_purpose); end
         # Bank account verification method. The default value is `automatic`.
         sig { returns(T.nilable(String)) }
@@ -3471,7 +3578,7 @@ module Stripe
         sig { params(_verification_method: T.nilable(String)).returns(T.nilable(String)) }
         def verification_method=(_verification_method); end
         sig {
-          params(financial_connections: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(T.any(String, String)), target_date: T.nilable(String), transaction_purpose: T.nilable(T.any(String, String)), verification_method: T.nilable(String)).void
+          params(financial_connections: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::FinancialConnections), mandate_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::MandateOptions), networks: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount::Networks), setup_future_usage: T.nilable(String), target_date: T.nilable(String), transaction_purpose: T.nilable(String), verification_method: T.nilable(String)).void
          }
         def initialize(
           financial_connections: nil,
@@ -3889,6 +3996,15 @@ module Stripe
         params(_paypal: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypal))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypal)))
        }
       def paypal=(_paypal); end
+      # If this is a `paypay` PaymentMethod, this sub-hash contains details about the PayPay payment method options.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypay)))
+       }
+      def paypay; end
+      sig {
+        params(_paypay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypay))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypay)))
+       }
+      def paypay=(_paypay); end
       # If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payto)))
@@ -3961,6 +4077,15 @@ module Stripe
         params(_sepa_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit)))
        }
       def sepa_debit=(_sepa_debit); end
+      # If this is a `sequra` PaymentMethod, this sub-hash contains details about the SeQura payment method options.
+      sig {
+        returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sequra)))
+       }
+      def sequra; end
+      sig {
+        params(_sequra: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sequra))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sequra)))
+       }
+      def sequra=(_sequra); end
       # If this is a `sofort` PaymentMethod, this sub-hash contains details about the SOFORT payment method options.
       sig {
         returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sofort)))
@@ -4034,7 +4159,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AcssDebit)), affirm: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Affirm)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Alipay)), alma: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Alma)), amazon_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AmazonPay)), au_becs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AuBecsDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik)), boleto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Boleto)), card: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card)), card_present: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::CardPresent)), cashapp: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Cashapp)), crypto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Crypto)), customer_balance: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::CustomerBalance)), eps: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Eps)), fpx: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Fpx)), giropay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Giropay)), grabpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Grabpay)), ideal: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Ideal)), interac_present: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::InteracPresent)), kakao_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::KakaoPay)), klarna: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Klarna)), konbini: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Konbini)), kr_card: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::KrCard)), link: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Link)), mb_way: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::MbWay)), mobilepay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Mobilepay)), multibanco: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Multibanco)), naver_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::NaverPay)), nz_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::NzBankAccount)), oxxo: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::P24)), pay_by_bank: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::PayByBank)), payco: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payco)), paynow: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paynow)), paypal: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypal)), payto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix)), promptpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Promptpay)), revolut_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::RevolutPay)), samsung_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SamsungPay)), satispay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Satispay)), scalapay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Scalapay)), sepa_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit)), sofort: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sofort)), sunbit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sunbit)), swish: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Swish)), twint: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Twint)), upi: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::WechatPay)), zip: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Zip))).void
+        params(acss_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AcssDebit)), affirm: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Affirm)), afterpay_clearpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AfterpayClearpay)), alipay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Alipay)), alma: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Alma)), amazon_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AmazonPay)), au_becs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::AuBecsDebit)), bacs_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::BacsDebit)), bancontact: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Bancontact)), billie: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Billie)), bizum: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Bizum)), blik: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Blik)), boleto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Boleto)), card: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Card)), card_present: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::CardPresent)), cashapp: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Cashapp)), crypto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Crypto)), customer_balance: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::CustomerBalance)), eps: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Eps)), fpx: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Fpx)), giropay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Giropay)), grabpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Grabpay)), ideal: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Ideal)), interac_present: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::InteracPresent)), kakao_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::KakaoPay)), klarna: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Klarna)), konbini: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Konbini)), kr_card: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::KrCard)), link: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Link)), mb_way: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::MbWay)), mobilepay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Mobilepay)), multibanco: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Multibanco)), naver_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::NaverPay)), nz_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::NzBankAccount)), oxxo: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Oxxo)), p24: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::P24)), pay_by_bank: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::PayByBank)), payco: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payco)), paynow: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paynow)), paypal: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypal)), paypay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Paypay)), payto: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Payto)), pix: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Pix)), promptpay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Promptpay)), revolut_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::RevolutPay)), samsung_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SamsungPay)), satispay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Satispay)), scalapay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Scalapay)), sepa_debit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::SepaDebit)), sequra: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sequra)), sofort: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sofort)), sunbit: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Sunbit)), swish: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Swish)), twint: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Twint)), upi: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Upi)), us_bank_account: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::UsBankAccount)), wechat_pay: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::WechatPay)), zip: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions::Zip))).void
        }
       def initialize(
         acss_debit: nil,
@@ -4077,6 +4202,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -4085,6 +4211,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,
@@ -4267,7 +4394,7 @@ module Stripe
      }
     def payment_details=(_payment_details); end
     # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent.
-    # If the payment method is attached to a Customer, it must match the [customer](https://api.stripe.com#create_payment_intent-customer) that is set on this PaymentIntent.
+    # If the payment method is attached to a Customer, it must match the [customer](https://docs.stripe.com/api#create_payment_intent-customer) that is set on this PaymentIntent.
     sig { returns(T.nilable(String)) }
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }
@@ -4288,13 +4415,6 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The list of payment method types (for example, a card) that this PaymentIntent can use. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
-    sig { returns(T.nilable(T::Array[String])) }
-    def payment_method_types; end
-    sig {
-      params(_payment_method_types: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
-     }
-    def payment_method_types=(_payment_method_types); end
     # Options to configure Radar. Learn more about [Radar Sessions](https://docs.stripe.com/radar/radar-session).
     sig { returns(T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions)) }
     def radar_options; end
@@ -4323,11 +4443,9 @@ module Stripe
     # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
     #
     # If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-    sig { returns(T.nilable(T.any(String, String))) }
+    sig { returns(T.nilable(String)) }
     def setup_future_usage; end
-    sig {
-      params(_setup_future_usage: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-     }
+    sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
     def setup_future_usage=(_setup_future_usage); end
     # Shipping information for this PaymentIntent.
     sig { returns(T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping))) }
@@ -4342,7 +4460,7 @@ module Stripe
     sig { params(_use_stripe_sdk: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def use_stripe_sdk=(_use_stripe_sdk); end
     sig {
-      params(allowed_payment_method_types: T.nilable(T::Array[String]), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), amount_to_confirm: T.nilable(Integer), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), payment_method_types: T.nilable(T::Array[String]), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(T.any(String, String)), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
+      params(allowed_payment_method_types: T.nilable(T::Array[String]), amount_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::AmountDetails)), amount_to_confirm: T.nilable(Integer), capture_method: T.nilable(String), confirmation_token: T.nilable(String), error_on_requires_action: T.nilable(T::Boolean), excluded_payment_method_types: T.nilable(T.any(String, T::Array[String])), expand: T.nilable(T::Array[String]), hooks: T.nilable(::Stripe::PaymentIntentConfirmParams::Hooks), mandate: T.nilable(String), mandate_data: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::MandateData)), off_session: T.nilable(T.any(T::Boolean, String)), payment_details: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::PaymentDetails)), payment_method: T.nilable(String), payment_method_data: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::PaymentIntentConfirmParams::PaymentMethodOptions), radar_options: T.nilable(::Stripe::PaymentIntentConfirmParams::RadarOptions), receipt_email: T.nilable(String), return_url: T.nilable(String), setup_future_usage: T.nilable(String), shipping: T.nilable(T.any(String, ::Stripe::PaymentIntentConfirmParams::Shipping)), use_stripe_sdk: T.nilable(T::Boolean)).void
      }
     def initialize(
       allowed_payment_method_types: nil,
@@ -4361,7 +4479,6 @@ module Stripe
       payment_method: nil,
       payment_method_data: nil,
       payment_method_options: nil,
-      payment_method_types: nil,
       radar_options: nil,
       receipt_email: nil,
       return_url: nil,

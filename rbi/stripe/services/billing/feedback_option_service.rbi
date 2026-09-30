@@ -17,13 +17,13 @@ module Stripe
        }
       def deactivate(id, params = {}, opts = {}); end
 
-      # An API method for listing the feedback options model
+      # Returns a list of your feedback options.
       sig {
         params(params: T.any(::Stripe::Billing::FeedbackOptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def list(params = {}, opts = {}); end
 
-      # Retrieves a feedback options object given an ID.
+      # Retrieves a feedback option object given an ID.
       sig {
         params(id: String, params: T.any(::Stripe::Billing::FeedbackOptionRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Billing::FeedbackOption)
        }

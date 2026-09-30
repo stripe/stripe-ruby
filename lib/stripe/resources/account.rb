@@ -105,6 +105,8 @@ module Stripe
       attr_reader :name
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       attr_reader :product_description
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      attr_reader :specified_commercial_transactions_act_url
       # A publicly available mailing address for sending support issues to.
       attr_reader :support_address
       # A publicly available email address for sending support issues to.
@@ -156,6 +158,8 @@ module Stripe
       attr_reader :bizum_payments
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       attr_reader :blik_payments
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      attr_reader :blik_recurring_payments
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       attr_reader :boleto_payments
       # The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
@@ -220,6 +224,8 @@ module Stripe
       attr_reader :payco_payments
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
       attr_reader :paynow_payments
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      attr_reader :paypay_payments
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       attr_reader :payto_payments
       # The status of the pix payments capability of the account, or whether the account can directly process pix charges.
@@ -238,6 +244,8 @@ module Stripe
       attr_reader :sepa_bank_transfer_payments
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       attr_reader :sepa_debit_payments
+      # The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
+      attr_reader :sequra_payments
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       attr_reader :sofort_payments
       # The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
@@ -462,13 +470,13 @@ module Stripe
 
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :back
           # A user-displayable string describing the verification state of this document.
           attr_reader :details
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           attr_reader :details_code
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           attr_reader :front
 
           def self.inner_class_types
@@ -936,6 +944,82 @@ module Stripe
         end
       end
 
+      class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            attr_reader :password_provided
+            # The username needed to access your business's website.
+            attr_reader :username
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            attr_reader :payment_flow_file
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          attr_reader :accessible
+          # Attribute for field in_development
+          attr_reader :in_development
+          # Attribute for field restricted
+          attr_reader :restricted
+          # The status of your business's website.
+          attr_reader :type
+
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        attr_reader :additional_files
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        attr_reader :goods_type
+        # Attribute for field site
+        attr_reader :site
+
+        def self.inner_class_types
+          @inner_class_types = { site: Site }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         attr_reader :creditor_id
@@ -993,6 +1077,8 @@ module Stripe
       attr_reader :payments
       # Attribute for field payouts
       attr_reader :payouts
+      # Attribute for field paypay_payments
+      attr_reader :paypay_payments
       # Attribute for field sepa_debit_payments
       attr_reader :sepa_debit_payments
       # Attribute for field treasury
@@ -1008,6 +1094,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           treasury: Treasury,
         }

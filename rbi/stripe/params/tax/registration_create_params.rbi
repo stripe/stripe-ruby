@@ -103,15 +103,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class At < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -121,15 +112,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard))
@@ -145,9 +127,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::At::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Au < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -304,15 +286,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Be < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -322,15 +295,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard))
@@ -346,9 +310,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Be::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Bf < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -380,15 +344,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Bg < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -398,15 +353,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard))
@@ -422,9 +368,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Bg::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Bh < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -635,15 +581,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Cy < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -653,15 +590,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard))
@@ -677,20 +605,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cy::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Cz < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -700,15 +619,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard))
@@ -724,20 +634,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Cz::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class De < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -747,15 +648,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard))
@@ -771,20 +663,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::De::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Dk < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -794,15 +677,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard))
@@ -818,9 +692,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Dk::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Ec < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -832,15 +706,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Ee < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -850,15 +715,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard))
@@ -874,9 +730,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ee::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Eg < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -888,15 +744,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Es < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -906,15 +753,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard))
@@ -924,15 +762,15 @@ module Stripe
             params(_standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard))
            }
           def standard=(_standard); end
-          # Type of registration to be created in an EU country.
+          # Type of registration to be created in ES.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Es::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Et < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -964,15 +802,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Fi < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -982,15 +811,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard))
@@ -1006,20 +826,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fi::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Fr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1029,15 +840,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard))
@@ -1053,9 +855,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Fr::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Gb < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -1125,15 +927,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Gr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1143,15 +936,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard))
@@ -1167,20 +951,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Gr::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Hr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1190,15 +965,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard))
@@ -1214,20 +980,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hr::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Hu < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1237,15 +994,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard))
@@ -1261,9 +1009,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Hu::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Id < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -1275,15 +1023,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Ie < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1293,15 +1032,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard))
@@ -1317,9 +1047,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ie::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class In < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -1360,15 +1090,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class It < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1378,15 +1099,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard))
@@ -1402,9 +1114,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::It::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Jp < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -1499,15 +1211,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Lt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1517,15 +1220,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard))
@@ -1541,20 +1235,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lt::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Lu < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1564,15 +1249,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard))
@@ -1588,20 +1264,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lu::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Lv < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1611,15 +1278,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard))
@@ -1635,9 +1293,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Lv::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Ma < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -1745,15 +1403,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Mt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1763,15 +1412,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard))
@@ -1787,9 +1427,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Mt::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Mx < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -1819,15 +1459,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Nl < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1837,15 +1468,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard))
@@ -1861,9 +1483,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Nl::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class No < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -1980,15 +1602,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Pl < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -1998,15 +1611,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard))
@@ -2022,20 +1626,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pl::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Pt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -2045,15 +1640,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard))
@@ -2069,20 +1655,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Pt::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Ro < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -2092,15 +1669,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard))
@@ -2116,9 +1684,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Ro::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Rs < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -2168,15 +1736,6 @@ module Stripe
           def initialize(type: nil); end
         end
         class Se < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -2186,15 +1745,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard))
@@ -2210,9 +1760,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Se::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Sg < ::Stripe::RequestParams
           class Standard < ::Stripe::RequestParams
@@ -2244,15 +1794,6 @@ module Stripe
           def initialize(standard: nil, type: nil); end
         end
         class Si < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -2262,15 +1803,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard))
@@ -2286,20 +1818,11 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Si::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Sk < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            sig { returns(String) }
-            def place_of_supply_scheme; end
-            sig { params(_place_of_supply_scheme: String).returns(String) }
-            def place_of_supply_scheme=(_place_of_supply_scheme); end
-            sig { params(place_of_supply_scheme: String).void }
-            def initialize(place_of_supply_scheme: nil); end
-          end
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             sig { returns(String) }
@@ -2309,15 +1832,6 @@ module Stripe
             sig { params(place_of_supply_scheme: String).void }
             def initialize(place_of_supply_scheme: nil); end
           end
-          # Options for the IGIC registration.
-          sig {
-            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Igic))
-           }
-          def igic; end
-          sig {
-            params(_igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Igic)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Igic))
-           }
-          def igic=(_igic); end
           # Options for the standard registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard))
@@ -2333,9 +1847,9 @@ module Stripe
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(igic: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Igic), standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard), type: String).void
+            params(standard: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Sk::Standard), type: String).void
            }
-          def initialize(igic: nil, standard: nil, type: nil); end
+          def initialize(standard: nil, type: nil); end
         end
         class Sn < ::Stripe::RequestParams
           # Type of registration to be created in `country`.
@@ -2439,6 +1953,51 @@ module Stripe
           def initialize(type: nil); end
         end
         class Us < ::Stripe::RequestParams
+          class AdmissionsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=admissions_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class AttendanceTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=attendance_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class EntertainmentTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=entertainment_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class GrossReceiptsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=gross_receipts_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class HospitalityTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=hospitality_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class LocalAmusementTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=amusement_tax#registration-types).
             sig { returns(String) }
@@ -2457,6 +2016,15 @@ module Stripe
             sig { params(jurisdiction: String).void }
             def initialize(jurisdiction: nil); end
           end
+          class LuxuryTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=luxury_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
           class MassTransitParkingTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
             sig { returns(String) }
@@ -2468,6 +2036,15 @@ module Stripe
           end
           class ParkingTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          class ResortTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             sig { returns(String) }
             def jurisdiction; end
             sig { params(_jurisdiction: String).returns(String) }
@@ -2504,6 +2081,60 @@ module Stripe
              }
             def initialize(elections: nil); end
           end
+          class TourismTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=tourism_tax#registration-types).
+            sig { returns(String) }
+            def jurisdiction; end
+            sig { params(_jurisdiction: String).returns(String) }
+            def jurisdiction=(_jurisdiction); end
+            sig { params(jurisdiction: String).void }
+            def initialize(jurisdiction: nil); end
+          end
+          # Options for the admission tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax))
+           }
+          def admissions_tax; end
+          sig {
+            params(_admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax))
+           }
+          def admissions_tax=(_admissions_tax); end
+          # Options for the attendance tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax))
+           }
+          def attendance_tax; end
+          sig {
+            params(_attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax))
+           }
+          def attendance_tax=(_attendance_tax); end
+          # Options for the entertainment tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax))
+           }
+          def entertainment_tax; end
+          sig {
+            params(_entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax))
+           }
+          def entertainment_tax=(_entertainment_tax); end
+          # Options for the gross receipts tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax))
+           }
+          def gross_receipts_tax; end
+          sig {
+            params(_gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax))
+           }
+          def gross_receipts_tax=(_gross_receipts_tax); end
+          # Options for the hospitality tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax))
+           }
+          def hospitality_tax; end
+          sig {
+            params(_hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax))
+           }
+          def hospitality_tax=(_hospitality_tax); end
           # Options for the local amusement tax registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax))
@@ -2522,6 +2153,15 @@ module Stripe
             params(_local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax))
            }
           def local_lease_tax=(_local_lease_tax); end
+          # Options for the luxury tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax))
+           }
+          def luxury_tax; end
+          sig {
+            params(_luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax))
+           }
+          def luxury_tax=(_luxury_tax); end
           # Options for the mass transit parking tax registration.
           sig {
             returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax))
@@ -2540,6 +2180,15 @@ module Stripe
             params(_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax))
            }
           def parking_tax=(_parking_tax); end
+          # Options for the resort tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax))
+           }
+          def resort_tax; end
+          sig {
+            params(_resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax))
+           }
+          def resort_tax=(_resort_tax); end
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           sig { returns(String) }
           def state; end
@@ -2554,21 +2203,38 @@ module Stripe
             params(_state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax))
            }
           def state_sales_tax=(_state_sales_tax); end
+          # Options for the tourism tax registration.
+          sig {
+            returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax))
+           }
+          def tourism_tax; end
+          sig {
+            params(_tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax)).returns(T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax))
+           }
+          def tourism_tax=(_tourism_tax); end
           # Type of registration to be created in the US.
           sig { returns(String) }
           def type; end
           sig { params(_type: String).returns(String) }
           def type=(_type); end
           sig {
-            params(local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax), parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), type: String).void
+            params(admissions_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AdmissionsTax), attendance_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::AttendanceTax), entertainment_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::EntertainmentTax), gross_receipts_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::GrossReceiptsTax), hospitality_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::HospitalityTax), local_amusement_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalAmusementTax), local_lease_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LocalLeaseTax), luxury_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::LuxuryTax), mass_transit_parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::MassTransitParkingTax), parking_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ParkingTax), resort_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::ResortTax), state: String, state_sales_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::StateSalesTax), tourism_tax: T.nilable(::Stripe::Tax::RegistrationCreateParams::CountryOptions::Us::TourismTax), type: String).void
            }
           def initialize(
+            admissions_tax: nil,
+            attendance_tax: nil,
+            entertainment_tax: nil,
+            gross_receipts_tax: nil,
+            hospitality_tax: nil,
             local_amusement_tax: nil,
             local_lease_tax: nil,
+            luxury_tax: nil,
             mass_transit_parking_tax: nil,
             parking_tax: nil,
+            resort_tax: nil,
             state: nil,
             state_sales_tax: nil,
+            tourism_tax: nil,
             type: nil
           ); end
         end

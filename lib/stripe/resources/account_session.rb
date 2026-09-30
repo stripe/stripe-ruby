@@ -759,7 +759,7 @@ module Stripe
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
 
-    # Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+    # Creates an AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
     def self.create(params = {}, opts = {})
       request_stripe_object(method: :post, path: "/v1/account_sessions", params: params, opts: opts)
     end

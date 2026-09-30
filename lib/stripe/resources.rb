@@ -82,6 +82,7 @@ module Stripe
   autoload :WebhookEndpoint, "stripe/resources/webhook_endpoint"
 
   module Apps
+    autoload :Install, "stripe/resources/apps/install"
     autoload :Secret, "stripe/resources/apps/secret"
   end
 
@@ -120,11 +121,521 @@ module Stripe
   end
 
   module Events
+    autoload :V1AccountApplicationAuthorizedEvent, "stripe/events/v1_account_application_authorized_event"
+    autoload :V1AccountApplicationAuthorizedEventNotification, "stripe/events/v1_account_application_authorized_event"
+    autoload :V1AccountApplicationDeauthorizedEvent, "stripe/events/v1_account_application_deauthorized_event"
+    autoload :V1AccountApplicationDeauthorizedEventNotification,
+             "stripe/events/v1_account_application_deauthorized_event"
+    autoload :V1AccountExternalAccountCreatedEvent, "stripe/events/v1_account_external_account_created_event"
+    autoload :V1AccountExternalAccountCreatedEventNotification,
+             "stripe/events/v1_account_external_account_created_event"
+    autoload :V1AccountExternalAccountDeletedEvent, "stripe/events/v1_account_external_account_deleted_event"
+    autoload :V1AccountExternalAccountDeletedEventNotification,
+             "stripe/events/v1_account_external_account_deleted_event"
+    autoload :V1AccountExternalAccountUpdatedEvent, "stripe/events/v1_account_external_account_updated_event"
+    autoload :V1AccountExternalAccountUpdatedEventNotification,
+             "stripe/events/v1_account_external_account_updated_event"
+    autoload :V1AccountUpdatedEvent, "stripe/events/v1_account_updated_event"
+    autoload :V1AccountUpdatedEventNotification, "stripe/events/v1_account_updated_event"
+    autoload :V1ApplicationFeeCreatedEvent, "stripe/events/v1_application_fee_created_event"
+    autoload :V1ApplicationFeeCreatedEventNotification, "stripe/events/v1_application_fee_created_event"
+    autoload :V1ApplicationFeeRefundedEvent, "stripe/events/v1_application_fee_refunded_event"
+    autoload :V1ApplicationFeeRefundedEventNotification, "stripe/events/v1_application_fee_refunded_event"
+    autoload :V1ApplicationFeeRefundUpdatedEvent, "stripe/events/v1_application_fee_refund_updated_event"
+    autoload :V1ApplicationFeeRefundUpdatedEventNotification, "stripe/events/v1_application_fee_refund_updated_event"
+    autoload :V1BalanceAvailableEvent, "stripe/events/v1_balance_available_event"
+    autoload :V1BalanceAvailableEventNotification, "stripe/events/v1_balance_available_event"
+    autoload :V1BalanceSettingsUpdatedEvent, "stripe/events/v1_balance_settings_updated_event"
+    autoload :V1BalanceSettingsUpdatedEventNotification, "stripe/events/v1_balance_settings_updated_event"
+    autoload :V1BillingAlertTriggeredEvent, "stripe/events/v1_billing_alert_triggered_event"
+    autoload :V1BillingAlertTriggeredEventNotification, "stripe/events/v1_billing_alert_triggered_event"
+    autoload :V1BillingCreditBalanceTransactionCreatedEvent,
+             "stripe/events/v1_billing_credit_balance_transaction_created_event"
+    autoload :V1BillingCreditBalanceTransactionCreatedEventNotification,
+             "stripe/events/v1_billing_credit_balance_transaction_created_event"
+    autoload :V1BillingCreditGrantCreatedEvent, "stripe/events/v1_billing_credit_grant_created_event"
+    autoload :V1BillingCreditGrantCreatedEventNotification, "stripe/events/v1_billing_credit_grant_created_event"
+    autoload :V1BillingCreditGrantUpdatedEvent, "stripe/events/v1_billing_credit_grant_updated_event"
+    autoload :V1BillingCreditGrantUpdatedEventNotification, "stripe/events/v1_billing_credit_grant_updated_event"
+    autoload :V1BillingMeterCreatedEvent, "stripe/events/v1_billing_meter_created_event"
+    autoload :V1BillingMeterCreatedEventNotification, "stripe/events/v1_billing_meter_created_event"
+    autoload :V1BillingMeterDeactivatedEvent, "stripe/events/v1_billing_meter_deactivated_event"
+    autoload :V1BillingMeterDeactivatedEventNotification, "stripe/events/v1_billing_meter_deactivated_event"
     autoload :V1BillingMeterErrorReportTriggeredEvent, "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterErrorReportTriggeredEventNotification,
              "stripe/events/v1_billing_meter_error_report_triggered_event"
     autoload :V1BillingMeterNoMeterFoundEvent, "stripe/events/v1_billing_meter_no_meter_found_event"
     autoload :V1BillingMeterNoMeterFoundEventNotification, "stripe/events/v1_billing_meter_no_meter_found_event"
+    autoload :V1BillingMeterReactivatedEvent, "stripe/events/v1_billing_meter_reactivated_event"
+    autoload :V1BillingMeterReactivatedEventNotification, "stripe/events/v1_billing_meter_reactivated_event"
+    autoload :V1BillingMeterUpdatedEvent, "stripe/events/v1_billing_meter_updated_event"
+    autoload :V1BillingMeterUpdatedEventNotification, "stripe/events/v1_billing_meter_updated_event"
+    autoload :V1BillingPortalConfigurationCreatedEvent, "stripe/events/v1_billing_portal_configuration_created_event"
+    autoload :V1BillingPortalConfigurationCreatedEventNotification,
+             "stripe/events/v1_billing_portal_configuration_created_event"
+    autoload :V1BillingPortalConfigurationUpdatedEvent, "stripe/events/v1_billing_portal_configuration_updated_event"
+    autoload :V1BillingPortalConfigurationUpdatedEventNotification,
+             "stripe/events/v1_billing_portal_configuration_updated_event"
+    autoload :V1BillingPortalSessionCreatedEvent, "stripe/events/v1_billing_portal_session_created_event"
+    autoload :V1BillingPortalSessionCreatedEventNotification, "stripe/events/v1_billing_portal_session_created_event"
+    autoload :V1CapabilityUpdatedEvent, "stripe/events/v1_capability_updated_event"
+    autoload :V1CapabilityUpdatedEventNotification, "stripe/events/v1_capability_updated_event"
+    autoload :V1CashBalanceFundsAvailableEvent, "stripe/events/v1_cash_balance_funds_available_event"
+    autoload :V1CashBalanceFundsAvailableEventNotification, "stripe/events/v1_cash_balance_funds_available_event"
+    autoload :V1ChargeCapturedEvent, "stripe/events/v1_charge_captured_event"
+    autoload :V1ChargeCapturedEventNotification, "stripe/events/v1_charge_captured_event"
+    autoload :V1ChargeDisputeClosedEvent, "stripe/events/v1_charge_dispute_closed_event"
+    autoload :V1ChargeDisputeClosedEventNotification, "stripe/events/v1_charge_dispute_closed_event"
+    autoload :V1ChargeDisputeCreatedEvent, "stripe/events/v1_charge_dispute_created_event"
+    autoload :V1ChargeDisputeCreatedEventNotification, "stripe/events/v1_charge_dispute_created_event"
+    autoload :V1ChargeDisputeFundsReinstatedEvent, "stripe/events/v1_charge_dispute_funds_reinstated_event"
+    autoload :V1ChargeDisputeFundsReinstatedEventNotification, "stripe/events/v1_charge_dispute_funds_reinstated_event"
+    autoload :V1ChargeDisputeFundsWithdrawnEvent, "stripe/events/v1_charge_dispute_funds_withdrawn_event"
+    autoload :V1ChargeDisputeFundsWithdrawnEventNotification, "stripe/events/v1_charge_dispute_funds_withdrawn_event"
+    autoload :V1ChargeDisputeUpdatedEvent, "stripe/events/v1_charge_dispute_updated_event"
+    autoload :V1ChargeDisputeUpdatedEventNotification, "stripe/events/v1_charge_dispute_updated_event"
+    autoload :V1ChargeExpiredEvent, "stripe/events/v1_charge_expired_event"
+    autoload :V1ChargeExpiredEventNotification, "stripe/events/v1_charge_expired_event"
+    autoload :V1ChargeFailedEvent, "stripe/events/v1_charge_failed_event"
+    autoload :V1ChargeFailedEventNotification, "stripe/events/v1_charge_failed_event"
+    autoload :V1ChargePendingEvent, "stripe/events/v1_charge_pending_event"
+    autoload :V1ChargePendingEventNotification, "stripe/events/v1_charge_pending_event"
+    autoload :V1ChargeRefundedEvent, "stripe/events/v1_charge_refunded_event"
+    autoload :V1ChargeRefundedEventNotification, "stripe/events/v1_charge_refunded_event"
+    autoload :V1ChargeRefundUpdatedEvent, "stripe/events/v1_charge_refund_updated_event"
+    autoload :V1ChargeRefundUpdatedEventNotification, "stripe/events/v1_charge_refund_updated_event"
+    autoload :V1ChargeSucceededEvent, "stripe/events/v1_charge_succeeded_event"
+    autoload :V1ChargeSucceededEventNotification, "stripe/events/v1_charge_succeeded_event"
+    autoload :V1ChargeUpdatedEvent, "stripe/events/v1_charge_updated_event"
+    autoload :V1ChargeUpdatedEventNotification, "stripe/events/v1_charge_updated_event"
+    autoload :V1CheckoutSessionAsyncPaymentFailedEvent, "stripe/events/v1_checkout_session_async_payment_failed_event"
+    autoload :V1CheckoutSessionAsyncPaymentFailedEventNotification,
+             "stripe/events/v1_checkout_session_async_payment_failed_event"
+    autoload :V1CheckoutSessionAsyncPaymentSucceededEvent,
+             "stripe/events/v1_checkout_session_async_payment_succeeded_event"
+    autoload :V1CheckoutSessionAsyncPaymentSucceededEventNotification,
+             "stripe/events/v1_checkout_session_async_payment_succeeded_event"
+    autoload :V1CheckoutSessionCompletedEvent, "stripe/events/v1_checkout_session_completed_event"
+    autoload :V1CheckoutSessionCompletedEventNotification, "stripe/events/v1_checkout_session_completed_event"
+    autoload :V1CheckoutSessionExpiredEvent, "stripe/events/v1_checkout_session_expired_event"
+    autoload :V1CheckoutSessionExpiredEventNotification, "stripe/events/v1_checkout_session_expired_event"
+    autoload :V1ClimateOrderCanceledEvent, "stripe/events/v1_climate_order_canceled_event"
+    autoload :V1ClimateOrderCanceledEventNotification, "stripe/events/v1_climate_order_canceled_event"
+    autoload :V1ClimateOrderCreatedEvent, "stripe/events/v1_climate_order_created_event"
+    autoload :V1ClimateOrderCreatedEventNotification, "stripe/events/v1_climate_order_created_event"
+    autoload :V1ClimateOrderDelayedEvent, "stripe/events/v1_climate_order_delayed_event"
+    autoload :V1ClimateOrderDelayedEventNotification, "stripe/events/v1_climate_order_delayed_event"
+    autoload :V1ClimateOrderDeliveredEvent, "stripe/events/v1_climate_order_delivered_event"
+    autoload :V1ClimateOrderDeliveredEventNotification, "stripe/events/v1_climate_order_delivered_event"
+    autoload :V1ClimateOrderProductSubstitutedEvent, "stripe/events/v1_climate_order_product_substituted_event"
+    autoload :V1ClimateOrderProductSubstitutedEventNotification,
+             "stripe/events/v1_climate_order_product_substituted_event"
+    autoload :V1ClimateProductCreatedEvent, "stripe/events/v1_climate_product_created_event"
+    autoload :V1ClimateProductCreatedEventNotification, "stripe/events/v1_climate_product_created_event"
+    autoload :V1ClimateProductPricingUpdatedEvent, "stripe/events/v1_climate_product_pricing_updated_event"
+    autoload :V1ClimateProductPricingUpdatedEventNotification, "stripe/events/v1_climate_product_pricing_updated_event"
+    autoload :V1CouponCreatedEvent, "stripe/events/v1_coupon_created_event"
+    autoload :V1CouponCreatedEventNotification, "stripe/events/v1_coupon_created_event"
+    autoload :V1CouponDeletedEvent, "stripe/events/v1_coupon_deleted_event"
+    autoload :V1CouponDeletedEventNotification, "stripe/events/v1_coupon_deleted_event"
+    autoload :V1CouponUpdatedEvent, "stripe/events/v1_coupon_updated_event"
+    autoload :V1CouponUpdatedEventNotification, "stripe/events/v1_coupon_updated_event"
+    autoload :V1CreditNoteCreatedEvent, "stripe/events/v1_credit_note_created_event"
+    autoload :V1CreditNoteCreatedEventNotification, "stripe/events/v1_credit_note_created_event"
+    autoload :V1CreditNoteUpdatedEvent, "stripe/events/v1_credit_note_updated_event"
+    autoload :V1CreditNoteUpdatedEventNotification, "stripe/events/v1_credit_note_updated_event"
+    autoload :V1CreditNoteVoidedEvent, "stripe/events/v1_credit_note_voided_event"
+    autoload :V1CreditNoteVoidedEventNotification, "stripe/events/v1_credit_note_voided_event"
+    autoload :V1CustomerCashBalanceTransactionCreatedEvent,
+             "stripe/events/v1_customer_cash_balance_transaction_created_event"
+    autoload :V1CustomerCashBalanceTransactionCreatedEventNotification,
+             "stripe/events/v1_customer_cash_balance_transaction_created_event"
+    autoload :V1CustomerCreatedEvent, "stripe/events/v1_customer_created_event"
+    autoload :V1CustomerCreatedEventNotification, "stripe/events/v1_customer_created_event"
+    autoload :V1CustomerDeletedEvent, "stripe/events/v1_customer_deleted_event"
+    autoload :V1CustomerDeletedEventNotification, "stripe/events/v1_customer_deleted_event"
+    autoload :V1CustomerDiscountCreatedEvent, "stripe/events/v1_customer_discount_created_event"
+    autoload :V1CustomerDiscountCreatedEventNotification, "stripe/events/v1_customer_discount_created_event"
+    autoload :V1CustomerDiscountDeletedEvent, "stripe/events/v1_customer_discount_deleted_event"
+    autoload :V1CustomerDiscountDeletedEventNotification, "stripe/events/v1_customer_discount_deleted_event"
+    autoload :V1CustomerDiscountUpdatedEvent, "stripe/events/v1_customer_discount_updated_event"
+    autoload :V1CustomerDiscountUpdatedEventNotification, "stripe/events/v1_customer_discount_updated_event"
+    autoload :V1CustomerSubscriptionCreatedEvent, "stripe/events/v1_customer_subscription_created_event"
+    autoload :V1CustomerSubscriptionCreatedEventNotification, "stripe/events/v1_customer_subscription_created_event"
+    autoload :V1CustomerSubscriptionDeletedEvent, "stripe/events/v1_customer_subscription_deleted_event"
+    autoload :V1CustomerSubscriptionDeletedEventNotification, "stripe/events/v1_customer_subscription_deleted_event"
+    autoload :V1CustomerSubscriptionPausedEvent, "stripe/events/v1_customer_subscription_paused_event"
+    autoload :V1CustomerSubscriptionPausedEventNotification, "stripe/events/v1_customer_subscription_paused_event"
+    autoload :V1CustomerSubscriptionPendingUpdateAppliedEvent,
+             "stripe/events/v1_customer_subscription_pending_update_applied_event"
+    autoload :V1CustomerSubscriptionPendingUpdateAppliedEventNotification,
+             "stripe/events/v1_customer_subscription_pending_update_applied_event"
+    autoload :V1CustomerSubscriptionPendingUpdateExpiredEvent,
+             "stripe/events/v1_customer_subscription_pending_update_expired_event"
+    autoload :V1CustomerSubscriptionPendingUpdateExpiredEventNotification,
+             "stripe/events/v1_customer_subscription_pending_update_expired_event"
+    autoload :V1CustomerSubscriptionResumedEvent, "stripe/events/v1_customer_subscription_resumed_event"
+    autoload :V1CustomerSubscriptionResumedEventNotification, "stripe/events/v1_customer_subscription_resumed_event"
+    autoload :V1CustomerSubscriptionTrialWillEndEvent, "stripe/events/v1_customer_subscription_trial_will_end_event"
+    autoload :V1CustomerSubscriptionTrialWillEndEventNotification,
+             "stripe/events/v1_customer_subscription_trial_will_end_event"
+    autoload :V1CustomerSubscriptionUpdatedEvent, "stripe/events/v1_customer_subscription_updated_event"
+    autoload :V1CustomerSubscriptionUpdatedEventNotification, "stripe/events/v1_customer_subscription_updated_event"
+    autoload :V1CustomerTaxIdCreatedEvent, "stripe/events/v1_customer_tax_id_created_event"
+    autoload :V1CustomerTaxIdCreatedEventNotification, "stripe/events/v1_customer_tax_id_created_event"
+    autoload :V1CustomerTaxIdDeletedEvent, "stripe/events/v1_customer_tax_id_deleted_event"
+    autoload :V1CustomerTaxIdDeletedEventNotification, "stripe/events/v1_customer_tax_id_deleted_event"
+    autoload :V1CustomerTaxIdUpdatedEvent, "stripe/events/v1_customer_tax_id_updated_event"
+    autoload :V1CustomerTaxIdUpdatedEventNotification, "stripe/events/v1_customer_tax_id_updated_event"
+    autoload :V1CustomerUpdatedEvent, "stripe/events/v1_customer_updated_event"
+    autoload :V1CustomerUpdatedEventNotification, "stripe/events/v1_customer_updated_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryUpdatedEvent,
+             "stripe/events/v1_entitlements_active_entitlement_summary_updated_event"
+    autoload :V1EntitlementsActiveEntitlementSummaryUpdatedEventNotification,
+             "stripe/events/v1_entitlements_active_entitlement_summary_updated_event"
+    autoload :V1FileCreatedEvent, "stripe/events/v1_file_created_event"
+    autoload :V1FileCreatedEventNotification, "stripe/events/v1_file_created_event"
+    autoload :V1FinancialConnectionsAccountAccountNumbersUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
+    autoload :V1FinancialConnectionsAccountAccountNumbersUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_account_numbers_updated_event"
+    autoload :V1FinancialConnectionsAccountCreatedEvent, "stripe/events/v1_financial_connections_account_created_event"
+    autoload :V1FinancialConnectionsAccountCreatedEventNotification,
+             "stripe/events/v1_financial_connections_account_created_event"
+    autoload :V1FinancialConnectionsAccountDeactivatedEvent,
+             "stripe/events/v1_financial_connections_account_deactivated_event"
+    autoload :V1FinancialConnectionsAccountDeactivatedEventNotification,
+             "stripe/events/v1_financial_connections_account_deactivated_event"
+    autoload :V1FinancialConnectionsAccountDisconnectedEvent,
+             "stripe/events/v1_financial_connections_account_disconnected_event"
+    autoload :V1FinancialConnectionsAccountDisconnectedEventNotification,
+             "stripe/events/v1_financial_connections_account_disconnected_event"
+    autoload :V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
+    autoload :V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event"
+    autoload :V1FinancialConnectionsAccountReactivatedEvent,
+             "stripe/events/v1_financial_connections_account_reactivated_event"
+    autoload :V1FinancialConnectionsAccountReactivatedEventNotification,
+             "stripe/events/v1_financial_connections_account_reactivated_event"
+    autoload :V1FinancialConnectionsAccountRefreshedBalanceEvent,
+             "stripe/events/v1_financial_connections_account_refreshed_balance_event"
+    autoload :V1FinancialConnectionsAccountRefreshedBalanceEventNotification,
+             "stripe/events/v1_financial_connections_account_refreshed_balance_event"
+    autoload :V1FinancialConnectionsAccountRefreshedOwnershipEvent,
+             "stripe/events/v1_financial_connections_account_refreshed_ownership_event"
+    autoload :V1FinancialConnectionsAccountRefreshedOwnershipEventNotification,
+             "stripe/events/v1_financial_connections_account_refreshed_ownership_event"
+    autoload :V1FinancialConnectionsAccountRefreshedTransactionsEvent,
+             "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
+    autoload :V1FinancialConnectionsAccountRefreshedTransactionsEventNotification,
+             "stripe/events/v1_financial_connections_account_refreshed_transactions_event"
+    autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent,
+             "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
+    autoload :V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEventNotification,
+             "stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event"
+    autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent,
+             "stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event"
+    autoload :V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEventNotification,
+             "stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event"
+    autoload :V1FinancialConnectionsAccountUpcomingDeactivationEvent,
+             "stripe/events/v1_financial_connections_account_upcoming_deactivation_event"
+    autoload :V1FinancialConnectionsAccountUpcomingDeactivationEventNotification,
+             "stripe/events/v1_financial_connections_account_upcoming_deactivation_event"
+    autoload :V1IdentityVerificationSessionCanceledEvent,
+             "stripe/events/v1_identity_verification_session_canceled_event"
+    autoload :V1IdentityVerificationSessionCanceledEventNotification,
+             "stripe/events/v1_identity_verification_session_canceled_event"
+    autoload :V1IdentityVerificationSessionCreatedEvent, "stripe/events/v1_identity_verification_session_created_event"
+    autoload :V1IdentityVerificationSessionCreatedEventNotification,
+             "stripe/events/v1_identity_verification_session_created_event"
+    autoload :V1IdentityVerificationSessionProcessingEvent,
+             "stripe/events/v1_identity_verification_session_processing_event"
+    autoload :V1IdentityVerificationSessionProcessingEventNotification,
+             "stripe/events/v1_identity_verification_session_processing_event"
+    autoload :V1IdentityVerificationSessionRedactedEvent,
+             "stripe/events/v1_identity_verification_session_redacted_event"
+    autoload :V1IdentityVerificationSessionRedactedEventNotification,
+             "stripe/events/v1_identity_verification_session_redacted_event"
+    autoload :V1IdentityVerificationSessionRequiresInputEvent,
+             "stripe/events/v1_identity_verification_session_requires_input_event"
+    autoload :V1IdentityVerificationSessionRequiresInputEventNotification,
+             "stripe/events/v1_identity_verification_session_requires_input_event"
+    autoload :V1IdentityVerificationSessionVerifiedEvent,
+             "stripe/events/v1_identity_verification_session_verified_event"
+    autoload :V1IdentityVerificationSessionVerifiedEventNotification,
+             "stripe/events/v1_identity_verification_session_verified_event"
+    autoload :V1InvoiceCreatedEvent, "stripe/events/v1_invoice_created_event"
+    autoload :V1InvoiceCreatedEventNotification, "stripe/events/v1_invoice_created_event"
+    autoload :V1InvoiceDeletedEvent, "stripe/events/v1_invoice_deleted_event"
+    autoload :V1InvoiceDeletedEventNotification, "stripe/events/v1_invoice_deleted_event"
+    autoload :V1InvoiceFinalizationFailedEvent, "stripe/events/v1_invoice_finalization_failed_event"
+    autoload :V1InvoiceFinalizationFailedEventNotification, "stripe/events/v1_invoice_finalization_failed_event"
+    autoload :V1InvoiceFinalizedEvent, "stripe/events/v1_invoice_finalized_event"
+    autoload :V1InvoiceFinalizedEventNotification, "stripe/events/v1_invoice_finalized_event"
+    autoload :V1InvoiceitemCreatedEvent, "stripe/events/v1_invoiceitem_created_event"
+    autoload :V1InvoiceitemCreatedEventNotification, "stripe/events/v1_invoiceitem_created_event"
+    autoload :V1InvoiceitemDeletedEvent, "stripe/events/v1_invoiceitem_deleted_event"
+    autoload :V1InvoiceitemDeletedEventNotification, "stripe/events/v1_invoiceitem_deleted_event"
+    autoload :V1InvoiceMarkedUncollectibleEvent, "stripe/events/v1_invoice_marked_uncollectible_event"
+    autoload :V1InvoiceMarkedUncollectibleEventNotification, "stripe/events/v1_invoice_marked_uncollectible_event"
+    autoload :V1InvoiceOverdueEvent, "stripe/events/v1_invoice_overdue_event"
+    autoload :V1InvoiceOverdueEventNotification, "stripe/events/v1_invoice_overdue_event"
+    autoload :V1InvoiceOverpaidEvent, "stripe/events/v1_invoice_overpaid_event"
+    autoload :V1InvoiceOverpaidEventNotification, "stripe/events/v1_invoice_overpaid_event"
+    autoload :V1InvoicePaidEvent, "stripe/events/v1_invoice_paid_event"
+    autoload :V1InvoicePaidEventNotification, "stripe/events/v1_invoice_paid_event"
+    autoload :V1InvoicePaymentActionRequiredEvent, "stripe/events/v1_invoice_payment_action_required_event"
+    autoload :V1InvoicePaymentActionRequiredEventNotification, "stripe/events/v1_invoice_payment_action_required_event"
+    autoload :V1InvoicePaymentAttemptRequiredEvent, "stripe/events/v1_invoice_payment_attempt_required_event"
+    autoload :V1InvoicePaymentAttemptRequiredEventNotification,
+             "stripe/events/v1_invoice_payment_attempt_required_event"
+    autoload :V1InvoicePaymentFailedEvent, "stripe/events/v1_invoice_payment_failed_event"
+    autoload :V1InvoicePaymentFailedEventNotification, "stripe/events/v1_invoice_payment_failed_event"
+    autoload :V1InvoicePaymentPaidEvent, "stripe/events/v1_invoice_payment_paid_event"
+    autoload :V1InvoicePaymentPaidEventNotification, "stripe/events/v1_invoice_payment_paid_event"
+    autoload :V1InvoicePaymentSucceededEvent, "stripe/events/v1_invoice_payment_succeeded_event"
+    autoload :V1InvoicePaymentSucceededEventNotification, "stripe/events/v1_invoice_payment_succeeded_event"
+    autoload :V1InvoiceSentEvent, "stripe/events/v1_invoice_sent_event"
+    autoload :V1InvoiceSentEventNotification, "stripe/events/v1_invoice_sent_event"
+    autoload :V1InvoiceUpcomingEvent, "stripe/events/v1_invoice_upcoming_event"
+    autoload :V1InvoiceUpcomingEventNotification, "stripe/events/v1_invoice_upcoming_event"
+    autoload :V1InvoiceUpdatedEvent, "stripe/events/v1_invoice_updated_event"
+    autoload :V1InvoiceUpdatedEventNotification, "stripe/events/v1_invoice_updated_event"
+    autoload :V1InvoiceVoidedEvent, "stripe/events/v1_invoice_voided_event"
+    autoload :V1InvoiceVoidedEventNotification, "stripe/events/v1_invoice_voided_event"
+    autoload :V1InvoiceWillBeDueEvent, "stripe/events/v1_invoice_will_be_due_event"
+    autoload :V1InvoiceWillBeDueEventNotification, "stripe/events/v1_invoice_will_be_due_event"
+    autoload :V1IssuingAuthorizationCreatedEvent, "stripe/events/v1_issuing_authorization_created_event"
+    autoload :V1IssuingAuthorizationCreatedEventNotification, "stripe/events/v1_issuing_authorization_created_event"
+    autoload :V1IssuingAuthorizationRequestEvent, "stripe/events/v1_issuing_authorization_request_event"
+    autoload :V1IssuingAuthorizationRequestEventNotification, "stripe/events/v1_issuing_authorization_request_event"
+    autoload :V1IssuingAuthorizationUpdatedEvent, "stripe/events/v1_issuing_authorization_updated_event"
+    autoload :V1IssuingAuthorizationUpdatedEventNotification, "stripe/events/v1_issuing_authorization_updated_event"
+    autoload :V1IssuingCardCreatedEvent, "stripe/events/v1_issuing_card_created_event"
+    autoload :V1IssuingCardCreatedEventNotification, "stripe/events/v1_issuing_card_created_event"
+    autoload :V1IssuingCardholderCreatedEvent, "stripe/events/v1_issuing_cardholder_created_event"
+    autoload :V1IssuingCardholderCreatedEventNotification, "stripe/events/v1_issuing_cardholder_created_event"
+    autoload :V1IssuingCardholderUpdatedEvent, "stripe/events/v1_issuing_cardholder_updated_event"
+    autoload :V1IssuingCardholderUpdatedEventNotification, "stripe/events/v1_issuing_cardholder_updated_event"
+    autoload :V1IssuingCardUpdatedEvent, "stripe/events/v1_issuing_card_updated_event"
+    autoload :V1IssuingCardUpdatedEventNotification, "stripe/events/v1_issuing_card_updated_event"
+    autoload :V1IssuingDisputeClosedEvent, "stripe/events/v1_issuing_dispute_closed_event"
+    autoload :V1IssuingDisputeClosedEventNotification, "stripe/events/v1_issuing_dispute_closed_event"
+    autoload :V1IssuingDisputeCreatedEvent, "stripe/events/v1_issuing_dispute_created_event"
+    autoload :V1IssuingDisputeCreatedEventNotification, "stripe/events/v1_issuing_dispute_created_event"
+    autoload :V1IssuingDisputeFundsReinstatedEvent, "stripe/events/v1_issuing_dispute_funds_reinstated_event"
+    autoload :V1IssuingDisputeFundsReinstatedEventNotification,
+             "stripe/events/v1_issuing_dispute_funds_reinstated_event"
+    autoload :V1IssuingDisputeFundsRescindedEvent, "stripe/events/v1_issuing_dispute_funds_rescinded_event"
+    autoload :V1IssuingDisputeFundsRescindedEventNotification, "stripe/events/v1_issuing_dispute_funds_rescinded_event"
+    autoload :V1IssuingDisputeSubmittedEvent, "stripe/events/v1_issuing_dispute_submitted_event"
+    autoload :V1IssuingDisputeSubmittedEventNotification, "stripe/events/v1_issuing_dispute_submitted_event"
+    autoload :V1IssuingDisputeUpdatedEvent, "stripe/events/v1_issuing_dispute_updated_event"
+    autoload :V1IssuingDisputeUpdatedEventNotification, "stripe/events/v1_issuing_dispute_updated_event"
+    autoload :V1IssuingPersonalizationDesignActivatedEvent,
+             "stripe/events/v1_issuing_personalization_design_activated_event"
+    autoload :V1IssuingPersonalizationDesignActivatedEventNotification,
+             "stripe/events/v1_issuing_personalization_design_activated_event"
+    autoload :V1IssuingPersonalizationDesignDeactivatedEvent,
+             "stripe/events/v1_issuing_personalization_design_deactivated_event"
+    autoload :V1IssuingPersonalizationDesignDeactivatedEventNotification,
+             "stripe/events/v1_issuing_personalization_design_deactivated_event"
+    autoload :V1IssuingPersonalizationDesignRejectedEvent,
+             "stripe/events/v1_issuing_personalization_design_rejected_event"
+    autoload :V1IssuingPersonalizationDesignRejectedEventNotification,
+             "stripe/events/v1_issuing_personalization_design_rejected_event"
+    autoload :V1IssuingPersonalizationDesignUpdatedEvent,
+             "stripe/events/v1_issuing_personalization_design_updated_event"
+    autoload :V1IssuingPersonalizationDesignUpdatedEventNotification,
+             "stripe/events/v1_issuing_personalization_design_updated_event"
+    autoload :V1IssuingTokenCreatedEvent, "stripe/events/v1_issuing_token_created_event"
+    autoload :V1IssuingTokenCreatedEventNotification, "stripe/events/v1_issuing_token_created_event"
+    autoload :V1IssuingTokenUpdatedEvent, "stripe/events/v1_issuing_token_updated_event"
+    autoload :V1IssuingTokenUpdatedEventNotification, "stripe/events/v1_issuing_token_updated_event"
+    autoload :V1IssuingTransactionCreatedEvent, "stripe/events/v1_issuing_transaction_created_event"
+    autoload :V1IssuingTransactionCreatedEventNotification, "stripe/events/v1_issuing_transaction_created_event"
+    autoload :V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent,
+             "stripe/events/v1_issuing_transaction_purchase_details_receipt_updated_event"
+    autoload :V1IssuingTransactionPurchaseDetailsReceiptUpdatedEventNotification,
+             "stripe/events/v1_issuing_transaction_purchase_details_receipt_updated_event"
+    autoload :V1IssuingTransactionUpdatedEvent, "stripe/events/v1_issuing_transaction_updated_event"
+    autoload :V1IssuingTransactionUpdatedEventNotification, "stripe/events/v1_issuing_transaction_updated_event"
+    autoload :V1MandateUpdatedEvent, "stripe/events/v1_mandate_updated_event"
+    autoload :V1MandateUpdatedEventNotification, "stripe/events/v1_mandate_updated_event"
+    autoload :V1PaymentIntentAmountCapturableUpdatedEvent,
+             "stripe/events/v1_payment_intent_amount_capturable_updated_event"
+    autoload :V1PaymentIntentAmountCapturableUpdatedEventNotification,
+             "stripe/events/v1_payment_intent_amount_capturable_updated_event"
+    autoload :V1PaymentIntentCanceledEvent, "stripe/events/v1_payment_intent_canceled_event"
+    autoload :V1PaymentIntentCanceledEventNotification, "stripe/events/v1_payment_intent_canceled_event"
+    autoload :V1PaymentIntentCreatedEvent, "stripe/events/v1_payment_intent_created_event"
+    autoload :V1PaymentIntentCreatedEventNotification, "stripe/events/v1_payment_intent_created_event"
+    autoload :V1PaymentIntentPartiallyFundedEvent, "stripe/events/v1_payment_intent_partially_funded_event"
+    autoload :V1PaymentIntentPartiallyFundedEventNotification, "stripe/events/v1_payment_intent_partially_funded_event"
+    autoload :V1PaymentIntentPaymentFailedEvent, "stripe/events/v1_payment_intent_payment_failed_event"
+    autoload :V1PaymentIntentPaymentFailedEventNotification, "stripe/events/v1_payment_intent_payment_failed_event"
+    autoload :V1PaymentIntentProcessingEvent, "stripe/events/v1_payment_intent_processing_event"
+    autoload :V1PaymentIntentProcessingEventNotification, "stripe/events/v1_payment_intent_processing_event"
+    autoload :V1PaymentIntentRequiresActionEvent, "stripe/events/v1_payment_intent_requires_action_event"
+    autoload :V1PaymentIntentRequiresActionEventNotification, "stripe/events/v1_payment_intent_requires_action_event"
+    autoload :V1PaymentIntentSucceededEvent, "stripe/events/v1_payment_intent_succeeded_event"
+    autoload :V1PaymentIntentSucceededEventNotification, "stripe/events/v1_payment_intent_succeeded_event"
+    autoload :V1PaymentLinkCreatedEvent, "stripe/events/v1_payment_link_created_event"
+    autoload :V1PaymentLinkCreatedEventNotification, "stripe/events/v1_payment_link_created_event"
+    autoload :V1PaymentLinkUpdatedEvent, "stripe/events/v1_payment_link_updated_event"
+    autoload :V1PaymentLinkUpdatedEventNotification, "stripe/events/v1_payment_link_updated_event"
+    autoload :V1PaymentMethodAttachedEvent, "stripe/events/v1_payment_method_attached_event"
+    autoload :V1PaymentMethodAttachedEventNotification, "stripe/events/v1_payment_method_attached_event"
+    autoload :V1PaymentMethodAutomaticallyUpdatedEvent, "stripe/events/v1_payment_method_automatically_updated_event"
+    autoload :V1PaymentMethodAutomaticallyUpdatedEventNotification,
+             "stripe/events/v1_payment_method_automatically_updated_event"
+    autoload :V1PaymentMethodDetachedEvent, "stripe/events/v1_payment_method_detached_event"
+    autoload :V1PaymentMethodDetachedEventNotification, "stripe/events/v1_payment_method_detached_event"
+    autoload :V1PaymentMethodUpdatedEvent, "stripe/events/v1_payment_method_updated_event"
+    autoload :V1PaymentMethodUpdatedEventNotification, "stripe/events/v1_payment_method_updated_event"
+    autoload :V1PayoutCanceledEvent, "stripe/events/v1_payout_canceled_event"
+    autoload :V1PayoutCanceledEventNotification, "stripe/events/v1_payout_canceled_event"
+    autoload :V1PayoutCreatedEvent, "stripe/events/v1_payout_created_event"
+    autoload :V1PayoutCreatedEventNotification, "stripe/events/v1_payout_created_event"
+    autoload :V1PayoutFailedEvent, "stripe/events/v1_payout_failed_event"
+    autoload :V1PayoutFailedEventNotification, "stripe/events/v1_payout_failed_event"
+    autoload :V1PayoutPaidEvent, "stripe/events/v1_payout_paid_event"
+    autoload :V1PayoutPaidEventNotification, "stripe/events/v1_payout_paid_event"
+    autoload :V1PayoutReconciliationCompletedEvent, "stripe/events/v1_payout_reconciliation_completed_event"
+    autoload :V1PayoutReconciliationCompletedEventNotification, "stripe/events/v1_payout_reconciliation_completed_event"
+    autoload :V1PayoutUpdatedEvent, "stripe/events/v1_payout_updated_event"
+    autoload :V1PayoutUpdatedEventNotification, "stripe/events/v1_payout_updated_event"
+    autoload :V1PersonCreatedEvent, "stripe/events/v1_person_created_event"
+    autoload :V1PersonCreatedEventNotification, "stripe/events/v1_person_created_event"
+    autoload :V1PersonDeletedEvent, "stripe/events/v1_person_deleted_event"
+    autoload :V1PersonDeletedEventNotification, "stripe/events/v1_person_deleted_event"
+    autoload :V1PersonUpdatedEvent, "stripe/events/v1_person_updated_event"
+    autoload :V1PersonUpdatedEventNotification, "stripe/events/v1_person_updated_event"
+    autoload :V1PlanCreatedEvent, "stripe/events/v1_plan_created_event"
+    autoload :V1PlanCreatedEventNotification, "stripe/events/v1_plan_created_event"
+    autoload :V1PlanDeletedEvent, "stripe/events/v1_plan_deleted_event"
+    autoload :V1PlanDeletedEventNotification, "stripe/events/v1_plan_deleted_event"
+    autoload :V1PlanUpdatedEvent, "stripe/events/v1_plan_updated_event"
+    autoload :V1PlanUpdatedEventNotification, "stripe/events/v1_plan_updated_event"
+    autoload :V1PriceCreatedEvent, "stripe/events/v1_price_created_event"
+    autoload :V1PriceCreatedEventNotification, "stripe/events/v1_price_created_event"
+    autoload :V1PriceDeletedEvent, "stripe/events/v1_price_deleted_event"
+    autoload :V1PriceDeletedEventNotification, "stripe/events/v1_price_deleted_event"
+    autoload :V1PriceUpdatedEvent, "stripe/events/v1_price_updated_event"
+    autoload :V1PriceUpdatedEventNotification, "stripe/events/v1_price_updated_event"
+    autoload :V1ProductCreatedEvent, "stripe/events/v1_product_created_event"
+    autoload :V1ProductCreatedEventNotification, "stripe/events/v1_product_created_event"
+    autoload :V1ProductDeletedEvent, "stripe/events/v1_product_deleted_event"
+    autoload :V1ProductDeletedEventNotification, "stripe/events/v1_product_deleted_event"
+    autoload :V1ProductUpdatedEvent, "stripe/events/v1_product_updated_event"
+    autoload :V1ProductUpdatedEventNotification, "stripe/events/v1_product_updated_event"
+    autoload :V1PromotionCodeCreatedEvent, "stripe/events/v1_promotion_code_created_event"
+    autoload :V1PromotionCodeCreatedEventNotification, "stripe/events/v1_promotion_code_created_event"
+    autoload :V1PromotionCodeUpdatedEvent, "stripe/events/v1_promotion_code_updated_event"
+    autoload :V1PromotionCodeUpdatedEventNotification, "stripe/events/v1_promotion_code_updated_event"
+    autoload :V1QuoteAcceptedEvent, "stripe/events/v1_quote_accepted_event"
+    autoload :V1QuoteAcceptedEventNotification, "stripe/events/v1_quote_accepted_event"
+    autoload :V1QuoteCanceledEvent, "stripe/events/v1_quote_canceled_event"
+    autoload :V1QuoteCanceledEventNotification, "stripe/events/v1_quote_canceled_event"
+    autoload :V1QuoteCreatedEvent, "stripe/events/v1_quote_created_event"
+    autoload :V1QuoteCreatedEventNotification, "stripe/events/v1_quote_created_event"
+    autoload :V1QuoteFinalizedEvent, "stripe/events/v1_quote_finalized_event"
+    autoload :V1QuoteFinalizedEventNotification, "stripe/events/v1_quote_finalized_event"
+    autoload :V1RadarEarlyFraudWarningCreatedEvent, "stripe/events/v1_radar_early_fraud_warning_created_event"
+    autoload :V1RadarEarlyFraudWarningCreatedEventNotification,
+             "stripe/events/v1_radar_early_fraud_warning_created_event"
+    autoload :V1RadarEarlyFraudWarningUpdatedEvent, "stripe/events/v1_radar_early_fraud_warning_updated_event"
+    autoload :V1RadarEarlyFraudWarningUpdatedEventNotification,
+             "stripe/events/v1_radar_early_fraud_warning_updated_event"
+    autoload :V1RefundCreatedEvent, "stripe/events/v1_refund_created_event"
+    autoload :V1RefundCreatedEventNotification, "stripe/events/v1_refund_created_event"
+    autoload :V1RefundFailedEvent, "stripe/events/v1_refund_failed_event"
+    autoload :V1RefundFailedEventNotification, "stripe/events/v1_refund_failed_event"
+    autoload :V1RefundUpdatedEvent, "stripe/events/v1_refund_updated_event"
+    autoload :V1RefundUpdatedEventNotification, "stripe/events/v1_refund_updated_event"
+    autoload :V1ReviewClosedEvent, "stripe/events/v1_review_closed_event"
+    autoload :V1ReviewClosedEventNotification, "stripe/events/v1_review_closed_event"
+    autoload :V1ReviewOpenedEvent, "stripe/events/v1_review_opened_event"
+    autoload :V1ReviewOpenedEventNotification, "stripe/events/v1_review_opened_event"
+    autoload :V1SetupIntentCanceledEvent, "stripe/events/v1_setup_intent_canceled_event"
+    autoload :V1SetupIntentCanceledEventNotification, "stripe/events/v1_setup_intent_canceled_event"
+    autoload :V1SetupIntentCreatedEvent, "stripe/events/v1_setup_intent_created_event"
+    autoload :V1SetupIntentCreatedEventNotification, "stripe/events/v1_setup_intent_created_event"
+    autoload :V1SetupIntentRequiresActionEvent, "stripe/events/v1_setup_intent_requires_action_event"
+    autoload :V1SetupIntentRequiresActionEventNotification, "stripe/events/v1_setup_intent_requires_action_event"
+    autoload :V1SetupIntentSetupFailedEvent, "stripe/events/v1_setup_intent_setup_failed_event"
+    autoload :V1SetupIntentSetupFailedEventNotification, "stripe/events/v1_setup_intent_setup_failed_event"
+    autoload :V1SetupIntentSucceededEvent, "stripe/events/v1_setup_intent_succeeded_event"
+    autoload :V1SetupIntentSucceededEventNotification, "stripe/events/v1_setup_intent_succeeded_event"
+    autoload :V1SigmaScheduledQueryRunCreatedEvent, "stripe/events/v1_sigma_scheduled_query_run_created_event"
+    autoload :V1SigmaScheduledQueryRunCreatedEventNotification,
+             "stripe/events/v1_sigma_scheduled_query_run_created_event"
+    autoload :V1SourceCanceledEvent, "stripe/events/v1_source_canceled_event"
+    autoload :V1SourceCanceledEventNotification, "stripe/events/v1_source_canceled_event"
+    autoload :V1SourceChargeableEvent, "stripe/events/v1_source_chargeable_event"
+    autoload :V1SourceChargeableEventNotification, "stripe/events/v1_source_chargeable_event"
+    autoload :V1SourceFailedEvent, "stripe/events/v1_source_failed_event"
+    autoload :V1SourceFailedEventNotification, "stripe/events/v1_source_failed_event"
+    autoload :V1SourceRefundAttributesRequiredEvent, "stripe/events/v1_source_refund_attributes_required_event"
+    autoload :V1SourceRefundAttributesRequiredEventNotification,
+             "stripe/events/v1_source_refund_attributes_required_event"
+    autoload :V1SubscriptionScheduleAbortedEvent, "stripe/events/v1_subscription_schedule_aborted_event"
+    autoload :V1SubscriptionScheduleAbortedEventNotification, "stripe/events/v1_subscription_schedule_aborted_event"
+    autoload :V1SubscriptionScheduleCanceledEvent, "stripe/events/v1_subscription_schedule_canceled_event"
+    autoload :V1SubscriptionScheduleCanceledEventNotification, "stripe/events/v1_subscription_schedule_canceled_event"
+    autoload :V1SubscriptionScheduleCompletedEvent, "stripe/events/v1_subscription_schedule_completed_event"
+    autoload :V1SubscriptionScheduleCompletedEventNotification, "stripe/events/v1_subscription_schedule_completed_event"
+    autoload :V1SubscriptionScheduleCreatedEvent, "stripe/events/v1_subscription_schedule_created_event"
+    autoload :V1SubscriptionScheduleCreatedEventNotification, "stripe/events/v1_subscription_schedule_created_event"
+    autoload :V1SubscriptionScheduleExpiringEvent, "stripe/events/v1_subscription_schedule_expiring_event"
+    autoload :V1SubscriptionScheduleExpiringEventNotification, "stripe/events/v1_subscription_schedule_expiring_event"
+    autoload :V1SubscriptionScheduleReleasedEvent, "stripe/events/v1_subscription_schedule_released_event"
+    autoload :V1SubscriptionScheduleReleasedEventNotification, "stripe/events/v1_subscription_schedule_released_event"
+    autoload :V1SubscriptionScheduleUpdatedEvent, "stripe/events/v1_subscription_schedule_updated_event"
+    autoload :V1SubscriptionScheduleUpdatedEventNotification, "stripe/events/v1_subscription_schedule_updated_event"
+    autoload :V1TaxRateCreatedEvent, "stripe/events/v1_tax_rate_created_event"
+    autoload :V1TaxRateCreatedEventNotification, "stripe/events/v1_tax_rate_created_event"
+    autoload :V1TaxRateUpdatedEvent, "stripe/events/v1_tax_rate_updated_event"
+    autoload :V1TaxRateUpdatedEventNotification, "stripe/events/v1_tax_rate_updated_event"
+    autoload :V1TaxSettingsUpdatedEvent, "stripe/events/v1_tax_settings_updated_event"
+    autoload :V1TaxSettingsUpdatedEventNotification, "stripe/events/v1_tax_settings_updated_event"
+    autoload :V1TerminalReaderActionFailedEvent, "stripe/events/v1_terminal_reader_action_failed_event"
+    autoload :V1TerminalReaderActionFailedEventNotification, "stripe/events/v1_terminal_reader_action_failed_event"
+    autoload :V1TerminalReaderActionSucceededEvent, "stripe/events/v1_terminal_reader_action_succeeded_event"
+    autoload :V1TerminalReaderActionSucceededEventNotification,
+             "stripe/events/v1_terminal_reader_action_succeeded_event"
+    autoload :V1TerminalReaderActionUpdatedEvent, "stripe/events/v1_terminal_reader_action_updated_event"
+    autoload :V1TerminalReaderActionUpdatedEventNotification, "stripe/events/v1_terminal_reader_action_updated_event"
+    autoload :V1TestHelpersTestClockAdvancingEvent, "stripe/events/v1_test_helpers_test_clock_advancing_event"
+    autoload :V1TestHelpersTestClockAdvancingEventNotification,
+             "stripe/events/v1_test_helpers_test_clock_advancing_event"
+    autoload :V1TestHelpersTestClockCreatedEvent, "stripe/events/v1_test_helpers_test_clock_created_event"
+    autoload :V1TestHelpersTestClockCreatedEventNotification, "stripe/events/v1_test_helpers_test_clock_created_event"
+    autoload :V1TestHelpersTestClockDeletedEvent, "stripe/events/v1_test_helpers_test_clock_deleted_event"
+    autoload :V1TestHelpersTestClockDeletedEventNotification, "stripe/events/v1_test_helpers_test_clock_deleted_event"
+    autoload :V1TestHelpersTestClockInternalFailureEvent,
+             "stripe/events/v1_test_helpers_test_clock_internal_failure_event"
+    autoload :V1TestHelpersTestClockInternalFailureEventNotification,
+             "stripe/events/v1_test_helpers_test_clock_internal_failure_event"
+    autoload :V1TestHelpersTestClockReadyEvent, "stripe/events/v1_test_helpers_test_clock_ready_event"
+    autoload :V1TestHelpersTestClockReadyEventNotification, "stripe/events/v1_test_helpers_test_clock_ready_event"
+    autoload :V1TopupCanceledEvent, "stripe/events/v1_topup_canceled_event"
+    autoload :V1TopupCanceledEventNotification, "stripe/events/v1_topup_canceled_event"
+    autoload :V1TopupCreatedEvent, "stripe/events/v1_topup_created_event"
+    autoload :V1TopupCreatedEventNotification, "stripe/events/v1_topup_created_event"
+    autoload :V1TopupFailedEvent, "stripe/events/v1_topup_failed_event"
+    autoload :V1TopupFailedEventNotification, "stripe/events/v1_topup_failed_event"
+    autoload :V1TopupReversedEvent, "stripe/events/v1_topup_reversed_event"
+    autoload :V1TopupReversedEventNotification, "stripe/events/v1_topup_reversed_event"
+    autoload :V1TopupSucceededEvent, "stripe/events/v1_topup_succeeded_event"
+    autoload :V1TopupSucceededEventNotification, "stripe/events/v1_topup_succeeded_event"
+    autoload :V1TransferCreatedEvent, "stripe/events/v1_transfer_created_event"
+    autoload :V1TransferCreatedEventNotification, "stripe/events/v1_transfer_created_event"
+    autoload :V1TransferReversedEvent, "stripe/events/v1_transfer_reversed_event"
+    autoload :V1TransferReversedEventNotification, "stripe/events/v1_transfer_reversed_event"
+    autoload :V1TransferUpdatedEvent, "stripe/events/v1_transfer_updated_event"
+    autoload :V1TransferUpdatedEventNotification, "stripe/events/v1_transfer_updated_event"
     autoload :V2CommerceProductCatalogImportsFailedEvent,
              "stripe/events/v2_commerce_product_catalog_imports_failed_event"
     autoload :V2CommerceProductCatalogImportsFailedEventNotification,
@@ -228,6 +739,10 @@ module Stripe
     autoload :Transaction, "stripe/resources/issuing/transaction"
   end
 
+  module ProductCatalog
+    autoload :TrialOffer, "stripe/resources/product_catalog/trial_offer"
+  end
+
   module Radar
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :PaymentEvaluation, "stripe/resources/radar/payment_evaluation"
@@ -254,6 +769,7 @@ module Stripe
     autoload :Association, "stripe/resources/tax/association"
     autoload :Calculation, "stripe/resources/tax/calculation"
     autoload :CalculationLineItem, "stripe/resources/tax/calculation_line_item"
+    autoload :Location, "stripe/resources/tax/location"
     autoload :Registration, "stripe/resources/tax/registration"
     autoload :Settings, "stripe/resources/tax/settings"
     autoload :Transaction, "stripe/resources/tax/transaction"
@@ -270,6 +786,10 @@ module Stripe
 
   module TestHelpers
     autoload :TestClock, "stripe/resources/test_helpers/test_clock"
+  end
+
+  module ThreeDSecure
+    autoload :Authentication, "stripe/resources/three_d_secure/authentication"
   end
 
   module Treasury
@@ -317,6 +837,7 @@ module Stripe
 end
 
 module Stripe
+  # rubocop:disable Metrics/CollectionLiteralLength
   RESOURCE_FILES = %w[
     stripe/resources/v2/core/event_notification
     stripe/resources/account
@@ -326,6 +847,7 @@ module Stripe
     stripe/resources/application
     stripe/resources/application_fee
     stripe/resources/application_fee_refund
+    stripe/resources/apps/install
     stripe/resources/apps/secret
     stripe/resources/balance
     stripe/resources/balance_settings
@@ -410,6 +932,7 @@ module Stripe
     stripe/resources/plan
     stripe/resources/price
     stripe/resources/product
+    stripe/resources/product_catalog/trial_offer
     stripe/resources/product_feature
     stripe/resources/promotion_code
     stripe/resources/quote
@@ -438,6 +961,7 @@ module Stripe
     stripe/resources/tax/association
     stripe/resources/tax/calculation
     stripe/resources/tax/calculation_line_item
+    stripe/resources/tax/location
     stripe/resources/tax/registration
     stripe/resources/tax/settings
     stripe/resources/tax/transaction
@@ -452,6 +976,7 @@ module Stripe
     stripe/resources/terminal/onboarding_link
     stripe/resources/terminal/reader
     stripe/resources/test_helpers/test_clock
+    stripe/resources/three_d_secure/authentication
     stripe/resources/token
     stripe/resources/topup
     stripe/resources/transfer
@@ -480,8 +1005,224 @@ module Stripe
     stripe/resources/v2/core/event_destination
     stripe/resources/v2/deleted_object
     stripe/resources/webhook_endpoint
+    stripe/events/v1_account_application_authorized_event
+    stripe/events/v1_account_application_deauthorized_event
+    stripe/events/v1_account_external_account_created_event
+    stripe/events/v1_account_external_account_deleted_event
+    stripe/events/v1_account_external_account_updated_event
+    stripe/events/v1_account_updated_event
+    stripe/events/v1_application_fee_created_event
+    stripe/events/v1_application_fee_refund_updated_event
+    stripe/events/v1_application_fee_refunded_event
+    stripe/events/v1_balance_available_event
+    stripe/events/v1_balance_settings_updated_event
+    stripe/events/v1_billing_alert_triggered_event
+    stripe/events/v1_billing_credit_balance_transaction_created_event
+    stripe/events/v1_billing_credit_grant_created_event
+    stripe/events/v1_billing_credit_grant_updated_event
+    stripe/events/v1_billing_meter_created_event
+    stripe/events/v1_billing_meter_deactivated_event
     stripe/events/v1_billing_meter_error_report_triggered_event
     stripe/events/v1_billing_meter_no_meter_found_event
+    stripe/events/v1_billing_meter_reactivated_event
+    stripe/events/v1_billing_meter_updated_event
+    stripe/events/v1_billing_portal_configuration_created_event
+    stripe/events/v1_billing_portal_configuration_updated_event
+    stripe/events/v1_billing_portal_session_created_event
+    stripe/events/v1_capability_updated_event
+    stripe/events/v1_cash_balance_funds_available_event
+    stripe/events/v1_charge_captured_event
+    stripe/events/v1_charge_dispute_closed_event
+    stripe/events/v1_charge_dispute_created_event
+    stripe/events/v1_charge_dispute_funds_reinstated_event
+    stripe/events/v1_charge_dispute_funds_withdrawn_event
+    stripe/events/v1_charge_dispute_updated_event
+    stripe/events/v1_charge_expired_event
+    stripe/events/v1_charge_failed_event
+    stripe/events/v1_charge_pending_event
+    stripe/events/v1_charge_refund_updated_event
+    stripe/events/v1_charge_refunded_event
+    stripe/events/v1_charge_succeeded_event
+    stripe/events/v1_charge_updated_event
+    stripe/events/v1_checkout_session_async_payment_failed_event
+    stripe/events/v1_checkout_session_async_payment_succeeded_event
+    stripe/events/v1_checkout_session_completed_event
+    stripe/events/v1_checkout_session_expired_event
+    stripe/events/v1_climate_order_canceled_event
+    stripe/events/v1_climate_order_created_event
+    stripe/events/v1_climate_order_delayed_event
+    stripe/events/v1_climate_order_delivered_event
+    stripe/events/v1_climate_order_product_substituted_event
+    stripe/events/v1_climate_product_created_event
+    stripe/events/v1_climate_product_pricing_updated_event
+    stripe/events/v1_coupon_created_event
+    stripe/events/v1_coupon_deleted_event
+    stripe/events/v1_coupon_updated_event
+    stripe/events/v1_credit_note_created_event
+    stripe/events/v1_credit_note_updated_event
+    stripe/events/v1_credit_note_voided_event
+    stripe/events/v1_customer_cash_balance_transaction_created_event
+    stripe/events/v1_customer_created_event
+    stripe/events/v1_customer_deleted_event
+    stripe/events/v1_customer_discount_created_event
+    stripe/events/v1_customer_discount_deleted_event
+    stripe/events/v1_customer_discount_updated_event
+    stripe/events/v1_customer_subscription_created_event
+    stripe/events/v1_customer_subscription_deleted_event
+    stripe/events/v1_customer_subscription_paused_event
+    stripe/events/v1_customer_subscription_pending_update_applied_event
+    stripe/events/v1_customer_subscription_pending_update_expired_event
+    stripe/events/v1_customer_subscription_resumed_event
+    stripe/events/v1_customer_subscription_trial_will_end_event
+    stripe/events/v1_customer_subscription_updated_event
+    stripe/events/v1_customer_tax_id_created_event
+    stripe/events/v1_customer_tax_id_deleted_event
+    stripe/events/v1_customer_tax_id_updated_event
+    stripe/events/v1_customer_updated_event
+    stripe/events/v1_entitlements_active_entitlement_summary_updated_event
+    stripe/events/v1_file_created_event
+    stripe/events/v1_financial_connections_account_account_numbers_updated_event
+    stripe/events/v1_financial_connections_account_created_event
+    stripe/events/v1_financial_connections_account_deactivated_event
+    stripe/events/v1_financial_connections_account_disconnected_event
+    stripe/events/v1_financial_connections_account_expected_deactivation_date_updated_event
+    stripe/events/v1_financial_connections_account_reactivated_event
+    stripe/events/v1_financial_connections_account_refreshed_balance_event
+    stripe/events/v1_financial_connections_account_refreshed_ownership_event
+    stripe/events/v1_financial_connections_account_refreshed_transactions_event
+    stripe/events/v1_financial_connections_account_supported_payment_method_types_updated_event
+    stripe/events/v1_financial_connections_account_upcoming_account_number_expiry_event
+    stripe/events/v1_financial_connections_account_upcoming_deactivation_event
+    stripe/events/v1_identity_verification_session_canceled_event
+    stripe/events/v1_identity_verification_session_created_event
+    stripe/events/v1_identity_verification_session_processing_event
+    stripe/events/v1_identity_verification_session_redacted_event
+    stripe/events/v1_identity_verification_session_requires_input_event
+    stripe/events/v1_identity_verification_session_verified_event
+    stripe/events/v1_invoice_created_event
+    stripe/events/v1_invoice_deleted_event
+    stripe/events/v1_invoice_finalization_failed_event
+    stripe/events/v1_invoice_finalized_event
+    stripe/events/v1_invoice_marked_uncollectible_event
+    stripe/events/v1_invoice_overdue_event
+    stripe/events/v1_invoice_overpaid_event
+    stripe/events/v1_invoice_paid_event
+    stripe/events/v1_invoice_payment_action_required_event
+    stripe/events/v1_invoice_payment_attempt_required_event
+    stripe/events/v1_invoice_payment_failed_event
+    stripe/events/v1_invoice_payment_paid_event
+    stripe/events/v1_invoice_payment_succeeded_event
+    stripe/events/v1_invoice_sent_event
+    stripe/events/v1_invoice_upcoming_event
+    stripe/events/v1_invoice_updated_event
+    stripe/events/v1_invoice_voided_event
+    stripe/events/v1_invoice_will_be_due_event
+    stripe/events/v1_invoiceitem_created_event
+    stripe/events/v1_invoiceitem_deleted_event
+    stripe/events/v1_issuing_authorization_created_event
+    stripe/events/v1_issuing_authorization_request_event
+    stripe/events/v1_issuing_authorization_updated_event
+    stripe/events/v1_issuing_card_created_event
+    stripe/events/v1_issuing_card_updated_event
+    stripe/events/v1_issuing_cardholder_created_event
+    stripe/events/v1_issuing_cardholder_updated_event
+    stripe/events/v1_issuing_dispute_closed_event
+    stripe/events/v1_issuing_dispute_created_event
+    stripe/events/v1_issuing_dispute_funds_reinstated_event
+    stripe/events/v1_issuing_dispute_funds_rescinded_event
+    stripe/events/v1_issuing_dispute_submitted_event
+    stripe/events/v1_issuing_dispute_updated_event
+    stripe/events/v1_issuing_personalization_design_activated_event
+    stripe/events/v1_issuing_personalization_design_deactivated_event
+    stripe/events/v1_issuing_personalization_design_rejected_event
+    stripe/events/v1_issuing_personalization_design_updated_event
+    stripe/events/v1_issuing_token_created_event
+    stripe/events/v1_issuing_token_updated_event
+    stripe/events/v1_issuing_transaction_created_event
+    stripe/events/v1_issuing_transaction_purchase_details_receipt_updated_event
+    stripe/events/v1_issuing_transaction_updated_event
+    stripe/events/v1_mandate_updated_event
+    stripe/events/v1_payment_intent_amount_capturable_updated_event
+    stripe/events/v1_payment_intent_canceled_event
+    stripe/events/v1_payment_intent_created_event
+    stripe/events/v1_payment_intent_partially_funded_event
+    stripe/events/v1_payment_intent_payment_failed_event
+    stripe/events/v1_payment_intent_processing_event
+    stripe/events/v1_payment_intent_requires_action_event
+    stripe/events/v1_payment_intent_succeeded_event
+    stripe/events/v1_payment_link_created_event
+    stripe/events/v1_payment_link_updated_event
+    stripe/events/v1_payment_method_attached_event
+    stripe/events/v1_payment_method_automatically_updated_event
+    stripe/events/v1_payment_method_detached_event
+    stripe/events/v1_payment_method_updated_event
+    stripe/events/v1_payout_canceled_event
+    stripe/events/v1_payout_created_event
+    stripe/events/v1_payout_failed_event
+    stripe/events/v1_payout_paid_event
+    stripe/events/v1_payout_reconciliation_completed_event
+    stripe/events/v1_payout_updated_event
+    stripe/events/v1_person_created_event
+    stripe/events/v1_person_deleted_event
+    stripe/events/v1_person_updated_event
+    stripe/events/v1_plan_created_event
+    stripe/events/v1_plan_deleted_event
+    stripe/events/v1_plan_updated_event
+    stripe/events/v1_price_created_event
+    stripe/events/v1_price_deleted_event
+    stripe/events/v1_price_updated_event
+    stripe/events/v1_product_created_event
+    stripe/events/v1_product_deleted_event
+    stripe/events/v1_product_updated_event
+    stripe/events/v1_promotion_code_created_event
+    stripe/events/v1_promotion_code_updated_event
+    stripe/events/v1_quote_accepted_event
+    stripe/events/v1_quote_canceled_event
+    stripe/events/v1_quote_created_event
+    stripe/events/v1_quote_finalized_event
+    stripe/events/v1_radar_early_fraud_warning_created_event
+    stripe/events/v1_radar_early_fraud_warning_updated_event
+    stripe/events/v1_refund_created_event
+    stripe/events/v1_refund_failed_event
+    stripe/events/v1_refund_updated_event
+    stripe/events/v1_review_closed_event
+    stripe/events/v1_review_opened_event
+    stripe/events/v1_setup_intent_canceled_event
+    stripe/events/v1_setup_intent_created_event
+    stripe/events/v1_setup_intent_requires_action_event
+    stripe/events/v1_setup_intent_setup_failed_event
+    stripe/events/v1_setup_intent_succeeded_event
+    stripe/events/v1_sigma_scheduled_query_run_created_event
+    stripe/events/v1_source_canceled_event
+    stripe/events/v1_source_chargeable_event
+    stripe/events/v1_source_failed_event
+    stripe/events/v1_source_refund_attributes_required_event
+    stripe/events/v1_subscription_schedule_aborted_event
+    stripe/events/v1_subscription_schedule_canceled_event
+    stripe/events/v1_subscription_schedule_completed_event
+    stripe/events/v1_subscription_schedule_created_event
+    stripe/events/v1_subscription_schedule_expiring_event
+    stripe/events/v1_subscription_schedule_released_event
+    stripe/events/v1_subscription_schedule_updated_event
+    stripe/events/v1_tax_rate_created_event
+    stripe/events/v1_tax_rate_updated_event
+    stripe/events/v1_tax_settings_updated_event
+    stripe/events/v1_terminal_reader_action_failed_event
+    stripe/events/v1_terminal_reader_action_succeeded_event
+    stripe/events/v1_terminal_reader_action_updated_event
+    stripe/events/v1_test_helpers_test_clock_advancing_event
+    stripe/events/v1_test_helpers_test_clock_created_event
+    stripe/events/v1_test_helpers_test_clock_deleted_event
+    stripe/events/v1_test_helpers_test_clock_internal_failure_event
+    stripe/events/v1_test_helpers_test_clock_ready_event
+    stripe/events/v1_topup_canceled_event
+    stripe/events/v1_topup_created_event
+    stripe/events/v1_topup_failed_event
+    stripe/events/v1_topup_reversed_event
+    stripe/events/v1_topup_succeeded_event
+    stripe/events/v1_transfer_created_event
+    stripe/events/v1_transfer_reversed_event
+    stripe/events/v1_transfer_updated_event
     stripe/events/v2_commerce_product_catalog_imports_failed_event
     stripe/events/v2_commerce_product_catalog_imports_processing_event
     stripe/events/v2_commerce_product_catalog_imports_succeeded_event
@@ -505,4 +1246,5 @@ module Stripe
     stripe/events/v2_core_account_updated_event
     stripe/events/v2_core_event_destination_ping_event
   ].freeze
+  # rubocop:enable Metrics/CollectionLiteralLength
 end

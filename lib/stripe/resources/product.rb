@@ -4,7 +4,7 @@
 module Stripe
   # Products describe the specific goods or services you offer to your customers.
   # For example, you might offer a Standard and Premium version of your goods or service; each version would be a separate Product.
-  # They can be used in conjunction with [Prices](https://api.stripe.com#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
+  # They can be used in conjunction with [Prices](https://docs.stripe.com/api#prices) to configure pricing in Payment Links, Checkout, and Subscriptions.
   #
   # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription),
   # [share a Payment Link](https://docs.stripe.com/payment-links),
@@ -56,6 +56,21 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class TaxDetails < ::Stripe::StripeObject
+      # The ID of a tax location with type `performance`, representing where the performance takes place.
+      attr_reader :performance_location
+      # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+      attr_reader :tax_code
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # Whether the product is currently available for purchase.
     attr_reader :active
     # Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -88,6 +103,8 @@ module Stripe
     attr_reader :statement_descriptor
     # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     attr_reader :tax_code
+    # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+    attr_reader :tax_details
     # The type of the product. The product is either of type `good`, which is eligible for use with Orders and SKUs, or `service`, which is eligible for use with Subscriptions and Plans.
     attr_reader :type
     # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
@@ -149,6 +166,7 @@ module Stripe
       @inner_class_types = {
         marketing_features: MarketingFeature,
         package_dimensions: PackageDimensions,
+        tax_details: TaxDetails,
       }
     end
 

@@ -4,7 +4,11 @@
 # typed: true
 module Stripe
   module Billing
-    # A resource for the feedback options model (for custom cancellation reasons)
+    # A feedback option is a reason you can present to customers when they cancel a
+    # subscription through the customer portal. Configure the set of options a customer
+    # can choose from on a [portal configuration](https://docs.stripe.com/api/customer_portal/configuration).
+    #
+    # Related guide: [Customer management](https://docs.stripe.com/customer-management)
     class FeedbackOption < APIResource
       class StatusTransitions < ::Stripe::StripeObject
         # The time the feedback option was deactivated, if any. Measured in seconds since Unix epoch.
@@ -53,7 +57,7 @@ module Stripe
        }
       def self.deactivate(id, params = {}, opts = {}); end
 
-      # An API method for listing the feedback options model
+      # Returns a list of your feedback options.
       sig {
         params(params: T.any(::Stripe::Billing::FeedbackOptionListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }

@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Retrieves the details of an scheduled query run.
+      # Retrieves the details of a scheduled query run.
       def retrieve(scheduled_query_run, params = {}, opts = {})
         request(
           method: :get,

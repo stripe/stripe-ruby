@@ -6,24 +6,24 @@ module Stripe
     module Core
       class EventDestinationUpdateParams < ::Stripe::RequestParams
         class WebhookEndpoint < ::Stripe::RequestParams
-          # The URL of the webhook endpoint.
+          # The URL where Stripe sends matching events. Live mode requires HTTPS; sandbox mode also supports HTTP.
           attr_accessor :url
 
           def initialize(url: nil)
             @url = url
           end
         end
-        # An optional description of what the event destination is used for.
+        # An optional user-defined description of the destination's purpose; it does not control routing.
         attr_accessor :description
-        # The list of events to enable for this endpoint.
+        # The list of event types enabled for delivery to this destination. Event scopes are configured when the destination is created.
         attr_accessor :enabled_events
-        # Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
+        # Include the normally redacted `webhook_endpoint.url` in the response.
         attr_accessor :include
         # Metadata.
         attr_accessor :metadata
-        # Event destination name.
+        # A user-defined label for identifying the destination; it does not control routing.
         attr_accessor :name
-        # Webhook endpoint configuration.
+        # New delivery target for the webhook endpoint. Live mode requires HTTPS; sandbox mode also supports HTTP.
         attr_accessor :webhook_endpoint
 
         def initialize(

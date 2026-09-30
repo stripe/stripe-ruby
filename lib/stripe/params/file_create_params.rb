@@ -21,7 +21,7 @@ module Stripe
     attr_accessor :expand
     # A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
     attr_accessor :file
-    # Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
+    # Optional parameters that automatically create a [file link](https://docs.stripe.com/api#file_links) for the newly created file.
     attr_accessor :file_link_data
     # The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.
     attr_accessor :purpose

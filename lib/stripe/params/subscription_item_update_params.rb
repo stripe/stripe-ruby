@@ -12,6 +12,15 @@ module Stripe
       end
     end
 
+    class CurrentTrial < ::Stripe::RequestParams
+      # The ID of the trial offer to apply to the subscription item.
+      attr_accessor :trial_offer
+
+      def initialize(trial_offer: nil)
+        @trial_offer = trial_offer
+      end
+    end
+
     class Discount < ::Stripe::RequestParams
       # ID of the coupon to create a new discount for.
       attr_accessor :coupon
@@ -74,6 +83,8 @@ module Stripe
     end
     # Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     attr_accessor :billing_thresholds
+    # The trial offer to apply to this subscription item.
+    attr_accessor :current_trial
     # The coupons to redeem into discounts for the subscription item.
     attr_accessor :discounts
     # Specifies which fields in the response should be expanded.
@@ -86,9 +97,9 @@ module Stripe
     attr_accessor :payment_behavior
     # The identifier of the new plan for this subscription item.
     attr_accessor :plan
-    # The ID of the price object. One of `price` or `price_data` is required. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+    # The ID of the price object. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
     attr_accessor :price
-    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
+    # Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. You can use either `price` or `price_data`, but not both, to set or change this item's price. If you're updating an existing item without changing its price, omit both.
     attr_accessor :price_data
     # Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
     attr_accessor :proration_behavior
@@ -101,6 +112,7 @@ module Stripe
 
     def initialize(
       billing_thresholds: nil,
+      current_trial: nil,
       discounts: nil,
       expand: nil,
       metadata: nil,
@@ -115,6 +127,7 @@ module Stripe
       tax_rates: nil
     )
       @billing_thresholds = billing_thresholds
+      @current_trial = current_trial
       @discounts = discounts
       @expand = expand
       @metadata = metadata

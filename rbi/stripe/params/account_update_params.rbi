@@ -173,6 +173,15 @@ module Stripe
       def product_description; end
       sig { params(_product_description: T.nilable(String)).returns(T.nilable(String)) }
       def product_description=(_product_description); end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
+      sig {
+        params(_specified_commercial_transactions_act_url: T.nilable(String)).returns(T.nilable(String))
+       }
+      def specified_commercial_transactions_act_url=(
+        _specified_commercial_transactions_act_url
+      ); end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::SupportAddress)) }
       def support_address; end
@@ -201,7 +210,7 @@ module Stripe
       sig { params(_url: T.nilable(String)).returns(T.nilable(String)) }
       def url=(_url); end
       sig {
-        params(annual_revenue: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), support_address: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
+        params(annual_revenue: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::AnnualRevenue), estimated_worker_count: T.nilable(Integer), mcc: T.nilable(String), minority_owned_business_designation: T.nilable(T::Array[String]), monthly_estimated_revenue: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::MonthlyEstimatedRevenue), name: T.nilable(String), product_description: T.nilable(String), specified_commercial_transactions_act_url: T.nilable(String), support_address: T.nilable(::Stripe::AccountUpdateParams::BusinessProfile::SupportAddress), support_email: T.nilable(String), support_phone: T.nilable(String), support_url: T.nilable(String), url: T.nilable(String)).void
        }
       def initialize(
         annual_revenue: nil,
@@ -211,6 +220,7 @@ module Stripe
         monthly_estimated_revenue: nil,
         name: nil,
         product_description: nil,
+        specified_commercial_transactions_act_url: nil,
         support_address: nil,
         support_email: nil,
         support_phone: nil,
@@ -328,6 +338,15 @@ module Stripe
         def initialize(requested: nil); end
       end
       class BlikPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
+      class BlikRecurringPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
         def requested; end
@@ -624,6 +643,15 @@ module Stripe
         sig { params(requested: T.nilable(T::Boolean)).void }
         def initialize(requested: nil); end
       end
+      class PaypayPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
       class PaytoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
@@ -697,6 +725,15 @@ module Stripe
         def initialize(requested: nil); end
       end
       class SepaDebitPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
+      class SequraPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
         def requested; end
@@ -906,6 +943,13 @@ module Stripe
         params(_blik_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikPayments))
        }
       def blik_payments=(_blik_payments); end
+      # The blik_recurring_payments capability.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikRecurringPayments)) }
+      def blik_recurring_payments; end
+      sig {
+        params(_blik_recurring_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikRecurringPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikRecurringPayments))
+       }
+      def blik_recurring_payments=(_blik_recurring_payments); end
       # The boleto_payments capability.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::BoletoPayments)) }
       def boleto_payments; end
@@ -1142,6 +1186,13 @@ module Stripe
         params(_paynow_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaynowPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaynowPayments))
        }
       def paynow_payments=(_paynow_payments); end
+      # The paypay_payments capability.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaypayPayments)) }
+      def paypay_payments; end
+      sig {
+        params(_paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaypayPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaypayPayments))
+       }
+      def paypay_payments=(_paypay_payments); end
       # The payto_payments capability.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaytoPayments)) }
       def payto_payments; end
@@ -1207,6 +1258,13 @@ module Stripe
         params(_sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaDebitPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaDebitPayments))
        }
       def sepa_debit_payments=(_sepa_debit_payments); end
+      # The sequra_payments capability.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::SequraPayments)) }
+      def sequra_payments; end
+      sig {
+        params(_sequra_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SequraPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::SequraPayments))
+       }
+      def sequra_payments=(_sequra_payments); end
       # The sofort_payments capability.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Capabilities::SofortPayments)) }
       def sofort_payments; end
@@ -1298,7 +1356,7 @@ module Stripe
        }
       def zip_payments=(_zip_payments); end
       sig {
-        params(acss_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AmazonPayPayments), app_distribution: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AppDistribution), au_becs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BilliePayments), bizum_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BizumPayments), blik_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaynowPayments), payto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaytoPayments), pix_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SatispayPayments), scalapay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::ScalapayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaDebitPayments), sofort_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SofortPayments), sunbit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::AccountUpdateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::AccountUpdateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TwintPayments), upi_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UpiPayments), us_bank_account_ach_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::ZipPayments)).void
+        params(acss_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AmazonPayPayments), app_distribution: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AppDistribution), au_becs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::AuBecsDebitPayments), bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BilliePayments), bizum_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BizumPayments), blik_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GiropayPayments), grabpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::GrabpayPayments), ideal_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaynowPayments), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaypayPayments), payto_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PaytoPayments), pix_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::PromptpayPayments), revolut_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SatispayPayments), scalapay_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::ScalapayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SequraPayments), sofort_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SofortPayments), sunbit_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::AccountUpdateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::AccountUpdateParams::Capabilities::Treasury), twint_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::TwintPayments), upi_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UpiPayments), us_bank_account_ach_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::AccountUpdateParams::Capabilities::ZipPayments)).void
        }
       def initialize(
         acss_debit_payments: nil,
@@ -1314,6 +1372,7 @@ module Stripe
         billie_payments: nil,
         bizum_payments: nil,
         blik_payments: nil,
+        blik_recurring_payments: nil,
         boleto_payments: nil,
         card_issuing: nil,
         card_payments: nil,
@@ -1346,6 +1405,7 @@ module Stripe
         pay_by_bank_payments: nil,
         payco_payments: nil,
         paynow_payments: nil,
+        paypay_payments: nil,
         payto_payments: nil,
         pix_payments: nil,
         promptpay_payments: nil,
@@ -1355,6 +1415,7 @@ module Stripe
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        sequra_payments: nil,
         sofort_payments: nil,
         sunbit_payments: nil,
         swish_payments: nil,
@@ -1799,12 +1860,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class Document < ::Stripe::RequestParams
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1907,11 +1968,9 @@ module Stripe
        }
       def ownership_declaration=(_ownership_declaration); end
       # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def ownership_exemption_reason; end
-      sig {
-        params(_ownership_exemption_reason: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_ownership_exemption_reason: T.nilable(String)).returns(T.nilable(String)) }
       def ownership_exemption_reason=(_ownership_exemption_reason); end
       # The company's phone number (used for verification).
       sig { returns(T.nilable(String)) }
@@ -1947,11 +2006,9 @@ module Stripe
        }
       def representative_declaration=(_representative_declaration); end
       # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
-      sig { returns(T.nilable(T.any(String, String))) }
+      sig { returns(T.nilable(String)) }
       def structure; end
-      sig {
-        params(_structure: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-       }
+      sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
       def structure=(_structure); end
       # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
       #
@@ -1978,7 +2035,7 @@ module Stripe
        }
       def verification=(_verification); end
       sig {
-        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
+        params(address: T.nilable(::Stripe::AccountUpdateParams::Company::Address), address_kana: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKana), address_kanji: T.nilable(::Stripe::AccountUpdateParams::Company::AddressKanji), administrative_address: T.nilable(::Stripe::AccountUpdateParams::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::OwnershipDeclaration), ownership_exemption_reason: T.nilable(String), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::AccountUpdateParams::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::AccountUpdateParams::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::AccountUpdateParams::Company::RepresentativeDeclaration), structure: T.nilable(String), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::AccountUpdateParams::Company::Verification)).void
        }
       def initialize(
         address: nil,
@@ -2010,7 +2067,7 @@ module Stripe
     end
     class Documents < ::Stripe::RequestParams
       class BankAccountOwnershipVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2019,7 +2076,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyLicense < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2028,7 +2085,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMemorandumOfAssociation < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2037,7 +2094,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyMinisterialDecree < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2046,7 +2103,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyRegistrationVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2055,7 +2112,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class CompanyTaxIdVerification < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2064,7 +2121,7 @@ module Stripe
         def initialize(files: nil); end
       end
       class ProofOfAddress < ::Stripe::RequestParams
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2082,7 +2139,7 @@ module Stripe
           sig { params(person: T.nilable(String)).void }
           def initialize(person: nil); end
         end
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2111,7 +2168,7 @@ module Stripe
           sig { params(person: T.nilable(String)).void }
           def initialize(person: nil); end
         end
-        # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+        # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
         sig { returns(T.nilable(T::Array[String])) }
         def files; end
         sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -2470,12 +2527,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2484,12 +2541,12 @@ module Stripe
           def initialize(back: nil, front: nil); end
         end
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -2924,6 +2981,93 @@ module Stripe
          }
         def initialize(debit_negative_balances: nil, schedule: nil, statement_descriptor: nil); end
       end
+      class PaypayPayments < ::Stripe::RequestParams
+        class Site < ::Stripe::RequestParams
+          class Accessible < ::Stripe::RequestParams; end
+          class InDevelopment < ::Stripe::RequestParams
+            # The password needed to access your business's website.
+            sig { returns(String) }
+            def password; end
+            sig { params(_password: String).returns(String) }
+            def password=(_password); end
+            # The username needed to access your business's website.
+            sig { returns(T.nilable(String)) }
+            def username; end
+            sig { params(_username: T.nilable(String)).returns(T.nilable(String)) }
+            def username=(_username); end
+            sig { params(password: String, username: T.nilable(String)).void }
+            def initialize(password: nil, username: nil); end
+          end
+          class Restricted < ::Stripe::RequestParams
+            # The file explaining the payment flow for your business.
+            sig { returns(T.nilable(String)) }
+            def payment_flow_file; end
+            sig { params(_payment_flow_file: T.nilable(String)).returns(T.nilable(String)) }
+            def payment_flow_file=(_payment_flow_file); end
+            sig { params(payment_flow_file: T.nilable(String)).void }
+            def initialize(payment_flow_file: nil); end
+          end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Accessible))
+           }
+          def accessible; end
+          sig {
+            params(_accessible: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Accessible)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Accessible))
+           }
+          def accessible=(_accessible); end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment))
+           }
+          def in_development; end
+          sig {
+            params(_in_development: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment))
+           }
+          def in_development=(_in_development); end
+          # Additional information about your business's website.
+          sig {
+            returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Restricted))
+           }
+          def restricted; end
+          sig {
+            params(_restricted: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Restricted)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Restricted))
+           }
+          def restricted=(_restricted); end
+          # The status of your business's website.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
+          def type=(_type); end
+          sig {
+            params(accessible: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Accessible), in_development: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::InDevelopment), restricted: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site::Restricted), type: T.nilable(String)).void
+           }
+          def initialize(accessible: nil, in_development: nil, restricted: nil, type: nil); end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        sig { returns(T.nilable(T::Array[String])) }
+        def additional_files; end
+        sig {
+          params(_additional_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
+         }
+        def additional_files=(_additional_files); end
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        sig { params(_goods_type: T.nilable(String)).returns(T.nilable(String)) }
+        def goods_type=(_goods_type); end
+        # Details regarding your business's website.
+        sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site)) }
+        def site; end
+        sig {
+          params(_site: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site))
+         }
+        def site=(_site); end
+        sig {
+          params(additional_files: T.nilable(T::Array[String]), goods_type: T.nilable(String), site: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments::Site)).void
+         }
+        def initialize(additional_files: nil, goods_type: nil, site: nil); end
+      end
       class SepaDebitPayments < ::Stripe::RequestParams
         # The business creditor id for european payments.
         sig { returns(T.nilable(String)) }
@@ -3016,6 +3160,13 @@ module Stripe
         params(_payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts))
        }
       def payouts=(_payouts); end
+      # Settings specific to the PayPay payments method.
+      sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments)) }
+      def paypay_payments; end
+      sig {
+        params(_paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments)).returns(T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments))
+       }
+      def paypay_payments=(_paypay_payments); end
       # Settings specific to SEPA Direct Debit payments.
       sig { returns(T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments)) }
       def sepa_debit_payments; end
@@ -3031,7 +3182,7 @@ module Stripe
        }
       def treasury=(_treasury); end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::BacsDebitPayments), branding: T.nilable(::Stripe::AccountUpdateParams::Settings::Branding), card_issuing: T.nilable(::Stripe::AccountUpdateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountUpdateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountUpdateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountUpdateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountUpdateParams::Settings::SepaDebitPayments), treasury: T.nilable(::Stripe::AccountUpdateParams::Settings::Treasury)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3041,6 +3192,7 @@ module Stripe
         invoices: nil,
         payments: nil,
         payouts: nil,
+        paypay_payments: nil,
         sepa_debit_payments: nil,
         treasury: nil
       ); end
@@ -3071,7 +3223,7 @@ module Stripe
        }
       def initialize(date: nil, ip: nil, service_agreement: nil, user_agent: nil); end
     end
-    # An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
+    # An [account token](https://docs.stripe.com/api#create_account_token), used to securely provide details to the account.
     sig { returns(T.nilable(String)) }
     def account_token; end
     sig { params(_account_token: T.nilable(String)).returns(T.nilable(String)) }

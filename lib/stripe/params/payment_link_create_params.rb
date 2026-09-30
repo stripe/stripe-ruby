@@ -112,7 +112,7 @@ module Stripe
       end
 
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         attr_accessor :custom
         # The type of the label.
         attr_accessor :type
@@ -343,6 +343,17 @@ module Stripe
 
       class PriceData < ::Stripe::RequestParams
         class ProductData < ::Stripe::RequestParams
+          class TaxDetails < ::Stripe::RequestParams
+            # A tax location ID. Depending on the [tax code](/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+            attr_accessor :performance_location
+            # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+            attr_accessor :tax_code
+
+            def initialize(performance_location: nil, tax_code: nil)
+              @performance_location = performance_location
+              @tax_code = tax_code
+            end
+          end
           # The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
           attr_accessor :description
           # A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -353,6 +364,8 @@ module Stripe
           attr_accessor :name
           # A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
           attr_accessor :tax_code
+          # Tax details for this product, including the [tax code](/tax/tax-codes) and an optional performance location.
+          attr_accessor :tax_details
           # A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
           attr_accessor :unit_label
 
@@ -362,6 +375,7 @@ module Stripe
             metadata: nil,
             name: nil,
             tax_code: nil,
+            tax_details: nil,
             unit_label: nil
           )
             @description = description
@@ -369,6 +383,7 @@ module Stripe
             @metadata = metadata
             @name = name
             @tax_code = tax_code
+            @tax_details = tax_details
             @unit_label = unit_label
           end
         end
@@ -700,7 +715,7 @@ module Stripe
     class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
-      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :required
 
       def initialize(enabled: nil, required: nil)
@@ -739,9 +754,9 @@ module Stripe
     attr_accessor :consent_collection
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
     attr_accessor :currency
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_fields
-    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_text
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation

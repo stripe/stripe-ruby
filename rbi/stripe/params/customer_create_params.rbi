@@ -87,20 +87,16 @@ module Stripe
       end
       class RenderingOptions < ::Stripe::RequestParams
         # How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def amount_tax_display; end
-        sig {
-          params(_amount_tax_display: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_amount_tax_display: T.nilable(String)).returns(T.nilable(String)) }
         def amount_tax_display=(_amount_tax_display); end
         # ID of the invoice rendering template to use for future invoices.
         sig { returns(T.nilable(String)) }
         def template; end
         sig { params(_template: T.nilable(String)).returns(T.nilable(String)) }
         def template=(_template); end
-        sig {
-          params(amount_tax_display: T.nilable(T.any(String, String)), template: T.nilable(String)).void
-         }
+        sig { params(amount_tax_display: T.nilable(String), template: T.nilable(String)).void }
         def initialize(amount_tax_display: nil, template: nil); end
       end
       # The list of up to 4 default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
@@ -279,7 +275,7 @@ module Stripe
     def individual_name; end
     sig { params(_individual_name: T.nilable(String)).returns(T.nilable(String)) }
     def individual_name=(_individual_name); end
-    # The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+    # The prefix for the customer used to generate unique invoice numbers. Must be 1–12 uppercase letters or numbers.
     sig { returns(T.nilable(String)) }
     def invoice_prefix; end
     sig { params(_invoice_prefix: T.nilable(String)).returns(T.nilable(String)) }
@@ -345,11 +341,9 @@ module Stripe
      }
     def tax=(_tax); end
     # The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
-    sig { returns(T.nilable(T.any(String, String))) }
+    sig { returns(T.nilable(String)) }
     def tax_exempt; end
-    sig {
-      params(_tax_exempt: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-     }
+    sig { params(_tax_exempt: T.nilable(String)).returns(T.nilable(String)) }
     def tax_exempt=(_tax_exempt); end
     # The customer's tax IDs.
     sig { returns(T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum])) }
@@ -369,7 +363,7 @@ module Stripe
     sig { params(_validate: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def validate=(_validate); end
     sig {
-      params(address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerCreateParams::Tax), tax_exempt: T.nilable(T.any(String, String)), tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
+      params(address: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Address)), balance: T.nilable(Integer), business_name: T.nilable(String), cash_balance: T.nilable(::Stripe::CustomerCreateParams::CashBalance), description: T.nilable(String), email: T.nilable(String), expand: T.nilable(T::Array[String]), individual_name: T.nilable(String), invoice_prefix: T.nilable(String), invoice_settings: T.nilable(::Stripe::CustomerCreateParams::InvoiceSettings), metadata: T.nilable(T.any(String, T::Hash[String, String])), name: T.nilable(String), next_invoice_sequence: T.nilable(Integer), payment_method: T.nilable(String), phone: T.nilable(String), preferred_locales: T.nilable(T::Array[String]), shipping: T.nilable(T.any(String, ::Stripe::CustomerCreateParams::Shipping)), source: T.nilable(String), tax: T.nilable(::Stripe::CustomerCreateParams::Tax), tax_exempt: T.nilable(String), tax_id_data: T.nilable(T::Array[::Stripe::CustomerCreateParams::TaxIdDatum]), test_clock: T.nilable(String), validate: T.nilable(T::Boolean)).void
      }
     def initialize(
       address: nil,

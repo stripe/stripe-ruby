@@ -4,7 +4,7 @@
 # typed: true
 module Stripe
   module Treasury
-    # ReceivedCredits represent funds sent to a [FinancialAccount](https://api.stripe.com#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
+    # ReceivedCredits represent funds sent to a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
     class ReceivedCredit < APIResource
       class InitiatingPaymentMethodDetails < ::Stripe::StripeObject
         class BillingDetails < ::Stripe::StripeObject
@@ -90,7 +90,7 @@ module Stripe
         # Attribute for field financial_account
         sig { returns(T.nilable(FinancialAccount)) }
         def financial_account; end
-        # Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
+        # Set when `type` is `issuing_card`. This is an [Issuing Card](https://docs.stripe.com/api#issuing_cards) ID.
         sig { returns(T.nilable(String)) }
         def issuing_card; end
         # Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
@@ -112,17 +112,17 @@ module Stripe
       end
       class LinkedFlows < ::Stripe::StripeObject
         class SourceFlowDetails < ::Stripe::StripeObject
-          # You can reverse some [ReceivedCredits](https://api.stripe.com#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+          # You can reverse some [ReceivedCredits](https://docs.stripe.com/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
           sig { returns(T.nilable(::Stripe::Treasury::CreditReversal)) }
           def credit_reversal; end
-          # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://api.stripe.com#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://api.stripe.com#outbound_transfers).
+          # Use [OutboundPayments](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments) to send funds to another party's external bank account or [FinancialAccount](https://docs.stripe.com/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://docs.stripe.com/api#outbound_transfers).
           #
           # Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
           #
           # Related guide: [Moving money with Treasury using OutboundPayment objects](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-payments)
           sig { returns(T.nilable(::Stripe::Treasury::OutboundPayment)) }
           def outbound_payment; end
-          # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://api.stripe.com#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://api.stripe.com#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+          # Use [OutboundTransfers](https://docs.stripe.com/docs/treasury/moving-money/financial-accounts/out-of/outbound-transfers) to transfer funds from a [FinancialAccount](https://docs.stripe.com/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://docs.stripe.com/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
           #
           # Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
           #
@@ -152,10 +152,10 @@ module Stripe
         # The CreditReversal created as a result of this ReceivedCredit being reversed.
         sig { returns(T.nilable(String)) }
         def credit_reversal; end
-        # Set if the ReceivedCredit was created due to an [Issuing Authorization](https://api.stripe.com#issuing_authorizations) object.
+        # Set if the ReceivedCredit was created due to an [Issuing Authorization](https://docs.stripe.com/api#issuing_authorizations) object.
         sig { returns(T.nilable(String)) }
         def issuing_authorization; end
-        # Set if the ReceivedCredit is also viewable as an [Issuing transaction](https://api.stripe.com#issuing_transactions) object.
+        # Set if the ReceivedCredit is also viewable as an [Issuing transaction](https://docs.stripe.com/api#issuing_transactions) object.
         sig { returns(T.nilable(String)) }
         def issuing_transaction; end
         # ID of the source flow. Set if `network` is `stripe` and the source flow is visible to the user. Examples of source flows include OutboundPayments, payouts, or CreditReversals.

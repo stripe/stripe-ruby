@@ -112,7 +112,7 @@ module Stripe
       end
 
       class Label < ::Stripe::RequestParams
-        # Custom text for the label, displayed to the customer. Up to 50 characters.
+        # Custom text for the label, displayed to the customer. Up to 100 characters.
         attr_accessor :custom
         # The type of the label.
         attr_accessor :type
@@ -593,7 +593,7 @@ module Stripe
     class TaxIdCollection < ::Stripe::RequestParams
       # Enable tax ID collection during checkout. Defaults to `false`.
       attr_accessor :enabled
-      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
+      # Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `elements`.
       attr_accessor :required
 
       def initialize(enabled: nil, required: nil)
@@ -632,9 +632,9 @@ module Stripe
     attr_accessor :billing_address_collection
     # Configure fields to gather active consent from customers.
     attr_accessor :consent_collection
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_fields
-    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
+    # Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `elements`.
     attr_accessor :custom_text
     # Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     attr_accessor :customer_creation

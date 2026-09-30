@@ -295,6 +295,7 @@ module Stripe
       class Payco < ::Stripe::RequestParams; end
       class Paynow < ::Stripe::RequestParams; end
       class Paypal < ::Stripe::RequestParams; end
+      class Paypay < ::Stripe::RequestParams; end
       class Payto < ::Stripe::RequestParams
         # The account number for the bank account.
         sig { returns(T.nilable(String)) }
@@ -340,6 +341,7 @@ module Stripe
         sig { params(iban: String).void }
         def initialize(iban: nil); end
       end
+      class Sequra < ::Stripe::RequestParams; end
       class Sofort < ::Stripe::RequestParams
         # Two-letter ISO code representing the country the bank account is located in.
         sig { returns(String) }
@@ -469,14 +471,14 @@ module Stripe
       def allow_redisplay; end
       sig { params(_allow_redisplay: T.nilable(String)).returns(T.nilable(String)) }
       def allow_redisplay=(_allow_redisplay); end
-      # If this is a Alma PaymentMethod, this hash contains details about the Alma payment method.
+      # If this is an Alma PaymentMethod, this hash contains details about the Alma payment method.
       sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma)) }
       def alma; end
       sig {
         params(_alma: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma))
        }
       def alma=(_alma); end
-      # If this is a AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
+      # If this is an AmazonPay PaymentMethod, this hash contains details about the AmazonPay payment method.
       sig {
         returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay))
        }
@@ -755,6 +757,13 @@ module Stripe
         params(_paypal: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypal)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypal))
        }
       def paypal=(_paypal); end
+      # If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+      sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypay)) }
+      def paypay; end
+      sig {
+        params(_paypay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypay)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypay))
+       }
+      def paypay=(_paypay); end
       # If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
       sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Payto)) }
       def payto; end
@@ -832,6 +841,13 @@ module Stripe
         params(_sepa_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit))
        }
       def sepa_debit=(_sepa_debit); end
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sequra)) }
+      def sequra; end
+      sig {
+        params(_sequra: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sequra)).returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sequra))
+       }
+      def sequra=(_sequra); end
       # If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
       sig { returns(T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sofort)) }
       def sofort; end
@@ -898,7 +914,7 @@ module Stripe
        }
       def zip=(_zip); end
       sig {
-        params(acss_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::BillingDetails), bizum: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Bizum), blik: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypal), payto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Satispay), scalapay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Scalapay), sepa_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit), sofort: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Zip)).void
+        params(acss_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AcssDebit), affirm: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Affirm), afterpay_clearpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AfterpayClearpay), alipay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alipay), allow_redisplay: T.nilable(String), alma: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Alma), amazon_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AmazonPay), au_becs_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::AuBecsDebit), bacs_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::BacsDebit), bancontact: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Bancontact), billie: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Billie), billing_details: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::BillingDetails), bizum: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Bizum), blik: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Blik), boleto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Boleto), cashapp: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Cashapp), crypto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Crypto), customer_balance: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::CustomerBalance), eps: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Eps), fpx: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Fpx), giropay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Giropay), grabpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Grabpay), ideal: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Ideal), interac_present: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::InteracPresent), kakao_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::KakaoPay), klarna: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Klarna), konbini: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Konbini), kr_card: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::KrCard), link: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Link), mb_way: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::MbWay), metadata: T.nilable(T::Hash[String, String]), mobilepay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Mobilepay), multibanco: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Multibanco), naver_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::NaverPay), nz_bank_account: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::NzBankAccount), oxxo: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Oxxo), p24: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::P24), pay_by_bank: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::PayByBank), payco: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Payco), paynow: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paynow), paypal: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypal), paypay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Paypay), payto: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Payto), pix: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Pix), promptpay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Promptpay), radar_options: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::RadarOptions), revolut_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::RevolutPay), samsung_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SamsungPay), satispay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Satispay), scalapay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Scalapay), sepa_debit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::SepaDebit), sequra: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sequra), sofort: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sofort), sunbit: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Sunbit), swish: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Swish), twint: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Twint), type: String, upi: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Upi), us_bank_account: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::UsBankAccount), wechat_pay: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::WechatPay), zip: T.nilable(::Stripe::ConfirmationTokenCreateParams::PaymentMethodData::Zip)).void
        }
       def initialize(
         acss_debit: nil,
@@ -942,6 +958,7 @@ module Stripe
         payco: nil,
         paynow: nil,
         paypal: nil,
+        paypay: nil,
         payto: nil,
         pix: nil,
         promptpay: nil,
@@ -951,6 +968,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         sofort: nil,
         sunbit: nil,
         swish: nil,

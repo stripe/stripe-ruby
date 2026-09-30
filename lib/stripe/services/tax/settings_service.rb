@@ -15,7 +15,7 @@ module Stripe
         )
       end
 
-      # Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+      # Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set. Check the returned Tax Settings object and validate that its status is active.
       def update(params = {}, opts = {})
         request(
           method: :post,

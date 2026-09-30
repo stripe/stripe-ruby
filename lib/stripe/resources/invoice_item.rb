@@ -21,6 +21,19 @@ module Stripe
       "invoiceitem"
     end
 
+    class InvoicingRule < ::Stripe::StripeObject
+      # The type of invoicing rule.
+      attr_reader :type
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Parent < ::Stripe::StripeObject
       class SubscriptionDetails < ::Stripe::StripeObject
         # The subscription that generated this invoice item
@@ -148,7 +161,7 @@ module Stripe
       end
       # For a credit proration, links to the debit invoice line items or invoice item that the credit applies to.
       attr_reader :credited_items
-      # Discount amounts applied when the proration was created.
+      # Discount amounts applied when the proration was created. This field is only populated for prorations created from subscriptions with `billing_mode=flexible`.
       attr_reader :discount_amounts
 
       def self.inner_class_types
@@ -183,6 +196,8 @@ module Stripe
     attr_reader :id
     # The ID of the invoice this invoice item belongs to.
     attr_reader :invoice
+    # The rules that control when this invoice item is eligible for invoicing. All rules must be satisfied for the item to be invoiced.
+    attr_reader :invoicing_rules
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     attr_reader :livemode
     # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -252,6 +267,7 @@ module Stripe
 
     def self.inner_class_types
       @inner_class_types = {
+        invoicing_rules: InvoicingRule,
         parent: Parent,
         period: Period,
         pricing: Pricing,

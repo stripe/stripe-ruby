@@ -3,6 +3,7 @@
 
 module Stripe
   module Tax
+    # A Tax Calculation Line Item represents a single item in a tax calculation.
     class CalculationLineItem < APIResource
       OBJECT_NAME = "tax.calculation_line_item"
       def self.object_name
@@ -78,6 +79,8 @@ module Stripe
       attr_reader :metadata
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
+      attr_reader :performance_location
       # The ID of an existing [Product](https://docs.stripe.com/api/products/object).
       attr_reader :product
       # The number of units of the item being purchased. For reversals, this is the quantity reversed.

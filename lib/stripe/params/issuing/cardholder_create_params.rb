@@ -93,9 +93,9 @@ module Stripe
 
         class Verification < ::Stripe::RequestParams
           class Document < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             attr_accessor :back
-            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
+            # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`.
             attr_accessor :front
 
             def initialize(back: nil, front: nil)

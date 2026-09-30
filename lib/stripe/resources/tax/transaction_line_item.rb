@@ -3,6 +3,7 @@
 
 module Stripe
   module Tax
+    # A Tax Transaction Line Item represents an individual item in a Tax Transaction.
     class TransactionLineItem < APIResource
       OBJECT_NAME = "tax.transaction_line_item"
       def self.object_name

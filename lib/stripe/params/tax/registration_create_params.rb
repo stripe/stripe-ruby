@@ -75,15 +75,6 @@ module Stripe
         end
 
         class At < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -92,15 +83,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -216,15 +204,6 @@ module Stripe
         end
 
         class Be < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -233,15 +212,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -268,15 +244,6 @@ module Stripe
         end
 
         class Bg < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -285,15 +252,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -463,15 +427,6 @@ module Stripe
         end
 
         class Cy < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -480,30 +435,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Cz < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -512,30 +455,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class De < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -544,30 +475,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Dk < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -576,15 +495,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -600,15 +516,6 @@ module Stripe
         end
 
         class Ee < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -617,15 +524,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -641,15 +545,6 @@ module Stripe
         end
 
         class Es < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -658,15 +553,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
-          # Type of registration to be created in an EU country.
+          # Type of registration to be created in ES.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -693,15 +585,6 @@ module Stripe
         end
 
         class Fi < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -710,30 +593,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Fr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -742,15 +613,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -806,15 +674,6 @@ module Stripe
         end
 
         class Gr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -823,30 +682,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Hr < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -855,30 +702,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Hu < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -887,15 +722,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -911,15 +743,6 @@ module Stripe
         end
 
         class Ie < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -928,15 +751,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -972,15 +792,6 @@ module Stripe
         end
 
         class It < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -989,15 +800,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1087,15 +895,6 @@ module Stripe
         end
 
         class Lt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1104,30 +903,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Lu < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1136,30 +923,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Lv < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1168,15 +943,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1261,15 +1033,6 @@ module Stripe
         end
 
         class Mt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1278,15 +1041,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1320,15 +1080,6 @@ module Stripe
         end
 
         class Nl < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1337,15 +1088,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1439,15 +1187,6 @@ module Stripe
         end
 
         class Pl < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1456,30 +1195,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Pt < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1488,30 +1215,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Ro < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1520,15 +1235,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1573,15 +1285,6 @@ module Stripe
         end
 
         class Se < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1590,15 +1293,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1625,15 +1325,6 @@ module Stripe
         end
 
         class Si < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1642,30 +1333,18 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
         end
 
         class Sk < ::Stripe::RequestParams
-          class Igic < ::Stripe::RequestParams
-            # Place of supply scheme used in an IGIC registration.
-            attr_accessor :place_of_supply_scheme
-
-            def initialize(place_of_supply_scheme: nil)
-              @place_of_supply_scheme = place_of_supply_scheme
-            end
-          end
-
           class Standard < ::Stripe::RequestParams
             # Place of supply scheme used in an EU standard registration.
             attr_accessor :place_of_supply_scheme
@@ -1674,15 +1353,12 @@ module Stripe
               @place_of_supply_scheme = place_of_supply_scheme
             end
           end
-          # Options for the IGIC registration.
-          attr_accessor :igic
           # Options for the standard registration.
           attr_accessor :standard
           # Type of registration to be created in an EU country.
           attr_accessor :type
 
-          def initialize(igic: nil, standard: nil, type: nil)
-            @igic = igic
+          def initialize(standard: nil, type: nil)
             @standard = standard
             @type = type
           end
@@ -1781,6 +1457,51 @@ module Stripe
         end
 
         class Us < ::Stripe::RequestParams
+          class AdmissionsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=admissions_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class AttendanceTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=attendance_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class EntertainmentTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=entertainment_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class GrossReceiptsTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=gross_receipts_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class HospitalityTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=hospitality_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class LocalAmusementTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=amusement_tax#registration-types).
             attr_accessor :jurisdiction
@@ -1799,6 +1520,15 @@ module Stripe
             end
           end
 
+          class LuxuryTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=luxury_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
           class MassTransitParkingTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=mass_transit_parking_tax#registration-types).
             attr_accessor :jurisdiction
@@ -1810,6 +1540,15 @@ module Stripe
 
           class ParkingTax < ::Stripe::RequestParams
             # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=parking_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+
+          class ResortTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=resort_tax#registration-types).
             attr_accessor :jurisdiction
 
             def initialize(jurisdiction: nil)
@@ -1836,36 +1575,77 @@ module Stripe
               @elections = elections
             end
           end
+
+          class TourismTax < ::Stripe::RequestParams
+            # A jurisdiction code representing the [local jurisdiction](/tax/registering?type=tourism_tax#registration-types).
+            attr_accessor :jurisdiction
+
+            def initialize(jurisdiction: nil)
+              @jurisdiction = jurisdiction
+            end
+          end
+          # Options for the admission tax registration.
+          attr_accessor :admissions_tax
+          # Options for the attendance tax registration.
+          attr_accessor :attendance_tax
+          # Options for the entertainment tax registration.
+          attr_accessor :entertainment_tax
+          # Options for the gross receipts tax registration.
+          attr_accessor :gross_receipts_tax
+          # Options for the hospitality tax registration.
+          attr_accessor :hospitality_tax
           # Options for the local amusement tax registration.
           attr_accessor :local_amusement_tax
           # Options for the local lease tax registration.
           attr_accessor :local_lease_tax
+          # Options for the luxury tax registration.
+          attr_accessor :luxury_tax
           # Options for the mass transit parking tax registration.
           attr_accessor :mass_transit_parking_tax
           # Options for the parking tax registration.
           attr_accessor :parking_tax
+          # Options for the resort tax registration.
+          attr_accessor :resort_tax
           # Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
           attr_accessor :state
           # Options for the state sales tax registration.
           attr_accessor :state_sales_tax
+          # Options for the tourism tax registration.
+          attr_accessor :tourism_tax
           # Type of registration to be created in the US.
           attr_accessor :type
 
           def initialize(
+            admissions_tax: nil,
+            attendance_tax: nil,
+            entertainment_tax: nil,
+            gross_receipts_tax: nil,
+            hospitality_tax: nil,
             local_amusement_tax: nil,
             local_lease_tax: nil,
+            luxury_tax: nil,
             mass_transit_parking_tax: nil,
             parking_tax: nil,
+            resort_tax: nil,
             state: nil,
             state_sales_tax: nil,
+            tourism_tax: nil,
             type: nil
           )
+            @admissions_tax = admissions_tax
+            @attendance_tax = attendance_tax
+            @entertainment_tax = entertainment_tax
+            @gross_receipts_tax = gross_receipts_tax
+            @hospitality_tax = hospitality_tax
             @local_amusement_tax = local_amusement_tax
             @local_lease_tax = local_lease_tax
+            @luxury_tax = luxury_tax
             @mass_transit_parking_tax = mass_transit_parking_tax
             @parking_tax = parking_tax
+            @resort_tax = resort_tax
             @state = state
             @state_sales_tax = state_sales_tax
+            @tourism_tax = tourism_tax
             @type = type
           end
         end

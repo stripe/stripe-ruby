@@ -65,7 +65,7 @@ module Stripe
       params(_payment_method_options: T.nilable(::Stripe::TopupCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::TopupCreateParams::PaymentMethodOptions))
      }
     def payment_method_options=(_payment_method_options); end
-    # The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. In test mode, this can be a test bank token (see [Testing Top-ups](https://docs.stripe.com/connect/testing#testing-top-ups)).
+    # The ID of a source to transfer funds from. For most users, this should be left unspecified which will use the bank account that was set up in the dashboard for the specified currency. While testing, this can be a test bank token (see [Testing Top-ups](https://docs.stripe.com/connect/testing#testing-top-ups)).
     sig { returns(T.nilable(String)) }
     def source; end
     sig { params(_source: T.nilable(String)).returns(T.nilable(String)) }

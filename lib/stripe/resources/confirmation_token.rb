@@ -1250,6 +1250,16 @@ module Stripe
         end
       end
 
+      class Paypay < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Payto < ::Stripe::StripeObject
         # Bank-State-Branch number of the bank account.
         attr_reader :bsb_number
@@ -1360,6 +1370,16 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = { generated_from: GeneratedFrom }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
+      class Sequra < ::Stripe::StripeObject
+        def self.inner_class_types
+          @inner_class_types = {}
         end
 
         def self.field_remappings
@@ -1600,6 +1620,8 @@ module Stripe
       attr_reader :paynow
       # Attribute for field paypal
       attr_reader :paypal
+      # Attribute for field paypay
+      attr_reader :paypay
       # Attribute for field payto
       attr_reader :payto
       # Attribute for field pix
@@ -1616,6 +1638,8 @@ module Stripe
       attr_reader :scalapay
       # Attribute for field sepa_debit
       attr_reader :sepa_debit
+      # Attribute for field sequra
+      attr_reader :sequra
       # Attribute for field sofort
       attr_reader :sofort
       # Attribute for field sunbit
@@ -1678,6 +1702,7 @@ module Stripe
           payco: Payco,
           paynow: Paynow,
           paypal: Paypal,
+          paypay: Paypay,
           payto: Payto,
           pix: Pix,
           promptpay: Promptpay,
@@ -1686,6 +1711,7 @@ module Stripe
           satispay: Satispay,
           scalapay: Scalapay,
           sepa_debit: SepaDebit,
+          sequra: Sequra,
           sofort: Sofort,
           sunbit: Sunbit,
           swish: Swish,

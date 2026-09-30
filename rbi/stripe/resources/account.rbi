@@ -97,6 +97,9 @@ module Stripe
       # Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
       sig { returns(T.nilable(String)) }
       def product_description; end
+      # A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+      sig { returns(T.nilable(String)) }
+      def specified_commercial_transactions_act_url; end
       # A publicly available mailing address for sending support issues to.
       sig { returns(T.nilable(SupportAddress)) }
       def support_address; end
@@ -163,6 +166,9 @@ module Stripe
       # The status of the blik payments capability of the account, or whether the account can directly process blik charges.
       sig { returns(T.nilable(String)) }
       def blik_payments; end
+      # The status of the BLIK recurring payments capability of the account, or whether the account can accept recurring and subscription BLIK payments.
+      sig { returns(T.nilable(String)) }
+      def blik_recurring_payments; end
       # The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
       sig { returns(T.nilable(String)) }
       def boleto_payments; end
@@ -259,6 +265,9 @@ module Stripe
       # The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
       sig { returns(T.nilable(String)) }
       def paynow_payments; end
+      # The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+      sig { returns(T.nilable(String)) }
+      def paypay_payments; end
       # The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
       sig { returns(T.nilable(String)) }
       def payto_payments; end
@@ -286,6 +295,9 @@ module Stripe
       # The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
       sig { returns(T.nilable(String)) }
       def sepa_debit_payments; end
+      # The status of the SeQura capability of the account, or whether the account can directly process SeQura payments.
+      sig { returns(T.nilable(String)) }
+      def sequra_payments; end
       # The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
       sig { returns(T.nilable(String)) }
       def sofort_payments; end
@@ -536,7 +548,7 @@ module Stripe
       end
       class Verification < ::Stripe::StripeObject
         class Document < ::Stripe::StripeObject
-          # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def back; end
           # A user-displayable string describing the verification state of this document.
@@ -545,7 +557,7 @@ module Stripe
           # One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
           sig { returns(T.nilable(String)) }
           def details_code; end
-          # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
+          # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](/file-upload#uploading-a-file).
           sig { returns(T.nilable(T.any(String, ::Stripe::File))) }
           def front; end
           def self.inner_class_types
@@ -1042,6 +1054,80 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class PaypayPayments < ::Stripe::StripeObject
+        class Site < ::Stripe::StripeObject
+          class Accessible < ::Stripe::StripeObject
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class InDevelopment < ::Stripe::StripeObject
+            # Field to indicate that the website password has been provided.
+            sig { returns(T.nilable(T::Boolean)) }
+            def password_provided; end
+            # The username needed to access your business's website.
+            sig { returns(T.nilable(String)) }
+            def username; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          class Restricted < ::Stripe::StripeObject
+            # File explaining the payment flow for your business.
+            sig { returns(T.nilable(String)) }
+            def payment_flow_file; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field accessible
+          sig { returns(T.nilable(Accessible)) }
+          def accessible; end
+          # Attribute for field in_development
+          sig { returns(T.nilable(InDevelopment)) }
+          def in_development; end
+          # Attribute for field restricted
+          sig { returns(T.nilable(Restricted)) }
+          def restricted; end
+          # The status of your business's website.
+          sig { returns(T.nilable(String)) }
+          def type; end
+          def self.inner_class_types
+            @inner_class_types = {
+              accessible: Accessible,
+              in_development: InDevelopment,
+              restricted: Restricted,
+            }
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+        # Additional files that are required to support the onboarding process of your business.
+        sig { returns(T.nilable(T::Array[String])) }
+        def additional_files; end
+        # The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
+        sig { returns(T.nilable(String)) }
+        def goods_type; end
+        # Attribute for field site
+        sig { returns(T.nilable(Site)) }
+        def site; end
+        def self.inner_class_types
+          @inner_class_types = {site: Site}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class SepaDebitPayments < ::Stripe::StripeObject
         # SEPA creditor identifier that identifies the company making the payment.
         sig { returns(T.nilable(String)) }
@@ -1105,6 +1191,9 @@ module Stripe
       # Attribute for field payouts
       sig { returns(T.nilable(Payouts)) }
       def payouts; end
+      # Attribute for field paypay_payments
+      sig { returns(T.nilable(PaypayPayments)) }
+      def paypay_payments; end
       # Attribute for field sepa_debit_payments
       sig { returns(T.nilable(SepaDebitPayments)) }
       def sepa_debit_payments; end
@@ -1121,6 +1210,7 @@ module Stripe
           invoices: Invoices,
           payments: Payments,
           payouts: Payouts,
+          paypay_payments: PaypayPayments,
           sepa_debit_payments: SepaDebitPayments,
           treasury: Treasury,
         }

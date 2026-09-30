@@ -317,12 +317,12 @@ module Stripe
         end
         class Verification < ::Stripe::RequestParams
           class Document < ::Stripe::RequestParams
-            # The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of a document returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -440,11 +440,9 @@ module Stripe
          }
         def ownership_declaration_shown_and_signed=(_ownership_declaration_shown_and_signed); end
         # This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def ownership_exemption_reason; end
-        sig {
-          params(_ownership_exemption_reason: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_ownership_exemption_reason: T.nilable(String)).returns(T.nilable(String)) }
         def ownership_exemption_reason=(_ownership_exemption_reason); end
         # The company's phone number (used for verification).
         sig { returns(T.nilable(String)) }
@@ -484,11 +482,9 @@ module Stripe
          }
         def representative_declaration=(_representative_declaration); end
         # The category identifying the legal structure of the company or legal entity. See [Business structure](/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
-        sig { returns(T.nilable(T.any(String, String))) }
+        sig { returns(T.nilable(String)) }
         def structure; end
-        sig {
-          params(_structure: T.nilable(T.any(String, String))).returns(T.nilable(T.any(String, String)))
-         }
+        sig { params(_structure: T.nilable(String)).returns(T.nilable(String)) }
         def structure=(_structure); end
         # The business ID number of the company, as appropriate for the company’s country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
         #
@@ -515,7 +511,7 @@ module Stripe
          }
         def verification=(_verification); end
         sig {
-          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(T.any(String, String)), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(T.any(String, String)), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
+          params(address: T.nilable(::Stripe::TokenCreateParams::Account::Company::Address), address_kana: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKana), address_kanji: T.nilable(::Stripe::TokenCreateParams::Account::Company::AddressKanji), administrative_address: T.nilable(::Stripe::TokenCreateParams::Account::Company::AdministrativeAddress), directors_provided: T.nilable(T::Boolean), directorship_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::DirectorshipDeclaration), executives_provided: T.nilable(T::Boolean), export_license_id: T.nilable(String), export_purpose_code: T.nilable(String), name: T.nilable(String), name_kana: T.nilable(String), name_kanji: T.nilable(String), owners_provided: T.nilable(T::Boolean), ownership_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::OwnershipDeclaration), ownership_declaration_shown_and_signed: T.nilable(T::Boolean), ownership_exemption_reason: T.nilable(String), phone: T.nilable(String), principal_place_of_business: T.nilable(::Stripe::TokenCreateParams::Account::Company::PrincipalPlaceOfBusiness), registration_date: T.nilable(T.any(String, ::Stripe::TokenCreateParams::Account::Company::RegistrationDate)), registration_number: T.nilable(String), representative_declaration: T.nilable(::Stripe::TokenCreateParams::Account::Company::RepresentativeDeclaration), structure: T.nilable(String), tax_id: T.nilable(String), tax_id_registrar: T.nilable(String), vat_id: T.nilable(String), verification: T.nilable(::Stripe::TokenCreateParams::Account::Company::Verification)).void
          }
         def initialize(
           address: nil,
@@ -791,12 +787,12 @@ module Stripe
         end
         class Verification < ::Stripe::RequestParams
           class AdditionalDocument < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -805,12 +801,12 @@ module Stripe
             def initialize(back: nil, front: nil); end
           end
           class Document < ::Stripe::RequestParams
-            # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def back; end
             sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
             def back=(_back); end
-            # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+            # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
             sig { returns(T.nilable(String)) }
             def front; end
             sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1400,7 +1396,7 @@ module Stripe
       end
       class Documents < ::Stripe::RequestParams
         class CompanyAuthorization < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1409,7 +1405,7 @@ module Stripe
           def initialize(files: nil); end
         end
         class Passport < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1418,7 +1414,7 @@ module Stripe
           def initialize(files: nil); end
         end
         class Visa < ::Stripe::RequestParams
-          # One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+          # One or more document ids returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `account_requirement`.
           sig { returns(T.nilable(T::Array[String])) }
           def files; end
           sig { params(_files: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
@@ -1615,12 +1611,12 @@ module Stripe
       end
       class Verification < ::Stripe::RequestParams
         class AdditionalDocument < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }
@@ -1629,12 +1625,12 @@ module Stripe
           def initialize(back: nil, front: nil); end
         end
         class Document < ::Stripe::RequestParams
-          # The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The back of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def back; end
           sig { params(_back: T.nilable(String)).returns(T.nilable(String)) }
           def back=(_back); end
-          # The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+          # The front of an ID returned by a [file upload](https://docs.stripe.com/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
           sig { returns(T.nilable(String)) }
           def front; end
           sig { params(_front: T.nilable(String)).returns(T.nilable(String)) }

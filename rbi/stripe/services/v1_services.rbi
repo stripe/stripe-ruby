@@ -51,6 +51,7 @@ module Stripe
     attr_reader :plans
     attr_reader :prices
     attr_reader :products
+    attr_reader :product_catalog
     attr_reader :promotion_codes
     attr_reader :quotes
     attr_reader :radar
@@ -71,6 +72,7 @@ module Stripe
     attr_reader :tax_rates
     attr_reader :terminal
     attr_reader :test_helpers
+    attr_reader :three_d_secure
     attr_reader :tokens
     attr_reader :topups
     attr_reader :transfers

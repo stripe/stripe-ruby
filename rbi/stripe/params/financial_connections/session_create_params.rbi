@@ -39,11 +39,11 @@ module Stripe
           params(_account_subcategories: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String]))
          }
         def account_subcategories=(_account_subcategories); end
-        # List of countries from which to collect accounts.
-        sig { returns(T.nilable(T::Array[String])) }
-        def countries; end
-        sig { params(_countries: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }
-        def countries=(_countries); end
+        # Country from which to collect accounts.
+        sig { returns(T.nilable(String)) }
+        def country; end
+        sig { params(_country: T.nilable(String)).returns(T.nilable(String)) }
+        def country=(_country); end
         # Whether the session should require payment method support and successful account number retrieval before completion.
         sig { returns(T.nilable(String)) }
         def require_payment_method_support; end
@@ -52,11 +52,11 @@ module Stripe
          }
         def require_payment_method_support=(_require_payment_method_support); end
         sig {
-          params(account_subcategories: T.nilable(T::Array[String]), countries: T.nilable(T::Array[String]), require_payment_method_support: T.nilable(String)).void
+          params(account_subcategories: T.nilable(T::Array[String]), country: T.nilable(String), require_payment_method_support: T.nilable(String)).void
          }
         def initialize(
           account_subcategories: nil,
-          countries: nil,
+          country: nil,
           require_payment_method_support: nil
         ); end
       end

@@ -4,7 +4,7 @@
 module Stripe
   module Billing
     class FeedbackOptionCreateParams < ::Stripe::RequestParams
-      # Attribute for param field description
+      # The text of the feedback option, which customers see when canceling. Maximum 100 characters.
       attr_accessor :description
       # Specifies which fields in the response should be expanded.
       attr_accessor :expand

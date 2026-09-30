@@ -27,6 +27,23 @@ module Stripe
         @field_remappings = {}
       end
     end
+
+    class CurrentTrial < ::Stripe::StripeObject
+      # Attribute for field end_date
+      attr_reader :end_date
+      # Attribute for field start_date
+      attr_reader :start_date
+      # Attribute for field trial_offer
+      attr_reader :trial_offer
+
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     # The time period the subscription item has been billed for.
     attr_reader :billed_until
     # Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
@@ -37,6 +54,8 @@ module Stripe
     attr_reader :current_period_end
     # The start time of this subscription item's current billing period.
     attr_reader :current_period_start
+    # The current trial that is applied to this subscription item.
+    attr_reader :current_trial
     # Always true for a deleted object
     attr_reader :deleted
     # The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
@@ -47,17 +66,17 @@ module Stripe
     attr_reader :metadata
     # String representing the object's type. Objects of the same type share the same value.
     attr_reader :object
-    # You can now model subscriptions more flexibly using the [Prices API](https://api.stripe.com#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+    # You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
     #
     # Plans define the base price, currency, and billing cycle for recurring purchases of products.
-    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and plans help you track pricing. Different physical goods or levels of service should be represented by products, and pricing options should be represented by plans. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has plans for $10/month, $100/year, €9/month, and €90/year.
     #
     # Related guides: [Set up a subscription](https://docs.stripe.com/billing/subscriptions/set-up-subscription) and more about [products and prices](https://docs.stripe.com/products-prices/overview).
     attr_reader :plan
     # Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.
-    # [Products](https://api.stripe.com#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
+    # [Products](https://docs.stripe.com/api#products) help you track inventory or provisioning, and prices help you track payment terms. Different physical goods or levels of service should be represented by products, and pricing options should be represented by prices. This approach lets you change prices without having to change your provisioning scheme.
     #
     # For example, you might have a single "gold" product that has prices for $10/month, $100/year, and €9 once.
     #
@@ -121,7 +140,7 @@ module Stripe
     end
 
     def self.inner_class_types
-      @inner_class_types = { billing_thresholds: BillingThresholds }
+      @inner_class_types = { billing_thresholds: BillingThresholds, current_trial: CurrentTrial }
     end
 
     def self.field_remappings

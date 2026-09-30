@@ -180,6 +180,19 @@ module Stripe
         end
       end
 
+      class CapitalFinancingManualPayment < ::Stripe::RequestParams
+        class Features < ::Stripe::RequestParams; end
+        # Whether the embedded component is enabled.
+        attr_accessor :enabled
+        # An empty list, because this embedded component has no features.
+        attr_accessor :features
+
+        def initialize(enabled: nil, features: nil)
+          @enabled = enabled
+          @features = features
+        end
+      end
+
       class CapitalFinancingPromotion < ::Stripe::RequestParams
         class Features < ::Stripe::RequestParams; end
         # Whether the embedded component is enabled.
@@ -804,6 +817,8 @@ module Stripe
       attr_accessor :capital_financing
       # Configuration for the [Capital financing application](/connect/supported-embedded-components/capital-financing-application/) embedded component.
       attr_accessor :capital_financing_application
+      # Configuration for the [Capital financing manual payment](/connect/supported-embedded-components/capital-financing-manual-payment/) embedded component.
+      attr_accessor :capital_financing_manual_payment
       # Configuration for the [Capital financing promotion](/connect/supported-embedded-components/capital-financing-promotion/) embedded component.
       attr_accessor :capital_financing_promotion
       # Configuration for the [Capital overview](/connect/supported-embedded-components/capital-overview/) embedded component.
@@ -871,6 +886,7 @@ module Stripe
         balances: nil,
         capital_financing: nil,
         capital_financing_application: nil,
+        capital_financing_manual_payment: nil,
         capital_financing_promotion: nil,
         capital_overview: nil,
         check_scanning: nil,
@@ -909,6 +925,7 @@ module Stripe
         @balances = balances
         @capital_financing = capital_financing
         @capital_financing_application = capital_financing_application
+        @capital_financing_manual_payment = capital_financing_manual_payment
         @capital_financing_promotion = capital_financing_promotion
         @capital_overview = capital_overview
         @check_scanning = check_scanning

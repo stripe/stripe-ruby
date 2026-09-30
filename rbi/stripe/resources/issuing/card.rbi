@@ -16,7 +16,7 @@ module Stripe
         # The cryptocurrency held in the wallet.
         sig { returns(String) }
         def currency; end
-        # The type of wallet (standard or bridge_wallet).
+        # The type of crypto wallet.
         sig { returns(T.nilable(String)) }
         def type; end
         def self.inner_class_types

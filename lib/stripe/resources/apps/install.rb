@@ -8,26 +8,13 @@ module Stripe
     # that the app's latest version requests but the account has not authorized yet. Use the Install API to
     # install, reauthorize, and uninstall apps, and to check the state of existing installs.
     class Install < APIResource
+      extend Stripe::APIOperations::Create
+      extend Stripe::APIOperations::List
+      include Stripe::APIOperations::Save
+
       OBJECT_NAME = "apps.install"
       def self.object_name
         "apps.install"
-      end
-
-      class AuthorizedContentSecurityPolicy < ::Stripe::StripeObject
-        # Attribute for field connect_src
-        attr_reader :connect_src
-        # Attribute for field image_src
-        attr_reader :image_src
-        # Attribute for field purpose
-        attr_reader :purpose
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
       end
 
       class ContentSecurityPolicyGranted < ::Stripe::StripeObject
@@ -63,19 +50,13 @@ module Stripe
       attr_reader :account
       # The ID of the app installed.
       attr_reader :app
-      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`. Install a new version from the Dashboard to grant its permissions.
+      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`; creating or reauthorizing the install through the API installs the newest completed upload and grants its permissions.
       attr_reader :approval_required
       # The authorization code for an oauth app install.
       attr_reader :auth_code
-      # Attribute for field authorized_content_security_policy
-      attr_reader :authorized_content_security_policy
-      # The endpoint URLs authorized by the installer.
-      attr_reader :authorized_endpoints
-      # The permissions authorized by the installer.
-      attr_reader :authorized_permissions
       # The distribution channel associated with the app install.
       attr_reader :channel
-      # The content security policy entries authorized by the installer.
+      # Attribute for field content_security_policy_granted
       attr_reader :content_security_policy_granted
       # Attribute for field content_security_policy_pending
       attr_reader :content_security_policy_pending
@@ -98,13 +79,50 @@ module Stripe
       # The permissions requested by the latest app version that the installer has not authorized.
       attr_reader :permissions_pending
       # The status of the app install.
-      attr_reader :state
-      # The status of the app install.
       attr_reader :status
+
+      # Creates an app install. An account installs its own private app with its own key; public and testing installs are made from the Dashboard. An app developer acting on a connected account through Stripe-Account installs or reinstalls its app there, and an embedding platform can do the same once the app's developer approves its request to embed the app. For a private app, creating an install installs the newest completed upload; when that version is already installed with nothing pending, the existing install is returned.
+      def self.create(params = {}, opts = {})
+        request_stripe_object(method: :post, path: "/v1/apps/installs", params: params, opts: opts)
+      end
+
+      # Returns a list of app installs. An app developer filtering by its own app with its own key sees that app's installs across the accounts that installed it. An app developer acting on a connected account through Stripe-Account and filtering by its app sees that account's installs of the app, and an embedding platform acting on a connected account sees only the installs it created there. Other callers see the installs on their own account. A live key lists live installs and a test key lists test installs; the key of an app's managed sandbox filtering by app lists that app's installs across every sandbox.
+      def self.list(params = {}, opts = {})
+        request_stripe_object(method: :get, path: "/v1/apps/installs", params: params, opts: opts)
+      end
+
+      # Uninstalls an app from the account that installed it.
+      def uninstall(params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/apps/installs/%<id>s/uninstall", { id: CGI.escape(self["id"]) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Uninstalls an app from the account that installed it.
+      def self.uninstall(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/apps/installs/%<id>s/uninstall", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
+
+      # Reauthorizes an app install. The installer grants the permissions, content security policy entries, and endpoints that the version being installed requests. An account reauthorizes its own installs on any channel with its own key, which grants all of that access, so only give app_install_write to keys that may approve an app's access. App developers and embedding platforms reauthorize installs on connected accounts through Stripe-Account. An app developer can't grant new access. An embedding platform can grant new access only once the app's developer approves its request to embed the app. For private apps, the version being installed is the newest completed upload.
+      def self.update(id, params = {}, opts = {})
+        request_stripe_object(
+          method: :post,
+          path: format("/v1/apps/installs/%<id>s", { id: CGI.escape(id) }),
+          params: params,
+          opts: opts
+        )
+      end
 
       def self.inner_class_types
         @inner_class_types = {
-          authorized_content_security_policy: AuthorizedContentSecurityPolicy,
           content_security_policy_granted: ContentSecurityPolicyGranted,
           content_security_policy_pending: ContentSecurityPolicyPending,
         }

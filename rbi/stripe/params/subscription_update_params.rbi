@@ -265,6 +265,20 @@ module Stripe
        }
       def initialize(enabled: nil, liability: nil); end
     end
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # A Unix timestamp within the inclusive bounds of the subscription's current billing period. For subscriptions with multiple items, it must fall within the intersection of their current billing periods. Only valid when `type` is `timestamp`.
+      sig { returns(T.nilable(Integer)) }
+      def timestamp; end
+      sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def timestamp=(_timestamp); end
+      # Determines how the billing cycle anchor changes when the subscription is updated.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig { params(timestamp: T.nilable(Integer), type: String).void }
+      def initialize(timestamp: nil, type: nil); end
+    end
     class BillingSchedule < ::Stripe::RequestParams
       class AppliesTo < ::Stripe::RequestParams
         # The ID of the price object.
@@ -1152,11 +1166,11 @@ module Stripe
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
             sig { returns(T.nilable(Integer)) }
-            def expires_after; end
-            sig { params(_expires_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def expires_after=(_expires_after); end
-            sig { params(expires_after: T.nilable(Integer)).void }
-            def initialize(expires_after: nil); end
+            def expires_at; end
+            sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def expires_at=(_expires_at); end
+            sig { params(expires_at: T.nilable(Integer)).void }
+            def initialize(expires_at: nil); end
           end
           # Configuration options for setting up a mandate
           sig {
@@ -1729,11 +1743,13 @@ module Stripe
         sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
         def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def missing_payment_method; end
-        sig { params(_missing_payment_method: String).returns(String) }
+        sig { params(_missing_payment_method: T.nilable(String)).returns(T.nilable(String)) }
         def missing_payment_method=(_missing_payment_method); end
-        sig { params(billing_cycle_anchor: T.nilable(String), missing_payment_method: String).void }
+        sig {
+          params(billing_cycle_anchor: T.nilable(String), missing_payment_method: T.nilable(String)).void
+         }
         def initialize(billing_cycle_anchor: nil, missing_payment_method: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
@@ -1774,10 +1790,12 @@ module Stripe
     def billing_cadence; end
     sig { params(_billing_cadence: T.nilable(String)).returns(T.nilable(String)) }
     def billing_cadence=(_billing_cadence); end
-    # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
-    sig { returns(T.nilable(String)) }
+    # Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    sig { returns(T.nilable(::Stripe::SubscriptionUpdateParams::BillingCycleAnchor)) }
     def billing_cycle_anchor; end
-    sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+    sig {
+      params(_billing_cycle_anchor: T.nilable(::Stripe::SubscriptionUpdateParams::BillingCycleAnchor)).returns(T.nilable(::Stripe::SubscriptionUpdateParams::BillingCycleAnchor))
+     }
     def billing_cycle_anchor=(_billing_cycle_anchor); end
     # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     sig {
@@ -1955,7 +1973,7 @@ module Stripe
       params(_trial_end: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
      }
     def trial_end=(_trial_end); end
-    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     sig { returns(T.nilable(T::Boolean)) }
     def trial_from_plan; end
     sig { params(_trial_from_plan: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
@@ -1968,7 +1986,7 @@ module Stripe
      }
     def trial_settings=(_trial_settings); end
     sig {
-      params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionUpdateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.any(String, Float)), automatic_tax: T.nilable(::Stripe::SubscriptionUpdateParams::AutomaticTax), billing_cadence: T.nilable(String), billing_cycle_anchor: T.nilable(String), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionUpdateParams::BillingSchedule])), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::BillingThresholds)), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancellation_details: T.nilable(::Stripe::SubscriptionUpdateParams::CancellationDetails), collection_method: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionUpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionUpdateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionUpdateParams::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(String), pause_collection: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PauseCollection)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PendingInvoiceItemInterval)), prebilling: T.nilable(::Stripe::SubscriptionUpdateParams::Prebilling), pricing_token: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::TransferData)), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_settings: T.nilable(::Stripe::SubscriptionUpdateParams::TrialSettings)).void
+      params(add_invoice_items: T.nilable(T::Array[::Stripe::SubscriptionUpdateParams::AddInvoiceItem]), application_fee_percent: T.nilable(T.any(String, Float)), automatic_tax: T.nilable(::Stripe::SubscriptionUpdateParams::AutomaticTax), billing_cadence: T.nilable(String), billing_cycle_anchor: T.nilable(::Stripe::SubscriptionUpdateParams::BillingCycleAnchor), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionUpdateParams::BillingSchedule])), billing_thresholds: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::BillingThresholds)), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancellation_details: T.nilable(::Stripe::SubscriptionUpdateParams::CancellationDetails), collection_method: T.nilable(String), days_until_due: T.nilable(Integer), default_payment_method: T.nilable(String), default_source: T.nilable(String), default_tax_rates: T.nilable(T.any(String, T::Array[String])), description: T.nilable(String), discounts: T.nilable(T.any(String, T::Array[::Stripe::SubscriptionUpdateParams::Discount])), expand: T.nilable(T::Array[String]), invoice_settings: T.nilable(::Stripe::SubscriptionUpdateParams::InvoiceSettings), items: T.nilable(T::Array[::Stripe::SubscriptionUpdateParams::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), off_session: T.nilable(T::Boolean), on_behalf_of: T.nilable(String), pause_collection: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PauseCollection)), payment_behavior: T.nilable(String), payment_settings: T.nilable(::Stripe::SubscriptionUpdateParams::PaymentSettings), pending_invoice_item_interval: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::PendingInvoiceItemInterval)), prebilling: T.nilable(::Stripe::SubscriptionUpdateParams::Prebilling), pricing_token: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), transfer_data: T.nilable(T.any(String, ::Stripe::SubscriptionUpdateParams::TransferData)), trial_end: T.nilable(T.any(String, Integer)), trial_from_plan: T.nilable(T::Boolean), trial_settings: T.nilable(::Stripe::SubscriptionUpdateParams::TrialSettings)).void
      }
     def initialize(
       add_invoice_items: nil,

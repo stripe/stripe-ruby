@@ -34,8 +34,6 @@ module Stripe
       class Filters < ::Stripe::StripeObject
         # Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
         attr_reader :account_subcategories
-        # List of countries from which to filter accounts.
-        attr_reader :countries
         # Country from which to filter accounts.
         attr_reader :country
         # Stripe ID of the institution with which the customer should be directed to log in.

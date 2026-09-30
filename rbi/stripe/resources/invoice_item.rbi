@@ -12,6 +12,17 @@ module Stripe
   #
   # Related guides: [Integrate with the Invoicing API](https://docs.stripe.com/invoicing/integration), [Subscription Invoices](https://docs.stripe.com/billing/invoices/subscription#adding-upcoming-invoice-items).
   class InvoiceItem < APIResource
+    class InvoicingRule < ::Stripe::StripeObject
+      # The type of invoicing rule.
+      sig { returns(String) }
+      def type; end
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
     class ManagedPayments < ::Stripe::StripeObject
       # Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
       sig { returns(T::Boolean) }
@@ -318,6 +329,9 @@ module Stripe
     # The ID of the invoice this invoice item belongs to.
     sig { returns(T.nilable(T.any(String, ::Stripe::Invoice))) }
     def invoice; end
+    # The rules that control when this invoice item is eligible for invoicing. All rules must be satisfied for the item to be invoiced.
+    sig { returns(T.nilable(T::Array[InvoicingRule])) }
+    def invoicing_rules; end
     # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     sig { returns(T::Boolean) }
     def livemode; end

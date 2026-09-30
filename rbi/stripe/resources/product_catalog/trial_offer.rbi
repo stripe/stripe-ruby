@@ -60,6 +60,9 @@ module Stripe
           @field_remappings = {}
         end
       end
+      # Whether the trial offer is active. Set to false to archive the trial offer.
+      sig { returns(T::Boolean) }
+      def active; end
       # Attribute for field duration
       sig { returns(Duration) }
       def duration; end
@@ -72,9 +75,9 @@ module Stripe
       # If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
       sig { returns(T::Boolean) }
       def livemode; end
-      # A brief, user-friendly name for the trial offer-for identification purposes.
+      # A brief description of the trial offer, hidden from customers.
       sig { returns(T.nilable(String)) }
-      def name; end
+      def nickname; end
       # String representing the object's type. Objects of the same type share the same value.
       sig { returns(String) }
       def object; end
@@ -92,6 +95,12 @@ module Stripe
         params(params: T.any(::Stripe::ProductCatalog::TrialOfferListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
        }
       def self.list(params = {}, opts = {}); end
+
+      # Updates the specified trial offer by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+      sig {
+        params(id: String, params: T.any(::Stripe::ProductCatalog::TrialOfferUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ProductCatalog::TrialOffer)
+       }
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

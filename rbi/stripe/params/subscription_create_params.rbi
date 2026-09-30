@@ -1181,11 +1181,11 @@ module Stripe
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
             sig { returns(T.nilable(Integer)) }
-            def expires_after; end
-            sig { params(_expires_after: T.nilable(Integer)).returns(T.nilable(Integer)) }
-            def expires_after=(_expires_after); end
-            sig { params(expires_after: T.nilable(Integer)).void }
-            def initialize(expires_after: nil); end
+            def expires_at; end
+            sig { params(_expires_at: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def expires_at=(_expires_at); end
+            sig { params(expires_at: T.nilable(Integer)).void }
+            def initialize(expires_at: nil); end
           end
           # Configuration options for setting up a mandate
           sig {
@@ -1758,11 +1758,13 @@ module Stripe
         sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
         def billing_cycle_anchor=(_billing_cycle_anchor); end
         # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
-        sig { returns(String) }
+        sig { returns(T.nilable(String)) }
         def missing_payment_method; end
-        sig { params(_missing_payment_method: String).returns(String) }
+        sig { params(_missing_payment_method: T.nilable(String)).returns(T.nilable(String)) }
         def missing_payment_method=(_missing_payment_method); end
-        sig { params(billing_cycle_anchor: T.nilable(String), missing_payment_method: String).void }
+        sig {
+          params(billing_cycle_anchor: T.nilable(String), missing_payment_method: T.nilable(String)).void
+         }
         def initialize(billing_cycle_anchor: nil, missing_payment_method: nil); end
       end
       # Defines how the subscription should behave when the user's free trial ends.
@@ -1985,19 +1987,19 @@ module Stripe
       params(_transfer_data: T.nilable(::Stripe::SubscriptionCreateParams::TransferData)).returns(T.nilable(::Stripe::SubscriptionCreateParams::TransferData))
      }
     def transfer_data=(_transfer_data); end
-    # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. If set, trial_end will override the default trial period of the plan the customer is being subscribed to. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     sig { returns(T.nilable(T.any(String, Integer))) }
     def trial_end; end
     sig {
       params(_trial_end: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
      }
     def trial_end=(_trial_end); end
-    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     sig { returns(T.nilable(T::Boolean)) }
     def trial_from_plan; end
     sig { params(_trial_from_plan: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
     def trial_from_plan=(_trial_from_plan); end
-    # Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    # Integer representing the number of trial period days before the customer is charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     sig { returns(T.nilable(Integer)) }
     def trial_period_days; end
     sig { params(_trial_period_days: T.nilable(Integer)).returns(T.nilable(Integer)) }

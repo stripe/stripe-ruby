@@ -45,13 +45,8 @@ module Stripe
       def status; end
       sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
       def status=(_status); end
-      # Filters readers by tamper state.
-      sig { returns(T.nilable(String)) }
-      def tamper_state; end
-      sig { params(_tamper_state: T.nilable(String)).returns(T.nilable(String)) }
-      def tamper_state=(_tamper_state); end
       sig {
-        params(device_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), location: T.nilable(String), serial_number: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String), tamper_state: T.nilable(String)).void
+        params(device_type: T.nilable(String), ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), location: T.nilable(String), serial_number: T.nilable(String), starting_after: T.nilable(String), status: T.nilable(String)).void
        }
       def initialize(
         device_type: nil,
@@ -61,8 +56,7 @@ module Stripe
         location: nil,
         serial_number: nil,
         starting_after: nil,
-        status: nil,
-        tamper_state: nil
+        status: nil
       ); end
     end
   end

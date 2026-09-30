@@ -223,7 +223,7 @@ module Stripe
         class Settings < ::Stripe::RequestParams
           class BillFor < ::Stripe::RequestParams
             class OutstandingUsageThrough < ::Stripe::RequestParams
-              # Determines whether to collect metered usage accrued up to the pause date.
+              # Determines whether to collect metered usage accrued up to the pause date. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
               attr_accessor :type
 
               def initialize(type: nil)
@@ -232,7 +232,7 @@ module Stripe
             end
 
             class UnusedTimeFrom < ::Stripe::RequestParams
-              # Determines which point in the billing period unused time is credited from.
+              # Determines which point in the billing period unused time is credited from. When adding a pause schedule, defaults to `pause_at`. On updates, the existing value is preserved if not provided.
               attr_accessor :type
 
               def initialize(type: nil)
@@ -251,7 +251,7 @@ module Stripe
           end
           # Controls what to bill for when pausing the subscription.
           attr_accessor :bill_for
-          # Determines whether to generate an invoice for outstanding amounts when pausing.
+          # Determines whether to generate an invoice for outstanding amounts when pausing. When adding a pause schedule, defaults to `pending_invoice_item`. On updates, the existing value is preserved if not provided.
           attr_accessor :invoicing_behavior
           # The pause type. Currently only `subscription` is supported.
           attr_accessor :type
@@ -301,11 +301,11 @@ module Stripe
         end
 
         class Settings < ::Stripe::RequestParams
-          # Controls the billing cycle anchor when the subscription resumes.
+          # Controls the billing cycle anchor when the subscription resumes. When adding a pause schedule, defaults to `resume_at`. On updates, the existing value is preserved if not provided.
           attr_accessor :billing_cycle_anchor
-          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_success`.
+          # Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. When adding a pause schedule, defaults to `resume_on_payment_success`. On updates, the existing value is preserved if not provided.
           attr_accessor :payment_behavior
-          # Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+          # Determines how to handle prorations when the subscription resumes. When adding a pause schedule, defaults to `create_prorations`. On updates, the existing value is preserved if not provided.
           attr_accessor :proration_behavior
 
           def initialize(billing_cycle_anchor: nil, payment_behavior: nil, proration_behavior: nil)

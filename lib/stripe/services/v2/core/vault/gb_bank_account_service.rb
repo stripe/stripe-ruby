@@ -22,6 +22,9 @@ module Stripe
 
           # Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
           # and will not appear in the outbound destination list.
+          #
+          # ** raises CannotProceedError
+          # ** raises ControlledByAlternateResourceError
           def archive(id, params = {}, opts = {})
             request(
               method: :post,
@@ -33,6 +36,11 @@ module Stripe
           end
 
           # Create a GB bank account.
+          #
+          # ** raises BlockedByStripeError
+          # ** raises CannotProceedError
+          # ** raises InvalidVaultedCredentialError
+          # ** raises QuotaExceededError
           def create(params = {}, opts = {})
             request(
               method: :post,

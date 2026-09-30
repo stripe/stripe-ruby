@@ -355,6 +355,15 @@ module Stripe
         sig { params(requested: T.nilable(T::Boolean)).void }
         def initialize(requested: nil); end
       end
+      class BlikRecurringPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
       class BoletoPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
@@ -822,6 +831,15 @@ module Stripe
         sig { params(requested: T.nilable(T::Boolean)).void }
         def initialize(requested: nil); end
       end
+      class SequraPayments < ::Stripe::RequestParams
+        # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+        sig { returns(T.nilable(T::Boolean)) }
+        def requested; end
+        sig { params(_requested: T.nilable(T::Boolean)).returns(T.nilable(T::Boolean)) }
+        def requested=(_requested); end
+        sig { params(requested: T.nilable(T::Boolean)).void }
+        def initialize(requested: nil); end
+      end
       class ShopeepayPayments < ::Stripe::RequestParams
         # Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
         sig { returns(T.nilable(T::Boolean)) }
@@ -1075,6 +1093,13 @@ module Stripe
         params(_blik_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikPayments))
        }
       def blik_payments=(_blik_payments); end
+      # The blik_recurring_payments capability.
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikRecurringPayments)) }
+      def blik_recurring_payments; end
+      sig {
+        params(_blik_recurring_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikRecurringPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikRecurringPayments))
+       }
+      def blik_recurring_payments=(_blik_recurring_payments); end
       # The boleto_payments capability.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::BoletoPayments)) }
       def boleto_payments; end
@@ -1429,6 +1454,13 @@ module Stripe
         params(_sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaDebitPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaDebitPayments))
        }
       def sepa_debit_payments=(_sepa_debit_payments); end
+      # The sequra_payments capability.
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::SequraPayments)) }
+      def sequra_payments; end
+      sig {
+        params(_sequra_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SequraPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::SequraPayments))
+       }
+      def sequra_payments=(_sequra_payments); end
       # The shopeepay_payments capability.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Capabilities::ShopeepayPayments)) }
       def shopeepay_payments; end
@@ -1555,7 +1587,7 @@ module Stripe
        }
       def zip_payments=(_zip_payments); end
       sig {
-        params(acss_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AmazonPayPayments), app_distribution: T.nilable(::Stripe::AccountCreateParams::Capabilities::AppDistribution), au_becs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AuBecsDebitPayments), automatic_indirect_tax: T.nilable(::Stripe::AccountCreateParams::Capabilities::AutomaticIndirectTax), bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BilliePayments), bizum_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BizumPayments), blik_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikPayments), boleto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GiropayPayments), gopay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GopayPayments), grabpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GrabpayPayments), id_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdBankTransferPayments), id_bank_transfer_payments_bca: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdBankTransferPaymentsBca), ideal_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaynowPayments), paypal_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaypalPayments), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaypayPayments), payto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaytoPayments), pix_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PromptpayPayments), qris_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::QrisPayments), rechnung_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::RechnungPayments), revolut_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SatispayPayments), scalapay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ScalapayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaDebitPayments), shopeepay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ShopeepayPayments), sofort_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SofortPayments), stripe_balance_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::StripeBalancePayments), sunbit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::AccountCreateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::AccountCreateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::AccountCreateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::AccountCreateParams::Capabilities::Treasury), treasury_evolve: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryEvolve), treasury_fifth_third: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryFifthThird), treasury_goldman_sachs: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryGoldmanSachs), twint_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::TwintPayments), upi_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UpiPayments), us_bank_account_ach_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ZipPayments)).void
+        params(acss_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AcssDebitPayments), affirm_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AffirmPayments), afterpay_clearpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AfterpayClearpayPayments), alma_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AlmaPayments), amazon_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AmazonPayPayments), app_distribution: T.nilable(::Stripe::AccountCreateParams::Capabilities::AppDistribution), au_becs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::AuBecsDebitPayments), automatic_indirect_tax: T.nilable(::Stripe::AccountCreateParams::Capabilities::AutomaticIndirectTax), bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BacsDebitPayments), bancontact_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BancontactPayments), bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BankTransferPayments), billie_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BilliePayments), bizum_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BizumPayments), blik_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikPayments), blik_recurring_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BlikRecurringPayments), boleto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::BoletoPayments), card_issuing: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CardPayments), cartes_bancaires_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CartesBancairesPayments), cashapp_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CashappPayments), crypto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::CryptoPayments), eps_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::EpsPayments), fpx_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::FpxPayments), gb_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GbBankTransferPayments), giropay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GiropayPayments), gopay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GopayPayments), grabpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::GrabpayPayments), id_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdBankTransferPayments), id_bank_transfer_payments_bca: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdBankTransferPaymentsBca), ideal_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IdealPayments), india_international_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::IndiaInternationalPayments), jcb_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::JcbPayments), jp_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::JpBankTransferPayments), kakao_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KakaoPayPayments), klarna_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KlarnaPayments), konbini_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KonbiniPayments), kr_card_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::KrCardPayments), legacy_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::LegacyPayments), link_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::LinkPayments), mb_way_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MbWayPayments), mobilepay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MobilepayPayments), multibanco_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MultibancoPayments), mx_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::MxBankTransferPayments), naver_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::NaverPayPayments), nz_bank_account_becs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::NzBankAccountBecsDebitPayments), oxxo_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::OxxoPayments), p24_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::P24Payments), pay_by_bank_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PayByBankPayments), payco_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaycoPayments), paynow_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaynowPayments), paypal_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaypalPayments), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaypayPayments), payto_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PaytoPayments), pix_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PixPayments), promptpay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::PromptpayPayments), qris_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::QrisPayments), rechnung_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::RechnungPayments), revolut_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::RevolutPayPayments), samsung_pay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SamsungPayPayments), satispay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SatispayPayments), scalapay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ScalapayPayments), sepa_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaBankTransferPayments), sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SepaDebitPayments), sequra_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SequraPayments), shopeepay_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ShopeepayPayments), sofort_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SofortPayments), stripe_balance_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::StripeBalancePayments), sunbit_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SunbitPayments), swish_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::SwishPayments), tax_reporting_us_1099_k: T.nilable(::Stripe::AccountCreateParams::Capabilities::TaxReportingUs1099K), tax_reporting_us_1099_misc: T.nilable(::Stripe::AccountCreateParams::Capabilities::TaxReportingUs1099Misc), transfers: T.nilable(::Stripe::AccountCreateParams::Capabilities::Transfers), treasury: T.nilable(::Stripe::AccountCreateParams::Capabilities::Treasury), treasury_evolve: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryEvolve), treasury_fifth_third: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryFifthThird), treasury_goldman_sachs: T.nilable(::Stripe::AccountCreateParams::Capabilities::TreasuryGoldmanSachs), twint_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::TwintPayments), upi_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UpiPayments), us_bank_account_ach_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UsBankAccountAchPayments), us_bank_transfer_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::UsBankTransferPayments), zip_payments: T.nilable(::Stripe::AccountCreateParams::Capabilities::ZipPayments)).void
        }
       def initialize(
         acss_debit_payments: nil,
@@ -1572,6 +1604,7 @@ module Stripe
         billie_payments: nil,
         bizum_payments: nil,
         blik_payments: nil,
+        blik_recurring_payments: nil,
         boleto_payments: nil,
         card_issuing: nil,
         card_payments: nil,
@@ -1620,6 +1653,7 @@ module Stripe
         scalapay_payments: nil,
         sepa_bank_transfer_payments: nil,
         sepa_debit_payments: nil,
+        sequra_payments: nil,
         shopeepay_payments: nil,
         sofort_payments: nil,
         stripe_balance_payments: nil,
@@ -3522,6 +3556,15 @@ module Stripe
          }
         def initialize(additional_files: nil, goods_type: nil, site: nil); end
       end
+      class SepaDebitPayments < ::Stripe::RequestParams
+        # The business creditor id for european payments.
+        sig { returns(T.nilable(String)) }
+        def creditor_id; end
+        sig { params(_creditor_id: T.nilable(String)).returns(T.nilable(String)) }
+        def creditor_id=(_creditor_id); end
+        sig { params(creditor_id: T.nilable(String)).void }
+        def initialize(creditor_id: nil); end
+      end
       class SmartDisputes < ::Stripe::RequestParams
         class AutoRespond < ::Stripe::RequestParams
           # The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
@@ -3672,6 +3715,13 @@ module Stripe
         params(_paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments))
        }
       def paypay_payments=(_paypay_payments); end
+      # Settings specific to SEPA Direct Debit payments.
+      sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments)) }
+      def sepa_debit_payments; end
+      sig {
+        params(_sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments)).returns(T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments))
+       }
+      def sepa_debit_payments=(_sepa_debit_payments); end
       # Settings specific to the account's use of Smart Disputes.
       sig { returns(T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes)) }
       def smart_disputes; end
@@ -3701,7 +3751,7 @@ module Stripe
        }
       def wechat_pay_payments=(_wechat_pay_payments); end
       sig {
-        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury), wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).void
+        params(bacs_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::BacsDebitPayments), bank_bca_onboarding: T.nilable(::Stripe::AccountCreateParams::Settings::BankBcaOnboarding), branding: T.nilable(::Stripe::AccountCreateParams::Settings::Branding), capital: T.nilable(::Stripe::AccountCreateParams::Settings::Capital), card_issuing: T.nilable(::Stripe::AccountCreateParams::Settings::CardIssuing), card_payments: T.nilable(::Stripe::AccountCreateParams::Settings::CardPayments), invoices: T.nilable(::Stripe::AccountCreateParams::Settings::Invoices), payments: T.nilable(::Stripe::AccountCreateParams::Settings::Payments), payouts: T.nilable(::Stripe::AccountCreateParams::Settings::Payouts), paypay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::PaypayPayments), sepa_debit_payments: T.nilable(::Stripe::AccountCreateParams::Settings::SepaDebitPayments), smart_disputes: T.nilable(::Stripe::AccountCreateParams::Settings::SmartDisputes), tax_forms: T.nilable(::Stripe::AccountCreateParams::Settings::TaxForms), treasury: T.nilable(::Stripe::AccountCreateParams::Settings::Treasury), wechat_pay_payments: T.nilable(::Stripe::AccountCreateParams::Settings::WechatPayPayments)).void
        }
       def initialize(
         bacs_debit_payments: nil,
@@ -3714,6 +3764,7 @@ module Stripe
         payments: nil,
         payouts: nil,
         paypay_payments: nil,
+        sepa_debit_payments: nil,
         smart_disputes: nil,
         tax_forms: nil,
         treasury: nil,

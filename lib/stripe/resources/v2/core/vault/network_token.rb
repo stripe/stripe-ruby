@@ -44,6 +44,8 @@ module Stripe
           attr_reader :number
           # String representing the object's type. Objects of the same type share the same value of the object field.
           attr_reader :object
+          # The origin of the resource used to provision this network token.
+          attr_reader :origin
           # Closed Enum. The status of the network token.
           attr_reader :status
 

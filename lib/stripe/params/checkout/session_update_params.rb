@@ -506,7 +506,7 @@ module Stripe
       end
       # Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
       attr_accessor :automatic_tax
-      # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded` or `custom` sessions.
+      # Information about the customer collected within the Checkout Session. Can only be set when updating `embedded_page` or `elements` sessions.
       attr_accessor :collected_information
       # List of coupons and promotion codes attached to the Checkout Session.
       attr_accessor :discounts

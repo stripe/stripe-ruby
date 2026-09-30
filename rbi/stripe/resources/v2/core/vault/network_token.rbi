@@ -49,6 +49,9 @@ module Stripe
           # String representing the object's type. Objects of the same type share the same value of the object field.
           sig { returns(String) }
           def object; end
+          # The origin of the resource used to provision this network token.
+          sig { returns(String) }
+          def origin; end
           # Closed Enum. The status of the network token.
           sig { returns(String) }
           def status; end

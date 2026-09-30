@@ -516,6 +516,14 @@ module Stripe
         Events::V2CoreVaultNetworkTokenDetailsUpdatedEvent,
         Events::V2CoreVaultNetworkTokenSuspendedEvent.lookup_type =>
         Events::V2CoreVaultNetworkTokenSuspendedEvent,
+        Events::V2DataQueryRunCreatedEvent.lookup_type => Events::V2DataQueryRunCreatedEvent,
+        Events::V2DataQueryRunFailedEvent.lookup_type => Events::V2DataQueryRunFailedEvent,
+        Events::V2DataQueryRunSucceededEvent.lookup_type => Events::V2DataQueryRunSucceededEvent,
+        Events::V2DataQueryRunUpdatedEvent.lookup_type => Events::V2DataQueryRunUpdatedEvent,
+        Events::V2DataReportRunCreatedEvent.lookup_type => Events::V2DataReportRunCreatedEvent,
+        Events::V2DataReportRunFailedEvent.lookup_type => Events::V2DataReportRunFailedEvent,
+        Events::V2DataReportRunSucceededEvent.lookup_type => Events::V2DataReportRunSucceededEvent,
+        Events::V2DataReportRunUpdatedEvent.lookup_type => Events::V2DataReportRunUpdatedEvent,
         Events::V2DataReportingQueryRunCreatedEvent.lookup_type =>
         Events::V2DataReportingQueryRunCreatedEvent,
         Events::V2DataReportingQueryRunFailedEvent.lookup_type =>
@@ -555,6 +563,8 @@ module Stripe
         Events::V2MoneyManagementDebitDisputeSubmittedEvent,
         Events::V2MoneyManagementDebitDisputeSucceededEvent.lookup_type =>
         Events::V2MoneyManagementDebitDisputeSucceededEvent,
+        Events::V2MoneyManagementEarnedCreditSucceededEvent.lookup_type =>
+        Events::V2MoneyManagementEarnedCreditSucceededEvent,
         Events::V2MoneyManagementFinancialAccountCreatedEvent.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEvent,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEvent.lookup_type =>
@@ -1379,6 +1389,22 @@ module Stripe
         Events::V2CoreVaultNetworkTokenDetailsUpdatedEventNotification,
         Events::V2CoreVaultNetworkTokenSuspendedEventNotification.lookup_type =>
         Events::V2CoreVaultNetworkTokenSuspendedEventNotification,
+        Events::V2DataQueryRunCreatedEventNotification.lookup_type =>
+        Events::V2DataQueryRunCreatedEventNotification,
+        Events::V2DataQueryRunFailedEventNotification.lookup_type =>
+        Events::V2DataQueryRunFailedEventNotification,
+        Events::V2DataQueryRunSucceededEventNotification.lookup_type =>
+        Events::V2DataQueryRunSucceededEventNotification,
+        Events::V2DataQueryRunUpdatedEventNotification.lookup_type =>
+        Events::V2DataQueryRunUpdatedEventNotification,
+        Events::V2DataReportRunCreatedEventNotification.lookup_type =>
+        Events::V2DataReportRunCreatedEventNotification,
+        Events::V2DataReportRunFailedEventNotification.lookup_type =>
+        Events::V2DataReportRunFailedEventNotification,
+        Events::V2DataReportRunSucceededEventNotification.lookup_type =>
+        Events::V2DataReportRunSucceededEventNotification,
+        Events::V2DataReportRunUpdatedEventNotification.lookup_type =>
+        Events::V2DataReportRunUpdatedEventNotification,
         Events::V2DataReportingQueryRunCreatedEventNotification.lookup_type =>
         Events::V2DataReportingQueryRunCreatedEventNotification,
         Events::V2DataReportingQueryRunFailedEventNotification.lookup_type =>
@@ -1427,6 +1453,8 @@ module Stripe
         Events::V2MoneyManagementDebitDisputeSubmittedEventNotification,
         Events::V2MoneyManagementDebitDisputeSucceededEventNotification.lookup_type =>
         Events::V2MoneyManagementDebitDisputeSucceededEventNotification,
+        Events::V2MoneyManagementEarnedCreditSucceededEventNotification.lookup_type =>
+        Events::V2MoneyManagementEarnedCreditSucceededEventNotification,
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification.lookup_type =>
         Events::V2MoneyManagementFinancialAccountCreatedEventNotification,
         Events::V2MoneyManagementFinancialAccountStatementCreatedEventNotification.lookup_type =>

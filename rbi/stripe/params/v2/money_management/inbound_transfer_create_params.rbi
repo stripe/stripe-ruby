@@ -52,6 +52,12 @@ module Stripe
           params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
+        # An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
+        # When omitted, Stripe sends its default descriptor.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+        def statement_descriptor=(_statement_descriptor); end
         # Object containing details about where the funds will land.
         sig { returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To) }
         def to; end
@@ -60,9 +66,15 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
-        def initialize(amount: nil, description: nil, from: nil, to: nil); end
+        def initialize(
+          amount: nil,
+          description: nil,
+          from: nil,
+          statement_descriptor: nil,
+          to: nil
+        ); end
       end
     end
   end

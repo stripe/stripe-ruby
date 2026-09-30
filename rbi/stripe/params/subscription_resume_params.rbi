@@ -4,10 +4,26 @@
 # typed: true
 module Stripe
   class SubscriptionResumeParams < ::Stripe::RequestParams
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # A Unix timestamp within the inclusive bounds of the subscription's current billing period. For subscriptions with multiple items, it must fall within the intersection of their current billing periods. Only valid when `type` is `timestamp`.
+      sig { returns(T.nilable(Integer)) }
+      def timestamp; end
+      sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+      def timestamp=(_timestamp); end
+      # Determines how the billing cycle anchor changes when the subscription resumes.
+      sig { returns(String) }
+      def type; end
+      sig { params(_type: String).returns(String) }
+      def type=(_type); end
+      sig { params(timestamp: T.nilable(Integer), type: String).void }
+      def initialize(timestamp: nil, type: nil); end
+    end
     # The billing cycle anchor that applies when the subscription is resumed. Either `now` or `unchanged`. The default is `now`. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
-    sig { returns(T.nilable(String)) }
+    sig { returns(T.nilable(::Stripe::SubscriptionResumeParams::BillingCycleAnchor)) }
     def billing_cycle_anchor; end
-    sig { params(_billing_cycle_anchor: T.nilable(String)).returns(T.nilable(String)) }
+    sig {
+      params(_billing_cycle_anchor: T.nilable(::Stripe::SubscriptionResumeParams::BillingCycleAnchor)).returns(T.nilable(::Stripe::SubscriptionResumeParams::BillingCycleAnchor))
+     }
     def billing_cycle_anchor=(_billing_cycle_anchor); end
     # Specifies which fields in the response should be expanded.
     sig { returns(T.nilable(T::Array[String])) }
@@ -30,7 +46,7 @@ module Stripe
     sig { params(_proration_date: T.nilable(Integer)).returns(T.nilable(Integer)) }
     def proration_date=(_proration_date); end
     sig {
-      params(billing_cycle_anchor: T.nilable(String), expand: T.nilable(T::Array[String]), payment_behavior: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer)).void
+      params(billing_cycle_anchor: T.nilable(::Stripe::SubscriptionResumeParams::BillingCycleAnchor), expand: T.nilable(T::Array[String]), payment_behavior: T.nilable(String), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer)).void
      }
     def initialize(
       billing_cycle_anchor: nil,

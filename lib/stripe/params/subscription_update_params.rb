@@ -179,6 +179,18 @@ module Stripe
       end
     end
 
+    class BillingCycleAnchor < ::Stripe::RequestParams
+      # A Unix timestamp within the inclusive bounds of the subscription's current billing period. For subscriptions with multiple items, it must fall within the intersection of their current billing periods. Only valid when `type` is `timestamp`.
+      attr_accessor :timestamp
+      # Determines how the billing cycle anchor changes when the subscription is updated.
+      attr_accessor :type
+
+      def initialize(timestamp: nil, type: nil)
+        @timestamp = timestamp
+        @type = type
+      end
+    end
+
     class BillingSchedule < ::Stripe::RequestParams
       class AppliesTo < ::Stripe::RequestParams
         # The ID of the price object.
@@ -768,10 +780,10 @@ module Stripe
         class Blik < ::Stripe::RequestParams
           class MandateOptions < ::Stripe::RequestParams
             # Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
-            attr_accessor :expires_after
+            attr_accessor :expires_at
 
-            def initialize(expires_after: nil)
-              @expires_after = expires_after
+            def initialize(expires_at: nil)
+              @expires_at = expires_at
             end
           end
           # Configuration options for setting up a mandate
@@ -1131,7 +1143,7 @@ module Stripe
     attr_accessor :automatic_tax
     # The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
     attr_accessor :billing_cadence
-    # Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+    # Controls how the subscription's billing cycle anchor changes. Set `type` to `now` to reset the billing cycle anchor to the current time (in UTC), or `unchanged` to preserve it. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     attr_accessor :billing_cycle_anchor
     # An array of billing schedules, which allow you to bill customers in advance for multiple service periods. Requires flexible billing mode and API version 2026-05-27.dahlia or later. Learn more about [prebilling](https://docs.stripe.com/billing/subscriptions/prebilling).
     attr_accessor :billing_schedules
@@ -1189,7 +1201,7 @@ module Stripe
     attr_accessor :transfer_data
     # Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. This will always overwrite any trials that might apply via a subscribed plan. If set, `trial_end` will override the default trial period of the plan the customer is being subscribed to. The `billing_cycle_anchor` will be updated to the `trial_end` value. The special value `now` can be provided to end the customer's trial immediately. Can be at most two years from `billing_cycle_anchor`.
     attr_accessor :trial_end
-    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
+    # Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials/free-trials) to learn more.
     attr_accessor :trial_from_plan
     # Settings related to subscription trials.
     attr_accessor :trial_settings

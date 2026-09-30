@@ -12,7 +12,7 @@ module Stripe
          }
         def create(params = {}, opts = {}); end
 
-        # Retrieves an AccountEvaluation by its ID.
+        # Retrieves an AccountEvaluation by its ID for up to 90 days after creation. Evaluations more than 90 days old are inaccessible.
         sig {
           params(id: String, params: T.any(::Stripe::V2::Signals::AccountEvaluationRetrieveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Signals::AccountEvaluation)
          }

@@ -58,6 +58,8 @@ module Stripe
           attr_reader :debit_dispute
           # If applicable, the ID of the Dispute that created this Transaction.
           attr_reader :dispute
+          # If applicable, the ID of the EarnedCredit that created this Transaction.
+          attr_reader :earned_credit
           # If applicable, the ID of the FeeTransaction that created this Transaction.
           attr_reader :fee_transaction
           # If applicable, the ID of the InboundTransfer that created this Transaction.
@@ -120,6 +122,23 @@ module Stripe
           end
         end
 
+        class RegulatoryReceipt < ::Stripe::StripeObject
+          # Current availability of the regulatory receipt.
+          attr_reader :status
+          # Hosted URL for the receipt.
+          attr_reader :url
+          # Time until which `url` is valid.
+          attr_reader :url_expires_at
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class StatusTransitions < ::Stripe::StripeObject
           # The time at which the Transaction became posted. Only present if status == posted.
           attr_reader :posted_at
@@ -161,6 +180,8 @@ module Stripe
         attr_reader :metadata
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
+        # Hosted transaction receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. If not applicable, `regulatory_receipt.status` will be `not_applicable` and no URL will be provided.
+        attr_reader :regulatory_receipt
         # Closed Enum. Current status of the Transaction.
         # A Transaction is `pending` if either `balance_impact.inbound_pending` or `balance_impact.outbound_pending` is non-zero.
         # A Transaction is `posted` if only `balance_impact.available` is non-zero.
@@ -177,6 +198,7 @@ module Stripe
             balance_impact: BalanceImpact,
             counterparty: Counterparty,
             flow: Flow,
+            regulatory_receipt: RegulatoryReceipt,
             status_transitions: StatusTransitions,
           }
         end

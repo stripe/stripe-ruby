@@ -857,7 +857,7 @@ module Stripe
       # Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+      # This is typed as an enum for consistency with `requirements.disabled_reason`.
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.
@@ -945,7 +945,7 @@ module Stripe
       # Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
       sig { returns(T.nilable(T::Array[String])) }
       def currently_due; end
-      # If the account is disabled, this string describes why the account can’t create charges or receive payouts. Can be `rejected.fraud`, `rejected.terms_of_service`, `rejected.listed`, `rejected.other`, `fields_needed`, `listed`, `under_review`, or `other`.
+      # If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
       sig { returns(T.nilable(String)) }
       def disabled_reason; end
       # Fields that are `currently_due` and need to be collected again because validation or verification failed.

@@ -11,7 +11,7 @@ module Stripe
           # and will not appear in the outbound destination list.
           #
           # ** raises CannotProceedError
-          # ** raises ControlledByDashboardError
+          # ** raises ControlledByAlternateResourceError
           def archive(id, params = {}, opts = {})
             request(
               method: :post,
@@ -24,7 +24,10 @@ module Stripe
 
           # Confirm microdeposits amounts or descriptor code that you have received from the Send Microdeposits request. Once you correctly confirm this, this US Bank Account will be verified and eligible to transfer funds with.
           #
+          # ** raises VerificationAttemptFailedError
           # ** raises ControlledByAlternateResourceError
+          # ** raises VerificationNotInitiatedError
+          # ** raises VerificationExpiredError
           def confirm_microdeposits(id, params = {}, opts = {})
             request(
               method: :post,
@@ -40,6 +43,7 @@ module Stripe
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
+          # ** raises CannotProceedError
           def create(params = {}, opts = {})
             request(
               method: :post,
@@ -90,6 +94,7 @@ module Stripe
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
+          # ** raises CannotProceedError
           def update(id, params = {}, opts = {})
             request(
               method: :post,

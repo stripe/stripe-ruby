@@ -1498,6 +1498,16 @@ module Stripe
       end
     end
 
+    class Sequra < ::Stripe::StripeObject
+      def self.inner_class_types
+        @inner_class_types = {}
+      end
+
+      def self.field_remappings
+        @field_remappings = {}
+      end
+    end
+
     class Shopeepay < ::Stripe::StripeObject
       def self.inner_class_types
         @inner_class_types = {}
@@ -1822,6 +1832,8 @@ module Stripe
     attr_reader :scalapay
     # Attribute for field sepa_debit
     attr_reader :sepa_debit
+    # Attribute for field sequra
+    attr_reader :sequra
     # ID of the shared payment granted token used in the creation of this PaymentMethod.
     attr_reader :shared_payment_granted_token
     # Attribute for field shopeepay
@@ -2017,6 +2029,7 @@ module Stripe
         satispay: Satispay,
         scalapay: Scalapay,
         sepa_debit: SepaDebit,
+        sequra: Sequra,
         shopeepay: Shopeepay,
         sofort: Sofort,
         stripe_balance: StripeBalance,

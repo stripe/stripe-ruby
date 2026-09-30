@@ -49,6 +49,20 @@ module Stripe
           )
         end
 
+        # Reveals the current provider-issued access configuration for a completed Resource.
+        # This is a read-only disclosure: it does not create, refresh, mint, or rotate credentials.
+        # Repeated calls are safe and do not require an idempotency key, but can return a newer
+        # configuration after a separate Rotate operation completes.
+        def reveal_access_configuration(id, params = {}, opts = {})
+          request(
+            method: :post,
+            path: format("/v2/provisioning/resources/%<id>s/reveal_access_configuration", { id: CGI.escape(id) }),
+            params: params,
+            opts: opts,
+            base_address: :api
+          )
+        end
+
         # Rotates a resource's credentials.
         def rotate_credentials(id, params = {}, opts = {})
           request(

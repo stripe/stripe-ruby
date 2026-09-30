@@ -21,7 +21,7 @@ module Stripe
         attr_reader :chain
         # The cryptocurrency held in the wallet.
         attr_reader :currency
-        # The type of wallet (standard or bridge_wallet).
+        # The type of crypto wallet.
         attr_reader :type
 
         def self.inner_class_types

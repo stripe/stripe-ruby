@@ -197,11 +197,15 @@ module Stripe
                 end
 
                 class OverwritePrice < ::Stripe::RequestParams
-                  # The per-unit amount to be charged, represented as a decimal string in minor currency units.
+                  # The per-unit amount to be charged in minor currency units.
                   attr_accessor :unit_amount
 
                   def initialize(unit_amount: nil)
                     @unit_amount = unit_amount
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = { unit_amount: :decimal_string }
                   end
                 end
 
@@ -248,6 +252,12 @@ module Stripe
                   @starts_at = starts_at
                   @type = type
                 end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                  }
+                end
               end
 
               class QuantityChange < ::Stripe::RequestParams
@@ -292,6 +302,15 @@ module Stripe
 
               def self.field_encodings
                 @field_encodings = {
+                  pricing_overrides: {
+                    kind: :array,
+                    element: {
+                      kind: :object,
+                      fields: {
+                        overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                      },
+                    },
+                  },
                   quantity_changes: {
                     kind: :array,
                     element: { kind: :object, fields: { set: :decimal_string } },
@@ -314,6 +333,15 @@ module Stripe
                 price_details: {
                   kind: :object,
                   fields: {
+                    pricing_overrides: {
+                      kind: :array,
+                      element: {
+                        kind: :object,
+                        fields: {
+                          overwrite_price: { kind: :object, fields: { unit_amount: :decimal_string } },
+                        },
+                      },
+                    },
                     quantity_changes: {
                       kind: :array,
                       element: { kind: :object, fields: { set: :decimal_string } },
@@ -362,6 +390,18 @@ module Stripe
                   price_details: {
                     kind: :object,
                     fields: {
+                      pricing_overrides: {
+                        kind: :array,
+                        element: {
+                          kind: :object,
+                          fields: {
+                            overwrite_price: {
+                              kind: :object,
+                              fields: { unit_amount: :decimal_string },
+                            },
+                          },
+                        },
+                      },
                       quantity_changes: {
                         kind: :array,
                         element: { kind: :object, fields: { set: :decimal_string } },
@@ -404,12 +444,16 @@ module Stripe
             end
             # Criteria determining which rates the multiply_pricing override applies to.
             attr_accessor :criteria
-            # The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+            # The multiply_pricing factor. e.g. "0.8" for a 20% reduction.
             attr_accessor :factor
 
             def initialize(criteria: nil, factor: nil)
               @criteria = criteria
               @factor = factor
+            end
+
+            def self.field_encodings
+              @field_encodings = { factor: :decimal_string }
             end
           end
 
@@ -455,6 +499,12 @@ module Stripe
             @priority = priority
             @starts_at = starts_at
             @type = type
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              multiply_pricing: { kind: :object, fields: { factor: :decimal_string } },
+            }
           end
         end
         # The billing cycle anchor for the contract. If not provided, defaults to the pricing line start time.
@@ -513,6 +563,18 @@ module Stripe
                       price_details: {
                         kind: :object,
                         fields: {
+                          pricing_overrides: {
+                            kind: :array,
+                            element: {
+                              kind: :object,
+                              fields: {
+                                overwrite_price: {
+                                  kind: :object,
+                                  fields: { unit_amount: :decimal_string },
+                                },
+                              },
+                            },
+                          },
                           quantity_changes: {
                             kind: :array,
                             element: { kind: :object, fields: { set: :decimal_string } },
@@ -522,6 +584,13 @@ module Stripe
                     },
                   },
                 },
+              },
+            },
+            pricing_overrides: {
+              kind: :array,
+              element: {
+                kind: :object,
+                fields: { multiply_pricing: { kind: :object, fields: { factor: :decimal_string } } },
               },
             },
           }

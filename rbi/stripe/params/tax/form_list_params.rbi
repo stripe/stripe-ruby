@@ -53,13 +53,18 @@ module Stripe
       def starting_after; end
       sig { params(_starting_after: T.nilable(String)).returns(T.nilable(String)) }
       def starting_after=(_starting_after); end
+      # Filter forms by draft or finalized status.
+      sig { returns(T.nilable(String)) }
+      def status; end
+      sig { params(_status: T.nilable(String)).returns(T.nilable(String)) }
+      def status=(_status); end
       # An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
       sig { returns(T.nilable(String)) }
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
       sig {
-        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payee: ::Stripe::Tax::FormListParams::Payee, starting_after: T.nilable(String), type: T.nilable(String)).void
+        params(ending_before: T.nilable(String), expand: T.nilable(T::Array[String]), limit: T.nilable(Integer), payee: ::Stripe::Tax::FormListParams::Payee, starting_after: T.nilable(String), status: T.nilable(String), type: T.nilable(String)).void
        }
       def initialize(
         ending_before: nil,
@@ -67,6 +72,7 @@ module Stripe
         limit: nil,
         payee: nil,
         starting_after: nil,
+        status: nil,
         type: nil
       ); end
     end

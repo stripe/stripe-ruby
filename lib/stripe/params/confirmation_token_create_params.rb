@@ -326,6 +326,7 @@ module Stripe
         end
       end
 
+      class Sequra < ::Stripe::RequestParams; end
       class Shopeepay < ::Stripe::RequestParams; end
 
       class Sofort < ::Stripe::RequestParams
@@ -519,6 +520,8 @@ module Stripe
       attr_accessor :scalapay
       # If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
       attr_accessor :sepa_debit
+      # If this is a SeQura PaymentMethod, this hash contains details about the SeQura payment method.
+      attr_accessor :sequra
       # ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
       attr_accessor :shared_payment_granted_token
       # If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -605,6 +608,7 @@ module Stripe
         satispay: nil,
         scalapay: nil,
         sepa_debit: nil,
+        sequra: nil,
         shared_payment_granted_token: nil,
         shopeepay: nil,
         sofort: nil,
@@ -676,6 +680,7 @@ module Stripe
         @satispay = satispay
         @scalapay = scalapay
         @sepa_debit = sepa_debit
+        @sequra = sequra
         @shared_payment_granted_token = shared_payment_granted_token
         @shopeepay = shopeepay
         @sofort = sofort

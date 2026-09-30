@@ -627,6 +627,9 @@ module Stripe
       end
       class TrialSettings < ::Stripe::StripeObject
         class EndBehavior < ::Stripe::StripeObject
+          # Indicates how the subscription's billing cycle anchor is reset when a trial ends. If not set, the default is `now`.
+          sig { returns(T.nilable(String)) }
+          def billing_cycle_anchor; end
           # Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
           sig { returns(String) }
           def missing_payment_method; end
@@ -730,7 +733,7 @@ module Stripe
     # Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     sig { returns(String) }
     def currency; end
-    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
+    # Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `elements`.
     sig { returns(T::Array[CustomField]) }
     def custom_fields; end
     # Attribute for field custom_text

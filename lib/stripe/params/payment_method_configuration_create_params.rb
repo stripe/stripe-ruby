@@ -955,6 +955,23 @@ module Stripe
       end
     end
 
+    class Sequra < ::Stripe::RequestParams
+      class DisplayPreference < ::Stripe::RequestParams
+        # The account's preference for whether or not to display this payment method.
+        attr_accessor :preference
+
+        def initialize(preference: nil)
+          @preference = preference
+        end
+      end
+      # Whether or not the payment method should be displayed.
+      attr_accessor :display_preference
+
+      def initialize(display_preference: nil)
+        @display_preference = display_preference
+      end
+    end
+
     class Shopeepay < ::Stripe::RequestParams
       class DisplayPreference < ::Stripe::RequestParams
         # The account's preference for whether or not to display this payment method.
@@ -1242,6 +1259,8 @@ module Stripe
     attr_accessor :scalapay
     # The [Single Euro Payments Area (SEPA)](https://en.wikipedia.org/wiki/Single_Euro_Payments_Area) is an initiative of the European Union to simplify payments within and across member countries. SEPA established and enforced banking standards to allow for the direct debiting of every EUR-denominated bank account within the SEPA region, check this [page](https://docs.stripe.com/payments/sepa-debit) for more details.
     attr_accessor :sepa_debit
+    # SeQura is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers customers payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with SeQura, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+    attr_accessor :sequra
     # ShopeePay is a [single use](https://docs.stripe.com/payments/payment-methods#usage) digital wallet payment method popular in Indonesia. When paying with GoPay, customers authenticate and approve payments using the Shopee app. Desktop checkout is performed by scanning a QR code. When checking out on mobile, customers are redirected to the Shopee app to confirm payment.
     attr_accessor :shopeepay
     # Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://docs.stripe.com/payments/sofort) for more details.
@@ -1323,6 +1342,7 @@ module Stripe
       satispay: nil,
       scalapay: nil,
       sepa_debit: nil,
+      sequra: nil,
       shopeepay: nil,
       sofort: nil,
       sunbit: nil,
@@ -1393,6 +1413,7 @@ module Stripe
       @satispay = satispay
       @scalapay = scalapay
       @sepa_debit = sepa_debit
+      @sequra = sequra
       @shopeepay = shopeepay
       @sofort = sofort
       @sunbit = sunbit

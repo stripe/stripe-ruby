@@ -12,7 +12,7 @@ module Stripe
           # and will not appear in the outbound destination list.
           #
           # ** raises CannotProceedError
-          # ** raises ControlledByDashboardError
+          # ** raises ControlledByAlternateResourceError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountArchiveParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -20,7 +20,10 @@ module Stripe
 
           # Confirm microdeposits amounts or descriptor code that you have received from the Send Microdeposits request. Once you correctly confirm this, this US Bank Account will be verified and eligible to transfer funds with.
           #
+          # ** raises VerificationAttemptFailedError
           # ** raises ControlledByAlternateResourceError
+          # ** raises VerificationNotInitiatedError
+          # ** raises VerificationExpiredError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountConfirmMicrodepositsParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -31,6 +34,7 @@ module Stripe
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
+          # ** raises CannotProceedError
           sig {
             params(params: T.any(::Stripe::V2::Core::Vault::UsBankAccountCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }
@@ -61,6 +65,7 @@ module Stripe
           # ** raises BlockedByStripeError
           # ** raises InvalidPaymentMethodError
           # ** raises QuotaExceededError
+          # ** raises CannotProceedError
           sig {
             params(id: String, params: T.any(::Stripe::V2::Core::Vault::UsBankAccountUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::V2::Core::Vault::UsBankAccount)
            }

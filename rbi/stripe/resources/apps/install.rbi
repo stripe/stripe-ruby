@@ -9,23 +9,6 @@ module Stripe
     # that the app's latest version requests but the account has not authorized yet. Use the Install API to
     # install, reauthorize, and uninstall apps, and to check the state of existing installs.
     class Install < APIResource
-      class AuthorizedContentSecurityPolicy < ::Stripe::StripeObject
-        # Attribute for field connect_src
-        sig { returns(T.nilable(T::Array[String])) }
-        def connect_src; end
-        # Attribute for field image_src
-        sig { returns(T.nilable(T::Array[String])) }
-        def image_src; end
-        # Attribute for field purpose
-        sig { returns(T.nilable(String)) }
-        def purpose; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       class ContentSecurityPolicyGranted < ::Stripe::StripeObject
         # The URLs that the app can make network requests to.
         sig { returns(T::Array[String]) }
@@ -60,26 +43,17 @@ module Stripe
       # The ID of the app installed.
       sig { returns(String) }
       def app; end
-      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`. Install a new version from the Dashboard to grant its permissions.
+      # Whether the installer must authorize pending permissions, content security policy entries, or endpoints. For private apps, `approval_required` stays `false`; creating or reauthorizing the install through the API installs the newest completed upload and grants its permissions.
       sig { returns(T::Boolean) }
       def approval_required; end
       # The authorization code for an oauth app install.
       sig { returns(T.nilable(String)) }
       def auth_code; end
-      # Attribute for field authorized_content_security_policy
-      sig { returns(AuthorizedContentSecurityPolicy) }
-      def authorized_content_security_policy; end
-      # The endpoint URLs authorized by the installer.
-      sig { returns(T::Array[String]) }
-      def authorized_endpoints; end
-      # The permissions authorized by the installer.
-      sig { returns(T::Array[String]) }
-      def authorized_permissions; end
       # The distribution channel associated with the app install.
       sig { returns(String) }
       def channel; end
-      # The content security policy entries authorized by the installer.
-      sig { returns(T.nilable(ContentSecurityPolicyGranted)) }
+      # Attribute for field content_security_policy_granted
+      sig { returns(ContentSecurityPolicyGranted) }
       def content_security_policy_granted; end
       # Attribute for field content_security_policy_pending
       sig { returns(ContentSecurityPolicyPending) }
@@ -91,7 +65,7 @@ module Stripe
       sig { returns(T.nilable(String)) }
       def created_by; end
       # The endpoint URLs authorized by the installer.
-      sig { returns(T.nilable(T::Array[String])) }
+      sig { returns(T::Array[String]) }
       def endpoints_granted; end
       # The endpoint URLs requested by the latest app version that the installer has not authorized.
       sig { returns(T::Array[String]) }
@@ -106,17 +80,43 @@ module Stripe
       sig { returns(String) }
       def object; end
       # The permissions authorized by the installer.
-      sig { returns(T.nilable(T::Array[String])) }
+      sig { returns(T::Array[String]) }
       def permissions_granted; end
       # The permissions requested by the latest app version that the installer has not authorized.
       sig { returns(T::Array[String]) }
       def permissions_pending; end
       # The status of the app install.
       sig { returns(String) }
-      def state; end
-      # The status of the app install.
-      sig { returns(T.nilable(String)) }
       def status; end
+      # Creates an app install. An account installs its own private app with its own key; public and testing installs are made from the Dashboard. An app developer acting on a connected account through Stripe-Account installs or reinstalls its app there, and an embedding platform can do the same once the app's developer approves its request to embed the app. For a private app, creating an install installs the newest completed upload; when that version is already installed with nothing pending, the existing install is returned.
+      sig {
+        params(params: T.any(::Stripe::Apps::InstallCreateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Install)
+       }
+      def self.create(params = {}, opts = {}); end
+
+      # Returns a list of app installs. An app developer filtering by its own app with its own key sees that app's installs across the accounts that installed it. An app developer acting on a connected account through Stripe-Account and filtering by its app sees that account's installs of the app, and an embedding platform acting on a connected account sees only the installs it created there. Other callers see the installs on their own account. A live key lists live installs and a test key lists test installs; the key of an app's managed sandbox filtering by app lists that app's installs across every sandbox.
+      sig {
+        params(params: T.any(::Stripe::Apps::InstallListParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::ListObject)
+       }
+      def self.list(params = {}, opts = {}); end
+
+      # Uninstalls an app from the account that installed it.
+      sig {
+        params(params: T.any(::Stripe::Apps::InstallUninstallParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Install)
+       }
+      def uninstall(params = {}, opts = {}); end
+
+      # Uninstalls an app from the account that installed it.
+      sig {
+        params(id: String, params: T.any(::Stripe::Apps::InstallUninstallParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Install)
+       }
+      def self.uninstall(id, params = {}, opts = {}); end
+
+      # Reauthorizes an app install. The installer grants the permissions, content security policy entries, and endpoints that the version being installed requests. An account reauthorizes its own installs on any channel with its own key, which grants all of that access, so only give app_install_write to keys that may approve an app's access. App developers and embedding platforms reauthorize installs on connected accounts through Stripe-Account. An app developer can't grant new access. An embedding platform can grant new access only once the app's developer approves its request to embed the app. For private apps, the version being installed is the newest completed upload.
+      sig {
+        params(id: String, params: T.any(::Stripe::Apps::InstallUpdateParams, T::Hash[T.untyped, T.untyped]), opts: T.untyped).returns(::Stripe::Apps::Install)
+       }
+      def self.update(id, params = {}, opts = {}); end
     end
   end
 end

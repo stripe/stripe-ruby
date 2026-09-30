@@ -3236,6 +3236,20 @@ module Stripe
       end
     end
     class SubscriptionDetails < ::Stripe::RequestParams
+      class BillingCycleAnchor < ::Stripe::RequestParams
+        # A timestamp to use as the subscription's billing cycle anchor. Only valid when `type` is `timestamp`.
+        sig { returns(T.nilable(Integer)) }
+        def timestamp; end
+        sig { params(_timestamp: T.nilable(Integer)).returns(T.nilable(Integer)) }
+        def timestamp=(_timestamp); end
+        # Determines how the subscription's billing cycle anchor behaves for the invoice preview.
+        sig { returns(String) }
+        def type; end
+        sig { params(_type: String).returns(String) }
+        def type=(_type); end
+        sig { params(timestamp: T.nilable(Integer), type: String).void }
+        def initialize(timestamp: nil, type: nil); end
+      end
       class BillingMode < ::Stripe::RequestParams
         class Flexible < ::Stripe::RequestParams
           # Controls how invoices and invoice items display proration amounts and discount amounts.
@@ -3776,10 +3790,12 @@ module Stripe
         def initialize(iterations: nil); end
       end
       # For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
-      sig { returns(T.nilable(T.any(String, Integer))) }
+      sig {
+        returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor))
+       }
       def billing_cycle_anchor; end
       sig {
-        params(_billing_cycle_anchor: T.nilable(T.any(String, Integer))).returns(T.nilable(T.any(String, Integer)))
+        params(_billing_cycle_anchor: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor)).returns(T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor))
        }
       def billing_cycle_anchor=(_billing_cycle_anchor); end
       # Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -3888,7 +3904,7 @@ module Stripe
        }
       def trial_end=(_trial_end); end
       sig {
-        params(billing_cycle_anchor: T.nilable(T.any(String, Integer)), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause), prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
+        params(billing_cycle_anchor: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingCycleAnchor), billing_mode: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingMode), billing_schedules: T.nilable(T.any(String, T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::BillingSchedule])), cancel_at: T.nilable(T.any(String, T.any(Integer, String))), cancel_at_period_end: T.nilable(T::Boolean), cancel_now: T.nilable(T::Boolean), default_tax_rates: T.nilable(T.any(String, T::Array[String])), items: T.nilable(T::Array[::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Item]), metadata: T.nilable(T.any(String, T::Hash[String, String])), pause: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Pause), prebilling: T.nilable(::Stripe::InvoiceCreatePreviewParams::SubscriptionDetails::Prebilling), proration_behavior: T.nilable(String), proration_date: T.nilable(Integer), resume_at: T.nilable(String), start_date: T.nilable(Integer), trial_end: T.nilable(T.any(String, Integer))).void
        }
       def initialize(
         billing_cycle_anchor: nil,

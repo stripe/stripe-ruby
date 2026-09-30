@@ -11,7 +11,8 @@ module Stripe
         attr_accessor :configuration
         # Environment the resource should be created in.
         attr_accessor :environment
-        # Whether the resource should use Stripe live-mode objects. When omitted, this resolves to true.
+        # Whether the resource should use Stripe live-mode objects. When omitted, this resolves to false
+        # for a sandbox target and true otherwise. Sandbox targets cannot create live-mode resources.
         attr_accessor :livemode
         # Human-readable name for the resource.
         attr_accessor :name

@@ -21,7 +21,7 @@ module Stripe
         def currency; end
         sig { params(_currency: String).returns(String) }
         def currency=(_currency); end
-        # The type of wallet (standard or bridge_wallet).
+        # The type of crypto wallet.
         sig { returns(T.nilable(String)) }
         def type; end
         sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }

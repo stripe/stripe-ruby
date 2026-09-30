@@ -45,6 +45,8 @@ module Stripe
             attr_reader :account_number
             # The name of the bank.
             attr_reader :bank_name
+            # The SWIFT/BIC code.
+            attr_reader :bic
             # The last four digits of the account number.
             attr_reader :last4
             # The ABA routing number.
@@ -81,6 +83,8 @@ module Stripe
             attr_reader :account_number
             # The name of the bank.
             attr_reader :bank_name
+            # The SWIFT/BIC code.
+            attr_reader :bic
             # The institution number.
             attr_reader :institution_number
             # The last four digits of the account number.
@@ -102,6 +106,8 @@ module Stripe
             attr_reader :account_holder_name
             # The name of the bank.
             attr_reader :bank_name
+            # The SWIFT/BIC code.
+            attr_reader :bic
             # The country of the bank account.
             attr_reader :country
             # The full IBAN.
@@ -123,6 +129,10 @@ module Stripe
             attr_reader :account_holder_name
             # The full account number.
             attr_reader :account_number
+            # The SWIFT/BIC code.
+            attr_reader :bic
+            # The full IBAN.
+            attr_reader :iban
             # The last four digits of the account number.
             attr_reader :last4
             # The sort code.

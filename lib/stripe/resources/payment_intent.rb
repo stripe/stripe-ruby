@@ -355,7 +355,7 @@ module Stripe
     end
 
     class LastPaymentError < ::Stripe::StripeObject
-      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
+      # For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines/card#retrying-issuer-declines) if they provide one.
       attr_reader :advice_code
       # For card errors, the ID of the failed charge.
       attr_reader :charge
@@ -3670,6 +3670,8 @@ module Stripe
         attr_reader :mandate_options
         # Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
         attr_reader :network
+        # Indicates whether Stripe may synchronously request a real-time card account update for this confirmation. `if_available` allows the update; `never` opts out. Defaults to `if_available` and is omitted from the response unless explicitly set on this confirmation. This does not affect batch Card Account Updater.
+        attr_reader :request_card_account_update
         # Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
         attr_reader :request_decremental_authorization
         # Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.

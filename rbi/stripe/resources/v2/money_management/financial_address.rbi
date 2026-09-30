@@ -50,6 +50,9 @@ module Stripe
             # The name of the bank.
             sig { returns(T.nilable(String)) }
             def bank_name; end
+            # The SWIFT/BIC code.
+            sig { returns(T.nilable(String)) }
+            def bic; end
             # The last four digits of the account number.
             sig { returns(String) }
             def last4; end
@@ -87,6 +90,9 @@ module Stripe
             # The name of the bank.
             sig { returns(String) }
             def bank_name; end
+            # The SWIFT/BIC code.
+            sig { returns(T.nilable(String)) }
+            def bic; end
             # The institution number.
             sig { returns(String) }
             def institution_number; end
@@ -110,6 +116,9 @@ module Stripe
             # The name of the bank.
             sig { returns(String) }
             def bank_name; end
+            # The SWIFT/BIC code.
+            sig { returns(String) }
+            def bic; end
             # The country of the bank account.
             sig { returns(String) }
             def country; end
@@ -133,6 +142,12 @@ module Stripe
             # The full account number.
             sig { returns(T.nilable(String)) }
             def account_number; end
+            # The SWIFT/BIC code.
+            sig { returns(T.nilable(String)) }
+            def bic; end
+            # The full IBAN.
+            sig { returns(T.nilable(String)) }
+            def iban; end
             # The last four digits of the account number.
             sig { returns(String) }
             def last4; end

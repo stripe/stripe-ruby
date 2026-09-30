@@ -26,9 +26,6 @@ module Stripe
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
             def collection_options; end
-            # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink’s URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
             def refresh_url; end
@@ -60,9 +57,6 @@ module Stripe
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
             def collection_options; end
-            # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
             # The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
             sig { returns(String) }
             def refresh_url; end
@@ -94,9 +88,6 @@ module Stripe
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             sig { returns(T.nilable(CollectionOptions)) }
             def collection_options; end
-            # Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
             # The URL the user will be redirected to if the AccountLink is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new AccountLink with the same parameters used to create the original AccountLink, then redirect the user to the new AccountLink's URL so they can continue the flow. If a new AccountLink cannot be generated or the redirect fails you should display a useful error to the user. Please make sure to implement authentication before redirecting the user in case this URL is leaked to a third party.
             sig { returns(String) }
             def refresh_url; end
@@ -128,9 +119,6 @@ module Stripe
             # Specifies the requirements that Stripe collects from v2/core/accounts in the Update flow.
             sig { returns(T.nilable(CollectionOptions)) }
             def collection_options; end
-            # Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
-            sig { returns(T::Array[String]) }
-            def configurations; end
             # The URL the user will be redirected to if the Account Link is expired, has been used, or is otherwise invalid. The URL you specify should attempt to generate a new Account Link with the same parameters used to create the original Account Link, then redirect the user to the new Account Link URL so they can continue the flow. Make sure to authenticate the user before redirecting to the new Account Link, in case the URL leaks to a third party. If a new Account Link can't be generated, or if the redirect fails, you should display a useful error to the user.
             sig { returns(String) }
             def refresh_url; end
@@ -189,7 +177,7 @@ module Stripe
         # The URL at which the account can access the Stripe-hosted flow.
         sig { returns(String) }
         def url; end
-        # Hash containing usage options.
+        # Describes the Stripe-hosted flow for this Account Link, including its type and flow-specific configuration.
         sig { returns(UseCase) }
         def use_case; end
       end

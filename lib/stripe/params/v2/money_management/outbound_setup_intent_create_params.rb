@@ -5,6 +5,18 @@ module Stripe
   module V2
     module MoneyManagement
       class OutboundSetupIntentCreateParams < ::Stripe::RequestParams
+        class FromResource < ::Stripe::RequestParams
+          # The identifier of the source resource.
+          attr_accessor :id
+          # The type of the source resource.
+          attr_accessor :type
+
+          def initialize(id: nil, type: nil)
+            @id = id
+            @type = type
+          end
+        end
+
         class PayoutMethodData < ::Stripe::RequestParams
           class ApplePay < ::Stripe::RequestParams
             # The paymentData property of the Apple-provided PKPaymentToken (or ApplePayPaymentToken, for Apple Pay on the Web) as a UTF-8 encoded serialization of a JSON dictionary.
@@ -110,6 +122,8 @@ module Stripe
             @type = type
           end
         end
+        # An existing resource to use as the source for setting up outbound credentials.
+        attr_accessor :from_resource
         # If provided, the existing payout method resource to link to this setup intent.
         # Any payout_method_data provided is used to update information on this linked payout method resource.
         attr_accessor :payout_method
@@ -120,7 +134,13 @@ module Stripe
         # If not provided, defaults to payment.
         attr_accessor :usage_intent
 
-        def initialize(payout_method: nil, payout_method_data: nil, usage_intent: nil)
+        def initialize(
+          from_resource: nil,
+          payout_method: nil,
+          payout_method_data: nil,
+          usage_intent: nil
+        )
+          @from_resource = from_resource
           @payout_method = payout_method
           @payout_method_data = payout_method_data
           @usage_intent = usage_intent

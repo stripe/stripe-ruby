@@ -7,6 +7,71 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 > This changelog only covers the **public preview** releases. Each release builds on the most recent GA release; see those notes in [the GA changelog](https://github.com/stripe/stripe-ruby/blob/master/CHANGELOG.md).
 
+## <a id="20-1-0-beta-1"></a>20.1.0-beta.1 - 2026-09-30
+This release changes the pinned API version to `2026-09-30.preview`.
+
+* ⚠️ [#1947](https://github.com/stripe/stripe-ruby/pull/1947) Update generated code
+  * Add support for new resources `Radar::BillingEvaluation`, `V2::MoneyManagement::FinancialAddressCreditSimulation`, and `V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits`
+  * ⚠️ Remove support for resources `V2::FinancialAddressCreditSimulation` and `V2::FinancialAddressGeneratedMicrodeposits`
+  * Add support for `create` method on resource `Radar::BillingEvaluation`
+  * Add support for `list` method on resource `Reserve::Plan`
+  * Add support for `credit` method on resource `V2::MoneyManagement::FinancialAddressCreditSimulation`
+  * Add support for `generate_microdeposits` method on resource `V2::MoneyManagement::FinancialAddressGeneratedMicrodeposits`
+  * ⚠️ Remove support for `credit` method on resource `V2::FinancialAddressCreditSimulation`
+  * ⚠️ Remove support for `generate_microdeposits` method on resource `V2::FinancialAddressGeneratedMicrodeposits`
+  * Change `Tax::CalculationLineItem.performance_location` and `TaxCode::Requirement.performance_location` to be required
+  * Change `Account::BusinessProfile.specified_commercial_transactions_act_url` to be required
+  * Add support for `after_expiration` on `BillingPortal::SessionCreateParams` and `BillingPortal::Session`
+  * Add support for `setup_credential_usage` on `Charge::PaymentMethodDetail::Card`, `PaymentIntent::PaymentMethodOption::Card`, `PaymentIntentConfirmParams::PaymentMethodOption::Card`, `PaymentIntentCreateParams::PaymentMethodOption::Card`, `PaymentIntentUpdateParams::PaymentMethodOption::Card`, `SetupIntent::PaymentMethodOption::Card`, `SetupIntentConfirmParams::PaymentMethodOption::Card`, `SetupIntentCreateParams::PaymentMethodOption::Card`, and `SetupIntentUpdateParams::PaymentMethodOption::Card`
+  * Add support for `stored_credential_usage` on `Charge::PaymentMethodDetail::Card`, `PaymentAttemptRecord::PaymentMethodDetail::Card`, `PaymentIntent::PaymentMethodOption::Card`, `PaymentIntentConfirmParams::PaymentMethodOption::Card`, `PaymentIntentCreateParams::PaymentMethodOption::Card`, `PaymentIntentUpdateParams::PaymentMethodOption::Card`, and `PaymentRecord::PaymentMethodDetail::Card`
+  * Add support for `expires_at` on `Checkout::SessionCreateParams::PaymentMethodOption::Blik::MandateOption`, `Subscription::PaymentSetting::PaymentMethodOption::Blik::MandateOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption::Blik::MandateOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption::Blik::MandateOption`
+  * ⚠️ Remove support for `expires_after` on `Checkout::SessionCreateParams::PaymentMethodOption::Blik::MandateOption`, `Subscription::PaymentSetting::PaymentMethodOption::Blik::MandateOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption::Blik::MandateOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption::Blik::MandateOption`
+  * Add support for `payment_intent_data` on `Checkout::SessionUpdateParams`
+  * Add support for `appeal` on `Dispute::Evidence` and `DisputeUpdateParams::Evidence`
+  * Add support for `livemode` on `FxQuote`
+  * ⚠️ Remove support for `capture_method` on `PaymentIntentConfirmParams::PaymentMethodOption::Paypay`, `PaymentIntentCreateParams::PaymentMethodOption::Paypay`, and `PaymentIntentUpdateParams::PaymentMethodOption::Paypay`
+  * Add support for `active` on `ProductCatalog::TrialOfferCreateParams`, `ProductCatalog::TrialOfferListParams`, and `ProductCatalog::TrialOffer`
+  * Add support for `nickname` on `ProductCatalog::TrialOfferCreateParams` and `ProductCatalog::TrialOffer`
+  * ⚠️ Remove support for `name` on `ProductCatalog::TrialOfferCreateParams` and `ProductCatalog::TrialOffer`
+  * ⚠️ Change `ProductCatalog::TrialOffer::EndBehavior.transition` to be optional
+  * Change `Product.tax_details` to be required
+  * Add support for `status_details` on `QuotePreviewInvoice`
+  * Add support for `company_details` and `reference` on `QuotePreviewInvoice::PaymentSetting::PaymentMethodOption::Billie`
+  * Add support for `pause_schedules` on `QuotePreviewSubscriptionSchedule`
+  * Add support for `destination` on `Reserve::Hold`, `Reserve::Plan`, and `Reserve::Release`
+  * Add support for `manual_release` on `Reserve::Plan`
+  * Change `SubscriptionItem.current_trial` to be required
+  * Change `Subscription::TrialSetting::EndBehavior.billing_cycle_anchor` to be required
+  * Change `TaxCode.requirements` to be required
+  * ⚠️ Remove support for `configurations` on `V2::Core::AccountLink::UseCase::AccountOnboarding`, `V2::Core::AccountLink::UseCase::AccountUpdate`, `V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding`, and `V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate`
+  * Add support for `related_object` and `request` on `V2::Iam::ActivityLog`
+  * Add support for `account_security`, `authentication`, `scim`, `sso`, and `user_profile` on `V2::Iam::ActivityLog::Detail`
+  * Add support for `deposit_insurance_eligibility` on `V2::MoneyManagement::FinancialAccount::Storage` and `V2::MoneyManagement::FinancialAccountCreateParams::Storage`
+  * Add support for `bank_account` on `V2::MoneyManagement::FinancialAddressCreateParams` and `V2::MoneyManagement::FinancialAddress`
+  * Add support for `type` on `V2::MoneyManagement::FinancialAddress`
+  * ⚠️ Remove support for `credentials` and `currency` on `V2::MoneyManagement::FinancialAddress`
+  * ⚠️ Remove support for `level` on `V2::MoneyManagement::InboundTransfer::TransferHistory`
+  * Add support for `network_fee_details` on `V2::MoneyManagement::OutboundPaymentQuote::EstimatedFee`
+  * Add support for `archived` on `V2::MoneyManagement::PayoutMethod`
+  * ⚠️ Remove support for `archived` on `V2::MoneyManagement::PayoutMethod::BankAccount` and `V2::MoneyManagement::PayoutMethod::Card`
+  * Add support for `amount_received` on `V2::MoneyManagement::ReceivedCredit`
+  * Add support for `originating_bank_account` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * ⚠️ Remove support for `origin_type` on `V2::MoneyManagement::ReceivedCredit::BankTransfer`
+  * Add support for `identity` on `V2::Signals::AccountActivity::AccountDetail::Datum`, `V2::Signals::AccountActivityCreateParams::AccountDetail::Data`, `V2::Signals::AccountEvaluation::AccountDetail::Datum`, and `V2::Signals::AccountEvaluationCreateParams::AccountDetail::Data`
+  * Add support for `fraudulent_website` on `V2::Signals::AccountEvaluation::EvaluatedSignal` and `V2::Signals::AccountSignal`
+  * Add support for `fraudulent_merchant` on `V2::Signals::AccountSignal`
+  * ⚠️ Remove support for `created_gt`, `created_gte`, `created_lt`, and `created_lte` on `V2::MoneyManagement::AdjustmentListParams`, `V2::MoneyManagement::InboundTransferListParams`, `V2::MoneyManagement::ReceivedCreditListParams`, `V2::MoneyManagement::TransactionEntryListParams`, and `V2::MoneyManagement::TransactionListParams`
+  * ⚠️ Change type of `V2::MoneyManagement::AdjustmentListParams.created`, `V2::MoneyManagement::InboundTransferListParams.created`, `V2::MoneyManagement::ReceivedCreditListParams.created`, `V2::MoneyManagement::TransactionEntryListParams.created`, and `V2::MoneyManagement::TransactionListParams.created` from `DateTime` to `an object`
+  * ⚠️ Remove support for `include` on `V2::MoneyManagement::FinancialAddressListParams` and `V2::MoneyManagement::FinancialAddressRetrieveParams`
+  * Add support for `settlement_currency` on `V2::MoneyManagement::FinancialAddressCreateParams`
+  * Add support for `include` on `V2::MoneyManagement::FinancialAccountListParams` and `V2::MoneyManagement::FinancialAccountRetrieveParams`
+  * Add support for `treasury_transaction` on `EventsV2MoneyManagementTransactionUpdatedEvent`
+  * Add support for event notifications `V2SignalsAccountSignalFraudulentMerchantReadyEvent` and `V2SignalsAccountSignalFraudulentWebsiteReadyEvent` with related object `V2::Signals::AccountSignal`
+  * Add support for error types `InvalidVaultedCredentialError`, `VerificationAttemptFailedError`, `VerificationExpiredError`, and `VerificationNotInitiatedError`
+  * ⚠️ Remove support for error type `ControlledByDashboardError`
+* [#1984](https://github.com/stripe/stripe-ruby/pull/1984) Update generated code
+  * Release specs are identical.
+
 ## <a id="19-7-0-beta-1"></a>19.7.0-beta.1 - 2026-08-26
 This release changes the pinned API version to `2026-08-26.preview`.
 
@@ -490,6 +555,7 @@ This release changes the pinned API version to `2025-06-30.preview`.
 This release changes the pinned API version to `2025-05-28.preview`.
 
 * [#1599](https://github.com/stripe/stripe-ruby/pull/1599) Update generated code for beta
+
   ### Breaking changes
   * Remove support for deprecated previews
     * Remove support for resources `Billing::MeterErrorReport`, `GiftCards::Card`, `GiftCards::Transaction`, and `Privacy::RedactionJobRootObjects`
@@ -529,6 +595,7 @@ This release changes the pinned API version to `2025-05-28.preview`.
 This release changes the pinned API version to `2025-04-30.preview`.
 
 * [#1589](https://github.com/stripe/stripe-ruby/pull/1589) Update generated code for beta
+
   This release changes the pinned API version to `2025-04-30.preview`.
 
   * Add support for `billing_mode` on `Checkout::Session::CreateParams::SubscriptionDatum`, `Invoice::CreatePreviewParams::ScheduleDetail`, `Invoice::CreatePreviewParams::SubscriptionDetail`, `Quote::CreateParams::SubscriptionDatum`, `Quote::SubscriptionDatum`, `QuotePreviewSubscriptionSchedule`, `Subscription::CreateParams`, `SubscriptionSchedule::CreateParams`, `SubscriptionSchedule`, and `Subscription`
@@ -560,6 +627,7 @@ This release changes the pinned API version to `2025-04-30.preview`.
 * [#1572](https://github.com/stripe/stripe-ruby/pull/1572) Handle external_account field
   - Changes `external_account` field in `external_accounts.create` from a `string` to a union type.
 * [#1569](https://github.com/stripe/stripe-ruby/pull/1569) Update generated code for beta
+
   ### Breaking changes
   * Change type of `V2MoneyManagementReceivedDebit.status_transitions` from `an object` to `nullable(an object)`
 
@@ -580,6 +648,7 @@ This release changes the pinned API version to `2025-03-31.preview`.
 * [#1557](https://github.com/stripe/stripe-ruby/pull/1557) Update Stripe.add_beta_version
   * `stripe.add_beta_version` will use the highest version number used for a beta feature instead of raising an `Error` on a conflict as it had done previously.
 * [#1563](https://github.com/stripe/stripe-ruby/pull/1563) , [#1558](https://github.com/stripe/stripe-ruby/pull/1558), [#1547](https://github.com/stripe/stripe-ruby/pull/1547) Update generated code for beta
+
   This release changes the pinned API version to `2025-03-31.preview`
 
   ### Breaking changes
@@ -792,6 +861,7 @@ This release changes the pinned API version to `2024-04-10`.
 ## <a id="10-12-0-beta-1"></a>10.12.0-beta.1 - 2024-02-29
 * [#1343](https://github.com/stripe/stripe-ruby/pull/1343) Add a helper to add a beta version
 * [#1352](https://github.com/stripe/stripe-ruby/pull/1352) Update generated code for beta
+
   Release specs are identical.
 * [#1350](https://github.com/stripe/stripe-ruby/pull/1350) Update generated code for beta
 * [#1341](https://github.com/stripe/stripe-ruby/pull/1341) Update generated code for beta
@@ -924,6 +994,7 @@ This release changes the pinned API version to `2023-08-16`.
 ## <a id="8-7-0-beta-1"></a>8.7.0-beta.1 - 2023-07-13
 * [#1239](https://github.com/stripe/stripe-ruby/pull/1239) Update generated code for beta
 * [#1245](https://github.com/stripe/stripe-ruby/pull/1245) Update generated code for beta
+
   Release specs are identical.
 * [#1243](https://github.com/stripe/stripe-ruby/pull/1243) Update generated code for beta
   - Add support for new resource `PaymentMethodConfiguration`

@@ -5,6 +5,140 @@ Instead, edit a corresponding `.change.md` file and run `hark build`.
 
 # Changelog
 
+## <a id="20-0-0"></a>20.0.0 - 2026-09-30
+This release changes the pinned API version to `2026-09-30.endive`.
+
+* [#1964](https://github.com/stripe/stripe-ruby/pull/1964) Support `EventNotification`s with singleton related objects
+* [#1968](https://github.com/stripe/stripe-ruby/pull/1968) Allow suppressing Stripe notices
+
+  Set the `STRIPE_SUPPRESS_NOTICES` environment variable to `true` to suppress Stripe notices in test and sandbox environments when not running under a detected AI agent. Notices remain enabled by default and continue to be shown to AI agents.
+* [#1969](https://github.com/stripe/stripe-ruby/pull/1969) Fix account scoping for event notification handler callback clients
+  - Fix callback clients to use the event's Stripe context and preserve the original client's non-account configuration.
+  - Fix API errors when using an event notification handler with a client configured with a Stripe account.
+* ⚠️ [#1971](https://github.com/stripe/stripe-ruby/pull/1971) Rename `Stripe::Reversal` to `Stripe::TransferReversal`
+  - Rename the `Stripe::Reversal` resource class to `Stripe::TransferReversal`. Update references and Sorbet type annotations to use `Stripe::TransferReversal`.
+* ⚠️ Drop support for Ruby 2.7
+* ⚠️ [#1958](https://github.com/stripe/stripe-ruby/pull/1958) Update generated code
+  * Add support for new resources `Apps::Install`, `ProductCatalog::TrialOffer`, `Tax::Location`, and `ThreeDSecure::Authentication`
+  * Add support for `create`, `list`, `retrieve`, `uninstall`, and `update` methods on resource `Apps::Install`
+  * Add support for `create`, `list`, `retrieve`, and `update` methods on resource `ProductCatalog::TrialOffer`
+  * Add support for `create`, `list`, and `retrieve` methods on resource `Tax::Location`
+  * Add support for `cancel`, `create`, `list`, `retrieve`, and `submit` methods on resource `ThreeDSecure::Authentication`
+  * Add support for `pause` method on resource `Subscription`
+  * Add support for `performance_location` on `Tax::CalculationCreateParams::LineItem` and `Tax::CalculationLineItem`
+  * Add support for `destination` on `Reserve::Hold`, `Reserve::Plan`, and `Reserve::Release`
+  * Add support for `manual_release` on `Reserve::Plan`
+  * Add support for `specified_commercial_transactions_act_url` on `Account::BusinessProfile`, `AccountCreateParams::BusinessProfile`, and `AccountUpdateParams::BusinessProfile`
+  * Add support for `blik_recurring_payments` and `sequra_payments` on `Account::Capability`, `AccountCreateParams::Capability`, `AccountUpdateParams::Capability`, `V2::Core::Account::Configuration::Merchant::Capability`, `V2::Core::AccountCreateParams::Configuration::Merchant::Capability`, and `V2::Core::AccountUpdateParams::Configuration::Merchant::Capability`
+  * Add support for `paypay_payments` on `Account::Capability`, `Account::Setting`, `AccountCreateParams::Capability`, `AccountCreateParams::Setting`, `AccountUpdateParams::Capability`, and `AccountUpdateParams::Setting`
+  * Add support for `sepa_debit_payments` on `AccountCreateParams::Setting`, `V2::Core::AccountCreateParams::Configuration::Merchant`, and `V2::Core::AccountUpdateParams::Configuration::Merchant`
+  * Add support for `paypay` on `Charge::PaymentMethodDetail`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
+  * Add support for `sequra` on `Charge::PaymentMethodDetail`, `Checkout::Session::PaymentMethodOption`, `Checkout::SessionCreateParams::PaymentMethodOption`, `ConfirmationToken::PaymentMethodPreview`, `ConfirmationTokenCreateParams::PaymentMethodDatum`, `PaymentAttemptRecord::PaymentMethodDetail`, `PaymentIntent::PaymentMethodOption`, `PaymentIntentConfirmParams::PaymentMethodDatum`, `PaymentIntentConfirmParams::PaymentMethodOption`, `PaymentIntentCreateParams::PaymentMethodDatum`, `PaymentIntentCreateParams::PaymentMethodOption`, `PaymentIntentUpdateParams::PaymentMethodDatum`, `PaymentIntentUpdateParams::PaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationUpdateParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethod`, `PaymentRecord::PaymentMethodDetail`, `SetupIntentConfirmParams::PaymentMethodDatum`, `SetupIntentCreateParams::PaymentMethodDatum`, and `SetupIntentUpdateParams::PaymentMethodDatum`
+  * Add support for `electronic_commerce_indicator` on `Charge::PaymentMethodDetail::Card`
+  * Change type of `Charge::PaymentMethodDetail::Card.mandate` from `string` to `expandable($Mandate)`
+  * Add support for `allowed_payment_method_types` on `Checkout::SessionCreateParams` and `Checkout::Session`
+  * ⚠️ Remove support for `payment_method_types` on `Checkout::SessionCreateParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentUpdateParams`, `SetupIntentCreateParams`, and `SetupIntentUpdateParams`
+  * Add support for `tax_details` on `Checkout::SessionCreateParams::LineItem::PriceDatum::ProductDatum`, `Checkout::SessionUpdateParams::LineItem::PriceDatum::ProductDatum`, `InvoiceAddLinesParams::Line::PriceDatum::ProductDatum`, `InvoiceLineItemUpdateParams::PriceDatum::ProductDatum`, `InvoiceUpdateLinesParams::Line::PriceDatum::ProductDatum`, `PaymentLinkCreateParams::LineItem::PriceDatum::ProductDatum`, `PlanCreateParams::Product`, `PriceCreateParams::ProductDatum`, `ProductCreateParams`, `ProductUpdateParams`, and `Product`
+  * Add support for `blik` on `Checkout::SessionCreateParams::PaymentMethodOption`, `Invoice::PaymentSetting::PaymentMethodOption`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption`, `Mandate::PaymentMethodDetail`, `SetupAttempt::PaymentMethodDetail`, `SetupIntent::PaymentMethodOption`, `SetupIntentConfirmParams::PaymentMethodOption`, `SetupIntentCreateParams::PaymentMethodOption`, `SetupIntentUpdateParams::PaymentMethodOption`, `Subscription::PaymentSetting::PaymentMethodOption`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption`
+  * Change type of `Checkout::SessionCreateParams::PaymentMethodOption::Bancontact.setup_future_usage`, `PaymentIntentConfirmParams::PaymentMethodOption::Blik.setup_future_usage`, `PaymentIntentCreateParams::PaymentMethodOption::Blik.setup_future_usage`, and `PaymentIntentUpdateParams::PaymentMethodOption::Blik.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * ⚠️ Change type of `Checkout::Session::PaymentMethodOption::Bancontact.setup_future_usage` and `PaymentIntent::PaymentMethodOption::Blik.setup_future_usage` from `literal('none')` to `enum('none'|'off_session')`
+  * Add support for `country` on `FinancialConnections::SessionCreateParams::Filter`
+  * ⚠️ Remove support for `countries` on `FinancialConnections::Session::Filter` and `FinancialConnections::SessionCreateParams::Filter`
+  * Add support for `invoicing_rules` on `InvoiceItemUpdateParams` and `InvoiceItem`
+  * Add support for `company_details` on `Invoice::PaymentSetting::PaymentMethodOption::Billie`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption::Billie`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption::Billie`, `PaymentIntent::PaymentMethodOption::Billie`, `PaymentIntentConfirmParams::PaymentMethodOption::Billie`, `PaymentIntentCreateParams::PaymentMethodOption::Billie`, `PaymentIntentUpdateParams::PaymentMethodOption::Billie`, `Subscription::PaymentSetting::PaymentMethodOption::Billie`, `SubscriptionCreateParams::PaymentSetting::PaymentMethodOption::Billie`, and `SubscriptionUpdateParams::PaymentSetting::PaymentMethodOption::Billie`
+  * Add support for `reference` on `Invoice::PaymentSetting::PaymentMethodOption::Billie`, `InvoiceCreateParams::PaymentSetting::PaymentMethodOption::Billie`, `InvoiceUpdateParams::PaymentSetting::PaymentMethodOption::Billie`, `PaymentIntent::PaymentMethodOption::Billie`, `PaymentIntentConfirmParams::PaymentMethodOption::Billie`, `PaymentIntentCreateParams::PaymentMethodOption::Billie`, and `PaymentIntentUpdateParams::PaymentMethodOption::Billie`
+  * Add support for `pause` on `InvoiceCreatePreviewParams::SubscriptionDetail`
+  * ⚠️ Change type of `InvoiceCreatePreviewParams::SubscriptionDetail.billing_cycle_anchor` from `enum('now'|'unchanged') | DateTime` to `billing_cycle_anchor_param`
+  * Add support for `current_trial` on `InvoiceCreatePreviewParams::SubscriptionDetail::Item`, `SubscriptionCreateParams::Item`, `SubscriptionItemCreateParams`, `SubscriptionItemUpdateParams`, `SubscriptionItem`, and `SubscriptionUpdateParams::Item`
+  * Add support for `status_details` on `Invoice` and `Subscription`
+  * Add support for `india` on `Mandate::PaymentMethodDetail::Card`
+  * Add support for `momo` on `PaymentAttemptRecord::PaymentMethodDetail` and `PaymentRecord::PaymentMethodDetail`
+  * Add support for `link` on `PaymentAttemptRecord::PaymentMethodDetail::Card::Wallet` and `PaymentRecord::PaymentMethodDetail::Card::Wallet`
+  * Add support for `funding_source_group` on `PaymentAttemptRecord::PaymentMethodDetail::Link` and `PaymentRecord::PaymentMethodDetail::Link`
+  * Add support for `mandate_options` on `PaymentIntent::PaymentMethodOption::Blik`, `PaymentIntentConfirmParams::PaymentMethodOption::Blik`, `PaymentIntentCreateParams::PaymentMethodOption::Blik`, and `PaymentIntentUpdateParams::PaymentMethodOption::Blik`
+  * Add support for `payment_record` on `PaymentIntent`
+  * Add support for `expires_at` on `PaymentIntent::NextAction::SwishHandleRedirectOrDisplayQrCode::QrCode`
+  * ⚠️ Remove support for `payto` on `PaymentMethodUpdateParams`
+  * Add support for `canceled` on `PaymentRecordReportPaymentAttemptParams` and `PaymentRecordReportPaymentParams`
+  * Add support for `early_fraud_warning` and `fraudulent_dispute` on `Radar::PaymentEvaluation::Signal`
+  * ⚠️ Change type of `Radar::PaymentEvaluation::Signal::FraudulentPayment.score` from `number` to `nullable(number)`
+  * Add support for `pause_schedules` on `SubscriptionScheduleCreateParams`, `SubscriptionScheduleUpdateParams`, and `SubscriptionSchedule`
+  * ⚠️ Change type of `SubscriptionResumeParams.billing_cycle_anchor` and `SubscriptionUpdateParams.billing_cycle_anchor` from `enum('now'|'unchanged')` to `billing_cycle_anchor_param`
+  * Add support for `billing_cycle_anchor` on `Subscription::TrialSetting::EndBehavior`, `SubscriptionCreateParams::TrialSetting::EndBehavior`, and `SubscriptionUpdateParams::TrialSetting::EndBehavior`
+  * Change `SubscriptionCreateParams::TrialSetting::EndBehavior.missing_payment_method` and `SubscriptionUpdateParams::TrialSetting::EndBehavior.missing_payment_method` to be optional
+  * Add support for `payment_behavior` on `SubscriptionResumeParams`
+  * Add support for `cancel_at_period_end` on `Subscription::PendingUpdate`
+  * ⚠️ Remove support for `igic` on `Tax::Registration::CountryOption::At`, `Tax::Registration::CountryOption::Be`, `Tax::Registration::CountryOption::Bg`, `Tax::Registration::CountryOption::Cy`, `Tax::Registration::CountryOption::Cz`, `Tax::Registration::CountryOption::De`, `Tax::Registration::CountryOption::Dk`, `Tax::Registration::CountryOption::E`, `Tax::Registration::CountryOption::Ee`, `Tax::Registration::CountryOption::Fi`, `Tax::Registration::CountryOption::Fr`, `Tax::Registration::CountryOption::Gr`, `Tax::Registration::CountryOption::Hr`, `Tax::Registration::CountryOption::Hu`, `Tax::Registration::CountryOption::Ie`, `Tax::Registration::CountryOption::It`, `Tax::Registration::CountryOption::Lt`, `Tax::Registration::CountryOption::Lu`, `Tax::Registration::CountryOption::Lv`, `Tax::Registration::CountryOption::Mt`, `Tax::Registration::CountryOption::Nl`, `Tax::Registration::CountryOption::Pl`, `Tax::Registration::CountryOption::Pt`, `Tax::Registration::CountryOption::Ro`, `Tax::Registration::CountryOption::Se`, `Tax::Registration::CountryOption::Si`, `Tax::Registration::CountryOption::Sk`, `Tax::RegistrationCreateParams::CountryOption::At`, `Tax::RegistrationCreateParams::CountryOption::Be`, `Tax::RegistrationCreateParams::CountryOption::Bg`, `Tax::RegistrationCreateParams::CountryOption::Cy`, `Tax::RegistrationCreateParams::CountryOption::Cz`, `Tax::RegistrationCreateParams::CountryOption::De`, `Tax::RegistrationCreateParams::CountryOption::Dk`, `Tax::RegistrationCreateParams::CountryOption::E`, `Tax::RegistrationCreateParams::CountryOption::Ee`, `Tax::RegistrationCreateParams::CountryOption::Fi`, `Tax::RegistrationCreateParams::CountryOption::Fr`, `Tax::RegistrationCreateParams::CountryOption::Gr`, `Tax::RegistrationCreateParams::CountryOption::Hr`, `Tax::RegistrationCreateParams::CountryOption::Hu`, `Tax::RegistrationCreateParams::CountryOption::Ie`, `Tax::RegistrationCreateParams::CountryOption::It`, `Tax::RegistrationCreateParams::CountryOption::Lt`, `Tax::RegistrationCreateParams::CountryOption::Lu`, `Tax::RegistrationCreateParams::CountryOption::Lv`, `Tax::RegistrationCreateParams::CountryOption::Mt`, `Tax::RegistrationCreateParams::CountryOption::Nl`, `Tax::RegistrationCreateParams::CountryOption::Pl`, `Tax::RegistrationCreateParams::CountryOption::Pt`, `Tax::RegistrationCreateParams::CountryOption::Ro`, `Tax::RegistrationCreateParams::CountryOption::Se`, `Tax::RegistrationCreateParams::CountryOption::Si`, and `Tax::RegistrationCreateParams::CountryOption::Sk`
+  * Add support for `admissions_tax`, `attendance_tax`, `entertainment_tax`, `gross_receipts_tax`, `hospitality_tax`, `luxury_tax`, `resort_tax`, and `tourism_tax` on `Tax::Registration::CountryOption::Me` and `Tax::RegistrationCreateParams::CountryOption::Me`
+  * Add support for `requirements` on `TaxCode`
+  * ⚠️ Remove support for `configurations` on `V2::Core::AccountLink::UseCase::AccountOnboarding`, `V2::Core::AccountLink::UseCase::AccountUpdate`, `V2::Core::AccountLinkCreateParams::UseCase::AccountOnboarding`, and `V2::Core::AccountLinkCreateParams::UseCase::AccountUpdate`
+  * Add support for `satispay_payments` on `V2::Core::Account::Configuration::Merchant::Capability`, `V2::Core::AccountCreateParams::Configuration::Merchant::Capability`, and `V2::Core::AccountUpdateParams::Configuration::Merchant::Capability`
+  * Add support for `snapshot_event` on `V2::Core::Event`
+  * Add support for event notifications `V1AccountApplicationAuthorizedEvent`, `V1AccountApplicationDeauthorizedEvent`, `V1AccountExternalAccountCreatedEvent`, `V1AccountExternalAccountDeletedEvent`, `V1AccountExternalAccountUpdatedEvent`, `V1BillingPortalSessionCreatedEvent`, and `V1EntitlementsActiveEntitlementSummaryUpdatedEvent`
+  * Add support for event notification `V1AccountUpdatedEvent` with related object `Account`
+  * Add support for event notifications `V1ApplicationFeeCreatedEvent` and `V1ApplicationFeeRefundedEvent` with related object `ApplicationFee`
+  * Add support for event notification `V1ApplicationFeeRefundUpdatedEvent` with related object `ApplicationFeeRefund`
+  * Add support for event notification `V1BalanceAvailableEvent` with related object `Balance`
+  * Add support for event notification `V1BalanceSettingsUpdatedEvent` with related object `BalanceSettings`
+  * Add support for event notification `V1BillingAlertTriggeredEvent` with related object `Billing::Alert`
+  * Add support for event notification `V1BillingCreditBalanceTransactionCreatedEvent` with related object `Billing::CreditBalanceTransaction`
+  * Add support for event notifications `V1BillingCreditGrantCreatedEvent` and `V1BillingCreditGrantUpdatedEvent` with related object `Billing::CreditGrant`
+  * Add support for event notifications `V1BillingMeterCreatedEvent`, `V1BillingMeterDeactivatedEvent`, `V1BillingMeterReactivatedEvent`, and `V1BillingMeterUpdatedEvent` with related object `Billing::Meter`
+  * Add support for event notifications `V1BillingPortalConfigurationCreatedEvent` and `V1BillingPortalConfigurationUpdatedEvent` with related object `BillingPortal::Configuration`
+  * Add support for event notification `V1CapabilityUpdatedEvent` with related object `Capability`
+  * Add support for event notification `V1CashBalanceFundsAvailableEvent` with related object `CashBalance`
+  * Add support for event notifications `V1ChargeCapturedEvent`, `V1ChargeExpiredEvent`, `V1ChargeFailedEvent`, `V1ChargePendingEvent`, `V1ChargeRefundedEvent`, `V1ChargeSucceededEvent`, and `V1ChargeUpdatedEvent` with related object `Charge`
+  * Add support for event notifications `V1ChargeDisputeClosedEvent`, `V1ChargeDisputeCreatedEvent`, `V1ChargeDisputeFundsReinstatedEvent`, `V1ChargeDisputeFundsWithdrawnEvent`, and `V1ChargeDisputeUpdatedEvent` with related object `Dispute`
+  * Add support for event notifications `V1ChargeRefundUpdatedEvent`, `V1RefundCreatedEvent`, `V1RefundFailedEvent`, and `V1RefundUpdatedEvent` with related object `Refund`
+  * Add support for event notifications `V1CheckoutSessionAsyncPaymentFailedEvent`, `V1CheckoutSessionAsyncPaymentSucceededEvent`, `V1CheckoutSessionCompletedEvent`, and `V1CheckoutSessionExpiredEvent` with related object `Checkout::Session`
+  * Add support for event notifications `V1ClimateOrderCanceledEvent`, `V1ClimateOrderCreatedEvent`, `V1ClimateOrderDelayedEvent`, `V1ClimateOrderDeliveredEvent`, and `V1ClimateOrderProductSubstitutedEvent` with related object `Climate::Order`
+  * Add support for event notifications `V1ClimateProductCreatedEvent` and `V1ClimateProductPricingUpdatedEvent` with related object `Climate::Product`
+  * Add support for event notifications `V1CouponCreatedEvent`, `V1CouponDeletedEvent`, and `V1CouponUpdatedEvent` with related object `Coupon`
+  * Add support for event notifications `V1CreditNoteCreatedEvent`, `V1CreditNoteUpdatedEvent`, and `V1CreditNoteVoidedEvent` with related object `CreditNote`
+  * Add support for event notifications `V1CustomerCreatedEvent`, `V1CustomerDeletedEvent`, and `V1CustomerUpdatedEvent` with related object `Customer`
+  * Add support for event notifications `V1CustomerDiscountCreatedEvent`, `V1CustomerDiscountDeletedEvent`, and `V1CustomerDiscountUpdatedEvent` with related object `Discount`
+  * Add support for event notifications `V1CustomerSubscriptionCreatedEvent`, `V1CustomerSubscriptionDeletedEvent`, `V1CustomerSubscriptionPausedEvent`, `V1CustomerSubscriptionPendingUpdateAppliedEvent`, `V1CustomerSubscriptionPendingUpdateExpiredEvent`, `V1CustomerSubscriptionResumedEvent`, `V1CustomerSubscriptionTrialWillEndEvent`, and `V1CustomerSubscriptionUpdatedEvent` with related object `Subscription`
+  * Add support for event notifications `V1CustomerTaxIdCreatedEvent`, `V1CustomerTaxIdDeletedEvent`, and `V1CustomerTaxIdUpdatedEvent` with related object `TaxId`
+  * Add support for event notification `V1CustomerCashBalanceTransactionCreatedEvent` with related object `CustomerCashBalanceTransaction`
+  * Add support for event notification `V1FileCreatedEvent` with related object `File`
+  * Add support for event notifications `V1FinancialConnectionsAccountAccountNumbersUpdatedEvent`, `V1FinancialConnectionsAccountCreatedEvent`, `V1FinancialConnectionsAccountDeactivatedEvent`, `V1FinancialConnectionsAccountDisconnectedEvent`, `V1FinancialConnectionsAccountExpectedDeactivationDateUpdatedEvent`, `V1FinancialConnectionsAccountReactivatedEvent`, `V1FinancialConnectionsAccountRefreshedBalanceEvent`, `V1FinancialConnectionsAccountRefreshedOwnershipEvent`, `V1FinancialConnectionsAccountRefreshedTransactionsEvent`, `V1FinancialConnectionsAccountSupportedPaymentMethodTypesUpdatedEvent`, `V1FinancialConnectionsAccountUpcomingAccountNumberExpiryEvent`, and `V1FinancialConnectionsAccountUpcomingDeactivationEvent` with related object `FinancialConnections::Account`
+  * Add support for event notifications `V1IdentityVerificationSessionCanceledEvent`, `V1IdentityVerificationSessionCreatedEvent`, `V1IdentityVerificationSessionProcessingEvent`, `V1IdentityVerificationSessionRedactedEvent`, `V1IdentityVerificationSessionRequiresInputEvent`, and `V1IdentityVerificationSessionVerifiedEvent` with related object `Identity::VerificationSession`
+  * Add support for event notifications `V1InvoiceCreatedEvent`, `V1InvoiceDeletedEvent`, `V1InvoiceFinalizationFailedEvent`, `V1InvoiceFinalizedEvent`, `V1InvoiceMarkedUncollectibleEvent`, `V1InvoiceOverdueEvent`, `V1InvoiceOverpaidEvent`, `V1InvoicePaidEvent`, `V1InvoicePaymentActionRequiredEvent`, `V1InvoicePaymentAttemptRequiredEvent`, `V1InvoicePaymentFailedEvent`, `V1InvoicePaymentSucceededEvent`, `V1InvoiceSentEvent`, `V1InvoiceUpcomingEvent`, `V1InvoiceUpdatedEvent`, `V1InvoiceVoidedEvent`, and `V1InvoiceWillBeDueEvent` with related object `Invoice`
+  * Add support for event notification `V1InvoicePaymentPaidEvent` with related object `InvoicePayment`
+  * Add support for event notifications `V1InvoiceitemCreatedEvent` and `V1InvoiceitemDeletedEvent` with related object `InvoiceItem`
+  * Add support for event notifications `V1IssuingAuthorizationCreatedEvent`, `V1IssuingAuthorizationRequestEvent`, and `V1IssuingAuthorizationUpdatedEvent` with related object `Issuing::Authorization`
+  * Add support for event notifications `V1IssuingCardCreatedEvent` and `V1IssuingCardUpdatedEvent` with related object `Issuing::Card`
+  * Add support for event notifications `V1IssuingCardholderCreatedEvent` and `V1IssuingCardholderUpdatedEvent` with related object `Issuing::Cardholder`
+  * Add support for event notifications `V1IssuingDisputeClosedEvent`, `V1IssuingDisputeCreatedEvent`, `V1IssuingDisputeFundsReinstatedEvent`, `V1IssuingDisputeFundsRescindedEvent`, `V1IssuingDisputeSubmittedEvent`, and `V1IssuingDisputeUpdatedEvent` with related object `Issuing::Dispute`
+  * Add support for event notifications `V1IssuingPersonalizationDesignActivatedEvent`, `V1IssuingPersonalizationDesignDeactivatedEvent`, `V1IssuingPersonalizationDesignRejectedEvent`, and `V1IssuingPersonalizationDesignUpdatedEvent` with related object `Issuing::PersonalizationDesign`
+  * Add support for event notifications `V1IssuingTokenCreatedEvent` and `V1IssuingTokenUpdatedEvent` with related object `Issuing::Token`
+  * Add support for event notifications `V1IssuingTransactionCreatedEvent`, `V1IssuingTransactionPurchaseDetailsReceiptUpdatedEvent`, and `V1IssuingTransactionUpdatedEvent` with related object `Issuing::Transaction`
+  * Add support for event notification `V1MandateUpdatedEvent` with related object `Mandate`
+  * Add support for event notifications `V1PaymentIntentAmountCapturableUpdatedEvent`, `V1PaymentIntentCanceledEvent`, `V1PaymentIntentCreatedEvent`, `V1PaymentIntentPartiallyFundedEvent`, `V1PaymentIntentPaymentFailedEvent`, `V1PaymentIntentProcessingEvent`, `V1PaymentIntentRequiresActionEvent`, and `V1PaymentIntentSucceededEvent` with related object `PaymentIntent`
+  * Add support for event notifications `V1PaymentLinkCreatedEvent` and `V1PaymentLinkUpdatedEvent` with related object `PaymentLink`
+  * Add support for event notifications `V1PaymentMethodAttachedEvent`, `V1PaymentMethodAutomaticallyUpdatedEvent`, `V1PaymentMethodDetachedEvent`, and `V1PaymentMethodUpdatedEvent` with related object `PaymentMethod`
+  * Add support for event notifications `V1PayoutCanceledEvent`, `V1PayoutCreatedEvent`, `V1PayoutFailedEvent`, `V1PayoutPaidEvent`, `V1PayoutReconciliationCompletedEvent`, and `V1PayoutUpdatedEvent` with related object `Payout`
+  * Add support for event notifications `V1PersonCreatedEvent`, `V1PersonDeletedEvent`, and `V1PersonUpdatedEvent` with related object `Person`
+  * Add support for event notifications `V1PlanCreatedEvent`, `V1PlanDeletedEvent`, and `V1PlanUpdatedEvent` with related object `Plan`
+  * Add support for event notifications `V1PriceCreatedEvent`, `V1PriceDeletedEvent`, and `V1PriceUpdatedEvent` with related object `Price`
+  * Add support for event notifications `V1ProductCreatedEvent`, `V1ProductDeletedEvent`, and `V1ProductUpdatedEvent` with related object `Product`
+  * Add support for event notifications `V1PromotionCodeCreatedEvent` and `V1PromotionCodeUpdatedEvent` with related object `PromotionCode`
+  * Add support for event notifications `V1QuoteAcceptedEvent`, `V1QuoteCanceledEvent`, `V1QuoteCreatedEvent`, and `V1QuoteFinalizedEvent` with related object `Quote`
+  * Add support for event notifications `V1RadarEarlyFraudWarningCreatedEvent` and `V1RadarEarlyFraudWarningUpdatedEvent` with related object `Radar::EarlyFraudWarning`
+  * Add support for event notifications `V1ReviewClosedEvent` and `V1ReviewOpenedEvent` with related object `Review`
+  * Add support for event notifications `V1SetupIntentCanceledEvent`, `V1SetupIntentCreatedEvent`, `V1SetupIntentRequiresActionEvent`, `V1SetupIntentSetupFailedEvent`, and `V1SetupIntentSucceededEvent` with related object `SetupIntent`
+  * Add support for event notification `V1SigmaScheduledQueryRunCreatedEvent` with related object `Sigma::ScheduledQueryRun`
+  * Add support for event notifications `V1SourceCanceledEvent`, `V1SourceChargeableEvent`, `V1SourceFailedEvent`, and `V1SourceRefundAttributesRequiredEvent` with related object `Source`
+  * Add support for event notifications `V1SubscriptionScheduleAbortedEvent`, `V1SubscriptionScheduleCanceledEvent`, `V1SubscriptionScheduleCompletedEvent`, `V1SubscriptionScheduleCreatedEvent`, `V1SubscriptionScheduleExpiringEvent`, `V1SubscriptionScheduleReleasedEvent`, and `V1SubscriptionScheduleUpdatedEvent` with related object `SubscriptionSchedule`
+  * Add support for event notification `V1TaxSettingsUpdatedEvent` with related object `Tax::Settings`
+  * Add support for event notifications `V1TaxRateCreatedEvent` and `V1TaxRateUpdatedEvent` with related object `TaxRate`
+  * Add support for event notifications `V1TerminalReaderActionFailedEvent`, `V1TerminalReaderActionSucceededEvent`, and `V1TerminalReaderActionUpdatedEvent` with related object `Terminal::Reader`
+  * Add support for event notifications `V1TestHelpersTestClockAdvancingEvent`, `V1TestHelpersTestClockCreatedEvent`, `V1TestHelpersTestClockDeletedEvent`, `V1TestHelpersTestClockInternalFailureEvent`, and `V1TestHelpersTestClockReadyEvent` with related object `TestHelpers::TestClock`
+  * Add support for event notifications `V1TopupCanceledEvent`, `V1TopupCreatedEvent`, `V1TopupFailedEvent`, `V1TopupReversedEvent`, and `V1TopupSucceededEvent` with related object `Topup`
+  * Add support for event notifications `V1TransferCreatedEvent`, `V1TransferReversedEvent`, and `V1TransferUpdatedEvent` with related object `Transfer`
+* [#1982](https://github.com/stripe/stripe-ruby/pull/1982) Update generated code
+  * Release specs are identical.
+
 ## <a id="19-6-2"></a>19.6.2 - 2026-09-09
 * [#1959](https://github.com/stripe/stripe-ruby/pull/1959) Fix `StripeContext` hash key behavior
   - Fixes `StripeContext` value hashing so equivalent contexts work interchangeably as `Hash` and `Set` keys.
@@ -429,6 +563,7 @@ This release contains breaking changes (prefixed with ⚠️ below)
     * For example, `Stripe::Customer.address` is deserialized to specific a `Stripe::Customer::Address` class instead of the generic `Stripe::StripeObject`, as is suggested by the static type annotations
     * This should not affect any normal use cases of the SDK, as inner types remain children of `Stripe::StripeObject`
 * ⚠️ [#1650](https://github.com/stripe/stripe-ruby/pull/1650) Add strongly typed EventNotifications
+
   We've overhauled how V2 Events are handled in the SDK! This approach should provide a lot more information at authoring and compile time, leading to more robust integrations. As part of this process, there are a number of changes to be aware of.
   - Added matching `EventNotification` classes to every v2 `Event`
     - For example, there's now a `V1BillingMeterErrorReportTriggeredEventNotification` to match the existing `V1BillingMeterErrorReportTriggeredEvent`
@@ -639,6 +774,7 @@ This release changes the pinned API version to `2025-03-31.basil`.
   ![image](https://github.com/user-attachments/assets/1b6cd994-d3ea-4f47-8487-f5c7b9ebf885)
   * See [the wiki](https://github.com/stripe/stripe-ruby/wiki/Static-Type-Annotations) for more details
 * ⚠️ [#1543](https://github.com/stripe/stripe-ruby/pull/1543) Support for APIs in the new API version 2025-03-31.basil
+
   This release changes the pinned API version to `2025-03-31.basil`.
 
   ### ⚠️ Breaking changes  due to changes in the Stripe API
@@ -733,6 +869,7 @@ This release changes the pinned API version to `2024-10-28.acacia`.
 This release changes the pinned API version to `2024-09-30.acacia`.
 
 * [#1458](https://github.com/stripe/stripe-ruby/pull/1458) Support for APIs in the new API version 2024-09-30.acacia
+
   This release changes the pinned API version to `2024-09-30.acacia`. Please read the [API Changelog](https://docs.stripe.com/changelog/acacia#2024-09-30.acacia) and carefully review the API changes before upgrading.
 
   ### ⚠️ Breaking changes
@@ -844,6 +981,7 @@ This release changes the pinned API version to `2024-06-20`.
 
 * [#1418](https://github.com/stripe/stripe-ruby/pull/1418) Add missing static method for verify on BankAccount
 * [#1419](https://github.com/stripe/stripe-ruby/pull/1419) Please read the [API Changelog](https://docs.stripe.com/changelog/2024-06-20) and carefully review the API changes before upgrading.
+
   ### Additions
 
   * Add support for `finalize_amount` test helper method on resource `Issuing.Authorization`
@@ -1030,6 +1168,7 @@ This release changes the pinned API version to `2023-08-16`.
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
 
 * [#1253](https://github.com/stripe/stripe-ruby/pull/1253) [#1260](https://github.com/stripe/stripe-ruby/pull/1260) Pin latest API version as the default
+
   In this release, Stripe API Version `2023-08-16` (the latest at time of release) will be sent by default on all requests. This is a significant change with wide ramifications. The API version affects the properties you see on responses, the parameters you are allowed to send on requests, and so on. The previous default was to use your [Stripe account's default API version](https://stripe.com/docs/development/dashboard/request-logs#view-your-default-api-version).
 
   To successfully upgrade to stripe-ruby v9, you must either
@@ -1059,6 +1198,7 @@ This release changes the pinned API version to `2023-08-16`.
 
 ## <a id="8-7-0"></a>8.7.0 - 2023-08-10
 * [#1256](https://github.com/stripe/stripe-ruby/pull/1256) Update generated code
+
   Add resources `Tax::CalculationLineItem`, `Tax::TransactionLineItem`, and `Treasury::FinancialAccountFeatures`. These resources have no methods on them, but do represent the return type of methods elsewhere.
 
 ## <a id="8-6-0"></a>8.6.0 - 2023-07-13
@@ -1071,6 +1211,7 @@ This release changes the pinned API version to `2023-08-16`.
 * [#1208](https://github.com/stripe/stripe-ruby/pull/1208) Update generated code
 * [#1215](https://github.com/stripe/stripe-ruby/pull/1215) Update generated code
 * [#1219](https://github.com/stripe/stripe-ruby/pull/1219) Update generated code
+
   Documentation updates.
 * [#1223](https://github.com/stripe/stripe-ruby/pull/1223) Update generated code
 * [#1226](https://github.com/stripe/stripe-ruby/pull/1226) Update generated code
@@ -1118,6 +1259,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ### Deprecated
 * The `save` method is deprecated. Prefer the static `update` method that doesn't require retrieval of the resource to update it.
+
   ``` ruby
   # before
   refund = Stripe::Refund.retrieve("re_123")
@@ -1130,6 +1272,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ### ⚠️ Removed
 * ⚠️ Removed deprecated `delete` method on `Subscription` resource. Please use `cancel` method instead.
+
   ```ruby
   # before
   Stripe::Subscription::delete("sub_12345")
@@ -1186,6 +1329,7 @@ Breaking changes that arose during code generation of the library that we postpo
 * [#1074](https://github.com/stripe/stripe-ruby/pull/1074) Support updating pre-release versions
 * [#1072](https://github.com/stripe/stripe-ruby/pull/1072) Trigger workflows on beta branches
 * [#1070](https://github.com/stripe/stripe-ruby/pull/1070) API Updates
+
   Switch from using meta-programing to generating explicit methods for custom methods.
 * [#1073](https://github.com/stripe/stripe-ruby/pull/1073) API Updates
   * Add support for `fund_cash_balance` test helper method on resource `Customer`
@@ -1205,6 +1349,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ## <a id="6-0-0"></a>6.0.0 - 2022-05-09
 * ⚠️ [#1056](https://github.com/stripe/stripe-ruby/pull/1056) API Updates
+
   Major version release. The [migration guide](https://github.com/stripe/stripe-ruby/wiki/Migration-Guide-for-v6) contains more information.
 
   (⚠️ = breaking changes):
@@ -1728,6 +1873,7 @@ Pull requests included in this release (cf. [#815](https://github.com/stripe/str
 
 ## <a id="3-3-1"></a>3.3.1 - 2017-08-18
 * Only parse webhook payload after verification to decrease likelihood of
+
   attack
 
 ## <a id="3-3-0"></a>3.3.0 - 2017-08-11
@@ -2068,6 +2214,7 @@ Identical to 1.56.0 above. I incorrectly cut a patch-level release.
 
 ## <a id="1-10-2"></a>1.10.2 - 2014-02-18
 * Add create_subscription on Customer resources, so you can create
+
   subscriptions without needing to retrieve the customer first (github
   issue #120)
 
@@ -2144,6 +2291,7 @@ Identical to 1.56.0 above. I incorrectly cut a patch-level release.
 
 ## <a id="1-7-4"></a>1.7.4 - 2012-10-08
 * Fix bug introduced in 1.7.3 calling API methods that take no
+
   arguments, like Stripe::Invoice#pay (github issue #42)
 
 ## <a id="1-7-3"></a>1.7.3 - 2012-09-14

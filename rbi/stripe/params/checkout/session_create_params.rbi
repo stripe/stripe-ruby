@@ -3859,6 +3859,171 @@ module Stripe
           wechat_pay: nil
         ); end
       end
+      class PaymentSettings < ::Stripe::RequestParams
+        class ApplicationFeeData < ::Stripe::RequestParams
+          # The amount of the application fee, in the currency's smallest unit, to apply to the initial payment and transfer to the application owner's Stripe account. The application fee is capped at the total amount captured.
+          sig { returns(T.nilable(Integer)) }
+          def initial_amount; end
+          sig { params(_initial_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+          def initial_amount=(_initial_amount); end
+          # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the application owner's Stripe account.
+          sig { returns(T.nilable(BigDecimal)) }
+          def percentage_decimal; end
+          sig { params(_percentage_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal)) }
+          def percentage_decimal=(_percentage_decimal); end
+          sig {
+            params(initial_amount: T.nilable(Integer), percentage_decimal: T.nilable(BigDecimal)).void
+           }
+          def initialize(initial_amount: nil, percentage_decimal: nil); end
+          def self.field_encodings
+            @field_encodings = {percentage_decimal: :decimal_string}
+          end
+        end
+        class TransferData < ::Stripe::RequestParams
+          class TransferAmount < ::Stripe::RequestParams
+            # The amount, in the currency's smallest unit, that will be transferred to the destination account when the initial payment succeeds.
+            sig { returns(T.nilable(Integer)) }
+            def initial_amount; end
+            sig { params(_initial_amount: T.nilable(Integer)).returns(T.nilable(Integer)) }
+            def initial_amount=(_initial_amount); end
+            # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the destination account.
+            sig { returns(T.nilable(BigDecimal)) }
+            def percentage_decimal; end
+            sig {
+              params(_percentage_decimal: T.nilable(BigDecimal)).returns(T.nilable(BigDecimal))
+             }
+            def percentage_decimal=(_percentage_decimal); end
+            sig {
+              params(initial_amount: T.nilable(Integer), percentage_decimal: T.nilable(BigDecimal)).void
+             }
+            def initialize(initial_amount: nil, percentage_decimal: nil); end
+            def self.field_encodings
+              @field_encodings = {percentage_decimal: :decimal_string}
+            end
+          end
+          # If specified, successful charges will be attributed to the destination
+          # account for tax reporting, and the funds from charges will be transferred
+          # to the destination account. The ID of the resulting transfer will be
+          # returned on the successful charge's `transfer` field.
+          sig { returns(String) }
+          def destination; end
+          sig { params(_destination: String).returns(String) }
+          def destination=(_destination); end
+          # Configures how much of each payment is transferred to the destination account. If omitted, the entire amount is transferred.
+          sig {
+            returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData::TransferAmount))
+           }
+          def transfer_amount; end
+          sig {
+            params(_transfer_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData::TransferAmount)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData::TransferAmount))
+           }
+          def transfer_amount=(_transfer_amount); end
+          sig {
+            params(destination: String, transfer_amount: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData::TransferAmount)).void
+           }
+          def initialize(destination: nil, transfer_amount: nil); end
+          def self.field_encodings
+            @field_encodings = {
+              transfer_amount: {kind: :object, fields: {percentage_decimal: :decimal_string}},
+            }
+          end
+        end
+        # Configures an application fee transferred to the application owner's Stripe account.
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::ApplicationFeeData))
+         }
+        def application_fee_data; end
+        sig {
+          params(_application_fee_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::ApplicationFeeData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::ApplicationFeeData))
+         }
+        def application_fee_data=(_application_fee_data); end
+        # Controls when the funds will be captured from the customer's account.
+        sig { returns(T.nilable(String)) }
+        def capture_method; end
+        sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
+        def capture_method=(_capture_method); end
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        sig { returns(T.nilable(String)) }
+        def description; end
+        sig { params(_description: T.nilable(String)).returns(T.nilable(String)) }
+        def description=(_description); end
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        sig { returns(T.nilable(T::Hash[String, String])) }
+        def metadata; end
+        sig {
+          params(_metadata: T.nilable(T::Hash[String, String])).returns(T.nilable(T::Hash[String, String]))
+         }
+        def metadata=(_metadata); end
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
+        # method collected by this Checkout Session.
+        #
+        # When setting this to `on_session`, Checkout will show a notice to the
+        # customer that their payment details will be saved.
+        #
+        # When setting this to `off_session`, Checkout will show a notice to the
+        # customer that their payment details will be saved and used for future
+        # payments.
+        #
+        # If a Customer has been provided or Checkout creates a new Customer,
+        # Checkout will attach the payment method to the Customer.
+        #
+        # If Checkout does not create a Customer, the payment method is not attached
+        # to a Customer. To reuse the payment method, you can retrieve it from the
+        # Checkout Session's PaymentIntent.
+        #
+        # When processing card payments, Checkout also uses `setup_future_usage`
+        # to dynamically optimize your payment flow and comply with regional
+        # legislation and network rules, such as SCA.
+        sig { returns(T.nilable(String)) }
+        def setup_future_usage; end
+        sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
+        def setup_future_usage=(_setup_future_usage); end
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+        #
+        # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+        sig { returns(T.nilable(String)) }
+        def statement_descriptor; end
+        sig { params(_statement_descriptor: T.nilable(String)).returns(T.nilable(String)) }
+        def statement_descriptor=(_statement_descriptor); end
+        # Configures automatic transfers to a connected account when payments succeed.
+        sig {
+          returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData))
+         }
+        def transfer_data; end
+        sig {
+          params(_transfer_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData))
+         }
+        def transfer_data=(_transfer_data); end
+        # A string that identifies the initial payment as part of a group.
+        sig { returns(T.nilable(String)) }
+        def transfer_group; end
+        sig { params(_transfer_group: T.nilable(String)).returns(T.nilable(String)) }
+        def transfer_group=(_transfer_group); end
+        sig {
+          params(application_fee_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::ApplicationFeeData), capture_method: T.nilable(String), description: T.nilable(String), metadata: T.nilable(T::Hash[String, String]), setup_future_usage: T.nilable(String), statement_descriptor: T.nilable(String), transfer_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings::TransferData), transfer_group: T.nilable(String)).void
+         }
+        def initialize(
+          application_fee_data: nil,
+          capture_method: nil,
+          description: nil,
+          metadata: nil,
+          setup_future_usage: nil,
+          statement_descriptor: nil,
+          transfer_data: nil,
+          transfer_group: nil
+        ); end
+        def self.field_encodings
+          @field_encodings = {
+            application_fee_data: {kind: :object, fields: {percentage_decimal: :decimal_string}},
+            transfer_data: {
+              kind: :object,
+              fields: {
+                transfer_amount: {kind: :object, fields: {percentage_decimal: :decimal_string}},
+              },
+            },
+          }
+        end
+      end
       class Permissions < ::Stripe::RequestParams
         class Update < ::Stripe::RequestParams
           # Determines which entity is allowed to update the line items.
@@ -4802,6 +4967,13 @@ module Stripe
         params(_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions))
        }
       def payment_method_options=(_payment_method_options); end
+      # A subset of parameters to configure the payment for this Checkout Session.
+      sig { returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings)) }
+      def payment_settings; end
+      sig {
+        params(_payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings)).returns(T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings))
+       }
+      def payment_settings=(_payment_settings); end
       # This property is used to set up permissions for various actions (for example, update) on the CheckoutSession object. Can only be set when creating `embedded_page` or `elements` sessions.
       #
       # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
@@ -4913,7 +5085,7 @@ module Stripe
        }
       def checkout_items=(_checkout_items); end
       sig {
-        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
+        params(adaptive_pricing: T.nilable(::Stripe::Checkout::SessionCreateParams::AdaptivePricing), after_expiration: T.nilable(::Stripe::Checkout::SessionCreateParams::AfterExpiration), allow_promotion_codes: T.nilable(T::Boolean), allowed_payment_method_types: T.nilable(T::Array[String]), approval_method: T.nilable(String), automatic_surcharge: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticSurcharge), automatic_tax: T.nilable(::Stripe::Checkout::SessionCreateParams::AutomaticTax), billing_address_collection: T.nilable(String), branding_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::BrandingSettings), cancel_url: T.nilable(String), client_reference_id: T.nilable(String), consent_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ConsentCollection), currency: T.nilable(String), custom_fields: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CustomField]), custom_payment_method_types: T.nilable(T::Array[String]), custom_text: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomText), customer: T.nilable(String), customer_account: T.nilable(String), customer_creation: T.nilable(String), customer_email: T.nilable(String), customer_update: T.nilable(::Stripe::Checkout::SessionCreateParams::CustomerUpdate), discounts: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Discount]), excluded_payment_method_types: T.nilable(T::Array[String]), expand: T.nilable(T::Array[String]), expires_at: T.nilable(Integer), integration_identifier: T.nilable(String), invoice_creation: T.nilable(::Stripe::Checkout::SessionCreateParams::InvoiceCreation), items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::Item]), line_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::LineItem]), locale: T.nilable(String), managed_payments: T.nilable(::Stripe::Checkout::SessionCreateParams::ManagedPayments), metadata: T.nilable(T::Hash[String, String]), mode: T.nilable(String), name_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::NameCollection), on_behalf_of: T.nilable(String), optional_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::OptionalItem]), origin_context: T.nilable(String), payment_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentIntentData), payment_method_collection: T.nilable(String), payment_method_configuration: T.nilable(String), payment_method_data: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodData), payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentMethodOptions), payment_settings: T.nilable(::Stripe::Checkout::SessionCreateParams::PaymentSettings), permissions: T.nilable(::Stripe::Checkout::SessionCreateParams::Permissions), phone_number_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::PhoneNumberCollection), redirect_on_completion: T.nilable(String), return_url: T.nilable(String), saved_payment_method_options: T.nilable(::Stripe::Checkout::SessionCreateParams::SavedPaymentMethodOptions), setup_intent_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SetupIntentData), shipping_address_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::ShippingAddressCollection), shipping_options: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::ShippingOption]), submit_type: T.nilable(String), subscription_data: T.nilable(::Stripe::Checkout::SessionCreateParams::SubscriptionData), success_url: T.nilable(String), tax_id_collection: T.nilable(::Stripe::Checkout::SessionCreateParams::TaxIdCollection), ui_mode: T.nilable(String), wallet_options: T.nilable(::Stripe::Checkout::SessionCreateParams::WalletOptions), checkout_items: T.nilable(T::Array[::Stripe::Checkout::SessionCreateParams::CheckoutItem])).void
        }
       def initialize(
         adaptive_pricing: nil,
@@ -4958,6 +5130,7 @@ module Stripe
         payment_method_configuration: nil,
         payment_method_data: nil,
         payment_method_options: nil,
+        payment_settings: nil,
         permissions: nil,
         phone_number_collection: nil,
         redirect_on_completion: nil,
@@ -5006,6 +5179,18 @@ module Stripe
             element: {
               kind: :object,
               fields: {price_data: {kind: :object, fields: {unit_amount_decimal: :decimal_string}}},
+            },
+          },
+          payment_settings: {
+            kind: :object,
+            fields: {
+              application_fee_data: {kind: :object, fields: {percentage_decimal: :decimal_string}},
+              transfer_data: {
+                kind: :object,
+                fields: {
+                  transfer_amount: {kind: :object, fields: {percentage_decimal: :decimal_string}},
+                },
+              },
             },
           },
         }

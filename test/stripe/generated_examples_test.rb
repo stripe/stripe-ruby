@@ -10429,6 +10429,25 @@ module Stripe
       financial_address = client.v2.money_management.financial_addresses.retrieve("id_123")
       assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/financial_addresses/id_123"
     end
+    should "Test v2 money management funding session post (service)" do
+      stub_request(
+        :post,
+        "#{Stripe::DEFAULT_API_BASE}/v2/money_management/funding_sessions"
+      ).to_return(
+        body: '{"object":"v2.money_management.funding_session","account":"account","created":"1970-01-12T21:42:34.472Z","financial_account":"financial_account","financial_address_options":{},"financial_address_types":["bank_account"],"id":"obj_123","livemode":true,"return_url":"return_url","url":"url"}',
+        status: 200
+      )
+      client = Stripe::StripeClient.new("sk_test_123")
+
+      funding_session = client.v2.money_management.funding_sessions.create({
+        account: "account",
+        financial_account: "financial_account",
+        financial_address_options: { crypto_wallet: { settlement_currency: "usd" } },
+        financial_address_types: ["bank_account"],
+        return_url: "return_url",
+      })
+      assert_requested :post, "#{Stripe::DEFAULT_API_BASE}/v2/money_management/funding_sessions"
+    end
     should "Test v2 money management inbound transfer get (service)" do
       stub_request(
         :get,

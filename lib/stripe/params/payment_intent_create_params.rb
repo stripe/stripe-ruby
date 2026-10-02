@@ -3785,6 +3785,29 @@ module Stripe
           end
         end
 
+        class Fleet < ::Stripe::RequestParams
+          class TransactionDatum < ::Stripe::RequestParams
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            attr_accessor :prompt
+            # Whether the collected value is printed on the receipt. Defaults to `omit`.
+            attr_accessor :receipt_behavior
+            # The value collected for this Fleet prompt.
+            attr_accessor :value
+
+            def initialize(prompt: nil, receipt_behavior: nil, value: nil)
+              @prompt = prompt
+              @receipt_behavior = receipt_behavior
+              @value = value
+            end
+          end
+          # Fleet prompts and values collected for this transaction.
+          attr_accessor :transaction_data
+
+          def initialize(transaction_data: nil)
+            @transaction_data = transaction_data
+          end
+        end
+
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
@@ -3834,6 +3857,8 @@ module Stripe
         #
         # If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
         attr_accessor :capture_method
+        # Fleet prompting data for this payment.
+        attr_accessor :fleet
         # Payment details for payment method specific funding transaction fields.
         attr_accessor :payment_details
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
@@ -3852,6 +3877,7 @@ module Stripe
           capture_by: nil,
           capture_delay: nil,
           capture_method: nil,
+          fleet: nil,
           payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
@@ -3863,6 +3889,7 @@ module Stripe
           @capture_by = capture_by
           @capture_delay = capture_delay
           @capture_method = capture_method
+          @fleet = fleet
           @payment_details = payment_details
           @request_extended_authorization = request_extended_authorization
           @request_incremental_authorization_support = request_incremental_authorization_support
@@ -5588,9 +5615,12 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_accessor :setup_future_usage
+        # The merchant's subscription identifier for this off-session charge.
+        attr_accessor :subscription_reference
 
-        def initialize(setup_future_usage: nil)
+        def initialize(setup_future_usage: nil, subscription_reference: nil)
           @setup_future_usage = setup_future_usage
+          @subscription_reference = subscription_reference
         end
       end
 
@@ -6689,7 +6719,7 @@ module Stripe
     attr_accessor :on_behalf_of
     # Provides industry-specific information about the charge.
     attr_accessor :payment_details
-    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+    # The ID of a PaymentMethod to attach to this PaymentIntent.
     #
     # If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
     # If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://docs.stripe.com/api#create_payment_intent-customer) parameter of this PaymentIntent.

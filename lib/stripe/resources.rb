@@ -1555,6 +1555,7 @@ module Stripe
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
     autoload :PaymentEvaluation, "stripe/resources/radar/payment_evaluation"
+    autoload :Rule, "stripe/resources/radar/rule"
     autoload :ValueList, "stripe/resources/radar/value_list"
     autoload :ValueListItem, "stripe/resources/radar/value_list_item"
   end
@@ -1739,6 +1740,7 @@ module Stripe
                "stripe/resources/v2/money_management/financial_address_debit_simulation"
       autoload :FinancialAddressGeneratedMicrodeposits,
                "stripe/resources/v2/money_management/financial_address_generated_microdeposits"
+      autoload :FundingSession, "stripe/resources/v2/money_management/funding_session"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
       autoload :OutboundPaymentQuote, "stripe/resources/v2/money_management/outbound_payment_quote"
@@ -1958,6 +1960,7 @@ module Stripe
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
     stripe/resources/radar/payment_evaluation
+    stripe/resources/radar/rule
     stripe/resources/radar/value_list
     stripe/resources/radar/value_list_item
     stripe/resources/refund
@@ -2093,6 +2096,7 @@ module Stripe
     stripe/resources/v2/money_management/financial_address_credit_simulation
     stripe/resources/v2/money_management/financial_address_debit_simulation
     stripe/resources/v2/money_management/financial_address_generated_microdeposits
+    stripe/resources/v2/money_management/funding_session
     stripe/resources/v2/money_management/inbound_transfer
     stripe/resources/v2/money_management/outbound_payment
     stripe/resources/v2/money_management/outbound_payment_quote

@@ -29,6 +29,11 @@ module Stripe
           sig { params(network: String).void }
           def initialize(network: nil); end
         end
+        # The ID of the Account that owns this FinancialAddress.
+        sig { returns(T.nilable(String)) }
+        def account; end
+        sig { params(_account: T.nilable(String)).returns(T.nilable(String)) }
+        def account=(_account); end
         # Properties for creating a bank account FinancialAddress.
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount))
@@ -38,7 +43,7 @@ module Stripe
           params(_bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount)).returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount))
          }
         def bank_account=(_bank_account); end
-        # Properties for creating a crypto wallet FinancialAddress.
+        # Attribute for param field crypto_wallet
         sig {
           returns(T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::CryptoWallet))
          }
@@ -52,7 +57,7 @@ module Stripe
         def financial_account; end
         sig { params(_financial_account: String).returns(String) }
         def financial_account=(_financial_account); end
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for param field settlement_currency
         sig { returns(T.nilable(String)) }
         def settlement_currency; end
         sig { params(_settlement_currency: T.nilable(String)).returns(T.nilable(String)) }
@@ -63,9 +68,10 @@ module Stripe
         sig { params(_type: String).returns(String) }
         def type=(_type); end
         sig {
-          params(bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::CryptoWallet), financial_account: String, settlement_currency: T.nilable(String), type: String).void
+          params(account: T.nilable(String), bank_account: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::BankAccount), crypto_wallet: T.nilable(::Stripe::V2::MoneyManagement::FinancialAddressCreateParams::CryptoWallet), financial_account: String, settlement_currency: T.nilable(String), type: String).void
          }
         def initialize(
+          account: nil,
           bank_account: nil,
           crypto_wallet: nil,
           financial_account: nil,

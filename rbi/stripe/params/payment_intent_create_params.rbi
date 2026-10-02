@@ -5774,6 +5774,40 @@ module Stripe
           sig { params(days: T.nilable(Integer), hours: T.nilable(Integer)).void }
           def initialize(days: nil, hours: nil); end
         end
+        class Fleet < ::Stripe::RequestParams
+          class TransactionDatum < ::Stripe::RequestParams
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            sig { returns(String) }
+            def prompt; end
+            sig { params(_prompt: String).returns(String) }
+            def prompt=(_prompt); end
+            # Whether the collected value is printed on the receipt. Defaults to `omit`.
+            sig { returns(T.nilable(String)) }
+            def receipt_behavior; end
+            sig { params(_receipt_behavior: T.nilable(String)).returns(T.nilable(String)) }
+            def receipt_behavior=(_receipt_behavior); end
+            # The value collected for this Fleet prompt.
+            sig { returns(String) }
+            def value; end
+            sig { params(_value: String).returns(String) }
+            def value=(_value); end
+            sig { params(prompt: String, receipt_behavior: T.nilable(String), value: String).void }
+            def initialize(prompt: nil, receipt_behavior: nil, value: nil); end
+          end
+          # Fleet prompts and values collected for this transaction.
+          sig {
+            returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet::TransactionDatum])))
+           }
+          def transaction_data; end
+          sig {
+            params(_transaction_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet::TransactionDatum]))).returns(T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet::TransactionDatum])))
+           }
+          def transaction_data=(_transaction_data); end
+          sig {
+            params(transaction_data: T.nilable(T.any(String, T::Array[::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet::TransactionDatum]))).void
+           }
+          def initialize(transaction_data: nil); end
+        end
         class PaymentDetails < ::Stripe::RequestParams
           class MoneyServices < ::Stripe::RequestParams
             class AccountFunding < ::Stripe::RequestParams
@@ -5858,6 +5892,15 @@ module Stripe
         def capture_method; end
         sig { params(_capture_method: T.nilable(String)).returns(T.nilable(String)) }
         def capture_method=(_capture_method); end
+        # Fleet prompting data for this payment.
+        sig {
+          returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet)))
+         }
+        def fleet; end
+        sig {
+          params(_fleet: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet))).returns(T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet)))
+         }
+        def fleet=(_fleet); end
         # Payment details for payment method specific funding transaction fields.
         sig {
           returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails))
@@ -5903,13 +5946,14 @@ module Stripe
          }
         def routing=(_routing); end
         sig {
-          params(aade_data: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::AadeData), capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::CaptureDelay), capture_method: T.nilable(String), payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_multicapture: T.nilable(String), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Routing)).void
+          params(aade_data: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::AadeData), capture_by: T.nilable(String), capture_delay: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::CaptureDelay), capture_method: T.nilable(String), fleet: T.nilable(T.any(String, ::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Fleet)), payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::PaymentDetails), request_extended_authorization: T.nilable(T::Boolean), request_incremental_authorization_support: T.nilable(T::Boolean), request_multicapture: T.nilable(String), request_reauthorization: T.nilable(String), routing: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentMethodOptions::CardPresent::Routing)).void
          }
         def initialize(
           aade_data: nil,
           capture_by: nil,
           capture_delay: nil,
           capture_method: nil,
+          fleet: nil,
           payment_details: nil,
           request_extended_authorization: nil,
           request_incremental_authorization_support: nil,
@@ -8375,8 +8419,15 @@ module Stripe
         def setup_future_usage; end
         sig { params(_setup_future_usage: T.nilable(String)).returns(T.nilable(String)) }
         def setup_future_usage=(_setup_future_usage); end
-        sig { params(setup_future_usage: T.nilable(String)).void }
-        def initialize(setup_future_usage: nil); end
+        # The merchant's subscription identifier for this off-session charge.
+        sig { returns(T.nilable(String)) }
+        def subscription_reference; end
+        sig { params(_subscription_reference: T.nilable(String)).returns(T.nilable(String)) }
+        def subscription_reference=(_subscription_reference); end
+        sig {
+          params(setup_future_usage: T.nilable(String), subscription_reference: T.nilable(String)).void
+         }
+        def initialize(setup_future_usage: nil, subscription_reference: nil); end
       end
       class Payto < ::Stripe::RequestParams
         class MandateOptions < ::Stripe::RequestParams
@@ -10227,7 +10278,7 @@ module Stripe
       params(_payment_details: T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails)).returns(T.nilable(::Stripe::PaymentIntentCreateParams::PaymentDetails))
      }
     def payment_details=(_payment_details); end
-    # ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
+    # The ID of a PaymentMethod to attach to this PaymentIntent.
     #
     # If you don't provide the `payment_method` parameter or the `source` parameter with `confirm=true`, `source` automatically populates with `customer.default_source` to improve migration for users of the Charges API. We recommend that you explicitly provide the `payment_method` moving forward.
     # If the payment method is attached to a Customer, you must also provide the ID of that Customer as the [customer](https://docs.stripe.com/api#create_payment_intent-customer) parameter of this PaymentIntent.

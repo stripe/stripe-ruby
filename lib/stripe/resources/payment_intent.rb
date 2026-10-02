@@ -3764,6 +3764,35 @@ module Stripe
           end
         end
 
+        class Fleet < ::Stripe::StripeObject
+          class TransactionDatum < ::Stripe::StripeObject
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            attr_reader :prompt
+            # Whether the collected value is printed on the receipt.
+            attr_reader :receipt_behavior
+            # The value collected for this Fleet prompt.
+            attr_reader :value
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Fleet prompts and values collected for this transaction.
+          attr_reader :transaction_data
+
+          def self.inner_class_types
+            @inner_class_types = { transaction_data: TransactionDatum }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           attr_reader :requested_priority
@@ -3786,6 +3815,8 @@ module Stripe
         attr_reader :capture_delay
         # Controls when the funds will be captured from the customer's account.
         attr_reader :capture_method
+        # Fleet prompting data for this payment.
+        attr_reader :fleet
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         attr_reader :request_extended_authorization
         # Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
@@ -3798,7 +3829,12 @@ module Stripe
         attr_reader :routing
 
         def self.inner_class_types
-          @inner_class_types = { aade_data: AadeData, capture_delay: CaptureDelay, routing: Routing }
+          @inner_class_types = {
+            aade_data: AadeData,
+            capture_delay: CaptureDelay,
+            fleet: Fleet,
+            routing: Routing,
+          }
         end
 
         def self.field_remappings
@@ -4503,6 +4539,8 @@ module Stripe
         #
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         attr_reader :setup_future_usage
+        # A reference to the merchant subscription this payment corresponds to.
+        attr_reader :subscription_reference
 
         def self.inner_class_types
           @inner_class_types = {}

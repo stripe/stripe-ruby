@@ -510,6 +510,35 @@ module Stripe
             }
           end
         end
+        class Fuels < ::Stripe::StripeObject
+          # [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
+          sig { returns(T.nilable(String)) }
+          def industry_product_code; end
+          # The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
+          sig { returns(T.nilable(BigDecimal)) }
+          def quantity_decimal; end
+          # The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
+          sig { returns(String) }
+          def type; end
+          # The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
+          sig { returns(String) }
+          def unit; end
+          # The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+          sig { returns(BigDecimal) }
+          def unit_cost_decimal; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+          def self.field_encodings
+            @field_encodings = {
+              quantity_decimal: {kind: :nullable, inner: :decimal_string},
+              unit_cost_decimal: :decimal_string,
+            }
+          end
+        end
         class Lodging < ::Stripe::StripeObject
           # The time of checking into the lodging.
           sig { returns(T.nilable(Integer)) }
@@ -553,6 +582,9 @@ module Stripe
         # Information about fuel that was purchased with this transaction.
         sig { returns(T.nilable(Fuel)) }
         def fuel; end
+        # Information about the list of fuel items that were purchased with this transaction. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed.
+        sig { returns(T.nilable(T::Array[Fuels])) }
+        def fuels; end
         # Information about lodging that was purchased with this transaction.
         sig { returns(T.nilable(Lodging)) }
         def lodging; end
@@ -567,6 +599,7 @@ module Stripe
             fleet: Fleet,
             flight: Flight,
             fuel: Fuel,
+            fuels: Fuels,
             lodging: Lodging,
             receipt: Receipt,
           }
@@ -627,6 +660,19 @@ module Stripe
                 fields: {
                   quantity_decimal: {kind: :nullable, inner: :decimal_string},
                   unit_cost_decimal: :decimal_string,
+                },
+              },
+            },
+            fuels: {
+              kind: :nullable,
+              inner: {
+                kind: :array,
+                element: {
+                  kind: :object,
+                  fields: {
+                    quantity_decimal: {kind: :nullable, inner: :decimal_string},
+                    unit_cost_decimal: :decimal_string,
+                  },
                 },
               },
             },

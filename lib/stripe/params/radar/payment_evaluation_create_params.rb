@@ -76,14 +76,29 @@ module Stripe
               @payment_type = payment_type
             end
           end
+
+          class UsBankAccount < ::Stripe::RequestParams
+            # Describes the presence of the customer during the payment.
+            attr_accessor :customer_presence
+            # Describes the type of US bank account payment.
+            attr_accessor :payment_type
+
+            def initialize(customer_presence: nil, payment_type: nil)
+              @customer_presence = customer_presence
+              @payment_type = payment_type
+            end
+          end
           # Describes card money movement details.
           attr_accessor :card
           # Describes the type of money movement.
           attr_accessor :money_movement_type
+          # Describes US bank account money movement details.
+          attr_accessor :us_bank_account
 
-          def initialize(card: nil, money_movement_type: nil)
+          def initialize(card: nil, money_movement_type: nil, us_bank_account: nil)
             @card = card
             @money_movement_type = money_movement_type
+            @us_bank_account = us_bank_account
           end
         end
 

@@ -4023,6 +4023,34 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Fleet < ::Stripe::StripeObject
+          class TransactionDatum < ::Stripe::StripeObject
+            # The prompt that the Terminal SDK displays to collect this Fleet value.
+            sig { returns(String) }
+            def prompt; end
+            # Whether the collected value is printed on the receipt.
+            sig { returns(String) }
+            def receipt_behavior; end
+            # The value collected for this Fleet prompt.
+            sig { returns(String) }
+            def value; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Fleet prompts and values collected for this transaction.
+          sig { returns(T::Array[TransactionDatum]) }
+          def transaction_data; end
+          def self.inner_class_types
+            @inner_class_types = {transaction_data: TransactionDatum}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class Routing < ::Stripe::StripeObject
           # Requested routing priority
           sig { returns(T.nilable(String)) }
@@ -4048,6 +4076,9 @@ module Stripe
         # Controls when the funds will be captured from the customer's account.
         sig { returns(T.nilable(String)) }
         def capture_method; end
+        # Fleet prompting data for this payment.
+        sig { returns(T.nilable(Fleet)) }
+        def fleet; end
         # Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
         sig { returns(T.nilable(T::Boolean)) }
         def request_extended_authorization; end
@@ -4064,7 +4095,12 @@ module Stripe
         sig { returns(T.nilable(Routing)) }
         def routing; end
         def self.inner_class_types
-          @inner_class_types = {aade_data: AadeData, capture_delay: CaptureDelay, routing: Routing}
+          @inner_class_types = {
+            aade_data: AadeData,
+            capture_delay: CaptureDelay,
+            fleet: Fleet,
+            routing: Routing,
+          }
         end
         def self.field_remappings
           @field_remappings = {}
@@ -4747,6 +4783,9 @@ module Stripe
         # When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](/strong-customer-authentication).
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end
+        # A reference to the merchant subscription this payment corresponds to.
+        sig { returns(T.nilable(String)) }
+        def subscription_reference; end
         def self.inner_class_types
           @inner_class_types = {}
         end

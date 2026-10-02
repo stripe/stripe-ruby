@@ -176,6 +176,30 @@ module Stripe
         assert_match("No webhook secret value was provided. It should start with `whsec_`", e.message)
       end
 
+      should "raise a SignatureVerificationError when the secret contains only ASCII whitespace" do
+        [" ", "\t", "\r", "\n", "\f", "\v", " \t\r\n\f\v"].each do |secret|
+          header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, secret: secret)
+          e = assert_raises(Stripe::SignatureVerificationError) do
+            Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, secret)
+          end
+          assert_match("No webhook secret value was provided. It should start with `whsec_`", e.message)
+        end
+      end
+
+      should "use surrounding ASCII whitespace as part of a nonblank secret" do
+        secret = " \t#{Test::WebhookHelpers::SECRET}\r\n"
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, secret: secret)
+
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, secret))
+      end
+
+      should "allow a non-breaking-space-only secret" do
+        secret = "\u00A0"
+        header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, secret: secret)
+
+        assert(Stripe::Webhook::Signature.verify_header(EVENT_PAYLOAD, header, secret))
+      end
+
       should "raise a SignatureVerificationError when the timestamp is not within the tolerance" do
         header = Test::WebhookHelpers.generate_header(payload: EVENT_PAYLOAD, timestamp: Time.now - 15)
         e = assert_raises(Stripe::SignatureVerificationError) do

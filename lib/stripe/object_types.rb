@@ -172,6 +172,7 @@ module Stripe
     def self.v2_object_names_to_classes
       {
         V2::ListObject.object_name => V2::ListObject,
+        V2::SearchResultObject.object_name => V2::SearchResultObject,
 
         # v2 object classes: The beginning of the section generated from our OpenAPI spec
         V2::Billing::MeterEvent.object_name => V2::Billing::MeterEvent,

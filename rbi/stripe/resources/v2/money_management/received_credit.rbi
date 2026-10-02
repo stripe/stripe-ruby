@@ -466,20 +466,49 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class OriginatingCryptoWallet < ::Stripe::StripeObject
+            # The address of the wallet the crypto was received from.
+            sig { returns(String) }
+            def address; end
+            # A memo also for identifying the recipient for memo-based blockchains (e.g., Stellar),.
+            sig { returns(String) }
+            def memo; end
+            # The network the crypto was received from.
+            sig { returns(String) }
+            def network; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Hash containing the transaction crypto wallet details.
           sig { returns(CryptoWallet) }
           def crypto_wallet; end
           # Financial Address on which funds for ReceivedCredit were received.
           sig { returns(String) }
           def financial_address; end
+          # Hash containing details about the crypto wallet that originated this ReceivedCredit.
+          sig { returns(T.nilable(OriginatingCryptoWallet)) }
+          def originating_crypto_wallet; end
           # Freeform string set by originator of the external ReceivedCredit.
           sig { returns(T.nilable(String)) }
           def statement_descriptor; end
+          # Open Enum. The currency of the crypto tokens received.
+          sig { returns(T.nilable(String)) }
+          def token_currency; end
+          # Hash of the deposit transaction on-chain (incoming to Stripe).
+          sig { returns(T.nilable(String)) }
+          def transaction_hash; end
           # Open Enum. The type of crypto wallet transfer that originated this ReceivedCredit.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
-            @inner_class_types = {crypto_wallet: CryptoWallet}
+            @inner_class_types = {
+              crypto_wallet: CryptoWallet,
+              originating_crypto_wallet: OriginatingCryptoWallet,
+            }
           end
           def self.field_remappings
             @field_remappings = {}

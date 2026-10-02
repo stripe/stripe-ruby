@@ -36,6 +36,28 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class NetworkDetails < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # Freeform payment-related information from the type-7 ACH addenda record. Echoes the submitted value.
+            sig { returns(T.nilable(String)) }
+            def addenda; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ACH-specific network details.
+          sig { returns(Ach) }
+          def ach; end
+          def self.inner_class_types
+            @inner_class_types = {ach: Ach}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class To < ::Stripe::StripeObject
           # The amount by which the FinancialAccount balance is credited.
           sig { returns(::Stripe::V2::Amount) }
@@ -155,6 +177,9 @@ module Stripe
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end
+        # Network-specific details for the InboundTransfer. Present only when supplied at creation.
+        sig { returns(T.nilable(NetworkDetails)) }
+        def network_details; end
         # String representing the object's type. Objects of the same type share the same value of the object field.
         sig { returns(String) }
         def object; end

@@ -21,6 +21,31 @@ module Stripe
           sig { params(currency: T.nilable(String), payment_method: String).void }
           def initialize(currency: nil, payment_method: nil); end
         end
+        class NetworkDetails < ::Stripe::RequestParams
+          class Ach < ::Stripe::RequestParams
+            # Optional freeform payment-related information written into the type-7 ACH
+            # addenda record of the NACHA submission. Max 80 characters.
+            sig { returns(T.nilable(String)) }
+            def addenda; end
+            sig { params(_addenda: T.nilable(String)).returns(T.nilable(String)) }
+            def addenda=(_addenda); end
+            sig { params(addenda: T.nilable(String)).void }
+            def initialize(addenda: nil); end
+          end
+          # ACH-specific network details. Only applied when the transfer routes over ACH.
+          sig {
+            returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails::Ach)
+           }
+          def ach; end
+          sig {
+            params(_ach: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails::Ach).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails::Ach)
+           }
+          def ach=(_ach); end
+          sig {
+            params(ach: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails::Ach).void
+           }
+          def initialize(ach: nil); end
+        end
         class To < ::Stripe::RequestParams
           # The currency in which funds will land in.
           sig { returns(String) }
@@ -52,6 +77,15 @@ module Stripe
           params(_from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From).returns(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From)
          }
         def from=(_from); end
+        # Network-specific details for the InboundTransfer.
+        sig {
+          returns(T.nilable(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails))
+         }
+        def network_details; end
+        sig {
+          params(_network_details: T.nilable(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails)).returns(T.nilable(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails))
+         }
+        def network_details=(_network_details); end
         # An optional statement descriptor surfaced on the payer's bank statement. Max 10 characters.
         # When omitted, Stripe sends its default descriptor.
         sig { returns(T.nilable(String)) }
@@ -66,12 +100,13 @@ module Stripe
          }
         def to=(_to); end
         sig {
-          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
+          params(amount: ::Stripe::V2::Amount, description: T.nilable(String), from: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::From, network_details: T.nilable(::Stripe::V2::MoneyManagement::InboundTransferCreateParams::NetworkDetails), statement_descriptor: T.nilable(String), to: ::Stripe::V2::MoneyManagement::InboundTransferCreateParams::To).void
          }
         def initialize(
           amount: nil,
           description: nil,
           from: nil,
+          network_details: nil,
           statement_descriptor: nil,
           to: nil
         ); end

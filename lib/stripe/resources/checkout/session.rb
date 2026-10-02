@@ -2587,6 +2587,126 @@ module Stripe
         end
       end
 
+      class PaymentSettings < ::Stripe::StripeObject
+        class ApplicationFeeData < ::Stripe::StripeObject
+          # The application fee amount, in the currency's smallest unit, applied to the initial payment.
+          attr_reader :initial_amount
+          # The percentage of each payment collected as an application fee.
+          attr_reader :percentage_decimal
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = { percentage_decimal: { kind: :nullable, inner: :decimal_string } }
+          end
+        end
+
+        class TransferData < ::Stripe::StripeObject
+          class TransferAmount < ::Stripe::StripeObject
+            # The amount, in the currency's smallest unit, transferred from the initial payment.
+            attr_reader :initial_amount
+            # The percentage of each payment transferred to the destination account.
+            attr_reader :percentage_decimal
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+
+            def self.field_encodings
+              @field_encodings = { percentage_decimal: { kind: :nullable, inner: :decimal_string } }
+            end
+          end
+          # The connected account that receives funds from payments created by this Checkout Session.
+          attr_reader :destination
+          # Configures the amount transferred to the destination account.
+          attr_reader :transfer_amount
+
+          def self.inner_class_types
+            @inner_class_types = { transfer_amount: TransferAmount }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              transfer_amount: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: { percentage_decimal: { kind: :nullable, inner: :decimal_string } },
+                },
+              },
+            }
+          end
+        end
+        # Configures an application fee transferred to the application owner's Stripe account.
+        attr_reader :application_fee_data
+        # Controls when the funds will be captured from the customer's account.
+        attr_reader :capture_method
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        attr_reader :description
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        attr_reader :metadata
+        # Indicates that you intend to make future payments with the payment method collected by this Checkout Session.
+        attr_reader :setup_future_usage
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor.
+        attr_reader :statement_descriptor
+        # Configures automatic transfers to a connected account when payments succeed.
+        attr_reader :transfer_data
+        # A string that identifies the initial payment as part of a group.
+        attr_reader :transfer_group
+
+        def self.inner_class_types
+          @inner_class_types = {
+            application_fee_data: ApplicationFeeData,
+            transfer_data: TransferData,
+          }
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            application_fee_data: {
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: { percentage_decimal: { kind: :nullable, inner: :decimal_string } },
+              },
+            },
+            transfer_data: {
+              kind: :nullable,
+              inner: {
+                kind: :object,
+                fields: {
+                  transfer_amount: {
+                    kind: :nullable,
+                    inner: {
+                      kind: :object,
+                      fields: { percentage_decimal: { kind: :nullable, inner: :decimal_string } },
+                    },
+                  },
+                },
+              },
+            },
+          }
+        end
+      end
+
       class Permissions < ::Stripe::StripeObject
         class Update < ::Stripe::StripeObject
           # Determines which entity is allowed to update the line items.
@@ -3092,6 +3212,8 @@ module Stripe
       attr_reader :name_collection
       # String representing the object's type. Objects of the same type share the same value.
       attr_reader :object
+      # The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
+      attr_reader :on_behalf_of
       # The optional items presented to the customer at checkout.
       attr_reader :optional_items
       # Where the user is coming from. This informs the optimizations that are applied to the session.
@@ -3113,6 +3235,8 @@ module Stripe
       attr_reader :payment_record
       # The ID of the Payment Reservation for this Checkout Session.
       attr_reader :payment_reservation
+      # Attribute for field payment_settings
+      attr_reader :payment_settings
       # The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
       # You can use this value to decide when to fulfill your customer's order.
       attr_reader :payment_status
@@ -3286,6 +3410,7 @@ module Stripe
           optional_items: OptionalItem,
           payment_method_configuration_details: PaymentMethodConfigurationDetails,
           payment_method_options: PaymentMethodOptions,
+          payment_settings: PaymentSettings,
           permissions: Permissions,
           phone_number_collection: PhoneNumberCollection,
           presentment_details: PresentmentDetails,
@@ -3311,6 +3436,33 @@ module Stripe
           currency_conversion: {
             kind: :nullable,
             inner: { kind: :object, fields: { fx_rate: :decimal_string } },
+          },
+          payment_settings: {
+            kind: :object,
+            fields: {
+              application_fee_data: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: { percentage_decimal: { kind: :nullable, inner: :decimal_string } },
+                },
+              },
+              transfer_data: {
+                kind: :nullable,
+                inner: {
+                  kind: :object,
+                  fields: {
+                    transfer_amount: {
+                      kind: :nullable,
+                      inner: {
+                        kind: :object,
+                        fields: { percentage_decimal: { kind: :nullable, inner: :decimal_string } },
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
         }
       end

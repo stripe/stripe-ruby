@@ -123,23 +123,6 @@ module Stripe
       end
     end
     class Outcome < ::Stripe::StripeObject
-      class Rule < ::Stripe::StripeObject
-        # The action taken on the payment.
-        sig { returns(String) }
-        def action; end
-        # Unique identifier for the object.
-        sig { returns(String) }
-        def id; end
-        # The predicate to evaluate the payment against.
-        sig { returns(String) }
-        def predicate; end
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
       sig { returns(T.nilable(String)) }
       def advice_code; end
@@ -162,7 +145,7 @@ module Stripe
       sig { returns(T.nilable(Integer)) }
       def risk_score; end
       # The ID of the Radar rule that matched the payment, if applicable.
-      sig { returns(T.nilable(T.any(String, Rule))) }
+      sig { returns(T.nilable(T.any(String, ::Stripe::Radar::Rule))) }
       def rule; end
       # A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
       sig { returns(T.nilable(String)) }
@@ -171,7 +154,7 @@ module Stripe
       sig { returns(String) }
       def type; end
       def self.inner_class_types
-        @inner_class_types = {rule: Rule}
+        @inner_class_types = {}
       end
       def self.field_remappings
         @field_remappings = {}

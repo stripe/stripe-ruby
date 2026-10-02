@@ -41,6 +41,31 @@ module Stripe
           end
         end
 
+        class NetworkDetails < ::Stripe::StripeObject
+          class Ach < ::Stripe::StripeObject
+            # Freeform payment-related information from the type-7 ACH addenda record. Echoes the submitted value.
+            attr_reader :addenda
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # ACH-specific network details.
+          attr_reader :ach
+
+          def self.inner_class_types
+            @inner_class_types = { ach: Ach }
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class To < ::Stripe::StripeObject
           # The amount by which the FinancialAccount balance is credited.
           attr_reader :credited
@@ -157,6 +182,8 @@ module Stripe
         attr_reader :id
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         attr_reader :livemode
+        # Network-specific details for the InboundTransfer. Present only when supplied at creation.
+        attr_reader :network_details
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
         # A hosted transaction receipt URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
@@ -169,7 +196,12 @@ module Stripe
         attr_reader :transfer_history
 
         def self.inner_class_types
-          @inner_class_types = { from: From, to: To, transfer_history: TransferHistory }
+          @inner_class_types = {
+            from: From,
+            network_details: NetworkDetails,
+            to: To,
+            transfer_history: TransferHistory,
+          }
         end
 
         def self.field_remappings

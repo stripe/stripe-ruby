@@ -123,22 +123,6 @@ module Stripe
     end
 
     class Outcome < ::Stripe::StripeObject
-      class Rule < ::Stripe::StripeObject
-        # The action taken on the payment.
-        attr_reader :action
-        # Unique identifier for the object.
-        attr_reader :id
-        # The predicate to evaluate the payment against.
-        attr_reader :predicate
-
-        def self.inner_class_types
-          @inner_class_types = {}
-        end
-
-        def self.field_remappings
-          @field_remappings = {}
-        end
-      end
       # An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
       attr_reader :advice_code
       # For charges declined by the network, a 2 digit code which indicates the advice returned by the network on how to proceed with an error.
@@ -161,7 +145,7 @@ module Stripe
       attr_reader :type
 
       def self.inner_class_types
-        @inner_class_types = { rule: Rule }
+        @inner_class_types = {}
       end
 
       def self.field_remappings

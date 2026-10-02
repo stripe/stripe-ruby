@@ -2739,7 +2739,7 @@ module Stripe
       params(_payment_details: T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails)).returns(T.nilable(::Stripe::ChargeCaptureParams::PaymentDetails))
      }
     def payment_details=(_payment_details); end
-    # The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts will not be sent in test mode.
+    # The email address to send this charge's receipt to. This will override the previously-specified email address for this charge, if one was set. Receipts are only sent for payments in live mode.
     sig { returns(T.nilable(String)) }
     def receipt_email; end
     sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }

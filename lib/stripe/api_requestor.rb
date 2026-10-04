@@ -481,6 +481,18 @@ module Stripe
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
+      if config.authenticator.is_a?(WorkloadIdentity::Authenticator)
+        if opts[:api_key]
+          raise WorkloadIdentityError, "This client authenticates with workload identity; a per-request " \
+                                       "`api_key` override is not supported. Use a separate " \
+                                       "Stripe::StripeClient.new(api_key) for API-key requests."
+        end
+        if opts[:headers]&.key?("Authorization")
+          raise WorkloadIdentityError, "This client authenticates with workload identity; overriding the " \
+                                       "`Authorization` header is not supported."
+        end
+      end
+
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
 
@@ -490,7 +502,7 @@ module Stripe
 
       api_key ||= opts[:api_key]
 
-      check_api_key!(api_key)
+      check_api_key!(api_key) unless config.authenticator
 
       body_params = nil
       query_params = nil
@@ -623,6 +635,9 @@ module Stripe
 
     private def execute_request_with_rescues(base_url, headers, api_mode, usage, context)
       num_retries = 0
+      auth_replayed = false
+      workload_credentials =
+        config.authenticator.is_a?(WorkloadIdentity::Authenticator) ? config.authenticator.credentials : nil
 
       begin
         request_start = nil
@@ -669,6 +684,13 @@ module Stripe
         end
         notify_request_end(context, request_duration, http_status, num_retries,
                            user_data, resp, headers)
+
+        if workload_credentials && !auth_replayed && e.is_a?(AuthenticationError) && e.http_status == 401
+          auth_replayed = true
+          workload_credentials.refresh_token(WorkloadIdentity.extract_bearer_token(headers["Authorization"]))
+          headers["Authorization"] = config.authenticator.call
+          retry
+        end
 
         if self.class.should_retry?(e,
                                     num_retries: num_retries,
@@ -1018,6 +1040,17 @@ module Stripe
             message + "\n\n(Network error: #{error.message})"
     end
 
+    private def build_authorization_header(req_opts)
+      return "Bearer #{req_opts[:api_key]}" unless config.authenticator
+
+      value = config.authenticator.call
+      unless value.is_a?(String) && !value.empty?
+        raise AuthenticationError, "The configured authenticator did not return a usable Authorization " \
+                                   "header value."
+      end
+      value
+    end
+
     private def request_headers(method, api_mode, req_opts)
       user_agent = "Stripe/#{api_mode} RubyBindings/#{Stripe::VERSION}"
       user_agent += " " + format_app_info(Stripe.app_info) unless Stripe.app_info.nil?
@@ -1027,7 +1060,7 @@ module Stripe
 
       headers = {
         "User-Agent" => user_agent,
-        "Authorization" => "Bearer #{req_opts[:api_key]}",
+        "Authorization" => build_authorization_header(req_opts),
       }
 
       if config.enable_telemetry?

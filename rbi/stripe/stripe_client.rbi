@@ -36,6 +36,19 @@ module Stripe
     end
     def with_stripe_context(context); end
 
+    # Builds a StripeClient that authenticates using workload identity,
+    # exchanging an assertion from `identity_provider` for a short-lived
+    # restricted key instead of using a long-lived API key.
+    sig do
+      params(
+        workload_client_id: String,
+        identity_provider: T.untyped,
+        client_options: T.untyped
+      )
+        .returns(::Stripe::StripeClient)
+    end
+    def self.for_workload_identity(workload_client_id, identity_provider, **client_options); end
+
     sig do
       params(
         webhook_secret: String,

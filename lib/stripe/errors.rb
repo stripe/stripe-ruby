@@ -49,6 +49,14 @@ module Stripe
   class APIConnectionError < StripeError
   end
 
+  # WorkloadIdentityError is raised when workload identity authentication
+  # fails, for example because the identity provider couldn't produce an
+  # assertion, the token exchange was rejected, or a workload identity
+  # client was used in an unsupported way (e.g. a conflicting per-request
+  # credential override).
+  class WorkloadIdentityError < StripeError
+  end
+
   # APIError is a generic error that may be raised in cases where none of the
   # other named errors cover the problem. It could also be raised in the case
   # that a new error has been introduced in the API, but this version of the

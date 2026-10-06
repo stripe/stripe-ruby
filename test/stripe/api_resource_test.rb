@@ -936,6 +936,22 @@ module Stripe
       end
     end
 
+    context "v2 singleton resource" do
+      class ::Stripe::V2::TestV2SingletonResource < SingletonAPIResource # rubocop:todo Lint/ConstantDefinitionInBlock
+        OBJECT_NAME = "v2.test.singleton"
+
+        def self.object_name
+          "v2.test.singleton"
+        end
+      end
+
+      should "raise an NotImplementedError on resource_url" do
+        assert_raises NotImplementedError do
+          Stripe::V2::TestV2SingletonResource.resource_url
+        end
+      end
+    end
+
     class CustomStripeObject < APIResource
       def self.resource_url
         "/v1/custom_stripe_object"

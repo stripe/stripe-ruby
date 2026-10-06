@@ -937,11 +937,15 @@ module Stripe
     end
 
     context "v2 singleton resource" do
-      class ::Stripe::V2::TestV2SingletonResource < SingletonAPIResource # rubocop:todo Lint/ConstantDefinitionInBlock
-        OBJECT_NAME = "v2.test.singleton"
+      module ::Stripe
+        module V2
+          class TestV2SingletonResource < SingletonAPIResource
+            OBJECT_NAME = "v2.test.singleton"
 
-        def self.object_name
-          "v2.test.singleton"
+            def self.object_name
+              "v2.test.singleton"
+            end
+          end
         end
       end
 

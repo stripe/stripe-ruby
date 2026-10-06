@@ -481,17 +481,6 @@ module Stripe
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
-      if config.authenticator.is_a?(WorkloadIdentity::Authenticator)
-        if opts[:api_key]
-          raise WorkloadIdentityError, "This client authenticates with workload identity; a per-request " \
-                                       "`api_key` override is not supported. Use a separate " \
-                                       "Stripe::StripeClient.new(api_key) for API-key requests."
-        end
-        if opts[:headers]&.key?("Authorization")
-          raise WorkloadIdentityError, "This client authenticates with workload identity; overriding the " \
-                                       "`Authorization` header is not supported."
-        end
-      end
 
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)

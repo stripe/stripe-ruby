@@ -13,7 +13,7 @@ module Stripe
       end
 
       # rubocop:disable Naming/AccessorMethodName -- matches the duck-typed provider interface
-      def get_identity_assertion
+      def identity_assertion
         @block.call
       end
       # rubocop:enable Naming/AccessorMethodName
@@ -28,7 +28,7 @@ module Stripe
     context "WorkloadIdentity.validate_provider!" do
       should "raise if the provider doesn't respond to the expected methods" do
         e = assert_raises(WorkloadIdentityError) { WorkloadIdentity.validate_provider!(Object.new) }
-        assert_match(/provider` and `get_identity_assertion`/, e.message)
+        assert_match(/provider` and `identity_assertion`/, e.message)
       end
 
       should "raise if provider name is unsupported" do

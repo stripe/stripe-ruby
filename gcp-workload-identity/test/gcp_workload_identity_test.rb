@@ -10,7 +10,7 @@ module Stripe
       end
     end
 
-    context "#get_identity_assertion" do
+    context "#identity_assertion" do
       should "request an ID token for the fixed Stripe audience and return it" do
         fake_creds = mock
         fake_creds.expects(:fetch_access_token!)
@@ -21,7 +21,7 @@ module Stripe
                                           target_audience: GcpWorkloadIdentity::AUDIENCE)
                                     .returns(fake_creds)
 
-        assert_equal "fake-id-token", GcpWorkloadIdentity::GcpWorkloadIdentity.new.get_identity_assertion
+        assert_equal "fake-id-token", GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
       end
 
       should "wrap a metadata server failure in an actionable error with the cause preserved" do
@@ -32,7 +32,7 @@ module Stripe
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
         error = assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.get_identity_assertion
+          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
         assert_match(/Compute Engine or Cloud Run/, error.message)
         assert_equal original_error, error.cause
@@ -46,7 +46,7 @@ module Stripe
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
         assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.get_identity_assertion
+          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
       end
 
@@ -58,7 +58,7 @@ module Stripe
         Google::Auth::GCECredentials.expects(:new).returns(fake_creds)
 
         assert_raise(GcpWorkloadIdentity::Error) do
-          GcpWorkloadIdentity::GcpWorkloadIdentity.new.get_identity_assertion
+          GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
       end
     end

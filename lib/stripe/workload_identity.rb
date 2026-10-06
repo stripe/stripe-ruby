@@ -35,13 +35,13 @@ module Stripe
 
     # Validates that `identity_provider` satisfies the workload identity
     # provider duck type: a `provider` name among `SUPPORTED_PROVIDERS` and a
-    # callable `get_identity_assertion` method. Raises `WorkloadIdentityError`
+    # callable `identity_assertion` method. Raises `WorkloadIdentityError`
     # with an actionable message otherwise.
     def self.validate_provider!(identity_provider)
-      unless identity_provider.respond_to?(:provider) && identity_provider.respond_to?(:get_identity_assertion)
+      unless identity_provider.respond_to?(:provider) && identity_provider.respond_to?(:identity_assertion)
         raise WorkloadIdentityError,
               "The identity_provider passed to Stripe::StripeClient.for_workload_identity must respond to " \
-              "`provider` and `get_identity_assertion`."
+              "`provider` and `identity_assertion`."
       end
 
       provider = identity_provider.provider
@@ -148,7 +148,7 @@ module Stripe
       end
 
       private def fetch_assertion!
-        @identity_provider.get_identity_assertion
+        @identity_provider.identity_assertion
       rescue StandardError => e
         raise WorkloadIdentityError, "Unable to obtain an identity assertion from the workload identity " \
                                      "provider: #{e.message}"

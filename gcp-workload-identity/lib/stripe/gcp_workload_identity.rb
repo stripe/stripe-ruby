@@ -6,9 +6,7 @@ require "stripe/gcp_workload_identity/version"
 
 module Stripe
   module GcpWorkloadIdentity
-    # The fixed audience that Stripe expects for GCP workload identity
-    # assertions. Not configurable: the Stripe Dashboard's workload identity
-    # configuration trusts assertions issued for this exact audience.
+    # The fixed audience that Stripe expects for workload identity
     AUDIENCE = "https://api.stripe.com/workload-identity"
 
     # Error is raised when a Google-signed identity assertion can't be
@@ -16,19 +14,15 @@ module Stripe
     class Error < StandardError
     end
 
-    # Implements the workload identity provider duck type
-    # (`provider` + `get_identity_assertion`) expected by
-    # `Stripe::StripeClient.for_workload_identity`, backed by a
-    # Google-signed ID token obtained from the GCE-compatible instance
-    # metadata server. Works on Compute Engine and Cloud Run.
+    # Implements the workload identity provider, matching the
+    # type expected by `Stripe::StripeClient.for_workload_identity`
     class GcpWorkloadIdentity
       def provider
         "gcp"
       end
 
-      # rubocop:disable Naming/AccessorMethodName -- matches the duck-typed provider interface
-      def get_identity_assertion
-        credentials = Google::Auth::GCECredentials.new(token_type: :id_token, target_audience: AUDIENCE)
+      def identity_assertion
+        credentials = Google::Auth::GCECredentials.new(target_audience: AUDIENCE)
 
         begin
           credentials.fetch_access_token!
@@ -45,7 +39,6 @@ module Stripe
 
         token
       end
-      # rubocop:enable Naming/AccessorMethodName
     end
   end
 end

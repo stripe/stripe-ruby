@@ -30,7 +30,6 @@ module Stripe
     # considered stale and eligible for proactive refresh.
     REFRESH_SAFETY_MARGIN_SEC = 300
 
-
     def self.validate_provider!(identity_provider)
       unless identity_provider.respond_to?(:provider) && identity_provider.respond_to?(:identity_assertion)
         raise WorkloadIdentityError,
@@ -54,7 +53,6 @@ module Stripe
       match = /\ABearer (.+)\z/.match(header_value)
       match && match[1]
     end
-
 
     def self.sanitize_relayed_text(text, assertion: nil)
       return nil if text.nil?

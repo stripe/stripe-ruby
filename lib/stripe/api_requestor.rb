@@ -507,7 +507,7 @@ module Stripe
       headers = request_headers(method, api_mode, opts)
       url = api_url(path, base_url)
 
-      auth_overridden = !!(opts[:api_key] || opts[:headers]&.key?("Authorization"))
+      auth_overridden = !(opts[:api_key] || opts[:headers]&.key?("Authorization")).nil?
 
       # Merge given query parameters with any already encoded in the path.
       query = query_params ? Util.encode_parameters(query_params, api_mode) : nil

@@ -12,11 +12,10 @@ module Stripe
         @block = block || -> { "fake-assertion" }
       end
 
-      # rubocop:disable Naming/AccessorMethodName -- matches the duck-typed provider interface
+      # -- matches the duck-typed provider interface
       def identity_assertion
         @block.call
       end
-      # rubocop:enable Naming/AccessorMethodName
     end
 
     EXCHANGE_URL = "https://api.stripe.com/stripe-workload/oauth2/token"

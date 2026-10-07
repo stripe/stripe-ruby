@@ -5,14 +5,11 @@ require "uri"
 
 module Stripe
   # Workload identity lets a client authenticate to Stripe using a cloud
-  # provider-signed identity assertion instead of a long-lived API key. The
-  # assertion is exchanged for a short-lived restricted key, which is cached
-  # in memory and refreshed before it expires.
+  # provider-signed identity assertion instead of a long-lived API key.
   #
   # This module intentionally has no dependency on any cloud provider SDK.
   # Providers (e.g. GCP) are supplied by separately-packaged adapter gems
-  # that implement the small duck-typed interface validated by
-  # `validate_provider!`.
+  # that implement the interface validated by `validate_provider!`.
   module WorkloadIdentity
     GRANT_TYPE = "urn:ietf:params:oauth:grant-type:jwt-bearer"
     TOKEN_HOST = "api.stripe.com"
@@ -33,10 +30,7 @@ module Stripe
     # considered stale and eligible for proactive refresh.
     REFRESH_SAFETY_MARGIN_SEC = 300
 
-    # Validates that `identity_provider` satisfies the workload identity
-    # provider duck type: a `provider` name among `SUPPORTED_PROVIDERS` and a
-    # callable `identity_assertion` method. Raises `WorkloadIdentityError`
-    # with an actionable message otherwise.
+
     def self.validate_provider!(identity_provider)
       unless identity_provider.respond_to?(:provider) && identity_provider.respond_to?(:identity_assertion)
         raise WorkloadIdentityError,
@@ -61,10 +55,7 @@ module Stripe
       match && match[1]
     end
 
-    # Removes any occurrence of `assertion` from relayed server text and
-    # bounds its length, so that error messages built from a token exchange
-    # response can never leak the identity assertion and stay reasonably
-    # sized.
+
     def self.sanitize_relayed_text(text, assertion: nil)
       return nil if text.nil?
 
@@ -76,9 +67,7 @@ module Stripe
 
     # The callable installed as `StripeConfiguration#authenticator` for a
     # workload identity client. Being a distinct class (rather than a bare
-    # `Proc`) lets `APIRequestor` recognize workload identity clients via
-    # `is_a?` and apply the stricter override/replay rules, without changing
-    # behavior for the pre-existing generic `authenticator` extension point.
+    # `Proc`) lets `APIRequestor` recognize workload identity clients via `is_a?`
     class Authenticator
       attr_reader :credentials
 

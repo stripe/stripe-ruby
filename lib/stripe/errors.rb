@@ -51,9 +51,7 @@ module Stripe
 
   # WorkloadIdentityError is raised when workload identity authentication
   # fails, for example because the identity provider couldn't produce an
-  # assertion, the token exchange was rejected, or a workload identity
-  # client was used in an unsupported way (e.g. a conflicting per-request
-  # credential override).
+  # assertion or the token exchange was rejected
   class WorkloadIdentityError < StripeError
   end
 

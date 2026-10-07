@@ -22,7 +22,7 @@ module Stripe
       end
 
       def identity_assertion
-        credentials = Google::Auth::GCECredentials.new(target_audience: AUDIENCE)
+        credentials = Google::Auth::GCECredentials.new(token_type: :id_token, target_audience: AUDIENCE)
 
         begin
           credentials.fetch_access_token!

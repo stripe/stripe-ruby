@@ -16,11 +16,11 @@ class V2SearchResultObjectTest < Test::Unit::TestCase
 
   should "replay the original POST body across empty pages" do
     params = { query: "widgets", sort: ["name", "-created"], limit: 2, future: { enabled: true } }
-    first = TestSearchResult.construct_from({ data: [1], next_page_url: "/v2/widgets/search?page=2" }, {}, nil, :v2)
+    first = TestSearchResult.construct_from({ data: [1], next_page_url: "/v2/widgets/search?page=2&limit=2" }, {}, nil, :v2)
     first.filters = params
     TestSearchResult.requests = []
     TestSearchResult.pages = [
-      TestSearchResult.construct_from({ data: [], next_page_url: "/v2/widgets/search?page=3" }, {}, nil, :v2),
+      TestSearchResult.construct_from({ data: [], next_page_url: "/v2/widgets/search?page=3&limit=2" }, {}, nil, :v2),
       TestSearchResult.construct_from({ data: [2], next_page_url: nil }, {}, nil, :v2),
     ]
 

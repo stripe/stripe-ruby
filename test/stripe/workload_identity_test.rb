@@ -274,28 +274,45 @@ module Stripe
       end
     end
 
-    context "conflicting overrides on a workload identity client" do
+    context "per-request overrides on a workload identity client" do
       setup do
         stub_request(:post, EXCHANGE_URL).to_return(status: 200, body: valid_exchange_response)
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .to_return(status: 200, body: JSON.generate(object: "list", data: []))
         @client = StripeClient.for_workload_identity("wci_123", FakeProvider.new)
       end
 
-      should "reject a request-level api_key override" do
-        assert_raises(WorkloadIdentityError) do
-          @client.v1.customers.list({}, { api_key: "sk_evil" })
-        end
+      should "sign the request with a request-level api_key override instead of the workload identity token" do
+        @client.v1.customers.list({}, { api_key: "sk_override" })
+
+        assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers",
+                         headers: { "Authorization" => "Bearer sk_override" }
       end
 
-      should "reject a custom Authorization header override" do
-        assert_raises(WorkloadIdentityError) do
-          @client.v1.customers.list({}, { "Authorization" => "Bearer sk_evil" })
-        end
+      should "sign the request with a custom Authorization header override" do
+        @client.v1.customers.list({}, { "Authorization" => "Bearer sk_override" })
+
+        assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers",
+                         headers: { "Authorization" => "Bearer sk_override" }
       end
 
-      should "reject an api_key override via raw_request" do
-        assert_raises(WorkloadIdentityError) do
-          @client.raw_request(:get, "/v1/customers", opts: { api_key: "sk_evil" })
+      should "sign the request with an api_key override via raw_request" do
+        @client.raw_request(:get, "/v1/customers", opts: { api_key: "sk_override" })
+
+        assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers",
+                         headers: { "Authorization" => "Bearer sk_override" }
+      end
+
+      should "not refresh or retry a 401 caused by an overridden Authorization header" do
+        stub_request(:get, "#{Stripe::DEFAULT_API_BASE}/v1/customers")
+          .to_return(status: 401, body: JSON.generate(error: { message: "nope", type: "authentication_error" }))
+
+        assert_raises(AuthenticationError) do
+          @client.v1.customers.list({}, { "Authorization" => "Bearer sk_override" })
         end
+
+        assert_requested :get, "#{Stripe::DEFAULT_API_BASE}/v1/customers", times: 1
+        assert_requested :post, EXCHANGE_URL, times: 1
       end
     end
 

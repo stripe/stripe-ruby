@@ -481,7 +481,6 @@ module Stripe
       api_mode = Util.get_api_mode(path)
       opts = RequestOptions.merge_config_and_opts(config, opts)
 
-
       raise ArgumentError, "method should be a symbol" \
       unless method.is_a?(Symbol)
 
@@ -507,6 +506,8 @@ module Stripe
 
       headers = request_headers(method, api_mode, opts)
       url = api_url(path, base_url)
+
+      auth_overridden = !!(opts[:api_key] || opts[:headers]&.key?("Authorization"))
 
       # Merge given query parameters with any already encoded in the path.
       query = query_params ? Util.encode_parameters(query_params, api_mode) : nil
@@ -542,7 +543,7 @@ module Stripe
         end
 
       http_resp =
-        execute_request_with_rescues(base_url, headers, api_mode, usage, context) do
+        execute_request_with_rescues(base_url, headers, api_mode, usage, context, auth_overridden) do
           self.class
               .default_connection_manager(config)
               .execute_request(method, url,
@@ -622,11 +623,13 @@ module Stripe
       http_status >= 400
     end
 
-    private def execute_request_with_rescues(base_url, headers, api_mode, usage, context)
+    private def execute_request_with_rescues(base_url, headers, api_mode, usage, context, auth_overridden)
       num_retries = 0
       auth_replayed = false
       workload_credentials =
-        config.authenticator.is_a?(WorkloadIdentity::Authenticator) ? config.authenticator.credentials : nil
+        if !auth_overridden && config.authenticator.is_a?(WorkloadIdentity::Authenticator)
+          config.authenticator.credentials
+        end
 
       begin
         request_start = nil
@@ -1030,7 +1033,7 @@ module Stripe
     end
 
     private def build_authorization_header(req_opts)
-      return "Bearer #{req_opts[:api_key]}" unless config.authenticator
+      return "Bearer #{req_opts[:api_key]}" if req_opts[:api_key] || !config.authenticator
 
       value = config.authenticator.call
       unless value.is_a?(String) && !value.empty?

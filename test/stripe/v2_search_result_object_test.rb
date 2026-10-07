@@ -25,9 +25,10 @@ class V2SearchResultObjectTest < Test::Unit::TestCase
     ]
 
     assert_equal [1, 2], first.auto_paging_each.to_a
+    request_body = { query: "widgets", sort: ["name", "-created"], future: { enabled: true } }
     assert_equal [
-      [:post, "/v2/widgets/search?page=2", params],
-      [:post, "/v2/widgets/search?page=3", params],
+      [:post, "/v2/widgets/search?page=2&limit=2", request_body],
+      [:post, "/v2/widgets/search?page=3&limit=2", request_body],
     ], TestSearchResult.requests
   end
 end

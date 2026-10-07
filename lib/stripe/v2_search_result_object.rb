@@ -45,10 +45,18 @@ module Stripe
       def fetch_next_page(opts = {})
         return self.class.construct_from({ data: [] }, opts, nil, :v2) if next_page_url.nil?
 
+        params = filters.dup
+        limit = params.delete(:limit) || params.delete("limit")
+        path = next_page_url
+        if limit && !path.match?(/[?&]limit=/)
+          separator = path.include?("?") ? "&" : "?"
+          path = "#{path}#{separator}limit=#{URI.encode_www_form_component(limit)}"
+        end
+
         request_stripe_object(
           method: :post,
-          path: next_page_url,
-          params: filters.dup,
+          path: path,
+          params: params,
           opts: opts,
           base_address: :api
         )

@@ -18,7 +18,7 @@ module Stripe
       end
     end
 
-    EXCHANGE_URL = "https://api.stripe.com/stripe-workload/oauth2/token"
+    EXCHANGE_URL = "https://access.stripe.com/wif/oauth2/token"
 
     def valid_exchange_response(access_token: "rk_live_fake", expires_in: 3600, token_type: "Bearer")
       JSON.generate(access_token: access_token, token_type: token_type, expires_in: expires_in)

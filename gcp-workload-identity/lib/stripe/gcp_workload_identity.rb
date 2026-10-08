@@ -7,7 +7,7 @@ require "stripe/gcp_workload_identity/version"
 module Stripe
   module GcpWorkloadIdentity
     # The fixed audience that Stripe expects for workload identity
-    AUDIENCE = "https://api.stripe.com/workload-identity"
+    AUDIENCE = "https://access.stripe.com/wif"
 
     # Error is raised when a Google-signed identity assertion can't be
     # obtained. The original exception, if any, is available via `#cause`.

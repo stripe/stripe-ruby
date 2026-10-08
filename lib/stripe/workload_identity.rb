@@ -12,8 +12,8 @@ module Stripe
   # that implement the interface validated by `validate_provider!`.
   module WorkloadIdentity
     GRANT_TYPE = "urn:ietf:params:oauth:grant-type:jwt-bearer"
-    TOKEN_HOST = "api.stripe.com"
-    TOKEN_PATH = "/stripe-workload/oauth2/token"
+    TOKEN_HOST = "access.stripe.com"
+    TOKEN_PATH = "/wif/oauth2/token"
     TOKEN_URL = "https://#{TOKEN_HOST}#{TOKEN_PATH}".freeze
 
     SUPPORTED_PROVIDERS = ["gcp"].freeze

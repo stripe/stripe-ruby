@@ -50,6 +50,15 @@ module Stripe
          }
         def initialize(checks: nil, network_decline_code: nil); end
       end
+      class UsBankAccount < ::Stripe::RequestParams
+        # NACHA ACH return code for a failed US bank account payment.
+        sig { returns(T.nilable(String)) }
+        def return_code; end
+        sig { params(_return_code: T.nilable(String)).returns(T.nilable(String)) }
+        def return_code=(_return_code); end
+        sig { params(return_code: T.nilable(String)).void }
+        def initialize(return_code: nil); end
+      end
       # Information about the card payment method used to make this payment.
       sig {
         returns(T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card))
@@ -64,10 +73,19 @@ module Stripe
       def type; end
       sig { params(_type: String).returns(String) }
       def type=(_type); end
+      # Details about the US bank account payment method.
       sig {
-        params(card: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card), type: String).void
+        returns(T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::UsBankAccount))
        }
-      def initialize(card: nil, type: nil); end
+      def us_bank_account; end
+      sig {
+        params(_us_bank_account: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::UsBankAccount)).returns(T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::UsBankAccount))
+       }
+      def us_bank_account=(_us_bank_account); end
+      sig {
+        params(card: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::Card), type: String, us_bank_account: T.nilable(::Stripe::PaymentAttemptRecordReportFailedParams::PaymentMethodDetails::UsBankAccount)).void
+       }
+      def initialize(card: nil, type: nil, us_bank_account: nil); end
     end
     class ProcessorDetails < ::Stripe::RequestParams
       class Custom < ::Stripe::RequestParams

@@ -190,7 +190,7 @@ module Stripe
       params(_radar_options: T.nilable(::Stripe::ChargeCreateParams::RadarOptions)).returns(T.nilable(::Stripe::ChargeCreateParams::RadarOptions))
      }
     def radar_options=(_radar_options); end
-    # The email address to which this charge's [receipt](https://docs.stripe.com/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and no receipts will be sent for test mode charges. If this charge is for a [Customer](https://docs.stripe.com/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
+    # The email address to which this charge's [receipt](https://docs.stripe.com/dashboard/receipts) will be sent. The receipt will not be sent until the charge is paid, and receipts are only sent for payments in live mode. If this charge is for a [Customer](https://docs.stripe.com/api/customers/object), the email address specified here will override the customer's email address. If `receipt_email` is specified for a charge in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
     sig { returns(T.nilable(String)) }
     def receipt_email; end
     sig { params(_receipt_email: T.nilable(String)).returns(T.nilable(String)) }

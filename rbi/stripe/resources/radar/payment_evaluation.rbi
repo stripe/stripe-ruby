@@ -301,14 +301,31 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class UsBankAccount < ::Stripe::StripeObject
+            # Describes the presence of the customer during the payment.
+            sig { returns(T.nilable(String)) }
+            def customer_presence; end
+            # Describes the type of US bank account payment.
+            sig { returns(T.nilable(String)) }
+            def payment_type; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Describes card money movement details.
           sig { returns(T.nilable(Card)) }
           def card; end
           # Describes the type of money movement.
           sig { returns(String) }
           def money_movement_type; end
+          # Describes US bank account money movement details.
+          sig { returns(T.nilable(UsBankAccount)) }
+          def us_bank_account; end
           def self.inner_class_types
-            @inner_class_types = {card: Card}
+            @inner_class_types = {card: Card, us_bank_account: UsBankAccount}
           end
           def self.field_remappings
             @field_remappings = {}
@@ -472,7 +489,38 @@ module Stripe
           @field_remappings = {}
         end
       end
+      class Rules < ::Stripe::StripeObject
+        # List of Radar rule tokens that matched during evaluation. Expandable to full rule objects.
+        sig { returns(T.nilable(T::Array[T.any(String, ::Stripe::Radar::Rule)])) }
+        def matched; end
+        # The Radar rule token selected as the decisive rule for this evaluation. Expandable to the full rule object.
+        sig { returns(T.nilable(T.any(String, ::Stripe::Radar::Rule))) }
+        def selected; end
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
       class Signals < ::Stripe::StripeObject
+        class BankInitiatedReturn < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          sig { returns(Integer) }
+          def evaluated_at; end
+          # Risk level of this signal, based on the score.
+          sig { returns(String) }
+          def risk_level; end
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          sig { returns(T.nilable(Float)) }
+          def score; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           sig { returns(Integer) }
@@ -524,6 +572,9 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        sig { returns(T.nilable(BankInitiatedReturn)) }
+        def bank_initiated_return; end
         # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         sig { returns(T.nilable(EarlyFraudWarning)) }
         def early_fraud_warning; end
@@ -535,6 +586,7 @@ module Stripe
         def fraudulent_payment; end
         def self.inner_class_types
           @inner_class_types = {
+            bank_initiated_return: BankInitiatedReturn,
             early_fraud_warning: EarlyFraudWarning,
             fraudulent_dispute: FraudulentDispute,
             fraudulent_payment: FraudulentPayment,
@@ -577,6 +629,9 @@ module Stripe
       # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
       sig { returns(String) }
       def recommended_action; end
+      # Details about Radar Rules associated with the payment evaluation.
+      sig { returns(T.nilable(Rules)) }
+      def rules; end
       # Collection of signals for this payment evaluation.
       sig { returns(Signals) }
       def signals; end

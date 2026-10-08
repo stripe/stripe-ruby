@@ -62,9 +62,9 @@ module Stripe
           end
 
           class Clabe < ::Stripe::StripeObject
-            # The name of the account holder.
+            # Attribute for field account_holder_name
             attr_reader :account_holder_name
-            # The CLABE interbank code.
+            # Attribute for field clabe
             attr_reader :clabe
 
             def self.inner_class_types
@@ -77,19 +77,19 @@ module Stripe
           end
 
           class Cpa < ::Stripe::StripeObject
-            # The name of the account holder.
+            # Attribute for field account_holder_name
             attr_reader :account_holder_name
-            # The full account number.
+            # Attribute for field account_number
             attr_reader :account_number
-            # The name of the bank.
+            # Attribute for field bank_name
             attr_reader :bank_name
-            # The SWIFT/BIC code.
+            # Attribute for field bic
             attr_reader :bic
-            # The institution number.
+            # Attribute for field institution_number
             attr_reader :institution_number
-            # The last four digits of the account number.
+            # Attribute for field last4
             attr_reader :last4
-            # The transit number.
+            # Attribute for field transit_number
             attr_reader :transit_number
 
             def self.inner_class_types
@@ -148,11 +148,11 @@ module Stripe
           end
           # ABA bank account details (US).
           attr_reader :aba
-          # CLABE bank account details (Mexico).
+          # Attribute for field clabe
           attr_reader :clabe
           # The country of the bank account.
           attr_reader :country
-          # CPA bank account details (Canada).
+          # Attribute for field cpa
           attr_reader :cpa
           # Open Enum. The currency of the bank account.
           attr_reader :currency
@@ -173,26 +173,42 @@ module Stripe
         end
 
         class CryptoWallet < ::Stripe::StripeObject
-          # The blockchain wallet address.
+          class SupportedNetworkDetails < ::Stripe::StripeObject
+            # The token currencies supported on this network.
+            attr_reader :supported_token_currencies
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
+          # Attribute for field address
           attr_reader :address
-          # An optional memo or tag required by some networks to identify the recipient.
+          # Attribute for field memo
           attr_reader :memo
-          # Open Enum. The blockchain network of the crypto wallet.
+          # Attribute for field network
           attr_reader :network
+          # A map of supported network names to their details, including supported token currencies.
+          attr_reader :supported_network_details
 
           def self.inner_class_types
-            @inner_class_types = {}
+            @inner_class_types = { supported_network_details: SupportedNetworkDetails }
           end
 
           def self.field_remappings
             @field_remappings = {}
           end
         end
+        # The ID of the Account that owns this FinancialAddress.
+        attr_reader :account
         # Bank account details for this FinancialAddress.
         attr_reader :bank_account
         # The creation timestamp of the FinancialAddress.
         attr_reader :created
-        # Crypto wallet details for this FinancialAddress.
+        # Attribute for field crypto_wallet
         attr_reader :crypto_wallet
         # The ID of the FinancialAccount this FinancialAddress corresponds to.
         attr_reader :financial_account
@@ -202,7 +218,7 @@ module Stripe
         attr_reader :livemode
         # String representing the object's type. Objects of the same type share the same value of the object field.
         attr_reader :object
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for field settlement_currency
         attr_reader :settlement_currency
         # Closed Enum. The status of the FinancialAddress.
         attr_reader :status

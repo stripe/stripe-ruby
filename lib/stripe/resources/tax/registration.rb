@@ -1956,6 +1956,19 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class UtilityUsersTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types) representing the local jurisdiction.
+            attr_reader :jurisdiction
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field admissions_tax
           attr_reader :admissions_tax
           # Attribute for field attendance_tax
@@ -1988,6 +2001,8 @@ module Stripe
           attr_reader :tourism_tax
           # Type of registration in the US.
           attr_reader :type
+          # Attribute for field utility_users_tax
+          attr_reader :utility_users_tax
 
           def self.inner_class_types
             @inner_class_types = {
@@ -2005,6 +2020,7 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
+              utility_users_tax: UtilityUsersTax,
             }
           end
 

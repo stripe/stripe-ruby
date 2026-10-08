@@ -34,7 +34,7 @@ module Stripe
         end
         # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         attr_reader :advance_amount
-        # The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
+        # The time at which the funds were paid out to the connected account's Stripe balance. Given in seconds since unix epoch.
         attr_reader :advance_paid_out_at
         # Currency that the financing offer is transacted in. For example, `usd`.
         attr_reader :currency

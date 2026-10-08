@@ -1209,6 +1209,26 @@ module Stripe
              "stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event"
     autoload :V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
              "stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event"
+    autoload :V2MoneyManagementInboundTransferMandateActivatedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_activated_event"
+    autoload :V2MoneyManagementInboundTransferMandateActivatedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_activated_event"
+    autoload :V2MoneyManagementInboundTransferMandateCreatedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_created_event"
+    autoload :V2MoneyManagementInboundTransferMandateCreatedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_created_event"
+    autoload :V2MoneyManagementInboundTransferMandateExpiredEvent,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_expired_event"
+    autoload :V2MoneyManagementInboundTransferMandateExpiredEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_expired_event"
+    autoload :V2MoneyManagementInboundTransferMandateRefusedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_refused_event"
+    autoload :V2MoneyManagementInboundTransferMandateRefusedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_refused_event"
+    autoload :V2MoneyManagementInboundTransferMandateRevokedEvent,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_revoked_event"
+    autoload :V2MoneyManagementInboundTransferMandateRevokedEventNotification,
+             "stripe/events/v2_money_management_inbound_transfer_mandate_revoked_event"
     autoload :V2MoneyManagementOutboundPaymentCanceledEvent,
              "stripe/events/v2_money_management_outbound_payment_canceled_event"
     autoload :V2MoneyManagementOutboundPaymentCanceledEventNotification,
@@ -1555,6 +1575,7 @@ module Stripe
     autoload :EarlyFraudWarning, "stripe/resources/radar/early_fraud_warning"
     autoload :IssuingAuthorizationEvaluation, "stripe/resources/radar/issuing_authorization_evaluation"
     autoload :PaymentEvaluation, "stripe/resources/radar/payment_evaluation"
+    autoload :Rule, "stripe/resources/radar/rule"
     autoload :ValueList, "stripe/resources/radar/value_list"
     autoload :ValueListItem, "stripe/resources/radar/value_list_item"
   end
@@ -1739,7 +1760,9 @@ module Stripe
                "stripe/resources/v2/money_management/financial_address_debit_simulation"
       autoload :FinancialAddressGeneratedMicrodeposits,
                "stripe/resources/v2/money_management/financial_address_generated_microdeposits"
+      autoload :FundingSession, "stripe/resources/v2/money_management/funding_session"
       autoload :InboundTransfer, "stripe/resources/v2/money_management/inbound_transfer"
+      autoload :InboundTransferMandate, "stripe/resources/v2/money_management/inbound_transfer_mandate"
       autoload :OutboundPayment, "stripe/resources/v2/money_management/outbound_payment"
       autoload :OutboundPaymentQuote, "stripe/resources/v2/money_management/outbound_payment_quote"
       autoload :OutboundSetupIntent, "stripe/resources/v2/money_management/outbound_setup_intent"
@@ -1958,6 +1981,7 @@ module Stripe
     stripe/resources/radar/early_fraud_warning
     stripe/resources/radar/issuing_authorization_evaluation
     stripe/resources/radar/payment_evaluation
+    stripe/resources/radar/rule
     stripe/resources/radar/value_list
     stripe/resources/radar/value_list_item
     stripe/resources/refund
@@ -2093,7 +2117,9 @@ module Stripe
     stripe/resources/v2/money_management/financial_address_credit_simulation
     stripe/resources/v2/money_management/financial_address_debit_simulation
     stripe/resources/v2/money_management/financial_address_generated_microdeposits
+    stripe/resources/v2/money_management/funding_session
     stripe/resources/v2/money_management/inbound_transfer
+    stripe/resources/v2/money_management/inbound_transfer_mandate
     stripe/resources/v2/money_management/outbound_payment
     stripe/resources/v2/money_management/outbound_payment_quote
     stripe/resources/v2/money_management/outbound_setup_intent
@@ -2527,6 +2553,11 @@ module Stripe
     stripe/events/v2_money_management_inbound_transfer_bank_debit_queued_event
     stripe/events/v2_money_management_inbound_transfer_bank_debit_returned_event
     stripe/events/v2_money_management_inbound_transfer_bank_debit_succeeded_event
+    stripe/events/v2_money_management_inbound_transfer_mandate_activated_event
+    stripe/events/v2_money_management_inbound_transfer_mandate_created_event
+    stripe/events/v2_money_management_inbound_transfer_mandate_expired_event
+    stripe/events/v2_money_management_inbound_transfer_mandate_refused_event
+    stripe/events/v2_money_management_inbound_transfer_mandate_revoked_event
     stripe/events/v2_money_management_outbound_payment_canceled_event
     stripe/events/v2_money_management_outbound_payment_created_event
     stripe/events/v2_money_management_outbound_payment_failed_event

@@ -492,7 +492,7 @@ module Stripe
           def amount_includes_iof; end
           sig { params(_amount_includes_iof: T.nilable(String)).returns(T.nilable(String)) }
           def amount_includes_iof=(_amount_includes_iof); end
-          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           sig { returns(T.nilable(Integer)) }
           def expires_after_seconds; end
           sig { params(_expires_after_seconds: T.nilable(Integer)).returns(T.nilable(Integer)) }

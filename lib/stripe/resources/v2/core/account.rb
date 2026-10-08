@@ -7240,6 +7240,93 @@ module Stripe
                 end
               end
 
+              class VippsPayments < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    attr_reader :expires_at
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    attr_reader :requested_at
+                    # The current status of the protection.
+                    attr_reader :status
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = { expires_at: :int64_string, requested_at: :int64_string }
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  attr_reader :psp_migration
+
+                  def self.inner_class_types
+                    @inner_class_types = { psp_migration: PspMigration }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: { expires_at: :int64_string, requested_at: :int64_string },
+                      },
+                    }
+                  end
+                end
+
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                attr_reader :protections
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: { expires_at: :int64_string, requested_at: :int64_string },
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+
               class ZipPayments < ::Stripe::StripeObject
                 class Protections < ::Stripe::StripeObject
                   class PspMigration < ::Stripe::StripeObject
@@ -7422,6 +7509,8 @@ module Stripe
               attr_reader :twint_payments
               # Allow the merchant to process US bank transfer payments.
               attr_reader :us_bank_transfer_payments
+              # Allow the merchant to process Vipps payments.
+              attr_reader :vipps_payments
               # Allow the merchant to process Zip payments.
               attr_reader :zip_payments
 
@@ -7475,6 +7564,7 @@ module Stripe
                   swish_payments: SwishPayments,
                   twint_payments: TwintPayments,
                   us_bank_transfer_payments: UsBankTransferPayments,
+                  vipps_payments: VippsPayments,
                   zip_payments: ZipPayments,
                 }
               end
@@ -8149,6 +8239,20 @@ module Stripe
                     },
                   },
                   us_bank_transfer_payments: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  vipps_payments: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -9133,6 +9237,20 @@ module Stripe
                         },
                       },
                     },
+                    vipps_payments: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
                     zip_payments: {
                       kind: :object,
                       fields: {
@@ -9155,6 +9273,545 @@ module Stripe
 
           class MoneyManager < ::Stripe::StripeObject
             class Capabilities < ::Stripe::StripeObject
+              class BusinessCustodialStorage < ::Stripe::StripeObject
+                class Inbound < ::Stripe::StripeObject
+                  class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        attr_reader :expires_at
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        attr_reader :requested_at
+                        # The current status of the protection.
+                        attr_reader :status
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      attr_reader :psp_migration
+
+                      def self.inner_class_types
+                        @inner_class_types = { psp_migration: PspMigration }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        }
+                      end
+                    end
+
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    attr_reader :protections
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+
+                  class Usdc < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        attr_reader :expires_at
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        attr_reader :requested_at
+                        # The current status of the protection.
+                        attr_reader :status
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      attr_reader :psp_migration
+
+                      def self.inner_class_types
+                        @inner_class_types = { psp_migration: PspMigration }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        }
+                      end
+                    end
+
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    attr_reader :protections
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Can receive business custodial storage-type funds on Stripe in OUSD.
+                  attr_reader :ousd
+                  # Can receive business custodial storage-type funds on Stripe in USDC.
+                  attr_reader :usdc
+
+                  def self.inner_class_types
+                    @inner_class_types = { ousd: Ousd, usdc: Usdc }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      usdc: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class Outbound < ::Stripe::StripeObject
+                  class Ousd < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        attr_reader :expires_at
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        attr_reader :requested_at
+                        # The current status of the protection.
+                        attr_reader :status
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      attr_reader :psp_migration
+
+                      def self.inner_class_types
+                        @inner_class_types = { psp_migration: PspMigration }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        }
+                      end
+                    end
+
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    attr_reader :protections
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+
+                  class Usdc < ::Stripe::StripeObject
+                    class Protections < ::Stripe::StripeObject
+                      class PspMigration < ::Stripe::StripeObject
+                        # The time until which the protection will expire, as a Unix timestamp.
+                        attr_reader :expires_at
+                        # The time at which the protection was requested, as a Unix timestamp.
+                        attr_reader :requested_at
+                        # The current status of the protection.
+                        attr_reader :status
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            expires_at: :int64_string,
+                            requested_at: :int64_string,
+                          }
+                        end
+                      end
+                      # Protection details for PSP migration.
+                      attr_reader :psp_migration
+
+                      def self.inner_class_types
+                        @inner_class_types = { psp_migration: PspMigration }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        }
+                      end
+                    end
+
+                    class StatusDetail < ::Stripe::StripeObject
+                      # Machine-readable code explaining the reason for the Capability to be in its current status.
+                      attr_reader :code
+                      # Machine-readable code explaining how to make the Capability active.
+                      attr_reader :resolution
+
+                      def self.inner_class_types
+                        @inner_class_types = {}
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+                    end
+                    # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    attr_reader :protections
+                    # The status of the Capability.
+                    attr_reader :status
+                    # Additional details about the capability's status. This value is empty when `status` is `active`.
+                    attr_reader :status_details
+
+                    def self.inner_class_types
+                      @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Can send business custodial storage-type funds on Stripe in OUSD.
+                  attr_reader :ousd
+                  # Can send business custodial storage-type funds on Stripe in USDC.
+                  attr_reader :usdc
+
+                  def self.inner_class_types
+                    @inner_class_types = { ousd: Ousd, usdc: Usdc }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      ousd: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      usdc: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+                # Can receive business custodial storage-type funds on Stripe.
+                attr_reader :inbound
+                # Can send business custodial storage-type funds on Stripe.
+                attr_reader :outbound
+
+                def self.inner_class_types
+                  @inner_class_types = { inbound: Inbound, outbound: Outbound }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    inbound: {
+                      kind: :object,
+                      fields: {
+                        ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usdc: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    outbound: {
+                      kind: :object,
+                      fields: {
+                        ousd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usdc: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+
               class BusinessStorage < ::Stripe::StripeObject
                 class Inbound < ::Stripe::StripeObject
                   class Aud < ::Stripe::StripeObject
@@ -11916,6 +12573,1606 @@ module Stripe
                   end
                 end
 
+                class Offramp < ::Stripe::StripeObject
+                  class BankAccounts < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can send crypto converted into BRL to a bank account.
+                    attr_reader :brl
+                    # Can send crypto converted into COP to a bank account.
+                    attr_reader :cop
+                    # Can send crypto converted into EUR to a bank account.
+                    attr_reader :eur
+                    # Can send crypto converted into GBP to a bank account.
+                    attr_reader :gbp
+                    # Can send crypto converted into MXN to a bank account.
+                    attr_reader :mxn
+                    # Can send crypto converted into USD to a bank account.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  attr_reader :bank_accounts
+
+                  def self.inner_class_types
+                    @inner_class_types = { bank_accounts: BankAccounts }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      bank_accounts: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class Onramp < ::Stripe::StripeObject
+                  class CryptoWallets < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can send BRL converted into crypto to a crypto wallet.
+                    attr_reader :brl
+                    # Can send COP converted into crypto to a crypto wallet.
+                    attr_reader :cop
+                    # Can send EUR converted into crypto to a crypto wallet.
+                    attr_reader :eur
+                    # Can send GBP converted into crypto to a crypto wallet.
+                    attr_reader :gbp
+                    # Can send MXN converted into crypto to a crypto wallet.
+                    attr_reader :mxn
+                    # Can send USD converted into crypto to a crypto wallet.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  attr_reader :crypto_wallets
+
+                  def self.inner_class_types
+                    @inner_class_types = { crypto_wallets: CryptoWallets }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      crypto_wallets: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
                 class PaperChecks < ::Stripe::StripeObject
                   class Protections < ::Stripe::StripeObject
                     class PspMigration < ::Stripe::StripeObject
@@ -12010,6 +14267,10 @@ module Stripe
                 attr_reader :crypto_wallets
                 # Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                 attr_reader :financial_accounts
+                # Can send crypto converted into fiat to a bank account.
+                attr_reader :offramp
+                # Can send fiat converted into crypto to a crypto wallet.
+                attr_reader :onramp
                 # Can send funds from a FinancialAccount to someone else via paper check.
                 attr_reader :paper_checks
 
@@ -12019,6 +14280,8 @@ module Stripe
                     cards: Cards,
                     crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
+                    offramp: Offramp,
+                    onramp: Onramp,
                     paper_checks: PaperChecks,
                   }
                 end
@@ -12080,6 +14343,230 @@ module Stripe
                             psp_migration: {
                               kind: :object,
                               fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    offramp: {
+                      kind: :object,
+                      fields: {
+                        bank_accounts: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    onramp: {
+                      kind: :object,
+                      fields: {
+                        crypto_wallets: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                             },
                           },
                         },
@@ -12364,18 +14851,1624 @@ module Stripe
                     }
                   end
                 end
+
+                class Offramp < ::Stripe::StripeObject
+                  class BankAccounts < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can send crypto converted into BRL to a bank account belonging to the same user.
+                    attr_reader :brl
+                    # Can send crypto converted into COP to a bank account belonging to the same user.
+                    attr_reader :cop
+                    # Can send crypto converted into EUR to a bank account belonging to the same user.
+                    attr_reader :eur
+                    # Can send crypto converted into GBP to a bank account belonging to the same user.
+                    attr_reader :gbp
+                    # Can send crypto converted into MXN to a bank account belonging to the same user.
+                    attr_reader :mxn
+                    # Can send crypto converted into USD to a bank account belonging to the same user.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  attr_reader :bank_accounts
+
+                  def self.inner_class_types
+                    @inner_class_types = { bank_accounts: BankAccounts }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      bank_accounts: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class Onramp < ::Stripe::StripeObject
+                  class CryptoWallets < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can send BRL converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :brl
+                    # Can send COP converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :cop
+                    # Can send EUR converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :eur
+                    # Can send GBP converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :gbp
+                    # Can send MXN converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :mxn
+                    # Can send USD converted into crypto to a crypto wallet belonging to the same user.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  attr_reader :crypto_wallets
+
+                  def self.inner_class_types
+                    @inner_class_types = { crypto_wallets: CryptoWallets }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      crypto_wallets: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
                 # Can send funds from a FinancialAccount to a bank account belonging to the same user.
                 attr_reader :bank_accounts
                 # Can send funds from a FinancialAccount to a crypto wallet belonging to the same user.
                 attr_reader :crypto_wallets
                 # Can send funds from a FinancialAccount to another FinancialAccount belonging to the same user.
                 attr_reader :financial_accounts
+                # Can send crypto converted into fiat to a bank account belonging to the same user.
+                attr_reader :offramp
+                # Can send fiat converted into crypto to a crypto wallet belonging to the same user.
+                attr_reader :onramp
 
                 def self.inner_class_types
                   @inner_class_types = {
                     bank_accounts: BankAccounts,
                     crypto_wallets: CryptoWallets,
                     financial_accounts: FinancialAccounts,
+                    offramp: Offramp,
+                    onramp: Onramp,
                   }
                 end
 
@@ -12422,6 +16515,230 @@ module Stripe
                             psp_migration: {
                               kind: :object,
                               fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    offramp: {
+                      kind: :object,
+                      fields: {
+                        bank_accounts: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    onramp: {
+                      kind: :object,
+                      fields: {
+                        crypto_wallets: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                             },
                           },
                         },
@@ -12605,13 +16922,1622 @@ module Stripe
                     }
                   end
                 end
+
+                class Offramp < ::Stripe::StripeObject
+                  class BankAccounts < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can receive BRL converted from crypto through a bank-account-like financial address.
+                    attr_reader :brl
+                    # Can receive COP converted from crypto through a bank-account-like financial address.
+                    attr_reader :cop
+                    # Can receive EUR converted from crypto through a bank-account-like financial address.
+                    attr_reader :eur
+                    # Can receive GBP converted from crypto through a bank-account-like financial address.
+                    attr_reader :gbp
+                    # Can receive MXN converted from crypto through a bank-account-like financial address.
+                    attr_reader :mxn
+                    # Can receive USD converted from crypto through a bank-account-like financial address.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Bank accounts for crypto converted into fiat.
+                  attr_reader :bank_accounts
+
+                  def self.inner_class_types
+                    @inner_class_types = { bank_accounts: BankAccounts }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      bank_accounts: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
+
+                class Onramp < ::Stripe::StripeObject
+                  class CryptoWallets < ::Stripe::StripeObject
+                    class Brl < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Cop < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Eur < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Gbp < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Mxn < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+
+                    class Usd < ::Stripe::StripeObject
+                      class Protections < ::Stripe::StripeObject
+                        class PspMigration < ::Stripe::StripeObject
+                          # The time until which the protection will expire, as a Unix timestamp.
+                          attr_reader :expires_at
+                          # The time at which the protection was requested, as a Unix timestamp.
+                          attr_reader :requested_at
+                          # The current status of the protection.
+                          attr_reader :status
+
+                          def self.inner_class_types
+                            @inner_class_types = {}
+                          end
+
+                          def self.field_remappings
+                            @field_remappings = {}
+                          end
+
+                          def self.field_encodings
+                            @field_encodings = {
+                              expires_at: :int64_string,
+                              requested_at: :int64_string,
+                            }
+                          end
+                        end
+                        # Protection details for PSP migration.
+                        attr_reader :psp_migration
+
+                        def self.inner_class_types
+                          @inner_class_types = { psp_migration: PspMigration }
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+
+                        def self.field_encodings
+                          @field_encodings = {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          }
+                        end
+                      end
+
+                      class StatusDetail < ::Stripe::StripeObject
+                        # Machine-readable code explaining the reason for the Capability to be in its current status.
+                        attr_reader :code
+                        # Machine-readable code explaining how to make the Capability active.
+                        attr_reader :resolution
+
+                        def self.inner_class_types
+                          @inner_class_types = {}
+                        end
+
+                        def self.field_remappings
+                          @field_remappings = {}
+                        end
+                      end
+                      # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                      attr_reader :protections
+                      # The status of the Capability.
+                      attr_reader :status
+                      # Additional details about the capability's status. This value is empty when `status` is `active`.
+                      attr_reader :status_details
+
+                      def self.inner_class_types
+                        @inner_class_types = {
+                          protections: Protections,
+                          status_details: StatusDetail,
+                        }
+                      end
+
+                      def self.field_remappings
+                        @field_remappings = {}
+                      end
+
+                      def self.field_encodings
+                        @field_encodings = {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        }
+                      end
+                    end
+                    # Can receive crypto converted from BRL through a crypto-wallet-like financial address.
+                    attr_reader :brl
+                    # Can receive crypto converted from COP through a crypto-wallet-like financial address.
+                    attr_reader :cop
+                    # Can receive crypto converted from EUR through a crypto-wallet-like financial address.
+                    attr_reader :eur
+                    # Can receive crypto converted from GBP through a crypto-wallet-like financial address.
+                    attr_reader :gbp
+                    # Can receive crypto converted from MXN through a crypto-wallet-like financial address.
+                    attr_reader :mxn
+                    # Can receive crypto converted from USD through a crypto-wallet-like financial address.
+                    attr_reader :usd
+
+                    def self.inner_class_types
+                      @inner_class_types = {
+                        brl: Brl,
+                        cop: Cop,
+                        eur: Eur,
+                        gbp: Gbp,
+                        mxn: Mxn,
+                        usd: Usd,
+                      }
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = {
+                        brl: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        cop: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        eur: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        gbp: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        mxn: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        usd: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      }
+                    end
+                  end
+                  # Crypto wallets for fiat converted into crypto.
+                  attr_reader :crypto_wallets
+
+                  def self.inner_class_types
+                    @inner_class_types = { crypto_wallets: CryptoWallets }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      crypto_wallets: {
+                        kind: :object,
+                        fields: {
+                          brl: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          cop: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          eur: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          gbp: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          mxn: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    }
+                  end
+                end
                 # Can receive credits to a bank-account like financial address to credit a FinancialAccount.
                 attr_reader :bank_accounts
                 # Can receive credits to a crypto wallet like financial address to credit a FinancialAccount.
                 attr_reader :crypto_wallets
+                # Can receive fiat converted from crypto through a bank-account-like financial address.
+                attr_reader :offramp
+                # Can receive crypto converted from fiat through a crypto-wallet-like financial address.
+                attr_reader :onramp
 
                 def self.inner_class_types
-                  @inner_class_types = { bank_accounts: BankAccounts, crypto_wallets: CryptoWallets }
+                  @inner_class_types = {
+                    bank_accounts: BankAccounts,
+                    crypto_wallets: CryptoWallets,
+                    offramp: Offramp,
+                    onramp: Onramp,
+                  }
                 end
 
                 def self.field_remappings
@@ -12643,6 +18569,230 @@ module Stripe
                             psp_migration: {
                               kind: :object,
                               fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    offramp: {
+                      kind: :object,
+                      fields: {
+                        bank_accounts: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    onramp: {
+                      kind: :object,
+                      fields: {
+                        crypto_wallets: {
+                          kind: :object,
+                          fields: {
+                            brl: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            cop: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            eur: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            gbp: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            mxn: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
                             },
                           },
                         },
@@ -12769,6 +18919,8 @@ module Stripe
                   }
                 end
               end
+              # Can send or receive business custodial storage-type funds on Stripe.
+              attr_reader :business_custodial_storage
               # Can send or receive business storage-type funds on Stripe.
               attr_reader :business_storage
               # Can send or receive consumer storage-type funds on Stripe.
@@ -12786,6 +18938,7 @@ module Stripe
 
               def self.inner_class_types
                 @inner_class_types = {
+                  business_custodial_storage: BusinessCustodialStorage,
                   business_storage: BusinessStorage,
                   consumer_storage: ConsumerStorage,
                   inbound_transfers: InboundTransfers,
@@ -12802,6 +18955,89 @@ module Stripe
 
               def self.field_encodings
                 @field_encodings = {
+                  business_custodial_storage: {
+                    kind: :object,
+                    fields: {
+                      inbound: {
+                        kind: :object,
+                        fields: {
+                          ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usdc: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      outbound: {
+                        kind: :object,
+                        fields: {
+                          ousd: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          usdc: {
+                            kind: :object,
+                            fields: {
+                              protections: {
+                                kind: :object,
+                                fields: {
+                                  psp_migration: {
+                                    kind: :object,
+                                    fields: {
+                                      expires_at: :int64_string,
+                                      requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
                   business_storage: {
                     kind: :object,
                     fields: {
@@ -13216,6 +19452,230 @@ module Stripe
                           },
                         },
                       },
+                      offramp: {
+                        kind: :object,
+                        fields: {
+                          bank_accounts: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      onramp: {
+                        kind: :object,
+                        fields: {
+                          crypto_wallets: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                       paper_checks: {
                         kind: :object,
                         fields: {
@@ -13277,6 +19737,230 @@ module Stripe
                           },
                         },
                       },
+                      offramp: {
+                        kind: :object,
+                        fields: {
+                          bank_accounts: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      onramp: {
+                        kind: :object,
+                        fields: {
+                          crypto_wallets: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                     },
                   },
                   received_credits: {
@@ -13305,6 +19989,230 @@ module Stripe
                               psp_migration: {
                                 kind: :object,
                                 fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      offramp: {
+                        kind: :object,
+                        fields: {
+                          bank_accounts: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      onramp: {
+                        kind: :object,
+                        fields: {
+                          crypto_wallets: {
+                            kind: :object,
+                            fields: {
+                              brl: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              cop: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              eur: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              gbp: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              mxn: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
                               },
                             },
                           },
@@ -13394,6 +20302,89 @@ module Stripe
                 capabilities: {
                   kind: :object,
                   fields: {
+                    business_custodial_storage: {
+                      kind: :object,
+                      fields: {
+                        inbound: {
+                          kind: :object,
+                          fields: {
+                            ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usdc: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        outbound: {
+                          kind: :object,
+                          fields: {
+                            ousd: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            usdc: {
+                              kind: :object,
+                              fields: {
+                                protections: {
+                                  kind: :object,
+                                  fields: {
+                                    psp_migration: {
+                                      kind: :object,
+                                      fields: {
+                                        expires_at: :int64_string,
+                                        requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
                     business_storage: {
                       kind: :object,
                       fields: {
@@ -13808,6 +20799,230 @@ module Stripe
                             },
                           },
                         },
+                        offramp: {
+                          kind: :object,
+                          fields: {
+                            bank_accounts: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        onramp: {
+                          kind: :object,
+                          fields: {
+                            crypto_wallets: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
                         paper_checks: {
                           kind: :object,
                           fields: {
@@ -13869,6 +21084,230 @@ module Stripe
                             },
                           },
                         },
+                        offramp: {
+                          kind: :object,
+                          fields: {
+                            bank_accounts: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        onramp: {
+                          kind: :object,
+                          fields: {
+                            crypto_wallets: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
                       },
                     },
                     received_credits: {
@@ -13897,6 +21336,230 @@ module Stripe
                                 psp_migration: {
                                   kind: :object,
                                   fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        offramp: {
+                          kind: :object,
+                          fields: {
+                            bank_accounts: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        onramp: {
+                          kind: :object,
+                          fields: {
+                            crypto_wallets: {
+                              kind: :object,
+                              fields: {
+                                brl: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                cop: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                eur: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                gbp: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                mxn: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
                                 },
                               },
                             },
@@ -15560,6 +23223,93 @@ module Stripe
                 end
               end
 
+              class Pix < ::Stripe::StripeObject
+                class Protections < ::Stripe::StripeObject
+                  class PspMigration < ::Stripe::StripeObject
+                    # The time until which the protection will expire, as a Unix timestamp.
+                    attr_reader :expires_at
+                    # The time at which the protection was requested, as a Unix timestamp.
+                    attr_reader :requested_at
+                    # The current status of the protection.
+                    attr_reader :status
+
+                    def self.inner_class_types
+                      @inner_class_types = {}
+                    end
+
+                    def self.field_remappings
+                      @field_remappings = {}
+                    end
+
+                    def self.field_encodings
+                      @field_encodings = { expires_at: :int64_string, requested_at: :int64_string }
+                    end
+                  end
+                  # Protection details for PSP migration.
+                  attr_reader :psp_migration
+
+                  def self.inner_class_types
+                    @inner_class_types = { psp_migration: PspMigration }
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+
+                  def self.field_encodings
+                    @field_encodings = {
+                      psp_migration: {
+                        kind: :object,
+                        fields: { expires_at: :int64_string, requested_at: :int64_string },
+                      },
+                    }
+                  end
+                end
+
+                class StatusDetail < ::Stripe::StripeObject
+                  # Machine-readable code explaining the reason for the Capability to be in its current status.
+                  attr_reader :code
+                  # Machine-readable code explaining how to make the Capability active.
+                  attr_reader :resolution
+
+                  def self.inner_class_types
+                    @inner_class_types = {}
+                  end
+
+                  def self.field_remappings
+                    @field_remappings = {}
+                  end
+                end
+                # Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                attr_reader :protections
+                # The status of the Capability.
+                attr_reader :status
+                # Additional details about the capability's status. This value is empty when `status` is `active`.
+                attr_reader :status_details
+
+                def self.inner_class_types
+                  @inner_class_types = { protections: Protections, status_details: StatusDetail }
+                end
+
+                def self.field_remappings
+                  @field_remappings = {}
+                end
+
+                def self.field_encodings
+                  @field_encodings = {
+                    protections: {
+                      kind: :object,
+                      fields: {
+                        psp_migration: {
+                          kind: :object,
+                          fields: { expires_at: :int64_string, requested_at: :int64_string },
+                        },
+                      },
+                    },
+                  }
+                end
+              end
+
               class StripeBalance < ::Stripe::StripeObject
                 class Payouts < ::Stripe::StripeObject
                   class Protections < ::Stripe::StripeObject
@@ -15788,6 +23538,8 @@ module Stripe
               attr_reader :crypto_wallets
               # Capabilities that enable OutboundPayments via paper check.
               attr_reader :paper_checks
+              # Capabilities that enable OutboundPayments to a Pix account.
+              attr_reader :pix
               # Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
               attr_reader :stripe_balance
 
@@ -15797,6 +23549,7 @@ module Stripe
                   cards: Cards,
                   crypto_wallets: CryptoWallets,
                   paper_checks: PaperChecks,
+                  pix: Pix,
                   stripe_balance: StripeBalance,
                 }
               end
@@ -16023,6 +23776,20 @@ module Stripe
                     },
                   },
                   paper_checks: {
+                    kind: :object,
+                    fields: {
+                      protections: {
+                        kind: :object,
+                        fields: {
+                          psp_migration: {
+                            kind: :object,
+                            fields: { expires_at: :int64_string, requested_at: :int64_string },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  pix: {
                     kind: :object,
                     fields: {
                       protections: {
@@ -16326,6 +24093,20 @@ module Stripe
                       },
                     },
                     paper_checks: {
+                      kind: :object,
+                      fields: {
+                        protections: {
+                          kind: :object,
+                          fields: {
+                            psp_migration: {
+                              kind: :object,
+                              fields: { expires_at: :int64_string, requested_at: :int64_string },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    pix: {
                       kind: :object,
                       fields: {
                         protections: {
@@ -17439,6 +25220,20 @@ module Stripe
                           },
                         },
                       },
+                      vipps_payments: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
                       zip_payments: {
                         kind: :object,
                         fields: {
@@ -17463,6 +25258,89 @@ module Stripe
                   capabilities: {
                     kind: :object,
                     fields: {
+                      business_custodial_storage: {
+                        kind: :object,
+                        fields: {
+                          inbound: {
+                            kind: :object,
+                            fields: {
+                              ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usdc: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          outbound: {
+                            kind: :object,
+                            fields: {
+                              ousd: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                              usdc: {
+                                kind: :object,
+                                fields: {
+                                  protections: {
+                                    kind: :object,
+                                    fields: {
+                                      psp_migration: {
+                                        kind: :object,
+                                        fields: {
+                                          expires_at: :int64_string,
+                                          requested_at: :int64_string,
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
+                      },
                       business_storage: {
                         kind: :object,
                         fields: {
@@ -17892,6 +25770,230 @@ module Stripe
                               },
                             },
                           },
+                          offramp: {
+                            kind: :object,
+                            fields: {
+                              bank_accounts: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          onramp: {
+                            kind: :object,
+                            fields: {
+                              crypto_wallets: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                           paper_checks: {
                             kind: :object,
                             fields: {
@@ -17965,6 +26067,230 @@ module Stripe
                               },
                             },
                           },
+                          offramp: {
+                            kind: :object,
+                            fields: {
+                              bank_accounts: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          onramp: {
+                            kind: :object,
+                            fields: {
+                              crypto_wallets: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
                         },
                       },
                       received_credits: {
@@ -17998,6 +26324,230 @@ module Stripe
                                     fields: {
                                       expires_at: :int64_string,
                                       requested_at: :int64_string,
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          offramp: {
+                            kind: :object,
+                            fields: {
+                              bank_accounts: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                          onramp: {
+                            kind: :object,
+                            fields: {
+                              crypto_wallets: {
+                                kind: :object,
+                                fields: {
+                                  brl: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  cop: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  eur: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  gbp: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  mxn: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                  usd: {
+                                    kind: :object,
+                                    fields: {
+                                      protections: {
+                                        kind: :object,
+                                        fields: {
+                                          psp_migration: {
+                                            kind: :object,
+                                            fields: {
+                                              expires_at: :int64_string,
+                                              requested_at: :int64_string,
+                                            },
+                                          },
+                                        },
+                                      },
                                     },
                                   },
                                 },
@@ -18293,6 +26843,20 @@ module Stripe
                         },
                       },
                       paper_checks: {
+                        kind: :object,
+                        fields: {
+                          protections: {
+                            kind: :object,
+                            fields: {
+                              psp_migration: {
+                                kind: :object,
+                                fields: { expires_at: :int64_string, requested_at: :int64_string },
+                              },
+                            },
+                          },
+                        },
+                      },
+                      pix: {
                         kind: :object,
                         fields: {
                           protections: {
@@ -22138,6 +30702,20 @@ module Stripe
                             },
                           },
                         },
+                        vipps_payments: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
                         zip_payments: {
                           kind: :object,
                           fields: {
@@ -22162,6 +30740,89 @@ module Stripe
                     capabilities: {
                       kind: :object,
                       fields: {
+                        business_custodial_storage: {
+                          kind: :object,
+                          fields: {
+                            inbound: {
+                              kind: :object,
+                              fields: {
+                                ousd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usdc: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            outbound: {
+                              kind: :object,
+                              fields: {
+                                ousd: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                                usdc: {
+                                  kind: :object,
+                                  fields: {
+                                    protections: {
+                                      kind: :object,
+                                      fields: {
+                                        psp_migration: {
+                                          kind: :object,
+                                          fields: {
+                                            expires_at: :int64_string,
+                                            requested_at: :int64_string,
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        },
                         business_storage: {
                           kind: :object,
                           fields: {
@@ -22591,6 +31252,230 @@ module Stripe
                                 },
                               },
                             },
+                            offramp: {
+                              kind: :object,
+                              fields: {
+                                bank_accounts: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            onramp: {
+                              kind: :object,
+                              fields: {
+                                crypto_wallets: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                             paper_checks: {
                               kind: :object,
                               fields: {
@@ -22664,6 +31549,230 @@ module Stripe
                                 },
                               },
                             },
+                            offramp: {
+                              kind: :object,
+                              fields: {
+                                bank_accounts: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            onramp: {
+                              kind: :object,
+                              fields: {
+                                crypto_wallets: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
                           },
                         },
                         received_credits: {
@@ -22697,6 +31806,230 @@ module Stripe
                                       fields: {
                                         expires_at: :int64_string,
                                         requested_at: :int64_string,
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            offramp: {
+                              kind: :object,
+                              fields: {
+                                bank_accounts: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                  },
+                                },
+                              },
+                            },
+                            onramp: {
+                              kind: :object,
+                              fields: {
+                                crypto_wallets: {
+                                  kind: :object,
+                                  fields: {
+                                    brl: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    cop: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    eur: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    gbp: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    mxn: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
+                                      },
+                                    },
+                                    usd: {
+                                      kind: :object,
+                                      fields: {
+                                        protections: {
+                                          kind: :object,
+                                          fields: {
+                                            psp_migration: {
+                                              kind: :object,
+                                              fields: {
+                                                expires_at: :int64_string,
+                                                requested_at: :int64_string,
+                                              },
+                                            },
+                                          },
+                                        },
                                       },
                                     },
                                   },
@@ -22992,6 +32325,20 @@ module Stripe
                           },
                         },
                         paper_checks: {
+                          kind: :object,
+                          fields: {
+                            protections: {
+                              kind: :object,
+                              fields: {
+                                psp_migration: {
+                                  kind: :object,
+                                  fields: { expires_at: :int64_string, requested_at: :int64_string },
+                                },
+                              },
+                            },
+                          },
+                        },
+                        pix: {
                           kind: :object,
                           fields: {
                             protections: {

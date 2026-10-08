@@ -302,13 +302,30 @@ module Stripe
               @field_remappings = {}
             end
           end
+
+          class UsBankAccount < ::Stripe::StripeObject
+            # Describes the presence of the customer during the payment.
+            attr_reader :customer_presence
+            # Describes the type of US bank account payment.
+            attr_reader :payment_type
+
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Describes card money movement details.
           attr_reader :card
           # Describes the type of money movement.
           attr_reader :money_movement_type
+          # Describes US bank account money movement details.
+          attr_reader :us_bank_account
 
           def self.inner_class_types
-            @inner_class_types = { card: Card }
+            @inner_class_types = { card: Card, us_bank_account: UsBankAccount }
           end
 
           def self.field_remappings
@@ -458,7 +475,39 @@ module Stripe
         end
       end
 
+      class Rules < ::Stripe::StripeObject
+        # List of Radar rule tokens that matched during evaluation. Expandable to full rule objects.
+        attr_reader :matched
+        # The Radar rule token selected as the decisive rule for this evaluation. Expandable to the full rule object.
+        attr_reader :selected
+
+        def self.inner_class_types
+          @inner_class_types = {}
+        end
+
+        def self.field_remappings
+          @field_remappings = {}
+        end
+      end
+
       class Signals < ::Stripe::StripeObject
+        class BankInitiatedReturn < ::Stripe::StripeObject
+          # The time when this signal was evaluated.
+          attr_reader :evaluated_at
+          # Risk level of this signal, based on the score.
+          attr_reader :risk_level
+          # Numeric score for this signal, returned with two decimal places. Possible values for evaluated payments are between 0 and 100, where higher scores indicate a higher likelihood of the signal being true.
+          attr_reader :score
+
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
+
         class EarlyFraudWarning < ::Stripe::StripeObject
           # The time when this signal was evaluated.
           attr_reader :evaluated_at
@@ -509,6 +558,8 @@ module Stripe
             @field_remappings = {}
           end
         end
+        # A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        attr_reader :bank_initiated_return
         # The likelihood that this `PaymentEvaluation` results in an early fraud warning.
         attr_reader :early_fraud_warning
         # The likelihood that this `PaymentEvaluation` results in a dispute with reason code `fraudulent`.
@@ -518,6 +569,7 @@ module Stripe
 
         def self.inner_class_types
           @inner_class_types = {
+            bank_initiated_return: BankInitiatedReturn,
             early_fraud_warning: EarlyFraudWarning,
             fraudulent_dispute: FraudulentDispute,
             fraudulent_payment: FraudulentPayment,
@@ -550,6 +602,8 @@ module Stripe
       attr_reader :payment_details
       # Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
       attr_reader :recommended_action
+      # Details about Radar Rules associated with the payment evaluation.
+      attr_reader :rules
       # Collection of signals for this payment evaluation.
       attr_reader :signals
 
@@ -570,6 +624,7 @@ module Stripe
           events: Event,
           outcome: Outcome,
           payment_details: PaymentDetails,
+          rules: Rules,
           signals: Signals,
         }
       end

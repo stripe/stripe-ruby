@@ -2263,7 +2263,7 @@ module Stripe
       params(_mandate_data: T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData))).returns(T.nilable(T.any(String, ::Stripe::SetupIntentConfirmParams::MandateData)))
      }
     def mandate_data=(_mandate_data); end
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     sig { returns(T.nilable(String)) }
     def payment_method; end
     sig { params(_payment_method: T.nilable(String)).returns(T.nilable(String)) }

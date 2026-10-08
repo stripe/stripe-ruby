@@ -1487,7 +1487,7 @@ module Stripe
     attr_accessor :metadata
     # The Stripe account ID created for this SetupIntent.
     attr_accessor :on_behalf_of
-    # ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
+    # The ID of a PaymentMethod to attach to this SetupIntent.
     attr_accessor :payment_method
     # The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     attr_accessor :payment_method_configuration

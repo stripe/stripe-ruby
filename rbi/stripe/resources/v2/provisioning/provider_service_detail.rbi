@@ -9,10 +9,10 @@ module Stripe
       # provider in the catalog.
       class ProviderServiceDetail < APIResource
         class AllowedUpdate < ::Stripe::StripeObject
-          # Attribute for field direction
+          # Whether the target service appears in upgrade flows, downgrade flows, or both.
           sig { returns(String) }
           def direction; end
-          # Attribute for field service
+          # Identifier of a service to which a resource can be updated.
           sig { returns(String) }
           def service; end
           def self.inner_class_types
@@ -24,7 +24,7 @@ module Stripe
         end
         class Constraint < ::Stripe::StripeObject
           class Count < ::Stripe::StripeObject
-            # Attribute for field at_most
+            # Maximum number of active resources for the service within its scope.
             sig { returns(Integer) }
             def at_most; end
             def self.inner_class_types
@@ -34,13 +34,13 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field count
+          # Limit on the number of active resources for the service.
           sig { returns(T.nilable(Count)) }
           def count; end
-          # Attribute for field mutual_exclusion_allowed_updates
+          # Whether provisioning is blocked when an allowed-update target is active in the same scope.
           sig { returns(T.nilable(T::Boolean)) }
           def mutual_exclusion_allowed_updates; end
-          # Attribute for field type
+          # Kind of constraint represented by this entry.
           sig { returns(String) }
           def type; end
           def self.inner_class_types
@@ -54,13 +54,13 @@ module Stripe
           class Component < ::Stripe::StripeObject
             class Option < ::Stripe::StripeObject
               class Paid < ::Stripe::StripeObject
-                # Attribute for field description
+                # Additional display information about the price.
                 sig { returns(T.nilable(String)) }
                 def description; end
-                # Attribute for field freeform
+                # Provider-supplied pricing terms, set when `type` is `freeform`.
                 sig { returns(T.nilable(String)) }
                 def freeform; end
-                # Attribute for field type
+                # Kind of pricing represented by this entry.
                 sig { returns(String) }
                 def type; end
                 def self.inner_class_types
@@ -70,16 +70,16 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Attribute for field is_default
+              # Whether this option applies when no parent-service-specific option matches.
               sig { returns(T.nilable(T::Boolean)) }
               def is_default; end
-              # Attribute for field paid
+              # Pricing details for this option, set when `type` is `paid`.
               sig { returns(Paid) }
               def paid; end
-              # Attribute for field parent_services
+              # Identifiers of active parent services for which this option applies.
               sig { returns(T::Array[String]) }
               def parent_services; end
-              # Attribute for field type
+              # Whether the component is free or paid when this option applies.
               sig { returns(String) }
               def type; end
               def self.inner_class_types
@@ -89,7 +89,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Attribute for field options
+            # Pricing options selected according to the resource's active parent services.
             sig { returns(T::Array[Option]) }
             def options; end
             def self.inner_class_types
@@ -100,13 +100,13 @@ module Stripe
             end
           end
           class Paid < ::Stripe::StripeObject
-            # Attribute for field description
+            # Additional display information about the price.
             sig { returns(T.nilable(String)) }
             def description; end
-            # Attribute for field freeform
+            # Provider-supplied pricing terms, set when `type` is `freeform`.
             sig { returns(T.nilable(String)) }
             def freeform; end
-            # Attribute for field type
+            # Kind of pricing represented by this entry.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -117,19 +117,19 @@ module Stripe
             end
           end
           class PaidPricing < ::Stripe::StripeObject
-            # Attribute for field configuration
+            # Service configuration values for which this pricing entry applies.
             sig { returns(T::Hash[String, T.untyped]) }
             def configuration; end
-            # Attribute for field description
+            # Additional display information about the price.
             sig { returns(T.nilable(String)) }
             def description; end
-            # Attribute for field freeform
+            # Provider-supplied pricing terms, set when `type` is `freeform`.
             sig { returns(T.nilable(String)) }
             def freeform; end
-            # Attribute for field is_default
+            # Whether this entry is the fallback when no configuration-specific entry matches.
             sig { returns(T.nilable(T::Boolean)) }
             def is_default; end
-            # Attribute for field type
+            # Kind of pricing represented by this entry.
             sig { returns(String) }
             def type; end
             def self.inner_class_types
@@ -139,7 +139,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field component
+          # Parent-service-dependent pricing details, set when `type` is `component`.
           sig { returns(Component) }
           def component; end
           # Legacy compatibility field for top-level paid pricing.
@@ -152,7 +152,7 @@ module Stripe
           # When multiple entries are present, callers should read this field instead of `paid`.
           sig { returns(T::Array[PaidPricing]) }
           def paid_pricing; end
-          # Attribute for field type
+          # Pricing model for the service: free, paid, or dependent on a parent service.
           sig { returns(String) }
           def type; end
           def self.inner_class_types

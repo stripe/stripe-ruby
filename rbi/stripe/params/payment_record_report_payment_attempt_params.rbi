@@ -277,6 +277,15 @@ module Stripe
         sig { params(display_name: T.nilable(String), type: T.nilable(String)).void }
         def initialize(display_name: nil, type: nil); end
       end
+      class UsBankAccount < ::Stripe::RequestParams
+        # NACHA ACH return code for a failed US bank account payment.
+        sig { returns(T.nilable(String)) }
+        def return_code; end
+        sig { params(_return_code: T.nilable(String)).returns(T.nilable(String)) }
+        def return_code=(_return_code); end
+        sig { params(return_code: T.nilable(String)).void }
+        def initialize(return_code: nil); end
+      end
       # The billing details associated with the method of payment.
       sig {
         returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails))
@@ -314,15 +323,25 @@ module Stripe
       def type; end
       sig { params(_type: T.nilable(String)).returns(T.nilable(String)) }
       def type=(_type); end
+      # Details about the US bank account payment method.
       sig {
-        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), card: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card), custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String)).void
+        returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::UsBankAccount))
+       }
+      def us_bank_account; end
+      sig {
+        params(_us_bank_account: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::UsBankAccount)).returns(T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::UsBankAccount))
+       }
+      def us_bank_account=(_us_bank_account); end
+      sig {
+        params(billing_details: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::BillingDetails), card: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Card), custom: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::Custom), payment_method: T.nilable(String), type: T.nilable(String), us_bank_account: T.nilable(::Stripe::PaymentRecordReportPaymentAttemptParams::PaymentMethodDetails::UsBankAccount)).void
        }
       def initialize(
         billing_details: nil,
         card: nil,
         custom: nil,
         payment_method: nil,
-        type: nil
+        type: nil,
+        us_bank_account: nil
       ); end
     end
     class ShippingDetails < ::Stripe::RequestParams

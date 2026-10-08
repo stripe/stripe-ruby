@@ -273,7 +273,7 @@ module Stripe
         attr_accessor :application_fee_amount
         # The frequency of the underlying payment.
         attr_accessor :cadence
-        # Details about the capture configuration for the OffSessionPayment.
+        # Deprecated. Details about the capture configuration for the OffSessionPayment.
         attr_accessor :capture
         # ID of the Customer to which this OffSessionPayment belongs.
         attr_accessor :customer

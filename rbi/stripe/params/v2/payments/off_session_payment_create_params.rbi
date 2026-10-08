@@ -404,7 +404,7 @@ module Stripe
         def cadence; end
         sig { params(_cadence: String).returns(String) }
         def cadence=(_cadence); end
-        # Details about the capture configuration for the OffSessionPayment.
+        # Deprecated. Details about the capture configuration for the OffSessionPayment.
         sig { returns(T.nilable(::Stripe::V2::Payments::OffSessionPaymentCreateParams::Capture)) }
         def capture; end
         sig {

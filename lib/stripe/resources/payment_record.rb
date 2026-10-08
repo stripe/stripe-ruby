@@ -1889,8 +1889,12 @@ module Stripe
       class Swish < ::Stripe::StripeObject
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         attr_reader :fingerprint
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        attr_reader :location
         # Payer bank reference number for the payment
         attr_reader :payment_reference
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        attr_reader :reader
         # The last four digits of the Swish account phone number
         attr_reader :verified_phone_last4
 

@@ -2112,7 +2112,7 @@ module Stripe
           end
           # Determines if the amount includes the IOF tax. Defaults to `never`.
           attr_accessor :amount_includes_iof
-          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           attr_accessor :expires_after_seconds
           # Additional fields for mandate creation.
           attr_accessor :mandate_options
@@ -2590,6 +2590,129 @@ module Stripe
         end
       end
 
+      class PaymentSettings < ::Stripe::RequestParams
+        class ApplicationFeeData < ::Stripe::RequestParams
+          # The amount of the application fee, in the currency's smallest unit, to apply to the initial payment and transfer to the application owner's Stripe account. The application fee is capped at the total amount captured.
+          attr_accessor :initial_amount
+          # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the application owner's Stripe account.
+          attr_accessor :percentage_decimal
+
+          def initialize(initial_amount: nil, percentage_decimal: nil)
+            @initial_amount = initial_amount
+            @percentage_decimal = percentage_decimal
+          end
+
+          def self.field_encodings
+            @field_encodings = { percentage_decimal: :decimal_string }
+          end
+        end
+
+        class TransferData < ::Stripe::RequestParams
+          class TransferAmount < ::Stripe::RequestParams
+            # The amount, in the currency's smallest unit, that will be transferred to the destination account when the initial payment succeeds.
+            attr_accessor :initial_amount
+            # A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of each payment total that will be transferred to the destination account.
+            attr_accessor :percentage_decimal
+
+            def initialize(initial_amount: nil, percentage_decimal: nil)
+              @initial_amount = initial_amount
+              @percentage_decimal = percentage_decimal
+            end
+
+            def self.field_encodings
+              @field_encodings = { percentage_decimal: :decimal_string }
+            end
+          end
+          # If specified, successful charges will be attributed to the destination
+          # account for tax reporting, and the funds from charges will be transferred
+          # to the destination account. The ID of the resulting transfer will be
+          # returned on the successful charge's `transfer` field.
+          attr_accessor :destination
+          # Configures how much of each payment is transferred to the destination account. If omitted, the entire amount is transferred.
+          attr_accessor :transfer_amount
+
+          def initialize(destination: nil, transfer_amount: nil)
+            @destination = destination
+            @transfer_amount = transfer_amount
+          end
+
+          def self.field_encodings
+            @field_encodings = {
+              transfer_amount: { kind: :object, fields: { percentage_decimal: :decimal_string } },
+            }
+          end
+        end
+        # Configures an application fee transferred to the application owner's Stripe account.
+        attr_accessor :application_fee_data
+        # Controls when the funds will be captured from the customer's account.
+        attr_accessor :capture_method
+        # An arbitrary string attached to the object. Often useful for displaying to users.
+        attr_accessor :description
+        # Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        attr_accessor :metadata
+        # Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment
+        # method collected by this Checkout Session.
+        #
+        # When setting this to `on_session`, Checkout will show a notice to the
+        # customer that their payment details will be saved.
+        #
+        # When setting this to `off_session`, Checkout will show a notice to the
+        # customer that their payment details will be saved and used for future
+        # payments.
+        #
+        # If a Customer has been provided or Checkout creates a new Customer,
+        # Checkout will attach the payment method to the Customer.
+        #
+        # If Checkout does not create a Customer, the payment method is not attached
+        # to a Customer. To reuse the payment method, you can retrieve it from the
+        # Checkout Session's PaymentIntent.
+        #
+        # When processing card payments, Checkout also uses `setup_future_usage`
+        # to dynamically optimize your payment flow and comply with regional
+        # legislation and network rules, such as SCA.
+        attr_accessor :setup_future_usage
+        # Text that appears on the customer's statement as the statement descriptor for a non-card charge. This value overrides the account's default statement descriptor. For information about requirements, including the 22-character limit, see [the Statement Descriptor docs](https://docs.stripe.com/get-started/account/statement-descriptors).
+        #
+        # Setting this value for a card charge returns an error. For card charges, set the [statement_descriptor_suffix](https://docs.stripe.com/get-started/account/statement-descriptors#dynamic) instead.
+        attr_accessor :statement_descriptor
+        # Configures automatic transfers to a connected account when payments succeed.
+        attr_accessor :transfer_data
+        # A string that identifies the initial payment as part of a group.
+        attr_accessor :transfer_group
+
+        def initialize(
+          application_fee_data: nil,
+          capture_method: nil,
+          description: nil,
+          metadata: nil,
+          setup_future_usage: nil,
+          statement_descriptor: nil,
+          transfer_data: nil,
+          transfer_group: nil
+        )
+          @application_fee_data = application_fee_data
+          @capture_method = capture_method
+          @description = description
+          @metadata = metadata
+          @setup_future_usage = setup_future_usage
+          @statement_descriptor = statement_descriptor
+          @transfer_data = transfer_data
+          @transfer_group = transfer_group
+        end
+
+        def self.field_encodings
+          @field_encodings = {
+            application_fee_data: { kind: :object, fields: { percentage_decimal: :decimal_string } },
+            transfer_data: {
+              kind: :object,
+              fields: {
+                transfer_amount: { kind: :object, fields: { percentage_decimal: :decimal_string } },
+              },
+            },
+          }
+        end
+      end
+
       class Permissions < ::Stripe::RequestParams
         class Update < ::Stripe::RequestParams
           # Determines which entity is allowed to update the line items.
@@ -3029,7 +3152,7 @@ module Stripe
       #
       # Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
       #
-      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+      # When set to `manual`, you must approve the customer's attempt to pay by calling [approve](/api/checkout/sessions/approve) from your server.
       attr_accessor :approval_method
       # Settings for automatic surcharge calculation for this session.
       attr_accessor :automatic_surcharge
@@ -3154,6 +3277,8 @@ module Stripe
       attr_accessor :payment_method_data
       # Payment-method-specific configuration.
       attr_accessor :payment_method_options
+      # A subset of parameters to configure the payment for this Checkout Session.
+      attr_accessor :payment_settings
       # This property is used to set up permissions for various actions (for example, update) on the CheckoutSession object. Can only be set when creating `embedded_page` or `elements` sessions.
       #
       # For specific permissions, please refer to their dedicated subsections, such as `permissions.update_shipping_details`.
@@ -3243,6 +3368,7 @@ module Stripe
         payment_method_configuration: nil,
         payment_method_data: nil,
         payment_method_options: nil,
+        payment_settings: nil,
         permissions: nil,
         phone_number_collection: nil,
         redirect_on_completion: nil,
@@ -3301,6 +3427,7 @@ module Stripe
         @payment_method_configuration = payment_method_configuration
         @payment_method_data = payment_method_data
         @payment_method_options = payment_method_options
+        @payment_settings = payment_settings
         @permissions = permissions
         @phone_number_collection = phone_number_collection
         @redirect_on_completion = redirect_on_completion
@@ -3350,6 +3477,18 @@ module Stripe
             element: {
               kind: :object,
               fields: { price_data: { kind: :object, fields: { unit_amount_decimal: :decimal_string } } },
+            },
+          },
+          payment_settings: {
+            kind: :object,
+            fields: {
+              application_fee_data: { kind: :object, fields: { percentage_decimal: :decimal_string } },
+              transfer_data: {
+                kind: :object,
+                fields: {
+                  transfer_amount: { kind: :object, fields: { percentage_decimal: :decimal_string } },
+                },
+              },
             },
           },
         }

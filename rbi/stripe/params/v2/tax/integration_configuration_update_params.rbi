@@ -15,6 +15,15 @@ module Stripe
           sig { params(automatic_tax_default_value: String).void }
           def initialize(automatic_tax_default_value: nil); end
         end
+        class Invoices < ::Stripe::RequestParams
+          # Controls the default value of automatic_tax[enabled] on new standalone Invoices.
+          sig { returns(String) }
+          def automatic_tax_default_value; end
+          sig { params(_automatic_tax_default_value: String).returns(String) }
+          def automatic_tax_default_value=(_automatic_tax_default_value); end
+          sig { params(automatic_tax_default_value: String).void }
+          def initialize(automatic_tax_default_value: nil); end
+        end
         # Configuration for Checkout Sessions automatic tax behavior.
         sig {
           returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions))
@@ -24,10 +33,19 @@ module Stripe
           params(_checkout_sessions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions)).returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions))
          }
         def checkout_sessions=(_checkout_sessions); end
+        # Configuration for standalone Invoices automatic tax behavior.
         sig {
-          params(checkout_sessions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions)).void
+          returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices))
          }
-        def initialize(checkout_sessions: nil); end
+        def invoices; end
+        sig {
+          params(_invoices: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices)).returns(T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices))
+         }
+        def invoices=(_invoices); end
+        sig {
+          params(checkout_sessions: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::CheckoutSessions), invoices: T.nilable(::Stripe::V2::Tax::IntegrationConfigurationUpdateParams::Invoices)).void
+         }
+        def initialize(checkout_sessions: nil, invoices: nil); end
       end
     end
   end

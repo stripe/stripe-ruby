@@ -145,7 +145,8 @@ module Stripe
       when Hash
         # TODO: This is a terrible hack.
         # Waiting on https://go/j/API_SERVICES-3167 to add an object in v2 lists
-        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url)
+        if api_mode == :v2 && data.include?(:data) && data.include?(:next_page_url) &&
+           data[:object] != V2::SearchResultObject::OBJECT_NAME
           return V2::ListObject.construct_from(data, opts, last_response, api_mode, requestor)
         end
 
@@ -173,7 +174,9 @@ module Stripe
 
         # set filters so that we can fetch the same limit, expansions, and
         # predicates when accessing the next and previous pages
-        obj.filters = params.dup if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject))
+        if obj && (obj.is_a?(SearchResultObject) || obj.is_a?(ListObject) || obj.is_a?(V2::SearchResultObject))
+          obj.filters = StripeObject.send(:deep_copy, params, api_mode: api_mode)
+        end
 
         obj
       else

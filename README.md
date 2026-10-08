@@ -99,8 +99,11 @@ client.v1.customers.list(
 
 Instead of a long-lived API key, a client can authenticate using [workload identity][workload-identity]:
 it exchanges a cloud provider-signed identity assertion for a short-lived restricted key, which is
-cached in memory and refreshed automatically. GCP (Compute Engine, Cloud Run) is currently supported,
-via the separate [`stripe-gcp-workload-identity`](gcp-workload-identity) gem. Add it to your Gemfile alongside `stripe` to use it.
+cached in memory and refreshed automatically. GCP environments that expose the compatible metadata
+identity-token endpoint are currently supported, including Compute Engine, Cloud Run, Cloud Functions,
+and GKE with Workload Identity, via the separate
+[`stripe-gcp-workload-identity`](gcp-workload-identity) gem. Add it to your Gemfile alongside `stripe`
+to use it.
 
 ```ruby
 require "stripe"

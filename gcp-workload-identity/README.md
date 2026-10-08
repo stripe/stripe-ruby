@@ -12,11 +12,14 @@ identity token, so no credentials are ever hand-rolled.
 
 ## Requirements
 
-Your workload needs to run somewhere that exposes the GCE-compatible instance metadata
-server, with an identity allowed to request an identity token:
+Your workload needs to run in a GCP environment that exposes the compatible metadata
+identity-token endpoint, with a workload identity allowed to request an identity token.
+Supported environments include:
 
 - Compute Engine
 - Cloud Run
+- Cloud Functions
+- GKE with Workload Identity
 
 Before using this in production, set up a workload identity configuration for your workload
 in the Stripe Dashboard, and note the workload client ID it gives you.

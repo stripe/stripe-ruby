@@ -28,14 +28,14 @@ module Stripe
           credentials.fetch_access_token!
         rescue StandardError => e
           raise Error, "Unable to obtain a GCP workload identity assertion: #{e.message}. Check that this " \
-                       "process is running on Compute Engine or Cloud Run with an identity that's allowed " \
-                       "to request an identity token, and that it has network access to the metadata " \
-                       "server. For local development, tests, and CI, use a Stripe API key with " \
-                       "Stripe::StripeClient.new(...) instead."
+                       "process is running in a GCP environment that exposes the metadata identity-token " \
+                       "endpoint, that its workload identity is allowed to request an identity token, and " \
+                       "that it can reach the metadata server. For local development, tests, and CI, use " \
+                       "a Stripe API key with Stripe::StripeClient.new(...) instead."
         end
 
         token = credentials.id_token
-        raise Error, "The GCE metadata server returned no identity token." if token.nil? || token.empty?
+        raise Error, "The GCP metadata server returned no identity token." if token.nil? || token.empty?
 
         token
       end

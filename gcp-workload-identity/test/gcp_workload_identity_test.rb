@@ -34,7 +34,7 @@ module Stripe
         error = assert_raise(GcpWorkloadIdentity::Error) do
           GcpWorkloadIdentity::GcpWorkloadIdentity.new.identity_assertion
         end
-        assert_match(/Compute Engine or Cloud Run/, error.message)
+        assert_match(/metadata identity-token endpoint/, error.message)
         assert_equal original_error, error.cause
       end
 

@@ -19,9 +19,23 @@ module Stripe
             @field_remappings = {}
           end
         end
+        class Invoices < ::Stripe::StripeObject
+          # Controls the default value of automatic_tax[enabled] on new standalone Invoices.
+          sig { returns(String) }
+          def automatic_tax_default_value; end
+          def self.inner_class_types
+            @inner_class_types = {}
+          end
+          def self.field_remappings
+            @field_remappings = {}
+          end
+        end
         # Configuration for Checkout Sessions automatic tax behavior.
         sig { returns(CheckoutSessions) }
         def checkout_sessions; end
+        # Configuration for standalone Invoices automatic tax behavior.
+        sig { returns(Invoices) }
+        def invoices; end
         # Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
         sig { returns(T::Boolean) }
         def livemode; end

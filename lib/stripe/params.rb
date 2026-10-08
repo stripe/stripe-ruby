@@ -1228,8 +1228,17 @@ module Stripe
       autoload :FinancialAddressCreateParams, "stripe/params/v2/money_management/financial_address_create_params"
       autoload :FinancialAddressListParams, "stripe/params/v2/money_management/financial_address_list_params"
       autoload :FinancialAddressRetrieveParams, "stripe/params/v2/money_management/financial_address_retrieve_params"
+      autoload :FundingSessionCreateParams, "stripe/params/v2/money_management/funding_session_create_params"
       autoload :InboundTransferCreateParams, "stripe/params/v2/money_management/inbound_transfer_create_params"
       autoload :InboundTransferListParams, "stripe/params/v2/money_management/inbound_transfer_list_params"
+      autoload :InboundTransferMandateCancelParams,
+               "stripe/params/v2/money_management/inbound_transfer_mandate_cancel_params"
+      autoload :InboundTransferMandateCreateParams,
+               "stripe/params/v2/money_management/inbound_transfer_mandate_create_params"
+      autoload :InboundTransferMandateListParams,
+               "stripe/params/v2/money_management/inbound_transfer_mandate_list_params"
+      autoload :InboundTransferMandateRetrieveParams,
+               "stripe/params/v2/money_management/inbound_transfer_mandate_retrieve_params"
       autoload :InboundTransferRetrieveParams, "stripe/params/v2/money_management/inbound_transfer_retrieve_params"
       autoload :OutboundPaymentCancelParams, "stripe/params/v2/money_management/outbound_payment_cancel_params"
       autoload :OutboundPaymentCreateParams, "stripe/params/v2/money_management/outbound_payment_create_params"
@@ -2433,8 +2442,13 @@ module Stripe
     stripe/params/v2/money_management/financial_address_create_params
     stripe/params/v2/money_management/financial_address_list_params
     stripe/params/v2/money_management/financial_address_retrieve_params
+    stripe/params/v2/money_management/funding_session_create_params
     stripe/params/v2/money_management/inbound_transfer_create_params
     stripe/params/v2/money_management/inbound_transfer_list_params
+    stripe/params/v2/money_management/inbound_transfer_mandate_cancel_params
+    stripe/params/v2/money_management/inbound_transfer_mandate_create_params
+    stripe/params/v2/money_management/inbound_transfer_mandate_list_params
+    stripe/params/v2/money_management/inbound_transfer_mandate_retrieve_params
     stripe/params/v2/money_management/inbound_transfer_retrieve_params
     stripe/params/v2/money_management/outbound_payment_cancel_params
     stripe/params/v2/money_management/outbound_payment_create_params

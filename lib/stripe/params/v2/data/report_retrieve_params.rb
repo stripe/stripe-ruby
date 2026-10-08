@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Data
       class ReportRetrieveParams < ::Stripe::RequestParams
-        # Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+        # Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
         attr_accessor :include
 
         def initialize(include: nil)

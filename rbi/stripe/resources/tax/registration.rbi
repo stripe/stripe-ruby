@@ -1732,6 +1732,17 @@ module Stripe
               @field_remappings = {}
             end
           end
+          class UtilityUsersTax < ::Stripe::StripeObject
+            # A [jurisdiction code](https://docs.stripe.com/tax/registering?type=utility_users_tax#registration-types) representing the local jurisdiction.
+            sig { returns(String) }
+            def jurisdiction; end
+            def self.inner_class_types
+              @inner_class_types = {}
+            end
+            def self.field_remappings
+              @field_remappings = {}
+            end
+          end
           # Attribute for field admissions_tax
           sig { returns(T.nilable(AdmissionsTax)) }
           def admissions_tax; end
@@ -1780,6 +1791,9 @@ module Stripe
           # Type of registration in the US.
           sig { returns(String) }
           def type; end
+          # Attribute for field utility_users_tax
+          sig { returns(T.nilable(UtilityUsersTax)) }
+          def utility_users_tax; end
           def self.inner_class_types
             @inner_class_types = {
               admissions_tax: AdmissionsTax,
@@ -1796,6 +1810,7 @@ module Stripe
               resort_tax: ResortTax,
               state_sales_tax: StateSalesTax,
               tourism_tax: TourismTax,
+              utility_users_tax: UtilityUsersTax,
             }
           end
           def self.field_remappings

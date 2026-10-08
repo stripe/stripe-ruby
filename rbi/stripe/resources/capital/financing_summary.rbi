@@ -34,7 +34,7 @@ module Stripe
         # Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         sig { returns(Integer) }
         def advance_amount; end
-        # The time at which the funds were paid out to the connected account's Stripe balance. Given in milliseconds since unix epoch.
+        # The time at which the funds were paid out to the connected account's Stripe balance. Given in seconds since unix epoch.
         sig { returns(T.nilable(Float)) }
         def advance_paid_out_at; end
         # Currency that the financing offer is transacted in. For example, `usd`.

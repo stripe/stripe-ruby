@@ -25,24 +25,28 @@ module Stripe
             @network = network
           end
         end
+        # The ID of the Account that owns this FinancialAddress.
+        attr_accessor :account
         # Properties for creating a bank account FinancialAddress.
         attr_accessor :bank_account
-        # Properties for creating a crypto wallet FinancialAddress.
+        # Attribute for param field crypto_wallet
         attr_accessor :crypto_wallet
         # The ID of the FinancialAccount the new FinancialAddress should be associated with.
         attr_accessor :financial_account
-        # Open Enum. The currency the FinancialAddress settles into the FinancialAccount.
+        # Attribute for param field settlement_currency
         attr_accessor :settlement_currency
         # The type of FinancialAddress to create. Must agree with which branch of financial_address_type_properties is set.
         attr_accessor :type
 
         def initialize(
+          account: nil,
           bank_account: nil,
           crypto_wallet: nil,
           financial_account: nil,
           settlement_currency: nil,
           type: nil
         )
+          @account = account
           @bank_account = bank_account
           @crypto_wallet = crypto_wallet
           @financial_account = financial_account

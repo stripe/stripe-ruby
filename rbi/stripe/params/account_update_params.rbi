@@ -3172,6 +3172,13 @@ module Stripe
         def initialize(icon: nil, logo: nil, primary_color: nil, secondary_color: nil); end
       end
       class Capital < ::Stripe::RequestParams
+        # The payout destinations excluded from Capital financing payouts.
+        sig { returns(T.nilable(T.any(String, T::Array[String]))) }
+        def excluded_payout_destinations; end
+        sig {
+          params(_excluded_payout_destinations: T.nilable(T.any(String, T::Array[String]))).returns(T.nilable(T.any(String, T::Array[String])))
+         }
+        def excluded_payout_destinations=(_excluded_payout_destinations); end
         # Per-currency mapping of user-selected destination accounts used to pay out loans.
         sig { returns(T.nilable(T::Hash[String, String])) }
         def payout_destination; end
@@ -3187,9 +3194,13 @@ module Stripe
          }
         def payout_destination_selector=(_payout_destination_selector); end
         sig {
-          params(payout_destination: T.nilable(T::Hash[String, String]), payout_destination_selector: T.nilable(T::Hash[String, T::Array[String]])).void
+          params(excluded_payout_destinations: T.nilable(T.any(String, T::Array[String])), payout_destination: T.nilable(T::Hash[String, String]), payout_destination_selector: T.nilable(T::Hash[String, T::Array[String]])).void
          }
-        def initialize(payout_destination: nil, payout_destination_selector: nil); end
+        def initialize(
+          excluded_payout_destinations: nil,
+          payout_destination: nil,
+          payout_destination_selector: nil
+        ); end
       end
       class CardIssuing < ::Stripe::RequestParams
         class TosAcceptance < ::Stripe::RequestParams

@@ -207,6 +207,15 @@ module Stripe
           @type = type
         end
       end
+
+      class UsBankAccount < ::Stripe::RequestParams
+        # NACHA ACH return code for a failed US bank account payment.
+        attr_accessor :return_code
+
+        def initialize(return_code: nil)
+          @return_code = return_code
+        end
+      end
       # The billing details associated with the method of payment.
       attr_accessor :billing_details
       # Information about the card payment method used to make this payment.
@@ -217,13 +226,23 @@ module Stripe
       attr_accessor :payment_method
       # The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
       attr_accessor :type
+      # Details about the US bank account payment method.
+      attr_accessor :us_bank_account
 
-      def initialize(billing_details: nil, card: nil, custom: nil, payment_method: nil, type: nil)
+      def initialize(
+        billing_details: nil,
+        card: nil,
+        custom: nil,
+        payment_method: nil,
+        type: nil,
+        us_bank_account: nil
+      )
         @billing_details = billing_details
         @card = card
         @custom = custom
         @payment_method = payment_method
         @type = type
+        @us_bank_account = us_bank_account
       end
     end
 

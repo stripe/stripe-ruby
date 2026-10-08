@@ -479,6 +479,7 @@ module Stripe
         #
         # When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
         #
+        # You must wrap any Checkout Session update that mutates `setup_future_usage` in [`runServerUpdate`](/js/custom_checkout/run_server_update) and await it before continuing with the payment.
         # Pass an empty string to remove a previously supplied configuration.
         sig { returns(T.nilable(String)) }
         def setup_future_usage; end

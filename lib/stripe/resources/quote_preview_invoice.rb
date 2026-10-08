@@ -765,7 +765,7 @@ module Stripe
         class Pix < ::Stripe::StripeObject
           # Determines if the amount includes the IOF tax.
           attr_reader :amount_includes_iof
-          # The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+          # The number of seconds after PaymentIntent confirmation when the Pix expires (between 60 and 1209600, inclusive). If unspecified, defaults to 14400 seconds (4 hours).
           attr_reader :expires_after_seconds
 
           def self.inner_class_types

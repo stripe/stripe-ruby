@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Provisioning
       # The result of an in-progress request for a customer to authorize a new payment method.
-      class PaymentMethodRequest < APIResource
+      class PaymentMethodRequest < SingletonAPIResource
         OBJECT_NAME = "v2.provisioning.payment_method_request"
         def self.object_name
           "v2.provisioning.payment_method_request"

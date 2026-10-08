@@ -367,6 +367,9 @@ module Stripe
       # The status of the US customer_balance payments (USD currency) capability of the account, or whether the account can directly process US customer_balance charges.
       sig { returns(T.nilable(String)) }
       def us_bank_transfer_payments; end
+      # The status of the Wero capability of the account, or whether the account can directly process Wero payments.
+      sig { returns(T.nilable(String)) }
+      def wero_payments; end
       # The status of the Zip capability of the account, or whether the account can directly process Zip charges.
       sig { returns(T.nilable(String)) }
       def zip_payments; end

@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Tax
       # The result of resolving an address to its tax precision level.
-      class OperationsResolveAddressResult < APIResource
+      class OperationsResolveAddressResult < SingletonAPIResource
         class Address < ::Stripe::StripeObject
           # The city.
           sig { returns(T.nilable(String)) }

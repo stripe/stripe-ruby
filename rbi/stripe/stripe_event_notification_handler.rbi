@@ -2386,6 +2386,36 @@ module Stripe
     end
     
     sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferMandateActivatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_inbound_transfer_mandate_activated(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferMandateCreatedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_inbound_transfer_mandate_created(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferMandateExpiredEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_inbound_transfer_mandate_expired(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferMandateRefusedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_inbound_transfer_mandate_refused(&blk);
+    end
+    
+    sig do
+      params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementInboundTransferMandateRevokedEventNotification, client: ::Stripe::StripeClient).void).void
+    end
+    def on_v2_money_management_inbound_transfer_mandate_revoked(&blk);
+    end
+    
+    sig do
       params(blk: T.proc.params(event_notification: ::Stripe::Events::V2MoneyManagementOutboundPaymentCanceledEventNotification, client: ::Stripe::StripeClient).void).void
     end
     def on_v2_money_management_outbound_payment_canceled(&blk);

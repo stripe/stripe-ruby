@@ -6,7 +6,7 @@ module Stripe
   module V2
     module Provisioning
       # The result of an in-progress request for a customer to authorize a new payment method.
-      class PaymentMethodRequest < APIResource
+      class PaymentMethodRequest < SingletonAPIResource
         # URL for the customer to complete payment method authorization.
         sig { returns(String) }
         def checkout_session_url; end

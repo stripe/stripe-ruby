@@ -7,7 +7,7 @@ module Stripe
     module Data
       module Reporting
         class QueryRunRetrieveParams < ::Stripe::RequestParams
-          # Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+          # Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
           sig { returns(T.nilable(T::Array[String])) }
           def include; end
           sig { params(_include: T.nilable(T::Array[String])).returns(T.nilable(T::Array[String])) }

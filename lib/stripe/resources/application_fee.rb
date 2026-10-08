@@ -2,6 +2,11 @@
 # frozen_string_literal: true
 
 module Stripe
+  # When you collect a transaction fee on top of a charge made for your user
+  # (using [Connect](https://docs.stripe.com/connect)), an `Application Fee` object is created in
+  # your account. You can list, retrieve, and refund application fees.
+  #
+  # Related guide: [Collecting application fees](https://docs.stripe.com/connect/direct-charges#collect-fees)
   class ApplicationFee < APIResource
     extend Stripe::APIOperations::List
     extend Stripe::APIOperations::NestedResource

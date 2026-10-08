@@ -13,9 +13,9 @@ module Stripe
         end
 
         class AllowedUpdate < ::Stripe::StripeObject
-          # Attribute for field direction
+          # Whether the target service appears in upgrade flows, downgrade flows, or both.
           attr_reader :direction
-          # Attribute for field service
+          # Identifier of a service to which a resource can be updated.
           attr_reader :service
 
           def self.inner_class_types
@@ -29,7 +29,7 @@ module Stripe
 
         class Constraint < ::Stripe::StripeObject
           class Count < ::Stripe::StripeObject
-            # Attribute for field at_most
+            # Maximum number of active resources for the service within its scope.
             attr_reader :at_most
 
             def self.inner_class_types
@@ -40,11 +40,11 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field count
+          # Limit on the number of active resources for the service.
           attr_reader :count
-          # Attribute for field mutual_exclusion_allowed_updates
+          # Whether provisioning is blocked when an allowed-update target is active in the same scope.
           attr_reader :mutual_exclusion_allowed_updates
-          # Attribute for field type
+          # Kind of constraint represented by this entry.
           attr_reader :type
 
           def self.inner_class_types
@@ -60,11 +60,11 @@ module Stripe
           class Component < ::Stripe::StripeObject
             class Option < ::Stripe::StripeObject
               class Paid < ::Stripe::StripeObject
-                # Attribute for field description
+                # Additional display information about the price.
                 attr_reader :description
-                # Attribute for field freeform
+                # Provider-supplied pricing terms, set when `type` is `freeform`.
                 attr_reader :freeform
-                # Attribute for field type
+                # Kind of pricing represented by this entry.
                 attr_reader :type
 
                 def self.inner_class_types
@@ -75,13 +75,13 @@ module Stripe
                   @field_remappings = {}
                 end
               end
-              # Attribute for field is_default
+              # Whether this option applies when no parent-service-specific option matches.
               attr_reader :is_default
-              # Attribute for field paid
+              # Pricing details for this option, set when `type` is `paid`.
               attr_reader :paid
-              # Attribute for field parent_services
+              # Identifiers of active parent services for which this option applies.
               attr_reader :parent_services
-              # Attribute for field type
+              # Whether the component is free or paid when this option applies.
               attr_reader :type
 
               def self.inner_class_types
@@ -92,7 +92,7 @@ module Stripe
                 @field_remappings = {}
               end
             end
-            # Attribute for field options
+            # Pricing options selected according to the resource's active parent services.
             attr_reader :options
 
             def self.inner_class_types
@@ -105,11 +105,11 @@ module Stripe
           end
 
           class Paid < ::Stripe::StripeObject
-            # Attribute for field description
+            # Additional display information about the price.
             attr_reader :description
-            # Attribute for field freeform
+            # Provider-supplied pricing terms, set when `type` is `freeform`.
             attr_reader :freeform
-            # Attribute for field type
+            # Kind of pricing represented by this entry.
             attr_reader :type
 
             def self.inner_class_types
@@ -122,15 +122,15 @@ module Stripe
           end
 
           class PaidPricing < ::Stripe::StripeObject
-            # Attribute for field configuration
+            # Service configuration values for which this pricing entry applies.
             attr_reader :configuration
-            # Attribute for field description
+            # Additional display information about the price.
             attr_reader :description
-            # Attribute for field freeform
+            # Provider-supplied pricing terms, set when `type` is `freeform`.
             attr_reader :freeform
-            # Attribute for field is_default
+            # Whether this entry is the fallback when no configuration-specific entry matches.
             attr_reader :is_default
-            # Attribute for field type
+            # Kind of pricing represented by this entry.
             attr_reader :type
 
             def self.inner_class_types
@@ -141,7 +141,7 @@ module Stripe
               @field_remappings = {}
             end
           end
-          # Attribute for field component
+          # Parent-service-dependent pricing details, set when `type` is `component`.
           attr_reader :component
           # Legacy compatibility field for top-level paid pricing.
           # Mirrors the single paid pricing entry when only one exists, or the entry marked
@@ -151,7 +151,7 @@ module Stripe
           # Canonical top-level paid pricing entries for this service.
           # When multiple entries are present, callers should read this field instead of `paid`.
           attr_reader :paid_pricing
-          # Attribute for field type
+          # Pricing model for the service: free, paid, or dependent on a parent service.
           attr_reader :type
 
           def self.inner_class_types

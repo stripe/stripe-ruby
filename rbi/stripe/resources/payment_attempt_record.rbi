@@ -1968,9 +1968,15 @@ module Stripe
         # Uniquely identifies the payer's Swish account. You can use this attribute to check whether two Swish transactions were paid for by the same payer
         sig { returns(T.nilable(String)) }
         def fingerprint; end
+        # ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+        sig { returns(T.nilable(String)) }
+        def location; end
         # Payer bank reference number for the payment
         sig { returns(T.nilable(String)) }
         def payment_reference; end
+        # ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+        sig { returns(T.nilable(String)) }
+        def reader; end
         # The last four digits of the Swish account phone number
         sig { returns(T.nilable(String)) }
         def verified_phone_last4; end

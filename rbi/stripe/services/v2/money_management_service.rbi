@@ -11,7 +11,9 @@ module Stripe
       attr_reader :earned_credits
       attr_reader :financial_accounts
       attr_reader :financial_addresses
+      attr_reader :funding_sessions
       attr_reader :inbound_transfers
+      attr_reader :inbound_transfer_mandates
       attr_reader :outbound_payments
       attr_reader :outbound_payment_quotes
       attr_reader :outbound_setup_intents

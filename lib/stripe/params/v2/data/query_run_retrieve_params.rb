@@ -5,7 +5,7 @@ module Stripe
   module V2
     module Data
       class QueryRunRetrieveParams < ::Stripe::RequestParams
-        # Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+        # Any optional includes (see [include-dependent response values](https://docs.stripe.com/api-includable-response-values)).
         attr_accessor :include
         # The maximum number of inline `QueryRun` result rows to return. Defaults to 10. Maximum is 1000.
         attr_accessor :limit

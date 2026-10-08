@@ -509,6 +509,8 @@ module Stripe
       autoload :EarnedCreditService, "stripe/services/v2/money_management/earned_credit_service"
       autoload :FinancialAccountService, "stripe/services/v2/money_management/financial_account_service"
       autoload :FinancialAddressService, "stripe/services/v2/money_management/financial_address_service"
+      autoload :FundingSessionService, "stripe/services/v2/money_management/funding_session_service"
+      autoload :InboundTransferMandateService, "stripe/services/v2/money_management/inbound_transfer_mandate_service"
       autoload :InboundTransferService, "stripe/services/v2/money_management/inbound_transfer_service"
       autoload :OutboundPaymentQuoteService, "stripe/services/v2/money_management/outbound_payment_quote_service"
       autoload :OutboundPaymentService, "stripe/services/v2/money_management/outbound_payment_service"
@@ -931,6 +933,8 @@ module Stripe
     stripe/services/v2/money_management/financial_accounts/statement_service
     stripe/services/v2/money_management/financial_accounts/wallet_export_service
     stripe/services/v2/money_management/financial_address_service
+    stripe/services/v2/money_management/funding_session_service
+    stripe/services/v2/money_management/inbound_transfer_mandate_service
     stripe/services/v2/money_management/inbound_transfer_service
     stripe/services/v2/money_management/outbound_payment_quote_service
     stripe/services/v2/money_management/outbound_payment_service

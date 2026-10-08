@@ -1670,6 +1670,26 @@ module Stripe
       register("v2.money_management.inbound_transfer.bank_debit_succeeded", &callback)
     end
 
+    def on_v2_money_management_inbound_transfer_mandate_activated(&callback)
+      register("v2.money_management.inbound_transfer_mandate.activated", &callback)
+    end
+
+    def on_v2_money_management_inbound_transfer_mandate_created(&callback)
+      register("v2.money_management.inbound_transfer_mandate.created", &callback)
+    end
+
+    def on_v2_money_management_inbound_transfer_mandate_expired(&callback)
+      register("v2.money_management.inbound_transfer_mandate.expired", &callback)
+    end
+
+    def on_v2_money_management_inbound_transfer_mandate_refused(&callback)
+      register("v2.money_management.inbound_transfer_mandate.refused", &callback)
+    end
+
+    def on_v2_money_management_inbound_transfer_mandate_revoked(&callback)
+      register("v2.money_management.inbound_transfer_mandate.revoked", &callback)
+    end
+
     def on_v2_money_management_outbound_payment_canceled(&callback)
       register("v2.money_management.outbound_payment.canceled", &callback)
     end

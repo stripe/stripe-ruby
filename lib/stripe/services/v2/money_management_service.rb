@@ -4,7 +4,7 @@
 module Stripe
   module V2
     class MoneyManagementService < StripeService
-      attr_reader :adjustments, :currency_conversions, :debit_disputes, :earned_credits, :financial_accounts, :financial_addresses, :inbound_transfers, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
+      attr_reader :adjustments, :currency_conversions, :debit_disputes, :earned_credits, :financial_accounts, :financial_addresses, :funding_sessions, :inbound_transfers, :inbound_transfer_mandates, :outbound_payments, :outbound_payment_quotes, :outbound_setup_intents, :outbound_transfers, :payout_intents, :payout_methods, :payout_methods_bank_account_spec, :received_credits, :received_debits, :received_debit_mandates, :recipient_verifications, :test_helpers, :transactions, :transaction_entries
 
       def initialize(requestor)
         super
@@ -15,7 +15,10 @@ module Stripe
         @earned_credits = Stripe::V2::MoneyManagement::EarnedCreditService.new(@requestor)
         @financial_accounts = Stripe::V2::MoneyManagement::FinancialAccountService.new(@requestor)
         @financial_addresses = Stripe::V2::MoneyManagement::FinancialAddressService.new(@requestor)
+        @funding_sessions = Stripe::V2::MoneyManagement::FundingSessionService.new(@requestor)
         @inbound_transfers = Stripe::V2::MoneyManagement::InboundTransferService.new(@requestor)
+        @inbound_transfer_mandates = Stripe::V2::MoneyManagement::InboundTransferMandateService
+                                     .new(@requestor)
         @outbound_payments = Stripe::V2::MoneyManagement::OutboundPaymentService.new(@requestor)
         @outbound_payment_quotes = Stripe::V2::MoneyManagement::OutboundPaymentQuoteService
                                    .new(@requestor)

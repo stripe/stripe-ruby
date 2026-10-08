@@ -55,7 +55,7 @@ module Stripe
           params: params,
           opts: opts,
           base_address: :api
-        )
+        ).tap { |page| page.filters = filters }
       end
     end
   end

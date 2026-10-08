@@ -3,6 +3,7 @@ title: Update generated code
 pr_url: https://github.com/stripe/stripe-ruby/pull/1988
 semver_level: major
 is_stripe_api_change: true
+released_in_version: 20.1.0-alpha.2
 ---
 
 * Add support for new resources `Radar::Rule`, `V2::MoneyManagement::FundingSession`, and `V2::MoneyManagement::InboundTransferMandate`
